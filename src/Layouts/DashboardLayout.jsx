@@ -5,9 +5,13 @@ import { Outlet } from 'react-router-dom';
 
 const DashboardLayout = () => {
   return (
-    <div className='flex '>
-      <LtpSidebar />
-      <Outlet />
+    <div className='flex'>
+      <div className='basis-[20%]'>
+        <LtpSidebar />
+      </div>
+      <div className='basis-[80%]'>
+        <Outlet />
+      </div>
     </div>
   );
 };
