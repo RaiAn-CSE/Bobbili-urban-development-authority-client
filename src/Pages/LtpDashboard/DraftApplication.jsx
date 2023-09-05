@@ -1,10 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const DraftApplication = () => {
     return (
-        <div className='border-2 min-h-screen text-center'>
-            <h3>this is draft Application</h3>
-        </div>
+        <ul className="steps">
+            <li className="step step-primary">Register</li>
+            <li className="step step-primary">Choose plan</li>
+            <li className="step step-primary">Purchase</li>
+            <li className="step">Receive Product</li>
+        </ul>
     );
 };
 
