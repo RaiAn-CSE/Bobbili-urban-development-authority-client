@@ -16,7 +16,7 @@ const Login = () => {
             <div className="card-body">
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Email</span>
+                  <span className="label-text font-bold">Email</span>
                 </label>
                 <input
                   type="text"
