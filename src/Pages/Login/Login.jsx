@@ -1,7 +1,23 @@
 import React from "react";
+import { useForm } from "react-hook-form";
 import House from "../../assets/images/architecture-nature-merge-modern-design-generative-ai.jpg";
 
 const Login = () => {
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
+  const onSubmit = (data) => {
+    const { id, password, role } = data;
+
+    const userInfo = {
+      id,
+      password,
+      role,
+    };
+  };
+
   return (
     <>
       <div className="hero min-h-screen">
@@ -13,68 +29,91 @@ const Login = () => {
 
           {/* login form  */}
           <div className=" flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-            <div class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 ">
-              <form class="space-y-6">
-                <h3 class="text-2xl text-center font-medium text-gray-900 ">
+            <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 ">
+              <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+                <h3 className="text-2xl text-center font-medium text-gray-900 ">
                   Welcome Back
                 </h3>
                 <div>
                   <label
-                    for="email"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    htmlFor="userId"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Your email
+                    Your ID
                   </label>
                   <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    type="text"
+                    {...register("id", { required: true })}
+                    id="userId"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     placeholder="name@company.com"
-                    required
                   />
+                  {errors.id?.type === "required" && (
+                    <p role="alert">UserID is required</p>
+                  )}
                 </div>
                 <div>
                   <label
-                    for="password"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    htmlFor="password"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
                     Your password
                   </label>
                   <input
                     type="password"
-                    name="password"
+                    {...register("password", { required: true })}
                     id="password"
                     placeholder="••••••••"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                    required
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                   />
+                  {errors.password?.type === "required" && (
+                    <p role="alert">Password is required</p>
+                  )}
                 </div>
-                <div class="flex items-start">
-                  <div class="flex items-start">
-                    <div class="flex items-center h-5">
-                      <input
-                        id="remember"
-                        type="checkbox"
-                        value=""
-                        class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"
-                        required
-                      />
-                    </div>
-                    <label
-                      for="remember"
-                      class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                    >
-                      Remember me
-                    </label>
+
+                <div>
+                  <label
+                    htmlFor="role"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    Select your role
+                  </label>
+                  <select
+                    id="role"
+                    {...register("role", { required: true })}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  >
+                    <option value="ltp">LTP</option>
+                    <option value="ps">PS</option>
+                    <option value="admin">Admin</option>
+                  </select>
+
+                  {errors.role?.type === "required" && (
+                    <p role="alert">Role is required</p>
+                  )}
+                </div>
+
+                <div className="flex items-start">
+                  <div className="flex items-center h-5">
+                    <input
+                      id="remember"
+                      type="checkbox"
+                      value=""
+                      className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"
+                    />
                   </div>
+                  <label
+                    htmlFor="remember"
+                    className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                  >
+                    Remember me
+                  </label>
                 </div>
-                <button
+                <input
                   type="submit"
-                  class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
-                >
-                  Login
-                </button>
+                  value="Login"
+                  className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+                />
               </form>
             </div>
           </div>
