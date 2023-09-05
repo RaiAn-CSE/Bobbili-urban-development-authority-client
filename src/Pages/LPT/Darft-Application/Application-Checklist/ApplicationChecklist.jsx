@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ChecklistQuestions from "./Questions.json";
+import "./ApplicationChecklist.css"
 
 function ApplicationChecklist() {
     const [questions, setQuestions] = useState(ChecklistQuestions.Questions);
@@ -13,11 +14,11 @@ function ApplicationChecklist() {
     };
 
     return (
-        <div>
+        <div className="question-container">
             {questions.map(({ no, question, answer }) => (
-                <div key={no} className="">
+                <div key={no} className="question">
                     <p>{no}. {question}</p>
-                    <div>
+                    <div className="radio-inputs">
                         <label>
                             <input
                                 type="radio"
