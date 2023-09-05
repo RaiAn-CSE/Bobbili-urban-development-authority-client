@@ -1,9 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const LtpSidebar = () => {
     return (
-        <div>
-            <h2>THis is sidebar LTP</h2>
+        <div className='flex flex-col min-h-screen border-2'>
+            <Link to='/ltpDashboard'><button>Dashboard</button></Link>
+            <Link to='/ltpDashboard/draftApplication'><button>Draft Application</button></Link>
+            <Link to='/ltpDashboard/submitApplication'><button>Submitted Application</button></Link>
+            <Link to='/ltpDashboard/approved'><button>Approved</button></Link>
         </div>
     );
 };
