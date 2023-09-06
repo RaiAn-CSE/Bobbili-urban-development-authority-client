@@ -118,7 +118,7 @@ const Login = () => {
                     {...register("id", { required: true })}
                     id="userId"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    value={cookieUserId}
+                    defaultValue={cookieUserId}
                     placeholder="name@company.com"
                   />
                   {errors.id?.type === "required" && (
@@ -136,8 +136,8 @@ const Login = () => {
                     type="password"
                     {...register("password", { required: true })}
                     id="password"
-                    value={cookieUserPassword}
                     placeholder="••••••••"
+                    defaultValue={cookieUserPassword}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                   />
                   {errors.password?.type === "required" && (
