@@ -30,7 +30,13 @@ const router = createBrowserRouter([
         children: [
           {
             path: "/ltpDashboard/draftApplication",
-            element: <DraftApplication />
+            element: <DraftApplication />,
+            children: [
+              {
+                path: "/ltpDashboard/draftApplication/appChecklist",
+                element: <AppChecklist />
+              }
+            ]
           },
           {
             path: "/ltpDashboard/submitApplication",
