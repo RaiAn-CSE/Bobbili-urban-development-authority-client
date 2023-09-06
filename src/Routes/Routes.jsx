@@ -28,6 +28,12 @@ const router = createBrowserRouter([
       {
         path: "/ltpDashboard/draftApplication",
         element: <DraftApplication />,
+        children: [
+          {
+            path: "/ltpDashboard/draftApplication/appChecklist",
+            element: <AppChecklist />
+          }
+        ]
       },
       {
         path: "/ltpDashboard/submitApplication",
