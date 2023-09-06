@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Table = () => {
+const BuildingInfo = () => {
     return (
         <div className="overflow-x-auto">
             <table className="table">
@@ -41,4 +41,4 @@ const Table = () => {
     );
 };
 
-export default Table;
+export default BuildingInfo;
