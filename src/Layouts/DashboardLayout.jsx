@@ -1,10 +1,93 @@
 import React from "react";
 import LtpDashboard from "../Pages/LtpDashboard/LtpDashboard";
 import LtpSidebar from "./LtpSidebar";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import Navbar from "../Pages/Shared/Navbar";
 
 const DashboardLayout = () => {
+  const user = JSON.parse(localStorage.getItem("loggedUser"));
+
+  let menus;
+
+  if (user?.role === "Admin1") {
+    menus = (
+      <>
+        <li>
+          <Link>Dashboard</Link>
+        </li>
+        <li>
+          <Link>Add User</Link>
+        </li>
+        <li>
+          <Link>Update User</Link>
+        </li>
+        <li>
+          <Link>Submitted Application</Link>
+        </li>
+      </>
+    );
+  }
+  if (user?.role === "Admin2") {
+    menus = (
+      <>
+        <li>
+          <Link>Dashboard</Link>
+        </li>
+        <li>
+          <Link>Add User</Link>
+        </li>
+        <li>
+          <Link>Update User</Link>
+        </li>
+      </>
+    );
+  }
+  if (user?.role === "LTP") {
+    menus = (
+      <>
+        <li>
+          <Link>Dashboard</Link>
+        </li>
+        <li>
+          <Link>Draft Application</Link>
+        </li>
+        <li>
+          <Link>Submitted Application</Link>
+        </li>
+        <li>
+          <Link>Approved</Link>
+        </li>
+        <li>
+          <Link>Shortfall</Link>
+        </li>
+        <li>
+          <Link>Rejected</Link>
+        </li>
+      </>
+    );
+  }
+  if (user?.role === "PS") {
+    menus = (
+      <>
+        <li>
+          <Link>Dashboard</Link>
+        </li>
+        <li>
+          <Link>Inward Application</Link>
+        </li>
+        <li>
+          <Link>Outward Application</Link>
+        </li>
+        <li>
+          <Link>Search Application</Link>
+        </li>
+        <li>
+          <Link>Re-validation</Link>
+        </li>
+      </>
+    );
+  }
+
   return (
     <>
       <Navbar />
@@ -34,12 +117,7 @@ const DashboardLayout = () => {
                 ✕
               </label>
             </li>
-            <li>
-              <a>Navbar Item 1</a>
-            </li>
-            <li>
-              <a>Navbar Item 2</a>
-            </li>
+            {menus}
           </ul>
         </div>
       </div>
