@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import ChecklistQuestions from "./Questions.json";
-import "./ApplicationChecklist.css"
+import "./AppChecklist.css"
 
-function ApplicationChecklist() {
+function AppChecklist() {
+    // const LocalItems = JSON.parse(localStorage.getItem("ApplicationList"));
+
     const [questions, setQuestions] = useState(ChecklistQuestions.Questions);
 
     const handleAnswer = (event, questionNo) => {
@@ -12,13 +14,15 @@ function ApplicationChecklist() {
         }));
         setQuestions(updatedQuestions);
     };
-
+    // const handleSave = () => {
+    //     localStorage.setItem("ApplicationList", JSON.stringify(questions))
+    // }
     return (
         <div className="question-container">
             {questions.map(({ no, question, answer }) => (
                 <div key={no} className="question">
                     <p>{no}. {question}</p>
-                    <div className="radio-inputs">
+                    <div className="space-x-5">
                         <label>
                             <input
                                 type="radio"
@@ -30,7 +34,7 @@ function ApplicationChecklist() {
                             />
                             Yes
                         </label>
-                        <label>
+                        <label >
                             <input
                                 type="radio"
                                 name={no}
@@ -44,8 +48,9 @@ function ApplicationChecklist() {
                     </div>
                 </div>
             ))}
+            <button onClick={() => handleSave()}>Save and Next</button>
         </div>
     );
 }
 
-export default ApplicationChecklist;
+export default AppChecklist;

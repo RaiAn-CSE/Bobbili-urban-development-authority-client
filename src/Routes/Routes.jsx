@@ -1,11 +1,17 @@
 import { createBrowserRouter } from "react-router-dom";
 import Login from "../Pages/Login/Login";
+import LtpDashboard from "../Pages/LtpDashboard/LtpHome/LtpDashboard";
 import DashboardLayout from "../Layouts/DashboardLayout";
-import Dashboard from "../Pages/Shared/Dashboard";
-import PrivateRoute from "./PrivateRoute";
-import AddUser from "../Pages/Admin/Admin2/AddUser";
-import UpdateUser from "../Pages/Admin/Admin2/UpdateUser";
-import DeleteUser from "../Pages/Admin/Admin2/DeleteUser";
+import SubmitApplication from "../Pages/LtpDashboard/Submitted/SubmitApplication";
+import Approved from "../Pages/LtpDashboard/Approved/Approved";
+import AppChecklist from "../Pages/LtpDashboard/DraftApplication/AppChecklist/AppChecklist";
+import PsDashboard from "../Pages/PsDashboard/PsHome/PsDashboard"
+import Inward from "../Pages/PsDashboard/InwardApplications/Inward";
+import Outward from "../Pages/PsDashboard/OutwardApplications/Outward";
+import SearchApplications from "../Pages/PsDashboard/SearchApplications/SearchApplications";
+import ReValidation from "../Pages/PsDashboard/ReValidation/ReValidation";
+import PrivateRoute from "../Pages/PrivateRoute/PrivateRoute";
+
 
 const router = createBrowserRouter([
   {
@@ -14,43 +20,57 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "/dashboard",
-    element: <DashboardLayout />,
+    path: "/ltpDashboard",
+    element: <PrivateRoute><DashboardLayout/></PrivateRoute>,
     children: [
       {
-        path: "/dashboard/home",
-        element: (
-          <PrivateRoute>
-            <Dashboard />
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "/dashboard/addUser",
-        element: (
-          <PrivateRoute>
-            <AddUser />
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "/dashboard/updateUser",
-        element: (
-          <PrivateRoute>
-            <UpdateUser />
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "/dashboard/removeUser",
-        element: (
-          <PrivateRoute>
-            <DeleteUser />
-          </PrivateRoute>
-        ),
-      },
-    ],
+        path: "/ltpDashboard",
+        element: <LtpDashboard />,
+        children: [
+          {
+            path: "/ltpDashboard/draftApplication",
+            element: <LtpDashboard />,
+            children: [
+              {
+                path: "/ltpDashboard/draftApplication/appChecklist",
+                element: <AppChecklist />
+              }
+            ]
+          },
+          {
+            path: "/ltpDashboard/submitApplication",
+            element: <SubmitApplication />,
+          },
+          {
+            path: "/ltpDashboard/approved",
+            element: <Approved />,
+          }
+        ]
+      }
+    ]
   },
+  {
+    path: "/PsDashboard",
+    element: <PrivateRoute><DashboardLayout/></PrivateRoute>,
+
+    children: [
+      {
+        path: "/PsDashboard", element: <PsDashboard />,
+        children:
+          [
+            {
+              path: "/PsDashboard/Inward", element: <Inward />
+            },
+            { path: "/PsDashboard/Outward", element: <Outward /> },
+
+            { path: "/PsDashboard/Search", element: <SearchApplications /> },
+
+            { path: "/PsDashboard/ReValidation", element: <ReValidation /> },
+
+          ]
+      }
+    ]
+  }
 ]);
 
 export default router;
