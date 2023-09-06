@@ -1,14 +1,15 @@
-import { redirect, useNavigate } from "react-router";
+import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 
 function PrivateRoute({ children }) {
     const User = ["LTP", "PS", "Admin"];
     const CurrentUser = "PS";
     const UserChecked = User.includes(CurrentUser);
-    const navigate = useNavigate();
+    
+    const location = useLocation();
 
     if (!UserChecked) {
-        return navigate('/')
+        return <Navigate to="/" state={{ from: location }} />;
     }
     return children;
 }
