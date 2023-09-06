@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import ChecklistQuestions from "../Questions.json";
-import "./ApplicationChecklist.css"
+import ChecklistQuestions from "./Questions.json";
+import "./AppChecklist.css"
 
-function ApplicationChecklist() {
-    const LocalItems = JSON.parse(localStorage.getItem("ApplicationList"));
-    const [questions, setQuestions] = useState(LocalItems);
+function AppChecklist() {
+    // const LocalItems = JSON.parse(localStorage.getItem("ApplicationList"));
+
+    const [questions, setQuestions] = useState(ChecklistQuestions.Questions);
+
     const handleAnswer = (event, questionNo) => {
         const updatedQuestions = questions.map((question) => ({
             ...question,
@@ -12,16 +14,16 @@ function ApplicationChecklist() {
         }));
         setQuestions(updatedQuestions);
     };
-    const handleSave = () => {
-        localStorage.setItem("ApplicationList", JSON.stringify(questions))
-    }
+    // const handleSave = () => {
+    //     localStorage.setItem("ApplicationList", JSON.stringify(questions))
+    // }
     return (
         <div className="question-container">
             {questions.map(({ no, question, answer }) => (
                 <div key={no} className="question">
                     <p>{no}. {question}</p>
-                    <div className="radio-inputs">
-                        <label>
+                    <div className="space-x-5">
+                        <label className="radio-inputs">
                             <input
                                 type="radio"
                                 name={no}
@@ -32,7 +34,7 @@ function ApplicationChecklist() {
                             />
                             Yes
                         </label>
-                        <label>
+                        <label className="radio-inputs">
                             <input
                                 type="radio"
                                 name={no}
@@ -51,4 +53,4 @@ function ApplicationChecklist() {
     );
 }
 
-export default ApplicationChecklist;
+export default AppChecklist;

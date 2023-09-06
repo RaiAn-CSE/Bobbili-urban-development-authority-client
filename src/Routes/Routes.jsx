@@ -1,15 +1,19 @@
 import { createBrowserRouter } from "react-router-dom";
 import Login from "../Pages/Login/Login";
 import LtpDashboard from "../Pages/LtpDashboard/LtpDashboard";
-import DraftApplication from "../Pages/LtpDashboard/DraftApplication";
+
 import DashboardLayout from "../Layouts/DashboardLayout";
 import SubmitApplication from "../Pages/LtpDashboard/SubmitApplication";
 import Approved from "../Pages/LtpDashboard/Approved";
+import DraftApplication from "../Pages/LtpDashboard/DraftApplication/DraftApplication";
+import AppChecklist from "../Pages/LtpDashboard/DraftApplication/AppChecklist/AppChecklist";
+
+
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <ApplicationChecklist />,
+    element: <AppChecklist />,
   },
 
 
