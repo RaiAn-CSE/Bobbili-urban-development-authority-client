@@ -10,8 +10,7 @@ import Inward from "../Pages/PsDashboard/InwardApplications/Inward";
 import Outward from "../Pages/PsDashboard/OutwardApplications/Outward";
 import SearchApplications from "../Pages/PsDashboard/SearchApplications/SearchApplications";
 import ReValidation from "../Pages/PsDashboard/ReValidation/ReValidation";
-
-
+import PrivateRoute from "../Pages/PrivateRoute/PrivateRoute";
 
 
 const router = createBrowserRouter([
@@ -22,7 +21,7 @@ const router = createBrowserRouter([
 
   {
     path: "/ltpDashboard",
-    element: <DashboardLayout />,
+    element: <PrivateRoute><DashboardLayout/></PrivateRoute>,
     children: [
       {
         path: "/ltpDashboard",
@@ -52,17 +51,22 @@ const router = createBrowserRouter([
   },
   {
     path: "/PsDashboard",
-    element: <DashboardLayout />,
+    element: <PrivateRoute><DashboardLayout/></PrivateRoute>,
+
     children: [
       {
         path: "/PsDashboard", element: <PsDashboard />,
         children:
           [
-            { path: "/PsDashboard/Inward", element: <Inward /> },
-            { path: "/PsDashboard/Outward", element: <Outward/> },
-            { path: "/PsDashboard/Search", element: <SearchApplications/> },
-            { path: "/PsDashboard/ReValidation", element: <ReValidation/> },
-            
+            {
+              path: "/PsDashboard/Inward", element: <Inward />
+            },
+            { path: "/PsDashboard/Outward", element: <Outward /> },
+
+            { path: "/PsDashboard/Search", element: <SearchApplications /> },
+
+            { path: "/PsDashboard/ReValidation", element: <ReValidation /> },
+
           ]
       }
     ]
