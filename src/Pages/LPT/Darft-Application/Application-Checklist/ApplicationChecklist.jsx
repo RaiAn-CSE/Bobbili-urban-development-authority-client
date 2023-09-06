@@ -3,8 +3,8 @@ import ChecklistQuestions from "./Questions.json";
 import "./ApplicationChecklist.css"
 
 function ApplicationChecklist() {
-    const [questions, setQuestions] = useState(ChecklistQuestions.Questions);
-
+    const LocalItems = JSON.parse(localStorage.getItem("ApplicationList"));
+    const [questions, setQuestions] = useState(LocalItems);
     const handleAnswer = (event, questionNo) => {
         const updatedQuestions = questions.map((question) => ({
             ...question,
@@ -12,7 +12,9 @@ function ApplicationChecklist() {
         }));
         setQuestions(updatedQuestions);
     };
-
+    const handleSave = () => {
+        localStorage.setItem("ApplicationList", JSON.stringify(questions))
+    }
     return (
         <div className="question-container">
             {questions.map(({ no, question, answer }) => (
@@ -44,6 +46,7 @@ function ApplicationChecklist() {
                     </div>
                 </div>
             ))}
+            <button onClick={() => handleSave()}>Save and Next</button>
         </div>
     );
 }
