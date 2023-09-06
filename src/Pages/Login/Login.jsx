@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import House from "../../assets/images/architecture-nature-merge-modern-design-generative-ai.jpg";
+import useUser from "../../Hooks/useUser";
+import { toast } from "react-toastify";
 
 const Login = () => {
+  const [userData, setUserData] = useState([]);
+
   const {
     register,
     formState: { errors },
@@ -10,12 +14,35 @@ const Login = () => {
   } = useForm();
   const onSubmit = (data) => {
     const { id, password, role } = data;
+    console.log(data);
 
     const userInfo = {
       id,
       password,
       role,
     };
+
+    console.log(userInfo);
+
+    fetch(`http://localhost:5000/getUser?id=${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status) {
+          console.log(1);
+        } else {
+          console.log(0);
+          toast.error("🦄 Wow so easy!", {
+            position: "top-center",
+            autoClose: 1111,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        }
+      });
   };
 
   return (
