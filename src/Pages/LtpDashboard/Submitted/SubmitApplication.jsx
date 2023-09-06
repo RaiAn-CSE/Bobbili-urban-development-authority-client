@@ -3,7 +3,7 @@ import React from 'react';
 const SubmitApplication = () => {
     return (
         <div>
-            <h1>this in Submit Application</h1>
+            <p>this is Submit Application</p>
         </div>
     );
 };
