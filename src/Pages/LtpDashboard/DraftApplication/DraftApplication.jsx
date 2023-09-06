@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import Table from '../Components/Table';
+import Table from '../../Components/Table';
+import AppChecklist from './AppChecklist/AppChecklist';
 
 const DraftApplication = () => {
     const [currentStep, setCurrentStep] = useState(0);
 
     const steps = [
-        { content: "?", text: "Step 1" },
-        { content: "!", text: "Step 2" },
-        { content: "✓", text: "Step 3" },
-        { content: "✕", text: "Step 4" },
+        { content: "", text: "Application Checklist" },
+        { content: "", text: "Building" },
+        { content: "", text: "Document" },
+        { content: "", text: "Drawing" },
     ];
 
     const handleStepClick = (index) => {
@@ -33,19 +34,19 @@ const DraftApplication = () => {
             case 0:
                 return (
                     <div>
-                        <h2>Step 1: Register</h2>
+                        
                         <>
-                            <Table />
+                        <h2 className='py-4 px-5 rounded mt-6 uppercase bg-sky-500 text-black inline-block DisplayFair'>Application Checklist</h2>
+                        <>
+                       <AppChecklist/>
+                        </>
                         </>
                     </div>
                 );
             case 1:
                 return (
                     <div>
-                        <h2>Step 2: Choose plan</h2>
-                        <>
-                            <h1>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat odio sed molestiae consequuntur odit ex reiciendis, voluptate mollitia voluptas rem.</h1>
-                        </>
+                       <Table/>
                     </div>
                 );
             case 2:

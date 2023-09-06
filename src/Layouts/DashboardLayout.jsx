@@ -6,7 +6,7 @@ import AdminSidebar from "./AdminSidebar/AdminSidebar";
 import PsSidebar from "./PsSidebar/PsSidebar";
 
 const DashboardLayout = () => {
-  const CurrentUser="PS";
+  const CurrentUser="LTP";
   return (
     <>
       <Navbar />
