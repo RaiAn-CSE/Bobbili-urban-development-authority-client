@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import Table from '../Components/Table';
 
 const DraftApplication = () => {
     const [currentStep, setCurrentStep] = useState(0);
 
     const steps = [
-        "Register",
-        "Choose plan",
-        "Purchase",
-        "Receive Product"
+        { content: "?", text: "Step 1" },
+        { content: "!", text: "Step 2" },
+        { content: "✓", text: "Step 3" },
+        { content: "✕", text: "Step 4" },
     ];
 
     const handleStepClick = (index) => {
@@ -28,7 +27,7 @@ const DraftApplication = () => {
 
     const btnClass = 'bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow';
 
-    // Render the form based on the current step
+
     const renderStepContent = () => {
         switch (currentStep) {
             case 0:
@@ -74,13 +73,15 @@ const DraftApplication = () => {
 
     return (
         <>
-            <ul className="steps steps-vertical lg:steps-horizontal">
-                {steps.map((step, index) => (
-                    <li key={index} className={stepClasses(index)} onClick={() => handleStepClick(index)}>
-                        {step}
-                    </li>
-                ))}
-            </ul>
+            <div>
+                <ul className="steps steps-vertical lg:steps-horizontal">
+                    {steps.map((step, index) => (
+                        <li key={index} data-content={step.content} className={stepClasses(index)} onClick={() => handleStepClick(index)}>
+                            {step.text}
+                        </li>
+                    ))}
+                </ul>
+            </div>
 
             {renderStepContent()}
 
