@@ -2,8 +2,8 @@ import React from 'react';
 
 const LtpDashboard = () => {
     return (
-        <div>
-            <h1>this is Ltp Main Dashboard Created</h1>
+        <div className='border-2 min-h-screen text-center'>
+            <h1 className='text-xl'>this is Ltp Main Dashboard Created</h1>
         </div>
     );
 };

@@ -1,0 +1,32 @@
+[
+  {
+    "admin": [
+      [
+        {
+          "role": "admin1",
+          "userId": "admin1",
+          "password": "admin1"
+        },
+        {
+          "role": "admin2",
+          "userId": "admin2",
+          "password": "admin2"
+        }
+      ]
+    ],
+    "ltp": [
+      {
+        "role": "LTP",
+        "userId": "ltp1",
+        "password": "ltp1"
+      }
+    ],
+    "ps": [
+      {
+        "role": "PS",
+        "userId": "ps1",
+        "password": "ps2"
+      }
+    ]
+  }
+]
