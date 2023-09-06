@@ -2,24 +2,29 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import House from "../../assets/images/architecture-nature-merge-modern-design-generative-ai.jpg";
 import useUser from "../../Hooks/useUser";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
+import { useLocation, useNavigate } from "react-router";
 
 const Login = () => {
-  const [userData, setUserData] = useState([]);
+  const navigate = useNavigate();
 
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
+
+  const location = useLocation();
+
+  const from = location?.state?.from?.pathName || "/dashboard/home";
+
   const onSubmit = (data) => {
-    const { id, password, role } = data;
+    const { id, password } = data;
     console.log(data);
 
     const userInfo = {
       id,
       password,
-      role,
     };
 
     console.log(userInfo);
@@ -27,20 +32,25 @@ const Login = () => {
     fetch(`http://localhost:5000/getUser?id=${id}`)
       .then((res) => res.json())
       .then((data) => {
+        // checking data whether data is found or not
         if (data.status) {
           console.log(1);
+
+          const { userInfo } = data;
+          console.log(userInfo);
+
+          // checking whether password is matching or not
+          if (userInfo.password === password) {
+            console.log("1");
+
+            localStorage.setItem("loggedUser", JSON.stringify(userInfo));
+            navigate(from, { replace: true });
+          } else {
+            toast.error("Password is wrong");
+          }
         } else {
           console.log(0);
-          toast.error("🦄 Wow so easy!", {
-            position: "top-center",
-            autoClose: 1111,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-          });
+          toast.error("No information found!");
         }
       });
   };
@@ -95,28 +105,6 @@ const Login = () => {
                   />
                   {errors.password?.type === "required" && (
                     <p role="alert">Password is required</p>
-                  )}
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="role"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Select your role
-                  </label>
-                  <select
-                    id="role"
-                    {...register("role", { required: true })}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  >
-                    <option value="ltp">LTP</option>
-                    <option value="ps">PS</option>
-                    <option value="admin">Admin</option>
-                  </select>
-
-                  {errors.role?.type === "required" && (
-                    <p role="alert">Role is required</p>
                   )}
                 </div>
 

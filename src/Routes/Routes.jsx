@@ -1,10 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import Login from "../Pages/Login/Login";
-import LtpDashboard from "../Pages/LtpDashboard/LtpDashboard";
-import DraftApplication from "../Pages/LtpDashboard/DraftApplication";
 import DashboardLayout from "../Layouts/DashboardLayout";
-import SubmitApplication from "../Pages/LtpDashboard/SubmitApplication";
-import Approved from "../Pages/LtpDashboard/Approved";
+import Dashboard from "../Pages/Shared/Dashboard";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -12,28 +10,19 @@ const router = createBrowserRouter([
     element: <Login />,
   },
 
-
   {
-    path: "/ltpDashboard",
+    path: "/dashboard",
     element: <DashboardLayout />,
     children: [
       {
-        path: "/ltpDashboard",
-        element: <LtpDashboard />,
+        path: "/dashboard/home",
+        element: (
+          <PrivateRoute>
+            <Dashboard />
+          </PrivateRoute>
+        ),
       },
-      {
-        path: "/ltpDashboard/draftApplication",
-        element: <DraftApplication />,
-      },
-      {
-        path: "/ltpDashboard/submitApplication",
-        element: <SubmitApplication />,
-      },
-      {
-        path: "/ltpDashboard/approved",
-        element: <Approved />,
-      }
-    ]
+    ],
   },
 ]);
 
