@@ -16,10 +16,13 @@ const DashboardLayout = () => {
           <Link>Dashboard</Link>
         </li>
         <li>
-          <Link>Add User</Link>
+          <Link to="/dashboard/addUser">Add User</Link>
         </li>
         <li>
-          <Link>Update User</Link>
+          <Link to="/dashboard/updateUser">Update User</Link>
+        </li>
+        <li>
+          <Link to="/dashboard/removeUser">Remove User</Link>
         </li>
         <li>
           <Link>Submitted Application</Link>
@@ -34,10 +37,13 @@ const DashboardLayout = () => {
           <Link>Dashboard</Link>
         </li>
         <li>
-          <Link>Add User</Link>
+          <Link to="/dashboard/addUser">Add User</Link>
         </li>
         <li>
-          <Link>Update User</Link>
+          <Link to="/dashboard/updateUser">Update User</Link>
+        </li>
+        <li>
+          <Link to="/dashboard/removeUser">Remove User</Link>
         </li>
       </>
     );
