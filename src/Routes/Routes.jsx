@@ -11,6 +11,7 @@ import Outward from "../Pages/PsDashboard/OutwardApplications/Outward";
 import SearchApplications from "../Pages/PsDashboard/SearchApplications/SearchApplications";
 import ReValidation from "../Pages/PsDashboard/ReValidation/ReValidation";
 import PrivateRoute from "../Pages/PrivateRoute/PrivateRoute";
+import DraftApplication from "../Pages/LtpDashboard/DraftApplication/DraftApplication";
 
 
 const router = createBrowserRouter([
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
 
   {
     path: "/ltpDashboard",
-    element: <PrivateRoute><DashboardLayout/></PrivateRoute>,
+    element: <PrivateRoute><DashboardLayout /></PrivateRoute>,
     children: [
       {
         path: "/ltpDashboard",
@@ -29,7 +30,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: "/ltpDashboard/draftApplication",
-            element: <LtpDashboard />,
+            element: <DraftApplication />,
             children: [
               {
                 path: "/ltpDashboard/draftApplication/appChecklist",
@@ -51,7 +52,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/PsDashboard",
-    element: <PrivateRoute><DashboardLayout/></PrivateRoute>,
+    element: <PrivateRoute><DashboardLayout /></PrivateRoute>,
 
     children: [
       {
@@ -59,7 +60,10 @@ const router = createBrowserRouter([
         children:
           [
             {
-              path: "/PsDashboard/Inward", element: <Inward />
+              path: "/PsDashboard/Inward", element: <Inward />,
+              children: [{
+                path: "/PsDashboard/Inward/appChecklist", element: <AppChecklist />
+              }]
             },
             { path: "/PsDashboard/Outward", element: <Outward /> },
 
