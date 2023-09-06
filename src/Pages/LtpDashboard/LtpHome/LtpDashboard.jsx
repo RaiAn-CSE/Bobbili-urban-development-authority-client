@@ -1,9 +1,10 @@
 import React from 'react';
+import { Outlet } from 'react-router';
 
 const LtpDashboard = () => {
     return (
         <div className='border-2 min-h-screen text-center'>
-            <h1 className='text-xl'>this is Ltp Main Dashboard Created</h1>
+            <Outlet/>
         </div>
     );
 };

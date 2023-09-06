@@ -23,7 +23,7 @@ function AppChecklist() {
                 <div key={no} className="question">
                     <p>{no}. {question}</p>
                     <div className="space-x-5">
-                        <label className="radio-inputs">
+                        <label>
                             <input
                                 type="radio"
                                 name={no}
@@ -34,7 +34,7 @@ function AppChecklist() {
                             />
                             Yes
                         </label>
-                        <label className="radio-inputs">
+                        <label >
                             <input
                                 type="radio"
                                 name={no}
