@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ChecklistQuestions from "./Questions.json";
+import ChecklistQuestions from "../Questions.json";
 import "./ApplicationChecklist.css"
 
 function ApplicationChecklist() {
