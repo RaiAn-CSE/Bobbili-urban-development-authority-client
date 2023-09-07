@@ -13,7 +13,7 @@ const Navbar = () => {
   return (
     <div className="navbar bg-base-100 sticky top-0 z-50">
       <div className="flex-1">
-        <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
+        <a className="btn btn-ghost normal-case text-xl">BOBBILI URBAN DEVELOPMENT AUTHORITY</a>
       </div>
       <div className="dropdown dropdown-end">
         <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
