@@ -1,5 +1,6 @@
 import React from "react";
 import InputField from "../../../Components/InputField";
+import { Link } from "react-router-dom";
 
 const BuildingInfo = () => {
   return (
@@ -155,7 +156,9 @@ const BuildingInfo = () => {
           <InputField id="name14" name="name1" placeholder="South" />
           <InputField id="name15" name="name1" placeholder="East" />
           <InputField id="name15" name="name1" placeholder="West" />
-          <button class="btn">Save And Continue</button>
+          <Link to="/dashboard/draftApplication/applicantInfo">
+            <button class="btn">Save And Continue</button>
+          </Link>
         </div>
       </div>
     </div>

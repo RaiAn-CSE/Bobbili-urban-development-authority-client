@@ -38,7 +38,10 @@ const LtpSidebar = () => {
         <span>
           <GrMoney size={20} />
         </span>
-        <Link className="p-[10px] text-black font-medium " to="">
+        <Link
+          className="p-[10px] text-black font-medium "
+          to="/dashboard/submitApplication"
+        >
           Submitted App:
         </Link>
       </li>

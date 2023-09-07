@@ -6,6 +6,12 @@ import PrivateRoute from "./PrivateRoute";
 import DraftApplication from "../Pages/Dashboard/LtpDashboard/DraftApplication/DraftApplication";
 import NewApplication from "../Pages/Dashboard/LtpDashboard/DraftApplication/NewApplication";
 import BuildingInfo from "../Pages/Dashboard/LtpDashboard/DraftApplication/BuildingInfo";
+import ApplicantInfo from "../Pages/Dashboard/LtpDashboard/DraftApplication/ApplicantInfo";
+import AppChecklist from "../Pages/Dashboard/LtpDashboard/DraftApplication/AppChecklist/AppChecklist";
+import Documents from "../Pages/Dashboard/LtpDashboard/DraftApplication/Documents";
+import Drawing from "../Pages/Dashboard/LtpDashboard/DraftApplication/Drawing";
+import Payment from "../Pages/Dashboard/LtpDashboard/DraftApplication/Payment";
+import SubmitApplication from "../Pages/Dashboard/LtpDashboard/Submitted/SubmitApplication";
 
 const router = createBrowserRouter([
   {
@@ -54,68 +60,56 @@ const router = createBrowserRouter([
           },
           {
             path: "/dashboard/draftApplication/applicantInfo",
-            element: <PrivateRoute></PrivateRoute>,
+            element: (
+              <PrivateRoute>
+                <ApplicantInfo />
+              </PrivateRoute>
+            ),
+          },
+          {
+            path: "/dashboard/draftApplication/applicationChecklist",
+            element: (
+              <PrivateRoute>
+                <AppChecklist />
+              </PrivateRoute>
+            ),
+          },
+          {
+            path: "/dashboard/draftApplication/documents",
+            element: (
+              <PrivateRoute>
+                <Documents />
+              </PrivateRoute>
+            ),
+          },
+          {
+            path: "/dashboard/draftApplication/drawing",
+            element: (
+              <PrivateRoute>
+                <Drawing />
+              </PrivateRoute>
+            ),
+          },
+          {
+            path: "/dashboard/draftApplication/payment",
+            element: (
+              <PrivateRoute>
+                <Payment />
+              </PrivateRoute>
+            ),
           },
         ],
       },
+      {
+        path: "/dashboard/submitApplication",
+        element: (
+          <PrivateRoute>
+            <SubmitApplication />
+          </PrivateRoute>
+        ),
+      },
     ],
   },
-
-  // {
-  //   path: "/ltpDashboard",
-  //   element: <PrivateRoute><DashboardLayout /></PrivateRoute>,
-  //   children: [
-  //     {
-  //       path: "/ltpDashboard",
-  //       element: <LtpDashboard />,
-  //       children: [
-  //         {
-  //           path: "/ltpDashboard/draftApplication",
-  //           element: <DraftApplication />,
-  //           children: [
-  //             {
-  //               path: "/ltpDashboard/draftApplication/appChecklist",
-  //               element: <AppChecklist />
-  //             }
-  //           ]
-  //         },
-  //         {
-  //           path: "/ltpDashboard/submitApplication",
-  //           element: <SubmitApplication />,
-  //         },
-  //         {
-  //           path: "/ltpDashboard/approved",
-  //           element: <Approved />,
-  //         }
-  //       ]
-  //     }
-  //   ]
-  // },
-  // {
-  //   path: "/PsDashboard",
-  //   element: <PrivateRoute><DashboardLayout /></PrivateRoute>,
-
-  //   children: [
-  //     {
-  //       path: "/PsDashboard", element: <PsDashboard />,
-  //       children:
-  //         [
-  //           {
-  //             path: "/PsDashboard/Inward", element: <Inward />,
-  //             children: [{
-  //               path: "/PsDashboard/Inward/appChecklist", element: <AppChecklist />
-  //             }]
-  //           },
-  //           { path: "/PsDashboard/Outward", element: <Outward /> },
-
-  //           { path: "/PsDashboard/Search", element: <SearchApplications /> },
-
-  //           { path: "/PsDashboard/ReValidation", element: <ReValidation /> },
-
-  //         ]
-  //     }
-  //   ]
-  // }
 ]);
 
 export default router;

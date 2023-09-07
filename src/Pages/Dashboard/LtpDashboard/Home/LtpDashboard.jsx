@@ -1,13 +1,12 @@
-import React from 'react';
-import { Outlet } from 'react-router';
+import React from "react";
+import { Outlet } from "react-router";
 
 const LtpDashboard = () => {
-    const CurrentUser = "LTP";
-    return (
-        <div>
-            <Outlet></Outlet>
-        </div>
-    );
+  return (
+    <div>
+      <p>LTP dashboard</p>
+    </div>
+  );
 };
 
 export default LtpDashboard;
