@@ -1,23 +1,15 @@
-// import React from "react";
-// import LtpSidebar from "./LtpSidebar/LtpSidebar";
-// import { Outlet } from "react-router-dom";
-// import Navbar from "../Pages/Shared/Navbar";
-// import AdminSidebar from "./AdminSidebar/AdminSidebar";
-// import PsSidebar from "./PsSidebar/PsSidebar";
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import ltpDashboardCss from '../Style/LtpDashboard.module.css'
 import { MdDeveloperMode, MdOutlineLogout, MdSpaceDashboard } from "react-icons/md";
 import { TbReportAnalytics } from "react-icons/tb";
-import { GrMoney, GrOverview } from "react-icons/gr";
+import { GrMoney } from "react-icons/gr";
 import { BsFillPostcardFill } from 'react-icons/bs';
-import { SiAltiumdesigner, SiGoogleanalytics, SiGooglemessages } from 'react-icons/si';
+import { SiAltiumdesigner } from 'react-icons/si';
 import { FiSettings } from 'react-icons/fi';
 import Navbar from '../Pages/Shared/Navbar';
-import DraftApplication from './../Pages/LtpDashboard/DraftApplication/DraftApplication';
 
 const DashboardLayout = () => {
-  // const CurrentUser = "LTP";
   return (
     <>
       <Navbar />
@@ -76,23 +68,6 @@ const DashboardLayout = () => {
           <Outlet></Outlet>
         </div>
       </div>
-      {/* <Navbar />
-      <div className="drawer drawer-mobile lg:drawer-open">
-        <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content p-4">
-
-          <Outlet />
-        </div>
-        <div className="drawer-side shadow-md ">
-          <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-
-          <div className="p-4 w-full md:w-80 bg-green-400 font-bold text-[#3e363f]">
-
-
-            {CurrentUser === "LTP" && <LtpSidebar /> || CurrentUser === "PS" && <PsSidebar /> || CurrentUser === "Admin" && <AdminSidebar />}
-          </div>
-        </div>
-      </div> */}
     </>
   );
 };

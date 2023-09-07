@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 // import Table from '../../Components/Table';
 import AppChecklist from './AppChecklist/AppChecklist';
 import BuildingInfo from './BuildingInfo';
+import ApplicantInfo from './ApplicantInfo';
 
 const DraftApplication = () => {
     const [currentStep, setCurrentStep] = useState(0);
@@ -42,9 +43,9 @@ const DraftApplication = () => {
                 );
             case 1:
                 return (
-                    <div>
-                        {/* <Table />s */}
-                    </div>
+                    <>
+                        <ApplicantInfo />
+                    </>
                 );
             case 2:
                 return (
