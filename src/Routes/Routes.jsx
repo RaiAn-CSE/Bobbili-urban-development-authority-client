@@ -60,7 +60,8 @@ const router = createBrowserRouter([
           [
             {
               path: "/PsDashboard/Inward", element: <Inward />,
-              children: [
+              children: 
+              [
                 {
                   path: "/PsDashboard/Inward/appChecklist", element: <AppChecklist />
                 }
