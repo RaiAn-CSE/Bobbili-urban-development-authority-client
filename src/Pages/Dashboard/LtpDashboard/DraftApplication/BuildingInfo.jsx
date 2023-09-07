@@ -12,24 +12,12 @@ const BuildingInfo = () => {
         <div className="grid lg:grid-cols-5">
           <InputField id="name1" name="Case Type" placeholder="Case Type" />
           <InputField id="name2" name="name1" placeholder="Name" />
-          <InputField
-            id="name3"
-            name="Nature of permission"
-            placeholder="Nature of permission"
-          />
-          <InputField
-            id="name4"
-            name="Nature of the site"
-            placeholder="Nature of the site"
-          />
+          <InputField id="name3" name="Nature of permission" placeholder="Nature of permission" />
+          <InputField id="name4" name="Nature of the site" placeholder="Nature of the site" />
           <InputField id="name5" name="Survey no." placeholder="Survey no." />
           <InputField id="name6" name="District" placeholder="District" />
           <InputField id="name6" name="Mandal" placeholder="Mandal" />
-          <InputField
-            id="name6"
-            name="Grama Panchayat"
-            placeholder="Grama Panchayat"
-          />
+          <InputField id="name6" name="Grama Panchayat" placeholder="Grama Panchayat" />
           <InputField id="name6" name="Village" placeholder="Village" />
         </div>
       </div>
@@ -43,8 +31,7 @@ const BuildingInfo = () => {
             name="Proposed Plot area(in Sq.M.)"
             placeholder="Proposed Plot area(in Sq.M.)"
           />
-          <InputField
-            id="name8"
+          <InputField id="name8"
             name="name1"
             placeholder="Total Plot are as on ground (in Sq.M.)"
           />
