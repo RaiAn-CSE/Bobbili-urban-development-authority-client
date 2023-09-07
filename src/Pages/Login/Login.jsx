@@ -39,7 +39,7 @@ const Login = () => {
 
   const location = useLocation();
 
-  const from = location?.state?.from?.pathName || "/dashboard/home";
+  const from = location?.state?.from?.pathName || "/dashboard";
 
   const onSubmit = (data) => {
     const { id, password, checkbox } = data;
@@ -58,10 +58,10 @@ const Login = () => {
         console.log(data);
         // checking data whether data is found or not
         if (data.status) {
-          console.log(1);
+          // console.log(1);
 
           const { userInfo } = data;
-          console.log(userInfo);
+          // console.log(userInfo);
 
           // checking whether password is matching or not
           if (userInfo.password === password) {
