@@ -1,15 +1,13 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
 }
 
 .dashboardSection {
   display: flex;
-  height: 100vh;
+  /* height: 100vh; */
   width: 100%;
   background-image: url("../assets/images/hero-bg.jpg");
   background-position: center;
@@ -18,7 +16,7 @@
 
 .sidebar {
   width: 260px;
-  height: 100%;
+  height: 100vh;
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(17px);
   --webkit-backdrop-filter: blur(17px);
@@ -42,7 +40,6 @@
   font-size: 1.15rem;
   font-weight: 600;
   margin-left: 5px;
-  /* display: none; */
 }
 
 .sidebar:hover .logo h3 {
@@ -69,13 +66,12 @@
 
 .links li:hover {
   cursor: pointer;
-  background: #fff;
+  background: #999797;
 }
 
 .links h4 {
   color: #222;
   font-weight: 500;
-  /* display: none; */
   margin-bottom: 10px;
 }
 

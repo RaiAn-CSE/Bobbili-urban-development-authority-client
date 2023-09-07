@@ -12,8 +12,8 @@ const DashboardLayout = () => {
   return (
     <>
       <Navbar />
-      <div className={sidebarStyle.dashboardSection}>
-        <aside className={`basis-[20%] px-[20px] ${sidebarStyle.sidebar}`}>
+      <div className={`${sidebarStyle.dashboardSection} min-h-screen`}>
+        <aside className={`basis-[20%] px-[20px] sticky top-[67px] ${sidebarStyle.sidebar}`}>
           <div className={sidebarStyle.logo}>
             {/* <img src={logo} alt="logo" /> */}
             <h3 className="">Dashboard</h3>

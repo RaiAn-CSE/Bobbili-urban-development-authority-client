@@ -30,7 +30,7 @@ const NewApplication = () => {
           </thead>
           <tbody>
             {/* row 1 */}
-            <tr>
+            <tr className="hover">
               <th>1.</th>
               <td>1177/XX/001/BUDA/2023</td>
               <td>XXXX XXX</td>
@@ -42,7 +42,7 @@ const NewApplication = () => {
               <td><button className="btn btn-error">Delete</button></td>
             </tr>
             {/* row 2 */}
-            <tr>
+            <tr className="hover">
               <th>2.</th>
               <td>1177/XX/001/BUDA/2023</td>
               <td>XXXX XXX</td>
