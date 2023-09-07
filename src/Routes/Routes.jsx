@@ -1,24 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
 import Login from "../Pages/Login/Login";
-import LtpDashboard from "../Pages/LtpDashboard/LtpHome/LtpDashboard";
 import DashboardLayout from "../Layouts/DashboardLayout";
-import SubmitApplication from "../Pages/LtpDashboard/Submitted/SubmitApplication";
-import Approved from "../Pages/LtpDashboard/Approved/Approved";
-import AppChecklist from "../Pages/LtpDashboard/DraftApplication/AppChecklist/AppChecklist";
-import PsDashboard from "../Pages/PsDashboard/PsHome/PsDashboard";
-import Inward from "../Pages/PsDashboard/InwardApplications/Inward";
-import Outward from "../Pages/PsDashboard/OutwardApplications/Outward";
-import SearchApplications from "../Pages/PsDashboard/SearchApplications/SearchApplications";
-import ReValidation from "../Pages/PsDashboard/ReValidation/ReValidation";
-import PrivateRoute from "../Pages/PrivateRoute/PrivateRoute";
-import DraftApplication from "../Pages/LtpDashboard/DraftApplication/DraftApplication";
-<<<<<<< HEAD
 import Dashboard from "../Pages/Shared/Dashboard";
-=======
-import BuildingInfo from "../Pages/LtpDashboard/DraftApplication/BuildingInfo";
-import LtpDashboardHome from "../Pages/LtpDashboard/LtpDashboardHome";
-
->>>>>>> raian
+import PrivateRoute from "./PrivateRoute";
+import DraftApplication from "../Pages/Dashboard/LtpDashboard/DraftApplication/DraftApplication";
+import NewApplication from "../Pages/Dashboard/LtpDashboard/DraftApplication/NewApplication";
+import BuildingInfo from "../Pages/Dashboard/LtpDashboard/DraftApplication/BuildingInfo";
 
 const router = createBrowserRouter([
   {
@@ -34,7 +21,6 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-<<<<<<< HEAD
         path: "/dashboard",
         element: (
           <PrivateRoute>
@@ -42,41 +28,37 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-    ],
-=======
-        path: "/ltpDashboard",
-        element: <LtpDashboard />,
+      {
+        path: "/dashboard/draftApplication",
+        element: (
+          <PrivateRoute>
+            <DraftApplication />
+          </PrivateRoute>
+        ),
         children: [
           {
-            path: "/ltpDashboard/home",
-            element: <LtpDashboardHome />,
+            path: "/dashboard/draftApplication",
+            element: (
+              <PrivateRoute>
+                <NewApplication />
+              </PrivateRoute>
+            ),
           },
           {
-            path: "/ltpDashboard/draftApplication",
-            element: <DraftApplication />,
-            children: [
-              {
-                path: "/ltpDashboard/draftApplication/buildingInfo",
-                element: <BuildingInfo />
-              },
-              {
-                path: "/ltpDashboard/draftApplication/appChecklist",
-                element: <AppChecklist />
-              }
-            ]
+            path: "/dashboard/draftApplication/buildingInfo",
+            element: (
+              <PrivateRoute>
+                <BuildingInfo />
+              </PrivateRoute>
+            ),
           },
           {
-            path: "/ltpDashboard/submitApplication",
-            element: <SubmitApplication />,
+            path: "/dashboard/draftApplication/applicantInfo",
+            element: <PrivateRoute></PrivateRoute>,
           },
-          {
-            path: "/ltpDashboard/approved",
-            element: <Approved />,
-          }
-        ]
-      }
-    ]
->>>>>>> raian
+        ],
+      },
+    ],
   },
 
   // {
