@@ -1,17 +1,29 @@
 import React, { useState } from 'react';
+<<<<<<< HEAD:src/Pages/LtpDashboard/DraftApplication.jsx
 import BuildingInfo from '../Components/BuildingInfo';
 import { RiHome3Fill } from 'react-icons/ri';
+=======
+import Table from '../../Components/Table';
+import AppChecklist from './AppChecklist/AppChecklist';
+>>>>>>> local-branch:src/Pages/LtpDashboard/DraftApplication/DraftApplication.jsx
 
 const DraftApplication = () => {
     const [currentStep, setCurrentStep] = useState(0);
 
     const steps = [
+<<<<<<< HEAD:src/Pages/LtpDashboard/DraftApplication.jsx
         { content: <RiHome3Fill />, text: "Building info" },
         { content: "2", text: "Applicant info" },
         { content: "3", text: "Check list" },
         { content: "4", text: "Documents" },
         { content: "5", text: "Drawing" },
         { content: "✕", text: "Payments" },
+=======
+        { content: "", text: "Application Checklist" },
+        { content: "", text: "Building" },
+        { content: "", text: "Document" },
+        { content: "", text: "Drawing" },
+>>>>>>> local-branch:src/Pages/LtpDashboard/DraftApplication/DraftApplication.jsx
     ];
 
     const handleStepClick = (index) => {
@@ -35,17 +47,33 @@ const DraftApplication = () => {
         switch (currentStep) {
             case 0:
                 return (
+<<<<<<< HEAD:src/Pages/LtpDashboard/DraftApplication.jsx
                     <div className='min-h-screen'>
                         <BuildingInfo />
+=======
+                    <div>
+                        
+                        <>
+                        <h2 className='py-4 px-5 rounded mt-6 uppercase bg-sky-500 text-black inline-block DisplayFair'>Application Checklist</h2>
+                        <>
+                       <AppChecklist/>
+                        </>
+                        </>
+>>>>>>> local-branch:src/Pages/LtpDashboard/DraftApplication/DraftApplication.jsx
                     </div>
                 );
             case 1:
                 return (
+<<<<<<< HEAD:src/Pages/LtpDashboard/DraftApplication.jsx
                     <div className='min-h-screen'>
                         <h2>Step 2: Choose plan</h2>
                         <>
                             <h1>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Placeat odio sed molestiae consequuntur odit ex reiciendis, voluptate mollitia voluptas rem.</h1>
                         </>
+=======
+                    <div>
+                       <Table/>
+>>>>>>> local-branch:src/Pages/LtpDashboard/DraftApplication/DraftApplication.jsx
                     </div>
                 );
             case 2:
