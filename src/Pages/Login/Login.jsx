@@ -39,7 +39,7 @@ const Login = () => {
 
   const location = useLocation();
 
-  const from = location?.state?.from?.pathName || "/dashboard/home";
+  const from = location?.state?.from?.pathName || "/dashboard";
 
   const onSubmit = (data) => {
     const { id, password, checkbox } = data;

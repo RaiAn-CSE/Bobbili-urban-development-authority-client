@@ -6,7 +6,10 @@ import AdminSidebar from "./AdminSidebar/AdminSidebar";
 import PsSidebar from "./PsSidebar/PsSidebar";
 
 const DashboardLayout = () => {
-  const CurrentUser="LTP";
+  const user = JSON.parse(localStorage.getItem("loggedUser"));
+
+  let menus;
+
   return (
     <>
       <Navbar />
@@ -19,11 +22,21 @@ const DashboardLayout = () => {
         <div className="drawer-side shadow-md ">
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
 
-          <div className="p-4 w-full md:w-80 bg-green-400 font-bold text-[#3e363f]">
+          <ul className="menu p-4 w-full md:w-80 bg-green-400 font-bold text-[#3e363f]">
             {/* <!-- Sidebar content here --> */}
-            
-           { CurrentUser === "LTP" && <LtpSidebar /> || CurrentUser === "PS" && <PsSidebar /> || CurrentUser === "Admin" && <AdminSidebar />}
-          </div>
+
+            {/* { CurrentUser === "LTP" && <LtpSidebar /> || CurrentUser === "PS" && <PsSidebar /> || CurrentUser === "Admin" && <AdminSidebar />} */}
+
+            <li className="absolute top-2 right-2 lg:hidden ">
+              <label
+                htmlFor="my-drawer-2"
+                className="btn btn-sm btn-circle bg-boldGreen text-white"
+              >
+                ✕
+              </label>
+            </li>
+            {menus}
+          </ul>
         </div>
       </div>
     </>
