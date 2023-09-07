@@ -1,6 +1,6 @@
 import React from 'react'
 import { Outlet } from 'react-router';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
 import PsDefault from './PsDefault';
 
 function PsDashboard() {
