@@ -12,6 +12,8 @@ import SearchApplications from "../Pages/PsDashboard/SearchApplications/SearchAp
 import ReValidation from "../Pages/PsDashboard/ReValidation/ReValidation";
 import PrivateRoute from "../Pages/PrivateRoute/PrivateRoute";
 import DraftApplication from "../Pages/LtpDashboard/DraftApplication/DraftApplication";
+import BuildingInfo from "../Pages/LtpDashboard/DraftApplication/BuildingInfo";
+import LtpDashboardHome from "../Pages/LtpDashboard/LtpDashboardHome";
 
 
 const router = createBrowserRouter([
@@ -29,9 +31,17 @@ const router = createBrowserRouter([
         element: <LtpDashboard />,
         children: [
           {
+            path: "/ltpDashboard/home",
+            element: <LtpDashboardHome />,
+          },
+          {
             path: "/ltpDashboard/draftApplication",
             element: <DraftApplication />,
             children: [
+              {
+                path: "/ltpDashboard/draftApplication/buildingInfo",
+                element: <BuildingInfo />
+              },
               {
                 path: "/ltpDashboard/draftApplication/appChecklist",
                 element: <AppChecklist />

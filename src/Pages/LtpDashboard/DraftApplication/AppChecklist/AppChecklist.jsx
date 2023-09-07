@@ -18,7 +18,7 @@ function AppChecklist() {
     //     localStorage.setItem("ApplicationList", JSON.stringify(questions))
     // }
     return (
-        <div className="question-container text-sm  md:py-4">
+        <div className="question-container text-sm  md:py-4 p-7">
             {questions.map(({ no, question, answer }) => (
                 <div key={no} className="question flex items-center ">
                     <p className="flex-1 text-black dark:text-white rounded pr-5">{no}. {question}            </p>
@@ -46,12 +46,12 @@ function AppChecklist() {
                             <span>No</span>
                         </label>
                     </div>
-        
+
                 </div>
             ))}
             <button className="py-3 px-4 bg-green-600 rounded font-bold uppercase text-dark dark:text-white mt-3 DisplayFair" onClick={() => handleSave()}>Save and Next</button>
         </div>
-    ); 
+    );
 }
 
 export default AppChecklist;

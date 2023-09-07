@@ -5,7 +5,7 @@ const LtpDashboard = () => {
     const CurrentUser = "LTP";
     return (
         <div>
-            {CurrentUser === "LTP" && <Outlet />}
+            <Outlet></Outlet>
         </div>
     );
 };
