@@ -4,7 +4,6 @@ import "./AppChecklist.css"
 
 function AppChecklist() {
     // const LocalItems = JSON.parse(localStorage.getItem("ApplicationList"));
-
     const [questions, setQuestions] = useState(ChecklistQuestions.Questions);
 
     const handleAnswer = (event, questionNo) => {
