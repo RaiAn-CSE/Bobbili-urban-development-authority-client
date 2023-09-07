@@ -2,10 +2,10 @@ import React from 'react';
 import { Outlet } from 'react-router';
 
 const LtpDashboard = () => {
-    const CurrentUser="LTP";
+    const CurrentUser = "LTP";
     return (
         <div>
-           {CurrentUser==="LTP"&& <Outlet/>}
+            <Outlet></Outlet>
         </div>
     );
 };

@@ -12,7 +12,13 @@ import SearchApplications from "../Pages/PsDashboard/SearchApplications/SearchAp
 import ReValidation from "../Pages/PsDashboard/ReValidation/ReValidation";
 import PrivateRoute from "../Pages/PrivateRoute/PrivateRoute";
 import DraftApplication from "../Pages/LtpDashboard/DraftApplication/DraftApplication";
+<<<<<<< HEAD
 import Dashboard from "../Pages/Shared/Dashboard";
+=======
+import BuildingInfo from "../Pages/LtpDashboard/DraftApplication/BuildingInfo";
+import LtpDashboardHome from "../Pages/LtpDashboard/LtpDashboardHome";
+
+>>>>>>> raian
 
 const router = createBrowserRouter([
   {
@@ -28,6 +34,7 @@ const router = createBrowserRouter([
     ),
     children: [
       {
+<<<<<<< HEAD
         path: "/dashboard",
         element: (
           <PrivateRoute>
@@ -36,6 +43,40 @@ const router = createBrowserRouter([
         ),
       },
     ],
+=======
+        path: "/ltpDashboard",
+        element: <LtpDashboard />,
+        children: [
+          {
+            path: "/ltpDashboard/home",
+            element: <LtpDashboardHome />,
+          },
+          {
+            path: "/ltpDashboard/draftApplication",
+            element: <DraftApplication />,
+            children: [
+              {
+                path: "/ltpDashboard/draftApplication/buildingInfo",
+                element: <BuildingInfo />
+              },
+              {
+                path: "/ltpDashboard/draftApplication/appChecklist",
+                element: <AppChecklist />
+              }
+            ]
+          },
+          {
+            path: "/ltpDashboard/submitApplication",
+            element: <SubmitApplication />,
+          },
+          {
+            path: "/ltpDashboard/approved",
+            element: <Approved />,
+          }
+        ]
+      }
+    ]
+>>>>>>> raian
   },
 
   // {
