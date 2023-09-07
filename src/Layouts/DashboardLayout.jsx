@@ -12,11 +12,11 @@ const DashboardLayout = () => {
   return (
     <>
       <Navbar />
-      <div className={`${sidebarStyle.dashboardSection} min-h-screen`}>
-        <aside className={`basis-[20%] px-[20px] sticky top-[67px] ${sidebarStyle.sidebar}`}>
-          <div className={sidebarStyle.logo}>
-            {/* <img src={logo} alt="logo" /> */}
-            <h3 className="">Dashboard</h3>
+      <div className={`${sidebarStyle.dashboardSection} flex w-full bg-cover bg-center min-h-screen relative`}>
+        <aside className={`basis-[20%] px-[20px] sticky top-[67px] z-10 left-0 w-64 h-screen bg-opacity-20 backdrop-blur-xl border-r border-opacity-70`}>
+          <div className='flex items-center px-10 py-5'>
+            {/* <img className="w-11 h-11 rounded-full" src={logo} alt="logo" /> */}
+            <h3 className="text-lg font-semibold ml-2 mt-3">Dashboard</h3>
           </div>
           <ul className={`${sidebarStyle.links}`}>
             {/* sidebar menus  */}

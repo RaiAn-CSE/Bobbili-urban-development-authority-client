@@ -1,16 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {
-  MdDeveloperMode,
-  MdOutlineLogout,
-  MdSpaceDashboard,
-} from "react-icons/md";
-import { TbReportAnalytics } from "react-icons/tb";
-import { GrMoney } from "react-icons/gr";
-import { BsFillPostcardFill } from "react-icons/bs";
-import { SiAltiumdesigner } from "react-icons/si";
-import { FiSettings } from "react-icons/fi";
-import sidebarStyle from "../../Style/dashboardSidebar.module.css";
+import { MdOutlineLogout, MdSpaceDashboard } from "react-icons/md";
+import { BiCheckDouble,BiSolidImageAdd } from "react-icons/bi";
+import { CgDanger } from "react-icons/cg";
+import { BsSendCheckFill } from "react-icons/bs";
+import { AiOutlineForm } from "react-icons/ai";
 
 const LtpSidebar = () => {
   return (
@@ -25,7 +19,7 @@ const LtpSidebar = () => {
       </li>
       <li>
         <span>
-          <BsFillPostcardFill size={20} />
+          <BiSolidImageAdd size={22} />
         </span>
         <Link
           className="p-[10px] text-black font-medium "
@@ -36,7 +30,7 @@ const LtpSidebar = () => {
       </li>
       <li>
         <span>
-          <GrMoney size={20} />
+          <BsSendCheckFill size={19} />
         </span>
         <Link
           className="p-[10px] text-black font-medium "
@@ -47,7 +41,7 @@ const LtpSidebar = () => {
       </li>
       <li>
         <span>
-          <TbReportAnalytics size={22} />
+          <BiCheckDouble size={23} />
         </span>
         <Link className="p-[10px] text-black font-medium " to="/#">
           Approved
@@ -56,7 +50,7 @@ const LtpSidebar = () => {
 
       <li>
         <span>
-          <SiAltiumdesigner size={22} />
+          <AiOutlineForm size={20} />
         </span>
         <Link className="p-[10px] text-black font-medium " to="/#">
           Shortfall
@@ -64,17 +58,17 @@ const LtpSidebar = () => {
       </li>
       <li>
         <span>
-          <MdDeveloperMode size={22} />
+          <CgDanger size={22} />
         </span>
         <Link className="p-[10px] text-black font-medium " to="/#">
           Rejected
         </Link>
       </li>
-      <li className={sidebarStyle.logoutLink}>
+      <li className='mt-5'>
         <span>
           <MdOutlineLogout size={22} />
         </span>
-        <Link className="p-[10px] text-black font-medium " to="/#">
+        <Link className="p-[10px] text-black font-medium" to="/#">
           Logout
         </Link>
       </li>

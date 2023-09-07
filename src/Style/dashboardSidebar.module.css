@@ -1,57 +1,5 @@
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 .dashboardSection {
-  display: flex;
-  /* height: 100vh; */
-  width: 100%;
   background-image: url("../assets/images/hero-bg.jpg");
-  background-position: center;
-  background-size: cover;
-}
-
-.sidebar {
-  width: 260px;
-  height: 100vh;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(17px);
-  --webkit-backdrop-filter: blur(17px);
-  border-right: 1px solid rgba(255, 255, 255, 0.7);
-  transition: width 1s ease;
-}
-
-.sidebar .logo {
-  color: #000;
-  display: flex;
-  align-items: center;
-  padding: 25px 10px 5px;
-}
-
-.logo img {
-  width: 43px;
-  border-radius: 50%;
-}
-
-.logo h3 {
-  font-size: 1.15rem;
-  font-weight: 600;
-  margin-left: 5px;
-}
-
-.sidebar:hover .logo h3 {
-  display: block;
-}
-
-.sidebar .links {
-  list-style: none;
-  margin-top: 20px;
-  overflow-y: auto;
-  scrollbar-width: none;
-  height: calc(100% - 140px);
 }
 
 .sidebar .links::-webkit-scrollbar {
@@ -69,24 +17,6 @@
   background: #999797;
 }
 
-.links h4 {
-  color: #222;
-  font-weight: 500;
-  margin-bottom: 10px;
-}
-
-.sidebar:hover .links h4 {
-  display: block;
-}
-
 .links li span {
   padding: 12px 10px;
-}
-
-.sidebar:hover .links li a {
-  display: block;
-}
-
-.links .logoutLink {
-  margin-top: 20px;
 }
