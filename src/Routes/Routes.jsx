@@ -19,7 +19,6 @@ const router = createBrowserRouter([
     path: "/",
     element: <Login />,
   },
-
   {
     path: "/ltpDashboard",
     element: <PrivateRoute><DashboardLayout /></PrivateRoute>,

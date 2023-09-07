@@ -1,11 +1,19 @@
 import React from 'react'
 import { Outlet } from 'react-router';
+import { useNavigate } from 'react-router-dom';
+import PsDefault from './PsDefault';
 
 function PsDashboard() {
-  const CurrentUser="PS";
+  const navigate = useNavigate()
+  const CurrentUser = "PS";
+  const path = useLocation().pathname;
+ 
+  if (CurrentUser !== "PS") {
+      return navigate("/")
+  }
   return (
     <div>
-     {CurrentUser ==="PS"&&  <Outlet/>}
+     {path==="/PsDashboard"?<PsDefault/>:  <Outlet/>}
     </div>
   )
 }
