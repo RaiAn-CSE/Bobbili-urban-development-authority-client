@@ -16,7 +16,7 @@ const DashboardLayout = () => {
       <div className={`flex w-full`}>
         <div className="basis-[20%] relative">
           <aside
-            className={`bg-[#2AB5A4] px-[20px] fixed top-[67px] z-10 left-0 h-screen bg-opacity-20 border-r  pt-10`}
+            className={`bg-[#2AB5A4] px-[20px] fixed top-[67px] z-10 left-0 h-screen bg-opacity-20 border-r pt-10`}
           >
             <ul className={`${sidebarStyle.links} `}>
               {/* sidebar menus  */}

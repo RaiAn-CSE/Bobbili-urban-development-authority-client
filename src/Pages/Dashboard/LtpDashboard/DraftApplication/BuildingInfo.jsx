@@ -5,12 +5,12 @@ import { AiFillPlusCircle } from "react-icons/ai";
 
 const BuildingInfo = () => {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col p-6 lg:p-2 my-5">
       <div>
         <h3>General Information</h3>
         <div className="divider m-0"></div>
 
-        <div className="grid lg:grid-cols-5">
+        <div className="grid grid-cols-2 lg:grid-cols-5">
           <InputField id="name1" name="Case Type" label="Case Type" placeholder="Case Type" />
           <div className="flex flex-col justify-center">
             <p className="text-center">Application Type</p>
@@ -49,7 +49,8 @@ const BuildingInfo = () => {
       <div className="mb-5">
         <h3>Plot Details</h3>
         <div className="divider m-0"></div>
-        <div className="grid lg:grid-cols-5">
+
+        <div className="grid grid-cols-2 lg:grid-cols-5">
           <InputField
             id="name7"
             name="Proposed Plot area(in Sq.M.)"
@@ -75,10 +76,12 @@ const BuildingInfo = () => {
             label="Net Plot Area (in Sq.M.)"
             placeholder="in Sq.M." />
         </div>
-        <div className="flex justify-around">
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 justify-around">
           <div className="flex justify-center">
             <p className="text-center mr-3">Whether site abuts any Existing Road? </p>
             <div class="flex items-center space-x-4">
+
               <label class="inline-flex items-center">
                 <input
                   type="radio"
@@ -98,8 +101,10 @@ const BuildingInfo = () => {
                 />
                 <span class="ml-2">No</span>
               </label>
+
             </div>
           </div>
+
           <div className="flex justify-center">
             <p className="text-center mr-3">Status of Road</p>
             <div class="flex items-center space-x-4">
@@ -124,9 +129,10 @@ const BuildingInfo = () => {
               </label>
             </div>
           </div>
+
         </div>
 
-        <div className="grid lg:grid-cols-5">
+        <div className="grid grid-cols-2 lg:grid-cols-5">
           <InputField id="name12" name="name1" label="Nature of Road" placeholder="Nature of Road" />
           <InputField
             id="name12"
@@ -172,7 +178,8 @@ const BuildingInfo = () => {
             label="Total Parking area"
             placeholder="Automatically calculated" />
         </div>
-        <div className="grid lg:grid-cols-5">
+
+        <div className="grid grid-cols-2 lg:grid-cols-5">
           <InputField
             id="name7"
             name="Proposed Plot area(in Sq.M.)"
@@ -228,7 +235,7 @@ const BuildingInfo = () => {
       <div>
         <h3>Schedule of Boundaries</h3>
         <div className="divider m-0"></div>
-        <div className="grid lg:grid-cols-5 items-center">
+        <div className="grid grid-cols-2 lg:grid-cols-5 items-center">
           <InputField id="name13" name="name1" label="North" placeholder="North" />
           <InputField id="name14" name="name1" label="South" placeholder="South" />
           <InputField id="name15" name="name1" label="East" placeholder="East" />
