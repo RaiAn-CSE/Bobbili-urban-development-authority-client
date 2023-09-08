@@ -22,16 +22,15 @@ const LtpSidebar = () => {
       </li>
 
       <li
-        className={`${
-          (path === "/dashboard/draftApplication" ||
-            path === "/dashboard/draftApplication/buildingInfo" ||
-            path === "/dashboard/draftApplication/applicantInfo" ||
-            path === "/dashboard/draftApplication/applicationChecklist" ||
-            path === "/dashboard/draftApplication/documents" ||
-            path === "/dashboard/draftApplication/drawing" ||
-            path === "/dashboard/draftApplication/payment") &&
+        className={`${(path === "/dashboard/draftApplication" ||
+          path === "/dashboard/draftApplication/buildingInfo" ||
+          path === "/dashboard/draftApplication/applicantInfo" ||
+          path === "/dashboard/draftApplication/applicationChecklist" ||
+          path === "/dashboard/draftApplication/documents" ||
+          path === "/dashboard/draftApplication/drawing" ||
+          path === "/dashboard/draftApplication/payment") &&
           "active"
-        }`}
+          }`}
       >
         <span>
           <BiSolidImageAdd size={22} />
