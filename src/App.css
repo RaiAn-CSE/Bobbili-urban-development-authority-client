@@ -21,5 +21,6 @@ body {
 }
 
 .active {
-  background-color: #fff;
+  background-color: #10ac84;
+  color: #fff;
 }

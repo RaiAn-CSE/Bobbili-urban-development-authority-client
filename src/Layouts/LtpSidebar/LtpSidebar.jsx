@@ -16,7 +16,7 @@ const LtpSidebar = () => {
         <span>
           <MdSpaceDashboard size={20} />
         </span>
-        <Link className={`p-[10px] text-black font-medium `} to="/dashboard">
+        <Link className={`p-[10px] font-medium `} to="/dashboard">
           Dashboard
         </Link>
       </li>
@@ -37,7 +37,7 @@ const LtpSidebar = () => {
           <BiSolidImageAdd size={22} />
         </span>
         <Link
-          className="p-[10px] text-black font-medium "
+          className="p-[10px]  font-medium "
           to="/dashboard/draftApplication"
         >
           Draft Application
@@ -49,7 +49,7 @@ const LtpSidebar = () => {
           <BsSendCheckFill size={19} />
         </span>
         <Link
-          className="p-[10px] text-black font-medium "
+          className="p-[10px]  font-medium "
           to="/dashboard/submitApplication"
         >
           Submitted App:
@@ -59,7 +59,7 @@ const LtpSidebar = () => {
         <span>
           <BiCheckDouble size={23} />
         </span>
-        <Link className="p-[10px] text-black font-medium " to="/#">
+        <Link className="p-[10px]  font-medium " to="/#">
           Approved
         </Link>
       </li>
@@ -68,7 +68,7 @@ const LtpSidebar = () => {
         <span>
           <AiOutlineForm size={20} />
         </span>
-        <Link className="p-[10px] text-black font-medium " to="/#">
+        <Link className="p-[10px] font-medium " to="/#">
           Shortfall
         </Link>
       </li>
@@ -76,7 +76,7 @@ const LtpSidebar = () => {
         <span>
           <CgDanger size={22} />
         </span>
-        <Link className="p-[10px] text-black font-medium " to="/#">
+        <Link className="p-[10px]  font-medium " to="/#">
           Rejected
         </Link>
       </li>
@@ -84,7 +84,7 @@ const LtpSidebar = () => {
         <span>
           <MdOutlineLogout size={22} />
         </span>
-        <Link className="p-[10px] text-black font-medium" to="/#">
+        <Link className="p-[10px]  font-medium" to="/#">
           Logout
         </Link>
       </li>
