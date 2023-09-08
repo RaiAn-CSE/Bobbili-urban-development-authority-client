@@ -6,6 +6,11 @@
   display: flex;
   border-radius: 4px;
   align-items: center;
+  margin: 5px 0;
+}
+
+.links li:last-child {
+  margin-top: 15px;
 }
 
 .links li a {
