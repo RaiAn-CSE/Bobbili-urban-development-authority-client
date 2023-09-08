@@ -4,9 +4,6 @@ const InputField = ({ id, name, placeholder, type, label }) => {
     // Define default values for type and placeholder if not provided
     const inputType = type || 'text';
 
-    // Determine whether to use the label as a placeholder
-    // const labelPlaceholder = placeholder || label;
-
     return (
         <div className="m-4">
             <label htmlFor={id} className="block text-sm font-sm text-gray-600">
