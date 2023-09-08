@@ -17,7 +17,7 @@ const DashboardLayout = () => {
           <aside
             className={`bg-[#2AB5A4]  px-[20px]  fixed top-[67px] z-10 left-0 h-screen bg-opacity-20 backdrop-blur-xl border-r  pt-10`}
           >
-            <ul className={`${sidebarStyle.links}`}>
+            <ul className={`${sidebarStyle.links} `}>
               {/* sidebar menus  */}
               {(currentUser?.role === "LTP" && <LtpSidebar />) ||
                 (currentUser?.role === "PS" && <PsSidebar />) ||

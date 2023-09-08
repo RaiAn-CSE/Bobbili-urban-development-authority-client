@@ -1,11 +1,13 @@
 import React from "react";
-import UserImg from "../../assets/images/test.jpg";
+import UserImg from "../../assets/images//user (1).png";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/images/logo.png";
 
 const Navbar = () => {
   const navigate = useNavigate();
+
+  const user = JSON.parse(localStorage.getItem("loggedUser"));
 
   const handleLogOut = () => {
     localStorage.removeItem("loggedUser");
@@ -20,10 +22,15 @@ const Navbar = () => {
           <p>Bobbili Urban Development Authority</p>
         </Link>
       </div>
-      <div className="dropdown dropdown-end">
+
+      <div className="me-3 flex flex-col">
+        <p className="roboto-bold">{user?.name}</p>
+        <small className="font-medium">({user?.role})</small>
+      </div>
+      <div className="dropdown dropdown-end me-5">
         <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
           <div className="w-10 rounded-full">
-            <img src={UserImg} />
+            <img src={UserImg} alt="An image of user icon" />
           </div>
         </label>
         <ul

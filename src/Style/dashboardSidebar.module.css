@@ -8,6 +8,10 @@
   align-items: center;
 }
 
+.links li a {
+  font-weight: 600;
+}
+
 .links li:hover {
   cursor: pointer;
   background: #999797;
