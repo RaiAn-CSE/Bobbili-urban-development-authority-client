@@ -1,0 +1,54 @@
+{
+    "Data": [
+        {
+            "id": "1",
+            "question": "Photographs Showing Access Roads.",
+            "upload": ""
+        },
+        {
+            "id": "2",
+            "question": "Self-Attested Copies Of Ownership Documents/ Sale Deed Etc. Giving The Physical Description Of The Plot/ Property.",
+            "upload": ""
+        },
+        {
+            "id": "3",
+            "question": "Self-Attested Copies Of Link Documents.",
+            "upload": ""
+        },
+        {
+            "id": "4",
+            "question": "Latest Encumbrance Certificate Issued By Registration Department.",
+            "upload": ""
+        },
+        {
+            "id": "5",
+            "question": "Master Plan/ ILUP/ RVM Extract Indicating The Site.",
+            "upload": ""
+        },
+        {
+            "id": "6",
+            "question": "Topo Detailed Plan.",
+            "upload": ""
+        },
+        {
+            "id": "7",
+            "question": "A Declaration Cum Undertaking And Indemnity Bond By The Owner/ LTP",
+            "upload": ""
+        },
+        {
+            "id": "8",
+            "question": "Sign Drawing Plan Pdf And Application Form Of Owner & LTP",
+            "upload": ""
+        },
+        {
+            "id": "9",
+            "question": "Previous Sanctioned Plan copy with details of approval for the existing building if any.",
+            "upload": ""
+        },
+        {
+            "id": "10",
+            "question": "Whether The Land Is Converted Agriculture To Non-Agriculture Land As Per NALA Act, 2006?",
+            "upload": ""
+        }
+    ]
+}
