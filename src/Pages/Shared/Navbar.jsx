@@ -19,7 +19,7 @@ const Navbar = () => {
       <div className="flex-1">
         <Link to="/dashboard" className="btn btn-ghost normal-case text-xl">
           <img className="h-full" src={Logo} alt="The logo of the website" />
-          <p>Bobbili Urban Development Authority</p>
+          <p className="hidden lg:block">Bobbili Urban Development Authority</p>
         </Link>
       </div>
 
