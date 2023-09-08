@@ -7,7 +7,7 @@ const SecondAdminSidebar = () => {
 
   return (
     <>
-      <li className={`${path === "/dashboard" && "active"}`}>
+      <li className={`${path === "/dashboard" && "active"} mt-10`}>
         <span>
           <MdSpaceDashboard size={20} />
         </span>
@@ -21,6 +21,14 @@ const SecondAdminSidebar = () => {
         </span>
         <Link className={`p-[10px] font-medium `} to="/dashboard/addUser">
           Add User
+        </Link>
+      </li>
+      <li className={`${path === "/dashboard/allUser" && "active"}`}>
+        <span>
+          <MdSpaceDashboard size={20} />
+        </span>
+        <Link className={`p-[10px] font-medium `} to="/dashboard/allUser">
+          All Users
         </Link>
       </li>
     </>

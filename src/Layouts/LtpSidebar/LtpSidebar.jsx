@@ -12,7 +12,7 @@ const LtpSidebar = () => {
   console.log(location);
   return (
     <>
-      <li className={`${path === "/dashboard" && "active"}`}>
+      <li className={`${path === "/dashboard" && "active"} `}>
         <span>
           <MdSpaceDashboard size={20} />
         </span>

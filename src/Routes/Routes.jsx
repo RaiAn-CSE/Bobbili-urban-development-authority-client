@@ -13,6 +13,7 @@ import Drawing from "../Pages/Dashboard/LtpDashboard/DraftApplication/Drawing";
 import Payment from "../Pages/Dashboard/LtpDashboard/DraftApplication/Payment";
 import SubmitApplication from "../Pages/Dashboard/LtpDashboard/Submitted/SubmitApplication";
 import AddUser from "../Pages/Dashboard/Admin/Admin2/AddUser";
+import UpdateUser from "../Pages/Dashboard/Admin/Admin2/UpdateUser";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AddUser />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/updateUser",
+        element: (
+          <PrivateRoute>
+            <UpdateUser />
           </PrivateRoute>
         ),
       },
