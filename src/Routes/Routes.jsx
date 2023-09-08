@@ -12,6 +12,7 @@ import Documents from "../Pages/Dashboard/LtpDashboard/DraftApplication/Document
 import Drawing from "../Pages/Dashboard/LtpDashboard/DraftApplication/Drawing";
 import Payment from "../Pages/Dashboard/LtpDashboard/DraftApplication/Payment";
 import SubmitApplication from "../Pages/Dashboard/LtpDashboard/Submitted/SubmitApplication";
+import AddUser from "../Pages/Dashboard/Admin/Admin2/AddUser";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Dashboard />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/addUser",
+        element: (
+          <PrivateRoute>
+            <AddUser />
           </PrivateRoute>
         ),
       },

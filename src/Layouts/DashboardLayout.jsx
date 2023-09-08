@@ -4,7 +4,8 @@ import sidebarStyle from "../Style/dashboardSidebar.module.css";
 import Navbar from "../Pages/Shared/Navbar";
 import LtpSidebar from "./LtpSidebar/LtpSidebar";
 import PsSidebar from "./PsSidebar/PsSidebar";
-import AdminSidebar from "./AdminSidebar/AdminSidebar";
+import SecondAdminSidebar from "./AdminSidebar/SecondAdminSidebar";
+import FirstAdminSidebar from "./AdminSidebar/FirstAdminSidebar";
 
 const DashboardLayout = () => {
   const currentUser = JSON.parse(localStorage.getItem("loggedUser"));
@@ -13,7 +14,7 @@ const DashboardLayout = () => {
     <>
       <Navbar />
       <div className={`flex w-full`}>
-        <div className="basis-[20%] h-screen relative">
+        <div className="basis-[20%] relative">
           <aside
             className={`bg-[#2AB5A4] px-[20px] fixed top-[67px] z-10 left-0 h-screen bg-opacity-20 border-r  pt-10`}
           >
@@ -21,8 +22,8 @@ const DashboardLayout = () => {
               {/* sidebar menus  */}
               {(currentUser?.role === "LTP" && <LtpSidebar />) ||
                 (currentUser?.role === "PS" && <PsSidebar />) ||
-                ((currentUser?.role === "Admin1" ||
-                  currentUser?.role === "Admin2") && <AdminSidebar />)}
+                (currentUser?.role === "Admin1" && <FirstAdminSidebar />) ||
+                (currentUser?.role === "Admin2" && <SecondAdminSidebar />)}
             </ul>
           </aside>
         </div>
