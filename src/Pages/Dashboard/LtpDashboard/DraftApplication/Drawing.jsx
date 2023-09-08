@@ -10,7 +10,7 @@ const Drawing = () => {
   };
 
   return (
-    <div className="bg-white text-black h-screen md:p-5">
+    <div className="bg-white text-black h-screen p-5">
       {/* AutoCAD Drawing */}
       <div className="md:flex items-center px-2 space-y-2 mb-8">
         <p className="md:flex-1 pr-3">1. AutoCAD Drawing</p>
