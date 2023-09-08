@@ -44,7 +44,7 @@ const ApplicantInfo = () => {
 
       <div className="flex justify-center mb-5">
         <Link to="/dashboard/draftApplication/applicationChecklist">
-          <button class="btn">Save And Continue</button>
+          <button className="btn">Save And Continue</button>
         </Link>
       </div>
     </div >

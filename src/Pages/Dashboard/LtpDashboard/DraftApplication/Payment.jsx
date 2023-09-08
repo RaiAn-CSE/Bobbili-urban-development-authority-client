@@ -74,10 +74,10 @@ const Payment = () => {
 
         <div className="flex justify-center mb-5">
           <Link className="mr-2" to="">
-            <button class="btn">Save All</button>
+            <button className="btn">Save All</button>
           </Link>
           <Link to="">
-            <button class="btn">Sent to Department</button>
+            <button className="btn">Sent to Department</button>
           </Link>
         </div>
       </div>

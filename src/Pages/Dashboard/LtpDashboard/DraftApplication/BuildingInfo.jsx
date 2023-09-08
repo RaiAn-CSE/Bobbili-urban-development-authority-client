@@ -14,25 +14,25 @@ const BuildingInfo = () => {
           <InputField id="name1" name="Case Type" label="Case Type" placeholder="Case Type" />
           <div className="flex flex-col justify-center">
             <p className="text-center">Application Type</p>
-            <div class="flex items-center space-x-4">
-              <label class="inline-flex items-center">
+            <div className="flex items-center space-x-4">
+              <label className="inline-flex items-center">
                 <input
                   type="radio"
-                  class="form-radio h-5 w-5 text-[#10ac84]"
+                  className="form-radio h-5 w-5 text-[#10ac84]"
                   name="applicationType"
                   value="Private"
                 />
-                <span class="ml-2">Private</span>
+                <span className="ml-2">Private</span>
               </label>
 
-              <label class="inline-flex items-center">
+              <label className="inline-flex items-center">
                 <input
                   type="radio"
-                  class="form-radio h-5 w-5 text-[#10ac84]"
+                  className="form-radio h-5 w-5 text-[#10ac84]"
                   name="applicationType"
                   value="Govt. Land"
                 />
-                <span class="ml-2">Govt. Land</span>
+                <span className="ml-2">Govt. Land</span>
               </label>
             </div>
           </div>
@@ -80,26 +80,26 @@ const BuildingInfo = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 justify-around">
           <div className="flex justify-center">
             <p className="text-center mr-3">Whether site abuts any Existing Road? </p>
-            <div class="flex items-center space-x-4">
+            <div className="flex items-center space-x-4">
 
-              <label class="inline-flex items-center">
+              <label className="inline-flex items-center">
                 <input
                   type="radio"
-                  class="form-radio h-5 w-5 text-[#10ac84]"
+                  className="form-radio h-5 w-5 text-[#10ac84]"
                   name="applicationType"
                   value="yes"
                 />
-                <span class="ml-2">Yes</span>
+                <span className="ml-2">Yes</span>
               </label>
 
-              <label class="inline-flex items-center">
+              <label className="inline-flex items-center">
                 <input
                   type="radio"
-                  class="form-radio h-5 w-5 text-[#10ac84]"
+                  className="form-radio h-5 w-5 text-[#10ac84]"
                   name="applicationType"
                   value="No"
                 />
-                <span class="ml-2">No</span>
+                <span className="ml-2">No</span>
               </label>
 
             </div>
@@ -107,25 +107,25 @@ const BuildingInfo = () => {
 
           <div className="flex justify-center">
             <p className="text-center mr-3">Status of Road</p>
-            <div class="flex items-center space-x-4">
-              <label class="inline-flex items-center">
+            <div className="flex items-center space-x-4">
+              <label className="inline-flex items-center">
                 <input
                   type="radio"
-                  class="form-radio h-5 w-5 text-[#10ac84]"
+                  className="form-radio h-5 w-5 text-[#10ac84]"
                   name="applicationType"
                   value="Public"
                 />
-                <span class="ml-2">Public</span>
+                <span className="ml-2">Public</span>
               </label>
 
-              <label class="inline-flex items-center">
+              <label className="inline-flex items-center">
                 <input
                   type="radio"
-                  class="form-radio h-5 w-5 text-[#10ac84]"
+                  className="form-radio h-5 w-5 text-[#10ac84]"
                   name="applicationType"
                   value="Private"
                 />
-                <span class="ml-2">Private</span>
+                <span className="ml-2">Private</span>
               </label>
             </div>
           </div>
@@ -245,7 +245,7 @@ const BuildingInfo = () => {
 
       <div className="flex justify-center mb-5">
         <Link to="/dashboard/draftApplication/applicantInfo">
-          <button class="btn">Save And Continue</button>
+          <button className="btn">Save And Continue</button>
         </Link>
       </div>
     </div>
