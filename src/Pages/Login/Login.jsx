@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import House from "../../assets/images/architecture-nature-merge-modern-design-generative-ai.jpg";
+import House from "../../assets/images/house.jpg";
+import Logo from "../../assets/images/logo.png";
+import SupportIcon from "../../assets/images/customer-service.png";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router";
 
@@ -92,84 +94,101 @@ const Login = () => {
 
   return (
     <>
-      <div className="hero min-h-screen">
-        <div className="hero-content flex-col lg:flex-row">
-          {/* image part  */}
-          <div className="text-center lg:text-left">
-            <img src={House} alt="house" />
-          </div>
+      <div className="flex h-screen relative">
+        {/* support icon  */}
 
-          {/* login form  */}
-          <div className=" flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-            <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 ">
-              <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-                <h3 className="text-2xl text-center font-medium text-gray-900 ">
-                  Welcome Back
-                </h3>
-                <div>
-                  <label
-                    htmlFor="userId"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Your ID
-                  </label>
-                  <input
-                    type="text"
-                    {...register("id", { required: true })}
-                    id="userId"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    defaultValue={cookieUserId}
-                    placeholder="name@company.com"
-                  />
-                  {errors.id?.type === "required" && (
-                    <p role="alert">UserID is required</p>
-                  )}
-                </div>
-                <div>
-                  <label
-                    htmlFor="password"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Your password
-                  </label>
-                  <input
-                    type="password"
-                    {...register("password", { required: true })}
-                    id="password"
-                    placeholder="••••••••"
-                    defaultValue={cookieUserPassword}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                  />
-                  {errors.password?.type === "required" && (
-                    <p role="alert">Password is required</p>
-                  )}
-                </div>
+        <div className="absolute bottom-[2%] right-[2%] w-[5vw] h-[5vw] rounded-full cursor-pointer">
+          <img
+            className="object-cover"
+            src={SupportIcon}
+            alt="Customer support icon"
+          />
+        </div>
 
-                <div className="flex items-start">
-                  <div className="flex items-center h-5">
-                    <input
-                      id="remember"
-                      type="checkbox"
-                      {...register("checkbox", { required: true })}
-                      value=""
-                      className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"
-                      required
-                    />
-                  </div>
-                  <label
-                    htmlFor="remember"
-                    className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                  >
-                    Remember me
-                  </label>
+        {/* image part  */}
+        <div className="basis-1/2 h-full bg-[#f3a683] text-center lg:text-left">
+          <img className="h-full object-cover" src={House} alt="house" />
+        </div>
+
+        {/* login form  */}
+        <div className="basis-1/2  flex justify-center items-center">
+          <div className="w-[80%] mx-auto rounded-lg  p-4  sm:p-6 md:p-8 ">
+            <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+              <div>
+                <img
+                  className="h-[8vw] mx-auto"
+                  src={Logo}
+                  alt="The website logo"
+                />
+              </div>
+              <h1 className="text-2xl text-center font-bold Roboto text-gray-900 ">
+                Welcome Back!
+              </h1>
+              <div>
+                <label
+                  htmlFor="userId"
+                  className="block mb-2 text-sm font-bold Roboto text-gray-900 dark:text-white"
+                >
+                  Your ID
+                </label>
+                <input
+                  type="text"
+                  {...register("id", { required: true })}
+                  id="userId"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  defaultValue={cookieUserId}
+                  placeholder="name@company.com"
+                />
+                {errors.id?.type === "required" && (
+                  <p role="alert">UserID is required</p>
+                )}
+              </div>
+              <div>
+                <label
+                  htmlFor="password"
+                  className="block mb-2 text-sm font-bold Roboto text-gray-900 dark:text-white"
+                >
+                  Your password
+                </label>
+                <input
+                  type="password"
+                  {...register("password", { required: true })}
+                  id="password"
+                  placeholder="••••••••"
+                  defaultValue={cookieUserPassword}
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                />
+                {errors.password?.type === "required" && (
+                  <p role="alert">Password is required</p>
+                )}
+              </div>
+
+              <div className="flex items-start">
+                <div className="flex items-center h-5">
+                  <input
+                    id="remember"
+                    type="checkbox"
+                    {...register("checkbox", { required: true })}
+                    value=""
+                    className="w-4 h-4 border border-gray-300 rounded bg-gray-50"
+                    required
+                  />
                 </div>
+                <label
+                  htmlFor="remember"
+                  className="ml-2 text-sm font-medium Roboto text-gray-900 dark:text-gray-300"
+                >
+                  Remember me
+                </label>
+              </div>
+              <div className="w-[30%] mx-auto">
                 <input
                   type="submit"
                   value="Login"
-                  className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+                  className="w-full rounded-full Roboto bg-[#FFD66C] cursor-pointer hover:shadow-md font-bold  text-sm px-5 py-2.5 text-center "
                 />
-              </form>
-            </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>

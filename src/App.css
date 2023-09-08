@@ -1,11 +1,26 @@
-body{
-    font-family: 'Roboto', sans-serif;
+body {
+  font-family: "Roboto", sans-serif;
 }
 
-.Roboto{
-    font-family: 'Roboto', sans-serif;
+.Roboto {
+  font-family: "Roboto", sans-serif;
 }
 
-.DisplayFair{
-    font-family: 'Playfair Display', serif;
+.roboto-regular,
+.displayFair-regular {
+  font-weight: 400;
+}
+
+.roboto-bold,
+.displayFair-bold {
+  font-weight: 600;
+}
+
+.DisplayFair {
+  font-family: "Playfair Display", serif;
+}
+
+.active {
+  background-color: #10ac84;
+  color: #fff;
 }
