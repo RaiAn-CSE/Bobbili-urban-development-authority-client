@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import House from "../../assets/images/house.jpg";
-import Logo from "../../assets/images/asa5_-_Copy-removebg-preview.png";
+import Logo from "../../assets/images/logo.png";
 import SupportIcon from "../../assets/images/customer-service.png";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router";
@@ -121,13 +121,13 @@ const Login = () => {
                   alt="The website logo"
                 />
               </div>
-              <h3 className="text-2xl text-center font-medium text-gray-900 ">
+              <h1 className="text-2xl text-center font-bold Roboto text-gray-900 ">
                 Welcome Back!
-              </h3>
+              </h1>
               <div>
                 <label
                   htmlFor="userId"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="block mb-2 text-sm font-bold Roboto text-gray-900 dark:text-white"
                 >
                   Your ID
                 </label>
@@ -146,7 +146,7 @@ const Login = () => {
               <div>
                 <label
                   htmlFor="password"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="block mb-2 text-sm font-bold Roboto text-gray-900 dark:text-white"
                 >
                   Your password
                 </label>
@@ -176,7 +176,7 @@ const Login = () => {
                 </div>
                 <label
                   htmlFor="remember"
-                  className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                  className="ml-2 text-sm font-medium Roboto text-gray-900 dark:text-gray-300"
                 >
                   Remember me
                 </label>
@@ -185,7 +185,7 @@ const Login = () => {
                 <input
                   type="submit"
                   value="Login"
-                  className="w-full rounded-full bg-[#FFD66C] cursor-pointer hover:shadow-md font-bold  text-sm px-5 py-2.5 text-center "
+                  className="w-full rounded-full Roboto bg-[#FFD66C] cursor-pointer hover:shadow-md font-bold  text-sm px-5 py-2.5 text-center "
                 />
               </div>
             </form>

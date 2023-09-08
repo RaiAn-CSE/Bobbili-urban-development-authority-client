@@ -1,6 +1,8 @@
 import React from "react";
 import UserImg from "../../assets/images/test.jpg";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
+import Logo from "../../assets/images/logo.png";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -11,9 +13,12 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar bg-base-100 sticky top-0 z-50">
+    <div className="navbar bg-base-100 sticky top-0 z-50 shadow-md">
       <div className="flex-1">
-        <a className="btn btn-ghost normal-case text-xl">BOBBILI URBAN DEVELOPMENT AUTHORITY</a>
+        <Link to="/dashboard" className="btn btn-ghost normal-case text-xl">
+          <img className="h-full" src={Logo} alt="The logo of the website" />
+          <p>Bobbili Urban Development Authority</p>
+        </Link>
       </div>
       <div className="dropdown dropdown-end">
         <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
