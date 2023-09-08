@@ -20,11 +20,12 @@ const DocumentUpload = () => {
       const { id, question, upload } = Question;
       return { id, question, upload: eventId === id ? file : upload };
     });
-
+    localStorage.setItem("documents",JSON.stringify(updatedData));
     setUpdatedDocuments(updatedData);
   };
 
-  console.log(UpdatedDocuments);
+  
+
   return (
     <div className="text-black p-4 bg-white">
       <div className="space-y-8 lg:space-y-2">

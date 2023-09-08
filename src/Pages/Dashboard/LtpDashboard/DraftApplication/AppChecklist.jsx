@@ -3,7 +3,7 @@ import ChecklistQuestions from "../../../../assets/AppChecklist.json";
 import { Link } from "react-router-dom";
 
 function AppChecklist() {
-  // const LocalItems = JSON.parse(localStorage.getItem("ApplicationList"));
+  const LocalItems = JSON.parse(localStorage.getItem("ApplicationList"));
 
   const [questions, setQuestions] = useState(ChecklistQuestions.Questions);
 
@@ -20,7 +20,7 @@ function AppChecklist() {
   return (
     <div className="lg:px-20 text-sm p-3 bg-gray-50">
       <div className=" space-y-7 lg:space-y-4 ">
-        {questions.map(({ no, question, answer }) => (
+        {LocalItems.map(({ no, question, answer }) => (
           <div key={no} className="lg:flex items-center justify-center">
             <p className="flex-1 text-black rounded lg:pr-5">
               {no}. {question}
