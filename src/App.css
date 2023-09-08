@@ -19,3 +19,7 @@ body {
 .DisplayFair {
   font-family: "Playfair Display", serif;
 }
+
+.active {
+  background-color: #fff;
+}

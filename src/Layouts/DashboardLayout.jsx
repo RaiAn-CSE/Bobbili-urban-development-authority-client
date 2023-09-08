@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import sidebarStyle from "../Style/dashboardSidebar.module.css";
 import Navbar from "../Pages/Shared/Navbar";
 import LtpSidebar from "./LtpSidebar/LtpSidebar";
@@ -12,10 +12,10 @@ const DashboardLayout = () => {
   return (
     <>
       <Navbar />
-      <div className={`${sidebarStyle.dashboardSection} flex w-full`}>
-        <div className="basis-[20%]  relative">
+      <div className={`flex w-full`}>
+        <div className="basis-[20%] h-screen relative">
           <aside
-            className={`bg-[#2AB5A4]  px-[20px]  fixed top-[67px] z-10 left-0 h-screen bg-opacity-20 backdrop-blur-xl border-r  pt-10`}
+            className={`bg-[#2AB5A4] px-[20px] fixed top-[67px] z-10 left-0 h-screen bg-opacity-20 border-r  pt-10`}
           >
             <ul className={`${sidebarStyle.links} `}>
               {/* sidebar menus  */}

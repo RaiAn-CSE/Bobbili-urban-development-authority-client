@@ -1,23 +1,38 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { MdOutlineLogout, MdSpaceDashboard } from "react-icons/md";
-import { BiCheckDouble,BiSolidImageAdd } from "react-icons/bi";
+import { BiCheckDouble, BiSolidImageAdd } from "react-icons/bi";
 import { CgDanger } from "react-icons/cg";
 import { BsSendCheckFill } from "react-icons/bs";
 import { AiOutlineForm } from "react-icons/ai";
 
 const LtpSidebar = () => {
+  const path = useLocation().pathname;
+
+  console.log(location);
   return (
     <>
-      <li>
+      <li className={`${path === "/dashboard" && "active"}`}>
         <span>
           <MdSpaceDashboard size={20} />
         </span>
-        <Link className="p-[10px] text-black font-medium " to="/dashboard">
+        <Link className={`p-[10px] text-black font-medium `} to="/dashboard">
           Dashboard
         </Link>
       </li>
-      <li>
+
+      <li
+        className={`${
+          (path === "/dashboard/draftApplication" ||
+            path === "/dashboard/draftApplication/buildingInfo" ||
+            path === "/dashboard/draftApplication/applicantInfo" ||
+            path === "/dashboard/draftApplication/applicationChecklist" ||
+            path === "/dashboard/draftApplication/documents" ||
+            path === "/dashboard/draftApplication/drawing" ||
+            path === "/dashboard/draftApplication/payment") &&
+          "active"
+        }`}
+      >
         <span>
           <BiSolidImageAdd size={22} />
         </span>
@@ -25,10 +40,11 @@ const LtpSidebar = () => {
           className="p-[10px] text-black font-medium "
           to="/dashboard/draftApplication"
         >
-          Draft App:
+          Draft Application
         </Link>
       </li>
-      <li>
+
+      <li className={`${path === "/dashboard/submitApplication" && "active"}`}>
         <span>
           <BsSendCheckFill size={19} />
         </span>
@@ -64,7 +80,7 @@ const LtpSidebar = () => {
           Rejected
         </Link>
       </li>
-      <li className='mt-5'>
+      <li className="mt-5">
         <span>
           <MdOutlineLogout size={22} />
         </span>
