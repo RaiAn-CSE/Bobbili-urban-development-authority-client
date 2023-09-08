@@ -7,7 +7,7 @@ import DraftApplication from "../Pages/Dashboard/LtpDashboard/DraftApplication/D
 import NewApplication from "../Pages/Dashboard/LtpDashboard/DraftApplication/NewApplication";
 import BuildingInfo from "../Pages/Dashboard/LtpDashboard/DraftApplication/BuildingInfo";
 import ApplicantInfo from "../Pages/Dashboard/LtpDashboard/DraftApplication/ApplicantInfo";
-import AppChecklist from "../Pages/Dashboard/LtpDashboard/DraftApplication/AppChecklist/AppChecklist";
+import AppChecklist from "../Pages/Dashboard/LtpDashboard/DraftApplication/AppChecklist";
 import Documents from "../Pages/Dashboard/LtpDashboard/DraftApplication/Documents";
 import Drawing from "../Pages/Dashboard/LtpDashboard/DraftApplication/Drawing";
 import Payment from "../Pages/Dashboard/LtpDashboard/DraftApplication/Payment";
