@@ -18,7 +18,7 @@ function AppChecklist() {
       // localStorage.setItem("ApplicationList", JSON.stringify(questions))
   }
   return (
-    <div className="px-3 lg:px-10 text-sm py-3">
+    <div className="px-3 text-sm py-3">
       <div className=" space-y-7 lg:space-y-4 ">
         {questions.map(({ no, question, answer }) => (
           <div key={no} className="lg:flex items-center justify-center">
@@ -26,7 +26,7 @@ function AppChecklist() {
               {no}. {question}
             </p>
             <div className="space-x-10 mt-2 lg:pr-2">
-              <label className={`ml-2 inline-flex items-center space-x-1 text-white ${answer === "yes"&&"font-extrabold text-green-500"}`}>
+              <label className={`ml-2 inline-flex items-center space-x-1 text-white ${answer === "yes"&&"font-extrabold"}`}>
                 <input type="radio" name={no} value="yes" className="radio radio-sm radio-success" checked={answer === "yes"} onChange={(event) => handleAnswer(event, no)} />
                 <span>Yes</span>
               </label>
