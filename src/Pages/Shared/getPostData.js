@@ -1,7 +1,7 @@
 import toast from "react-hot-toast";
 
 function getPostData( bodyData ) {
-    
+
     console.log(bodyData,"BodyData")
     const requestOptions = {
         method: "POST",
@@ -10,14 +10,15 @@ function getPostData( bodyData ) {
         },
         body: JSON.stringify(bodyData),
     };
-    fetch("http://localhost:5000/dashboard/draftApplication/", requestOptions)
+    fetch("url", requestOptions)
         .then((response) => {
             if (!response.ok) {
                 return toast.error("Network error!");
             }
-            return toast.success("Data Added Successfully")
+            
+            return ; // toast.success("Data Added Successfully")
         })
-        .catch((error) => toast.error("User error!"))
+        .catch((error) => toast.error(error.message))
     return;
 }
 
