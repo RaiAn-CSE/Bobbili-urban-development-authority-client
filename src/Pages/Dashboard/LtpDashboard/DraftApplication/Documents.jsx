@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Documents from "../../../../assets/Documents.json";
 import { Link } from "react-router-dom";
+import getPostData from "../../../Shared/getPostData";
 
 const DocumentUpload = () => {
   const [selectedFiles, setSelectedFiles] = useState({});
@@ -23,6 +24,10 @@ const DocumentUpload = () => {
     // localStorage.setItem("documents",JSON.stringify(updatedData));
     setUpdatedDocuments(updatedData);
   };
+
+  const handleDocuments = () => {
+    getPostData(UpdatedDocuments)
+  }
 
   return (
     <div className="text-black p-4 ">
@@ -53,7 +58,7 @@ const DocumentUpload = () => {
       </div>
 
       <div className="mt-6">
-        <Link to="/dashboard/draftApplication/drawing">
+        <Link onClick={() => handleDocuments()} to="/dashboard/draftApplication/drawing">
           <button className="btn">Save And Continue</button>
         </Link>
       </div>
@@ -62,3 +67,9 @@ const DocumentUpload = () => {
 };
 
 export default DocumentUpload;
+
+// [{
+ 
+//   draftApplication: [{ applicationNo: "", buildingInfo: {}, applicantInfo:{}, appChecklist:{}, documents: {}, drawing: {},payment:{} }]
+// }
+// ]
