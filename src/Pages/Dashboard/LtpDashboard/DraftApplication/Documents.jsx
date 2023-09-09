@@ -20,14 +20,12 @@ const DocumentUpload = () => {
       const { id, question, upload } = Question;
       return { id, question, upload: eventId === id ? file : upload };
     });
-    localStorage.setItem("documents",JSON.stringify(updatedData));
+    // localStorage.setItem("documents",JSON.stringify(updatedData));
     setUpdatedDocuments(updatedData);
   };
 
-  
-
   return (
-    <div className="text-black p-4 bg-white">
+    <div className="text-white p-4 ">
       <div className="space-y-8 lg:space-y-2">
         {Documents.Data.map((Question) => {
           const { id, question } = Question;
@@ -37,7 +35,7 @@ const DocumentUpload = () => {
               <p className="lg:flex-1 pr-3">{id}. {question}</p>
 
               <div className="lg:w-[20%] flex items-center space-x-1 text-sm">
-                <label className="cursor-pointer bg-gray-300 py-2 px-4 rounded-full">
+                <label className="cursor-pointer bg-gray-800 py-2 px-4 rounded-full">
                   Upload
                   <input
                     name={id}

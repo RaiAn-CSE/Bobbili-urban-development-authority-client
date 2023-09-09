@@ -3,7 +3,7 @@ import ChecklistQuestions from "../../../../assets/AppChecklist.json";
 import { Link } from "react-router-dom";
 
 function AppChecklist() {
-  const LocalItems = JSON.parse(localStorage.getItem("ApplicationList"));
+  // const LocalItems = JSON.parse(localStorage.getItem("ApplicationList"));
 
   const [questions, setQuestions] = useState(ChecklistQuestions.Questions);
 
@@ -15,23 +15,23 @@ function AppChecklist() {
     setQuestions(updatedQuestions);
   };
   const handleSave = () => {
-      localStorage.setItem("ApplicationList", JSON.stringify(questions))
+      // localStorage.setItem("ApplicationList", JSON.stringify(questions))
   }
   return (
-    <div className="lg:px-20 text-sm p-3 bg-gray-50">
+    <div className="px-3 lg:px-10 text-sm py-3">
       <div className=" space-y-7 lg:space-y-4 ">
-        {LocalItems.map(({ no, question, answer }) => (
+        {questions.map(({ no, question, answer }) => (
           <div key={no} className="lg:flex items-center justify-center">
-            <p className="flex-1 text-black rounded lg:pr-5">
+            <p className="flex-1 text-white rounded lg:pr-5">
               {no}. {question}
             </p>
             <div className="space-x-10 mt-2 lg:pr-2">
-              <label className="ml-2 inline-flex items-center space-x-1 text-black">
-                <input type="radio" name={no} value="yes" className="radio radio-md radio-success" checked={answer === "yes"} onChange={(event) => handleAnswer(event, no)} />
+              <label className={`ml-2 inline-flex items-center space-x-1 text-white ${answer === "yes"&&"font-extrabold text-green-500"}`}>
+                <input type="radio" name={no} value="yes" className="radio radio-sm radio-success" checked={answer === "yes"} onChange={(event) => handleAnswer(event, no)} />
                 <span>Yes</span>
               </label>
-              <label className="ml-2 inline-flex items-center space-x-1 text-black">
-                <input type="radio" name={no} value="no" className="radio radio-md radio-success" checked={answer === "no"} onChange={(event) => handleAnswer(event, no)} />
+              <label className={`ml-2 inline-flex items-center space-x-1 text-white ${answer === "no"&&"font-extrabold"}`}>
+                <input type="radio" name={no} value="no" className="radio radio-sm radio-success" checked={answer === "no"} onChange={(event) => handleAnswer(event, no)} />
                 <span>No</span>
               </label>
             </div>
@@ -40,7 +40,7 @@ function AppChecklist() {
       </div>
       <Link to="/dashboard/draftApplication/documents">
         <button
-          className="py-3 px-4 bg-green-600 rounded font-bold uppercase text-black mt-3 DisplayFair"
+          className="btn mt-5"
           onClick={() => handleSave()}
         >
           Save and Next
