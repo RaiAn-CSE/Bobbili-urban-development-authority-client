@@ -100,29 +100,21 @@ const Login = () => {
 
   return (
     <>
-      <div className="flex h-screen relative">
+      <div className="mt-10 lg:mt-0 flex items-center min-h-[80vh] overflow-hidden lg:h-screen relative">
         {/* support icon  */}
 
-        <div className="absolute bottom-[2%] right-[2%] w-[5vw] h-[5vw] rounded-full cursor-pointer">
-          <img
-            className="object-cover"
-            src={SupportIcon}
-            alt="Customer support icon"
-          />
-        </div>
-
         {/* image part  */}
-        <div className="basis-1/2 h-full bg-[#f3a683] text-center lg:text-left">
+        <div className="lg:basis-1/2 h-full bg-[#f3a683] text-center hidden lg:block lg:text-left">
           <img className="h-full object-cover" src={House} alt="house" />
         </div>
 
         {/* login form  */}
-        <div className="basis-1/2  flex justify-center items-center">
+        <div className="w-full lg:basis-1/2  flex justify-center items-center">
           <div className="w-[80%] mx-auto rounded-lg  p-4  sm:p-6 md:p-8 ">
             <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
               <div>
                 <img
-                  className="h-[8vw] mx-auto"
+                  className="h-[18vw] md:h-[12vw] lg:h-[8vw] mx-auto"
                   src={Logo}
                   alt="The website logo"
                 />
@@ -198,6 +190,13 @@ const Login = () => {
             </form>
           </div>
         </div>
+      </div>
+      <div className="absolute bottom-[2%] right-[2%] w-[15vw] h-[15vw] md:w-[12vw] md:h-[12vw] lg:w-[5vw] lg:h-[5vw] rounded-full cursor-pointer">
+        <img
+          className="object-cover"
+          src={SupportIcon}
+          alt="Customer support icon"
+        />
       </div>
     </>
   );
