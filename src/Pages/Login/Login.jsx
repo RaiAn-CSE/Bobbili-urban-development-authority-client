@@ -5,6 +5,7 @@ import Logo from "../../assets/images/logo.png";
 import SupportIcon from "../../assets/images/customer-service.png";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router";
+import { BsFillHouseCheckFill, BsFillHouseLockFill } from "react-icons/bs";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -92,6 +93,11 @@ const Login = () => {
       });
   };
 
+  const [show, setShow] = useState(false);
+  const handlePasswordShow = () => {
+    show ? setShow(false) : setShow(true);
+  };
+
   return (
     <>
       <div className="flex h-screen relative">
@@ -139,11 +145,8 @@ const Login = () => {
                   defaultValue={cookieUserId}
                   placeholder="name@company.com"
                 />
-                {errors.id?.type === "required" && (
-                  <p role="alert">UserID is required</p>
-                )}
               </div>
-              <div>
+              <div className="relative">
                 <label
                   htmlFor="password"
                   className="block mb-2 text-sm font-bold Roboto text-gray-900 dark:text-white"
@@ -151,16 +154,20 @@ const Login = () => {
                   Your password
                 </label>
                 <input
-                  type="password"
+                  type={`${show === true ? "text" : "password"}`}
                   {...register("password", { required: true })}
                   id="password"
                   placeholder="••••••••"
                   defaultValue={cookieUserPassword}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pe-10"
                 />
-                {errors.password?.type === "required" && (
-                  <p role="alert">Password is required</p>
-                )}
+
+                <div
+                  className="absolute top-[55%] right-3 w-fit"
+                  onClick={handlePasswordShow}
+                >
+                  {show ? <BsFillHouseCheckFill /> : <BsFillHouseLockFill />}
+                </div>
               </div>
 
               <div className="flex items-start">
