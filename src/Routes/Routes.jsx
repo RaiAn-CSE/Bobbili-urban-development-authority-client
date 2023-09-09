@@ -14,6 +14,7 @@ import Payment from "../Pages/Dashboard/LtpDashboard/DraftApplication/Payment";
 import SubmitApplication from "../Pages/Dashboard/LtpDashboard/Submitted/SubmitApplication";
 import AddUser from "../Pages/Dashboard/Admin/Admin2/AddUser";
 import UpdateUser from "../Pages/Dashboard/Admin/Admin2/UpdateUser";
+import AllUsers from "../Pages/Dashboard/Admin/Admin2/AllUsers";
 
 const router = createBrowserRouter([
   {
@@ -45,10 +46,10 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/dashboard/updateUser",
+        path: "/dashboard/allUser",
         element: (
           <PrivateRoute>
-            <UpdateUser />
+            <AllUsers />
           </PrivateRoute>
         ),
       },
