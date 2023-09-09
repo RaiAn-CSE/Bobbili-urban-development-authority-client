@@ -25,7 +25,7 @@ const Drawing = () => {
           {selectedFiles[1] && <p>{selectedFiles[1].name}</p>}
         </div>
       </div>
-      
+
       {/* Drawing PDF */}
       <div className="md:flex items-center px-2 space-y-2">
         <p className="md:flex-1 pr-3">2. Drawing PDF</p>

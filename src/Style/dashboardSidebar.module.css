@@ -1,18 +1,17 @@
-.sidebar .links::-webkit-scrollbar {
-  display: none;
-}
-
 .links li {
   display: flex;
+  flex-direction: row;
   border-radius: 4px;
   align-items: center;
+  margin-bottom: 0.5rem;
 }
 
 .links li a {
   font-weight: 600;
 }
 
-.links li:hover {
+.links li:hover,
+.links li a:hover {
   cursor: pointer;
   background-color: #10ac84;
   color: #fff;

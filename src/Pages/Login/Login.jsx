@@ -5,6 +5,7 @@ import Logo from "../../assets/images/logo.png";
 import SupportIcon from "../../assets/images/customer-service.png";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router";
+import { BsFillHouseCheckFill, BsFillHouseLockFill } from "react-icons/bs";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -92,31 +93,28 @@ const Login = () => {
       });
   };
 
+  const [show, setShow] = useState(false);
+  const handlePasswordShow = () => {
+    show ? setShow(false) : setShow(true);
+  };
+
   return (
     <>
-      <div className="flex h-screen relative">
+      <div className="mt-10 lg:mt-0 flex items-center min-h-[80vh] overflow-hidden lg:h-screen relative">
         {/* support icon  */}
 
-        <div className="absolute bottom-[2%] right-[2%] w-[5vw] h-[5vw] rounded-full cursor-pointer">
-          <img
-            className="object-cover"
-            src={SupportIcon}
-            alt="Customer support icon"
-          />
-        </div>
-
         {/* image part  */}
-        <div className="basis-1/2 h-full bg-[#f3a683] text-center lg:text-left">
+        <div className="lg:basis-1/2 h-full bg-[#f3a683] text-center hidden lg:block lg:text-left">
           <img className="h-full object-cover" src={House} alt="house" />
         </div>
 
         {/* login form  */}
-        <div className="basis-1/2  flex justify-center items-center">
+        <div className="w-full lg:basis-1/2  flex justify-center items-center">
           <div className="w-[80%] mx-auto rounded-lg  p-4  sm:p-6 md:p-8 ">
             <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
               <div>
                 <img
-                  className="h-[8vw] mx-auto"
+                  className="h-[18vw] md:h-[12vw] lg:h-[8vw] mx-auto"
                   src={Logo}
                   alt="The website logo"
                 />
@@ -139,11 +137,8 @@ const Login = () => {
                   defaultValue={cookieUserId}
                   placeholder="name@company.com"
                 />
-                {errors.id?.type === "required" && (
-                  <p role="alert">UserID is required</p>
-                )}
               </div>
-              <div>
+              <div className="relative">
                 <label
                   htmlFor="password"
                   className="block mb-2 text-sm font-bold Roboto text-gray-900 dark:text-white"
@@ -151,16 +146,20 @@ const Login = () => {
                   Your password
                 </label>
                 <input
-                  type="password"
+                  type={`${show === true ? "text" : "password"}`}
                   {...register("password", { required: true })}
                   id="password"
                   placeholder="••••••••"
                   defaultValue={cookieUserPassword}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pe-10"
                 />
-                {errors.password?.type === "required" && (
-                  <p role="alert">Password is required</p>
-                )}
+
+                <div
+                  className="absolute top-[55%] right-3 w-fit"
+                  onClick={handlePasswordShow}
+                >
+                  {show ? <BsFillHouseCheckFill /> : <BsFillHouseLockFill />}
+                </div>
               </div>
 
               <div className="flex items-start">
@@ -191,6 +190,13 @@ const Login = () => {
             </form>
           </div>
         </div>
+      </div>
+      <div className="absolute bottom-[2%] right-[2%] w-[15vw] h-[15vw] md:w-[12vw] md:h-[12vw] lg:w-[5vw] lg:h-[5vw] rounded-full cursor-pointer">
+        <img
+          className="object-cover"
+          src={SupportIcon}
+          alt="Customer support icon"
+        />
       </div>
     </>
   );
