@@ -7,13 +7,15 @@ const AddUser = () => {
   const onSubmit = (data) => {
     console.log(data);
 
+    const userInfo = { ...data, draftApplication: [], submitApplication: [] };
+
     // store users data in the database
     fetch("http://localhost:5000/addUser", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(userInfo),
     })
       .then((res) => res.json())
       .then((data) => {

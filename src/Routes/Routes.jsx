@@ -15,14 +15,17 @@ import SubmitApplication from "../Pages/Dashboard/LtpDashboard/Submitted/SubmitA
 import AddUser from "../Pages/Dashboard/Admin/Admin2/AddUser";
 import UpdateUser from "../Pages/Dashboard/Admin/Admin2/UpdateUser";
 import AllUsers from "../Pages/Dashboard/Admin/Admin2/AllUsers";
+import Error from "../Pages/Shared/Error";
 
 const router = createBrowserRouter([
   {
     path: "/",
+    errorElement: <Error />,
     element: <Login />,
   },
   {
     path: "/dashboard",
+    errorElement: <Error />,
     element: (
       <PrivateRoute>
         <DashboardLayout />

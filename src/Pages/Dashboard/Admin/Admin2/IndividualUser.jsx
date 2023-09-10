@@ -8,7 +8,6 @@ const IndividualUser = ({ user }) => {
       {user === [] ? (
         <tr>
           <td>No data</td>
-          <td>No data</td>
         </tr>
       ) : (
         <tr>
