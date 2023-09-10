@@ -4,15 +4,15 @@ import { VscGitPullRequestCreate } from "react-icons/vsc";
 
 const NewApplication = () => {
   return (
-    <div className="relative my-3">
-      <Link className="absolute right-3 border-2 rounded-lg p-1 bg-gray-300" to="/dashboard/draftApplication/buildingInfo">
-        <span className="flex items-center">
-          <span className="mr-2">Create new</span>
-          <VscGitPullRequestCreate color='#2c8877' />
-        </span>
+    <div className="grid grid-cols-1 my-3">
+      <Link className="flex justify-end mb-3 mr-3" to="/dashboard/draftApplication/buildingInfo">
+        <button className="btn flex bg-[#c0e9e4] hover:bg-[#10ac84] text-[#000] hover:text-[#fff]">
+          <span>Create new</span>
+          <VscGitPullRequestCreate />
+        </button>
       </Link>
 
-      <div className="overflow-x-auto w-full absolute top-9">
+      <div className="w-full">
         <table className="table">
           {/* head */}
           <thead>

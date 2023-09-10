@@ -224,21 +224,36 @@ const BuildingInfo = () => {
           <div className="flex justify-start items-center ml-3 mt-5">
             <button className="btn"><AiFillPlusCircle size={25} color='#6fd7bd' /></button>
           </div>
-
         </div>
 
-        <div className="flex justify-center">
-          <InputField
-            id="name12"
-            name="name1"
-            label="Total Plinth area"
-            placeholder="Automatically calculated" />
-          <InputField
-            id="name12"
-            name="name1"
-            label="Total Parking area"
-            placeholder="Automatically calculated" />
+
+        <div className="grid grid-cols-4">
+          <div className="my-2 mx-3">
+            <label htmlFor='disabled-input' className="block text-gray-600 mb-1 font-semibold">
+              Total Plinth area
+            </label>
+            <input
+              type='text'
+              id='disabled-input'
+              name="name1"
+              placeholder="Automatically calculated"
+              className="w-full px-3 py-2 border rounded-lg max-w-xs" disabled
+            />
+          </div>
+
+          <div className="my-2 mx-3">
+            <label htmlFor='disabled-input2' className="block text-gray-600 mb-1 font-semibold">
+              Total Parking area
+            </label>
+            <input
+              id="disabled-input2"
+              name="name1"
+              placeholder="Automatically calculated"
+              className="w-full px-3 py-2 border rounded-lg max-w-xs" disabled
+            />
+          </div>
         </div>
+
 
         <div className="grid grid-cols-2 lg:grid-cols-4">
           <InputField
@@ -305,7 +320,7 @@ const BuildingInfo = () => {
         </div>
       </div>
 
-      <div className="flex justify-center mb-5">
+      <div className="flex justify-center my-5">
         <Link to="/dashboard/draftApplication/applicantInfo">
           <button className="btn">Save And Continue</button>
         </Link>

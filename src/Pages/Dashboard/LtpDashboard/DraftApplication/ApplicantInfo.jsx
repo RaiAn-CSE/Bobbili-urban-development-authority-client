@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 
 const ApplicantInfo = () => {
   return (
-    <div className="flex flex-col p-6 lg:p-2 my-5">
+    <div className="grid my-5 lg:my-0 lg:p-2">
       <div>
-        <h3>LTP’s Details</h3>
+        <h3 className="font-bold text-xl">LTP’s Details</h3>
         <div className="divider m-0"></div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2">
@@ -19,13 +19,16 @@ const ApplicantInfo = () => {
             <InputField id="name6" name="Mandal" label="E-mail" placeholder='xxxx@gmail.com' type='email' />
           </div>
           <div>
-            <InputField id="name3" name="Nature of permission" label="Address" placeholder='Dr. no., Street, Village, Mandal, Dist.' />
+            <div className="my-2 mx-3">
+              <label for="message" className="block text-gray-600 mb-1 font-semibold">Address</label>
+              <textarea id="message" rows="4" className="w-full px-3 py-2 border rounded-lg max-w-xs" placeholder="Dr. no., Street, Village, Mandal, Dist."></textarea>
+            </div>
           </div>
         </div>
       </div>
 
-      <div>
-        <h3>Applicant’s Details</h3>
+      <div className="my-5">
+        <h3 className="font-bold text-xl">Applicant’s Details</h3>
         <div className="divider m-0"></div>
         <div className="grid grid-cols-1 lg:grid-cols-2">
           <div className="grid grid-cols-2 items-center">
@@ -36,8 +39,9 @@ const ApplicantInfo = () => {
             <InputField id="name15" name="name1" label="Aadhar no." placeholder='Aadhar no.' type='number' />
             <InputField id="name15" name="name1" label="PIN Code" placeholder='PIN Code' type='number' />
           </div>
-          <div>
-            <InputField id="name15" name="name1" label="Address" placeholder='Dr. no., Street, Village, Mandal, Dist.' />
+          <div className="my-2 mx-3">
+            <label for="message" className="block text-gray-600 mb-1 font-semibold">Address</label>
+            <textarea id="message" rows="4" className="w-full px-3 py-2 border rounded-lg max-w-xs" placeholder="Dr. no., Street, Village, Mandal, Dist."></textarea>
           </div>
         </div>
       </div >
