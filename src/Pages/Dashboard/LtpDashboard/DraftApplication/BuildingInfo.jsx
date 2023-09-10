@@ -58,12 +58,12 @@ const BuildingInfo = () => {
             <p className="font-semibold text-gray-600 mb-1">Application Type?</p>
             <div>
               <label className="inline-flex items-center">
-                <input type="radio" name="radio-1" className="radio h-4 w-4" value="yes" />
-                <span className="ml-2 text-sm">Yes</span>
+                <input type="radio" name="radio-1" className="radio h-4 w-4" value="Private" />
+                <span className="ml-2 text-sm">Private</span>
               </label>
               <label className="inline-flex items-center ml-3">
-                <input type="radio" name="radio-1" className="radio h-4 w-4" value="no" />
-                <span className="ml-2 text-sm">No</span>
+                <input type="radio" name="radio-1" className="radio h-4 w-4" value="Govt. Land" />
+                <span className="ml-2 text-sm">Govt. Land</span>
               </label>
             </div>
           </div>
