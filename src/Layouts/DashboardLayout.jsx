@@ -16,7 +16,7 @@ const DashboardLayout = () => {
       <Navbar />
       <div className="drawer lg:drawer-open h-full relative">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content p-4">
+        <div className="drawer-content p-2">
           {/* <!-- Page content here --> */}
 
           <label

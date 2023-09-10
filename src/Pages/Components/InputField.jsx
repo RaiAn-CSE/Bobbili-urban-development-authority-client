@@ -5,8 +5,8 @@ const InputField = ({ id, name, placeholder, type, label }) => {
     const inputType = type || 'text';
 
     return (
-        <div className="m-4">
-            <label htmlFor={id} className="block text-sm font-sm text-gray-600">
+        <div className="my-2 mx-3">
+            <label htmlFor={id} className="block text-gray-600 mb-1 font-semibold">
                 {label}
             </label>
             <input
@@ -14,7 +14,7 @@ const InputField = ({ id, name, placeholder, type, label }) => {
                 id={id}
                 name={name}
                 placeholder={placeholder} // Use the labelPlaceholder variable as the placeholder attribute
-                className="w-[180px] px-4 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-3 py-2 border rounded-lg max-w-xs"
             />
         </div>
     );
