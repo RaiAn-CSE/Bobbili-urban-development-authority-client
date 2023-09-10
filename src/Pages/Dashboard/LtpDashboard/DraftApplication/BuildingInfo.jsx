@@ -59,11 +59,11 @@ const BuildingInfo = () => {
             <div>
               <label className="inline-flex items-center">
                 <input type="radio" name="radio-1" className="radio h-4 w-4" value="Private" />
-                <span className="ml-2 text-sm">Private</span>
+                <span className="ml-2 text-base">Private</span>
               </label>
               <label className="inline-flex items-center ml-3">
                 <input type="radio" name="radio-1" className="radio h-4 w-4" value="Govt. Land" />
-                <span className="ml-2 text-sm">Govt. Land</span>
+                <span className="ml-2 text-base">Govt. Land</span>
               </label>
             </div>
           </div>
@@ -152,27 +152,27 @@ const BuildingInfo = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 my-5">
-          <div className="flex justify-center font-medium">
+          <div className="flex justify-center font-medium text-lg">
             <p>Whether site abuts any Existing Road?</p>
             <label className="inline-flex items-center ml-3">
               <input type="radio" name="radio-1" className="radio h-4 w-4" value="yes" />
-              <span className="ml-2 text-sm">Yes</span>
+              <span className="ml-2 text-base">Yes</span>
             </label>
             <label className="inline-flex items-center ml-3">
               <input type="radio" name="radio-1" className="radio h-4 w-4" value="no" />
-              <span className="ml-2 text-sm">No</span>
+              <span className="ml-2 text-base">No</span>
             </label>
           </div>
 
-          <div className="flex justify-center font-medium">
+          <div className="flex justify-center font-medium text-lg">
             <p>Status of Road?</p>
             <label className="inline-flex items-center ml-3">
               <input type="radio" name="radio-1" className="radio h-4 w-4" value="Public" />
-              <span className="ml-2 text-sm">Public</span>
+              <span className="ml-2 text-base">Public</span>
             </label>
             <label className="inline-flex items-center ml-3">
               <input type="radio" name="radio-1" className="radio h-4 w-4" value="Private" />
-              <span className="ml-2 text-sm">Private</span>
+              <span className="ml-2 text-base">Private</span>
             </label>
           </div>
         </div>
@@ -293,27 +293,27 @@ const BuildingInfo = () => {
             placeholder="in Mts." />
         </div>
 
-        <div className="flex font-medium">
+        <div className="flex font-medium mx-3 text-lg">
           <p>Compounding wall proposed?</p>
           <label className="inline-flex items-center ml-3">
             <input type="radio" name="radio-1" className="radio h-4 w-4" value="yes" />
-            <span className="ml-2 text-sm">Yes</span>
+            <span className="ml-2 text-base">Yes</span>
           </label>
           <label className="inline-flex items-center ml-3">
             <input type="radio" name="radio-1" className="radio h-4 w-4" value="no" />
-            <span className="ml-2 text-sm">No</span>
+            <span className="ml-2 text-base">No</span>
           </label>
         </div>
 
-        <div className="flex font-medium">
+        <div className="flex font-medium mx-3 text-lg">
           <p>Whether site Registered as house plot/ Building prior to 18-01 2006?</p>
           <label className="inline-flex items-center ml-3">
             <input type="radio" name="radio-1" className="radio h-4 w-4" value='yes' />
-            <span className="ml-2">Yes</span>
+            <span className="ml-2 text-base">Yes</span>
           </label>
           <label className="inline-flex items-center ml-3">
             <input type="radio" name="radio-1" className="radio h-4 w-4" value='no' />
-            <span className="ml-2">No</span>
+            <span className="ml-2 text-base">No</span>
           </label>
         </div>
 
