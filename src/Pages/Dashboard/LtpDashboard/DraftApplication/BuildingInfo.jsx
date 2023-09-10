@@ -9,11 +9,21 @@ const BuildingInfo = () => {
   const [selectedOption, setSelectedOption] = useState('');
   const [showAdditionalFields, setShowAdditionalFields] = useState(false);
 
+  const [selectedOptionCase, setSelectedOptionCase] = useState('');
+  const [showAdditionalFieldsCase, setShowAdditionalFieldsCase] = useState(false);
+
   const handleSelectChange = (event) => {
     const selectedValue = event.target.value;
     setSelectedOption(selectedValue);
 
     setShowAdditionalFields(selectedValue === 'Regularised under LRS');
+  };
+
+  const handleSelectChangeCase = (event) => {
+    const selectedValue = event.target.value;
+    setSelectedOptionCase(selectedValue);
+
+    setShowAdditionalFieldsCase(selectedValue === 'Alteration Addition Existing' || selectedValue === 'Revision');
   };
 
   return (
@@ -25,11 +35,18 @@ const BuildingInfo = () => {
         <div className="grid grid-cols-2 lg:grid-cols-4">
 
           <div className="my-2 mx-3">
-            <label className="block text-gray-600 mb-1 font-semibold">
+            <label htmlFor="nature" className="block text-gray-600 mb-1 font-semibold">
               <span>Case Type</span>
             </label>
-            <select className="w-full px-3 py-2 border rounded-lg max-w-xs">
-              <option disabled selected>Select Case type</option>
+            <select
+              id="nature"
+              className="w-full px-3 py-[10px] border rounded-lg max-w-xs"
+              value={selectedOptionCase}
+              onChange={handleSelectChangeCase}
+            >
+              <option value="" disabled selected>
+                Select Case type
+              </option>
               <option>New</option>
               <option>Demolition and Reconstruction</option>
               <option>Alteration Addition Existing</option>
@@ -63,27 +80,25 @@ const BuildingInfo = () => {
             </select>
           </div>
 
-          <div>
-            <div className="my-2 mx-3">
-              <label htmlFor="nature" className="block text-gray-600 mb-1 font-semibold">
-                <span>Nature of the site</span>
-              </label>
-              <select
-                id="nature"
-                className="w-full px-3 py-[10px] border rounded-lg max-w-xs"
-                value={selectedOption}
-                onChange={handleSelectChange}
-              >
-                <option value="" disabled selected>
-                  Select Nature of the site
-                </option>
-                <option>Approved Layout</option>
-                <option>Regularised under LRS</option>
-                <option>Plot port of RLP/IPLP but not regularised</option>
-                <option>Congested/ Gramakanta/ Old Built-up area</option>
-                <option>Newly Developed/ Built up area</option>
-              </select>
-            </div>
+          <div className="my-2 mx-3">
+            <label htmlFor="nature" className="block text-gray-600 mb-1 font-semibold">
+              <span>Nature of the site</span>
+            </label>
+            <select
+              id="nature"
+              className="w-full px-3 py-[10px] border rounded-lg max-w-xs"
+              value={selectedOption}
+              onChange={handleSelectChange}
+            >
+              <option value="" disabled selected>
+                Select Nature of the site
+              </option>
+              <option>Approved Layout</option>
+              <option>Regularised under LRS</option>
+              <option>Plot port of RLP/IPLP but not regularised</option>
+              <option>Congested/ Gramakanta/ Old Built-up area</option>
+              <option>Newly Developed/ Built up area</option>
+            </select>
           </div>
 
           <InputField id="name5" name="Survey no." label="Survey no." placeholder="Survey no." type='number' />
@@ -91,20 +106,15 @@ const BuildingInfo = () => {
           <InputField id="name6" name="Mandal" label="Mandal" placeholder="Mandal" />
           <InputField id="name6" name="Grama Panchayat" label="Grama Panchayat" placeholder="Grama Panchayat" />
           <InputField id="name6" name="Village" label="Village" placeholder="Village" />
+          {showAdditionalFieldsCase && (
+            <>
+              <InputField id="name6" name="Village" label="B.A no" placeholder="B.A no" />
+            </>
+          )}
           {showAdditionalFields && (
             <>
-              <InputField
-                id="name6"
-                name="Village"
-                label="L.P. no"
-                placeholder="L.P. no"
-              />
-              <InputField
-                id="name7"
-                name="Village"
-                label="Plot no"
-                placeholder="Plot no"
-              />
+              <InputField id="name6" name="Village" label="L.P. no" placeholder="L.P. no" />
+              <InputField id="name7" name="Village" label="Plot no" placeholder="Plot no" />
             </>
           )}
         </div>

@@ -72,7 +72,7 @@ const Payment = () => {
           <InputField id="myInput8" name="myInput" label='Branch' placeholder="xxxx" type="text" />
         </div>
 
-        <div className="flex justify-end my-5">
+        <div className="flex justify-end mt-5">
           <Link className="mr-2" to="">
             <button className="btn">Save All</button>
           </Link>
