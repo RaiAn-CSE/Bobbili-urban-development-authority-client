@@ -14,7 +14,7 @@ const NewApplication = () => {
         </Link>
       </div>
 
-      <div className="w-full">
+      <div className="w-full overflow-x-auto">
         <table className="table">
           {/* head */}
           <thead>

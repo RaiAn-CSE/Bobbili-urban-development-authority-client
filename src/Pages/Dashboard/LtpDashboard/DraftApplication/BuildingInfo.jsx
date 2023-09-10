@@ -46,7 +46,7 @@ const BuildingInfo = () => {
         <div className="divider m-0 mb-2"></div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 my-5">
-          <div className="my-4 mx-3">
+          <div className="flex flex-col justify-center px-3">
             <label
               htmlFor="nature"
               className="block text-gray-600 mb-1 font-semibold"
@@ -67,7 +67,7 @@ const BuildingInfo = () => {
             </select>
           </div>
 
-          <div className="grid grid-cols-1 font-medium justify-items-center items-center my-4 mx-3">
+          <div className="grid grid-cols-1 font-medium justify-center items-center my-4 mx-3">
             <p className="font-semibold text-gray-600 mb-1">
               Application Type?
             </p>
@@ -79,9 +79,9 @@ const BuildingInfo = () => {
                   className="radio border border-[#10AC84] h-4 w-4"
                   value="Private"
                 />
-                <span className="ml-2 text-base">Private</span>
+                <span className="md:ml-2 text-base">Private</span>
               </label>
-              <label className="inline-flex items-center ml-3">
+              <label className="inline-flex items-center md:ml-3">
                 <input
                   type="radio"
                   name="radio-1"
@@ -93,7 +93,7 @@ const BuildingInfo = () => {
             </div>
           </div>
 
-          <div className="my-4 mx-3">
+          <div className="flex flex-col  justify-center mx-3">
             <label className="block text-gray-600 mb-1 font-semibold">
               <span>Nature of permission</span>
             </label>
@@ -229,8 +229,8 @@ const BuildingInfo = () => {
         </div>
 
         <div className="grid grid-cols-1  my-10">
-          <div className="flex justify-center font-medium mb-4 text-lg mt-3">
-            <div className="flex items-center">
+          <div className="flex flex-col md:flex-row justify-center items-center font-medium mb-4 text-lg mt-3">
+            <div className="flex items-center mb-3 md:mb-0">
               <FaHandPointRight className="me-3 text-green-500" />
               <p className="font-bold text-lg">
                 Whether site abuts any Existing Road?
@@ -256,8 +256,8 @@ const BuildingInfo = () => {
             </label>
           </div>
 
-          <div className="flex justify-center font-medium mb-8 mt-4 text-lg ">
-            <div className="flex items-center">
+          <div className="flex flex-col md:flex-row justify-center items-center font-medium mb-8 mt-4 text-lg ">
+            <div className="flex items-center mb-3 md:mb-0">
               <FaHandPointRight className="me-3 text-green-500" />
               <p className="font-bold text-lg">Status of Road?</p>
             </div>
@@ -283,7 +283,7 @@ const BuildingInfo = () => {
         </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 mt-3">
-          <div className="my-4 mx-3">
+          <div className="flex flex-col justify-center mx-3">
             <label className="block text-gray-600 mb-1 font-semibold">
               <span>Nature of Road</span>
             </label>
@@ -315,7 +315,7 @@ const BuildingInfo = () => {
             placeholder="per Sq.Yd."
           />
 
-          <div className="my-4 mx-3">
+          <div className="flex flex-col justify-center mx-3">
             <label className="block text-gray-600 mb-1 font-semibold">
               <span>Floor Name</span>
             </label>
