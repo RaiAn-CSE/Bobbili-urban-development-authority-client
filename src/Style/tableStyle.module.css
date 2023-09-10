@@ -1,0 +1,12 @@
+table {
+  border: 1px solid #c0e9e4;
+}
+
+tr:nth-child(2n) {
+  background-color: #c0e9e44d;
+}
+
+tr:hover {
+  background: #c0e9e44d;
+  cursor: pointer;
+}

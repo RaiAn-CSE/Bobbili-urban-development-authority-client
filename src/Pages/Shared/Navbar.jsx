@@ -1,5 +1,5 @@
 import React from "react";
-import UserImg from "../../assets/images//user (1).png";
+import UserImg from "../../assets/images//user.png";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/images/logo.png";

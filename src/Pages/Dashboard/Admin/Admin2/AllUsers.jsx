@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import IndividualUser from "./IndividualUser";
 import tableStyle from "../../../../Style/tableStyle.module.css";
 import { useQuery } from "react-query";
+import Loading from "../../../Shared/Loading";
 
 const AllUsers = () => {
   const [records, setRecords] = useState([]);
@@ -33,7 +34,7 @@ const AllUsers = () => {
   };
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
 
   return (
@@ -62,7 +63,9 @@ const AllUsers = () => {
 
       {/* display users  */}
       <div className="overflow-x-auto">
-        <table className="table w-[70%] mx-auto mt-10 border">
+        <table
+          className={`table w-full md:w-[70%] mx-auto mt-10 ${tableStyle.table}`}
+        >
           {/* head */}
           <thead className="bg-[#C0E9E4] Roboto font-bold text-black text-center">
             <tr>
