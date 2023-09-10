@@ -63,7 +63,9 @@ const AllUsers = () => {
 
       {/* display users  */}
       <div className="overflow-x-auto">
-        <table className="table w-[70%] mx-auto mt-10 border">
+        <table
+          className={`table w-full md:w-[70%] mx-auto mt-10 ${tableStyle.table}`}
+        >
           {/* head */}
           <thead className="bg-[#C0E9E4] Roboto font-bold text-black text-center">
             <tr>
