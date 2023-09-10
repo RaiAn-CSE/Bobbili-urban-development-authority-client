@@ -231,7 +231,7 @@ const BuildingInfo = () => {
             name="name1"
             label="Parking Area (in Sq.M.)"
             placeholder="in Sq.M." />
-          <div className="flex justify-start items-center ml-3 mt-5">
+          <div className="flex justify-start items-center ml-3 mt-6">
             <button className="btn"><AiFillPlusCircle size={25} color='#6fd7bd' /></button>
           </div>
         </div>

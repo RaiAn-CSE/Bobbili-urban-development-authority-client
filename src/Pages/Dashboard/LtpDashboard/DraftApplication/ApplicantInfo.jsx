@@ -19,7 +19,7 @@ const ApplicantInfo = () => {
             <InputField id="name6" name="Mandal" label="E-mail" placeholder='xxxx@gmail.com' type='email' />
           </div>
           <div>
-            <div className="my-2 mx-3">
+            <div className="my-4 mx-3">
               <label for="message" className="block text-gray-600 mb-1 font-semibold">Address</label>
               <textarea id="message" rows="4" className="w-full px-3 py-2 border rounded-lg max-w-xs" placeholder="Dr. no., Street, Village, Mandal, Dist."></textarea>
             </div>
@@ -39,7 +39,7 @@ const ApplicantInfo = () => {
             <InputField id="name15" name="name1" label="Aadhar no." placeholder='Aadhar no.' type='number' />
             <InputField id="name15" name="name1" label="PIN Code" placeholder='PIN Code' type='number' />
           </div>
-          <div className="my-2 mx-3">
+          <div className="my-4 mx-3">
             <label for="message" className="block text-gray-600 mb-1 font-semibold">Address</label>
             <textarea id="message" rows="4" className="w-full px-3 py-2 border rounded-lg max-w-xs" placeholder="Dr. no., Street, Village, Mandal, Dist."></textarea>
           </div>
