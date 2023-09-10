@@ -16,7 +16,7 @@ const Drawing = () => {
   }
 
   return (
-    <div className="text-black h-screen p-5 mt-[5%] md:w-[90%]">
+    <div className="text-black h-screen p-5 mt-[5%]">
 
       {/* AutoCAD Drawing */}
       <div className="flex items-center px-2 space-y-2 mb-8">
@@ -25,7 +25,7 @@ const Drawing = () => {
           <label className="cursor-pointer bg-gray-300 py-2 px-4 rounded-full">
             Upload <input type="file" accept=".dwg, .zip, .pdf" onChange={(event) => handleFileChange(event, "AutoCAD Drawing")} style={{ display: "none" }} />
           </label>
-          {selectedFiles[1] && <p>{selectedFiles[1].name}</p>}
+          {selectedFiles["AutoCAD Drawing"] && <p>{selectedFiles["AutoCAD Drawing"].name}</p>}
         </div>
       </div>
 
@@ -36,11 +36,11 @@ const Drawing = () => {
           <label className="cursor-pointer bg-gray-300 py-2 px-4 rounded-full">
             Upload <input type="file" accept=".pdf, image/*" onChange={(event) => handleFileChange(event, "Drawing PDF")} style={{ display: "none" }} />
           </label>
-          {selectedFiles[2] && <p>{selectedFiles[2].name}</p>}
+          {selectedFiles["Drawing PDF"] && <p>{selectedFiles["Drawing PDF"].name}</p>}
         </div>
       </div>
 
-      <div className="mt-16 flex justify-end">
+      <div className="mt-16 flex justify-center md:justify-end">
         <Link onClick={() => handleDrawing()} to="/dashboard/draftApplication/payment">
           <button className={`${btn}`}>Save And Continue</button>
         </Link>
