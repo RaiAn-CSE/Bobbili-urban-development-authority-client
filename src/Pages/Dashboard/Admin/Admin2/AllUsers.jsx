@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import IndividualUser from "./IndividualUser";
 import tableStyle from "../../../../Style/tableStyle.module.css";
 import { useQuery } from "react-query";
+import Loading from "../../../Shared/Loading";
 
 const AllUsers = () => {
   const [records, setRecords] = useState([]);
@@ -33,7 +34,7 @@ const AllUsers = () => {
   };
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
 
   return (
