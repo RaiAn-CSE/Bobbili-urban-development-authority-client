@@ -34,7 +34,7 @@ const BuildingInfo = () => {
 
         <div className="grid grid-cols-2 lg:grid-cols-4">
 
-          <div className="my-2 mx-3">
+          <div className="my-4 mx-3">
             <label htmlFor="nature" className="block text-gray-600 mb-1 font-semibold">
               <span>Case Type</span>
             </label>
@@ -54,7 +54,7 @@ const BuildingInfo = () => {
             </select>
           </div>
 
-          <div className="grid grid-cols-1 font-medium justify-items-center items-center my-2 mx-3">
+          <div className="grid grid-cols-1 font-medium justify-items-center items-center my-4 mx-3">
             <p className="font-semibold text-gray-600 mb-1">Application Type?</p>
             <div>
               <label className="inline-flex items-center">
@@ -68,7 +68,7 @@ const BuildingInfo = () => {
             </div>
           </div>
 
-          <div className="my-2 mx-3">
+          <div className="my-4 mx-3">
             <label className="block text-gray-600 mb-1 font-semibold">
               <span>Nature of permission</span>
             </label>
@@ -80,7 +80,7 @@ const BuildingInfo = () => {
             </select>
           </div>
 
-          <div className="my-2 mx-3">
+          <div className="my-4 mx-3">
             <label htmlFor="nature" className="block text-gray-600 mb-1 font-semibold">
               <span>Nature of the site</span>
             </label>
@@ -179,7 +179,7 @@ const BuildingInfo = () => {
 
         <div className="grid grid-cols-2 lg:grid-cols-4 mt-3">
 
-          <div className="my-2 mx-3">
+          <div className="my-4 mx-3">
             <label className="block text-gray-600 mb-1 font-semibold">
               <span>Nature of Road</span>
             </label>
@@ -208,7 +208,7 @@ const BuildingInfo = () => {
             label="Market Value (per Sq.Yd.)"
             placeholder="per Sq.Yd." />
 
-          <div className="my-2 mx-3">
+          <div className="my-4 mx-3">
             <label className="block text-gray-600 mb-1 font-semibold">
               <span>Floor Name</span>
             </label>
@@ -238,7 +238,7 @@ const BuildingInfo = () => {
 
 
         <div className="grid grid-cols-4">
-          <div className="my-2 mx-3">
+          <div className="my-4 mx-3">
             <label htmlFor='disabled-input' className="block text-gray-600 mb-1 font-semibold">
               Total Plinth area
             </label>
@@ -251,7 +251,7 @@ const BuildingInfo = () => {
             />
           </div>
 
-          <div className="my-2 mx-3">
+          <div className="my-4 mx-3">
             <label htmlFor='disabled-input2' className="block text-gray-600 mb-1 font-semibold">
               Total Parking area
             </label>
@@ -293,7 +293,7 @@ const BuildingInfo = () => {
             placeholder="in Mts." />
         </div>
 
-        <div className="flex font-medium mx-3 text-lg">
+        <div className="flex font-medium mx-3 text-lg my-3">
           <p>Compounding wall proposed?</p>
           <label className="inline-flex items-center ml-3">
             <input type="radio" name="radio-4" className="radio h-4 w-4" value="yes" />
@@ -305,7 +305,7 @@ const BuildingInfo = () => {
           </label>
         </div>
 
-        <div className="flex font-medium mx-3 text-lg">
+        <div className="flex font-medium mx-3 text-lg mb-2">
           <p>Whether site Registered as house plot/ Building prior to 18-01 2006?</p>
           <label className="inline-flex items-center ml-3">
             <input type="radio" name="radio-5" className="radio h-4 w-4" value='yes' checked />

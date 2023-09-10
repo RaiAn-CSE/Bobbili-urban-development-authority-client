@@ -5,7 +5,7 @@ const InputField = ({ id, name, placeholder, type, label }) => {
     const inputType = type || 'text';
 
     return (
-        <div className="my-2 mx-3">
+        <div className="my-4 mx-3">
             <label htmlFor={id} className="block text-gray-600 mb-1 font-semibold">
                 {label}
             </label>
