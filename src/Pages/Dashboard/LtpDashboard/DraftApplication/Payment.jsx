@@ -16,7 +16,7 @@ const Payment = () => {
           <InputField id="myInput3" name="myInput" label='Impact fee (50% to UDA)' placeholder="5000" type="number" />
           <InputField id="myInput4" name="myInput" label='Total' placeholder="7000" type="number" />
           <div>
-            <button className="btn px-3 mt-8 ml-3 bg-[#2c3a4e] text-[#ffffff] hover:bg-[#17212e]"><GiMoneyStack size={25} color='#6fd7bd' /> pay now</button>
+            <button className="btn px-3 mt-10 ml-3 bg-[#2c3a4e] text-[#ffffff] hover:bg-[#17212e]"><GiMoneyStack size={25} color='#6fd7bd' /> pay now</button>
           </div>
         </div>
       </div>
