@@ -1,19 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import InputField from "../../../Components/InputField";
 import { Link } from "react-router-dom";
 import { AiFillPlusCircle } from "react-icons/ai";
+import SelectorInput from '../../../Components/SelectorInput';
 
 const BuildingInfo = () => {
+
+  const [selectedOption, setSelectedOption] = useState('');
+  const [showAdditionalFields, setShowAdditionalFields] = useState(false);
+
+  const handleSelectChange = (event) => {
+    const selectedValue = event.target.value;
+    setSelectedOption(selectedValue);
+
+    setShowAdditionalFields(selectedValue === 'Regularised under LRS');
+  };
+
   return (
-    <div className="flex flex-col p-6 lg:p-2 my-5">
+    <div className="flex flex-col p-2 my-5 lg:my-0 lg:p-2">
       <div>
-        <h3>General Information</h3>
+        <h3 className="font-bold text-xl">General Information</h3>
         <div className="divider m-0"></div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-5">
-          <InputField id="name1" name="Case Type" label="Case Type" placeholder="Case Type" />
+        <div className="grid grid-cols-2 lg:grid-cols-4">
+
+          <div className="m-3">
+            <label className="block text-gray-600 mb-1 font-semibold">
+              <span>Case Type</span>
+            </label>
+            <select className="w-[180px] pl-3 py-[10px] border rounded-lg">
+              <option disabled selected>Select Case type</option>
+              <option>New</option>
+              <option>Demolition and Reconstruction</option>
+              <option>Alteration Addition Existing</option>
+              <option>Revision</option>
+            </select>
+          </div>
+
           <div className="flex flex-col justify-center">
-            <p className="text-center">Application Type</p>
+            <p className="font-semibold text-gray-600 mb-1">Application Type?</p>
             <div className="flex items-center space-x-4">
               <label className="inline-flex items-center">
                 <input
@@ -36,44 +61,94 @@ const BuildingInfo = () => {
               </label>
             </div>
           </div>
-          <InputField id="name3" name="Nature of permission" label="Nature of permission" placeholder="Nature of permission" />
-          <InputField id="name4" name="Nature of the site" label="Nature of the site" placeholder="Nature of the site" />
+
+          <div className="m-3">
+            <label className="block text-gray-600 mb-1 font-semibold">
+              <span>Nature of permission</span>
+            </label>
+            <select className="w-[180px] pl-3 py-[10px] border rounded-lg">
+              <option disabled selected>Select Nature of permission</option>
+              <option>General</option>
+              <option>Regularised under BPS</option>
+              <option>Housing Scheme</option>
+            </select>
+          </div>
+
+          <div>
+            <div className="m-3">
+              <label htmlFor="nature" className="block text-gray-600 mb-1 font-semibold">
+                <span>Nature of the site</span>
+              </label>
+              <select
+                id="nature"
+                className="w-[180px] pl-3 py-[10px] border rounded-lg"
+                value={selectedOption}
+                onChange={handleSelectChange}
+              >
+                <option value="" disabled selected>
+                  Select Nature of the site
+                </option>
+                <option>Approved Layout</option>
+                <option>Regularised under LRS</option>
+                <option>Plot port of RLP/IPLP but not regularised</option>
+                <option>Congested/ Gramakanta/ Old Built-up area</option>
+                <option>Newly Developed/ Built up area</option>
+              </select>
+            </div>
+          </div>
+
           <InputField id="name5" name="Survey no." label="Survey no." placeholder="Survey no." type='number' />
           <InputField id="name6" name="District" label="District" placeholder="District" />
           <InputField id="name6" name="Mandal" label="Mandal" placeholder="Mandal" />
           <InputField id="name6" name="Grama Panchayat" label="Grama Panchayat" placeholder="Grama Panchayat" />
           <InputField id="name6" name="Village" label="Village" placeholder="Village" />
+          {showAdditionalFields && (
+            <>
+              <InputField
+                id="name6"
+                name="Village"
+                label="L.P. no"
+                placeholder="L.P. no"
+              />
+              <InputField
+                id="name7"
+                name="Village"
+                label="Plot no"
+                placeholder="Plot no"
+              />
+            </>
+          )}
         </div>
       </div>
 
-      <div className="mb-5">
-        <h3>Plot Details</h3>
+      <div className="my-5">
+        <h3 className="font-bold text-xl">Plot Details</h3>
         <div className="divider m-0"></div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-5">
+        <div className="grid grid-cols-2 lg:grid-cols-4">
           <InputField
             id="name7"
-            name="Proposed Plot area(in Sq.M.)"
-            label="Proposed Plot area(in Sq.M.)"
+            name="name34"
+            label="Proposed Plot area"
             placeholder="in Sq.M." />
           <InputField id="name8"
             name="name1"
-            label="Total Plot are as on ground (in Sq.M.)"
+            label="Total Plot are as on ground"
             placeholder="in Sq.M." />
           <InputField
             id="name9"
             name="name1"
-            label="Total Plot are as per document (in Sq.M.)"
+            label="Total Plot per document"
             placeholder="in Sq.M." />
           <InputField
             id="name10"
             name="name1"
-            label="Road Widening Area (in Sq.M.)"
+            label="Road Widening Area"
             placeholder="in Sq.M." />
           <InputField
             id="name11"
             name="name1"
-            label="Net Plot Area (in Sq.M.)"
+            label="Net Plot Area"
             placeholder="in Sq.M." />
         </div>
 
@@ -132,8 +207,21 @@ const BuildingInfo = () => {
 
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-5">
-          <InputField id="name12" name="name1" label="Nature of Road" placeholder="Nature of Road" />
+        <div className="grid grid-cols-2 lg:grid-cols-4 mt-3">
+
+          <div className="m-3">
+            <label className="block text-gray-600 mb-1 font-semibold">
+              <span>Nature of Road</span>
+            </label>
+            <select className="w-[180px] pl-3 py-[10px] border rounded-lg">
+              <option disabled selected>Select Nature of Road</option>
+              <option>BT Road</option>
+              <option>CC Road</option>
+              <option>WBM</option>
+              <option>Kutchha/ Graval</option>
+            </select>
+          </div>
+
           <InputField
             id="name12"
             name="name1"
@@ -149,7 +237,20 @@ const BuildingInfo = () => {
             name="name1"
             label="Market Value (per Sq.Yd.)"
             placeholder="per Sq.Yd." />
-          <InputField id="name12" name="name1" label="Floor Name" placeholder="Floor Name" />
+
+          <div className="m-3">
+            <label className="block text-gray-600 mb-1 font-semibold">
+              <span>Floor Name</span>
+            </label>
+            <select className="w-[180px] pl-3 py-[10px] border rounded-lg">
+              <option disabled selected>Select Floor Name</option>
+              <option>Stilt / Parking Floor</option>
+              <option>Ground floor</option>
+              <option>First Floor</option>
+              <option>Second Floor</option>
+            </select>
+          </div>
+
           <InputField
             id="name12"
             name="name1"
@@ -179,7 +280,7 @@ const BuildingInfo = () => {
             placeholder="Automatically calculated" />
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-5">
+        <div className="grid grid-cols-2 lg:grid-cols-4">
           <InputField
             id="name7"
             name="Proposed Plot area(in Sq.M.)"
@@ -233,7 +334,7 @@ const BuildingInfo = () => {
       </div>
 
       <div>
-        <h3>Schedule of Boundaries</h3>
+        <h3 className="font-bold text-xl">Schedule of Boundaries</h3>
         <div className="divider m-0"></div>
         <div className="grid grid-cols-2 lg:grid-cols-5 items-center">
           <InputField id="name13" name="name1" label="North" placeholder="North" />
