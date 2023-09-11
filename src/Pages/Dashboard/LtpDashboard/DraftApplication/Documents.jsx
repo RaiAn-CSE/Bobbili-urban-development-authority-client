@@ -6,7 +6,8 @@ import getPostData from "../../../Shared/getPostData";
 const DocumentUpload = () => {
   const [selectedFiles, setSelectedFiles] = useState({});
   const [UpdatedDocuments, setUpdatedDocuments] = useState([]);
-  const btn = "btn btn-md bg-Primary transition duration-700 hover:bg-btnHover";
+  const btn =
+    "btn btn-md text-xs bg-Primary transition duration-700 hover:bg-btnHover";
 
   const handleFileChange = (event, eventId) => {
     const file = event?.target?.files[0];
@@ -37,12 +38,12 @@ const DocumentUpload = () => {
           const { id, question } = Question;
 
           return (
-            <div key={id} className="lg:flex items-center px-2 space-y-2">
-              <p className="lg:flex-1 pr-3 text-sm md:text-base">
-                {id}. {question}
+            <div key={id} className="px-2 lg:flex lg:items-center">
+              <p className="pr-3 mt-8 text-sm md:text-base lg:flex-1">
+                <span className="font-bold">{id}.</span> {question}
               </p>
 
-              <div className="lg:w-[15%] flex items-center space-x-1 text-sm ">
+              <div className="flex items-center mt-4 text-xs md:text-sm lg:mt-0 lg:w-[15%]">
                 <label className="cursor-pointer font-bold bg-gray-300 py-2 px-4 rounded-full">
                   Upload
                   <input
