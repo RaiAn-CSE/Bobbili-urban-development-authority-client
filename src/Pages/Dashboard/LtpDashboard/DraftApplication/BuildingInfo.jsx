@@ -12,7 +12,8 @@ const BuildingInfo = () => {
   const [showAdditionalFields, setShowAdditionalFields] = useState(false);
 
   const [selectedOptionCase, setSelectedOptionCase] = useState("");
-  const [showAdditionalFieldsCase, setShowAdditionalFieldsCase] = useState(false);
+  const [showAdditionalFieldsCase, setShowAdditionalFieldsCase] =
+    useState(false);
 
   // Add a state variable to keep track of the number of sets of input fields
   const [inputFieldCount, setInputFieldCount] = useState(0);
@@ -37,7 +38,7 @@ const BuildingInfo = () => {
 
     setShowAdditionalFieldsCase(
       selectedValue === "Alteration Addition Existing" ||
-      selectedValue === "Revision"
+        selectedValue === "Revision"
     );
   };
 
@@ -558,7 +559,7 @@ const BuildingInfo = () => {
           </button>
         </Link>
       </div> */}
-    </div >
+    </div>
   );
 };
 

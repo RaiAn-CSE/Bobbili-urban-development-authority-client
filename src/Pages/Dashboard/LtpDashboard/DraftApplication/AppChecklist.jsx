@@ -22,7 +22,7 @@ function AppChecklist() {
     getPostData(questions);
   };
   return (
-    <div className="px-3 text-sm py-2">
+    <div className="px-3 text-sm py-1">
       <div className="text-end my-4">
         <button className="btn text-xs bg-[#c0e9e4] transition-all duration-700 hover:bg-[#10ac84] text-[#000] hover:text-[#fff]">
           <HiOutlineClipboardDocumentList className="text-lg" /> Application
@@ -39,8 +39,9 @@ function AppChecklist() {
             </p>
             <div className="space-x-10 mt-2 lg:pr-2">
               <label
-                className={`ml-2 inline-flex items-center space-x-1 text-black ${answer === "yes" && "font-extrabold"
-                  }`}
+                className={`ml-2 inline-flex items-center space-x-1 text-black ${
+                  answer === "yes" && "font-extrabold"
+                }`}
               >
                 <input
                   type="radio"
@@ -53,8 +54,9 @@ function AppChecklist() {
                 <span>Yes</span>
               </label>
               <label
-                className={`ml-2 inline-flex items-center space-x-1 text-black ${answer === "no" && "font-extrabold"
-                  }`}
+                className={`ml-2 inline-flex items-center space-x-1 text-black ${
+                  answer === "no" && "font-extrabold"
+                }`}
               >
                 <input
                   type="radio"
