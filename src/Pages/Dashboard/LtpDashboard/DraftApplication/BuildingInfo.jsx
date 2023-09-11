@@ -12,8 +12,17 @@ const BuildingInfo = () => {
   const [showAdditionalFields, setShowAdditionalFields] = useState(false);
 
   const [selectedOptionCase, setSelectedOptionCase] = useState("");
-  const [showAdditionalFieldsCase, setShowAdditionalFieldsCase] =
-    useState(false);
+  const [showAdditionalFieldsCase, setShowAdditionalFieldsCase] = useState(false);
+
+  // Add a state variable to keep track of the number of sets of input fields
+  const [inputFieldCount, setInputFieldCount] = useState(0);
+
+  // Function to add more 3 sets of input fields
+  const handleAddInputFields = () => {
+    if (inputFieldCount < 3) {
+      setInputFieldCount(inputFieldCount + 1);
+    }
+  };
 
   const handleSelectChange = (event) => {
     const selectedValue = event.target.value;
@@ -28,7 +37,7 @@ const BuildingInfo = () => {
 
     setShowAdditionalFieldsCase(
       selectedValue === "Alteration Addition Existing" ||
-        selectedValue === "Revision"
+      selectedValue === "Revision"
     );
   };
 
@@ -67,11 +76,11 @@ const BuildingInfo = () => {
             </select>
           </div>
 
-          <div className="grid grid-cols-1 font-medium justify-center items-center my-4 mx-3">
-            <p className="font-semibold text-gray-600 mb-1">
+          <div className="grid grid-cols-1 font-medium justify-items-center my-4 mx-3">
+            <p className="flex items-center font-semibold text-gray-600">
               Application Type?
             </p>
-            <div>
+            <div className="flex items-center">
               <label className="inline-flex items-center">
                 <input
                   type="radio"
@@ -340,14 +349,46 @@ const BuildingInfo = () => {
             label="Parking Area (in Sq.M.)"
             placeholder="in Sq.M."
           />
+          {/* Add button for adding more input fields */}
           <div className="flex justify-start items-center ml-3 mt-6">
-            <button className="btn">
+            <button className="btn" onClick={handleAddInputFields}>
               <AiFillPlusCircle size={25} color="#6fd7bd" />
             </button>
           </div>
         </div>
 
-        <div className="grid grid-cols-4">
+        {/* Render additional input field sets based on inputFieldCount */}
+        {Array.from({ length: inputFieldCount }).map((_, index) => (
+          <div key={index} className="grid grid-cols-2 lg:grid-cols-4 mt-5">
+            <div className="flex flex-col justify-center mx-3">
+              <label className="block text-gray-600 mb-1 font-semibold">
+                <span>Floor Name</span>
+              </label>
+              <select className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs">
+                <option selected>Select Floor Name</option>
+                <option>Stilt / Parking Floor</option>
+                <option>Ground floor</option>
+                <option>First Floor</option>
+                <option>Second Floor</option>
+              </select>
+            </div>
+
+            <InputField
+              id={`name12-${index}`}
+              name="name1"
+              label="Plinth Area (in Sq.M.)"
+              placeholder="in Sq.M."
+            />
+            <InputField
+              id={`name12-${index}`}
+              name="name1"
+              label="Parking Area (in Sq.M.)"
+              placeholder="in Sq.M."
+            />
+          </div>
+        ))}
+
+        <div className="grid grid-cols-4 mt-5">
           <div className="my-4 mx-3">
             <label
               htmlFor="disabled-input"
@@ -517,7 +558,7 @@ const BuildingInfo = () => {
           </button>
         </Link>
       </div>
-    </div>
+    </div >
   );
 };
 
