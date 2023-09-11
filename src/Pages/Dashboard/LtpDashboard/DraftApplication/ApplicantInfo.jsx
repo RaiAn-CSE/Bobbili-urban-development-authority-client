@@ -71,7 +71,7 @@ const ApplicantInfo = () => {
               <textarea
                 id="message"
                 rows="4"
-                className="w-full px-3 py-2 border rounded-lg max-w-xs"
+                className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
                 placeholder="Dr. no., Street, Village, Mandal, Dist."
               ></textarea>
             </div>
@@ -143,7 +143,7 @@ const ApplicantInfo = () => {
             <textarea
               id="message"
               rows="4"
-              className="w-full px-3 py-2 border rounded-lg max-w-xs"
+              className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
               placeholder="Dr. no., Street, Village, Mandal, Dist."
             ></textarea>
           </div>
