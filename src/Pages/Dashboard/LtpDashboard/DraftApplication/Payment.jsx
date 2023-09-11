@@ -51,7 +51,7 @@ const Payment = () => {
             type="number"
           />
           <div>
-            <button className="btn px-3 mt-10 ml-3 bg-yellow-300 hover:bg-yellow-400 hover:shadow-md transition-all duration-500">
+            <button className="btn btn-md text-sm px-3 mt-10 ml-3 bg-yellow-300 hover:bg-yellow-400 hover:shadow-md transition-all duration-500">
               <GiMoneyStack size={25} /> pay now
             </button>
           </div>
