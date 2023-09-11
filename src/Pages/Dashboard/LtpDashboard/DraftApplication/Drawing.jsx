@@ -5,7 +5,7 @@ import getPostData from "../../../Shared/getPostData";
 const Drawing = () => {
   const [selectedFiles, setSelectedFiles] = useState({});
   const btn =
-    "btn btn-md text-xs px-4 md:text-sm md:px-6 bg-Primary transition duration-700 hover:bg-btnHover";
+    "btn btn-md text-xs px-4 md:text-sm md:px-6 bg-Primary transition duration-700 hover:bg-btnHover hover:shadow-md";
 
   const handleFileChange = (event, eventId) => {
     const file = event?.target?.files[0];
@@ -24,7 +24,7 @@ const Drawing = () => {
           <span className="font-bold">1.</span> AutoCAD Drawing
         </p>
         <div className=" flex items-center space-x-1 text-sm">
-          <label className="cursor-pointer font-bold bg-gray-300 py-2 px-4 rounded-full">
+          <label className="cursor-pointer font-bold bg-gray-300 border py-2 px-4 rounded-full hover:shadow-md">
             Upload{" "}
             <input
               type="file"
@@ -45,7 +45,7 @@ const Drawing = () => {
           <span className="font-bold">2.</span> Drawing PDF
         </p>
         <div className="flex items-center space-x-1 text-sm">
-          <label className="cursor-pointer font-bold bg-gray-300 py-2 px-4 rounded-full">
+          <label className="cursor-pointer font-bold bg-gray-300 py-2 px-4 rounded-full hover:shadow-md">
             Upload{" "}
             <input
               type="file"

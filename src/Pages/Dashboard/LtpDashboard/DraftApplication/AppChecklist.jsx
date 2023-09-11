@@ -6,7 +6,8 @@ import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 
 function AppChecklist() {
   // const LocalItems = JSON.parse(localStorage.getItem("ApplicationList"));
-  const btn = "btn px-6 bg-Primary transition duration-700 hover:bg-btnHover";
+  const btn =
+    "btn btn-md text-sm px-6 bg-Primary transition duration-700 hover:bg-btnHover hover:shadow-md";
 
   const [questions, setQuestions] = useState(ChecklistQuestions.Questions);
 

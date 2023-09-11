@@ -7,7 +7,7 @@ const DocumentUpload = () => {
   const [selectedFiles, setSelectedFiles] = useState({});
   const [UpdatedDocuments, setUpdatedDocuments] = useState([]);
   const btn =
-    "btn btn-md text-xs bg-Primary transition duration-700 hover:bg-btnHover";
+    "btn btn-md text-sm bg-Primary transition duration-700 hover:bg-btnHover hover:shadow-md";
 
   const handleFileChange = (event, eventId) => {
     const file = event?.target?.files[0];
@@ -44,7 +44,7 @@ const DocumentUpload = () => {
               </p>
 
               <div className="flex items-center mt-4 text-xs md:text-sm lg:mt-0 lg:w-[15%]">
-                <label className="cursor-pointer font-bold bg-gray-300 py-2 px-4 rounded-full">
+                <label className="cursor-pointer font-bold bg-gray-300 py-2 px-4 rounded-full hover:shadow-md">
                   Upload
                   <input
                     name={id}
