@@ -3,8 +3,9 @@ import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { IoMdDocument } from "react-icons/io";
 import { FaBuildingColumns } from "react-icons/fa6";
 import { GoChecklist } from "react-icons/go";
-import { GrDocument, GrPaint } from "react-icons/gr";
-import { MdPayment } from "react-icons/md";
+import { BsHouseCheck, BsInfoCircle } from "react-icons/bs";
+import { RiSecurePaymentLine } from "react-icons/ri";
+import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 
 const DraftApplication = () => {
   const navigate = useNavigate();
@@ -57,7 +58,7 @@ const DraftApplication = () => {
   const isStepperVisible = allSteps.includes(location.pathname); // Check if current route is in the list of routes with the stepper
 
   let btnClass =
-    "btn btn-md text-[#000000] hover:text-[#fff] rounded-lg  hover:bg-[#00b072] hover:shadow-md transition-all duration-500 rounded shadow cursor-pointer";
+    "btn btn-md text-[#000000] hover:text-[#fff] rounded-lg  hover:bg-emerald-600 shadow-lg transition-all duration-500 cursor-pointer";
 
   const stepClasses = (index) => {
     if (index === currentStep) {
@@ -65,39 +66,39 @@ const DraftApplication = () => {
     } else if (index < currentStep) {
       return "step step-success";
     } else {
-      return "step cursor-pointer";
+      return "step";
     }
   };
   const completeBtn = (index) => {
     if (index === currentStep) {
-      return "bg-green-300";
+      return "bg-emerald-600 text-white";
     } else if (index < currentStep) {
-      return "bg-green-300";
+      return "bg-emerald-400 text-white";
     }
   };
 
   const icons = [
-    <FaBuildingColumns />,
-    <IoMdDocument />,
-    <GoChecklist />,
-    <GrDocument />,
-    <GrPaint />,
-    <MdPayment />,
+    <FaBuildingColumns size={15} />,
+    <BsInfoCircle size={18} />,
+    <GoChecklist size={18} />,
+    <HiOutlineClipboardDocumentList size={19} />,
+    <BsHouseCheck size={17} />,
+    <RiSecurePaymentLine size={19} />,
   ];
 
   return (
     <>
       {isStepperVisible && ( // Render the stepper only when isStepperVisible is true
         <div className="mt-3 mb-3">
-          <ul className="w  w-full steps steps-vertical lg:steps-horizontal rounded-lg">
+          <ul className="w-full steps steps-vertical lg:steps-horizontal rounded-lg">
             {stepsContent.map((step, index) => (
               <li
                 key={index}
                 data-content={index + 1}
-                className={`${stepClasses(index)} relative pt-1`}
+                className={`${stepClasses(index)} lg:relative lg:pt-1`}
                 onClick={() => handleStepClick(index)}
               >
-                <div className="absolute top-0 z-10">
+                <div className="lg:absolute lg:top-0 z-10">
                   <span className={`${btnClass} ${completeBtn(index)} text-xs`}>
                     {icons[index]}
                     {step}
@@ -116,7 +117,7 @@ const DraftApplication = () => {
       {isStepperVisible && ( // Render the stepper only when isStepperVisible is true
         <div className="flex justify-between my-8 px-10">
           <button
-            className={btnClass}
+            className={`${btnClass} bg-emerald-400`}
             onClick={() => currentStep > 0 && handleStepClick(currentStep - 1)}
             disabled={currentStep === 0}
           >
