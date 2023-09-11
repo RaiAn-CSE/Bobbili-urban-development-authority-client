@@ -45,7 +45,7 @@ const BuildingInfo = () => {
     <div className="grid my-5 lg:my-0 lg:p-2">
       {/* general information */}
 
-      <div className="my-10">
+      <div className="mb-10">
         {/* heading  */}
         <div className="flex items-center">
           <img src={generalInfoImage} alt="" className="h-10 me-3" />
@@ -76,7 +76,7 @@ const BuildingInfo = () => {
             </select>
           </div>
 
-          <div className="grid grid-cols-1 font-medium justify-items-center my-4 mx-3">
+          <div className="grid grid-cols-1 font-medium  lg:justify-items-center my-4 mx-3">
             <p className="flex items-center font-semibold text-gray-600">
               Application Type?
             </p>

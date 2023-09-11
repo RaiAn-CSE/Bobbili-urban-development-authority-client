@@ -45,11 +45,11 @@ const DraftApplication = () => {
 
   const stepClasses = (index) => {
     if (index === currentStep) {
-      return "step step-success";
+      return "step step-success pb-3 bg-[#c0e9e4]";
     } else if (index < currentStep) {
-      return "step step-success";
+      return "step step-success pb-3 bg-[#c0e9e4]";
     } else {
-      return "step cursor-pointer";
+      return "step cursor-pointer pb-3";
     }
   };
 
@@ -59,8 +59,8 @@ const DraftApplication = () => {
   return (
     <>
       {isStepperVisible && ( // Render the stepper only when isStepperVisible is true
-        <div>
-          <ul className="steps w-full steps-vertical lg:steps-horizontal">
+        <div className="mt-3 mb-8">
+          <ul className="steps w-full steps-vertical lg:steps-horizontal rounded-lg">
             {stepsContent.map((step, index) => (
               <li
                 key={index}
