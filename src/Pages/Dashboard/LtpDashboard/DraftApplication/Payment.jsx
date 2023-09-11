@@ -1,12 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import InputField from "../../../Components/InputField";
 import { GiMoneyStack } from "react-icons/gi";
 import UDAChargeImg from "../../../../assets/images/mobile-transfer.png";
 import GramChargeImg from "../../../../assets/images/pay-per-click.png";
 import LabourChargeImg from "../../../../assets/images/payment-method.png";
 import GreenChargeImg from "../../../../assets/images/money.png";
-import { MdOutlineSendToMobile } from "react-icons/md";
 
 const Payment = () => {
   return (

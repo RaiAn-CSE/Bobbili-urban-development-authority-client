@@ -5,13 +5,16 @@ import { BiCheckDouble, BiSolidImageAdd } from "react-icons/bi";
 import { CgDanger } from "react-icons/cg";
 import { BsSendCheckFill } from "react-icons/bs";
 import { AiOutlineForm } from "react-icons/ai";
+import sidebarStyle from "../../Style/dashboardSidebar.module.css";
 
 const LtpSidebar = () => {
   const path = useLocation().pathname;
 
+  const liClass = ''
+
   console.log(location);
   return (
-    <>
+    <div className={sidebarStyle.links}>
       <li className={`${path === "/dashboard" && "active"} mt-10`}>
         <span>
           <MdSpaceDashboard size={20} />
@@ -35,10 +38,7 @@ const LtpSidebar = () => {
         <span>
           <BiSolidImageAdd size={22} />
         </span>
-        <Link
-          className="p-[10px]  font-medium "
-          to="/dashboard/draftApplication"
-        >
+        <Link className="p-[10px]  font-medium " to="/dashboard/draftApplication" >
           Draft Application
         </Link>
       </li>
@@ -47,18 +47,16 @@ const LtpSidebar = () => {
         <span>
           <BsSendCheckFill size={19} />
         </span>
-        <Link
-          className="p-[10px]  font-medium "
-          to="/dashboard/submitApplication"
-        >
+        <Link className="p-[10px]  font-medium " to="/dashboard/submitApplication" >
           Submitted App:
         </Link>
       </li>
+
       <li>
         <span>
           <BiCheckDouble size={23} />
         </span>
-        <Link className="p-[10px]  font-medium " to="/#">
+        <Link className="p-[10px]  font-medium " to="/dashboard/submitApplication">
           Approved
         </Link>
       </li>
@@ -71,6 +69,7 @@ const LtpSidebar = () => {
           Shortfall
         </Link>
       </li>
+
       <li>
         <span>
           <CgDanger size={22} />
@@ -79,6 +78,7 @@ const LtpSidebar = () => {
           Rejected
         </Link>
       </li>
+
       <li className="mt-5">
         <span>
           <MdOutlineLogout size={22} />
@@ -87,7 +87,7 @@ const LtpSidebar = () => {
           Logout
         </Link>
       </li>
-    </>
+    </div>
   );
 };
 
