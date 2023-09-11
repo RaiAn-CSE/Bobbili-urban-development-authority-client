@@ -63,8 +63,18 @@ const DraftApplication = () => {
     }
   };
 
+  const btnColor = (index) => {
+    if (index === currentStep) {
+      return "bg-emerald-500 text-white cursor-pointer";
+    } else if (index < currentStep) {
+      return "bg-emerald-500 text-white cursor-pointer";
+    } else {
+      return "cursor-pointer";
+    }
+  };
+
   const btnClass =
-    "btn btn-md text-[#000000] hover:text-[#fff] bg-[#54c999] hover:bg-[#00b072] hover:shadow-md transition-all duration-500 rounded shadow cursor-pointer";
+    "btn btn-md text-[#000000] hover:text-[#fff] bg-[#fff] hover:bg-[#00b072] hover:shadow-md transition-all duration-500 rounded shadow cursor-pointer";
 
   return (
     <>
@@ -78,7 +88,7 @@ const DraftApplication = () => {
                 className={stepClasses(index)}
                 onClick={() => handleStepClick(index)}
               >
-                <span className={btnClass}>{step}</span>
+                <span className={`${btnColor(index)} btn btn-md hover:bg-emerald-600 hover:text-white hover:shadow-md transition-all duration-500 rounded shadow-lg`}>{step}</span>
               </li>
             ))}
           </ul>
