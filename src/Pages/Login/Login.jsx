@@ -55,7 +55,7 @@ const Login = () => {
 
     console.log(userInfo);
 
-    fetch(`http://localhost:5000/getUser?id=${id}`)
+    fetch(`https://residential-building.vercel.app/getUser?id=${id}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

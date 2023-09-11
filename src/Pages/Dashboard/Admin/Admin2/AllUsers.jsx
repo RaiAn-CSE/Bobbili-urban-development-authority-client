@@ -10,7 +10,9 @@ const AllUsers = () => {
   const { data, refetch, isLoading, isSuccess } = useQuery({
     queryKey: ["allUser"],
     queryFn: async () => {
-      const response = await fetch("http://localhost:5000/allUser");
+      const response = await fetch(
+        "https://residential-building.vercel.app/allUser"
+      );
       const data = await response.json();
       return data;
     },
