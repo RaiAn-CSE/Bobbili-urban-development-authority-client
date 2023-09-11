@@ -17,7 +17,7 @@ const Drawing = () => {
   };
 
   return (
-    <div className="text-black h-screen p-5 mt-[5%]">
+    <div className="text-black h-screen p-5 mt-3">
       {/* AutoCAD Drawing */}
       <div className="flex items-center text-base px-2 space-y-2 mb-8">
         <p className="flex-1 pr-3">

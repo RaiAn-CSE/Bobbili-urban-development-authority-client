@@ -11,18 +11,6 @@ import { MdOutlineSendToMobile } from "react-icons/md";
 const Payment = () => {
   return (
     <div className="grid my-5 lg:my-0 lg:p-2">
-      <div className="flex justify-end">
-        {/* <Link className="mr-2" to="">
-          <button className="btn btn-md bg-green-500 hover:bg-green-600 text-white transition duration-500">
-            Save All
-          </button>
-        </Link> */}
-        <Link to="">
-          <button className="btn btn-md bg-Primary hover:bg-btnHover transition duration-500">
-            <span className="flex items-center"><MdOutlineSendToMobile size={20} /> Sent to Department</span>
-          </button>
-        </Link>
-      </div>
       <div>
         <div className="flex items-center">
           <img
@@ -64,7 +52,7 @@ const Payment = () => {
             type="number"
           />
           <div>
-            <button className="btn btn-md text-sm px-3 mt-10 ml-3 bg-yellow-300 hover:bg-yellow-400 hover:shadow-md transition-all duration-500">
+            <button className="btn btn-md text-sm px-3 mt-10 ml-3 bg-green-300 hover:bg-green-400 hover:shadow-md transition-all duration-500">
               <GiMoneyStack size={25} /> pay now
             </button>
           </div>
