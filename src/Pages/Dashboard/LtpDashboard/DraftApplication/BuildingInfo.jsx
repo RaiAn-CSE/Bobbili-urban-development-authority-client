@@ -80,7 +80,7 @@ const BuildingInfo = () => {
             <p className="flex items-center font-semibold text-gray-600">
               Application Type?
             </p>
-            <div className="flex items-center">
+            <div className="grid-cols-1 lg:grid-cols-2 items-center">
               <label className="inline-flex items-center">
                 <input
                   type="radio"
@@ -88,7 +88,7 @@ const BuildingInfo = () => {
                   className="radio border border-[#10AC84] h-4 w-4"
                   value="Private"
                 />
-                <span className="md:ml-2 text-base">Private</span>
+                <span className="ml-2 text-base">Private</span>
               </label>
               <label className="inline-flex items-center md:ml-3">
                 <input
