@@ -89,7 +89,7 @@ const DraftApplication = () => {
     <>
       {isStepperVisible && ( // Render the stepper only when isStepperVisible is true
         <div className="mt-3 mb-3">
-          <ul className=" w-full steps steps-vertical lg:steps-horizontal rounded-lg">
+          <ul className="w  w-full steps steps-vertical lg:steps-horizontal rounded-lg">
             {stepsContent.map((step, index) => (
               <li
                 key={index}
