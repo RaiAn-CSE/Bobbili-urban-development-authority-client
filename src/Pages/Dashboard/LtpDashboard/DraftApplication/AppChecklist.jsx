@@ -70,13 +70,13 @@ function AppChecklist() {
           </div>
         ))}
       </div>
-      <div className="mt-16 flex justify-center md:justify-end">
+      {/* <div className="mt-16 flex justify-center md:justify-end">
         <Link to="/dashboard/draftApplication/documents">
           <button className={`${btn}`} onClick={() => handleSave()}>
             Save and Next
           </button>
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 }

@@ -551,13 +551,13 @@ const BuildingInfo = () => {
       </div>
 
       {/* navigation button  */}
-      <div className="flex justify-center md:justify-end my-5">
+      {/* <div className="flex justify-center md:justify-end my-5">
         <Link to="/dashboard/draftApplication/applicantInfo">
           <button className="btn btn-md bg-Primary hover:bg-btnHover hover:shadow-md transition-all duration-500">
             Save And Continue
           </button>
         </Link>
-      </div>
+      </div> */}
     </div >
   );
 };

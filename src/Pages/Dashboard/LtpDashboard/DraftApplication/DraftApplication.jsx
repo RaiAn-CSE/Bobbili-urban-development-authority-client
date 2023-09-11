@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 
 const DraftApplication = () => {
@@ -24,8 +24,18 @@ const DraftApplication = () => {
     "Payment",
   ];
 
+
+  // Use localStorage to store and retrieve the current step
+  useEffect(() => {
+    const savedStep = localStorage.getItem("currentStep");
+    if (savedStep !== null) {
+      setCurrentStep(parseInt(savedStep, 10));
+    }
+  }, []);
+
   const handleStepClick = (index) => {
     setCurrentStep(index);
+    localStorage.setItem("currentStep", index.toString()); // Store the current step in localStorage
     navigate(`/dashboard/draftApplication${steps[index]}`);
   };
 
@@ -45,16 +55,16 @@ const DraftApplication = () => {
 
   const stepClasses = (index) => {
     if (index === currentStep) {
-      return "step step-success pb-3 bg-[#c0e9e4]";
+      return "step step-success pb-1 bg-[#c0e9e4]";
     } else if (index < currentStep) {
-      return "step step-success pb-3 bg-[#c0e9e4]";
+      return "step step-success pb-1 bg-[#c0e9e4]";
     } else {
-      return "step cursor-pointer pb-3";
+      return "step cursor-pointer pb-1";
     }
   };
 
   const btnClass =
-    "bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow cursor-pointer";
+    "btn btn-md text-[#000000] hover:text-[#fff] bg-[#54c999] hover:bg-[#00b072] hover:shadow-md transition-all duration-500 rounded shadow cursor-pointer";
 
   return (
     <>
@@ -95,7 +105,7 @@ const DraftApplication = () => {
             }
             disabled={currentStep === steps.length - 1}
           >
-            Next
+            Save and Continue
           </button>
         </div>
       )}

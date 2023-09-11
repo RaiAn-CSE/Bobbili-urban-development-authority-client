@@ -6,10 +6,23 @@ import UDAChargeImg from "../../../../assets/images/mobile-transfer.png";
 import GramChargeImg from "../../../../assets/images/pay-per-click.png";
 import LabourChargeImg from "../../../../assets/images/payment-method.png";
 import GreenChargeImg from "../../../../assets/images/money.png";
+import { MdOutlineSendToMobile } from "react-icons/md";
 
 const Payment = () => {
   return (
     <div className="grid my-5 lg:my-0 lg:p-2">
+      <div className="flex justify-end">
+        {/* <Link className="mr-2" to="">
+          <button className="btn btn-md bg-green-500 hover:bg-green-600 text-white transition duration-500">
+            Save All
+          </button>
+        </Link> */}
+        <Link to="">
+          <button className="btn btn-md bg-Primary hover:bg-btnHover transition duration-500">
+            <span className="flex items-center"><MdOutlineSendToMobile size={20} /> Sent to Department</span>
+          </button>
+        </Link>
+      </div>
       <div>
         <div className="flex items-center">
           <img
@@ -254,19 +267,6 @@ const Payment = () => {
             placeholder="xxxx"
             type="text"
           />
-        </div>
-
-        <div className="flex justify-end mt-10">
-          <Link className="mr-2" to="">
-            <button className="btn btn-md bg-green-500 hover:bg-green-600 text-white transition duration-500">
-              Save All
-            </button>
-          </Link>
-          <Link to="">
-            <button className="btn btn-md bg-Primary hover:bg-btnHover transition duration-500">
-              Sent to Department
-            </button>
-          </Link>
         </div>
       </div>
     </div>

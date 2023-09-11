@@ -61,14 +61,14 @@ const DocumentUpload = () => {
         })}
       </div>
 
-      <div className="lg:w-[91%] mt-16 flex justify-center md:justify-end">
+      {/* <div className="lg:w-[91%] mt-16 flex justify-center md:justify-end">
         <Link
           onClick={() => handleDocuments()}
           to="/dashboard/draftApplication/drawing"
         >
           <button className={`${btn}`}>Save And Continue</button>
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 };

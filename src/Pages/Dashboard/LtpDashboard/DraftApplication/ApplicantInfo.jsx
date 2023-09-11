@@ -150,13 +150,13 @@ const ApplicantInfo = () => {
         </div>
       </div>
 
-      <div className="flex justify-center md:justify-end mb-5">
+      {/* <div className="flex justify-center md:justify-end mb-5">
         <Link to="/dashboard/draftApplication/applicationChecklist">
           <button className="btn btn-md bg-Primary hover:bg-btnHover hover:shadow-md transition-all duration-500">
             Save And Continue
           </button>
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 };

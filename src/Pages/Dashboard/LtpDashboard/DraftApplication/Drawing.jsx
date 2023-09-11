@@ -60,14 +60,14 @@ const Drawing = () => {
         </div>
       </div>
 
-      <div className="mt-16 flex justify-center md:justify-end">
+      {/* <div className="mt-16 flex justify-center md:justify-end">
         <Link
           onClick={() => handleDrawing()}
           to="/dashboard/draftApplication/payment"
         >
           <button className={`${btn}`}>Save And Continue</button>
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 };
