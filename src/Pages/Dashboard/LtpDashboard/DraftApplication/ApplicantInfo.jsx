@@ -90,7 +90,7 @@ const ApplicantInfo = () => {
         </div>
         <div className="divider m-0"></div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 my-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 mt-8">
           <div className="grid grid-cols-2 items-center">
             <InputField
               id="name13"
