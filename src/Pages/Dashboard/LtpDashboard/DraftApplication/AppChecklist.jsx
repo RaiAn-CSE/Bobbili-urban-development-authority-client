@@ -33,8 +33,8 @@ function AppChecklist() {
             key={no}
             className="lg:flex items-center justify-center shadow shadow-gray-100 rounded p-3"
           >
-            <p className="flex-1 text-black rounded lg:pr-4 text-sm md:text-base">
-              {no}. {question}
+            <p className="flex-1 text-black rounded mb-5  text-sm md:text-base lg:mb-0 lg:pr-4">
+              <span className="font-bold">{no}.</span> {question}
             </p>
             <div className="space-x-10 mt-2 lg:pr-2">
               <label
@@ -46,7 +46,7 @@ function AppChecklist() {
                   type="radio"
                   name={no}
                   value="yes"
-                  className="radio radio-sm radio-success"
+                  className="radio radio-sm radio-success mr-3 lg:mr-0"
                   checked={answer === "yes"}
                   onChange={(event) => handleAnswer(event, no)}
                 />
@@ -61,7 +61,7 @@ function AppChecklist() {
                   type="radio"
                   name={no}
                   value="no"
-                  className="radio radio-sm radio-success"
+                  className="radio radio-sm radio-success mr-3 lg:mr-0"
                   checked={answer === "no"}
                   onChange={(event) => handleAnswer(event, no)}
                 />
