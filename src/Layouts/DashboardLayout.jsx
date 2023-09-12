@@ -16,7 +16,7 @@ const DashboardLayout = () => {
       <Navbar />
       <div className="drawer lg:drawer-open h-full relative">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content p-4">
+        <div className="drawer-content p-2">
           {/* <!-- Page content here --> */}
 
           <label
@@ -28,17 +28,17 @@ const DashboardLayout = () => {
           </label>
           <Outlet></Outlet>
         </div>
-        <div className="drawer-side shadow-md">
+        <div className="drawer-side shadow-md z-10">
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
 
           <ul
-            className={`menu p-4 w-full md:w-60 pt-20 lg:pt-0 h-full bg-[#e5f4e3]  lg:bg-[#2ab5a44c] font-bold text-base relative ${sidebarStyle.links}`}
+            className={`menu p-4 w-full md:w-60 pt-20 lg:pt-0 h-full bg-[#e5f4e3]  lg:bg-green-100 font-bold text-base relative`}
           >
             {/* <!-- Sidebar content here --> */}
             <div className="absolute right-2  lg:hidden">
               <label
                 htmlFor="my-drawer-2"
-                className="btn btn-sm btn-circle bg-black text-white"
+                className="btn btn-sm btn-circle bg-black  text-white"
               >
                 ✕
               </label>

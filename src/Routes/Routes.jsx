@@ -58,19 +58,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/draftApplication",
-        element: (
-          <PrivateRoute>
-            <DraftApplication />
-          </PrivateRoute>
-        ),
+        element: (<PrivateRoute> <DraftApplication /> </PrivateRoute>),
         children: [
           {
             path: "/dashboard/draftApplication",
-            element: (
-              <PrivateRoute>
-                <NewApplication />
-              </PrivateRoute>
-            ),
+            element: (<PrivateRoute> <NewApplication /> </PrivateRoute>),
           },
           {
             path: "/dashboard/draftApplication/buildingInfo",

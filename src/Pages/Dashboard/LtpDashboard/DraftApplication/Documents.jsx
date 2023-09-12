@@ -6,7 +6,8 @@ import getPostData from "../../../Shared/getPostData";
 const DocumentUpload = () => {
   const [selectedFiles, setSelectedFiles] = useState({});
   const [UpdatedDocuments, setUpdatedDocuments] = useState([]);
-  const btn="btn px-10 bg-Primary transition duration-700 hover:bg-btnHover";
+  const btn =
+    "btn btn-md text-sm bg-Primary transition duration-700 hover:bg-btnHover hover:shadow-md";
 
   const handleFileChange = (event, eventId) => {
     const file = event?.target?.files[0];
@@ -27,21 +28,22 @@ const DocumentUpload = () => {
   };
 
   const handleDocuments = () => {
-    getPostData(UpdatedDocuments)
-  }
+    getPostData(UpdatedDocuments);
+  };
 
   return (
     <div className="text-black p-4">
-      <div className="space-y-8 lg:space-y-2">
+      <div className="space-y-5">
         {Documents.Data.map((Question) => {
           const { id, question } = Question;
-
           return (
-            <div key={id} className="lg:flex items-center px-2 space-y-2">
-              <p className="lg:flex-1 pr-3 lg:text-lg">{id}. {question}</p>
+            <div key={id} className="flex-1 px-2 lg:flex items-center shadow-sm py-2 rounded-lg">
+              <p className="flex-1 w-[70%]">
+                {id}. {question}
+              </p>
 
-              <div className="lg:w-[15%] flex items-center space-x-1 text-sm">
-                <label className="cursor-pointer bg-gray-300 py-2 px-4 rounded-full">
+              <div className="w-[30%] flex items-center relative">
+                <label className="cursor-pointer bg-gray-300 py-2 px-4 rounded-full hover:shadow-md">
                   Upload
                   <input
                     name={id}
@@ -51,18 +53,22 @@ const DocumentUpload = () => {
                     style={{ display: "none" }}
                   />
                 </label>
-                {selectedFiles[id] && <p>{selectedFiles[id].name}</p>}
+                <p className="ml-2 overflow-hidden"> {selectedFiles[id] && <p>{selectedFiles[id].name}</p>}</p>
               </div>
+             
             </div>
           );
         })}
       </div>
 
-      <div className="lg:w-[91%] mt-16 flex justify-center md:justify-end">
-        <Link onClick={() => handleDocuments()} to="/dashboard/draftApplication/drawing">
+      {/* <div className="lg:w-[91%] mt-16 flex justify-center md:justify-end">
+        <Link
+          onClick={() => handleDocuments()}
+          to="/dashboard/draftApplication/drawing"
+        >
           <button className={`${btn}`}>Save And Continue</button>
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 };
@@ -70,7 +76,7 @@ const DocumentUpload = () => {
 export default DocumentUpload;
 
 // [{
- 
+
 //   draftApplication: [{ applicationNo: "", buildingInfo: {}, applicantInfo:{}, appChecklist:{}, documents: {}, drawing: {},payment:{} }]
 // }
 // ]
