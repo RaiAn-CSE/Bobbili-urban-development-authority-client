@@ -107,7 +107,11 @@ const DraftApplication = () => {
                 onClick={() => handleStepClick(index)}
               >
                 <div className="lg:absolute lg:top-0 z-10">
-                  <span className={`${btnClass} ${completeBtn(index)} text-xs`}>
+                  <span
+                    className={`${btnClass} ${completeBtn(
+                      index
+                    )} w-[300px] lg:w-fit text-xs`}
+                  >
                     {icons[index]}
                     {step}
                   </span>

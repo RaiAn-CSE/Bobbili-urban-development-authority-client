@@ -28,7 +28,7 @@ const DashboardLayout = () => {
           </label>
           <Outlet></Outlet>
         </div>
-        <div className="drawer-side shadow-md">
+        <div className="drawer-side shadow-md z-10">
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
 
           <ul
@@ -38,7 +38,7 @@ const DashboardLayout = () => {
             <div className="absolute right-2  lg:hidden">
               <label
                 htmlFor="my-drawer-2"
-                className="btn btn-sm btn-circle  text-white"
+                className="btn btn-sm btn-circle bg-black  text-white"
               >
                 ✕
               </label>
