@@ -1,12 +1,13 @@
 import React from "react";
 import { MdSpaceDashboard } from "react-icons/md";
 import { Link, useLocation } from "react-router-dom";
+import sidebarStyle from "../../Style/dashboardSidebar.module.css";
 
 const SecondAdminSidebar = () => {
   const path = useLocation().pathname;
 
   return (
-    <>
+    <div className={`${sidebarStyle.links}`}>
       <li className={`${path === "/dashboard" && "active"} mt-10`}>
         <span>
           <MdSpaceDashboard size={20} />
@@ -31,7 +32,7 @@ const SecondAdminSidebar = () => {
           All Users
         </Link>
       </li>
-    </>
+    </div>
   );
 };
 

@@ -1,4 +1,4 @@
-/* table {
+table {
   border: 1px solid #c0e9e4;
 }
 
@@ -9,4 +9,4 @@ tr:nth-child(2n) {
 tr:hover {
   background: #c0e9e44d;
   cursor: pointer;
-} */
+}

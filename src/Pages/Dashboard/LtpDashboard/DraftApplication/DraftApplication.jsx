@@ -57,7 +57,7 @@ const DraftApplication = () => {
   const isStepperVisible = allSteps.includes(location.pathname); // Check if current route is in the list of routes with the stepper
 
   let btnClass =
-    "btn btn-md text-[#000000] hover:text-[#fff] rounded-lg  hover:bg-emerald-600 shadow-lg transition-all duration-500 cursor-pointer";
+    "btn btn-md text-[#000000] hover:text-[#fff] rounded-lg shadow-lg transition-all duration-500 cursor-pointer hover:bg-emerald-400";
 
   const stepClasses = (index) => {
     if (index === currentStep) {
@@ -70,7 +70,7 @@ const DraftApplication = () => {
   };
   const completeBtn = (index) => {
     if (index === currentStep) {
-      return "bg-emerald-600 text-white";
+      return "bg-emerald-400 text-white";
     } else if (index < currentStep) {
       return "bg-emerald-400 text-white";
     }
@@ -88,7 +88,7 @@ const DraftApplication = () => {
   return (
     <>
       {isStepperVisible && ( // Render the stepper only when isStepperVisible is true
-        <div className="mt-3 mb-3">
+        <div className="mt-3 mb-5">
           <ul className="w-full steps steps-vertical lg:steps-horizontal rounded-lg">
             {stepsContent.map((step, index) => (
               <li
@@ -116,7 +116,7 @@ const DraftApplication = () => {
       {isStepperVisible && ( // Render the stepper only when isStepperVisible is true
         <div className="flex justify-between my-8 px-10">
           <button
-            className={`${btnClass} bg-emerald-400`}
+            className={`${btnClass} bg-emerald-400 text-white`}
             onClick={() => currentStep > 0 && handleStepClick(currentStep - 1)}
             disabled={currentStep === 0}
           >
@@ -135,7 +135,7 @@ const DraftApplication = () => {
             </button>
           ) : (
             <button
-              className={`${btnClass} bg-yellow-300 hover:shadow-md hover:bg-yellow-300 hover:text-black`}
+              className={`btn btn-md text-[#000000] hover:text-[#fff] rounded-lg shadow-lg transition-all duration-500 cursor-pointer bg-yellow-300 hover:shadow-md hover:bg-yellow-300`}
               onClick={() =>
                 currentStep < steps.length - 1 &&
                 handleStepClick(currentStep + 1)
