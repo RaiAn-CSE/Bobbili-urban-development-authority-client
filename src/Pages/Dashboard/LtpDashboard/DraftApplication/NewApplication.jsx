@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { VscGitPullRequestCreate } from "react-icons/vsc";
 
 const NewApplication = () => {
+  useEffect(() => {
+    localStorage.removeItem("currentStep");
+  });
   return (
     <div className="grid grid-cols-1 my-3">
       <div className="flex justify-end my-5 mr-3">

@@ -32,10 +32,19 @@ const DraftApplication = () => {
   // Use localStorage to store and retrieve the current step
   useEffect(() => {
     const savedStep = localStorage.getItem("currentStep");
-    if (savedStep !== null) {
+
+    if (location.pathname === "/dashboard/draftApplication") {
+      setCurrentStep(0);
+    } else if (savedStep !== null) {
       setCurrentStep(parseInt(savedStep, 10));
     }
-  }, []);
+
+    return () => {
+      localStorage.removeItem("currentStep");
+    };
+  }, [location.pathname]);
+
+  console.log(currentStep);
 
   const handleStepClick = (index) => {
     setCurrentStep(index);
