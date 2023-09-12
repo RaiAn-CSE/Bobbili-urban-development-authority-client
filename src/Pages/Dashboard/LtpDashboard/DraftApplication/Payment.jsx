@@ -16,7 +16,7 @@ const Payment = () => {
   const vacantAreaChargedUnitRate = 10; // per Sqm.
   const vacantAreaDevelopmentCharged = (vacantAreaChargedUnitRate * vacant_area);
   const UDATotal = () => {
-    return
+    return;
   }
 
   // Grama Panchayet fees
@@ -34,6 +34,7 @@ const Payment = () => {
   const processingUnitRate = 7; //per Sqm.	
   const processingFees = (processingUnitRate * builtup_Area);
 
+  // 33% penalization
   const penalization = (net_Plot_Area) => {
     if (net_Plot_Area > 100) {
       const penalizationChargesUnitRate = 200; //per Sqm Less than 100Sqm
@@ -51,7 +52,7 @@ const Payment = () => {
   const openSpaceCharge = ((net_Plot_Area * 1.196 * market_value) * 0.14); // Open Space Charge= 14%
 
   const gramaPanchayetTotal = () => {
-    return bettermentCharged * buildingPermitFees * paperPublicationCharges * processingFees * siteApprovalCharges * penalization(net_Plot_Area) * openSpaceCharge;
+    return ;
   }
 
   // Green fee charge
