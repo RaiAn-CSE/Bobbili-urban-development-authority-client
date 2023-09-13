@@ -38,7 +38,7 @@ const BuildingInfo = () => {
 
     setShowAdditionalFieldsCase(
       selectedValue === "Alteration Addition Existing" ||
-        selectedValue === "Revision"
+      selectedValue === "Revision"
     );
   };
 
