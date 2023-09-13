@@ -238,8 +238,9 @@ const BuildingInfo = () => {
           />
         </div>
 
-        <div className="grid grid-cols-1  my-10">
-          <div className="flex flex-col md:flex-row justify-center items-center font-medium mb-4 text-lg mt-3">
+        <div className="grid grid-cols-1 mx-5 md:mx-10 lg:mx-14 my-10">
+
+          <div className="flex flex-col md:flex-row font-medium mb-4 text-lg">
             <div className="flex items-center mb-3 md:mb-0">
               <FaHandPointRight className="me-3 text-green-500" />
               <p className="font-bold text-lg">
@@ -266,7 +267,7 @@ const BuildingInfo = () => {
             </label>
           </div>
 
-          <div className="flex flex-col md:flex-row justify-center items-center font-medium mb-8 mt-4 text-lg ">
+          <div className="flex flex-col md:flex-row font-medium mb-4 text-lg mt-4">
             <div className="flex items-center mb-3 md:mb-0">
               <FaHandPointRight className="me-3 text-green-500" />
               <p className="font-bold text-lg">Status of Road?</p>
@@ -389,7 +390,7 @@ const BuildingInfo = () => {
           </div>
         ))}
 
-        <div className="grid grid-cols-4 mt-5">
+        <div className="grid grid-cols-2 lg:grid-cols-4 mt-5">
           <div className="my-4 mx-3">
             <label
               htmlFor="disabled-input"
@@ -457,63 +458,63 @@ const BuildingInfo = () => {
           />
         </div>
 
-        <div className="md:w-[80%] md:mx-auto my-10">
-          <div className="flex flex-col md:flex-row items-center font-medium mx-3 text-lg my-3">
-            <div className="flex items-center">
-              <FaHandPointRight className="me-3 text-green-500" />
-              <p className="font-bold text-lg">Compounding wall proposed?</p>
-            </div>
-            <div className="mt-3 md:mt-0 flex items-center">
-              <label className="inline-flex items-center ml-3">
-                <input
-                  type="radio"
-                  name="radio-4"
-                  className="radio border border-[#10AC84] h-4 w-4"
-                  value="yes"
-                />
-                <span className="ml-2 text-base">Yes</span>
-              </label>
-              <label className="inline-flex items-center ml-3">
-                <input
-                  type="radio"
-                  name="radio-4"
-                  className="radio border border-[#10AC84] h-4 w-4"
-                  value="no"
-                />
-                <span className="ml-2 text-base">No</span>
-              </label>
-            </div>
-          </div>
 
-          <div className="flex flex-col lg:flex-row font-medium mx-3 text-lg my-10">
-            <div className="flex items-center">
+        <div className="grid grid-cols-1 mx-5 md:mx-10 lg:mx-14 my-10">
+
+          <div className="flex flex-col md:flex-row font-medium mb-4 text-lg">
+            <div className="flex items-center mb-3 md:mb-0">
               <FaHandPointRight className="me-3 text-green-500" />
               <p className="font-bold text-lg">
-                Whether site Registered as house plot/ Building prior to 18-01
-                2006?
+                Compounding wall proposed?
               </p>
             </div>
             <label className="inline-flex items-center ml-3">
               <input
                 type="radio"
-                name="radio-5"
+                name="radio-2"
                 className="radio border border-[#10AC84] h-4 w-4"
                 value="yes"
-                checked
               />
               <span className="ml-2 text-base">Yes</span>
             </label>
             <label className="inline-flex items-center ml-3">
               <input
                 type="radio"
-                name="radio-5"
+                name="radio-2"
                 className="radio border border-[#10AC84] h-4 w-4"
                 value="no"
               />
               <span className="ml-2 text-base">No</span>
             </label>
           </div>
+
+          <div className="flex flex-col md:flex-row font-medium mb-4 text-lg mt-4">
+            <div className="flex items-center mb-3 md:mb-0">
+              <FaHandPointRight className="me-3 text-green-500" />
+              <p className="font-bold text-lg">Whether site Registered as house plot/ Building prior to 18-01
+                2006?</p>
+            </div>
+            <label className="inline-flex items-center ml-3">
+              <input
+                type="radio"
+                name="radio-3"
+                className="radio border border-[#10AC84] h-4 w-4"
+                value="Yes"
+              />
+              <span className="ml-2 text-base">Yes</span>
+            </label>
+            <label className="inline-flex items-center ml-3">
+              <input
+                type="radio"
+                name="radio-3"
+                className="radio border border-[#10AC84] h-4 w-4"
+                value="No"
+              />
+              <span className="ml-2 text-base">No</span>
+            </label>
+          </div>
         </div>
+
       </div>
 
       {/* schedule boundaries  */}
