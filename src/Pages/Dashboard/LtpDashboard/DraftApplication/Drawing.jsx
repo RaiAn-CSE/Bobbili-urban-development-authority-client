@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import getPostData from "../../../Shared/getPostData";
+import toast from "react-hot-toast";
 
 const Drawing = () => {
   const [selectedFiles, setSelectedFiles] = useState({});
@@ -9,6 +10,7 @@ const Drawing = () => {
 
   const handleFileChange = (event, eventId) => {
     const file = event?.target?.files[0];
+    file && toast.success(`${file?.name} uploaded successfully!`)
     // Set File Uploaded Data
     setSelectedFiles({ ...selectedFiles, [eventId]: file });
   };
@@ -24,8 +26,10 @@ const Drawing = () => {
           <span className="font-bold">1.</span> AutoCAD Drawing
         </p>
         <div className="w-[30%] flex items-center space-x-1 text-sm">
-          <label className="cursor-pointer bg-gray-300 border py-2 px-4 rounded-full hover:shadow-md">
-            Upload{" "}
+          <label className={`cursor-pointer bg-gray-300 border py-2 px-4 rounded-full 
+          ${selectedFiles["AutoCAD Drawing"]?.name ? 'bg-green-500' : 'hover:shadow-md'}`}>
+          
+            {selectedFiles["AutoCAD Drawing"]?.name?"Uploaded":"Upload"}
             <input
               type="file"
               accept=".dwg, .zip, .pdf"
@@ -33,9 +37,6 @@ const Drawing = () => {
               style={{ display: "none" }}
             />
           </label>
-          {selectedFiles["AutoCAD Drawing"] && (
-            <p className="overflow-hidden ml-1">{selectedFiles["AutoCAD Drawing"].name}</p>
-          )}
         </div>
       </div>
 
@@ -45,8 +46,9 @@ const Drawing = () => {
           <span className="font-bold">2.</span> Drawing PDF
         </p>
         <div className="w-[30%] flex items-center space-x-1 text-sm">
-          <label className="cursor-pointer bg-gray-300 py-2 px-4 rounded-full hover:shadow-md">
-            Upload{" "}
+          <label className={`cursor-pointer bg-gray-300 border py-2 px-4 rounded-full 
+          ${selectedFiles["Drawing PDF"]?.name ? 'bg-green-500' : 'hover:shadow-md'}`}>
+               {selectedFiles["Drawing PDF"]?.name?"Uploaded":"Upload"}
             <input
               type="file"
               accept=".pdf, image/*"
@@ -54,9 +56,6 @@ const Drawing = () => {
               style={{ display: "none" }}
             />
           </label>
-          {selectedFiles["Drawing PDF"] && (
-            <p className="overflow-hidden ml-1">{selectedFiles["Drawing PDF"].name}</p>
-          )}
         </div>
       </div>
 

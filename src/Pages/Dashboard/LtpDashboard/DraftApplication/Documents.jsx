@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import Documents from "../../../../assets/Documents.json";
 import { Link } from "react-router-dom";
 import getPostData from "../../../Shared/getPostData";
+import toast from "react-hot-toast";
 
 const DocumentUpload = () => {
   const [selectedFiles, setSelectedFiles] = useState({});
-  const [UpdatedDocuments, setUpdatedDocuments] = useState([]);
-  const btn =
-    "btn btn-md text-sm bg-Primary transition duration-700 hover:bg-btnHover hover:shadow-md";
+  const [UpdatedDocuments, setUpdatedDocuments] = useState(Documents.Data);
+  const btn = "btn btn-md text-sm bg-Primary transition duration-700 hover:bg-btnHover hover:shadow-md";
 
   const handleFileChange = (event, eventId) => {
     const file = event?.target?.files[0];
-
+    file && toast.success(`${file?.name} uploaded successfully!`)
     // Update selectedFiles object with the selected file for the specific question ID.
     setSelectedFiles((prevSelectedFiles) => ({
       ...prevSelectedFiles,
@@ -19,13 +19,15 @@ const DocumentUpload = () => {
     }));
 
     // Update UpdatedDocuments with the selected file for the specific question ID.
-    const updatedData = Documents.Data.map((Question) => {
+    const updatedData = UpdatedDocuments.map((Question) => {
       const { id, question, upload } = Question;
       return { id, question, upload: eventId === id ? file : upload };
     });
-    // localStorage.setItem("documents",JSON.stringify(updatedData));
+
     setUpdatedDocuments(updatedData);
   };
+  console.log(UpdatedDocuments, "UpdatesDocuments");
+
 
   const handleDocuments = () => {
     getPostData(UpdatedDocuments);
@@ -33,18 +35,18 @@ const DocumentUpload = () => {
 
   return (
     <div className="text-black p-4">
-      <div className="space-y-5">
-        {Documents.Data.map((Question) => {
+      <div className="space-y-8 lg:space-y-5">
+        {UpdatedDocuments.map((Question) => {
           const { id, question } = Question;
           return (
-            <div key={id} className="flex-1 px-2 lg:flex items-center shadow-sm py-2 rounded-lg">
-              <p className="flex-1 w-[70%]">
+            <div key={id} className="w-full px-2 lg:flex items-center space-y-3 lg:space-y-0">
+              <p className="flex-1">
                 {id}. {question}
               </p>
 
-              <div className="w-[30%] flex items-center relative">
-                <label className="cursor-pointer bg-gray-300 py-2 px-4 rounded-full hover:shadow-md">
-                  Upload
+              <div className="flex items-center">
+                <label className={`cursor-pointer bg-gray-300 py-2 px-4 rounded-full ${selectedFiles[id]?.name ? 'bg-green-500' : 'hover:shadow-md'}`}>
+                  {selectedFiles[id]?.name ? 'Uploaded' : 'Upload'}
                   <input
                     name={id}
                     type="file"
@@ -53,9 +55,7 @@ const DocumentUpload = () => {
                     style={{ display: "none" }}
                   />
                 </label>
-                <p className="ml-2 overflow-hidden"> {selectedFiles[id] && <p>{selectedFiles[id].name}</p>}</p>
               </div>
-             
             </div>
           );
         })}

@@ -23,11 +23,11 @@ function AppChecklist() {
   };
   return (
     <div className="px-3 text-sm py-1">
-      <div className="text-end mb-4">
+      {/* <div className="text-end mb-4">
         <button className="btn text-xs bg-[#c0e9e4] transition-all duration-700 hover:bg-[#10ac84] text-[#000] hover:text-[#fff]">
           <HiOutlineClipboardDocumentList className="text-lg" /> Application
         </button>
-      </div>
+      </div> */}
       <div className="space-y-5">
         {questions.map(({ no, question, answer }) => (
           <div
@@ -35,7 +35,7 @@ function AppChecklist() {
             className="lg:flex items-center justify-center shadow-sm shadow-gray-100 rounded p-3"
           >
             <p className="flex-1 text-black rounded mb-5 text-sm md:text-base lg:mb-0 lg:pr-4">
-              <span>{no}.</span> {question}
+              {no}. {question}
             </p>
             <div className="space-x-10 mt-2 lg:pr-2">
               <label
