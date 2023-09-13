@@ -524,41 +524,64 @@ const BuildingInfo = () => {
         </div>
         <div className="divider m-0"></div>
         <div className="grid grid-cols-2 lg:grid-cols-4 items-center my-5">
-          <InputField
-            id="name13"
-            name="name1"
-            label="North"
-            placeholder="North"
-          />
-          <InputField
-            id="name14"
-            name="name1"
-            label="South"
-            placeholder="South"
-          />
-          <InputField
-            id="name15"
-            name="name1"
-            label="East"
-            placeholder="East"
-          />
-          <InputField
-            id="name15"
-            name="name1"
-            label="West"
-            placeholder="West"
-          />
+
+          <div className="flex flex-col  justify-center mx-3">
+            <label className="block text-gray-600 mb-1 font-semibold">
+              <span>North</span>
+            </label>
+            <select className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs">
+              <option selected>Select North</option>
+              <option>Road</option>
+              <option>Plot</option>
+              <option>Vacant land</option>
+              <option>Vacant land</option>
+              <option>Water body</option>
+            </select>
+          </div>
+
+          <div className="flex flex-col  justify-center mx-3">
+            <label className="block text-gray-600 mb-1 font-semibold">
+              <span>South</span>
+            </label>
+            <select className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs">
+              <option selected>Select South</option>
+              <option>Road</option>
+              <option>Plot</option>
+              <option>Vacant land</option>
+              <option>Vacant land</option>
+              <option>Water body</option>
+            </select>
+          </div>
+
+          <div className="flex flex-col  justify-center mx-3">
+            <label className="block text-gray-600 mb-1 font-semibold">
+              <span>East</span>
+            </label>
+            <select className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs">
+              <option selected>Select East</option>
+              <option>Road</option>
+              <option>Plot</option>
+              <option>Vacant land</option>
+              <option>Vacant land</option>
+              <option>Water body</option>
+            </select>
+          </div>
+
+          <div className="flex flex-col  justify-center mx-3">
+            <label className="block text-gray-600 mb-1 font-semibold">
+              <span>West</span>
+            </label>
+            <select className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs">
+              <option selected>Select West</option>
+              <option>Road</option>
+              <option>Plot</option>
+              <option>Vacant land</option>
+              <option>Vacant land</option>
+              <option>Water body</option>
+            </select>
+          </div>
         </div>
       </div>
-
-      {/* navigation button  */}
-      {/* <div className="flex justify-center md:justify-end my-5">
-        <Link to="/dashboard/draftApplication/applicantInfo">
-          <button className="btn btn-md bg-Primary hover:bg-btnHover hover:shadow-md transition-all duration-500">
-            Save And Continue
-          </button>
-        </Link>
-      </div> */}
     </div>
   );
 };
