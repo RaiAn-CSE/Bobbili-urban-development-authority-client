@@ -242,7 +242,7 @@ const BuildingInfo = () => {
 
           <div className="flex flex-col md:flex-row font-medium mb-4 text-lg">
             <div className="flex items-center mb-3 md:mb-0">
-              <FaHandPointRight className="me-3 text-green-500" />
+              <FaHandPointRight className="me-3 w-5 lg:w-auto text-green-500" />
               <p className="font-bold text-lg">
                 Whether site abuts any Existing Road?
               </p>
@@ -269,7 +269,7 @@ const BuildingInfo = () => {
 
           <div className="flex flex-col md:flex-row font-medium mb-4 text-lg mt-4">
             <div className="flex items-center mb-3 md:mb-0">
-              <FaHandPointRight className="me-3 text-green-500" />
+              <FaHandPointRight className="me-3 w-5 lg:w-auto text-green-500" />
               <p className="font-bold text-lg">Status of Road?</p>
             </div>
             <label className="inline-flex items-center ml-3">
@@ -463,7 +463,7 @@ const BuildingInfo = () => {
 
           <div className="flex flex-col md:flex-row font-medium mb-4 text-lg">
             <div className="flex items-center mb-3 md:mb-0">
-              <FaHandPointRight className="me-3 text-green-500" />
+              <FaHandPointRight className="me-3 w-5 lg:w-auto text-green-500" />
               <p className="font-bold text-lg">
                 Compounding wall proposed?
               </p>
@@ -490,9 +490,8 @@ const BuildingInfo = () => {
 
           <div className="flex flex-col md:flex-row font-medium mb-4 text-lg mt-4">
             <div className="flex items-center mb-3 md:mb-0">
-              <FaHandPointRight className="me-3 text-green-500" />
-              <p className="font-bold text-lg">Whether site Registered as house plot/ Building prior to 18-01
-                2006?</p>
+              <FaHandPointRight className="me-3 w-7 lg:w-auto text-green-500" />
+              <p className="font-bold text-lg">Whether site Registered as house plot/ Building prior to 18-01-2006?</p>
             </div>
             <label className="inline-flex items-center ml-3">
               <input
