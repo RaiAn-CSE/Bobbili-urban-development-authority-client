@@ -18,6 +18,11 @@ const Drawing = () => {
     getPostData(selectedFiles);
   };
 
+  // Sending data to Backend
+  const handleBackendData = () => {
+    const applicationId = JSON.parse(localStorage.getItem("applicationId"))
+    getPostData({ applicationNo: applicationId, drawing: {}})
+  }
   return (
     <div className="text-black h-screen p-5 mt-3">
       {/* AutoCAD Drawing */}

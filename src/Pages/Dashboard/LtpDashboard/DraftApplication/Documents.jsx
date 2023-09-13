@@ -28,10 +28,11 @@ const DocumentUpload = () => {
   };
   console.log(UpdatedDocuments, "UpdatesDocuments");
 
-
-  const handleDocuments = () => {
-    getPostData(UpdatedDocuments);
-  };
+  // Sending data to Backend
+  const handleBackendData = () => {
+    const applicationId = JSON.parse(localStorage.getItem("applicationId"))
+    getPostData({ applicationNo: applicationId, documents: {} })
+  }
 
   return (
     <div className="text-black p-4">

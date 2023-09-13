@@ -7,6 +7,12 @@ import LabourChargeImg from "../../../../assets/images/payment-method.png";
 import GreenChargeImg from "../../../../assets/images/money.png";
 
 const Payment = () => {
+  
+  // Sending data to Backend
+  const handleBackendData = () => {
+    const applicationId = JSON.parse(localStorage.getItem("applicationId"))
+    getPostData({ applicationNo: applicationId, payment: {} })
+  }
   const builtup_Area = 1;
   const vacant_area = 1;
   const net_Plot_Area = 1;

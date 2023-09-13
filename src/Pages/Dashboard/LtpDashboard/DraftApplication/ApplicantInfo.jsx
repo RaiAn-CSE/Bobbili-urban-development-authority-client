@@ -3,8 +3,15 @@ import InputField from "../../../Components/InputField";
 import { Link } from "react-router-dom";
 import LTPImg from "../../../../assets/images/id-card.png";
 import OwnerImg from "../../../../assets/images/real-estate-agent.png";
+import getPostData from "../../../Shared/getPostData";
 
 const ApplicantInfo = () => {
+
+  const handleBackendData = () => {
+    const applicationId=JSON.parse(localStorage.getItem("applicationId"))
+    getPostData({ applicationNo: applicationId, applicantInfo: {}})
+ }
+
   return (
     <div className="grid my-5 lg:my-0 lg:p-2">
       <div>

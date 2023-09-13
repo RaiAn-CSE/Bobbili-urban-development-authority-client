@@ -13,8 +13,8 @@ const NewApplication = () => {
     const timestamp = new Date().getTime();
     const random = Math.floor(Math.random() * 10000); // Can be adjust the range as needed
     const uniqueNumber = `${timestamp}-${random}`;
-    localStorage.removeItem("applicationId"); // Remove the existing item with the key "applicationId"
-    localStorage.setItem("applicationId", JSON.stringify(uniqueNumber)); // Store the new value with the key "applicationId"    
+    localStorage.removeItem("applicationId"); // Removing the existing item with the key "applicationId"
+    localStorage.setItem("applicationId", JSON.stringify(uniqueNumber)); // Store the new value with the key "applicationId" 
   };
 
   return (
@@ -22,7 +22,7 @@ const NewApplication = () => {
       <div className="flex justify-end my-5 mr-3">
         <Link to="/dashboard/draftApplication/buildingInfo">
           <button className="btn flex bg-[#c0e9e4] transition-all duration-700 hover:bg-[#10ac84] text-[#000] hover:text-[#fff]">
-            <span onClick={()=>generateUniqueNumber()} className="text-xs">Create a new application</span>
+            <span onClick={() => generateUniqueNumber()} className="text-xs">Create a new application</span>
             <VscGitPullRequestCreate />
           </button>
         </Link>
