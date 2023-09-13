@@ -49,7 +49,7 @@ const BuildingInfo = () => {
     const applicationId = JSON.parse(localStorage.getItem("applicationId"))
     getPostData({ applicationNo: applicationId, buildingInfo: buildingInfoData, applicantInfo: {}, appChecklist: {}, documents: {}, drawing: {}, payment: {} })
   }
-  
+
   return (
     <div className="grid my-5 lg:my-0 lg:p-2">
       {/* general information */}

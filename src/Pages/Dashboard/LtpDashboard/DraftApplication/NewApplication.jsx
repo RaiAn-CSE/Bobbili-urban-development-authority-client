@@ -7,12 +7,13 @@ const NewApplication = () => {
     localStorage.removeItem("currentStep");
   });
 
-
+  const ltpUserId=JSON.parse(localStorage.getItem("loggedUser")).userId;
+  
   // Function to generate a unique number
   const generateUniqueNumber = () => {
     const timestamp = new Date().getTime();
     const random = Math.floor(Math.random() * 10000); // Can be adjust the range as needed
-    const uniqueNumber = `${timestamp}-${random}`;
+    const uniqueNumber = `${timestamp}-${random}-${ltpUserId}`;
     localStorage.removeItem("applicationId"); // Removing the existing item with the key "applicationId"
     localStorage.setItem("applicationId", JSON.stringify(uniqueNumber)); // Store the new value with the key "applicationId" 
   };
