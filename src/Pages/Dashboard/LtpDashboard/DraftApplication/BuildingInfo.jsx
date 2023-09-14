@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import InputField from "../../../Components/InputField";
-import { Link } from "react-router-dom";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { FaHandPointRight } from "react-icons/fa";
 import generalInfoImage from "../../../../assets/images/general-information.png";
@@ -15,12 +14,6 @@ const BuildingInfo = () => {
   // Nature of the site 
   const [selectedOption, setSelectedOption] = useState('Select Nature of the site');
   const [showInputFields, setShowInputFields] = useState(false);
-
-  // Nature of the site 
-  // const [selectedOption, setSelectedOption] = useState("");
-  // const [showAdditionalFields, setShowAdditionalFields] = useState(false);
-  // const [showFieldLRS, setShowFieldLRS] = useState(false);
-  // const [showFieldPlot, setShowFieldPlot] = useState(false);
 
   // Add a state variable to keep track of the number of sets of input fields
   const [inputFieldCount, setInputFieldCount] = useState(0);
@@ -45,26 +38,13 @@ const BuildingInfo = () => {
     setSelectedOption(e.target.value);
 
     // Check if the selected option should show additional input fields
-    if (
-      e.target.value === 'Approved Layout' ||
-      e.target.value === 'Regularised under LRS' ||
-      e.target.value === 'Plot port of RLP/IPLP but not regularised'
-    ) {
+    if (e.target.value === 'Approved Layout' || e.target.value === 'Regularised under LRS' || e.target.value === 'Plot port of RLP/IPLP but not regularised') {
       setShowInputFields(true);
-    } else {
+    }
+    else {
       setShowInputFields(false);
     }
   };
-
-  // Nature of the site 
-  // const handleSelectChange = (event) => {
-  //   const selectedValue = event.target.value;
-  //   setSelectedOption(selectedValue);
-
-  //   setShowAdditionalFields(selectedValue === "Approved Layout");
-  //   setShowFieldLRS(selectedValue === "Regularised under LRS");
-  //   setShowFieldPlot(selectedValue === "Plot port of RLP/IPLP but not regularised");
-  // };
 
   return (
     <div className="grid my-5 lg:my-0 lg:p-2">
@@ -194,8 +174,7 @@ const BuildingInfo = () => {
             placeholder="Village"
           />
 
-          {/*===================== Conditional Input Field  =====================*/}
-          {/* Conditionally render input fields based on selections */}
+          {/*===================== Conditionally render input fields based on Case Type  =====================*/}
           {selectedOptionCase === 'Alteration Addition Existing' && selectedOptionPermission === 'Regularised under BPS' && (
             <div>
               <InputField
@@ -218,7 +197,7 @@ const BuildingInfo = () => {
             </div>
           )}
 
-          {/* Conditionally render input fields based on the selected option */}
+          {/* Conditionally render input fields based on Nature of the site */}
           {showInputFields && (
             <>
               {selectedOption === 'Approved Layout' && (
