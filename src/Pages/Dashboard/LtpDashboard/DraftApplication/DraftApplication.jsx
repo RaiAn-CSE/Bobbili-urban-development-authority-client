@@ -66,7 +66,7 @@ const DraftApplication = () => {
   const isStepperVisible = allSteps.includes(location.pathname); // Check if current route is in the list of routes with the stepper
 
   let btnClass =
-    "btn btn-md text-[#000000] hover:text-[#fff] rounded-lg shadow-lg transition-all duration-500 cursor-pointer hover:bg-emerald-400";
+    "btn btn-md text-[#000000] hover:text-[#fff] rounded-lg transition-all duration-500 cursor-pointer hover:bg-emerald-400";
 
   const stepClasses = (index) => {
     if (index === currentStep) {

@@ -1,8 +1,8 @@
 import toast from "react-hot-toast";
 
-function getPostData( bodyData ) {
+function usePostData(bodyData) {
 
-    console.log(bodyData,"BodyData")
+    console.log(bodyData, "BodyData")
     const requestOptions = {
         method: "POST",
         headers: {
@@ -15,13 +15,13 @@ function getPostData( bodyData ) {
             if (!response.ok) {
                 return toast.error("Network error!");
             }
-            
-            return ; // toast.success("Data Added Successfully")
+
+            return; // toast.success("Data Added Successfully")
         })
         .catch((error) => toast.error(error.message))
     return;
 }
 
-export default getPostData;
+export default usePostData;
 
 
