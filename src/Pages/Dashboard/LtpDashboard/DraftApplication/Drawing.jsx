@@ -20,8 +20,8 @@ const Drawing = () => {
 
   // Sending data to Backend
   const handleBackendData = () => {
-    const applicationId = JSON.parse(localStorage.getItem("applicationId"))
-    getPostData({ applicationNo: applicationId, drawing: {}})
+    const applicationId = JSON.parse(localStorage.getItem("draftApplicationData")).applicationId
+    getPostData({ applicationId: applicationId, drawing: {}})
   }
   return (
     <div className="text-black h-screen p-5 mt-3">

@@ -9,7 +9,7 @@ const ApplicantInfo = () => {
 
   const handleBackendData = () => {
     const applicationId=JSON.parse(localStorage.getItem("applicationId"))
-    getPostData({ applicationNo: applicationId, applicantInfo: {}})
+    getPostData({ applicationId: applicationId, applicantInfo: {}})
  }
 
   return (

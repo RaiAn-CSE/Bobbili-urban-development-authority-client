@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ChecklistQuestions from "../../../../assets/AppChecklist.json";
 import { Link } from "react-router-dom";
-import getPostData from "../../../Shared/getPostData";
+import getPostData from "../../../Shared/usePostData";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 
 function AppChecklist() {
@@ -21,8 +21,8 @@ function AppChecklist() {
 
   // Sending data to Backend
   const handleBackendData = () => {
-    const applicationId = JSON.parse(localStorage.getItem("applicationId"))
-    getPostData({ applicationNo: applicationId, appChecklist: {questions} })
+    const applicationId = JSON.parse(localStorage.getItem("draftApplicationData")).applicationId;
+    getPostData({ applicationId: applicationId, appChecklist: {questions} })
   }
 
   return (

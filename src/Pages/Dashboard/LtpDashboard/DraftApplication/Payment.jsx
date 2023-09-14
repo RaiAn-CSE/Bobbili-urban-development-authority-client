@@ -10,8 +10,8 @@ const Payment = () => {
   
   // Sending data to Backend
   const handleBackendData = () => {
-    const applicationId = JSON.parse(localStorage.getItem("applicationId"))
-    getPostData({ applicationNo: applicationId, payment: {} })
+    const applicationId = JSON.parse(localStorage.getItem("draftApplicationData")).applicationId
+    getPostData({ applicationId: applicationId, payment: {} })
   }
   const builtup_Area = 1;
   const vacant_area = 1;

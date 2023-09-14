@@ -30,8 +30,8 @@ const DocumentUpload = () => {
 
   // Sending data to Backend
   const handleBackendData = () => {
-    const applicationId = JSON.parse(localStorage.getItem("applicationId"))
-    getPostData({ applicationNo: applicationId, documents: {} })
+    const applicationId = JSON.parse(localStorage.getItem("draftApplicationData")).applicationId
+    getPostData({ applicationId: applicationId, documents: {} })
   }
 
   return (
@@ -78,6 +78,6 @@ export default DocumentUpload;
 
 // [{
 
-//   draftApplication: [{ applicationNo: "", buildingInfo: {}, applicantInfo:{}, appChecklist:{}, documents: {}, drawing: {},payment:{} }]
+//   draftApplication: [{ applicationId: "", buildingInfo: {}, applicantInfo:{}, appChecklist:{}, documents: {}, drawing: {},payment:{} }]
 // }
 // ]

@@ -6,11 +6,13 @@ import { FaHandPointRight } from "react-icons/fa";
 import generalInfoImage from "../../../../assets/images/general-information.png";
 import plotImage from "../../../../assets/images/land.png";
 import wallImage from "../../../../assets/images/gate.png";
-import getPostData from "../../../Shared/getPostData";
+import usePostData from "../../../Shared/usePostData";
+import useGetDraftAppData from "../../../Shared/useGetDraftAppData";
 
 const BuildingInfo = () => {
   const [selectedOption, setSelectedOption] = useState("");
   const [showAdditionalFields, setShowAdditionalFields] = useState(false);
+  const [buildingInfoData,setBuildingInfoData]=useState();
 
   const [selectedOptionCase, setSelectedOptionCase] = useState("");
   const [showAdditionalFieldsCase, setShowAdditionalFieldsCase] =
@@ -43,11 +45,21 @@ const BuildingInfo = () => {
     );
   };
   // Building Info data
-  const buildingInfoData = {};
-  // Data send to backend
-  const handleBackendData = () => {
-    const applicationId = JSON.parse(localStorage.getItem("applicationId"))
-    getPostData({ applicationNo: applicationId, buildingInfo: buildingInfoData, applicantInfo: {}, appChecklist: {}, documents: {}, drawing: {}, payment: {} })
+  const buildingInfo = {};
+  
+  const applicationId = JSON.parse(localStorage.getItem("draftApplicationData")).applicationId;
+  // Previous page actions
+  const draftApplicationData = useGetDraftAppData(applicationId);
+  const appId = draftApplicationData.applicationId;
+  if (appId == applicationId) {
+    localStorage.removeItem("draftApplicationData");
+    const draftApplicationData = localStorage.setItem("draftApplicationData", JSON.stringify(draftApplicationData));
+    setBuildingInfoData(draftApplicationData.buildingInfo)
+  }
+
+// Data send to backend
+  const handleBackendData = (applicationId) => {
+    usePostData({ applicationId, buildingInfo: buildingInfo, applicantInfo: {}, appChecklist: {}, documents: {}, drawing: {}, payment: {} })
   }
 
   return (

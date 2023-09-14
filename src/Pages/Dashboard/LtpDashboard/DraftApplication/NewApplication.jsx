@@ -1,23 +1,33 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { VscGitPullRequestCreate } from "react-icons/vsc";
+import useGetDraftAppData from "../../../Shared/useGetDraftAppData";
 
 const NewApplication = () => {
+  const [applicationIdFromTd,setApplicationIdFromTd]=useState("");
   useEffect(() => {
     localStorage.removeItem("currentStep");
   });
 
-  const ltpUserId=JSON.parse(localStorage.getItem("loggedUser")).userId;
-  
+  const ltpUserId = JSON.parse(localStorage.getItem("loggedUser")).userId;
+
   // Function to generate a unique number
   const generateUniqueNumber = () => {
     const timestamp = new Date().getTime();
     const random = Math.floor(Math.random() * 10000);
     const uniqueNumber = `${timestamp}-${random}-${ltpUserId}`;
-    localStorage.removeItem("applicationId"); // Removing the existing item with the key "applicationId"
-    localStorage.setItem("applicationId", JSON.stringify(uniqueNumber)); // Store the new value with the key "applicationId" 
+    localStorage.removeItem("draftApplicationData"); // Removing the existing item with the key "applicationId"
+    localStorage.setItem("draftApplicationData", JSON.stringify({applicationId:uniqueNumber})); // Store the new value with the key "applicationId" 
   };
-
+  // after clicked on draft data showing details 
+  const handleDetails = (Id) => {
+    const draftApplicationData = useGetDraftAppData(Id);
+    const applicationId = draftApplicationData.applicationId;
+    if (applicationId==Id) {
+      localStorage.removeItem("draftApplicationData");
+     return localStorage.setItem("draftApplicationData", JSON.stringify(draftApplicationData));
+    }
+  }
   return (
     <div className="grid grid-cols-1 my-3">
       <div className="flex justify-end my-5 mr-3">
@@ -45,11 +55,11 @@ const NewApplication = () => {
               <th>Button</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody onClick={()=>handleDetails(applicationIdFromTd)}>
             {/* row 1 */}
             <tr>
               <th>1.</th>
-              <td>1177/XX/001/BUDA/2023</td>
+              <td onChange={setApplicationIdFromTd(e.target.value)}>1177/XX/001/BUDA/2023</td>
               <td>XXXX XXX</td>
               <td>99xxxxxxx99</td>
               <td>New</td>
