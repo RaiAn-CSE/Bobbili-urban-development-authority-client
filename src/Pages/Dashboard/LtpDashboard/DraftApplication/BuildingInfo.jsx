@@ -12,20 +12,15 @@ const BuildingInfo = () => {
   const [selectedOptionCase, setSelectedOptionCase] = useState('Select Case type');
   const [selectedOptionPermission, setSelectedOptionPermission] = useState('Select Nature of permission');
 
-  const handleCaseTypeChange = (e) => {
-    setSelectedOptionCase(e.target.value);
-  };
-
-  const handlePermissionChange = (e) => {
-    setSelectedOptionPermission(e.target.value);
-  };
+  // Nature of the site 
+  const [selectedOption, setSelectedOption] = useState('Select Nature of the site');
+  const [showInputFields, setShowInputFields] = useState(false);
 
   // Nature of the site 
-  const [selectedOption, setSelectedOption] = useState("");
-  const [showAdditionalFields, setShowAdditionalFields] = useState(false);
-  const [showFieldLRS, setShowFieldLRS] = useState(false);
-  const [showFieldPlot, setShowFieldPlot] = useState(false);
-
+  // const [selectedOption, setSelectedOption] = useState("");
+  // const [showAdditionalFields, setShowAdditionalFields] = useState(false);
+  // const [showFieldLRS, setShowFieldLRS] = useState(false);
+  // const [showFieldPlot, setShowFieldPlot] = useState(false);
 
   // Add a state variable to keep track of the number of sets of input fields
   const [inputFieldCount, setInputFieldCount] = useState(0);
@@ -37,30 +32,39 @@ const BuildingInfo = () => {
     }
   };
 
-
   // Case Type 
-  // const handleSelectChangeCase = (event) => {
-  //   const selectedValue = event.target.value;
-  //   setSelectedOptionCase(selectedValue);
-
-  //   setShowAdditionalFieldsCase(
-  //     selectedValue === "Alteration Addition Existing" ||
-  //     selectedValue === "Revision"
-  //   );
-  // };
-
-
-
-  // Nature of the site 
-  const handleSelectChange = (event) => {
-    const selectedValue = event.target.value;
-    setSelectedOption(selectedValue);
-
-    setShowAdditionalFields(selectedValue === "Approved Layout");
-    setShowFieldLRS(selectedValue === "Regularised under LRS");
-    setShowFieldPlot(selectedValue === "Plot port of RLP/IPLP but not regularised");
+  const handleCaseTypeChange = (e) => {
+    setSelectedOptionCase(e.target.value);
+  };
+  const handlePermissionChange = (e) => {
+    setSelectedOptionPermission(e.target.value);
   };
 
+  // Nature of the site 
+  const handleNatureChange = (e) => {
+    setSelectedOption(e.target.value);
+
+    // Check if the selected option should show additional input fields
+    if (
+      e.target.value === 'Approved Layout' ||
+      e.target.value === 'Regularised under LRS' ||
+      e.target.value === 'Plot port of RLP/IPLP but not regularised'
+    ) {
+      setShowInputFields(true);
+    } else {
+      setShowInputFields(false);
+    }
+  };
+
+  // Nature of the site 
+  // const handleSelectChange = (event) => {
+  //   const selectedValue = event.target.value;
+  //   setSelectedOption(selectedValue);
+
+  //   setShowAdditionalFields(selectedValue === "Approved Layout");
+  //   setShowFieldLRS(selectedValue === "Regularised under LRS");
+  //   setShowFieldPlot(selectedValue === "Plot port of RLP/IPLP but not regularised");
+  // };
 
   return (
     <div className="grid my-5 lg:my-0 lg:p-2">
@@ -86,7 +90,7 @@ const BuildingInfo = () => {
               value={selectedOptionCase}
               onChange={handleCaseTypeChange}
             >
-              <option value="Select Case type">Select Case type</option>
+              <option disabled selected value="Select Case type">Select Case type</option>
               <option value="New">New</option>
               <option value="Demolition and Reconstruction">Demolition and Reconstruction</option>
               <option value="Alteration Addition Existing">Alteration Addition Existing</option>
@@ -129,7 +133,7 @@ const BuildingInfo = () => {
               value={selectedOptionPermission}
               onChange={handlePermissionChange}
             >
-              <option value="Select Nature of permission">Select Nature of permission</option>
+              <option disabled selected value="Select Nature of permission">Select Nature of permission</option>
               <option value="General">General</option>
               <option value="Regularised under BPS">Regularised under BPS</option>
               <option value="Housing Scheme">Housing Scheme</option>
@@ -147,9 +151,9 @@ const BuildingInfo = () => {
               id="nature"
               className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
               value={selectedOption}
-              onChange={handleSelectChange}
+              onChange={handleNatureChange}
             >
-              <option selected>Select Nature of the site</option>
+              <option disabled selected>Select Nature of the site</option>
               <option>Approved Layout</option>
               <option>Regularised under LRS</option>
               <option>Plot port of RLP/IPLP but not regularised</option>
@@ -213,46 +217,52 @@ const BuildingInfo = () => {
               />
             </div>
           )}
-          {showAdditionalFields && (
+
+          {/* Conditionally render input fields based on the selected option */}
+          {showInputFields && (
             <>
-              <InputField
-                id="name6"
-                name="Village"
-                label="L.P. no."
-                placeholder="L.P. no."
-              />
-              <InputField
-                id="name7"
-                name="Village"
-                label="Plot no."
-                placeholder="Plot no."
-              />
+              {selectedOption === 'Approved Layout' && (
+                <>
+                  <InputField
+                    id="name6"
+                    name="Village"
+                    label="L.P. no."
+                    placeholder="L.P. no."
+                  />
+                  <InputField
+                    id="name7"
+                    name="Village"
+                    label="Plot no."
+                    placeholder="Plot no."
+                  />
+                </>
+              )}
+              {selectedOption === 'Regularised under LRS' && (
+                <>
+                  <InputField
+                    id="name6"
+                    name="Village"
+                    label="LRS no"
+                    placeholder="LRS no."
+                  />
+                  <InputField
+                    id="name7"
+                    name="Village"
+                    label="Plot no"
+                    placeholder="Plot no."
+                  />
+                </>
+              )}
+              {selectedOption === 'Plot port of RLP/IPLP but not regularised' && (
+                <InputField
+                  id="name7"
+                  name="Village"
+                  label="RLP/IPLP no."
+                  placeholder="RLP/IPLP no."
+                />
+              )}
             </>
           )}
-
-          {showFieldLRS &&
-            <>
-              <InputField
-                id="name6"
-                name="Village"
-                label="LRS no"
-                placeholder="LRS no."
-              />
-              <InputField
-                id="name7"
-                name="Village"
-                label="Plot no"
-                placeholder="Plot no."
-              />
-            </>
-          }
-          {
-            showFieldPlot && (
-              <>
-                <InputField id="name7" name="Village" label="RLP/IPLP no." placeholder="RLP/IPLP no." />
-              </>
-            )
-          }
           {/*===================== Conditional Input Field End =====================*/}
         </div>
       </div>
@@ -295,7 +305,7 @@ const BuildingInfo = () => {
               htmlFor="disabled-input"
               className="block text-gray-600 mb-1 font-semibold"
             >
-              Net Plot Area(in Sq.M.)
+              Net Plot Area (in Sq.M.)
             </label>
             <input
               type="text"
@@ -369,7 +379,7 @@ const BuildingInfo = () => {
               <span>Nature of Road</span>
             </label>
             <select className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs">
-              <option selected>Select Nature of Road</option>
+              <option disabled selected>Select Nature of Road</option>
               <option>BT Road</option>
               <option>CC Road</option>
               <option>WBM</option>
@@ -401,7 +411,7 @@ const BuildingInfo = () => {
               <span>Floor Name</span>
             </label>
             <select className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs">
-              <option selected>Select Floor Name</option>
+              <option disabled selected>Select Floor Name</option>
               <option>Stilt / Parking Floor</option>
               <option>Ground floor</option>
               <option>First Floor</option>
@@ -437,7 +447,7 @@ const BuildingInfo = () => {
                 <span>Floor Name</span>
               </label>
               <select className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs">
-                <option selected>Select Floor Name</option>
+                <option disabled selected>Select Floor Name</option>
                 <option>Stilt / Parking Floor</option>
                 <option>Ground floor</option>
                 <option>First Floor</option>
@@ -600,7 +610,7 @@ const BuildingInfo = () => {
               <span>North</span>
             </label>
             <select className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs">
-              <option selected>Select North</option>
+              <option disabled selected>Select North</option>
               <option>Road</option>
               <option>Plot</option>
               <option>Vacant land</option>
@@ -614,7 +624,7 @@ const BuildingInfo = () => {
               <span>South</span>
             </label>
             <select className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs">
-              <option selected>Select South</option>
+              <option disabled selected>Select South</option>
               <option>Road</option>
               <option>Plot</option>
               <option>Vacant land</option>
@@ -628,7 +638,7 @@ const BuildingInfo = () => {
               <span>East</span>
             </label>
             <select className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs">
-              <option selected>Select East</option>
+              <option disabled selected>Select East</option>
               <option>Road</option>
               <option>Plot</option>
               <option>Vacant land</option>
@@ -642,7 +652,7 @@ const BuildingInfo = () => {
               <span>West</span>
             </label>
             <select className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs">
-              <option selected>Select West</option>
+              <option disabled selected>Select West</option>
               <option>Road</option>
               <option>Plot</option>
               <option>Vacant land</option>
