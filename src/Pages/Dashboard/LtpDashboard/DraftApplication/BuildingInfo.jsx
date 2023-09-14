@@ -281,7 +281,7 @@ const BuildingInfo = () => {
           <InputField
             id="name9"
             name="name1"
-            label="Total Plot per document"
+            label="Total Plot are as per document"
             placeholder="in Sq.M."
           />
           <InputField
@@ -290,12 +290,22 @@ const BuildingInfo = () => {
             label="Road Widening Area"
             placeholder="in Sq.M."
           />
-          <InputField
-            id="name11"
-            name="name1"
-            label="Net Plot Area"
-            placeholder="in Sq.M."
-          />
+          <div className="my-4 mx-3">
+            <label
+              htmlFor="disabled-input"
+              className="block text-gray-600 mb-1 font-semibold"
+            >
+              Net Plot Area(in Sq.M.)
+            </label>
+            <input
+              type="text"
+              id="disabled-input"
+              name="disabled-input1"
+              placeholder="Automatically calculated"
+              className="w-full px-3 py-2 border rounded-lg max-w-xs"
+              disabled
+            />
+          </div>
         </div>
 
         <div className="grid grid-cols-1 mx-5 md:mx-10 lg:mx-14 my-10">
