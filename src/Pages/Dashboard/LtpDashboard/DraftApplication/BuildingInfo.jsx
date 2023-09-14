@@ -8,12 +8,16 @@ import plotImage from "../../../../assets/images/land.png";
 import wallImage from "../../../../assets/images/gate.png";
 
 const BuildingInfo = () => {
+  // Case Type 
+  const [selectedOptionCase, setSelectedOptionCase] = useState("");
+  const [showAdditionalFieldsCase, setShowAdditionalFieldsCase] = useState(false);
+
+  // Nature of the site 
   const [selectedOption, setSelectedOption] = useState("");
   const [showAdditionalFields, setShowAdditionalFields] = useState(false);
+  const [showFieldLRS, setShowFieldLRS] = useState(false);
+  const [showFieldPlot, setShowFieldPlot] = useState(false);
 
-  const [selectedOptionCase, setSelectedOptionCase] = useState("");
-  const [showAdditionalFieldsCase, setShowAdditionalFieldsCase] =
-    useState(false);
 
   // Add a state variable to keep track of the number of sets of input fields
   const [inputFieldCount, setInputFieldCount] = useState(0);
@@ -25,13 +29,7 @@ const BuildingInfo = () => {
     }
   };
 
-  const handleSelectChange = (event) => {
-    const selectedValue = event.target.value;
-    setSelectedOption(selectedValue);
-
-    setShowAdditionalFields(selectedValue === "Regularised under LRS");
-  };
-
+  // Case Type 
   const handleSelectChangeCase = (event) => {
     const selectedValue = event.target.value;
     setSelectedOptionCase(selectedValue);
@@ -41,6 +39,17 @@ const BuildingInfo = () => {
       selectedValue === "Revision"
     );
   };
+
+  // Nature of the site 
+  const handleSelectChange = (event) => {
+    const selectedValue = event.target.value;
+    setSelectedOption(selectedValue);
+
+    setShowAdditionalFields(selectedValue === "Approved Layout");
+    setShowFieldLRS(selectedValue === "Regularised under LRS");
+    setShowFieldPlot(selectedValue === "Plot port of RLP/IPLP but not regularised");
+  };
+
 
   return (
     <div className="grid my-5 lg:my-0 lg:p-2">
@@ -194,6 +203,31 @@ const BuildingInfo = () => {
               />
             </>
           )}
+
+          {showFieldLRS &&
+            <>
+              <InputField
+                id="name6"
+                name="Village"
+                label="LRS no"
+                placeholder="LRS no"
+              />
+              <InputField
+                id="name7"
+                name="Village"
+                label="Plot no"
+                placeholder="Plot no"
+              />
+            </>
+          }
+          {
+            showFieldPlot && (
+              <>
+                <InputField id="name7" name="Village" label="RLP/IPLP no" placeholder="RLP/IPLP no" />
+              </>
+            )
+          }
+
         </div>
       </div>
 
