@@ -46,6 +46,38 @@ const BuildingInfo = () => {
     }
   };
 
+
+
+  // Net Plot Area(in Sq.M.) Calculation :
+  const [proposedPlotArea, setProposedPlotArea] = useState('');
+  const [roadWideningArea, setRoadWideningArea] = useState('');
+  const [netPlotArea, setNetPlotArea] = useState('');
+
+  const handleProposedPlotAreaChange = (e) => {
+    const newValue = e.target.value;
+    setProposedPlotArea(newValue);
+    calculateNetPlotArea(newValue, roadWideningArea);
+  };
+
+  const handleRoadWideningAreaChange = (e) => {
+    const newValue = e.target.value;
+    setRoadWideningArea(newValue);
+    calculateNetPlotArea(proposedPlotArea, newValue);
+  };
+
+  const calculateNetPlotArea = (proposed, widening) => {
+    const proposedArea = parseFloat(proposed);
+    const wideningArea = parseFloat(widening);
+
+    if (!isNaN(proposedArea) && !isNaN(wideningArea)) {
+      const netArea = proposedArea - wideningArea;
+      setNetPlotArea(netArea.toFixed(2)); // Format to 2 decimal places
+    } else {
+      setNetPlotArea('');
+    }
+  };
+
+
   return (
     <div className="grid my-5 lg:my-0 lg:p-2">
       {/* general information */}
@@ -255,12 +287,18 @@ const BuildingInfo = () => {
         <div className="divider m-0"></div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 mt-5">
-          <InputField
-            id="name7"
-            name="name34"
-            label="Proposed Plot area"
-            placeholder="in Sq.M."
-          />
+          <div className="my-4 mx-3">
+            <label htmlFor='ProposedPlotArea' className="block text-gray-600 mb-1 font-semibold">
+              Proposed Plot area
+            </label>
+            <input
+              type="text"
+              placeholder="in Sq.M."
+              className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
+              value={proposedPlotArea}
+              onChange={handleProposedPlotAreaChange}
+            />
+          </div>
           <InputField
             id="name8"
             name="name1"
@@ -273,12 +311,20 @@ const BuildingInfo = () => {
             label="Total Plot are as per document"
             placeholder="in Sq.M."
           />
-          <InputField
-            id="name10"
-            name="name1"
-            label="Road Widening Area"
-            placeholder="in Sq.M."
-          />
+          <div className="my-4 mx-3">
+            <label htmlFor='ProposedPlot' className="block text-gray-600 mb-1 font-semibold">
+              Net Plot Area (in Sq.M.)
+            </label>
+            <input
+              type="text"
+              placeholder="in Sq.M."
+              className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
+              value={roadWideningArea}
+              onChange={handleRoadWideningAreaChange}
+            />
+          </div>
+
+          {/* Automatically calculated Plot Details  */}
           <div className="my-4 mx-3">
             <label
               htmlFor="disabled-input"
@@ -292,6 +338,7 @@ const BuildingInfo = () => {
               name="disabled-input1"
               placeholder="Automatically calculated"
               className="w-full px-3 py-2 border rounded-lg max-w-xs"
+              value={netPlotArea}
               disabled
             />
           </div>
