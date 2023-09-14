@@ -9,8 +9,16 @@ import wallImage from "../../../../assets/images/gate.png";
 
 const BuildingInfo = () => {
   // Case Type 
-  const [selectedOptionCase, setSelectedOptionCase] = useState("");
-  const [showAdditionalFieldsCase, setShowAdditionalFieldsCase] = useState(false);
+  const [selectedOptionCase, setSelectedOptionCase] = useState('Select Case type');
+  const [selectedOptionPermission, setSelectedOptionPermission] = useState('Select Nature of permission');
+
+  const handleCaseTypeChange = (e) => {
+    setSelectedOptionCase(e.target.value);
+  };
+
+  const handlePermissionChange = (e) => {
+    setSelectedOptionPermission(e.target.value);
+  };
 
   // Nature of the site 
   const [selectedOption, setSelectedOption] = useState("");
@@ -29,16 +37,19 @@ const BuildingInfo = () => {
     }
   };
 
-  // Case Type 
-  const handleSelectChangeCase = (event) => {
-    const selectedValue = event.target.value;
-    setSelectedOptionCase(selectedValue);
 
-    setShowAdditionalFieldsCase(
-      selectedValue === "Alteration Addition Existing" ||
-      selectedValue === "Revision"
-    );
-  };
+  // Case Type 
+  // const handleSelectChangeCase = (event) => {
+  //   const selectedValue = event.target.value;
+  //   setSelectedOptionCase(selectedValue);
+
+  //   setShowAdditionalFieldsCase(
+  //     selectedValue === "Alteration Addition Existing" ||
+  //     selectedValue === "Revision"
+  //   );
+  // };
+
+
 
   // Nature of the site 
   const handleSelectChange = (event) => {
@@ -66,23 +77,20 @@ const BuildingInfo = () => {
 
         <div className="grid grid-cols-2 lg:grid-cols-4 my-5">
           <div className="flex flex-col justify-center px-3">
-            <label
-              htmlFor="nature"
-              className="block text-gray-600 mb-1 font-semibold"
-            >
+            <label htmlFor="nature" className="block text-gray-600 mb-1 font-semibold">
               <span>Case Type</span>
             </label>
             <select
               id="nature"
               className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
               value={selectedOptionCase}
-              onChange={handleSelectChangeCase}
+              onChange={handleCaseTypeChange}
             >
-              <option selected>Select Case type</option>
-              <option>New</option>
-              <option>Demolition and Reconstruction</option>
-              <option>Alteration Addition Existing</option>
-              <option>Revision</option>
+              <option value="Select Case type">Select Case type</option>
+              <option value="New">New</option>
+              <option value="Demolition and Reconstruction">Demolition and Reconstruction</option>
+              <option value="Alteration Addition Existing">Alteration Addition Existing</option>
+              <option value="Revision">Revision</option>
             </select>
           </div>
 
@@ -112,15 +120,19 @@ const BuildingInfo = () => {
             </div>
           </div>
 
-          <div className="flex flex-col  justify-center mx-3">
+          <div className="flex flex-col justify-center mx-3">
             <label className="block text-gray-600 mb-1 font-semibold">
               <span>Nature of permission</span>
             </label>
-            <select className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs">
-              <option selected>Select Nature of permission</option>
-              <option>General</option>
-              <option>Regularised under BPS</option>
-              <option>Housing Scheme</option>
+            <select
+              className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
+              value={selectedOptionPermission}
+              onChange={handlePermissionChange}
+            >
+              <option value="Select Nature of permission">Select Nature of permission</option>
+              <option value="General">General</option>
+              <option value="Regularised under BPS">Regularised under BPS</option>
+              <option value="Housing Scheme">Housing Scheme</option>
             </select>
           </div>
 
@@ -177,29 +189,43 @@ const BuildingInfo = () => {
             label="Village"
             placeholder="Village"
           />
-          {showAdditionalFieldsCase && (
-            <>
+
+          {/*===================== Conditional Input Field  =====================*/}
+          {/* Conditionally render input fields based on selections */}
+          {selectedOptionCase === 'Alteration Addition Existing' && selectedOptionPermission === 'Regularised under BPS' && (
+            <div>
               <InputField
                 id="name6"
                 name="Village"
-                label="B.A no"
-                placeholder="B.A no"
+                label="BPS approved no."
+                placeholder="BPS approved no."
               />
-            </>
+            </div>
+          )}
+
+          {selectedOptionCase === 'Alteration Addition Existing' && selectedOptionPermission !== 'Regularised under BPS' && (
+            <div>
+              <InputField
+                id="name6"
+                name="Village"
+                label="Previews approved file no."
+                placeholder="Previews approved file no."
+              />
+            </div>
           )}
           {showAdditionalFields && (
             <>
               <InputField
                 id="name6"
                 name="Village"
-                label="L.P. no"
-                placeholder="L.P. no"
+                label="L.P. no."
+                placeholder="L.P. no."
               />
               <InputField
                 id="name7"
                 name="Village"
-                label="Plot no"
-                placeholder="Plot no"
+                label="Plot no."
+                placeholder="Plot no."
               />
             </>
           )}
@@ -210,24 +236,24 @@ const BuildingInfo = () => {
                 id="name6"
                 name="Village"
                 label="LRS no"
-                placeholder="LRS no"
+                placeholder="LRS no."
               />
               <InputField
                 id="name7"
                 name="Village"
                 label="Plot no"
-                placeholder="Plot no"
+                placeholder="Plot no."
               />
             </>
           }
           {
             showFieldPlot && (
               <>
-                <InputField id="name7" name="Village" label="RLP/IPLP no" placeholder="RLP/IPLP no" />
+                <InputField id="name7" name="Village" label="RLP/IPLP no." placeholder="RLP/IPLP no." />
               </>
             )
           }
-
+          {/*===================== Conditional Input Field End =====================*/}
         </div>
       </div>
 
