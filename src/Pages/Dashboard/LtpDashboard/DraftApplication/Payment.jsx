@@ -9,12 +9,13 @@ import GreenChargeImg from "../../../../assets/images/money.png";
 import { AiOutlineFileText } from "react-icons/ai";
 
 const Payment = () => {
-  
   // Sending data to Backend
   const handleBackendData = () => {
-    const applicationId = JSON.parse(localStorage.getItem("draftApplicationData")).applicationId
-    getPostData({ applicationId: applicationId, payment: {} })
-  }
+    const applicationId = JSON.parse(
+      localStorage.getItem("draftApplicationData")
+    ).applicationId;
+    getPostData({ applicationId: applicationId, payment: {} });
+  };
   const builtup_Area = 1;
   const vacant_area = 1;
   const net_Plot_Area = 1;
@@ -22,57 +23,60 @@ const Payment = () => {
 
   // UDA Charge
   const builtupAreaChargedUnitRate = 15; //per Sqm.
-  const builtUpAreaDevelopmentCharged = (builtupAreaChargedUnitRate * builtup_Area);
+  const builtUpAreaDevelopmentCharged =
+    builtupAreaChargedUnitRate * builtup_Area;
 
   const vacantAreaChargedUnitRate = 10; // per Sqm.
-  const vacantAreaDevelopmentCharged = (vacantAreaChargedUnitRate * vacant_area);
+  const vacantAreaDevelopmentCharged = vacantAreaChargedUnitRate * vacant_area;
   const UDATotal = () => {
     return;
-  }
+  };
 
   // Grama Panchayet fees
   const bettermentChargedUnitRate = 40; //per Sqm.
-  const bettermentCharged = (bettermentChargedUnitRate * net_Plot_Area);
+  const bettermentCharged = bettermentChargedUnitRate * net_Plot_Area;
 
-  const buildingPermitUnitRate = 20; //per Sqm.	
-  const buildingPermitFees = (buildingPermitUnitRate * builtup_Area);
+  const buildingPermitUnitRate = 20; //per Sqm.
+  const buildingPermitFees = buildingPermitUnitRate * builtup_Area;
 
   const siteApprovalUnitRate = 10; //per Sqm.
-  const siteApprovalCharges = (siteApprovalUnitRate * net_Plot_Area);
+  const siteApprovalCharges = siteApprovalUnitRate * net_Plot_Area;
 
-  const paperPublicationCharges = 1500;	//Fixed	
+  const paperPublicationCharges = 1500; //Fixed
 
-  const processingUnitRate = 7; //per Sqm.	
-  const processingFees = (processingUnitRate * builtup_Area);
+  const processingUnitRate = 7; //per Sqm.
+  const processingFees = processingUnitRate * builtup_Area;
 
   // 33% penalization
   const penalization = (net_Plot_Area) => {
     if (net_Plot_Area > 100) {
       const penalizationChargesUnitRate = 200; //per Sqm Less than 100Sqm
-      const penalizationCharges = ((penalizationChargesUnitRate * net_Plot_Area) * 0.33);
+      const penalizationCharges =
+        penalizationChargesUnitRate * net_Plot_Area * 0.33;
       return penalizationCharges;
-
     }
     if (net_Plot_Area > 100 || net_Plot_Area <= 300) {
       const penalizationChargesUnitRate = 400;
-      const penalizationCharges = ((penalizationChargesUnitRate * net_Plot_Area) * 0.33);
+      const penalizationCharges =
+        penalizationChargesUnitRate * net_Plot_Area * 0.33;
       return penalizationCharges;
     }
-  }
+  };
 
-  const openSpaceCharge = ((net_Plot_Area * 1.196 * market_value) * 0.14); // Open Space Charge= 14%
+  const openSpaceCharge = net_Plot_Area * 1.196 * market_value * 0.14; // Open Space Charge= 14%
 
   const gramaPanchayetTotal = () => {
-    return ;
-  }
+    return;
+  };
 
   // Green fee charge
   const greenFeeChargesUnitRate = 3; //per Sq.ft
-  const greenFeeCharges = (greenFeeChargesUnitRate * builtup_Area * 10.76);
+  const greenFeeCharges = greenFeeChargesUnitRate * builtup_Area * 10.76;
 
-  // Labour Cess 
+  // Labour Cess
   const labourCessComponentUnitRate = 1400;
-  const labourCessComponent = (((labourCessComponentUnitRate * builtup_Area * 10.76) * 0.01) * 0.98);
+  const labourCessComponent =
+    labourCessComponentUnitRate * builtup_Area * 10.76 * 0.01 * 0.98;
 
   return (
     <div className="grid my-5 lg:my-0 lg:p-2">
@@ -98,16 +102,14 @@ const Payment = () => {
             id="myInput1"
             name="myInput"
             label="Development charges(on Vacant land)"
-           
-            value={vacantAreaDevelopmentCharged} placeholder="1000"
+            placeholder="1000"
             type="number"
           />
           <InputField
             id="myInput2"
             name="myInput"
             label="Development charges(on Built-up area)"
-           
-            value={builtUpAreaDevelopmentCharged} placeholder="1000"
+            placeholder="1000"
             type="number"
           />
           <InputField
@@ -143,14 +145,56 @@ const Payment = () => {
         </div>
         <div className="divider m-0"></div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-5">
-          <InputField id="myInput5" name="myInput" label='Site approval charges' value={siteApprovalCharges} placeholder="1000" type="number" />
-          <InputField id="myInput6" name="myInput" label='Building permit fee' value={buildingPermitFees} placeholder="1000" type="number" />
-          <InputField id="myInput7" name="myInput" label='Betterment charge' value={bettermentCharged} placeholder="1000" type="number" />
-          <InputField id="myInput8" name="myInput" label='14% open space charges' value={openSpaceCharge} placeholder="5000" type="number" />
-          <InputField id="myInput8" name="myInput" label='Impact fee (50% to G.P.)' placeholder="5000" type="number" />
-          <InputField id="myInput8" name="myInput" label='33% penalization charges' value={penalization(net_Plot_Area)} placeholder="0" type="number" />
-          <InputField id="myInput8" name="myInput" label='Total' value={UDATotal()} placeholder="13000" type="number" />
+        <div className="grid grid-cols-2 lg:grid-cols-4 mt-3">
+          <InputField
+            id="myInput5"
+            name="myInput"
+            label="Site approval charges"
+            placeholder="1000"
+            type="number"
+          />
+          <InputField
+            id="myInput6"
+            name="myInput"
+            label="Building permit fee"
+            placeholder="1000"
+            type="number"
+          />
+          <InputField
+            id="myInput7"
+            name="myInput"
+            label="Betterment charge"
+            placeholder="1000"
+            type="number"
+          />
+          <InputField
+            id="myInput8"
+            name="myInput"
+            label="14% open space charges"
+            placeholder="5000"
+            type="number"
+          />
+          <InputField
+            id="myInput8"
+            name="myInput"
+            label="Impact fee (50% to G.P.)"
+            placeholder="5000"
+            type="number"
+          />
+          <InputField
+            id="myInput8"
+            name="myInput"
+            label="33% penalization charges"
+            placeholder="0"
+            type="number"
+          />
+          <InputField
+            id="myInput8"
+            name="myInput"
+            label="Total"
+            placeholder="13000"
+            type="number"
+          />
         </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 mb-8">
