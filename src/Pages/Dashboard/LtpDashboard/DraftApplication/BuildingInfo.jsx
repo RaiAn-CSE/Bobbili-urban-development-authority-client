@@ -6,6 +6,8 @@ import generalInfoImage from "../../../../assets/images/general-information.png"
 import plotImage from "../../../../assets/images/land.png";
 import wallImage from "../../../../assets/images/gate.png";
 
+import { useForm, Controller } from 'react-hook-form';
+
 const BuildingInfo = () => {
   // Case Type 
   const [selectedOptionCase, setSelectedOptionCase] = useState('Select Case type');
@@ -51,7 +53,6 @@ const BuildingInfo = () => {
     }
   };
 
-
   const handleProposedPlotAreaChange = (e) => {
     const newValue = e.target.value;
 
@@ -83,6 +84,25 @@ const BuildingInfo = () => {
       setNetPlotArea('');
     }
   };
+
+
+
+
+
+  const {
+    control,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm();
+
+  // Define your form submit function
+  const onSubmit = (data) => {
+    console.log(data); // You can access the form data here
+  };
+
+
 
 
   return (
@@ -186,7 +206,7 @@ const BuildingInfo = () => {
             name="Survey no."
             label="Survey no."
             placeholder="Survey no."
-            type="number"
+            type="text"
           />
           <InputField
             id="name6"
@@ -294,6 +314,20 @@ const BuildingInfo = () => {
         <div className="divider m-0"></div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 mt-5">
+          <InputField
+            type="number"
+            id="name9"
+            name="name1"
+            label="Total Plot are as per document"
+            placeholder="in Sq.M."
+          />
+          <InputField
+            type="number"
+            id="name8"
+            name="name1"
+            label="Total Plot are as on ground"
+            placeholder="in Sq.M."
+          />
           <div className="my-4 mx-3">
             <label htmlFor='ProposedPlotArea' className="block text-gray-600 mb-1 font-semibold">
               Proposed Plot area
@@ -307,20 +341,6 @@ const BuildingInfo = () => {
               maxLength="3"
             />
           </div>
-          <InputField
-            type="number"
-            id="name8"
-            name="name1"
-            label="Total Plot are as on ground"
-            placeholder="in Sq.M."
-          />
-          <InputField
-            type="number"
-            id="name9"
-            name="name1"
-            label="Total Plot are as per document"
-            placeholder="in Sq.M."
-          />
           <div className="my-4 mx-3">
             <label htmlFor='ProposedPlot' className="block text-gray-600 mb-1 font-semibold">
               Road Widening Area
@@ -458,7 +478,7 @@ const BuildingInfo = () => {
           <InputField
             id="name12"
             name="name1"
-            label="Plinth Area (in Sq.M.)"
+            label="Built up area (in Sq.M.)"
             placeholder="in Sq.M."
           />
           <InputField
@@ -494,7 +514,7 @@ const BuildingInfo = () => {
             <InputField
               id={`name12-${index}`}
               name="name1"
-              label="Plinth Area (in Sq.M.)"
+              label="Built up Area (in Sq.M.)"
               placeholder="in Sq.M."
             />
             <InputField
@@ -544,7 +564,7 @@ const BuildingInfo = () => {
         <div className="grid grid-cols-2 lg:grid-cols-4">
           <InputField
             id="name7"
-            name="Proposed Plot area(in Sq.M.)"
+            name="name72"
             label="Front setback (in M.)"
             placeholder="in M."
           />
@@ -574,9 +594,7 @@ const BuildingInfo = () => {
           />
         </div>
 
-
         <div className="grid grid-cols-1 mx-5 md:mx-10 lg:mx-14 my-10">
-
           <div className="flex flex-col md:flex-row font-medium mb-4 text-lg">
             <div className="flex items-center mb-3 md:mb-0">
               <FaHandPointRight className="me-3 w-5 lg:w-auto text-green-500" />
@@ -629,7 +647,6 @@ const BuildingInfo = () => {
             </label>
           </div>
         </div>
-
       </div>
 
       {/* schedule boundaries  */}
