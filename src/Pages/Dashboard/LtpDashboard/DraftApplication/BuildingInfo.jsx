@@ -313,7 +313,7 @@ const BuildingInfo = () => {
           />
           <div className="my-4 mx-3">
             <label htmlFor='ProposedPlot' className="block text-gray-600 mb-1 font-semibold">
-              Net Plot Area (in Sq.M.)
+              Road Widening Area
             </label>
             <input
               type="text"
