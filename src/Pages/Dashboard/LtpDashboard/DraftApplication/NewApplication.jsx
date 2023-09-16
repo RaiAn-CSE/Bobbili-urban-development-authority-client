@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { VscGitPullRequestCreate } from "react-icons/vsc";
 import useGetDraftAppData from "../../../Shared/useGetDraftAppData";
+import { BsPlusLg } from "react-icons/bs";
 
 const NewApplication = () => {
   const [applicationIdFromTd, setApplicationIdFromTd] = useState("");
@@ -37,7 +38,7 @@ const NewApplication = () => {
         <Link to="/dashboard/draftApplication/buildingInfo">
           <button className="btn flex bg-[#c0e9e4] transition-all duration-700 hover:bg-[#10ac84] text-[#000] hover:text-[#fff]">
             <span className="text-xs">Create a new application</span>
-            <VscGitPullRequestCreate />
+            <BsPlusLg size={20} />
           </button>
         </Link>
       </div>
