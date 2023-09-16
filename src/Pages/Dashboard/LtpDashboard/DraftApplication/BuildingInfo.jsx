@@ -56,35 +56,35 @@ const BuildingInfo = () => {
     }
   };
   // Building Info data
-  const buildingInfo = {};
+  // const buildingInfo = {};
 
-  const applicationId = JSON.parse(
-    localStorage.getItem("draftApplicationData")
-  ).applicationId;
-  // Previous page actions
-  const draftApplicationData = useGetDraftAppData(applicationId);
-  const appId = draftApplicationData.applicationId;
-  if (appId == applicationId) {
-    localStorage.removeItem("draftApplicationData");
-    const draftApplicationData = localStorage.setItem(
-      "draftApplicationData",
-      JSON.stringify(draftApplicationData)
-    );
-    setBuildingInfoData(draftApplicationData.buildingInfo);
-  }
+  // const applicationId = JSON.parse(
+  //   localStorage.getItem("draftApplicationData")
+  // ).applicationId;
+  // // Previous page actions
+  // const draftApplicationData = useGetDraftAppData(applicationId);
+  // const appId = draftApplicationData.applicationId;
+  // if (appId == applicationId) {
+  //   localStorage.removeItem("draftApplicationData");
+  //   const draftApplicationData = localStorage.setItem(
+  //     "draftApplicationData",
+  //     JSON.stringify(draftApplicationData)
+  //   );
+  //   setBuildingInfoData(draftApplicationData.buildingInfo);
+  // }
 
-  // Data send to backend
-  const handleBackendData = (applicationId) => {
-    usePostData({
-      applicationId,
-      buildingInfo: buildingInfo,
-      applicantInfo: {},
-      appChecklist: {},
-      documents: {},
-      drawing: {},
-      payment: {},
-    });
-  };
+  // // Data send to backend
+  // const handleBackendData = (applicationId) => {
+  //   usePostData({
+  //     applicationId,
+  //     buildingInfo: buildingInfo,
+  //     applicantInfo: {},
+  //     appChecklist: {},
+  //     documents: {},
+  //     drawing: {},
+  //     payment: {},
+  //   });
+  // };
 
   // Net Plot Area(in Sq.M.) Calculation :
   const [proposedPlotArea, setProposedPlotArea] = useState("");

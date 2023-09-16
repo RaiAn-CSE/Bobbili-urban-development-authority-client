@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import Documents from "../../../../assets/Documents.json";
 import { Link } from "react-router-dom";
-import getPostData from "../../../Shared/getPostData";
+import getPostData from "../../../Shared/usePostData";
 import toast from "react-hot-toast";
 
 const DocumentUpload = () => {
   const [selectedFiles, setSelectedFiles] = useState({});
   const [UpdatedDocuments, setUpdatedDocuments] = useState(Documents.Data);
-  const btn = "btn btn-md text-sm bg-Primary transition duration-700 hover:bg-btnHover hover:shadow-md";
+  const btn =
+    "btn btn-md text-sm bg-Primary transition duration-700 hover:bg-btnHover hover:shadow-md";
 
   const handleFileChange = (event, eventId) => {
     const file = event?.target?.files[0];
-    file && toast.success(`${file?.name} uploaded successfully!`)
+    file && toast.success(`${file?.name} uploaded successfully!`);
     // Update selectedFiles object with the selected file for the specific question ID.
     setSelectedFiles((prevSelectedFiles) => ({
       ...prevSelectedFiles,
@@ -30,9 +31,11 @@ const DocumentUpload = () => {
 
   // Sending data to Backend
   const handleBackendData = () => {
-    const applicationId = JSON.parse(localStorage.getItem("draftApplicationData")).applicationId
-    getPostData({ applicationId: applicationId, documents: {} })
-  }
+    const applicationId = JSON.parse(
+      localStorage.getItem("draftApplicationData")
+    ).applicationId;
+    getPostData({ applicationId: applicationId, documents: {} });
+  };
 
   return (
     <div className="text-black p-4">
@@ -40,14 +43,21 @@ const DocumentUpload = () => {
         {UpdatedDocuments.map((Question) => {
           const { id, question } = Question;
           return (
-            <div key={id} className="w-full px-2 lg:flex items-center space-y-3 lg:space-y-0">
+            <div
+              key={id}
+              className="w-full px-2 lg:flex items-center space-y-3 lg:space-y-0"
+            >
               <p className="flex-1">
                 {id}. {question}
               </p>
 
               <div className="flex items-center">
-                <label className={`cursor-pointer bg-gray-300 py-2 px-4 rounded-full ${selectedFiles[id]?.name ? 'bg-green-500' : 'hover:shadow-md'}`}>
-                  {selectedFiles[id]?.name ? 'Uploaded' : 'Upload'}
+                <label
+                  className={`cursor-pointer bg-gray-300 py-2 px-4 rounded-full ${
+                    selectedFiles[id]?.name ? "bg-green-500" : "hover:shadow-md"
+                  }`}
+                >
+                  {selectedFiles[id]?.name ? "Uploaded" : "Upload"}
                   <input
                     name={id}
                     type="file"
