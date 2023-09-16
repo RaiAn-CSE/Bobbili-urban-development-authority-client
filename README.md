@@ -1,3 +1,15 @@
+Button Color [#a26ddf]
+Button Hover [#69369f]
+
+Mobile Device [#c26bde]
+Hover [#7e35a0]
+
+
+
+
+
+
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

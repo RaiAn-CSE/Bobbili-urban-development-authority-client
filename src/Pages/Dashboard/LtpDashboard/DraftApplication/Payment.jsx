@@ -1,15 +1,23 @@
 import React from "react";
 import InputField from "../../../Components/InputField";
 import { GiMoneyStack } from "react-icons/gi";
+import { GrAttachment } from "react-icons/gr";
 import UDAChargeImg from "../../../../assets/images/mobile-transfer.png";
 import GramChargeImg from "../../../../assets/images/pay-per-click.png";
 import LabourChargeImg from "../../../../assets/images/payment-method.png";
 import GreenChargeImg from "../../../../assets/images/money.png";
+import { AiOutlineFileText } from "react-icons/ai";
 
 const Payment = () => {
   return (
     <div className="grid my-5 lg:my-0 lg:p-2">
       <div>
+        <div className="flex justify-end">
+          <button className="btn btn-md">
+            <AiOutlineFileText size={19} />
+            <span className="font-semibold">Application</span>
+          </button>
+        </div>
         <div className="flex items-center">
           <img
             src={UDAChargeImg}
@@ -149,6 +157,11 @@ const Payment = () => {
             placeholder="xxxx"
             type="text"
           />
+          <div className="ml-10 mt-3">
+            <span>
+              <GrAttachment />
+            </span>
+          </div>
         </div>
       </div>
 
@@ -201,6 +214,11 @@ const Payment = () => {
             placeholder="xxxx"
             type="text"
           />
+          <div className="ml-10 mt-3">
+            <span>
+              <GrAttachment />
+            </span>
+          </div>
         </div>
       </div>
 
