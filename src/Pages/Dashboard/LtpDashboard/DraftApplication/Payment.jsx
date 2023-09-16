@@ -157,7 +157,7 @@ const Payment = () => {
             placeholder="xxxx"
             type="text"
           />
-          <div className="ml-10 mt-3">
+          <div className="ml-7 mt-5">
             <span>
               <GrAttachment />
             </span>
@@ -214,7 +214,7 @@ const Payment = () => {
             placeholder="xxxx"
             type="text"
           />
-          <div className="ml-10 mt-3">
+          <div className="ml-7 mt-5">
             <span>
               <GrAttachment />
             </span>

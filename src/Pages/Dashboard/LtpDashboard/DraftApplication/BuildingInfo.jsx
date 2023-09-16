@@ -18,6 +18,11 @@ const BuildingInfo = () => {
   // Add a state variable to keep track of the number of sets of input fields
   const [inputFieldCount, setInputFieldCount] = useState(0);
 
+  // Net Plot Area(in Sq.M.) Calculation :
+  const [proposedPlotArea, setProposedPlotArea] = useState('');
+  const [roadWideningArea, setRoadWideningArea] = useState('');
+  const [netPlotArea, setNetPlotArea] = useState('');
+
   // Function to add more 3 sets of input fields
   const handleAddInputFields = () => {
     if (inputFieldCount < 3) {
@@ -47,22 +52,24 @@ const BuildingInfo = () => {
   };
 
 
-
-  // Net Plot Area(in Sq.M.) Calculation :
-  const [proposedPlotArea, setProposedPlotArea] = useState('');
-  const [roadWideningArea, setRoadWideningArea] = useState('');
-  const [netPlotArea, setNetPlotArea] = useState('');
-
   const handleProposedPlotAreaChange = (e) => {
     const newValue = e.target.value;
-    setProposedPlotArea(newValue);
-    calculateNetPlotArea(newValue, roadWideningArea);
+
+    // Check if the entered value is a valid number and less than or equal to 300
+    if (newValue <= 300) {
+      setProposedPlotArea(newValue);
+      calculateNetPlotArea(newValue, roadWideningArea);
+    }
   };
 
   const handleRoadWideningAreaChange = (e) => {
     const newValue = e.target.value;
-    setRoadWideningArea(newValue);
-    calculateNetPlotArea(proposedPlotArea, newValue);
+
+    // Check if the entered value is a valid number and less than or equal to 300
+    if (newValue <= 300) {
+      setRoadWideningArea(newValue);
+      calculateNetPlotArea(proposedPlotArea, newValue);
+    }
   };
 
   const calculateNetPlotArea = (proposed, widening) => {
@@ -292,20 +299,23 @@ const BuildingInfo = () => {
               Proposed Plot area
             </label>
             <input
-              type="text"
+              type="number"
               placeholder="in Sq.M."
               className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
               value={proposedPlotArea}
               onChange={handleProposedPlotAreaChange}
+              maxLength="3"
             />
           </div>
           <InputField
+            type="number"
             id="name8"
             name="name1"
             label="Total Plot are as on ground"
             placeholder="in Sq.M."
           />
           <InputField
+            type="number"
             id="name9"
             name="name1"
             label="Total Plot are as per document"
@@ -316,7 +326,7 @@ const BuildingInfo = () => {
               Road Widening Area
             </label>
             <input
-              type="text"
+              type="number"
               placeholder="in Sq.M."
               className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
               value={roadWideningArea}
