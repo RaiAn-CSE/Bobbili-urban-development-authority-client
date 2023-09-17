@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { VscGitPullRequestCreate } from "react-icons/vsc";
 import usePostData from "../../../../CustomHook/usePostData";
 import useGetDraftAppData from "../../../../CustomHook/useGetDraftAppData";
 import useSendData from "../../../../CustomHook/useSendData";
 import { BsPlusLg } from "react-icons/bs";
+import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 
 const NewApplication = () => {
   const [applicationIdFromTd, setApplicationIdFromTd] = useState("");
@@ -12,14 +13,45 @@ const NewApplication = () => {
     localStorage.removeItem("currentStep");
   });
 
-  const ltpUserId = JSON.parse(localStorage.getItem("loggedUser")).userId;
+  const { userInfoFromLocalStorage, sendUserDataIntoDB } =
+    useContext(AuthContext);
+
+  console.log(userInfoFromLocalStorage);
+
+  const { _id: userID } = userInfoFromLocalStorage;
 
   // Function to generate a unique number
-  const generateUniqueNumber = () => {
+  const generateApplicationNumber = () => {
     const year = new Date().getFullYear();
     console.log(year);
-
     const applicationNo = `1177/1/${year}`;
+
+    return applicationNo;
+  };
+
+  const storeApplicationData = () => {
+    const url = `http://localhost:5000/updateUserData/${userID}`;
+
+    const data = {
+      applicationNo: generateApplicationNumber(),
+      buildingInfo: {
+        generalInformation: {},
+        plotDetails: {},
+        scheduleBoundaries: {},
+      },
+      applicantInfo: { ltpDetails: {}, applicantDetails: {} },
+      applicationCheckList: [],
+      documents: [],
+      drawing: [],
+      payment: {
+        udaCharge: {},
+        gramaPanchayatFee: {},
+        labourCessCharge: {},
+        greenFeeCharge: {},
+      },
+    };
+
+    sendUserDataIntoDB(url, "PATCH", data);
   };
   // after clicked on draft data showing details
   // const handleDetails = (Id) => {
@@ -36,7 +68,10 @@ const NewApplication = () => {
   return (
     <div className="grid grid-cols-1 my-3">
       <div className="flex justify-end my-5 mr-3">
-        <Link to="/dashboard/draftApplication/buildingInfo">
+        <Link
+          to="/dashboard/draftApplication/buildingInfo"
+          onClick={storeApplicationData}
+        >
           <button className="btn flex bg-[#c0e9e4] transition-all duration-700 hover:bg-[#10ac84] text-[#000] hover:text-[#fff]">
             <span className="text-xs">Create a new application</span>
             <BsPlusLg size={20} />

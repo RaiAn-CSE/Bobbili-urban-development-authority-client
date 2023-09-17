@@ -1,8 +1,11 @@
-import React, { createContext } from "react";
+import React, { createContext, useState } from "react";
+import { toast } from "react-hot-toast";
 
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
+  const [loading, setLoading] = useState(false);
+
   // get user information from the localStorage
   const userInfoFromLocalStorage = JSON.parse(
     localStorage.getItem("loggedUser")
@@ -31,7 +34,9 @@ const AuthProvider = ({ children }) => {
   };
 
   //   send user data into the database
-  const sendUserDataIntoDB = (url, method, data) => {
+  const sendUserDataIntoDB = (url, method = "PATCH", data) => {
+    setLoading(true);
+    console.log(data);
     const config = {
       method,
       headers: {
@@ -43,12 +48,17 @@ const AuthProvider = ({ children }) => {
       .then((response) => {
         console.log(response);
         if (!response.ok) {
-          return toast.error("Network error!");
+          setLoading(false);
+          toast.error("Failed to store data");
         } else {
-          return toast.success("Data stored Successfully");
+          setLoading(false);
+          toast.success("Data stored Successfully");
         }
       })
-      .catch((error) => toast.error(error.message));
+      .catch((error) => {
+        setLoading(false);
+        toast.error("Failed to store data");
+      });
   };
 
   //   create a object to transfer data into various components
