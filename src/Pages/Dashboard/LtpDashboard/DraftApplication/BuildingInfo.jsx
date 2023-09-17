@@ -6,8 +6,6 @@ import generalInfoImage from "../../../../assets/images/general-information.png"
 import plotImage from "../../../../assets/images/land.png";
 import wallImage from "../../../../assets/images/gate.png";
 
-import { useForm, Controller } from 'react-hook-form';
-
 const BuildingInfo = () => {
   // Case Type 
   const [selectedOptionCase, setSelectedOptionCase] = useState('Select Case type');
@@ -87,28 +85,70 @@ const BuildingInfo = () => {
 
 
 
+  // get data from input field :
+  const collectInputFieldData = (data) => {
+    console.log(data);
+
+    const surveyNo = document.getElementById('SurveyNo').value;
+    const district = document.getElementById('District').value;
+    const mandal = document.getElementById('Mandal').value;
+    const gramaPanchayat = document.getElementById('GramaPanchayat').value;
+    const village = document.getElementById('Village').value;
+    // const bpsApprovedNo = document.getElementById('BpsApprovedNo').value;
+    // const previewsApprovedFileNo = document.getElementById('PreviewsApprovedFileNo').value;
+    // const lpNo = document.getElementById('LpNo').value;
+    // const plotNo = document.getElementById('PlotNo').value;
+    // const lrsNo = document.getElementById('LrsNo').value;
+    // const plotNo2 = document.getElementById('PlotNo2').value;
+    // const iplpNo = document.getElementById('IplpNo').value;
+
+    // const totalPlotDocument = document.getElementById('TotalPlotDocument').value;
+    // const totalPlotGround = document.getElementById('TotalPlotGround').value;
+    // const proposedPlotArea = document.getElementById('ProposedPlotArea').value;
+
+    // Get the selected radio input's value
+    const selectedApplicationType = document.querySelector('input[name="radio-1"]:checked')?.value || '';
+
+    const inputData = {
+      // General Information:
+      surveyNo,
+      district,
+      mandal,
+      gramaPanchayat,
+      village,
+      // bpsApprovedNo,
+      // previewsApprovedFileNo,
+      // lpNo,
+      // plotNo,
+      // lrsNo,
+      // plotNo2,
+      // iplpNo,
+      caseType: selectedOptionCase,      // Access caseType from data
+      natureOfPermission: selectedOptionPermission,
+      natureOfTheSite: selectedOption,
+      applicationType: selectedApplicationType,
+
+      // Plot Details:
+      // totalPlotDocument,
+      // totalPlotGround,
+      // proposedPlotArea: proposedPlotArea,
 
 
-  const {
-    control,
-    handleSubmit,
-    watch,
-    setValue,
-    formState: { errors },
-  } = useForm();
+    };
 
-  // Define your form submit function
-  const onSubmit = (data) => {
-    console.log(data); // You can access the form data here
+    console.log(inputData);
   };
-
 
 
 
   return (
     <div className="grid my-5 lg:my-0 lg:p-2">
-      {/* general information */}
 
+      <button type="submit" className="btn" onClick={collectInputFieldData}>
+        Log Input Data
+      </button>
+
+      {/* general information */}
       <div className="mb-10">
         {/* heading  */}
         <div className="flex items-center">
@@ -124,7 +164,7 @@ const BuildingInfo = () => {
               <span>Case Type</span>
             </label>
             <select
-              id="nature"
+              id="caseType"
               className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
               value={selectedOptionCase}
               onChange={handleCaseTypeChange}
@@ -202,32 +242,32 @@ const BuildingInfo = () => {
           </div>
 
           <InputField
-            id="name5"
+            id="SurveyNo"
             name="Survey no."
             label="Survey no."
             placeholder="Survey no."
             type="text"
           />
           <InputField
-            id="name6"
+            id="District"
             name="District"
             label="District"
             placeholder="District"
           />
           <InputField
-            id="name6"
+            id="Mandal"
             name="Mandal"
             label="Mandal"
             placeholder="Mandal"
           />
           <InputField
-            id="name6"
+            id="GramaPanchayat"
             name="Grama Panchayat"
             label="Grama Panchayat"
             placeholder="Grama Panchayat"
           />
           <InputField
-            id="name6"
+            id="Village"
             name="Village"
             label="Village"
             placeholder="Village"
@@ -237,10 +277,11 @@ const BuildingInfo = () => {
           {selectedOptionCase === 'Alteration Addition Existing' && selectedOptionPermission === 'Regularised under BPS' && (
             <div>
               <InputField
-                id="name6"
-                name="Village"
+                id="BpsApprovedNo"
+                name=""
                 label="BPS approved no."
                 placeholder="BPS approved no."
+                type="number"
               />
             </div>
           )}
@@ -248,10 +289,11 @@ const BuildingInfo = () => {
           {selectedOptionCase === 'Alteration Addition Existing' && selectedOptionPermission !== 'Regularised under BPS' && (
             <div>
               <InputField
-                id="name6"
-                name="Village"
+                id="PreviewsApprovedFileNo"
+                name=""
                 label="Previews approved file no."
                 placeholder="Previews approved file no."
+                type="number"
               />
             </div>
           )}
@@ -262,41 +304,46 @@ const BuildingInfo = () => {
               {selectedOption === 'Approved Layout' && (
                 <>
                   <InputField
-                    id="name6"
-                    name="Village"
+                    id="LpNo"
+                    name=""
                     label="L.P. no."
                     placeholder="L.P. no."
+                    type="number"
                   />
                   <InputField
-                    id="name7"
-                    name="Village"
+                    id="PlotNo"
+                    name=""
                     label="Plot no."
                     placeholder="Plot no."
+                    type="number"
                   />
                 </>
               )}
               {selectedOption === 'Regularised under LRS' && (
                 <>
                   <InputField
-                    id="name6"
-                    name="Village"
+                    id="LrsNo"
+                    name=""
                     label="LRS no"
                     placeholder="LRS no."
+                    type="number"
                   />
                   <InputField
-                    id="name7"
-                    name="Village"
+                    id="PlotNo2"
+                    name=""
                     label="Plot no"
                     placeholder="Plot no."
+                    type="number"
                   />
                 </>
               )}
               {selectedOption === 'Plot port of RLP/IPLP but not regularised' && (
                 <InputField
-                  id="name7"
-                  name="Village"
+                  id="IplpNo"
+                  name=""
                   label="RLP/IPLP no."
                   placeholder="RLP/IPLP no."
+                  type="number"
                 />
               )}
             </>
@@ -316,24 +363,26 @@ const BuildingInfo = () => {
         <div className="grid grid-cols-2 lg:grid-cols-4 mt-5">
           <InputField
             type="number"
-            id="name9"
-            name="name1"
+            id="totalPlotDocument"
+            name=""
             label="Total Plot are as per document"
             placeholder="in Sq.M."
           />
           <InputField
             type="number"
-            id="name8"
-            name="name1"
+            id="totalPlotGround"
+            name=""
             label="Total Plot are as on ground"
             placeholder="in Sq.M."
           />
+
           <div className="my-4 mx-3">
             <label htmlFor='ProposedPlotArea' className="block text-gray-600 mb-1 font-semibold">
               Proposed Plot area
             </label>
             <input
               type="number"
+              id="ProposedPlotArea"
               placeholder="in Sq.M."
               className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
               value={proposedPlotArea}
@@ -341,6 +390,7 @@ const BuildingInfo = () => {
               maxLength="3"
             />
           </div>
+
           <div className="my-4 mx-3">
             <label htmlFor='ProposedPlot' className="block text-gray-600 mb-1 font-semibold">
               Road Widening Area
@@ -532,7 +582,7 @@ const BuildingInfo = () => {
               htmlFor="disabled-input"
               className="block text-gray-600 mb-1 font-semibold"
             >
-              Total Plinth area
+              Total Built up area
             </label>
             <input
               type="text"
