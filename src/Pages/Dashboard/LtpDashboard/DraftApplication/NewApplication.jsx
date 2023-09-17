@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { VscGitPullRequestCreate } from "react-icons/vsc";
-import useGetDraftAppData from "../../../Shared/useGetDraftAppData";
+import usePostData from "../../../../CustomHook/usePostData";
+import useGetDraftAppData from "../../../../CustomHook/useGetDraftAppData";
+import useSendData from "../../../../CustomHook/useSendData";
 import { BsPlusLg } from "react-icons/bs";
 
 const NewApplication = () => {
@@ -13,13 +15,12 @@ const NewApplication = () => {
   const ltpUserId = JSON.parse(localStorage.getItem("loggedUser")).userId;
 
   // Function to generate a unique number
-  // const generateUniqueNumber = () => {
-  //   const timestamp = new Date().getTime();
-  //   const random = Math.floor(Math.random() * 10000);
-  //   const uniqueNumber = `${timestamp}-${random}-${ltpUserId}`;
-  //   localStorage.removeItem("draftApplicationData"); // Removing the existing item with the key "applicationId"
-  //   localStorage.setItem("draftApplicationData", JSON.stringify({applicationId:uniqueNumber})); // Store the new value with the key "applicationId"
-  // };
+  const generateUniqueNumber = () => {
+    const year = new Date().getFullYear();
+    console.log(year);
+
+    const applicationNo = `1177/1/${year}`;
+  };
   // after clicked on draft data showing details
   // const handleDetails = (Id) => {
   //   const draftApplicationData = useGetDraftAppData(Id);

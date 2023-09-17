@@ -3,7 +3,8 @@ import InputField from "../../../Components/InputField";
 import { Link } from "react-router-dom";
 import LTPImg from "../../../../assets/images/id-card.png";
 import OwnerImg from "../../../../assets/images/real-estate-agent.png";
-import getPostData from "../../../Shared/usePostData";
+import usePostData from "../../../../CustomHook/usePostData";
+import useGetDraftAppData from "../../../../CustomHook/useGetDraftAppData";
 
 const ApplicantInfo = () => {
   const handleBackendData = () => {

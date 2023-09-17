@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import ChecklistQuestions from "../../../../assets/AppChecklist.json";
 import { Link } from "react-router-dom";
-import getPostData from "../../../Shared/usePostData";
+import usePostData from "../../../../CustomHook/usePostData";
+import useGetDraftAppData from "../../../../CustomHook/useGetDraftAppData";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 
 function AppChecklist() {
@@ -21,15 +22,18 @@ function AppChecklist() {
 
   // Sending data to Backend
   const handleBackendData = () => {
-    const applicationId = JSON.parse(localStorage.getItem("draftApplicationData")).applicationId;
-    getPostData({ applicationId: applicationId, appChecklist: {questions} })
-  }
+    const applicationId = JSON.parse(
+      localStorage.getItem("draftApplicationData")
+    ).applicationId;
+    getPostData({ applicationId: applicationId, appChecklist: { questions } });
+  };
 
   return (
     <div className="px-3 text-sm py-1">
       <div className="text-end mb-4">
         <button className="btn btn-sm text-xs bg-[#c0e9e4] transition-all duration-700 hover:bg-[#10ac84] text-[#000] hover:text-[#fff]">
-          <HiOutlineClipboardDocumentList className="text-lg" /> <span>Application</span>
+          <HiOutlineClipboardDocumentList className="text-lg" />{" "}
+          <span>Application</span>
         </button>
       </div>
       <div className="space-y-5">
@@ -43,8 +47,9 @@ function AppChecklist() {
             </p>
             <div className="space-x-10 mt-2 lg:pr-2">
               <label
-                className={`ml-2 inline-flex items-center space-x-1 text-black ${answer === "yes" && "font-extrabold"
-                  }`}
+                className={`ml-2 inline-flex items-center space-x-1 text-black ${
+                  answer === "yes" && "font-extrabold"
+                }`}
               >
                 <input
                   type="radio"
@@ -57,8 +62,9 @@ function AppChecklist() {
                 <span>Yes</span>
               </label>
               <label
-                className={`ml-2 inline-flex items-center space-x-1 text-black ${answer === "no" && "font-extrabold"
-                  }`}
+                className={`ml-2 inline-flex items-center space-x-1 text-black ${
+                  answer === "no" && "font-extrabold"
+                }`}
               >
                 <input
                   type="radio"

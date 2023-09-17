@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Documents from "../../../../assets/Documents.json";
 import { Link } from "react-router-dom";
-import getPostData from "../../../Shared/usePostData";
+import usePostData from "../../../../CustomHook/usePostData";
+import useGetDraftAppData from "../../../../CustomHook/useGetDraftAppData";
 import toast from "react-hot-toast";
 
 const DocumentUpload = () => {

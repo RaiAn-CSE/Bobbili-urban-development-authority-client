@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import House from "../../assets/images/house.jpg";
 import Logo from "../../assets/images/logo.png";
@@ -6,10 +6,13 @@ import SupportIcon from "../../assets/images/customer-service.png";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router";
 import { BsFillHouseCheckFill, BsFillHouseLockFill } from "react-icons/bs";
+import useGetUser from "../../CustomHook/useGetUser";
 
 const Login = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
+  // get Cookie data
   const getCookie = (searchData) => {
     // Split cookie string and get all individual name=value pairs in an array
     var cookieArr = document.cookie.split(";");
@@ -30,9 +33,10 @@ const Login = () => {
     return null;
   };
 
-  const cookieUserId = getCookie("userId");
-  const cookieUserPassword = getCookie("password");
-  console.log(getCookie("userId"));
+  let cookieUserId, cookieUserPassword;
+
+  cookieUserId = getCookie("userId");
+  cookieUserPassword = getCookie("password");
 
   const {
     register,
@@ -45,6 +49,8 @@ const Login = () => {
   const from = location?.state?.from?.pathName || "/dashboard";
 
   const onSubmit = (data) => {
+    console.log(data);
+    setLoading(true);
     const { id, password, checkbox } = data;
     console.log(data);
 
@@ -59,12 +65,11 @@ const Login = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        // checking data whether data is found or not
         if (data.status) {
-          // console.log(1);
+          console.log(1);
 
           const { userInfo } = data;
-          // console.log(userInfo);
+          console.log(userInfo);
 
           // checking whether password is matching or not
           if (userInfo.password === password) {
@@ -76,27 +81,37 @@ const Login = () => {
             // set information to cookie to implement remember me functionality
 
             if (checkbox) {
+              console.log(checkbox);
               document.cookie = "userId=" + id + ";path=http://localhost:5173/";
               document.cookie =
                 "password=" + password + ";path=http://localhost:5173/";
             }
 
             // move to another page after successfully login
+            setLoading(false);
+            toast.success("Login successfully");
             navigate(from, { replace: true });
           } else {
+            setLoading(false);
             toast.error("Password is wrong");
           }
         } else {
           console.log(0);
+          setLoading(false);
           toast.error("No information found!");
         }
       });
   };
 
+  //password hide and show functionality
   const [show, setShow] = useState(false);
   const handlePasswordShow = () => {
     show ? setShow(false) : setShow(true);
   };
+
+  if (loading) {
+    return "Loading...";
+  }
 
   return (
     <>
@@ -136,6 +151,7 @@ const Login = () => {
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   defaultValue={cookieUserId}
                   placeholder="name@company.com"
+                  required
                 />
               </div>
               <div className="relative">
@@ -147,11 +163,12 @@ const Login = () => {
                 </label>
                 <input
                   type={`${show === true ? "text" : "password"}`}
-                  {...register("password", { required: true })}
                   id="password"
                   placeholder="••••••••"
                   defaultValue={cookieUserPassword}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pe-10"
+                  {...register("password", { required: true })}
+                  required
                 />
 
                 <div
@@ -167,10 +184,9 @@ const Login = () => {
                   <input
                     id="remember"
                     type="checkbox"
-                    {...register("checkbox", { required: true })}
+                    {...register("checkbox")}
                     value=""
                     className="w-4 h-4 border border-gray-300 rounded bg-gray-50"
-                    required
                   />
                 </div>
                 <label

@@ -5,8 +5,8 @@ import { FaHandPointRight } from "react-icons/fa";
 import generalInfoImage from "../../../../assets/images/general-information.png";
 import plotImage from "../../../../assets/images/land.png";
 import wallImage from "../../../../assets/images/gate.png";
-import usePostData from "../../../Shared/usePostData";
-import useGetDraftAppData from "../../../Shared/useGetDraftAppData";
+import usePostData from "../../../../CustomHook/usePostData";
+import useGetDraftAppData from "../../../../CustomHook/useGetDraftAppData";
 
 import { useForm, Controller } from "react-hook-form";
 
