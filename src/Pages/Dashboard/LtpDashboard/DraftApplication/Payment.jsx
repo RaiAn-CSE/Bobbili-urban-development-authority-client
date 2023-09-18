@@ -10,26 +10,85 @@ import { AiOutlineFileText } from "react-icons/ai";
 
 const Payment = () => {
   // Sending data to Backend
-  const handleBackendData = () => {
-    const applicationId = JSON.parse(
-      localStorage.getItem("draftApplicationData")
-    ).applicationId;
-    getPostData({ applicationId: applicationId, payment: {} });
-  };
+  // const handleBackendData = () => {
+  //   const applicationId = JSON.parse(
+  //     localStorage.getItem("draftApplicationData")
+  //   ).applicationId;
+  //   getPostData({ applicationId: applicationId, payment: {} });
+  // };
   const builtup_Area = 1;
   const vacant_area = 1;
   const net_Plot_Area = 1;
   const market_value = 1;
+  const nature_of_site = "";
+  // Nature of the site
+  //  1. Approved Layout
+  //  2. Regularised Under LRS
+  //  3. Plot port of RLP/IPLP but not regularised
+  //  4. Congested/ Gramakanta/ Old Built-up area
+  //  5. Newly Developed/ Built up area
+
 
   // UDA Charge
   const builtupAreaChargedUnitRate = 15; //per Sqm.
-  const builtUpAreaDevelopmentCharged =
-    builtupAreaChargedUnitRate * builtup_Area;
+  const builtUpAreaDevelopmentCharged = builtupAreaChargedUnitRate * builtup_Area;
 
   const vacantAreaChargedUnitRate = 10; // per Sqm.
   const vacantAreaDevelopmentCharged = vacantAreaChargedUnitRate * vacant_area;
+  // 33% penalization
+  // 1. Plot port of RLP/IPLP but not regularised
+  function calculatePenalizationCharges(net_Plot_Area) {
+    const unitRate = 0.33;
+    let penalizationCharges = 0;
+
+    switch (true) {
+      case net_Plot_Area <= 100:
+        penalizationCharges = 200 * net_Plot_Area * unitRate;
+        break;
+      case net_Plot_Area <= 300:
+        penalizationCharges = 400 * net_Plot_Area * unitRate;
+        break;
+      default:
+        penalizationCharges = 0;
+    }
+
+    return penalizationCharges;
+  }
+  // Open Space Charge= 14%
+  // 1. Newly Developed/ Built up area
+  // 2. Plot port of RLP/IPLP but not regularised
+  function calculateOpenSpaceCharge(nature_of_site, net_Plot_Area, market_value) {
+    let openSpaceCharge = 0;
+
+    switch (nature_of_site) {
+      case "Newly Developed/ Built up area":
+      case "Plot port of RLP/IPLP but not regularised":
+        openSpaceCharge = net_Plot_Area * 1.196 * market_value * 0.14;
+        break;
+      default:
+        openSpaceCharge = 0;
+    }
+
+    return openSpaceCharge;
+  }
+
+  // Labour Cess Component 2
+  const labourCessComponentUnitRate2 = 1400; // per Sq.M.
+  const laboutCessCompo2Calculation = (builtup_Area) => {
+    if (builtup_Area < 10000) {
+      const labourCessComponentCharge2 = labourCessComponentUnitRate2 * builtup_Area * 10.76;
+      return labourCessComponentCharge2;
+    }
+    if (builtup_Area > 10000) {
+      const labourCessComponentCharge2 = (labourCessComponentUnitRate2 * builtup_Area * 10.76) * (0.01 * 0.02);
+      return labourCessComponentCharge2;
+    }
+    return 0;
+  }
+
   const UDATotal = () => {
-    return;
+    const Total = builtUpAreaDevelopmentCharged + vacantAreaDevelopmentCharged + calculatePenalizationCharges(net_Plot_Area) + calculateOpenSpaceCharge(nature_of_site, net_Plot_Area, market_value) + laboutCessCompo2Calculation(builtup_Area);
+    return Total;
   };
 
   // Grama Panchayet fees
@@ -47,36 +106,20 @@ const Payment = () => {
   const processingUnitRate = 7; //per Sqm.
   const processingFees = processingUnitRate * builtup_Area;
 
-  // 33% penalization
-  const penalization = (net_Plot_Area) => {
-    if (net_Plot_Area > 100) {
-      const penalizationChargesUnitRate = 200; //per Sqm Less than 100Sqm
-      const penalizationCharges =
-        penalizationChargesUnitRate * net_Plot_Area * 0.33;
-      return penalizationCharges;
-    }
-    if (net_Plot_Area > 100 || net_Plot_Area <= 300) {
-      const penalizationChargesUnitRate = 400;
-      const penalizationCharges =
-        penalizationChargesUnitRate * net_Plot_Area * 0.33;
-      return penalizationCharges;
-    }
-  };
-
-  const openSpaceCharge = net_Plot_Area * 1.196 * market_value * 0.14; // Open Space Charge= 14%
-
   const gramaPanchayetTotal = () => {
     return;
   };
 
   // Green fee charge
+  // if proposed built up area above than 5000 Sq.ft
   const greenFeeChargesUnitRate = 3; //per Sq.ft
-  const greenFeeCharges = greenFeeChargesUnitRate * builtup_Area * 10.76;
+  if (builtup_Area > 5000) {
+    return greenFeeCharges = (greenFeeChargesUnitRate * builtup_Area * 10.76);
+  }
 
-  // Labour Cess
-  const labourCessComponentUnitRate = 1400;
-  const labourCessComponent =
-    labourCessComponentUnitRate * builtup_Area * 10.76 * 0.01 * 0.98;
+  // Labour Cess Component 1
+  const labourCessComponentUnitRate1 = 1400; // per Sq.M.
+  const labourCessComponentCharge1 = (labourCessComponentUnitRate1 * builtup_Area * 10.76) * (0.01 * 0.98);
 
   return (
     <div className="grid my-5 lg:my-0 lg:p-2">
