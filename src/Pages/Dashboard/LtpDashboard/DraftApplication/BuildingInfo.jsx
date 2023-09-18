@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputField from "../../../Components/InputField";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { FaHandPointRight } from "react-icons/fa";
 import generalInfoImage from "../../../../assets/images/general-information.png";
 import plotImage from "../../../../assets/images/land.png";
 import wallImage from "../../../../assets/images/gate.png";
+import { useForm } from "react-hook-form";
 
 const BuildingInfo = () => {
   // Case Type 
@@ -14,6 +15,9 @@ const BuildingInfo = () => {
   // Nature of the site 
   const [selectedOption, setSelectedOption] = useState('Select Nature of the site');
   const [showInputFields, setShowInputFields] = useState(false);
+
+
+  const [totalPlotDocumentValue, setTotalPlotDocumentValue] = useState('')
 
   // Add a state variable to keep track of the number of sets of input fields
   const [inputFieldCount, setInputFieldCount] = useState(0);
@@ -84,17 +88,17 @@ const BuildingInfo = () => {
   };
 
 
-
   // get data from input field :
-  const collectInputFieldData = (data) => {
-    console.log(data);
+  const collectInputFieldData = () => {
+    // Get the selected radio input's value
+    const selectedApplicationType = document.querySelector('input[name="radio-1"]:checked')?.value || '';
 
     const surveyNo = document.getElementById('SurveyNo').value;
     const district = document.getElementById('District').value;
     const mandal = document.getElementById('Mandal').value;
     const gramaPanchayat = document.getElementById('GramaPanchayat').value;
     const village = document.getElementById('Village').value;
-    // const bpsApprovedNo = document.getElementById('BpsApprovedNo').value;
+    const bpsApprovedNo = document.getElementById('BpsApprovedNo').value;
     // const previewsApprovedFileNo = document.getElementById('PreviewsApprovedFileNo').value;
     // const lpNo = document.getElementById('LpNo').value;
     // const plotNo = document.getElementById('PlotNo').value;
@@ -102,21 +106,21 @@ const BuildingInfo = () => {
     // const plotNo2 = document.getElementById('PlotNo2').value;
     // const iplpNo = document.getElementById('IplpNo').value;
 
-    // const totalPlotDocument = document.getElementById('TotalPlotDocument').value;
-    // const totalPlotGround = document.getElementById('TotalPlotGround').value;
-    // const proposedPlotArea = document.getElementById('ProposedPlotArea').value;
+    const totalPlotDocument = document.getElementById('TotalPlotDocument').value;
+    const totalPlotGround = document.getElementById('TotalPlotGround').value;
+    const netPlotArea = document.getElementById('NetPlotArea').value;
 
-    // Get the selected radio input's value
-    const selectedApplicationType = document.querySelector('input[name="radio-1"]:checked')?.value || '';
+
+
 
     const inputData = {
-      // General Information:
+      // =======================General Information:
       surveyNo,
       district,
       mandal,
       gramaPanchayat,
       village,
-      // bpsApprovedNo,
+      bpsApprovedNo,
       // previewsApprovedFileNo,
       // lpNo,
       // plotNo,
@@ -128,10 +132,12 @@ const BuildingInfo = () => {
       natureOfTheSite: selectedOption,
       applicationType: selectedApplicationType,
 
-      // Plot Details:
-      // totalPlotDocument,
-      // totalPlotGround,
-      // proposedPlotArea: proposedPlotArea,
+      // ===========================Plot Details:
+      totalPlotDocument,
+      totalPlotGround,
+      proposedPlotArea,
+      roadWideningArea,
+      netPlotArea,
 
 
     };
@@ -141,15 +147,47 @@ const BuildingInfo = () => {
 
 
 
+  // const { handleSubmit, register } = useForm();
+
+  // const onSubmit = (data) => {
+  //   console.log(data);
+  // };
+
+
   return (
     <div className="grid my-5 lg:my-0 lg:p-2">
 
-      <button type="submit" className="btn" onClick={collectInputFieldData}>
-        Log Input Data
-      </button>
+      <button type="submit" className="btn" onClick={collectInputFieldData}>Get Data</button>
 
       {/* general information */}
       <div className="mb-10">
+
+
+
+
+        {/* <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="grid grid-cols-2 lg:grid-cols-4 mt-5">
+            <InputField
+              type="number"
+              id="totalPlotDocument"
+              name="totalPlotDocument"
+              label="Total Plot are as per document"
+              placeholder="in Sq.M."
+            />
+            <InputField
+              type="number"
+              id="totalPlotGround"
+              name="totalPlotGround"
+              label="Total Plot are as on ground"
+              placeholder="in Sq.M."
+            />
+            <input type="submit" value="submit" />
+          </div>
+        </form> */}
+
+
+
+
         {/* heading  */}
         <div className="flex items-center">
           <img src={generalInfoImage} alt="" className="h-10 me-3" />
@@ -278,7 +316,7 @@ const BuildingInfo = () => {
             <div>
               <InputField
                 id="BpsApprovedNo"
-                name=""
+                name="BpsApprovedNo"
                 label="BPS approved no."
                 placeholder="BPS approved no."
                 type="number"
@@ -290,7 +328,7 @@ const BuildingInfo = () => {
             <div>
               <InputField
                 id="PreviewsApprovedFileNo"
-                name=""
+                name="PreviewsApprovedFileNo"
                 label="Previews approved file no."
                 placeholder="Previews approved file no."
                 type="number"
@@ -312,7 +350,7 @@ const BuildingInfo = () => {
                   />
                   <InputField
                     id="PlotNo"
-                    name=""
+                    name="PlotNo"
                     label="Plot no."
                     placeholder="Plot no."
                     type="number"
@@ -360,17 +398,18 @@ const BuildingInfo = () => {
         </div>
         <div className="divider m-0"></div>
 
+
         <div className="grid grid-cols-2 lg:grid-cols-4 mt-5">
           <InputField
             type="number"
-            id="totalPlotDocument"
+            id="TotalPlotDocument"
             name=""
             label="Total Plot are as per document"
             placeholder="in Sq.M."
           />
           <InputField
             type="number"
-            id="totalPlotGround"
+            id="TotalPlotGround"
             name=""
             label="Total Plot are as on ground"
             placeholder="in Sq.M."
@@ -414,8 +453,8 @@ const BuildingInfo = () => {
             </label>
             <input
               type="text"
-              id="disabled-input"
-              name="disabled-input1"
+              id="NetPlotArea"
+              name="NetPlotArea"
               placeholder="Automatically calculated"
               className="w-full px-3 py-2 border rounded-lg max-w-xs"
               value={netPlotArea}
@@ -765,6 +804,7 @@ const BuildingInfo = () => {
           </div>
         </div>
       </div>
+
     </div>
   );
 };
