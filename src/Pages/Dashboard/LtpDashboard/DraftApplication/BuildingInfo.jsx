@@ -127,17 +127,21 @@ const BuildingInfo = () => {
     const mandal = document.getElementById("Mandal").value;
     const gramaPanchayat = document.getElementById("GramaPanchayat").value;
     const village = document.getElementById("Village").value;
-    // const bpsApprovedNo = document.getElementById('BpsApprovedNo').value;
+
+    const bpsApprovedNo = document.getElementById("BpsApprovedNo").value;
     // const previewsApprovedFileNo = document.getElementById('PreviewsApprovedFileNo').value;
     // const lpNo = document.getElementById('LpNo').value;
-    // const plotNo = document.getElementById('PlotNo').value;
+    // const plotNo = document.getElementById("PlotNo").value;
     // const lrsNo = document.getElementById('LrsNo').value;
     // const plotNo2 = document.getElementById('PlotNo2').value;
     // const iplpNo = document.getElementById('IplpNo').value;
 
-    // const totalPlotDocument = document.getElementById('TotalPlotDocument').value;
-    // const totalPlotGround = document.getElementById('TotalPlotGround').value;
-    // const proposedPlotArea = document.getElementById('ProposedPlotArea').value;
+    const totalPlotDocument =
+      document.getElementById("totalPlotDocument").value;
+
+    // console.log(document.getElementById("totalPlotDocument"));
+    const totalPlotGround = document.getElementById("totalPlotGround").value;
+    const proposedPlotArea = document.getElementById("ProposedPlotArea").value;
 
     // Get the selected radio input's value
     const selectedApplicationType =
@@ -150,7 +154,7 @@ const BuildingInfo = () => {
       mandal,
       gramaPanchayat,
       village,
-      // bpsApprovedNo,
+      bpsApprovedNo,
       // previewsApprovedFileNo,
       // lpNo,
       // plotNo,
@@ -163,9 +167,9 @@ const BuildingInfo = () => {
       applicationType: selectedApplicationType,
 
       // Plot Details:
-      // totalPlotDocument,
-      // totalPlotGround,
-      // proposedPlotArea: proposedPlotArea,
+      totalPlotDocument,
+      totalPlotGround,
+      proposedPlotArea,
     };
 
     console.log(inputData);
@@ -173,7 +177,7 @@ const BuildingInfo = () => {
 
   return (
     <div className="grid my-5 lg:my-0 lg:p-2">
-      <button type="submit" className="btn" onClick={collectInputFieldData}>
+      <button className="btn" onClick={collectInputFieldData}>
         Log Input Data
       </button>
 
@@ -411,14 +415,14 @@ const BuildingInfo = () => {
           <InputField
             type="number"
             id="totalPlotDocument"
-            name=""
+            name="totalPlotDocument"
             label="Total Plot are as per document"
             placeholder="in Sq.M."
           />
           <InputField
             type="number"
             id="totalPlotGround"
-            name=""
+            name="totalPlotGround"
             label="Total Plot are as on ground"
             placeholder="in Sq.M."
           />
