@@ -61,11 +61,30 @@ const AuthProvider = ({ children }) => {
       });
   };
 
+  const getUserData = (id) => {
+    console.log(id, "AUTH ID");
+    setLoading(true);
+    fetch(`https://residential-building.vercel.app/getUser?id=${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status) {
+          setLoading(false);
+          console.log("Asci", data);
+          return data;
+        } else {
+          console.log(0);
+          setLoading(false);
+          toast.error("No information found!");
+        }
+      });
+  };
+
   //   create a object to transfer data into various components
   const userInfo = {
     updateUserInfoInLocalStorage,
     userInfoFromLocalStorage,
     sendUserDataIntoDB,
+    getUserData,
   };
   return (
     <>

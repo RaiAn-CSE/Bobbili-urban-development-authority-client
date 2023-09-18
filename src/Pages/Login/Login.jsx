@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import House from "../../assets/images/house.jpg";
 import Logo from "../../assets/images/logo.png";
@@ -7,10 +7,12 @@ import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router";
 import { BsFillHouseCheckFill, BsFillHouseLockFill } from "react-icons/bs";
 import useGetUser from "../../CustomHook/useGetUser";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const Login = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const { getUserData } = useContext(AuthContext);
 
   // get Cookie data
   const getCookie = (searchData) => {
@@ -61,46 +63,40 @@ const Login = () => {
 
     console.log(userInfo);
 
-    fetch(`https://residential-building.vercel.app/getUser?id=${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data.status) {
-          console.log(1);
+    const userData = getUserData(id);
 
-          const { userInfo } = data;
-          console.log(userInfo);
+    console.log(userData, "userdata");
+    if (userData) {
+      console.log(1);
 
-          // checking whether password is matching or not
-          if (userInfo.password === password) {
-            console.log("1");
+      const { userInfo } = data;
+      console.log(userInfo);
 
-            // set information to localstorage to stay logged in
-            localStorage.setItem("loggedUser", JSON.stringify(userInfo));
+      // checking whether password is matching or not
+      if (userInfo.password === password) {
+        console.log("1");
 
-            // set information to cookie to implement remember me functionality
+        // set information to localstorage to stay logged in
+        localStorage.setItem("loggedUser", JSON.stringify(userInfo));
 
-            if (checkbox) {
-              console.log(checkbox);
-              document.cookie = "userId=" + id + ";path=http://localhost:5173/";
-              document.cookie =
-                "password=" + password + ";path=http://localhost:5173/";
-            }
+        // set information to cookie to implement remember me functionality
 
-            // move to another page after successfully login
-            setLoading(false);
-            toast.success("Login successfully");
-            navigate(from, { replace: true });
-          } else {
-            setLoading(false);
-            toast.error("Password is wrong");
-          }
-        } else {
-          console.log(0);
-          setLoading(false);
-          toast.error("No information found!");
+        if (checkbox) {
+          console.log(checkbox);
+          document.cookie = "userId=" + id + ";path=http://localhost:5173/";
+          document.cookie =
+            "password=" + password + ";path=http://localhost:5173/";
         }
-      });
+
+        // move to another page after successfully login
+        setLoading(false);
+        toast.success("Login successfully");
+        navigate(from, { replace: true });
+      } else {
+        setLoading(false);
+        toast.error("Password is wrong");
+      }
+    }
   };
 
   //password hide and show functionality

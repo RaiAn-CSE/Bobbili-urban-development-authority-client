@@ -1,14 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { VscGitPullRequestCreate } from "react-icons/vsc";
-import usePostData from "../../../../CustomHook/usePostData";
-import useGetDraftAppData from "../../../../CustomHook/useGetDraftAppData";
-import useSendData from "../../../../CustomHook/useSendData";
 import { BsPlusLg } from "react-icons/bs";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 
 const NewApplication = () => {
-  const [applicationIdFromTd, setApplicationIdFromTd] = useState("");
   useEffect(() => {
     localStorage.removeItem("currentStep");
   });
@@ -29,6 +25,7 @@ const NewApplication = () => {
     return applicationNo;
   };
 
+  // store new application information into the database
   const storeApplicationData = () => {
     const url = `http://localhost:5000/updateUserData/${userID}`;
 
@@ -53,18 +50,7 @@ const NewApplication = () => {
 
     sendUserDataIntoDB(url, "PATCH", data);
   };
-  // after clicked on draft data showing details
-  // const handleDetails = (Id) => {
-  //   const draftApplicationData = useGetDraftAppData(Id);
-  //   const applicationId = draftApplicationData.applicationId;
-  //   if (applicationId == Id) {
-  //     localStorage.removeItem("draftApplicationData");
-  //     return localStorage.setItem(
-  //       "draftApplicationData",
-  //       JSON.stringify(draftApplicationData)
-  //     );
-  //   }
-  // };
+
   return (
     <div className="grid grid-cols-1 my-3">
       <div className="flex justify-end my-5 mr-3">
