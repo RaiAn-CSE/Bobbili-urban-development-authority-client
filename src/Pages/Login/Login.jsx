@@ -62,71 +62,43 @@ const Login = () => {
     };
 
     console.log(userInfo);
-    fetch(`https://residential-building.vercel.app/getUser?id=${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        // checking data whether data is found or not
-        if (data.status) {
-          // console.log(1);
-          const { userInfo } = data;
-          // console.log(userInfo);
-          // checking whether password is matching or not
-          if (userInfo.password === password) {
-            console.log("1");
-            // set information to localstorage to stay logged in
-            localStorage.setItem("loggedUser", JSON.stringify(userInfo));
-            // set information to cookie to implement remember me functionality
-            if (checkbox) {
-              document.cookie = "userId=" + id + ";path=http://localhost:5173/";
-              document.cookie =
-                "password=" + password + ";path=http://localhost:5173/";
-            }
-            // move to another page after successfully login
-            navigate(from, { replace: true });
-          } else {
-            toast.error("Password is wrong");
+
+    // fetch user information from the databaase
+    getUserData(id).then((result) => {
+      if (result.status) {
+        console.log(1);
+
+        const { userInfo } = result;
+
+        // checking whether password is matching or not
+        if (userInfo.password === password) {
+          console.log("1");
+
+          // set information to localstorage to stay logged in
+          localStorage.setItem("loggedUser", JSON.stringify(userInfo));
+
+          // set information to cookie to implement remember me functionality
+
+          if (checkbox) {
+            console.log(checkbox);
+            document.cookie = "userId=" + id + ";path=http://localhost:5173/";
+            document.cookie =
+              "password=" + password + ";path=http://localhost:5173/";
           }
+
+          // move to another page after successfully login
+          setLoading(false);
+          toast.success("Login successfully");
+          navigate(from, { replace: true });
         } else {
-          console.log(0);
-          toast.error("No information found!");
+          setLoading(false);
+          toast.error("Password is wrong");
         }
-      });
-
-    // const userData = getUserData(id);
-
-    // console.log(userData, "userdata");
-    // if (userData) {
-    //   console.log(1);
-
-    //   const { userInfo } = data;
-    //   console.log(userInfo);
-
-    //   // checking whether password is matching or not
-    //   if (userInfo.password === password) {
-    //     console.log("1");
-
-    //     // set information to localstorage to stay logged in
-    //     localStorage.setItem("loggedUser", JSON.stringify(userInfo));
-
-    //     // set information to cookie to implement remember me functionality
-
-    //     if (checkbox) {
-    //       console.log(checkbox);
-    //       document.cookie = "userId=" + id + ";path=http://localhost:5173/";
-    //       document.cookie =
-    //         "password=" + password + ";path=http://localhost:5173/";
-    //     }
-
-    //     // move to another page after successfully login
-    //     setLoading(false);
-    //     toast.success("Login successfully");
-    //     navigate(from, { replace: true });
-    //   } else {
-    //     setLoading(false);
-    //     toast.error("Password is wrong");
-    //   }
-    // }
+      } else {
+        setLoading(false);
+        toast.error("No information found!");
+      }
+    });
   };
 
   //password hide and show functionality
