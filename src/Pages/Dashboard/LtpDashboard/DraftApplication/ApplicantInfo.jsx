@@ -1,12 +1,37 @@
 import React from "react";
 import InputField from "../../../Components/InputField";
-import { Link } from "react-router-dom";
 import LTPImg from "../../../../assets/images/id-card.png";
 import OwnerImg from "../../../../assets/images/real-estate-agent.png";
 
 const ApplicantInfo = () => {
+
+  const handleApplicantInfoData = () => {
+    // ===================LTP’s Details 
+    const ltpType = document.getElementById('ltpType').value;
+    const ltpName = document.getElementById('ltpName').value;
+    const licenceNo = document.getElementById('licenceNo').value;
+    const validity = document.getElementById('validity').value;
+    const ltpPhoneNo = document.getElementById('ltpPhoneNo').value;
+    const ltpEmail = document.getElementById('ltpEmail').value;
+    const ltpAddress = document.getElementById('ltpAddress').value;
+
+    const applicantInfoData = {
+      ltpType,
+      ltpName,
+      licenceNo,
+      validity,
+      ltpPhoneNo,
+      ltpEmail,
+      ltpAddress,
+    }
+
+    console.log(applicantInfoData);
+  }
+
   return (
     <div className="grid my-5 lg:my-0 lg:p-2">
+
+      {/* LTP’s Details  */}
       <div>
         <div className="flex items-center">
           <img
@@ -16,45 +41,46 @@ const ApplicantInfo = () => {
           />
           <h3 className="font-bold text-xl">LTP’s Details</h3>
         </div>
+        {/* Divider  */}
         <div className="divider m-0"></div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 my-8">
           <div className="grid grid-cols-2">
             <InputField
-              id="name1"
-              name="Case Type"
+              id="ltpType"
+              name="ltpType"
               label="LTP Type"
               placeholder="Licenced Engineer"
             />
             <InputField
-              id="name2"
-              name="name1"
+              id="ltpName"
+              name="ltpName"
               label="LTP Name"
               placeholder="xxxxxxxxxxxxxxxxx"
             />
             <InputField
-              id="name4"
-              name="Nature of the site"
+              id="licenceNo"
+              name="licenceNo"
               label="Licence no."
               placeholder="xx/xxxxx"
               type="number"
             />
             <InputField
-              id="name5"
-              name="Survey no."
+              id="validity"
+              name="validity"
               label="Validity"
               placeholder="31/03/2024"
             />
             <InputField
-              id="name6"
-              name="District"
+              id="ltpPhoneNo"
+              name="ltpPhoneNo"
               label="Phone no."
               placeholder="xxxxxxxxxx"
               type="number"
             />
             <InputField
-              id="name6"
-              name="Mandal"
+              id="ltpEmail"
+              name="ltpEmail"
               label="E-mail"
               placeholder="xxxx@gmail.com"
               type="email"
@@ -69,7 +95,8 @@ const ApplicantInfo = () => {
                 Address
               </label>
               <textarea
-                id="message"
+                id="ltpAddress"
+                name="ltpAddress"
                 rows="4"
                 className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
                 placeholder="Dr. no., Street, Village, Mandal, Dist."
@@ -79,6 +106,7 @@ const ApplicantInfo = () => {
         </div>
       </div>
 
+      {/* Applicant’s Details  */}
       <div className="my-5">
         <div className="flex items-center">
           <img
@@ -150,13 +178,8 @@ const ApplicantInfo = () => {
         </div>
       </div>
 
-      {/* <div className="flex justify-center md:justify-end mb-5">
-        <Link to="/dashboard/draftApplication/applicationChecklist">
-          <button className="btn btn-md bg-Primary hover:bg-btnHover hover:shadow-md transition-all duration-500">
-            Save And Continue
-          </button>
-        </Link>
-      </div> */}
+      <button type="submit" className="btn" onClick={handleApplicantInfoData}>Get Data</button>
+
     </div>
   );
 };

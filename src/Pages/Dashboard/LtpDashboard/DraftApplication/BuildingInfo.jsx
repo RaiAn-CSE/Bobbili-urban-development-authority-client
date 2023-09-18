@@ -5,7 +5,6 @@ import { FaHandPointRight } from "react-icons/fa";
 import generalInfoImage from "../../../../assets/images/general-information.png";
 import plotImage from "../../../../assets/images/land.png";
 import wallImage from "../../../../assets/images/gate.png";
-import { useForm } from "react-hook-form";
 
 const BuildingInfo = () => {
   // Case Type 
@@ -15,9 +14,6 @@ const BuildingInfo = () => {
   // Nature of the site 
   const [selectedOption, setSelectedOption] = useState('Select Nature of the site');
   const [showInputFields, setShowInputFields] = useState(false);
-
-
-  const [totalPlotDocumentValue, setTotalPlotDocumentValue] = useState('')
 
   // Add a state variable to keep track of the number of sets of input fields
   const [inputFieldCount, setInputFieldCount] = useState(0);
@@ -87,9 +83,9 @@ const BuildingInfo = () => {
     }
   };
 
-
   // get data from input field :
   const collectInputFieldData = () => {
+    // ======================================General Information:
     // Get the selected radio input's value
     const selectedApplicationType = document.querySelector('input[name="radio-1"]:checked')?.value || '';
 
@@ -98,20 +94,57 @@ const BuildingInfo = () => {
     const mandal = document.getElementById('Mandal').value;
     const gramaPanchayat = document.getElementById('GramaPanchayat').value;
     const village = document.getElementById('Village').value;
-    const bpsApprovedNo = document.getElementById('BpsApprovedNo').value;
-    // const previewsApprovedFileNo = document.getElementById('PreviewsApprovedFileNo').value;
-    // const lpNo = document.getElementById('LpNo').value;
-    // const plotNo = document.getElementById('PlotNo').value;
-    // const lrsNo = document.getElementById('LrsNo').value;
-    // const plotNo2 = document.getElementById('PlotNo2').value;
-    // const iplpNo = document.getElementById('IplpNo').value;
 
+    const bpsApprovedElement = document.getElementById('BpsApprovedNo');
+    const bpsApprovedNo = bpsApprovedElement ? bpsApprovedElement.value : '';
+
+    const previewsApprovedFileElement = document.getElementById('PreviewsApprovedFileNo');
+    const previewsApprovedFileNo = previewsApprovedFileElement ? previewsApprovedFileElement.value : '';
+
+    const lpNoElement = document.getElementById('LpNo');
+    const lpNo = lpNoElement ? lpNoElement.value : '';
+
+    const plotNoElement = document.getElementById('PlotNo');
+    const plotNo = plotNoElement ? plotNoElement.value : '';
+
+    const lrsNoElement = document.getElementById('LrsNo');
+    const lrsNo = lrsNoElement ? lrsNoElement.value : '';
+
+    const plotNo2Element = document.getElementById('PlotNo2');
+    const plotNo2 = plotNo2Element ? plotNo2Element.value : '';
+
+    const iplpNoElement = document.getElementById('IplpNo');
+    const iplpNo = iplpNoElement ? iplpNoElement.value : '';
+    // ==============================Plot Details:
     const totalPlotDocument = document.getElementById('TotalPlotDocument').value;
     const totalPlotGround = document.getElementById('TotalPlotGround').value;
     const netPlotArea = document.getElementById('NetPlotArea').value;
 
+    const existingRoad = document.querySelector('input[name="radio-2"]:checked')?.value || '';
+    const statusOfRoad = document.querySelector('input[name="radio-3"]:checked')?.value || '';
 
+    const natureOfRoad = document.getElementById('natureOfRoad').value;
+    const existingRoadMts = document.getElementById('existingRoadMts').value;
+    const proposedRoadMts = document.getElementById('proposedRoadMts').value;
+    const marketValueSqym = document.getElementById('marketValueSqym').value;
+    const floorName = document.getElementById('floorName').value;
+    const builtUpArea = document.getElementById('builtUpArea').value;
+    const parkingArea = document.getElementById('parkingArea').value;
+    const totalBuiltUpArea = document.getElementById('totalBuiltUpArea').value;
+    const totalParkingArea = document.getElementById('totalParkingArea').value;
+    const frontSetback = document.getElementById('frontSetback').value;
+    const rareSetback = document.getElementById('rareSetback').value;
+    const side1Setback = document.getElementById('side1Setback').value;
+    const side2Setback = document.getElementById('side2Setback').value;
+    const buildingExcludeStilt = document.getElementById('buildingExcludeStilt').value;
 
+    const compoundingWallProposed = document.querySelector('input[name="radio-4"]:checked')?.value || '';
+    const siteRegistered = document.querySelector('input[name="radio-5"]:checked')?.value || '';
+    // =====================Schedule of Boundaries 
+    const north = document.getElementById('north').value;
+    const south = document.getElementById('south').value;
+    const east = document.getElementById('east').value;
+    const west = document.getElementById('west').value;
 
     const inputData = {
       // =======================General Information:
@@ -121,27 +154,46 @@ const BuildingInfo = () => {
       gramaPanchayat,
       village,
       bpsApprovedNo,
-      // previewsApprovedFileNo,
-      // lpNo,
-      // plotNo,
-      // lrsNo,
-      // plotNo2,
-      // iplpNo,
-      caseType: selectedOptionCase,      // Access caseType from data
+      previewsApprovedFileNo,
+      lpNo,
+      plotNo,
+      lrsNo,
+      plotNo2,
+      iplpNo,
+      caseType: selectedOptionCase, // Access caseType from data
       natureOfPermission: selectedOptionPermission,
       natureOfTheSite: selectedOption,
       applicationType: selectedApplicationType,
-
-      // ===========================Plot Details:
+      // ===============================Plot Details:
       totalPlotDocument,
       totalPlotGround,
       proposedPlotArea,
       roadWideningArea,
       netPlotArea,
-
-
+      statusOfRoad,
+      existingRoad,
+      natureOfRoad,
+      existingRoadMts,
+      proposedRoadMts,
+      marketValueSqym,
+      floorName,
+      builtUpArea,
+      parkingArea,
+      totalBuiltUpArea,
+      totalParkingArea,
+      frontSetback,
+      rareSetback,
+      side1Setback,
+      side2Setback,
+      buildingExcludeStilt,
+      compoundingWallProposed,
+      siteRegistered,
+      // ================Schedule of Boundaries 
+      north,
+      south,
+      east,
+      west,
     };
-
     console.log(inputData);
   };
 
@@ -157,12 +209,8 @@ const BuildingInfo = () => {
   return (
     <div className="grid my-5 lg:my-0 lg:p-2">
 
-      <button type="submit" className="btn" onClick={collectInputFieldData}>Get Data</button>
-
       {/* general information */}
       <div className="mb-10">
-
-
 
 
         {/* <form onSubmit={handleSubmit(onSubmit)}>
@@ -184,7 +232,6 @@ const BuildingInfo = () => {
             <input type="submit" value="submit" />
           </div>
         </form> */}
-
 
 
 
@@ -343,7 +390,7 @@ const BuildingInfo = () => {
                 <>
                   <InputField
                     id="LpNo"
-                    name=""
+                    name="LpNo"
                     label="L.P. no."
                     placeholder="L.P. no."
                     type="number"
@@ -523,7 +570,7 @@ const BuildingInfo = () => {
             <label className="block text-gray-600 mb-1 font-semibold">
               <span>Nature of Road</span>
             </label>
-            <select className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs">
+            <select id="natureOfRoad" className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs">
               <option disabled selected>Select Nature of Road</option>
               <option>BT Road</option>
               <option>CC Road</option>
@@ -533,19 +580,19 @@ const BuildingInfo = () => {
           </div>
 
           <InputField
-            id="name12"
+            id="existingRoadMts"
             name="name1"
             label="Existing road (in Mts.)"
             placeholder="in Sq.M."
           />
           <InputField
-            id="name12"
+            id="proposedRoadMts"
             name="name1"
             label="Proposed road (in Mts.)"
             placeholder="in Sq.M."
           />
           <InputField
-            id="name12"
+            id="marketValueSqym"
             name="name1"
             label="Market Value (per Sq.Yd.)"
             placeholder="per Sq.Yd."
@@ -555,7 +602,7 @@ const BuildingInfo = () => {
             <label className="block text-gray-600 mb-1 font-semibold">
               <span>Floor Name</span>
             </label>
-            <select className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs">
+            <select id='floorName' className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs">
               <option disabled selected>Select Floor Name</option>
               <option>Stilt / Parking Floor</option>
               <option>Ground floor</option>
@@ -565,13 +612,13 @@ const BuildingInfo = () => {
           </div>
 
           <InputField
-            id="name12"
+            id="builtUpArea"
             name="name1"
             label="Built up area (in Sq.M.)"
             placeholder="in Sq.M."
           />
           <InputField
-            id="name12"
+            id="parkingArea"
             name="name1"
             label="Parking Area (in Sq.M.)"
             placeholder="in Sq.M."
@@ -625,7 +672,7 @@ const BuildingInfo = () => {
             </label>
             <input
               type="text"
-              id="disabled-input"
+              id="totalBuiltUpArea"
               name="name1"
               placeholder="Automatically calculated"
               className="w-full px-3 py-2 border rounded-lg max-w-xs"
@@ -641,7 +688,7 @@ const BuildingInfo = () => {
               Total Parking area
             </label>
             <input
-              id="disabled-input2"
+              id="totalParkingArea"
               name="name1"
               placeholder="Automatically calculated"
               className="w-full px-3 py-2 border rounded-lg max-w-xs"
@@ -652,31 +699,31 @@ const BuildingInfo = () => {
 
         <div className="grid grid-cols-2 lg:grid-cols-4">
           <InputField
-            id="name7"
+            id="frontSetback"
             name="name72"
             label="Front setback (in M.)"
             placeholder="in M."
           />
           <InputField
-            id="name8"
+            id="rareSetback"
             name="name1"
             label="Rare setback (in M.)"
             placeholder="in M."
           />
           <InputField
-            id="name9"
+            id="side1Setback"
             name="name1"
             label="Side1 setback (in M.)"
             placeholder="in M."
           />
           <InputField
-            id="name10"
+            id="side2Setback"
             name="name1"
             label="Side 2 setback (in M.)"
             placeholder="in M."
           />
           <InputField
-            id="name11"
+            id="buildingExcludeStilt"
             name="name1"
             label="Total Height of The Building Exclude Stilt (in Mts.)"
             placeholder="in Mts."
@@ -694,7 +741,7 @@ const BuildingInfo = () => {
             <label className="inline-flex items-center ml-3">
               <input
                 type="radio"
-                name="radio-2"
+                name="radio-4"
                 className="radio border border-[#10AC84] h-4 w-4"
                 value="yes"
               />
@@ -703,7 +750,7 @@ const BuildingInfo = () => {
             <label className="inline-flex items-center ml-3">
               <input
                 type="radio"
-                name="radio-2"
+                name="radio-4"
                 className="radio border border-[#10AC84] h-4 w-4"
                 value="no"
               />
@@ -719,7 +766,7 @@ const BuildingInfo = () => {
             <label className="inline-flex items-center ml-3">
               <input
                 type="radio"
-                name="radio-3"
+                name="radio-5"
                 className="radio border border-[#10AC84] h-4 w-4"
                 value="Yes"
               />
@@ -728,7 +775,7 @@ const BuildingInfo = () => {
             <label className="inline-flex items-center ml-3">
               <input
                 type="radio"
-                name="radio-3"
+                name="radio-5"
                 className="radio border border-[#10AC84] h-4 w-4"
                 value="No"
               />
@@ -751,7 +798,7 @@ const BuildingInfo = () => {
             <label className="block text-gray-600 mb-1 font-semibold">
               <span>North</span>
             </label>
-            <select className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs">
+            <select id='north' className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs">
               <option disabled selected>Select North</option>
               <option>Road</option>
               <option>Plot</option>
@@ -765,7 +812,7 @@ const BuildingInfo = () => {
             <label className="block text-gray-600 mb-1 font-semibold">
               <span>South</span>
             </label>
-            <select className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs">
+            <select id='south' className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs">
               <option disabled selected>Select South</option>
               <option>Road</option>
               <option>Plot</option>
@@ -779,7 +826,7 @@ const BuildingInfo = () => {
             <label className="block text-gray-600 mb-1 font-semibold">
               <span>East</span>
             </label>
-            <select className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs">
+            <select id='east' className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs">
               <option disabled selected>Select East</option>
               <option>Road</option>
               <option>Plot</option>
@@ -793,7 +840,7 @@ const BuildingInfo = () => {
             <label className="block text-gray-600 mb-1 font-semibold">
               <span>West</span>
             </label>
-            <select className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs">
+            <select id='west' className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs">
               <option disabled selected>Select West</option>
               <option>Road</option>
               <option>Plot</option>
@@ -804,6 +851,8 @@ const BuildingInfo = () => {
           </div>
         </div>
       </div>
+
+      <button type="submit" className="btn" onClick={collectInputFieldData}>Get Data</button>
 
     </div>
   );
