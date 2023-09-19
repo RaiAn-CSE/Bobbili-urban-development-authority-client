@@ -14,6 +14,14 @@ const ApplicantInfo = () => {
     const ltpPhoneNo = document.getElementById('ltpPhoneNo').value;
     const ltpEmail = document.getElementById('ltpEmail').value;
     const ltpAddress = document.getElementById('ltpAddress').value;
+    // ==================Applicant’s Details
+    const applicantName = document.getElementById('applicantName').value;
+    const soWoCo = document.getElementById('soWoCo').value;
+    const applicantPhoneNo = document.getElementById('applicantPhoneNo').value;
+    const applicantEmail = document.getElementById('applicantEmail').value;
+    const applicantAadharNo = document.getElementById('applicantAadharNo').value;
+    const applicantPinCode = document.getElementById('applicantPinCode').value;
+    const applicantAddress = document.getElementById('applicantAddress').value;
 
     const applicantInfoData = {
       ltpType,
@@ -23,8 +31,15 @@ const ApplicantInfo = () => {
       ltpPhoneNo,
       ltpEmail,
       ltpAddress,
+      // ==================Applicant’s Details
+      applicantName,
+      soWoCo,
+      applicantPhoneNo,
+      applicantEmail,
+      applicantAadharNo,
+      applicantPinCode,
+      applicantAddress,
     }
-
     console.log(applicantInfoData);
   }
 
@@ -121,41 +136,41 @@ const ApplicantInfo = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 mt-8">
           <div className="grid grid-cols-2 items-center">
             <InputField
-              id="name13"
-              name="name1"
+              id="applicantName"
+              name="applicantName"
               label="Name"
               placeholder="Select Case type"
             />
             <InputField
-              id="name14"
-              name="name1"
+              id="soWoCo"
+              name="soWoCo"
               label="S/o (or) W/o (or) C/o"
               placeholder="Select Nature of permission"
             />
             <InputField
-              id="name15"
-              name="name1"
+              id="applicantPhoneNo"
+              name="applicantPhoneNo"
               label="Phone no."
               placeholder="Phone no."
               type="number"
             />
             <InputField
-              id="name15"
-              name="name1"
+              id="applicantEmail"
+              name="applicantEmail"
               label="E-mail"
               placeholder="E-mail"
               type="email"
             />
             <InputField
-              id="name15"
-              name="name1"
+              id="applicantAadharNo"
+              name="applicantAadharNo"
               label="Aadhar no."
               placeholder="Aadhar no."
               type="number"
             />
             <InputField
-              id="name15"
-              name="name1"
+              id="applicantPinCode"
+              name="applicantPinCode"
               label="PIN Code"
               placeholder="PIN Code"
               type="number"
@@ -169,7 +184,7 @@ const ApplicantInfo = () => {
               Address
             </label>
             <textarea
-              id="message"
+              id="applicantAddress"
               rows="4"
               className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
               placeholder="Dr. no., Street, Village, Mandal, Dist."
