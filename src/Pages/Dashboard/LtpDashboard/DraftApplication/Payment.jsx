@@ -91,7 +91,7 @@ const Payment = () => {
     const Total = builtUpAreaDevelopmentCharged + vacantAreaDevelopmentCharged + TotalPenalizationCharged + TotalOpenSpaceCharged + TotalLabourCessComp2Charged;
     return Total;
   };
-  UDATotal();
+  const UDATotalCharged=UDATotal();
 
   // Grama Panchayet fees
   const bettermentChargedUnitRate = 40; //per Sqm.
@@ -111,7 +111,7 @@ const Payment = () => {
   const gramaPanchayetTotal = () => {
     return bettermentCharged + buildingPermitFees + siteApprovalCharged + paperPublicationCharged + processingFees;
   };
-  gramaPanchayetTotal();
+  const GramaPanchayetTotalCharged= gramaPanchayetTotal();
 
   // Green fee charge
   // if proposed built up area above than 5000 Sq.ft
@@ -171,6 +171,7 @@ const Payment = () => {
             label="Total"
             placeholder="7000"
             type="number"
+            value={UDATotalCharged}
           />
           <div>
             <button className="btn btn-md text-sm px-3 mt-10 ml-3 bg-green-300 hover:bg-green-400 hover:shadow-md transition-all duration-500">
@@ -240,6 +241,7 @@ const Payment = () => {
             label="Total"
             placeholder="13000"
             type="number"
+            value={GramaPanchayetTotalCharged}
           />
         </div>
 
