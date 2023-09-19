@@ -36,10 +36,12 @@ const Payment = () => {
   const vacantAreaChargedUnitRate = 10; // per Sqm.
   const vacantAreaDevelopmentCharged = vacantAreaChargedUnitRate * vacant_area;
   // 33% penalization
-  // 1. Plot port of RLP/IPLP but not regularised
-  const calculatePenalizationCharges = (net_Plot_Area) => {
+  const calculatePenalizationCharges = (net_Plot_Area, nature_of_site) => {
     // 200, 400 this are unit rate.
     let penalizationCharges = 0;
+    if (nature_of_site !== "Plot port of RLP/IPLP but not regularised") {
+      return penalizationCharges;
+    }
 
     if (net_Plot_Area <= 100) {
       penalizationCharges = net_Plot_Area * 200 * 0.33;
@@ -49,9 +51,7 @@ const Payment = () => {
 
     return penalizationCharges;
   };
-  // Open Space Charge= 14%
-  // 1. Newly Developed/ Built up area
-  // 2. Plot port of RLP/IPLP but not regularised
+  // Open Space Charge 14%
   function calculateOpenSpaceCharge(nature_of_site, net_Plot_Area, market_value) {
     let openSpaceCharge = 0;
 
@@ -69,25 +69,29 @@ const Payment = () => {
 
   // Labour Cess Component 2
   const labourCessComponentUnitRate2 = 1400; // per Sq.M.
+
   const laboutCessCompo2Calculation = (builtup_Area) => {
+    let labourCessComponentCharge2 = 0;
+
     if (builtup_Area < 10000) {
-      const labourCessComponentCharge2 = labourCessComponentUnitRate2 * builtup_Area * 10.76;
-      return labourCessComponentCharge2;
+      labourCessComponentCharge2 = labourCessComponentUnitRate2 * builtup_Area * 10.76;
+    } else if (builtup_Area > 10000) {
+      labourCessComponentCharge2 = (labourCessComponentUnitRate2 * builtup_Area * 10.76) * (0.01 * 0.02);
     }
-    if (builtup_Area > 10000) {
-      const labourCessComponentCharge2 = (labourCessComponentUnitRate2 * builtup_Area * 10.76) * (0.01 * 0.02);
-      return labourCessComponentCharge2;
-    }
-    return 0;
-  }
-  const TotalPenalizationCharges = calculatePenalizationCharges(net_Plot_Area);
-  const TotalOpenSpaceCharges = calculateOpenSpaceCharge(nature_of_site, net_Plot_Area, market_value);
-  const TotalLabourCessComp2Charges = laboutCessCompo2Calculation(builtup_Area);
+
+    return labourCessComponentCharge2;
+  };
+
+
+  const TotalPenalizationCharged = calculatePenalizationCharges(net_Plot_Area, nature_of_site);
+  const TotalOpenSpaceCharged = calculateOpenSpaceCharge(nature_of_site, net_Plot_Area, market_value);
+  const TotalLabourCessComp2Charged = laboutCessCompo2Calculation(builtup_Area);
 
   const UDATotal = () => {
-    const Total = builtUpAreaDevelopmentCharged + vacantAreaDevelopmentCharged + TotalPenalizationCharges + TotalOpenSpaceCharges + TotalLabourCessComp2Charges;
+    const Total = builtUpAreaDevelopmentCharged + vacantAreaDevelopmentCharged + TotalPenalizationCharged + TotalOpenSpaceCharged + TotalLabourCessComp2Charged;
     return Total;
   };
+  UDATotal();
 
   // Grama Panchayet fees
   const bettermentChargedUnitRate = 40; //per Sqm.
@@ -97,16 +101,17 @@ const Payment = () => {
   const buildingPermitFees = buildingPermitUnitRate * builtup_Area;
 
   const siteApprovalUnitRate = 10; //per Sqm.
-  const siteApprovalCharges = siteApprovalUnitRate * net_Plot_Area;
+  const siteApprovalCharged = siteApprovalUnitRate * net_Plot_Area;
 
-  const paperPublicationCharges = 1500; //Fixed
+  const paperPublicationCharged = 1500; //Fixed
 
   const processingUnitRate = 7; //per Sqm.
   const processingFees = processingUnitRate * builtup_Area;
 
   const gramaPanchayetTotal = () => {
-    return;
+    return bettermentCharged + buildingPermitFees + siteApprovalCharged + paperPublicationCharged + processingFees;
   };
+  gramaPanchayetTotal();
 
   // Green fee charge
   // if proposed built up area above than 5000 Sq.ft
