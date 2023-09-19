@@ -16,19 +16,20 @@ const Payment = () => {
   //   ).applicationId;
   //   getPostData({ applicationId: applicationId, payment: {} });
   // };
-  const builtup_Area = 1;
-  const vacant_area = 1;
-  const net_Plot_Area = 1;
-  const market_value = 1;
-  const nature_of_site = "";
-  // Nature of the site
+
+// Nature of the site
   //  1. Approved Layout
   //  2. Regularised Under LRS
   //  3. Plot port of RLP/IPLP but not regularised
   //  4. Congested/ Gramakanta/ Old Built-up area
   //  5. Newly Developed/ Built up area
 
-
+  const builtup_Area = 1;
+  const vacant_area = 1;
+  const net_Plot_Area = 1;
+  const market_value = 1;
+  const nature_of_site = "";
+  
   // UDA Charge
   const builtupAreaChargedUnitRate = 15; //per Sqm.
   const builtUpAreaDevelopmentCharged = builtupAreaChargedUnitRate * builtup_Area;
