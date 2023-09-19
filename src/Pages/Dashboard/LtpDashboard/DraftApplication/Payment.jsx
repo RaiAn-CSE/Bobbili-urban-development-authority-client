@@ -37,23 +37,18 @@ const Payment = () => {
   const vacantAreaDevelopmentCharged = vacantAreaChargedUnitRate * vacant_area;
   // 33% penalization
   // 1. Plot port of RLP/IPLP but not regularised
-  function calculatePenalizationCharges(net_Plot_Area) {
-    const unitRate = 0.33;
+  const calculatePenalizationCharges = (net_Plot_Area) => {
+    // 200, 400 this are unit rate.
     let penalizationCharges = 0;
 
-    switch (true) {
-      case net_Plot_Area <= 100:
-        penalizationCharges = 200 * net_Plot_Area * unitRate;
-        break;
-      case net_Plot_Area <= 300:
-        penalizationCharges = 400 * net_Plot_Area * unitRate;
-        break;
-      default:
-        penalizationCharges = 0;
+    if (net_Plot_Area <= 100) {
+      penalizationCharges = net_Plot_Area * 200 * 0.33;
+    } else if (net_Plot_Area <= 300) {
+      penalizationCharges = net_Plot_Area * 400 * 0.33;
     }
 
     return penalizationCharges;
-  }
+  };
   // Open Space Charge= 14%
   // 1. Newly Developed/ Built up area
   // 2. Plot port of RLP/IPLP but not regularised
@@ -85,9 +80,12 @@ const Payment = () => {
     }
     return 0;
   }
+  const TotalPenalizationCharges = calculatePenalizationCharges(net_Plot_Area);
+  const TotalOpenSpaceCharges = calculateOpenSpaceCharge(nature_of_site, net_Plot_Area, market_value);
+  const TotalLabourCessComp2Charges = laboutCessCompo2Calculation(builtup_Area);
 
   const UDATotal = () => {
-    const Total = builtUpAreaDevelopmentCharged + vacantAreaDevelopmentCharged + calculatePenalizationCharges(net_Plot_Area) + calculateOpenSpaceCharge(nature_of_site, net_Plot_Area, market_value) + laboutCessCompo2Calculation(builtup_Area);
+    const Total = builtUpAreaDevelopmentCharged + vacantAreaDevelopmentCharged + TotalPenalizationCharges + TotalOpenSpaceCharges + TotalLabourCessComp2Charges;
     return Total;
   };
 
