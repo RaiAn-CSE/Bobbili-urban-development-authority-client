@@ -104,10 +104,9 @@ const ApplicantInfo = () => {
                 Validity
               </label>
               <input
+                type="date"
                 id="validity"
                 name="validity"
-                placeholder="xxxxxxxxxx"
-                type="date"
                 className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
               />
             </div>

@@ -51,9 +51,9 @@ const BuildingInfo = () => {
     }
   };
 
+  // ========================(Calculation part start) 
   const handleProposedPlotAreaChange = (e) => {
     const newValue = e.target.value;
-
     // Check if the entered value is a valid number and less than or equal to 300
     if (newValue <= 300) {
       setProposedPlotArea(newValue);
@@ -63,7 +63,6 @@ const BuildingInfo = () => {
 
   const handleRoadWideningAreaChange = (e) => {
     const newValue = e.target.value;
-
     // Check if the entered value is a valid number and less than or equal to 300
     if (newValue <= 300) {
       setRoadWideningArea(newValue);
@@ -82,6 +81,60 @@ const BuildingInfo = () => {
       setNetPlotArea('');
     }
   };
+  // ========================(Calculation part End)
+
+
+
+
+
+  // Built Up Area Calculation :
+  const [builtUpAreaInitial, setBuiltUpAreaInitial] = useState('');
+  const [parkingAreaInitial, setParkingAreaInitial] = useState('');
+
+  const handleBuiltUpAreaInitial = (e) => {
+    const newValue = e.target.value;
+    setBuiltUpAreaInitial(newValue);
+  }
+
+  const handleParkingAreaInitial = (e) => {
+    const newValue = e.target.value;
+    setParkingAreaInitial(newValue);
+  }
+
+
+
+  const [builtUpAreaSum, setBuiltUpAreaSum] = useState('');
+  const [parkingAreaSum, setParkingAreaSum] = useState('');
+
+  const [builtUpArea, setBuiltUpArea] = useState('');
+  const [parkingArea, setParkingArea] = useState('');
+
+  console.log(builtUpAreaSum);
+  console.log(parkingAreaSum);
+
+  const handleBuiltUpArea = (index, value) => {
+    const newBuiltUpArea = [...builtUpArea];
+    newBuiltUpArea[index] = parseFloat(value) || 0;
+    setBuiltUpArea(newBuiltUpArea);
+
+    const sum = newBuiltUpArea.reduce((acc, currentValue) => acc + currentValue, 0);
+    setBuiltUpAreaSum(sum + parseFloat(builtUpAreaInitial));
+  };
+
+  const handleParkingArea = (index, value) => {
+    const newParkingArea = [...parkingArea];
+    newParkingArea[index] = parseFloat(value) || 0;
+    setParkingArea(newParkingArea);
+
+    const sum = newParkingArea.reduce((acc, currentValue) => acc + currentValue, 0);
+    setParkingAreaSum(sum + parseFloat(parkingAreaInitial));
+  };
+
+
+
+
+
+
 
   // get data from input field :
   const collectInputFieldData = () => {
@@ -128,8 +181,16 @@ const BuildingInfo = () => {
     const proposedRoadMts = document.getElementById('proposedRoadMts').value;
     const marketValueSqym = document.getElementById('marketValueSqym').value;
     const floorName = document.getElementById('floorName').value;
-    const builtUpArea = document.getElementById('builtUpArea').value;
-    const parkingArea = document.getElementById('parkingArea').value;
+
+    const floorName0Element = document.getElementById('floorName0');
+    const floorName0 = floorName0Element ? floorName0Element.value : '';
+
+    const floorName1Element = document.getElementById('floorName1');
+    const floorName1 = floorName1Element ? floorName1Element.value : '';
+
+    const floorName2Element = document.getElementById('floorName2');
+    const floorName2 = floorName2Element ? floorName2Element.value : '';
+
     const totalBuiltUpArea = document.getElementById('totalBuiltUpArea').value;
     const totalParkingArea = document.getElementById('totalParkingArea').value;
     const frontSetback = document.getElementById('frontSetback').value;
@@ -177,8 +238,11 @@ const BuildingInfo = () => {
       proposedRoadMts,
       marketValueSqym,
       floorName,
-      builtUpArea,
-      parkingArea,
+      floorName0,
+      floorName1,
+      floorName2,
+      builtUpAreaInitial,
+      parkingAreaInitial,
       totalBuiltUpArea,
       totalParkingArea,
       frontSetback,
@@ -196,14 +260,6 @@ const BuildingInfo = () => {
     };
     console.log(inputData);
   };
-
-
-
-  // const { handleSubmit, register } = useForm();
-
-  // const onSubmit = (data) => {
-  //   console.log(data);
-  // };
 
 
   return (
@@ -445,7 +501,6 @@ const BuildingInfo = () => {
         </div>
         <div className="divider m-0"></div>
 
-
         <div className="grid grid-cols-2 lg:grid-cols-4 mt-5">
           <InputField
             type="number"
@@ -473,7 +528,6 @@ const BuildingInfo = () => {
               className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
               value={proposedPlotArea}
               onChange={handleProposedPlotAreaChange}
-              maxLength="3"
             />
           </div>
 
@@ -611,18 +665,34 @@ const BuildingInfo = () => {
             </select>
           </div>
 
-          <InputField
-            id="builtUpArea"
-            name="name1"
-            label="Built up area (in Sq.M.)"
-            placeholder="in Sq.M."
-          />
-          <InputField
-            id="parkingArea"
-            name="name1"
-            label="Parking Area (in Sq.M.)"
-            placeholder="in Sq.M."
-          />
+          <div className="my-4 mx-3">
+            <label htmlFor='ProposedPlotArea' className="block text-gray-600 mb-1 font-semibold">
+              Built up area (in Sq.M.)
+            </label>
+            <input
+              type="number"
+              id="builtUpArea"
+              placeholder="in Sq.M."
+              className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
+              value={builtUpAreaInitial}
+              onChange={handleBuiltUpAreaInitial}
+            />
+          </div>
+
+          <div className="my-4 mx-3">
+            <label htmlFor='ProposedPlotArea' className="block text-gray-600 mb-1 font-semibold">
+              Parking Area (in Sq.M.)
+            </label>
+            <input
+              type="number"
+              id="parkingArea"
+              placeholder="in Sq.M."
+              className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
+              value={parkingAreaInitial}
+              onChange={handleParkingAreaInitial}
+            />
+          </div>
+
           {/* Add button for adding more input fields */}
           <div className="flex justify-start items-center ml-3 mt-6">
             <button className="btn" onClick={handleAddInputFields}>
@@ -633,12 +703,13 @@ const BuildingInfo = () => {
 
         {/* Render additional input field sets based on inputFieldCount */}
         {Array.from({ length: inputFieldCount }).map((_, index) => (
-          <div key={index} className="grid grid-cols-2 lg:grid-cols-4 mt-5">
+
+          <div key={index} className="grid grid-cols-2 lg:grid-cols-4" >
             <div className="flex flex-col justify-center mx-3">
               <label className="block text-gray-600 mb-1 font-semibold">
                 <span>Floor Name</span>
               </label>
-              <select className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs">
+              <select id={`floorName${index}`} className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs">
                 <option disabled selected>Select Floor Name</option>
                 <option>Stilt / Parking Floor</option>
                 <option>Ground floor</option>
@@ -647,18 +718,33 @@ const BuildingInfo = () => {
               </select>
             </div>
 
-            <InputField
-              id={`name12-${index}`}
-              name="name1"
-              label="Built up Area (in Sq.M.)"
-              placeholder="in Sq.M."
-            />
-            <InputField
-              id={`name12-${index}`}
-              name="name1"
-              label="Parking Area (in Sq.M.)"
-              placeholder="in Sq.M."
-            />
+            <div className="my-4 mx-3">
+              <label htmlFor={`builtUpArea${index}`} className="block text-gray-600 mb-1 font-semibold">
+                Built up area (in Sq.M.)
+              </label>
+              <input
+                type="number"
+                id={`builtUpArea${index}`}
+                placeholder="in Sq.M."
+                className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
+                value={builtUpArea[index] || ''}
+                onChange={(e) => handleBuiltUpArea(index, e.target.value)}
+              />
+            </div>
+
+            <div className="my-4 mx-3">
+              <label htmlFor={`parkingArea${index}`} className="block text-gray-600 mb-1 font-semibold">
+                Parking Area (in Sq.M.)
+              </label>
+              <input
+                type="number"
+                id={`parkingArea${index}`}
+                placeholder="in Sq.M."
+                className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
+                value={parkingArea[index] || ''}
+                onChange={(e) => handleParkingArea(index, e.target.value)}
+              />
+            </div>
           </div>
         ))}
 
@@ -676,6 +762,7 @@ const BuildingInfo = () => {
               name="name1"
               placeholder="Automatically calculated"
               className="w-full px-3 py-2 border rounded-lg max-w-xs"
+              value={builtUpAreaSum}
               disabled
             />
           </div>
@@ -692,6 +779,7 @@ const BuildingInfo = () => {
               name="name1"
               placeholder="Automatically calculated"
               className="w-full px-3 py-2 border rounded-lg max-w-xs"
+              value={parkingAreaSum}
               disabled
             />
           </div>
@@ -854,7 +942,7 @@ const BuildingInfo = () => {
 
       <button type="submit" className="btn" onClick={collectInputFieldData}>Get Data</button>
 
-    </div>
+    </div >
   );
 };
 
