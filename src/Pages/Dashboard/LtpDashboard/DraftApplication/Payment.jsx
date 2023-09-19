@@ -83,7 +83,6 @@ const Payment = () => {
     return labourCessComponentCharge2;
   };
 
-
   const TotalPenalizationCharged = calculatePenalizationCharges(net_Plot_Area, nature_of_site);
   const TotalOpenSpaceCharged = calculateOpenSpaceCharge(nature_of_site, net_Plot_Area, market_value);
   const TotalLabourCessComp2Charged = laboutCessCompo2Calculation(builtup_Area);
