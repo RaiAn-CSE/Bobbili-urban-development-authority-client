@@ -18,7 +18,6 @@ const InputField = ({ id, name, placeholder, type, label }) => {
         name={name}
         placeholder={placeholder} // Use the labelPlaceholder variable as the placeholder attribute
         className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
-      // {...register(id)}
       />
     </div>
   );

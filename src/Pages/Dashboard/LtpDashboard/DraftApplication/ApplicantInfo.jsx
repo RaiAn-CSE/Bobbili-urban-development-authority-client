@@ -1,12 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import InputField from "../../../Components/InputField";
 import LTPImg from "../../../../assets/images/id-card.png";
 import OwnerImg from "../../../../assets/images/real-estate-agent.png";
 
 const ApplicantInfo = () => {
+  const [ltpPhone, setLtpPhone] = useState('');
+  const [applicantPhone, setApplicantPhone] = useState('');
+
+  const handleLtpPhone = (e) => {
+    const value = e.target.value;
+    // Check if the LTP Phone No Input value contains only digits and is not longer than 10 characters
+    if (/^\d*$/.test(value) && value.length <= 10) {
+      setLtpPhone(value);
+    }
+  };
+
+  const handleApplicantPhone = (e) => {
+    const value = e.target.value;
+    // Check if the Applicant Phone No Input value contains only digits and is not longer than 10 characters
+    if (/^\d*$/.test(value) && value.length <= 10) {
+      setApplicantPhone(value);
+    }
+  };
 
   const handleApplicantInfoData = () => {
-    // ===================LTP’s Details 
+    // ====================LTP’s Details 
     const ltpType = document.getElementById('ltpType').value;
     const ltpName = document.getElementById('ltpName').value;
     const licenceNo = document.getElementById('licenceNo').value;
@@ -14,7 +32,7 @@ const ApplicantInfo = () => {
     const ltpPhoneNo = document.getElementById('ltpPhoneNo').value;
     const ltpEmail = document.getElementById('ltpEmail').value;
     const ltpAddress = document.getElementById('ltpAddress').value;
-    // ==================Applicant’s Details
+    // ===================Applicant’s Details
     const applicantName = document.getElementById('applicantName').value;
     const soWoCo = document.getElementById('soWoCo').value;
     const applicantPhoneNo = document.getElementById('applicantPhoneNo').value;
@@ -86,13 +104,21 @@ const ApplicantInfo = () => {
               label="Validity"
               placeholder="31/03/2024"
             />
-            <InputField
-              id="ltpPhoneNo"
-              name="ltpPhoneNo"
-              label="Phone no."
-              placeholder="xxxxxxxxxx"
-              type="number"
-            />
+
+            <div className="my-4 mx-3">
+              <label htmlFor='ltpPhoneNo' className="block text-gray-600 mb-1 font-semibold">
+                Phone no.
+              </label>
+              <input
+                id="ltpPhoneNo"
+                name="ltpPhoneNo"
+                placeholder="xxxxxxxxxx"
+                value={ltpPhone}
+                onChange={handleLtpPhone}
+                className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
+              />
+            </div>
+
             <InputField
               id="ltpEmail"
               name="ltpEmail"
@@ -147,13 +173,21 @@ const ApplicantInfo = () => {
               label="S/o (or) W/o (or) C/o"
               placeholder="Select Nature of permission"
             />
-            <InputField
-              id="applicantPhoneNo"
-              name="applicantPhoneNo"
-              label="Phone no."
-              placeholder="Phone no."
-              type="number"
-            />
+
+            <div className="my-4 mx-3">
+              <label htmlFor='ltpPhoneNo' className="block text-gray-600 mb-1 font-semibold">
+                Phone no.
+              </label>
+              <input
+                id="applicantPhoneNo"
+                name="applicantPhoneNo"
+                placeholder="xxxxxxxxxx"
+                value={applicantPhone}
+                onChange={handleApplicantPhone}
+                className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
+              />
+            </div>
+
             <InputField
               id="applicantEmail"
               name="applicantEmail"
