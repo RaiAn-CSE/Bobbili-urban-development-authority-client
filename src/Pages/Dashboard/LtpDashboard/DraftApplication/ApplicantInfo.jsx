@@ -98,12 +98,19 @@ const ApplicantInfo = () => {
               placeholder="xx/xxxxx"
               type="number"
             />
-            <InputField
-              id="validity"
-              name="validity"
-              label="Validity"
-              placeholder="31/03/2024"
-            />
+
+            <div className="my-4 mx-3">
+              <label htmlFor='ltpPhoneNo' className="block text-gray-600 mb-1 font-semibold">
+                Validity
+              </label>
+              <input
+                id="validity"
+                name="validity"
+                placeholder="xxxxxxxxxx"
+                type="date"
+                className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
+              />
+            </div>
 
             <div className="my-4 mx-3">
               <label htmlFor='ltpPhoneNo' className="block text-gray-600 mb-1 font-semibold">
