@@ -5,6 +5,7 @@ import { FaHandPointRight } from "react-icons/fa";
 import generalInfoImage from "../../../../assets/images/general-information.png";
 import plotImage from "../../../../assets/images/land.png";
 import wallImage from "../../../../assets/images/gate.png";
+import axios from 'axios';
 
 const BuildingInfo = () => {
   // Case Type 
@@ -248,35 +249,48 @@ const BuildingInfo = () => {
   };
 
 
+
+
+  const [districtData, setDistrictData] = useState([]);
+  const [selectedDistrict, setSelectedDistrict] = useState('');
+  const [selectedMandal, setSelectedMandal] = useState('');
+  const [selectedVillage, setSelectedVillage] = useState('');
+
+  useEffect(() => {
+    const apiUrl = '/public/buildingInfo.json';
+
+    axios.get(apiUrl)
+      .then((response) => {
+        setDistrictData(response.data.district);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }, []);
+
+  const handleDistrictChange = (event) => {
+    const selectedDistrict = event.target.value;
+    setSelectedDistrict(selectedDistrict);
+
+    // Reset selected mandal and village when district changes
+    setSelectedMandal('');
+    setSelectedVillage('');
+  };
+
+  const handleMandalChange = (event) => {
+    const selectedMandal = event.target.value;
+    setSelectedMandal(selectedMandal);
+
+    // Reset selected village when mandal changes
+    setSelectedVillage('');
+  };
+
+
   return (
     <div className="grid my-5 lg:my-0 lg:p-2">
 
       {/* general information */}
       <div className="mb-10">
-
-
-        {/* <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="grid grid-cols-2 lg:grid-cols-4 mt-5">
-            <InputField
-              type="number"
-              id="totalPlotDocument"
-              name="totalPlotDocument"
-              label="Total Plot are as per document"
-              placeholder="in Sq.M."
-            />
-            <InputField
-              type="number"
-              id="totalPlotGround"
-              name="totalPlotGround"
-              label="Total Plot are as on ground"
-              placeholder="in Sq.M."
-            />
-            <input type="submit" value="submit" />
-          </div>
-        </form> */}
-
-
-
         {/* heading  */}
         <div className="flex items-center">
           <img src={generalInfoImage} alt="" className="h-10 me-3" />
@@ -375,30 +389,85 @@ const BuildingInfo = () => {
             placeholder="Survey no."
             type="text"
           />
-          <InputField
-            id="District"
-            name="District"
-            label="District"
-            placeholder="District"
-          />
-          <InputField
-            id="Mandal"
-            name="Mandal"
-            label="Mandal"
-            placeholder="Mandal"
-          />
+
+
+          <div className="flex flex-col justify-center mx-3">
+            <label className="block text-gray-600 mb-1 font-semibold">
+              <span>District</span>
+            </label>
+            <select
+              id="District"
+              name="District"
+              className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
+              onChange={handleDistrictChange}
+              value={selectedDistrict}
+            >
+              <option value="" disabled>Select District</option>
+              {districtData.map((district) => (
+                <option key={district.name} value={district.name}>
+                  {district.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="flex flex-col justify-center mx-3">
+            <label className="block text-gray-600 mb-1 font-semibold">
+              <span>Mandal</span>
+            </label>
+            <select
+              id="Mandal"
+              name="Mandal"
+              className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
+              onChange={handleMandalChange}
+              value={selectedMandal}
+              disabled={!selectedDistrict}
+            >
+              <option value="" disabled>Select Mandal</option>
+              {selectedDistrict &&
+                districtData
+                  .find((district) => district.name === selectedDistrict)
+                  ?.mandal.map((mandal) => (
+                    <option key={mandal.name} value={mandal.name}>
+                      {mandal.name}
+                    </option>
+                  ))}
+            </select>
+          </div>
+
           <InputField
             id="GramaPanchayat"
             name="Grama Panchayat"
             label="Grama Panchayat"
             placeholder="Grama Panchayat"
           />
-          <InputField
-            id="Village"
-            name="Village"
-            label="Village"
-            placeholder="Village"
-          />
+
+          <div className="flex flex-col justify-center mx-3">
+            <label className="block text-gray-600 mb-1 font-semibold">
+              <span>Village</span>
+            </label>
+            <select
+              id="Village"
+              name="Village"
+              className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
+              value={selectedVillage}
+              onChange={(e) => setSelectedVillage(e.target.value)}
+              disabled={!selectedMandal}
+            >
+              <option value="" disabled>
+                Select Village
+              </option>
+              {selectedMandal &&
+                districtData
+                  .find((district) => district.name === selectedDistrict)
+                  ?.mandal.find((mandal) => mandal.name === selectedMandal)
+                  ?.village.map((village) => (
+                    <option key={village} value={village}>
+                      {village}
+                    </option>
+                  ))}
+            </select>
+          </div>
 
           {/*===================== Conditionally render input fields based on Case Type  =====================*/}
           {selectedOptionCase === 'Alteration Addition Existing' && selectedOptionPermission === 'Regularised under BPS' && (
