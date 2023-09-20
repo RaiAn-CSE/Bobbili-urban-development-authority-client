@@ -81,10 +81,9 @@ const BuildingInfo = () => {
     } else {
       setNetPlotArea('');
     }
-  };
-  // ========================(Calculation part End)
-  // =========================(Built Up Area Calculation) :
-  const [builtUpAreaInitial, setBuiltUpAreaInitial] = useState('');
+  };   // ========================<<<(Calculation part End)>>>...
+
+  const [builtUpAreaInitial, setBuiltUpAreaInitial] = useState(''); // =======<<<(Built Up Area Calculation)>>> :
   const [parkingAreaInitial, setParkingAreaInitial] = useState('');
 
   const handleBuiltUpAreaInitial = (e) => {
@@ -102,8 +101,7 @@ const BuildingInfo = () => {
 
   const [builtUpArea, setBuiltUpArea] = useState('');
   const [parkingArea, setParkingArea] = useState('');
-  // console.log(builtUpAreaSum);
-  // console.log(parkingAreaSum);
+
   const handleBuiltUpArea = (index, value) => {
     const newBuiltUpArea = [...builtUpArea];
     newBuiltUpArea[index] = parseFloat(value) || 0;
@@ -120,20 +118,15 @@ const BuildingInfo = () => {
 
     const sum = newParkingArea.reduce((acc, currentValue) => acc + currentValue, 0);
     setParkingAreaSum(sum + parseFloat(parkingAreaInitial));
-  };
-  // =========================(Built Up Area Calculation End) :
+  }; // ======================================================<<<(Built Up Area Calculation End)>>>>...
 
   // get data from input field :
   const collectInputFieldData = () => {
-    // ======================================General Information:
-    // Get the selected radio input's value
-    const selectedApplicationType = document.querySelector('input[name="radio-1"]:checked')?.value || '';
+    // ==================================================<<<(General Information)>>>:
+    const selectedApplicationType = document.querySelector('input[name="radio-1"]:checked')?.value || ''; // Get selected radio input's value
 
     const surveyNo = document.getElementById('SurveyNo').value;
-    const district = document.getElementById('District').value;
-    const mandal = document.getElementById('Mandal').value;
     const gramaPanchayat = document.getElementById('GramaPanchayat').value;
-    const village = document.getElementById('Village').value;
 
     const bpsApprovedElement = document.getElementById('BpsApprovedNo');
     const bpsApprovedNo = bpsApprovedElement ? bpsApprovedElement.value : '';
@@ -155,8 +148,7 @@ const BuildingInfo = () => {
 
     const iplpNoElement = document.getElementById('IplpNo');
     const iplpNo = iplpNoElement ? iplpNoElement.value : '';
-    // ==============================Plot Details:
-    const totalPlotDocument = document.getElementById('TotalPlotDocument').value;
+    const totalPlotDocument = document.getElementById('TotalPlotDocument').value;   // ==========<<<(Plot Details)>>>:
     const totalPlotGround = document.getElementById('TotalPlotGround').value;
     const netPlotArea = document.getElementById('NetPlotArea').value;
 
@@ -188,19 +180,17 @@ const BuildingInfo = () => {
 
     const compoundingWallProposed = document.querySelector('input[name="radio-4"]:checked')?.value || '';
     const siteRegistered = document.querySelector('input[name="radio-5"]:checked')?.value || '';
-    // =====================Schedule of Boundaries 
-    const north = document.getElementById('north').value;
+    const north = document.getElementById('north').value;   // ==========================<<<(Schedule of Boundaries)>>>: 
     const south = document.getElementById('south').value;
     const east = document.getElementById('east').value;
     const west = document.getElementById('west').value;
 
     const inputData = {
-      // =======================General Information:
-      surveyNo,
-      district,
-      mandal,
+      surveyNo,  // ===========================<<<(General Information)>>>:
+      selectedDistrict,
+      selectedMandal,
       gramaPanchayat,
-      village,
+      selectedVillage,
       bpsApprovedNo,
       previewsApprovedFileNo,
       lpNo,
@@ -212,8 +202,7 @@ const BuildingInfo = () => {
       natureOfPermission: selectedOptionPermission,
       natureOfTheSite: selectedOption,
       applicationType: selectedApplicationType,
-      // ===============================Plot Details:
-      totalPlotDocument,
+      totalPlotDocument, // ===========================<<<(Plot Details)>>>:
       totalPlotGround,
       proposedPlotArea,
       roadWideningArea,
@@ -239,8 +228,7 @@ const BuildingInfo = () => {
       buildingExcludeStilt,
       compoundingWallProposed,
       siteRegistered,
-      // ================Schedule of Boundaries 
-      north,
+      north, // ==============================<<<(Schedule of Boundaries)>>>: 
       south,
       east,
       west,
@@ -248,8 +236,8 @@ const BuildingInfo = () => {
     console.log(inputData);
   };
 
-  //===================================<<<<<(District, Mandal & Village)>>>>> :
-  const [districtData, setDistrictData] = useState([]);
+
+  const [districtData, setDistrictData] = useState([]); //==========<<<<<(District, Mandal & Village Start)>>>>> :
   const [selectedDistrict, setSelectedDistrict] = useState('');
   const [selectedMandal, setSelectedMandal] = useState('');
   const [selectedVillage, setSelectedVillage] = useState('');
@@ -274,8 +262,7 @@ const BuildingInfo = () => {
     setSelectedMandal(selectedMandal);
     // Reset selected village when mandal changes
     setSelectedVillage('');
-  };
-  //================================<<<<<(District, Mandal & Village End)>>>>> :
+  }; //============================================================<<<<<(District, Mandal & Village End)>>>>> :
 
   return (
     <div className="grid my-5 lg:my-0 lg:p-2">
