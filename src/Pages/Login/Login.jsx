@@ -8,6 +8,7 @@ import { useLocation, useNavigate } from "react-router";
 import { BsFillHouseCheckFill, BsFillHouseLockFill } from "react-icons/bs";
 import useGetUser from "../../CustomHook/useGetUser";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
+import BeatLoader from "react-spinners/BeatLoader";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -107,9 +108,16 @@ const Login = () => {
     show ? setShow(false) : setShow(true);
   };
 
-  if (loading) {
-    return "Loading...";
-  }
+  // if (loading) {
+  //   return "Loading...";
+  // }
+  let [color, setColor] = useState("#36d7b7");
+  const override = {
+    display: "block",
+    width: "fit-content",
+    margin: "0 auto",
+    borderColor: "red",
+  };
 
   return (
     <>
@@ -195,11 +203,22 @@ const Login = () => {
                 </label>
               </div>
               <div className="w-[30%] mx-auto">
-                <input
-                  type="submit"
-                  value="Login"
-                  className="w-full rounded-full Roboto bg-[#FFD66C] cursor-pointer hover:shadow-md font-bold  text-sm px-5 py-2.5 text-center "
-                />
+                {loading ? (
+                  <BeatLoader
+                    color={color}
+                    loading={loading}
+                    cssOverride={override}
+                    size={15}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                  />
+                ) : (
+                  <input
+                    type="submit"
+                    value="Login"
+                    className="w-full rounded-full Roboto bg-[#FFD66C] cursor-pointer hover:shadow-md font-bold  text-sm px-5 py-2.5 text-center "
+                  />
+                )}
               </div>
             </form>
           </div>

@@ -13,7 +13,6 @@ import Drawing from "../Pages/Dashboard/LtpDashboard/DraftApplication/Drawing";
 import Payment from "../Pages/Dashboard/LtpDashboard/DraftApplication/Payment";
 import SubmitApplication from "../Pages/Dashboard/LtpDashboard/Submitted/SubmitApplication";
 import AddUser from "../Pages/Dashboard/Admin/Admin2/AddUser";
-import UpdateUser from "../Pages/Dashboard/Admin/Admin2/UpdateUser";
 import AllUsers from "../Pages/Dashboard/Admin/Admin2/AllUsers";
 import Error from "../Pages/Shared/Error";
 
@@ -58,11 +57,21 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/draftApplication",
-        element: (<PrivateRoute> <DraftApplication /> </PrivateRoute>),
+        element: (
+          <PrivateRoute>
+            {" "}
+            <DraftApplication />{" "}
+          </PrivateRoute>
+        ),
         children: [
           {
             path: "/dashboard/draftApplication",
-            element: (<PrivateRoute> <NewApplication /> </PrivateRoute>),
+            element: (
+              <PrivateRoute>
+                {" "}
+                <NewApplication />{" "}
+              </PrivateRoute>
+            ),
           },
           {
             path: "/dashboard/draftApplication/buildingInfo",

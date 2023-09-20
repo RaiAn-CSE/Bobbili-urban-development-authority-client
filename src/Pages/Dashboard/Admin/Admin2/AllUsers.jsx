@@ -76,6 +76,7 @@ const AllUsers = () => {
     setShowModal(true);
   }, [showModal]);
 
+  // update user profile information
   const onSubmit = (data) => {
     console.log(data);
 

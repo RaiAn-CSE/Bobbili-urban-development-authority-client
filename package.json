@@ -19,6 +19,7 @@
     "react-icons": "^4.11.0",
     "react-query": "^3.39.3",
     "react-router-dom": "^6.15.0",
+    "react-spinners": "^0.13.8",
     "react-transition-group": "^4.4.5",
     "tw-elements": "^1.0.0-rc.1"
   },
