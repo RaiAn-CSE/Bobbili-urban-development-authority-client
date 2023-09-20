@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import Login from "../Pages/Login/Login";
+import Login from "../Pages/Main/Login/Login";
 import DashboardLayout from "../Layouts/DashboardLayout";
 import Dashboard from "../Pages/Shared/Dashboard";
 import PrivateRoute from "./PrivateRoute";
@@ -15,12 +15,25 @@ import SubmitApplication from "../Pages/Dashboard/LtpDashboard/Submitted/SubmitA
 import AddUser from "../Pages/Dashboard/Admin/Admin2/AddUser";
 import AllUsers from "../Pages/Dashboard/Admin/Admin2/AllUsers";
 import Error from "../Pages/Shared/Error";
+import MainLayout from "../Layouts/MainLayout";
+import Carousel from "../Pages/Main/Carousel/Carousel";
+import ApplicationSearch from "../Pages/Main/ApplicationSearch/ApplicationSearch";
 
 const router = createBrowserRouter([
   {
     path: "/",
     errorElement: <Error />,
-    element: <Login />,
+    element: <MainLayout />,
+    children: [
+      {
+        path: "/",
+        element: <Carousel />,
+      },
+      {
+        path: "/applicationSearch",
+        element: <ApplicationSearch />,
+      },
+    ],
   },
   {
     path: "/dashboard",
