@@ -82,12 +82,7 @@ const BuildingInfo = () => {
     }
   };
   // ========================(Calculation part End)
-
-
-
-
-
-  // Built Up Area Calculation :
+  // =========================(Built Up Area Calculation) :
   const [builtUpAreaInitial, setBuiltUpAreaInitial] = useState('');
   const [parkingAreaInitial, setParkingAreaInitial] = useState('');
 
@@ -101,17 +96,13 @@ const BuildingInfo = () => {
     setParkingAreaInitial(newValue);
   }
 
-
-
   const [builtUpAreaSum, setBuiltUpAreaSum] = useState('');
   const [parkingAreaSum, setParkingAreaSum] = useState('');
 
   const [builtUpArea, setBuiltUpArea] = useState('');
   const [parkingArea, setParkingArea] = useState('');
-
-  console.log(builtUpAreaSum);
-  console.log(parkingAreaSum);
-
+  // console.log(builtUpAreaSum);
+  // console.log(parkingAreaSum);
   const handleBuiltUpArea = (index, value) => {
     const newBuiltUpArea = [...builtUpArea];
     newBuiltUpArea[index] = parseFloat(value) || 0;
@@ -129,12 +120,7 @@ const BuildingInfo = () => {
     const sum = newParkingArea.reduce((acc, currentValue) => acc + currentValue, 0);
     setParkingAreaSum(sum + parseFloat(parkingAreaInitial));
   };
-
-
-
-
-
-
+  // =========================(Built Up Area Calculation End) :
 
   // get data from input field :
   const collectInputFieldData = () => {
@@ -891,7 +877,6 @@ const BuildingInfo = () => {
               <option>Road</option>
               <option>Plot</option>
               <option>Vacant land</option>
-              <option>Vacant land</option>
               <option>Water body</option>
             </select>
           </div>
@@ -904,7 +889,6 @@ const BuildingInfo = () => {
               <option disabled selected>Select South</option>
               <option>Road</option>
               <option>Plot</option>
-              <option>Vacant land</option>
               <option>Vacant land</option>
               <option>Water body</option>
             </select>
@@ -919,7 +903,6 @@ const BuildingInfo = () => {
               <option>Road</option>
               <option>Plot</option>
               <option>Vacant land</option>
-              <option>Vacant land</option>
               <option>Water body</option>
             </select>
           </div>
@@ -932,7 +915,6 @@ const BuildingInfo = () => {
               <option disabled selected>Select West</option>
               <option>Road</option>
               <option>Plot</option>
-              <option>Vacant land</option>
               <option>Vacant land</option>
               <option>Water body</option>
             </select>
