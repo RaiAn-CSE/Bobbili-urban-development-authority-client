@@ -27,7 +27,7 @@ const NewApplication = () => {
 
   // store new application information into the database
   const storeApplicationData = () => {
-    const url = `http://localhost:5000/updateUserData/${userID}`;
+    const url = `http://localhost:5000/updateDraftApplicationData/${userID}`;
 
     const data = {
       applicationNo: generateApplicationNumber(),

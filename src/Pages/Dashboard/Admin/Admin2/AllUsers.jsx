@@ -3,6 +3,7 @@ import IndividualUser from "./IndividualUser";
 import tableStyle from "../../../../Style/tableStyle.module.css";
 import { useQuery } from "react-query";
 import Loading from "../../../Shared/Loading";
+import toast from "react-hot-toast";
 
 const AllUsers = () => {
   const [records, setRecords] = useState([]);
@@ -35,6 +36,29 @@ const AllUsers = () => {
     console.log(records);
   };
 
+  // delete user
+  const deleteUser = (id) => {
+    console.log(id);
+
+    fetch(`http://localhost:5000/deleteUser/${id}`, { method: "DELETE" })
+      .then((res) => res.json())
+      .then((response) => {
+        console.log(response);
+        if (response.acknowledged) {
+          toast.success("Deleted successfully");
+          refetch();
+        } else {
+          toast.error("Failed to delete");
+        }
+      })
+      .catch(() => {
+        toast.error("Server Error");
+      });
+  };
+
+  // update user information
+  const updateUser = () => {};
+
   if (isLoading) {
     return <Loading />;
   }
@@ -47,15 +71,15 @@ const AllUsers = () => {
       <div className="form-control mt-5 w-1/2 mx-auto  max-w-xs">
         <div>
           <label
-            for="search"
-            class="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
+            htmlFor="search"
+            className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
           >
             Search User
           </label>
           <input
             type="text"
             id="search"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             placeholder="John"
             onChange={filter}
             required
@@ -77,7 +101,12 @@ const AllUsers = () => {
           </thead>
           <tbody className="text-center">
             {records?.map((user) => (
-              <IndividualUser user={user} />
+              <IndividualUser
+                key={user?._id}
+                user={user}
+                deleteUser={deleteUser}
+                updateUser={updateUser}
+              />
             ))}
           </tbody>
         </table>
