@@ -248,9 +248,7 @@ const BuildingInfo = () => {
     console.log(inputData);
   };
 
-
-
-
+  //===================================<<<<<(District, Mandal & Village)>>>>> :
   const [districtData, setDistrictData] = useState([]);
   const [selectedDistrict, setSelectedDistrict] = useState('');
   const [selectedMandal, setSelectedMandal] = useState('');
@@ -258,20 +256,14 @@ const BuildingInfo = () => {
 
   useEffect(() => {
     const apiUrl = '/public/buildingInfo.json';
-
     axios.get(apiUrl)
-      .then((response) => {
-        setDistrictData(response.data.district);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+      .then((response) => { setDistrictData(response.data.district); })
+      .catch((error) => { console.error('Error:', error); });
   }, []);
 
   const handleDistrictChange = (event) => {
     const selectedDistrict = event.target.value;
     setSelectedDistrict(selectedDistrict);
-
     // Reset selected mandal and village when district changes
     setSelectedMandal('');
     setSelectedVillage('');
@@ -280,11 +272,10 @@ const BuildingInfo = () => {
   const handleMandalChange = (event) => {
     const selectedMandal = event.target.value;
     setSelectedMandal(selectedMandal);
-
     // Reset selected village when mandal changes
     setSelectedVillage('');
   };
-
+  //================================<<<<<(District, Mandal & Village End)>>>>> :
 
   return (
     <div className="grid my-5 lg:my-0 lg:p-2">
@@ -390,7 +381,6 @@ const BuildingInfo = () => {
             type="text"
           />
 
-
           <div className="flex flex-col justify-center mx-3">
             <label className="block text-gray-600 mb-1 font-semibold">
               <span>District</span>
@@ -424,14 +414,11 @@ const BuildingInfo = () => {
               disabled={!selectedDistrict}
             >
               <option value="" disabled>Select Mandal</option>
-              {selectedDistrict &&
-                districtData
-                  .find((district) => district.name === selectedDistrict)
-                  ?.mandal.map((mandal) => (
-                    <option key={mandal.name} value={mandal.name}>
-                      {mandal.name}
-                    </option>
-                  ))}
+              {selectedDistrict && districtData.find((district) => district.name === selectedDistrict)?.mandal.map((mandal) => (
+                <option key={mandal.name} value={mandal.name}>
+                  {mandal.name}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -457,15 +444,11 @@ const BuildingInfo = () => {
               <option value="" disabled>
                 Select Village
               </option>
-              {selectedMandal &&
-                districtData
-                  .find((district) => district.name === selectedDistrict)
-                  ?.mandal.find((mandal) => mandal.name === selectedMandal)
-                  ?.village.map((village) => (
-                    <option key={village} value={village}>
-                      {village}
-                    </option>
-                  ))}
+              {selectedMandal && districtData.find((district) => district.name === selectedDistrict)?.mandal.find((mandal) => mandal.name === selectedMandal)?.village.map((village) => (
+                <option key={village} value={village}>
+                  {village}
+                </option>
+              ))}
             </select>
           </div>
 
