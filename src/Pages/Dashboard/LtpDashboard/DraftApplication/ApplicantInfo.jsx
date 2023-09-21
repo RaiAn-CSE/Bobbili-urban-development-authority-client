@@ -83,14 +83,7 @@ const ApplicantInfo = () => {
       ltpPhoneNo,
       ltpEmail,
       ltpAddress,
-      // ==================Applicant’s Details
-      // applicantName,
-      // soWoCo,
-      // applicantPhoneNo,
-      // applicantEmail,
-      // applicantAadharNo,
-      // applicantPinCode,
-      // applicantAddress,
+      ownerDetail,
     };
     console.log(applicantInfoData);
   };
