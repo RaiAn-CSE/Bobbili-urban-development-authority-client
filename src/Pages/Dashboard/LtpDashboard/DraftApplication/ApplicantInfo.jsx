@@ -47,15 +47,6 @@ const ApplicantInfo = () => {
     const ltpPhoneNo = document.getElementById("ltpPhoneNo").value;
     const ltpEmail = document.getElementById("ltpEmail").value;
     const ltpAddress = document.getElementById("ltpAddress").value;
-    // ===================Applicant’s Details
-    // const applicantName = document.getElementById("applicantName").value;
-    // const soWoCo = document.getElementById("soWoCo").value;
-    // const applicantPhoneNo = document.getElementById("applicantPhoneNo").value;
-    // const applicantEmail = document.getElementById("applicantEmail").value;
-    // const applicantAadharNo =
-    //   document.getElementById("applicantAadharNo").value;
-    // const applicantPinCode = document.getElementById("applicantPinCode").value;
-    // const applicantAddress = document.getElementById("applicantAddress").value;
 
     const ownerDetail = totalApplicant.map((applicant, index) => {
       console.log(applicant);
