@@ -17,7 +17,7 @@ const Payment = () => {
   //   getPostData({ applicationId: applicationId, payment: {} });
   // };
 
-// Nature of the site
+  // Nature of the site
   //  1. Approved Layout
   //  2. Regularised Under LRS
   //  3. Plot port of RLP/IPLP but not regularised
@@ -29,7 +29,7 @@ const Payment = () => {
   const net_Plot_Area = 1;
   const market_value = 1;
   const nature_of_site = "";
-  
+
   // UDA Charge
   const builtupAreaChargedUnitRate = 15; //per Sqm.
   const builtUpAreaDevelopmentCharged = builtupAreaChargedUnitRate * builtup_Area;
@@ -91,7 +91,7 @@ const Payment = () => {
     const Total = builtUpAreaDevelopmentCharged + vacantAreaDevelopmentCharged + TotalPenalizationCharged + TotalOpenSpaceCharged + TotalLabourCessComp2Charged;
     return Total;
   };
-  const UDATotalCharged=UDATotal();
+  const UDATotalCharged = UDATotal();
 
   // Grama Panchayet fees
   const bettermentChargedUnitRate = 40; //per Sqm.
@@ -111,7 +111,7 @@ const Payment = () => {
   const gramaPanchayetTotal = () => {
     return bettermentCharged + buildingPermitFees + siteApprovalCharged + paperPublicationCharged + processingFees;
   };
-  const GramaPanchayetTotalCharged= gramaPanchayetTotal();
+  const GramaPanchayetTotalCharged = gramaPanchayetTotal();
 
   // Green fee charge
   // if proposed built up area above than 5000 Sq.ft
@@ -274,10 +274,12 @@ const Payment = () => {
             placeholder="xxxx"
             type="text"
           />
-          <div className="ml-7 mt-5">
-            <span>
-              <GrAttachment />
-            </span>
+          <div className="px-3 mt-7">
+            <input
+              class="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
+              type="file"
+              id="formFileMultiple"
+              multiple />
           </div>
         </div>
       </div>
@@ -331,10 +333,13 @@ const Payment = () => {
             placeholder="xxxx"
             type="text"
           />
-          <div className="ml-7 mt-5">
-            <span>
-              <GrAttachment />
-            </span>
+          <div className="px-3 mt-7">
+            <input
+              class="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
+              type="file"
+              id="formFileMultiple"
+              multiple
+              required />
           </div>
         </div>
       </div>
@@ -388,6 +393,14 @@ const Payment = () => {
             placeholder="xxxx"
             type="text"
           />
+          <div className="px-3 mt-7">
+            <input
+              class="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
+              type="file"
+              id="formFileMultiple"
+              multiple
+              required />
+          </div>
         </div>
       </div>
     </div>
