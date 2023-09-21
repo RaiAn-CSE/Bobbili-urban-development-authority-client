@@ -1,13 +1,7 @@
 import React, { useState } from "react";
 import InputField from "../../../Components/InputField";
 
-const OwnerDetail = ({
-  index,
-  length,
-  applicantNo,
-  setPhoneNoLimit,
-  increaseApplicantNo,
-}) => {
+const OwnerDetail = ({ index, length, applicantNo, setPhoneNoLimit, increaseApplicantNo }) => {
   console.log(applicantNo, index);
 
   const ownerSerial = ["First", "Second", "Third", "Fourth", "Fifth"];

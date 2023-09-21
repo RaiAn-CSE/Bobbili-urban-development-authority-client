@@ -12,6 +12,7 @@ import axios from "axios";
 import { useOutletContext } from "react-router";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import SaveData from "./SaveData";
+import FloorDetails from "./FloorDetails";
 
 const BuildingInfo = () => {
   const stepperData = useOutletContext();
@@ -34,16 +35,6 @@ const BuildingInfo = () => {
     "Select Nature of the site"
   );
   const [showInputFields, setShowInputFields] = useState(false);
-
-  // Add a state variable to keep track of the number of sets of input fields
-  const [inputFieldCount, setInputFieldCount] = useState(0);
-
-  // Function to add more 3 sets of input fields
-  const handleAddInputFields = () => {
-    if (inputFieldCount < 3) {
-      setInputFieldCount(inputFieldCount + 1);
-    }
-  };
 
   // Case Type
   const handleCaseTypeChange = (e) => {
@@ -103,50 +94,8 @@ const BuildingInfo = () => {
     } else {
       setNetPlotArea("");
     }
-  }; // ========================<<<(Calculation part End)>>>...
-
-  const [builtUpAreaInitial, setBuiltUpAreaInitial] = useState(""); // =======<<<(Built Up Area Calculation)>>> :
-  const [parkingAreaInitial, setParkingAreaInitial] = useState("");
-
-  const handleBuiltUpAreaInitial = (e) => {
-    const newValue = e.target.value;
-    setBuiltUpAreaInitial(newValue);
   };
-
-  const handleParkingAreaInitial = (e) => {
-    const newValue = e.target.value;
-    setParkingAreaInitial(newValue);
-  };
-
-  const [builtUpAreaSum, setBuiltUpAreaSum] = useState("");
-  const [parkingAreaSum, setParkingAreaSum] = useState("");
-
-  const [builtUpArea, setBuiltUpArea] = useState("");
-  const [parkingArea, setParkingArea] = useState("");
-
-  const handleBuiltUpArea = (index, value) => {
-    const newBuiltUpArea = [...builtUpArea];
-    newBuiltUpArea[index] = parseFloat(value) || 0;
-    setBuiltUpArea(newBuiltUpArea);
-
-    const sum = newBuiltUpArea.reduce(
-      (acc, currentValue) => acc + currentValue,
-      0
-    );
-    setBuiltUpAreaSum(sum + parseFloat(builtUpAreaInitial));
-  };
-
-  const handleParkingArea = (index, value) => {
-    const newParkingArea = [...parkingArea];
-    newParkingArea[index] = parseFloat(value) || 0;
-    setParkingArea(newParkingArea);
-
-    const sum = newParkingArea.reduce(
-      (acc, currentValue) => acc + currentValue,
-      0
-    );
-    setParkingAreaSum(sum + parseFloat(parkingAreaInitial));
-  }; // ======================================================<<<(Built Up Area Calculation End)>>>>...
+  // ========================<<<(Calculation part End)>>>...
 
   // get data from input field :
   const collectInputFieldData = () => {
@@ -195,16 +144,6 @@ const BuildingInfo = () => {
     const existingRoadMts = document.getElementById("existingRoadMts").value;
     const proposedRoadMts = document.getElementById("proposedRoadMts").value;
     const marketValueSqym = document.getElementById("marketValueSqym").value;
-    const floorName = document.getElementById("floorName").value;
-
-    const floorName0Element = document.getElementById("floorName0");
-    const floorName0 = floorName0Element ? floorName0Element.value : "";
-
-    const floorName1Element = document.getElementById("floorName1");
-    const floorName1 = floorName1Element ? floorName1Element.value : "";
-
-    const floorName2Element = document.getElementById("floorName2");
-    const floorName2 = floorName2Element ? floorName2Element.value : "";
 
     const totalBuiltUpArea = document.getElementById("totalBuiltUpArea").value;
     const totalParkingArea = document.getElementById("totalParkingArea").value;
@@ -220,10 +159,20 @@ const BuildingInfo = () => {
       document.querySelector('input[name="radio-4"]:checked')?.value || "";
     const siteRegistered =
       document.querySelector('input[name="radio-5"]:checked')?.value || "";
-    const north = document.getElementById("north").value; // ==========================<<<(Schedule of Boundaries)>>>:
+    const north = document.getElementById("north").value; // ===============<<<(Schedule of Boundaries)>>>:
     const south = document.getElementById("south").value;
     const east = document.getElementById("east").value;
     const west = document.getElementById("west").value;
+
+    const floorDetail = totalFloorInfo.map((applicant, index) => {
+      return {
+        floorInfo: {
+          floorName: document.getElementById(`floorName${index}`).value,
+          buildUpArea: document.getElementById(`buildUpArea${index}`).value,
+          parkingArea: document.getElementById(`parkingArea${index}`).value,
+        },
+      };
+    });
 
     const inputData = {
       surveyNo, // ===========================<<<(General Information)>>>:
@@ -253,14 +202,6 @@ const BuildingInfo = () => {
       existingRoadMts,
       proposedRoadMts,
       marketValueSqym,
-      floorName,
-      floorName0,
-      floorName1,
-      floorName2,
-      builtUpAreaInitial,
-      parkingAreaInitial,
-      totalBuiltUpArea,
-      totalParkingArea,
       frontSetback,
       rareSetback,
       side1Setback,
@@ -268,6 +209,7 @@ const BuildingInfo = () => {
       buildingExcludeStilt,
       compoundingWallProposed,
       siteRegistered,
+      floorDetail,
       north, // ==============================<<<(Schedule of Boundaries)>>>:
       south,
       east,
@@ -282,7 +224,7 @@ const BuildingInfo = () => {
   const [selectedVillage, setSelectedVillage] = useState("");
 
   useEffect(() => {
-    const apiUrl = "../../../../assets/buildingInfo.json";
+    const apiUrl = "/public/buildingInfo.json";
     axios
       .get(apiUrl)
       .then((response) => {
@@ -309,6 +251,26 @@ const BuildingInfo = () => {
   }; //============================================================<<<<<(District, Mandal & Village End)>>>>> :
 
   // save data into database
+
+  // Floor Name
+  const [totalFloorInfo, setTotalFloorInfo] = useState([""]);
+  // console.log(totalFloorInfo);
+
+  const increaseFloorNo = () => {
+    const newOwner = `floor${totalFloorInfo.length + 1}`;
+    setTotalFloorInfo((prev) => [...prev, newOwner]);
+  };
+
+  const handleBuildUpAreaChange = (value) => {
+    console.log(value);
+  };
+
+  const handleParkingAreaChange = (value) => {
+    console.log(value);
+  };
+
+  // console.log(totalBuiltUpArea);
+  // console.log(totalParkingArea);
 
   return (
     <div className="grid my-5 lg:my-0 lg:p-2">
@@ -761,122 +723,18 @@ const BuildingInfo = () => {
             placeholder="per Sq.Yd."
           />
 
-          <div className="flex flex-col justify-center mx-3">
-            <label className="block text-gray-600 mb-1 font-semibold">
-              <span>Floor Name</span>
-            </label>
-            <select
-              id="floorName"
-              className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
-            >
-              <option disabled selected>
-                Select Floor Name
-              </option>
-              <option>Stilt / Parking Floor</option>
-              <option>Ground floor</option>
-              <option>First Floor</option>
-              <option>Second Floor</option>
-            </select>
-          </div>
-
-          <div className="my-4 mx-3">
-            <label
-              htmlFor="ProposedPlotArea"
-              className="block text-gray-600 mb-1 font-semibold"
-            >
-              Built up area (in Sq.M.)
-            </label>
-            <input
-              type="number"
-              id="builtUpArea"
-              placeholder="in Sq.M."
-              className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
-              value={builtUpAreaInitial}
-              onChange={handleBuiltUpAreaInitial}
+          {totalFloorInfo?.map((floorInfo, index) => (
+            <FloorDetails
+              key={index}
+              index={index}
+              length={totalFloorInfo.length}
+              floorInfo={floorInfo}
+              increaseFloorNo={increaseFloorNo}
+              handleBuildUpAreaChange={handleBuildUpAreaChange}
+              handleParkingAreaChange={handleParkingAreaChange}
             />
-          </div>
-
-          <div className="my-4 mx-3">
-            <label
-              htmlFor="ProposedPlotArea"
-              className="block text-gray-600 mb-1 font-semibold"
-            >
-              Parking Area (in Sq.M.)
-            </label>
-            <input
-              type="number"
-              id="parkingArea"
-              placeholder="in Sq.M."
-              className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
-              value={parkingAreaInitial}
-              onChange={handleParkingAreaInitial}
-            />
-          </div>
-
-          {/* Add button for adding more input fields */}
-          <div className="flex justify-start items-center ml-3 mt-6">
-            <button className="btn" onClick={handleAddInputFields}>
-              <AiFillPlusCircle size={25} color="#6fd7bd" />
-            </button>
-          </div>
+          ))}
         </div>
-
-        {/* Render additional input field sets based on inputFieldCount */}
-        {Array.from({ length: inputFieldCount }).map((_, index) => (
-          <div key={index} className="grid grid-cols-2 lg:grid-cols-4">
-            <div className="flex flex-col justify-center mx-3">
-              <label className="block text-gray-600 mb-1 font-semibold">
-                <span>Floor Name</span>
-              </label>
-              <select
-                id={`floorName${index}`}
-                className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
-              >
-                <option disabled selected>
-                  Select Floor Name
-                </option>
-                <option>Stilt / Parking Floor</option>
-                <option>Ground floor</option>
-                <option>First Floor</option>
-                <option>Second Floor</option>
-              </select>
-            </div>
-
-            <div className="my-4 mx-3">
-              <label
-                htmlFor={`builtUpArea${index}`}
-                className="block text-gray-600 mb-1 font-semibold"
-              >
-                Built up area (in Sq.M.)
-              </label>
-              <input
-                type="number"
-                id={`builtUpArea${index}`}
-                placeholder="in Sq.M."
-                className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
-                value={builtUpArea[index] || ""}
-                onChange={(e) => handleBuiltUpArea(index, e.target.value)}
-              />
-            </div>
-
-            <div className="my-4 mx-3">
-              <label
-                htmlFor={`parkingArea${index}`}
-                className="block text-gray-600 mb-1 font-semibold"
-              >
-                Parking Area (in Sq.M.)
-              </label>
-              <input
-                type="number"
-                id={`parkingArea${index}`}
-                placeholder="in Sq.M."
-                className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
-                value={parkingArea[index] || ""}
-                onChange={(e) => handleParkingArea(index, e.target.value)}
-              />
-            </div>
-          </div>
-        ))}
 
         <div className="grid grid-cols-2 lg:grid-cols-4 mt-5">
           <div className="my-4 mx-3">
@@ -892,7 +750,7 @@ const BuildingInfo = () => {
               name="name1"
               placeholder="Automatically calculated"
               className="w-full px-3 py-2 border rounded-lg max-w-xs"
-              value={builtUpAreaSum}
+              // value={totalBuiltUpArea}
               disabled
             />
           </div>
@@ -909,7 +767,7 @@ const BuildingInfo = () => {
               name="name1"
               placeholder="Automatically calculated"
               className="w-full px-3 py-2 border rounded-lg max-w-xs"
-              value={parkingAreaSum}
+              // value={totalParkingArea}
               disabled
             />
           </div>
