@@ -29,9 +29,9 @@ function AppChecklist() {
   return (
     <div className="px-3 text-sm py-1">
       <div className="text-end mb-4">
-        <button className="btn btn-sm text-xs bg-[#c0e9e4] transition-all duration-700 hover:bg-[#10ac84] text-[#000] hover:text-[#fff]">
+        <button onClick={()=>setOpenApplication(true)} className="btn btn-sm text-xs bg-[#c0e9e4] transition-all duration-700 hover:bg-[#10ac84] text-[#000] hover:text-[#fff]">
           <HiOutlineClipboardDocumentList className="text-lg" />{" "}
-          <span onClick={()=>setOpenApplication(true)}>Application</span>
+          <span>Application</span>
         </button>
       </div>
       <div className="space-y-5">

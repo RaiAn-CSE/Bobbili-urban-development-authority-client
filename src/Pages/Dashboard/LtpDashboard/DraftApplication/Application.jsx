@@ -6,7 +6,7 @@ function Application({ openApplication, setOpenApplication }) {
 		column: { "col2": ["NAME", "DOOR No. / FLAT No.", "ROAD/STREET", "VILLAGE|MANDAL", "CITY/TOWN", "DISTRICT", "E-MAIL", ["MOBILE", "ALTERNATE"]] }
 	}
 	const header = ["File No.", "ULB ABBREVIATION", "BP", "ZONE", "CIR", "WD", "", "", "", ""];
-	const FormDate = ["", "", "", ""]
+	const FormDate = ["", "", "", "", "", ""]
 	useEffect(() => {
 		// Open the modal when the component mounts
 		const modal = document.getElementById('my_modal_5');
@@ -31,7 +31,10 @@ function Application({ openApplication, setOpenApplication }) {
 									<tr>
 										{header.map(data => <td className='bg-green-200 border border-black'>{data}</td>)}
 									</tr>
-									<tr>  <td className='bg-green-200 border border-black'>Date:</td> {FormDate.map(data => <td className='bg-green-200 border border-black'>{data}</td>)}</tr>
+									<tr>
+										<td className='bg-green-200 border border-black'>
+											Date:</td> {FormDate.map(data => <td className='bg-green-200 border border-black'>{data}</td>)}
+									</tr>
 								</div>
 							</tbody>
 						</table>
