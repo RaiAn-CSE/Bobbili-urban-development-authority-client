@@ -19,25 +19,25 @@ function Application({ openApplication, setOpenApplication }) {
 		<div className='w-full h-full text-black'>
 			<dialog id="my_modal_5" className="modal">
 				<div className="modal-box w-11/12 max-w-5xl p-14">
-					<div className='text-center'>
+					<div className='text-center font-bold'>
 						<h2>FORM - 6</h2>
 						<h2 className='mt-3'>………………….(ULB)</h2>
 						<h2 className='mt-3'>BUILDING PERMISSION APPLICATION</h2>
 					</div>
 					<div className='mt-6'>
-						<table className="table border-0 ">
+						<table className="table border-0">
 							<tbody>
-								<div className='w-full flex items-center justify-between'>
+								<div className='w-full flex items-center justify-between font-bold'>
 									<tr>
-										{header.map(data => <td className=' bg-white border border-black'>{data}</td>)}
+										{header.map(data => <td className='bg-green-200 border border-black'>{data}</td>)}
 									</tr>
-									<tr>  <td className=' bg-white border border-black'>Date:</td> {FormDate.map(data => <td className=' bg-white border border-black'>{data}</td>)}</tr>
+									<tr>  <td className='bg-green-200 border border-black'>Date:</td> {FormDate.map(data => <td className='bg-green-200 border border-black'>{data}</td>)}</tr>
 								</div>
 							</tbody>
 						</table>
 					</div>
 					<div className='mt-5'>
-						<h1>To</h1>
+						<h1 className='font-bold'>To</h1>
 						<p>The Commissioner,</p>
 						<p className='mt-3'>……………………………………………..(ULB)</p>
 						<span>(Use CAPITAL LETTERS only)</span>
@@ -52,12 +52,12 @@ function Application({ openApplication, setOpenApplication }) {
 								{/* head */}
 								<thead>
 									<tr>
-										<th className='bg-white border border-black fontbold text-black'>A</th>
-										<th className='bg-white border-l border-t border-black fontbold text-black'>ADDRESS OF THE APPLICANT</th>
-										<th className='bg-white border-r border-t border-black fontbold text-black'></th>
+										<th className='bg-blue-300 border border-black fontbold text-black'>A</th>
+										<th className='bg-blue-300 border-l border-t border-black fontbold text-black'>ADDRESS OF THE APPLICANT</th>
+										<th className='bg-blue-300 border-r border-t border-black fontbold text-black'></th>
 									</tr>
 								</thead>
-								<tbody className='bg-white'>
+								<tbody className=''>
 									{/* row 1 */}
 									{Part01.column.col2.map((data, index) => (
 										<>
@@ -68,7 +68,7 @@ function Application({ openApplication, setOpenApplication }) {
 														<span className='flex items-center justify-between'>
 															<span>PHONE</span>
 															<span className='flex flex-col border-black'>
-																{data.map((d,i) => <span className={`border-l border-black p-1 ${i==0&&"border-b"}`}>{d}</span>)}
+																{data.map((d, i) => <span className={`border-l border-black px-3 py-1 ${i == 0 && "border-b"}`}>{d}</span>)}
 															</span>
 														</span>
 
