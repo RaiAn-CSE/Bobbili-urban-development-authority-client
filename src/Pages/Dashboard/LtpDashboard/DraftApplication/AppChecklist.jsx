@@ -1,12 +1,23 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import ChecklistQuestions from "../../../../assets/AppChecklist.json";
-import { Link } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 import usePostData from "../../../../CustomHook/usePostData";
 import useGetDraftAppData from "../../../../CustomHook/useGetDraftAppData";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
+import { AuthContext } from "../../../../AuthProvider/AuthProvider";
+import SaveData from "./SaveData";
 
 function AppChecklist() {
   // const LocalItems = JSON.parse(localStorage.getItem("ApplicationList"));
+
+  const stepperData = useOutletContext();
+
+  const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
+
+  console.log(stepperData);
+
+  const { confirmAlert } = useContext(AuthContext);
+
   const btn =
     "btn btn-md text-sm px-6 bg-Primary transition duration-700 hover:bg-btnHover hover:shadow-md";
 
@@ -87,6 +98,16 @@ function AppChecklist() {
           </button>
         </Link>
       </div> */}
+
+      {/* save & continue  */}
+      {/* navigation button  */}
+      <SaveData
+        isStepperVisible={isStepperVisible}
+        currentStep={currentStep}
+        steps={steps}
+        stepperData={stepperData}
+        confirmAlert={confirmAlert}
+      />
     </div>
   );
 }

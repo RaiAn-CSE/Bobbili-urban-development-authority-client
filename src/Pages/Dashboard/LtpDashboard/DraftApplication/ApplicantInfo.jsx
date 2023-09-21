@@ -1,12 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import InputField from "../../../Components/InputField";
 import LTPImg from "../../../../assets/images/id-card.png";
 import OwnerImg from "../../../../assets/images/real-estate-agent.png";
 import usePostData from "../../../../CustomHook/usePostData";
 import useGetDraftAppData from "../../../../CustomHook/useGetDraftAppData";
 import OwnerDetail from "./OwnerDetail";
+import { useOutletContext } from "react-router";
+import Swal from "sweetalert2";
+import { AuthContext } from "../../../../AuthProvider/AuthProvider";
+import SaveData from "./SaveData";
 
 const ApplicantInfo = () => {
+  const stepperData = useOutletContext();
+
+  const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
+
+  console.log(stepperData);
+
+  const { confirmAlert } = useContext(AuthContext);
+
   const handleBackendData = () => {
     const applicationId = JSON.parse(localStorage.getItem("applicationId"));
     getPostData({ applicationId: applicationId, applicantInfo: {} });
@@ -16,14 +28,6 @@ const ApplicantInfo = () => {
 
   const [totalApplicant, setTotalApplicant] = useState(["Owner1"]);
   console.log(totalApplicant);
-
-  // const handleLtpPhone = (e) => {
-  //   const value = e.target.value;
-  //   // Check if the LTP Phone No Input value contains only digits and is not longer than 10 characters
-  //   if (/^\d*$/.test(value) && value.length <= 10) {
-  //     setLtpPhone(value);
-  //   }
-  // };
 
   const increaseApplicantNo = () => {
     const newOwner = `Owner${totalApplicant.length + 1}`;
@@ -47,15 +51,6 @@ const ApplicantInfo = () => {
     const ltpPhoneNo = document.getElementById("ltpPhoneNo").value;
     const ltpEmail = document.getElementById("ltpEmail").value;
     const ltpAddress = document.getElementById("ltpAddress").value;
-    // ===================Applicant’s Details
-    // const applicantName = document.getElementById("applicantName").value;
-    // const soWoCo = document.getElementById("soWoCo").value;
-    // const applicantPhoneNo = document.getElementById("applicantPhoneNo").value;
-    // const applicantEmail = document.getElementById("applicantEmail").value;
-    // const applicantAadharNo =
-    //   document.getElementById("applicantAadharNo").value;
-    // const applicantPinCode = document.getElementById("applicantPinCode").value;
-    // const applicantAddress = document.getElementById("applicantAddress").value;
 
     const ownerDetail = totalApplicant.map((applicant, index) => {
       console.log(applicant);
@@ -149,6 +144,7 @@ const ApplicantInfo = () => {
               </label>
               <input
                 id="ltpPhoneNo"
+                type="text"
                 name="ltpPhoneNo"
                 placeholder="xxxxxxxxxx"
                 value={ltpPhone}
@@ -212,6 +208,15 @@ const ApplicantInfo = () => {
       <button type="submit" className="btn" onClick={handleApplicantInfoData}>
         Get Data
       </button>
+      {/* save & continue  */}
+      {/* navigation button  */}
+      <SaveData
+        isStepperVisible={isStepperVisible}
+        currentStep={currentStep}
+        steps={steps}
+        stepperData={stepperData}
+        confirmAlert={confirmAlert}
+      />
     </div>
   );
 };

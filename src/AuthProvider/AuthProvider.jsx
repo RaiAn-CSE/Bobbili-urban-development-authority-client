@@ -1,5 +1,6 @@
 import React, { createContext, useState } from "react";
 import { toast } from "react-hot-toast";
+import Swal from "sweetalert2";
 
 export const AuthContext = createContext();
 
@@ -48,6 +49,7 @@ const AuthProvider = ({ children }) => {
     return result;
   };
 
+  // get userdata
   const getUserData = async (id) => {
     console.log(id, "AUTH ID");
 
@@ -58,12 +60,52 @@ const AuthProvider = ({ children }) => {
     return data;
   };
 
+  // confirmation message and send data to database
+  const confirmAlert = (stepperData) => {
+    const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
+    Swal.fire({
+      title: "Do you want to save your information?",
+      icon: "info",
+      showCancelButton: true,
+      confirmButtonText: "Yes, save it",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      showLoaderOnConfirm: true,
+      // preConfirm: (confirm) => {
+      //   console.log("confirm", confirm);
+      //   return fetch(`//api.github.com/users/${confirm}`)
+      //     .then((response) => {
+      //       if (!response.ok) {
+      //         throw new Error(response.statusText);
+      //       }
+      //       return response.json();
+      //     })
+      //     .catch((error) => {
+      //       Swal.showValidationMessage(`Request failed: ${error}`);
+      //     });
+      // },
+      allowOutsideClick: () => !Swal.isLoading(),
+    }).then((result) => {
+      console.log(result, "result");
+      if (result.isConfirmed) {
+        // Swal.fire({
+        //   title: `${result.value.login}'s avatar`,
+        //   imageUrl: result.value.avatar_url,
+        // });
+
+        currentStep < steps.length - 1 && handleStepClick(currentStep + 1);
+      }
+    });
+  };
+
   //   create a object to transfer data into various components
   const userInfo = {
     updateUserInfoInLocalStorage,
     userInfoFromLocalStorage,
     sendUserDataIntoDB,
     getUserData,
+    confirmAlert,
   };
   return (
     <>

@@ -1,13 +1,24 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Documents from "../../../../assets/Documents.json";
-import { Link } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 import usePostData from "../../../../CustomHook/usePostData";
 import useGetDraftAppData from "../../../../CustomHook/useGetDraftAppData";
 import toast from "react-hot-toast";
+import SaveData from "./SaveData";
+import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 
 const DocumentUpload = () => {
   const [selectedFiles, setSelectedFiles] = useState({});
   const [UpdatedDocuments, setUpdatedDocuments] = useState(Documents.Data);
+
+  const stepperData = useOutletContext();
+
+  const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
+
+  console.log(stepperData);
+
+  const { confirmAlert } = useContext(AuthContext);
+
   const btn =
     "btn btn-md text-sm bg-Primary transition duration-700 hover:bg-btnHover hover:shadow-md";
 
@@ -73,14 +84,15 @@ const DocumentUpload = () => {
         })}
       </div>
 
-      {/* <div className="lg:w-[91%] mt-16 flex justify-center md:justify-end">
-        <Link
-          onClick={() => handleDocuments()}
-          to="/dashboard/draftApplication/drawing"
-        >
-          <button className={`${btn}`}>Save And Continue</button>
-        </Link>
-      </div> */}
+      {/* save & continue  */}
+      {/* navigation button  */}
+      <SaveData
+        isStepperVisible={isStepperVisible}
+        currentStep={currentStep}
+        steps={steps}
+        stepperData={stepperData}
+        confirmAlert={confirmAlert}
+      />
     </div>
   );
 };

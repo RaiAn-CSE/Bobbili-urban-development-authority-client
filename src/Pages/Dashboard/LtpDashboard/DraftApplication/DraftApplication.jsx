@@ -5,7 +5,6 @@ import { GoChecklist } from "react-icons/go";
 import { BsHouseCheck, BsInfoCircle } from "react-icons/bs";
 import { RiSecurePaymentLine } from "react-icons/ri";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
-import Swal from "sweetalert2";
 
 const DraftApplication = () => {
   const navigate = useNavigate();
@@ -133,7 +132,9 @@ const DraftApplication = () => {
       )}
 
       {/* content  */}
-      <Outlet context={[isStepperVisible, currentStep, steps]} />
+      <Outlet
+        context={[isStepperVisible, currentStep, steps, handleStepClick]}
+      />
     </>
   );
 };

@@ -1,11 +1,21 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useOutletContext } from "react-router-dom";
 import usePostData from "../../../../CustomHook/usePostData";
 import useGetDraftAppData from "../../../../CustomHook/useGetDraftAppData";
 import toast from "react-hot-toast";
+import { AuthContext } from "../../../../AuthProvider/AuthProvider";
+import SaveData from "./SaveData";
 
 const Drawing = () => {
   const [selectedFiles, setSelectedFiles] = useState({});
+  const stepperData = useOutletContext();
+
+  const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
+
+  console.log(stepperData);
+
+  const { confirmAlert } = useContext(AuthContext);
+
   const btn =
     "btn btn-md text-xs px-4 md:text-sm md:px-6 bg-Primary transition duration-700 hover:bg-btnHover hover:shadow-md";
 
@@ -78,14 +88,15 @@ const Drawing = () => {
         </div>
       </div>
 
-      {/* <div className="mt-16 flex justify-center md:justify-end">
-        <Link
-          onClick={() => handleDrawing()}
-          to="/dashboard/draftApplication/payment"
-        >
-          <button className={`${btn}`}>Save And Continue</button>
-        </Link>
-      </div> */}
+      {/* save & continue  */}
+      {/* navigation button  */}
+      <SaveData
+        isStepperVisible={isStepperVisible}
+        currentStep={currentStep}
+        steps={steps}
+        stepperData={stepperData}
+        confirmAlert={confirmAlert}
+      />
     </div>
   );
 };
