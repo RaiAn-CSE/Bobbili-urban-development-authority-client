@@ -31,7 +31,7 @@ const BuildingInfo = () => {
   );
 
   // Nature of the site
-  const [selectedOption, setSelectedOption] = useState(
+  const [selectedNatureOfTheSite, setSelectedNatureOfTheSite] = useState(
     "Select Nature of the site"
   );
   const [showInputFields, setShowInputFields] = useState(false);
@@ -56,7 +56,7 @@ const BuildingInfo = () => {
 
   // Nature of the site
   const handleNatureChange = (e) => {
-    setSelectedOption(e.target.value);
+    setSelectedNatureOfTheSite(e.target.value);
 
     // Check if the selected option should show additional input fields
     if (
@@ -245,12 +245,16 @@ const BuildingInfo = () => {
     const east = document.getElementById("east").value;
     const west = document.getElementById("west").value;
 
-    const inputData = {
-      surveyNo, // ===========================<<<(General Information)>>>:
-      selectedDistrict,
-      selectedMandal,
+    const generalInformation = {
+      caseType: selectedOptionCase,
+      applicationType: selectedApplicationType,
+      natureOfPermission: selectedOptionPermission,
+      natureOfTheSite: selectedNatureOfTheSite,
+      surveyNo,
+      district: selectedDistrict,
+      mandal: selectedMandal,
       gramaPanchayat,
-      selectedVillage,
+      village: selectedVillage,
       bpsApprovedNo,
       previewsApprovedFileNo,
       lpNo,
@@ -258,11 +262,10 @@ const BuildingInfo = () => {
       lrsNo,
       plotNo2,
       iplpNo,
-      caseType: selectedOptionCase, // Access caseType from data
-      natureOfPermission: selectedOptionPermission,
-      natureOfTheSite: selectedOption,
-      applicationType: selectedApplicationType,
-      totalPlotDocument, // ===========================<<<(Plot Details)>>>:
+    };
+
+    const plotDetails = {
+      totalPlotDocument,
       totalPlotGround,
       proposedPlotArea,
       roadWideningArea,
@@ -273,12 +276,7 @@ const BuildingInfo = () => {
       existingRoadMts,
       proposedRoadMts,
       marketValueSqym,
-      // floorName,
-      // floorName0,
-      // floorName1,
-      // floorName2,
-      // builtUpAreaInitial,
-      // parkingAreaInitial,
+      floorDetails,
       totalBuiltUpArea,
       totalParkingArea,
       frontSetback,
@@ -288,12 +286,20 @@ const BuildingInfo = () => {
       buildingExcludeStilt,
       compoundingWallProposed,
       siteRegistered,
-      north, // ==============================<<<(Schedule of Boundaries)>>>:
+    };
+
+    const scheduleBoundaries = {
+      north,
       south,
       east,
       west,
     };
-    console.log(inputData);
+
+    const buildingInfo = {
+      generalInformation,
+      plotDetails,
+      scheduleBoundaries,
+    };
   };
 
   const [districtData, setDistrictData] = useState([]); //==========<<<<<(District, Mandal & Village Start)>>>>> :
@@ -427,7 +433,7 @@ const BuildingInfo = () => {
             <select
               id="nature"
               className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
-              value={selectedOption}
+              value={selectedNatureOfTheSite}
               onChange={handleNatureChange}
             >
               <option disabled selected>
@@ -561,7 +567,7 @@ const BuildingInfo = () => {
           {/* Conditionally render input fields based on Nature of the site */}
           {showInputFields && (
             <>
-              {selectedOption === "Approved Layout" && (
+              {selectedNatureOfTheSite === "Approved Layout" && (
                 <>
                   <InputField
                     id="LpNo"
@@ -579,7 +585,7 @@ const BuildingInfo = () => {
                   />
                 </>
               )}
-              {selectedOption === "Regularised under LRS" && (
+              {selectedNatureOfTheSite === "Regularised under LRS" && (
                 <>
                   <InputField
                     id="LrsNo"
@@ -597,7 +603,7 @@ const BuildingInfo = () => {
                   />
                 </>
               )}
-              {selectedOption ===
+              {selectedNatureOfTheSite ===
                 "Plot port of RLP/IPLP but not regularised" && (
                 <InputField
                   id="IplpNo"

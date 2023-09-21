@@ -46,7 +46,7 @@ const ApplicantInfo = () => {
     // ====================LTP’s Details
     const ltpType = document.getElementById("ltpType").value;
     const ltpName = document.getElementById("ltpName").value;
-    const licenceNo = document.getElementById("licenceNo").value;
+    const licenseNo = document.getElementById("licenseNo").value;
     const validity = document.getElementById("validity").value;
     const ltpPhoneNo = document.getElementById("ltpPhoneNo").value;
     const ltpEmail = document.getElementById("ltpEmail").value;
@@ -56,31 +56,33 @@ const ApplicantInfo = () => {
       console.log(applicant);
 
       return {
-        applicant: {
-          name: document.getElementById(`applicantName${index}`).value,
-          identity: document.getElementById(`soWoCo${index}`).value,
-          phone: document.getElementById(`applicantPhoneNo${index}`).value,
-          email: document.getElementById(`applicantEmail${index}`).value,
-          adharNo: document.getElementById(`applicantAadharNo${index}`).value,
-          pinCode: document.getElementById(`applicantPinCode${index}`).value,
-          address: document.getElementById(`applicantAddress${index}`).value,
-        },
+        name: document.getElementById(`applicantName${index}`).value,
+        identity: document.getElementById(`soWoCo${index}`).value,
+        phone: document.getElementById(`applicantPhoneNo${index}`).value,
+        email: document.getElementById(`applicantEmail${index}`).value,
+        adharNo: document.getElementById(`applicantAadharNo${index}`).value,
+        pinCode: document.getElementById(`applicantPinCode${index}`).value,
+        address: document.getElementById(`applicantAddress${index}`).value,
       };
     });
 
     console.log(ownerDetail);
 
-    const applicantInfoData = {
-      ltpType,
-      ltpName,
-      licenceNo,
+    const ltpDetails = {
+      type: ltpType,
+      name: name,
+      licenseNo,
       validity,
-      ltpPhoneNo,
-      ltpEmail,
-      ltpAddress,
-      ownerDetail,
+      phoneNo: ltpPhoneNo,
+      email: ltpEmail,
+      address: ltpAddress,
     };
-    console.log(applicantInfoData);
+
+    const applicantInfo = {
+      ltpDetails,
+      applicantDetails: ownerDetail,
+    };
+    console.log(applicantInfo);
   };
 
   return (
@@ -113,8 +115,8 @@ const ApplicantInfo = () => {
               placeholder="xxxxxxxxxxxxxxxxx"
             />
             <InputField
-              id="licenceNo"
-              name="licenceNo"
+              id="licenseNo"
+              name="licenseNo"
               label="Licence no."
               placeholder="xx/xxxxx"
               type="number"
