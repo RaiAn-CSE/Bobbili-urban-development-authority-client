@@ -14,14 +14,15 @@ const FloorDetails = ({ index, length, floorInfo, increaseFloorNo, handleBuildUp
                     id={`floorName${index}`}
                     name={`floorName${index}`}
                     className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
+                    required
                 >
-                    <option disabled selected>
+                    <option value='' disabled selected>
                         Select Floor Name
                     </option>
-                    <option>Stilt / Parking Floor</option>
-                    <option>Ground floor</option>
-                    <option>First Floor</option>
-                    <option>Second Floor</option>
+                    <option value='Stilt / Parking Floor'>Stilt / Parking Floor</option>
+                    <option value='Ground floor'>Ground floor</option>
+                    <option value='First Floor'>First Floor</option>
+                    <option value='Second Floor'>Second Floor</option>
                 </select>
             </div>
 
@@ -39,6 +40,7 @@ const FloorDetails = ({ index, length, floorInfo, increaseFloorNo, handleBuildUp
                     placeholder="in Sq.M."
                     className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
                     onChange={(e) => handleBuildUpAreaChange(e.target.value)}
+                    required
                 />
             </div>
 
@@ -56,6 +58,7 @@ const FloorDetails = ({ index, length, floorInfo, increaseFloorNo, handleBuildUp
                     placeholder="in Sq.M."
                     className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
                     onChange={(e) => handleParkingAreaChange(e.target.value)}
+                    required
                 />
             </div>
 
