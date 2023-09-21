@@ -7,11 +7,18 @@ import plotImage from "../../../../assets/images/land.png";
 import wallImage from "../../../../assets/images/gate.png";
 import usePostData from "../../../../CustomHook/usePostData";
 import useGetDraftAppData from "../../../../CustomHook/useGetDraftAppData";
-
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
+import { useOutletContext } from "react-router";
+import Swal from "sweetalert2";
 
 const BuildingInfo = () => {
+  const [isStepperVisible, currentStep, steps] = useOutletContext();
+
+  let btnClass =
+    "btn btn-md text-[#000000] hover:text-[#fff] rounded-lg transition-all duration-500 cursor-pointer hover:bg-emerald-400";
+
+  console.log(isStepperVisible);
   // Case Type
   const [selectedOptionCase, setSelectedOptionCase] =
     useState("Select Case type");
@@ -59,36 +66,6 @@ const BuildingInfo = () => {
       setShowInputFields(false);
     }
   };
-  // Building Info data
-  // const buildingInfo = {};
-
-  // const applicationId = JSON.parse(
-  //   localStorage.getItem("draftApplicationData")
-  // ).applicationId;
-  // // Previous page actions
-  // const draftApplicationData = useGetDraftAppData(applicationId);
-  // const appId = draftApplicationData.applicationId;
-  // if (appId == applicationId) {
-  //   localStorage.removeItem("draftApplicationData");
-  //   const draftApplicationData = localStorage.setItem(
-  //     "draftApplicationData",
-  //     JSON.stringify(draftApplicationData)
-  //   );
-  //   setBuildingInfoData(draftApplicationData.buildingInfo);
-  // }
-
-  // // Data send to backend
-  // const handleBackendData = (applicationId) => {
-  //   usePostData({
-  //     applicationId,
-  //     buildingInfo: buildingInfo,
-  //     applicantInfo: {},
-  //     appChecklist: {},
-  //     documents: {},
-  //     drawing: {},
-  //     payment: {},
-  //   });
-  // };
 
   // Net Plot Area(in Sq.M.) Calculation :
   const [proposedPlotArea, setProposedPlotArea] = useState("");
@@ -328,6 +305,41 @@ const BuildingInfo = () => {
     // Reset selected village when mandal changes
     setSelectedVillage("");
   }; //============================================================<<<<<(District, Mandal & Village End)>>>>> :
+
+  // save data into database
+
+  const confirmAlert = () => {
+    Swal.fire({
+      title: "Submit your Github username",
+      input: "text",
+      inputAttributes: {
+        autocapitalize: "off",
+      },
+      showCancelButton: true,
+      confirmButtonText: "Look up",
+      showLoaderOnConfirm: true,
+      preConfirm: (login) => {
+        return fetch(`//api.github.com/users/${login}`)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(response.statusText);
+            }
+            return response.json();
+          })
+          .catch((error) => {
+            Swal.showValidationMessage(`Request failed: ${error}`);
+          });
+      },
+      allowOutsideClick: () => !Swal.isLoading(),
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: `${result.value.login}'s avatar`,
+          imageUrl: result.value.avatar_url,
+        });
+      }
+    });
+  };
 
   return (
     <div className="grid my-5 lg:my-0 lg:p-2">
@@ -1108,6 +1120,36 @@ const BuildingInfo = () => {
       <button type="submit" className="btn" onClick={collectInputFieldData}>
         Get Data
       </button>
+
+      {/* save & continue  */}
+      {/* navigation button  */}
+      {isStepperVisible && ( // Render the stepper only when isStepperVisible is true
+        <div className="flex justify-end my-8 px-10">
+          {currentStep !== steps.length - 1 ? (
+            <button
+              className={`${btnClass} bg-yellow-300 hover:shadow-md hover:bg-yellow-300 hover:text-black`}
+              // onClick={() =>
+              //   // currentStep < steps.length - 1 &&
+              //   // handleStepClick(currentStep + 1)
+              //   confirmAlert()
+              // }
+              onClick={confirmAlert}
+            >
+              Save and Continue
+            </button>
+          ) : (
+            <button
+              className={`btn btn-md text-[#000000] hover:text-[#fff] rounded-lg shadow-lg transition-all duration-500 cursor-pointer bg-yellow-300 hover:shadow-md hover:bg-yellow-300`}
+              // onClick={() =>
+              //   currentStep < steps.length - 1 &&
+              //   handleStepClick(currentStep + 1)
+              // }
+            >
+              Sent to department
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 };
