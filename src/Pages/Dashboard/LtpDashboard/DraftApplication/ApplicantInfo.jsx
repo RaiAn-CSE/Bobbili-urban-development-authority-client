@@ -17,14 +17,6 @@ const ApplicantInfo = () => {
   const [totalApplicant, setTotalApplicant] = useState(["Owner1"]);
   console.log(totalApplicant);
 
-  // const handleLtpPhone = (e) => {
-  //   const value = e.target.value;
-  //   // Check if the LTP Phone No Input value contains only digits and is not longer than 10 characters
-  //   if (/^\d*$/.test(value) && value.length <= 10) {
-  //     setLtpPhone(value);
-  //   }
-  // };
-
   const increaseApplicantNo = () => {
     const newOwner = `Owner${totalApplicant.length + 1}`;
     setTotalApplicant((prev) => [...prev, newOwner]);
