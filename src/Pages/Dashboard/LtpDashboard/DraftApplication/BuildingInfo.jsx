@@ -5,14 +5,11 @@ import { FaHandPointRight } from "react-icons/fa";
 import generalInfoImage from "../../../../assets/images/general-information.png";
 import plotImage from "../../../../assets/images/land.png";
 import wallImage from "../../../../assets/images/gate.png";
-<<<<<<< HEAD
 import usePostData from "../../../../CustomHook/usePostData";
 import useGetDraftAppData from "../../../../CustomHook/useGetDraftAppData";
 
 import { useForm, Controller } from "react-hook-form";
-=======
-import axios from 'axios';
->>>>>>> raian
+import axios from "axios";
 
 const BuildingInfo = () => {
   // Case Type
@@ -98,7 +95,7 @@ const BuildingInfo = () => {
   const [roadWideningArea, setRoadWideningArea] = useState("");
   const [netPlotArea, setNetPlotArea] = useState("");
 
-  // ========================(Calculation part start) 
+  // ========================(Calculation part start)
   const handleProposedPlotAreaChange = (e) => {
     const newValue = e.target.value;
     // Check if the entered value is a valid number and less than or equal to 300
@@ -127,33 +124,36 @@ const BuildingInfo = () => {
     } else {
       setNetPlotArea("");
     }
-  };   // ========================<<<(Calculation part End)>>>...
+  }; // ========================<<<(Calculation part End)>>>...
 
-  const [builtUpAreaInitial, setBuiltUpAreaInitial] = useState(''); // =======<<<(Built Up Area Calculation)>>> :
-  const [parkingAreaInitial, setParkingAreaInitial] = useState('');
+  const [builtUpAreaInitial, setBuiltUpAreaInitial] = useState(""); // =======<<<(Built Up Area Calculation)>>> :
+  const [parkingAreaInitial, setParkingAreaInitial] = useState("");
 
   const handleBuiltUpAreaInitial = (e) => {
     const newValue = e.target.value;
     setBuiltUpAreaInitial(newValue);
-  }
+  };
 
   const handleParkingAreaInitial = (e) => {
     const newValue = e.target.value;
     setParkingAreaInitial(newValue);
-  }
+  };
 
-  const [builtUpAreaSum, setBuiltUpAreaSum] = useState('');
-  const [parkingAreaSum, setParkingAreaSum] = useState('');
+  const [builtUpAreaSum, setBuiltUpAreaSum] = useState("");
+  const [parkingAreaSum, setParkingAreaSum] = useState("");
 
-  const [builtUpArea, setBuiltUpArea] = useState('');
-  const [parkingArea, setParkingArea] = useState('');
+  const [builtUpArea, setBuiltUpArea] = useState("");
+  const [parkingArea, setParkingArea] = useState("");
 
   const handleBuiltUpArea = (index, value) => {
     const newBuiltUpArea = [...builtUpArea];
     newBuiltUpArea[index] = parseFloat(value) || 0;
     setBuiltUpArea(newBuiltUpArea);
 
-    const sum = newBuiltUpArea.reduce((acc, currentValue) => acc + currentValue, 0);
+    const sum = newBuiltUpArea.reduce(
+      (acc, currentValue) => acc + currentValue,
+      0
+    );
     setBuiltUpAreaSum(sum + parseFloat(builtUpAreaInitial));
   };
 
@@ -162,77 +162,92 @@ const BuildingInfo = () => {
     newParkingArea[index] = parseFloat(value) || 0;
     setParkingArea(newParkingArea);
 
-    const sum = newParkingArea.reduce((acc, currentValue) => acc + currentValue, 0);
+    const sum = newParkingArea.reduce(
+      (acc, currentValue) => acc + currentValue,
+      0
+    );
     setParkingAreaSum(sum + parseFloat(parkingAreaInitial));
   }; // ======================================================<<<(Built Up Area Calculation End)>>>>...
 
   // get data from input field :
   const collectInputFieldData = () => {
     // ==================================================<<<(General Information)>>>:
-    const selectedApplicationType = document.querySelector('input[name="radio-1"]:checked')?.value || ''; // Get selected radio input's value
+    const selectedApplicationType =
+      document.querySelector('input[name="radio-1"]:checked')?.value || ""; // Get selected radio input's value
 
-    const surveyNo = document.getElementById('SurveyNo').value;
-    const gramaPanchayat = document.getElementById('GramaPanchayat').value;
+    const surveyNo = document.getElementById("SurveyNo").value;
+    const gramaPanchayat = document.getElementById("GramaPanchayat").value;
 
-    const bpsApprovedElement = document.getElementById('BpsApprovedNo');
-    const bpsApprovedNo = bpsApprovedElement ? bpsApprovedElement.value : '';
+    const bpsApprovedElement = document.getElementById("BpsApprovedNo");
+    const bpsApprovedNo = bpsApprovedElement ? bpsApprovedElement.value : "";
 
-    const previewsApprovedFileElement = document.getElementById('PreviewsApprovedFileNo');
-    const previewsApprovedFileNo = previewsApprovedFileElement ? previewsApprovedFileElement.value : '';
+    const previewsApprovedFileElement = document.getElementById(
+      "PreviewsApprovedFileNo"
+    );
+    const previewsApprovedFileNo = previewsApprovedFileElement
+      ? previewsApprovedFileElement.value
+      : "";
 
-    const lpNoElement = document.getElementById('LpNo');
-    const lpNo = lpNoElement ? lpNoElement.value : '';
+    const lpNoElement = document.getElementById("LpNo");
+    const lpNo = lpNoElement ? lpNoElement.value : "";
 
-    const plotNoElement = document.getElementById('PlotNo');
-    const plotNo = plotNoElement ? plotNoElement.value : '';
+    const plotNoElement = document.getElementById("PlotNo");
+    const plotNo = plotNoElement ? plotNoElement.value : "";
 
-    const lrsNoElement = document.getElementById('LrsNo');
-    const lrsNo = lrsNoElement ? lrsNoElement.value : '';
+    const lrsNoElement = document.getElementById("LrsNo");
+    const lrsNo = lrsNoElement ? lrsNoElement.value : "";
 
-    const plotNo2Element = document.getElementById('PlotNo2');
-    const plotNo2 = plotNo2Element ? plotNo2Element.value : '';
+    const plotNo2Element = document.getElementById("PlotNo2");
+    const plotNo2 = plotNo2Element ? plotNo2Element.value : "";
 
-    const iplpNoElement = document.getElementById('IplpNo');
-    const iplpNo = iplpNoElement ? iplpNoElement.value : '';
-    const totalPlotDocument = document.getElementById('TotalPlotDocument').value;   // ==========<<<(Plot Details)>>>:
-    const totalPlotGround = document.getElementById('TotalPlotGround').value;
-    const netPlotArea = document.getElementById('NetPlotArea').value;
+    const iplpNoElement = document.getElementById("IplpNo");
+    const iplpNo = iplpNoElement ? iplpNoElement.value : "";
+    const totalPlotDocument =
+      document.getElementById("TotalPlotDocument").value; // ==========<<<(Plot Details)>>>:
+    const totalPlotGround = document.getElementById("TotalPlotGround").value;
+    const netPlotArea = document.getElementById("NetPlotArea").value;
 
-    const existingRoad = document.querySelector('input[name="radio-2"]:checked')?.value || '';
-    const statusOfRoad = document.querySelector('input[name="radio-3"]:checked')?.value || '';
+    const existingRoad =
+      document.querySelector('input[name="radio-2"]:checked')?.value || "";
+    const statusOfRoad =
+      document.querySelector('input[name="radio-3"]:checked')?.value || "";
 
-    const natureOfRoad = document.getElementById('natureOfRoad').value;
-    const existingRoadMts = document.getElementById('existingRoadMts').value;
-    const proposedRoadMts = document.getElementById('proposedRoadMts').value;
-    const marketValueSqym = document.getElementById('marketValueSqym').value;
-    const floorName = document.getElementById('floorName').value;
+    const natureOfRoad = document.getElementById("natureOfRoad").value;
+    const existingRoadMts = document.getElementById("existingRoadMts").value;
+    const proposedRoadMts = document.getElementById("proposedRoadMts").value;
+    const marketValueSqym = document.getElementById("marketValueSqym").value;
+    const floorName = document.getElementById("floorName").value;
 
-    const floorName0Element = document.getElementById('floorName0');
-    const floorName0 = floorName0Element ? floorName0Element.value : '';
+    const floorName0Element = document.getElementById("floorName0");
+    const floorName0 = floorName0Element ? floorName0Element.value : "";
 
-    const floorName1Element = document.getElementById('floorName1');
-    const floorName1 = floorName1Element ? floorName1Element.value : '';
+    const floorName1Element = document.getElementById("floorName1");
+    const floorName1 = floorName1Element ? floorName1Element.value : "";
 
-    const floorName2Element = document.getElementById('floorName2');
-    const floorName2 = floorName2Element ? floorName2Element.value : '';
+    const floorName2Element = document.getElementById("floorName2");
+    const floorName2 = floorName2Element ? floorName2Element.value : "";
 
-    const totalBuiltUpArea = document.getElementById('totalBuiltUpArea').value;
-    const totalParkingArea = document.getElementById('totalParkingArea').value;
-    const frontSetback = document.getElementById('frontSetback').value;
-    const rareSetback = document.getElementById('rareSetback').value;
-    const side1Setback = document.getElementById('side1Setback').value;
-    const side2Setback = document.getElementById('side2Setback').value;
-    const buildingExcludeStilt = document.getElementById('buildingExcludeStilt').value;
+    const totalBuiltUpArea = document.getElementById("totalBuiltUpArea").value;
+    const totalParkingArea = document.getElementById("totalParkingArea").value;
+    const frontSetback = document.getElementById("frontSetback").value;
+    const rareSetback = document.getElementById("rareSetback").value;
+    const side1Setback = document.getElementById("side1Setback").value;
+    const side2Setback = document.getElementById("side2Setback").value;
+    const buildingExcludeStilt = document.getElementById(
+      "buildingExcludeStilt"
+    ).value;
 
-    const compoundingWallProposed = document.querySelector('input[name="radio-4"]:checked')?.value || '';
-    const siteRegistered = document.querySelector('input[name="radio-5"]:checked')?.value || '';
-    const north = document.getElementById('north').value;   // ==========================<<<(Schedule of Boundaries)>>>: 
-    const south = document.getElementById('south').value;
-    const east = document.getElementById('east').value;
-    const west = document.getElementById('west').value;
+    const compoundingWallProposed =
+      document.querySelector('input[name="radio-4"]:checked')?.value || "";
+    const siteRegistered =
+      document.querySelector('input[name="radio-5"]:checked')?.value || "";
+    const north = document.getElementById("north").value; // ==========================<<<(Schedule of Boundaries)>>>:
+    const south = document.getElementById("south").value;
+    const east = document.getElementById("east").value;
+    const west = document.getElementById("west").value;
 
     const inputData = {
-      surveyNo,  // ===========================<<<(General Information)>>>:
+      surveyNo, // ===========================<<<(General Information)>>>:
       selectedDistrict,
       selectedMandal,
       gramaPanchayat,
@@ -274,7 +289,7 @@ const BuildingInfo = () => {
       buildingExcludeStilt,
       compoundingWallProposed,
       siteRegistered,
-      north, // ==============================<<<(Schedule of Boundaries)>>>: 
+      north, // ==============================<<<(Schedule of Boundaries)>>>:
       south,
       east,
       west,
@@ -282,37 +297,40 @@ const BuildingInfo = () => {
     console.log(inputData);
   };
 
-
   const [districtData, setDistrictData] = useState([]); //==========<<<<<(District, Mandal & Village Start)>>>>> :
-  const [selectedDistrict, setSelectedDistrict] = useState('');
-  const [selectedMandal, setSelectedMandal] = useState('');
-  const [selectedVillage, setSelectedVillage] = useState('');
+  const [selectedDistrict, setSelectedDistrict] = useState("");
+  const [selectedMandal, setSelectedMandal] = useState("");
+  const [selectedVillage, setSelectedVillage] = useState("");
 
   useEffect(() => {
-    const apiUrl = '/public/buildingInfo.json';
-    axios.get(apiUrl)
-      .then((response) => { setDistrictData(response.data.district); })
-      .catch((error) => { console.error('Error:', error); });
+    const apiUrl = "../../../../assets/buildingInfo.json";
+    axios
+      .get(apiUrl)
+      .then((response) => {
+        setDistrictData(response.data.district);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   }, []);
 
   const handleDistrictChange = (event) => {
     const selectedDistrict = event.target.value;
     setSelectedDistrict(selectedDistrict);
     // Reset selected mandal and village when district changes
-    setSelectedMandal('');
-    setSelectedVillage('');
+    setSelectedMandal("");
+    setSelectedVillage("");
   };
 
   const handleMandalChange = (event) => {
     const selectedMandal = event.target.value;
     setSelectedMandal(selectedMandal);
     // Reset selected village when mandal changes
-    setSelectedVillage('');
+    setSelectedVillage("");
   }; //============================================================<<<<<(District, Mandal & Village End)>>>>> :
 
   return (
     <div className="grid my-5 lg:my-0 lg:p-2">
-
       {/* general information */}
       <div className="mb-10">
         {/* heading  */}
@@ -440,7 +458,9 @@ const BuildingInfo = () => {
               onChange={handleDistrictChange}
               value={selectedDistrict}
             >
-              <option value="" disabled>Select District</option>
+              <option value="" disabled>
+                Select District
+              </option>
               {districtData.map((district) => (
                 <option key={district.name} value={district.name}>
                   {district.name}
@@ -461,12 +481,17 @@ const BuildingInfo = () => {
               value={selectedMandal}
               disabled={!selectedDistrict}
             >
-              <option value="" disabled>Select Mandal</option>
-              {selectedDistrict && districtData.find((district) => district.name === selectedDistrict)?.mandal.map((mandal) => (
-                <option key={mandal.name} value={mandal.name}>
-                  {mandal.name}
-                </option>
-              ))}
+              <option value="" disabled>
+                Select Mandal
+              </option>
+              {selectedDistrict &&
+                districtData
+                  .find((district) => district.name === selectedDistrict)
+                  ?.mandal.map((mandal) => (
+                    <option key={mandal.name} value={mandal.name}>
+                      {mandal.name}
+                    </option>
+                  ))}
             </select>
           </div>
 
@@ -492,38 +517,44 @@ const BuildingInfo = () => {
               <option value="" disabled>
                 Select Village
               </option>
-              {selectedMandal && districtData.find((district) => district.name === selectedDistrict)?.mandal.find((mandal) => mandal.name === selectedMandal)?.village.map((village) => (
-                <option key={village} value={village}>
-                  {village}
-                </option>
-              ))}
+              {selectedMandal &&
+                districtData
+                  .find((district) => district.name === selectedDistrict)
+                  ?.mandal.find((mandal) => mandal.name === selectedMandal)
+                  ?.village.map((village) => (
+                    <option key={village} value={village}>
+                      {village}
+                    </option>
+                  ))}
             </select>
           </div>
 
           {/*===================== Conditionally render input fields based on Case Type  =====================*/}
-          {selectedOptionCase === 'Alteration Addition Existing' && selectedOptionPermission === 'Regularised under BPS' && (
-            <div>
-              <InputField
-                id="BpsApprovedNo"
-                name="BpsApprovedNo"
-                label="BPS approved no."
-                placeholder="BPS approved no."
-                type="number"
-              />
-            </div>
-          )}
+          {selectedOptionCase === "Alteration Addition Existing" &&
+            selectedOptionPermission === "Regularised under BPS" && (
+              <div>
+                <InputField
+                  id="BpsApprovedNo"
+                  name="BpsApprovedNo"
+                  label="BPS approved no."
+                  placeholder="BPS approved no."
+                  type="number"
+                />
+              </div>
+            )}
 
-          {selectedOptionCase === 'Alteration Addition Existing' && selectedOptionPermission !== 'Regularised under BPS' && (
-            <div>
-              <InputField
-                id="PreviewsApprovedFileNo"
-                name="PreviewsApprovedFileNo"
-                label="Previews approved file no."
-                placeholder="Previews approved file no."
-                type="number"
-              />
-            </div>
-          )}
+          {selectedOptionCase === "Alteration Addition Existing" &&
+            selectedOptionPermission !== "Regularised under BPS" && (
+              <div>
+                <InputField
+                  id="PreviewsApprovedFileNo"
+                  name="PreviewsApprovedFileNo"
+                  label="Previews approved file no."
+                  placeholder="Previews approved file no."
+                  type="number"
+                />
+              </div>
+            )}
 
           {/* Conditionally render input fields based on Nature of the site */}
           {showInputFields && (
@@ -716,8 +747,13 @@ const BuildingInfo = () => {
             <label className="block text-gray-600 mb-1 font-semibold">
               <span>Nature of Road</span>
             </label>
-            <select id="natureOfRoad" className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs">
-              <option disabled selected>Select Nature of Road</option>
+            <select
+              id="natureOfRoad"
+              className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
+            >
+              <option disabled selected>
+                Select Nature of Road
+              </option>
               <option>BT Road</option>
               <option>CC Road</option>
               <option>WBM</option>
@@ -748,8 +784,13 @@ const BuildingInfo = () => {
             <label className="block text-gray-600 mb-1 font-semibold">
               <span>Floor Name</span>
             </label>
-            <select id='floorName' className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs">
-              <option disabled selected>Select Floor Name</option>
+            <select
+              id="floorName"
+              className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
+            >
+              <option disabled selected>
+                Select Floor Name
+              </option>
               <option>Stilt / Parking Floor</option>
               <option>Ground floor</option>
               <option>First Floor</option>
@@ -758,7 +799,10 @@ const BuildingInfo = () => {
           </div>
 
           <div className="my-4 mx-3">
-            <label htmlFor='ProposedPlotArea' className="block text-gray-600 mb-1 font-semibold">
+            <label
+              htmlFor="ProposedPlotArea"
+              className="block text-gray-600 mb-1 font-semibold"
+            >
               Built up area (in Sq.M.)
             </label>
             <input
@@ -772,7 +816,10 @@ const BuildingInfo = () => {
           </div>
 
           <div className="my-4 mx-3">
-            <label htmlFor='ProposedPlotArea' className="block text-gray-600 mb-1 font-semibold">
+            <label
+              htmlFor="ProposedPlotArea"
+              className="block text-gray-600 mb-1 font-semibold"
+            >
               Parking Area (in Sq.M.)
             </label>
             <input
@@ -795,14 +842,18 @@ const BuildingInfo = () => {
 
         {/* Render additional input field sets based on inputFieldCount */}
         {Array.from({ length: inputFieldCount }).map((_, index) => (
-
-          <div key={index} className="grid grid-cols-2 lg:grid-cols-4" >
+          <div key={index} className="grid grid-cols-2 lg:grid-cols-4">
             <div className="flex flex-col justify-center mx-3">
               <label className="block text-gray-600 mb-1 font-semibold">
                 <span>Floor Name</span>
               </label>
-              <select id={`floorName${index}`} className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs">
-                <option disabled selected>Select Floor Name</option>
+              <select
+                id={`floorName${index}`}
+                className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
+              >
+                <option disabled selected>
+                  Select Floor Name
+                </option>
                 <option>Stilt / Parking Floor</option>
                 <option>Ground floor</option>
                 <option>First Floor</option>
@@ -811,7 +862,10 @@ const BuildingInfo = () => {
             </div>
 
             <div className="my-4 mx-3">
-              <label htmlFor={`builtUpArea${index}`} className="block text-gray-600 mb-1 font-semibold">
+              <label
+                htmlFor={`builtUpArea${index}`}
+                className="block text-gray-600 mb-1 font-semibold"
+              >
                 Built up area (in Sq.M.)
               </label>
               <input
@@ -819,13 +873,16 @@ const BuildingInfo = () => {
                 id={`builtUpArea${index}`}
                 placeholder="in Sq.M."
                 className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
-                value={builtUpArea[index] || ''}
+                value={builtUpArea[index] || ""}
                 onChange={(e) => handleBuiltUpArea(index, e.target.value)}
               />
             </div>
 
             <div className="my-4 mx-3">
-              <label htmlFor={`parkingArea${index}`} className="block text-gray-600 mb-1 font-semibold">
+              <label
+                htmlFor={`parkingArea${index}`}
+                className="block text-gray-600 mb-1 font-semibold"
+              >
                 Parking Area (in Sq.M.)
               </label>
               <input
@@ -833,7 +890,7 @@ const BuildingInfo = () => {
                 id={`parkingArea${index}`}
                 placeholder="in Sq.M."
                 className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
-                value={parkingArea[index] || ''}
+                value={parkingArea[index] || ""}
                 onChange={(e) => handleParkingArea(index, e.target.value)}
               />
             </div>
@@ -978,8 +1035,13 @@ const BuildingInfo = () => {
             <label className="block text-gray-600 mb-1 font-semibold">
               <span>North</span>
             </label>
-            <select id='north' className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs">
-              <option disabled selected>Select North</option>
+            <select
+              id="north"
+              className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
+            >
+              <option disabled selected>
+                Select North
+              </option>
               <option>Road</option>
               <option>Plot</option>
               <option>Vacant land</option>
@@ -991,8 +1053,13 @@ const BuildingInfo = () => {
             <label className="block text-gray-600 mb-1 font-semibold">
               <span>South</span>
             </label>
-            <select id='south' className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs">
-              <option disabled selected>Select South</option>
+            <select
+              id="south"
+              className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
+            >
+              <option disabled selected>
+                Select South
+              </option>
               <option>Road</option>
               <option>Plot</option>
               <option>Vacant land</option>
@@ -1004,8 +1071,13 @@ const BuildingInfo = () => {
             <label className="block text-gray-600 mb-1 font-semibold">
               <span>East</span>
             </label>
-            <select id='east' className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs">
-              <option disabled selected>Select East</option>
+            <select
+              id="east"
+              className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
+            >
+              <option disabled selected>
+                Select East
+              </option>
               <option>Road</option>
               <option>Plot</option>
               <option>Vacant land</option>
@@ -1017,8 +1089,13 @@ const BuildingInfo = () => {
             <label className="block text-gray-600 mb-1 font-semibold">
               <span>West</span>
             </label>
-            <select id='west' className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs">
-              <option disabled selected>Select West</option>
+            <select
+              id="west"
+              className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
+            >
+              <option disabled selected>
+                Select West
+              </option>
               <option>Road</option>
               <option>Plot</option>
               <option>Vacant land</option>
@@ -1028,9 +1105,10 @@ const BuildingInfo = () => {
         </div>
       </div>
 
-      <button type="submit" className="btn" onClick={collectInputFieldData}>Get Data</button>
-
-    </div >
+      <button type="submit" className="btn" onClick={collectInputFieldData}>
+        Get Data
+      </button>
+    </div>
   );
 };
 

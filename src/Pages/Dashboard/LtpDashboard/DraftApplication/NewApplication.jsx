@@ -12,9 +12,9 @@ const NewApplication = () => {
   const { userInfoFromLocalStorage, sendUserDataIntoDB } =
     useContext(AuthContext);
 
-  console.log(userInfoFromLocalStorage);
+  console.log(userInfoFromLocalStorage());
 
-  const { _id: userID } = userInfoFromLocalStorage;
+  const { _id: userID } = userInfoFromLocalStorage();
 
   // Function to generate a unique number
   const generateApplicationNumber = () => {

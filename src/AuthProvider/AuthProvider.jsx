@@ -7,9 +7,9 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
 
   // get user information from the localStorage
-  const userInfoFromLocalStorage = JSON.parse(
-    localStorage.getItem("loggedUser")
-  );
+  const userInfoFromLocalStorage = () => {
+    return JSON.parse(localStorage.getItem("loggedUser"));
+  };
 
   // update user info
   const updateUserInfoInLocalStorage = (id) => {
