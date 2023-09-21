@@ -13,28 +13,28 @@ const ApplicantInfo = () => {
   };
 
   const [ltpPhone, setLtpPhone] = useState("");
-  const [applicantPhone, setApplicantPhone] = useState("");
+
   const [totalApplicant, setTotalApplicant] = useState(["Owner1"]);
   console.log(totalApplicant);
 
-  const handleLtpPhone = (e) => {
-    const value = e.target.value;
-    // Check if the LTP Phone No Input value contains only digits and is not longer than 10 characters
-    if (/^\d*$/.test(value) && value.length <= 10) {
-      setLtpPhone(value);
-    }
-  };
+  // const handleLtpPhone = (e) => {
+  //   const value = e.target.value;
+  //   // Check if the LTP Phone No Input value contains only digits and is not longer than 10 characters
+  //   if (/^\d*$/.test(value) && value.length <= 10) {
+  //     setLtpPhone(value);
+  //   }
+  // };
 
   const increaseApplicantNo = () => {
     const newOwner = `Owner${totalApplicant.length + 1}`;
     setTotalApplicant((prev) => [...prev, newOwner]);
   };
 
-  const handleApplicantPhone = (e) => {
+  const setPhoneNoLimit = (e, setPhoneNo) => {
     const value = e.target.value;
     // Check if the Applicant Phone No Input value contains only digits and is not longer than 10 characters
     if (/^\d*$/.test(value) && value.length <= 10) {
-      setApplicantPhone(value);
+      setPhoneNo(value);
     }
   };
 
@@ -48,14 +48,32 @@ const ApplicantInfo = () => {
     const ltpEmail = document.getElementById("ltpEmail").value;
     const ltpAddress = document.getElementById("ltpAddress").value;
     // ===================Applicant’s Details
-    const applicantName = document.getElementById("applicantName").value;
-    const soWoCo = document.getElementById("soWoCo").value;
-    const applicantPhoneNo = document.getElementById("applicantPhoneNo").value;
-    const applicantEmail = document.getElementById("applicantEmail").value;
-    const applicantAadharNo =
-      document.getElementById("applicantAadharNo").value;
-    const applicantPinCode = document.getElementById("applicantPinCode").value;
-    const applicantAddress = document.getElementById("applicantAddress").value;
+    // const applicantName = document.getElementById("applicantName").value;
+    // const soWoCo = document.getElementById("soWoCo").value;
+    // const applicantPhoneNo = document.getElementById("applicantPhoneNo").value;
+    // const applicantEmail = document.getElementById("applicantEmail").value;
+    // const applicantAadharNo =
+    //   document.getElementById("applicantAadharNo").value;
+    // const applicantPinCode = document.getElementById("applicantPinCode").value;
+    // const applicantAddress = document.getElementById("applicantAddress").value;
+
+    const ownerDetail = totalApplicant.map((applicant, index) => {
+      console.log(applicant);
+
+      return {
+        applicant: {
+          name: document.getElementById(`applicantName${index}`).value,
+          identity: document.getElementById(`soWoCo${index}`).value,
+          phone: document.getElementById(`applicantPhoneNo${index}`).value,
+          email: document.getElementById(`applicantEmail${index}`).value,
+          adharNo: document.getElementById(`applicantAadharNo${index}`).value,
+          pinCode: document.getElementById(`applicantPinCode${index}`).value,
+          address: document.getElementById(`applicantAddress${index}`).value,
+        },
+      };
+    });
+
+    console.log(ownerDetail);
 
     const applicantInfoData = {
       ltpType,
@@ -66,13 +84,13 @@ const ApplicantInfo = () => {
       ltpEmail,
       ltpAddress,
       // ==================Applicant’s Details
-      applicantName,
-      soWoCo,
-      applicantPhoneNo,
-      applicantEmail,
-      applicantAadharNo,
-      applicantPinCode,
-      applicantAddress,
+      // applicantName,
+      // soWoCo,
+      // applicantPhoneNo,
+      // applicantEmail,
+      // applicantAadharNo,
+      // applicantPinCode,
+      // applicantAddress,
     };
     console.log(applicantInfoData);
   };
@@ -141,7 +159,7 @@ const ApplicantInfo = () => {
                 name="ltpPhoneNo"
                 placeholder="xxxxxxxxxx"
                 value={ltpPhone}
-                onChange={handleLtpPhone}
+                onChange={(e) => setPhoneNoLimit(e, setLtpPhone)}
                 className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
               />
             </div>
@@ -193,8 +211,7 @@ const ApplicantInfo = () => {
             length={totalApplicant.length}
             applicantNo={applicantNo}
             increaseApplicantNo={increaseApplicantNo}
-            applicantPhone={applicantPhone}
-            handleApplicantPhone={handleApplicantPhone}
+            setPhoneNoLimit={setPhoneNoLimit}
           />
         ))}
       </div>

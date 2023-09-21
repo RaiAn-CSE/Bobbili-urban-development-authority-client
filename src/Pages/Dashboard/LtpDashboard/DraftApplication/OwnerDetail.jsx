@@ -1,33 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import InputField from "../../../Components/InputField";
 
 const OwnerDetail = ({
   index,
   length,
   applicantNo,
-  applicantPhone,
-  handleApplicantPhone,
+  setPhoneNoLimit,
   increaseApplicantNo,
 }) => {
   console.log(applicantNo, index);
 
   const ownerSerial = ["First", "Second", "Third", "Fourth", "Fifth"];
+
+  const [applicantPhone, setApplicantPhone] = useState("");
+
   return (
     <>
       <p className="text-xl font-bold my-3">{`${ownerSerial[index]} Owner Details`}</p>
       <div className="grid grid-cols-1 lg:grid-cols-2 mb-8">
         <div className="grid grid-cols-2 items-center">
           <InputField
-            id="applicantName"
-            name="applicantName"
+            id={`applicantName${index}`}
+            name={`applicantName${index}`}
             label="Name"
-            placeholder="Select Case type"
+            placeholder="Applicant Name"
           />
           <InputField
-            id="soWoCo"
-            name="soWoCo"
+            id={`soWoCo${index}`}
+            name={`soWoCo${index}`}
             label="S/o (or) W/o (or) C/o"
-            placeholder="Select Nature of permission"
+            placeholder="S/o (or) W/o (or) C/o"
           />
 
           <div className="my-4 mx-3">
@@ -38,32 +40,32 @@ const OwnerDetail = ({
               Phone no.
             </label>
             <input
-              id="applicantPhoneNo"
-              name="applicantPhoneNo"
+              id={`applicantPhoneNo${index}`}
+              name={`applicantPhoneNo${index}`}
               placeholder="xxxxxxxxxx"
               value={applicantPhone}
-              onChange={handleApplicantPhone}
+              onChange={(e) => setPhoneNoLimit(e, setApplicantPhone)}
               className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
             />
           </div>
 
           <InputField
-            id="applicantEmail"
-            name="applicantEmail"
+            id={`applicantEmail${index}`}
+            name={`applicantEmail${index}`}
             label="E-mail"
             placeholder="E-mail"
             type="email"
           />
           <InputField
-            id="applicantAadharNo"
-            name="applicantAadharNo"
+            id={`applicantAadharNo${index}`}
+            name={`applicantAadharNo${index}`}
             label="Aadhar no."
             placeholder="Aadhar no."
             type="number"
           />
           <InputField
-            id="applicantPinCode"
-            name="applicantPinCode"
+            id={`applicantPinCode${index}`}
+            name={`applicantPinCode${index}`}
             label="PIN Code"
             placeholder="PIN Code"
             type="number"
@@ -78,7 +80,7 @@ const OwnerDetail = ({
               Address
             </label>
             <textarea
-              id="applicantAddress"
+              id={`applicantAddress${index}`}
               rows="4"
               className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
               placeholder="Dr. no., Street, Village, Mandal, Dist."
