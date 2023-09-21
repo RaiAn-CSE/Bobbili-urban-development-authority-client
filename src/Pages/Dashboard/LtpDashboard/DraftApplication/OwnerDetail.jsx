@@ -40,6 +40,7 @@ const OwnerDetail = ({ index, length, applicantNo, setPhoneNoLimit, increaseAppl
               value={applicantPhone}
               onChange={(e) => setPhoneNoLimit(e, setApplicantPhone)}
               className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
+              required
             />
           </div>
 
@@ -78,6 +79,7 @@ const OwnerDetail = ({ index, length, applicantNo, setPhoneNoLimit, increaseAppl
               rows="4"
               className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
               placeholder="Dr. no., Street, Village, Mandal, Dist."
+              required
             ></textarea>
           </div>
           {index === length - 1 && index < 4 && (
