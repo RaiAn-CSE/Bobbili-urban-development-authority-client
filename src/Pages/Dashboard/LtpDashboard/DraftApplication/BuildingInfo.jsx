@@ -106,19 +106,6 @@ const BuildingInfo = () => {
     }
   }; // ========================<<<(Calculation part End)>>>...
 
-  const [builtUpAreaInitial, setBuiltUpAreaInitial] = useState(0); // =======<<<(Built Up Area Calculation)>>> :
-  const [parkingAreaInitial, setParkingAreaInitial] = useState(0);
-
-  const handleBuiltUpAreaInitial = (e) => {
-    const newValue = e.target.value;
-    setBuiltUpAreaInitial(newValue);
-  };
-
-  const handleParkingAreaInitial = (e) => {
-    const newValue = e.target.value;
-    setParkingAreaInitial(newValue);
-  };
-
   const [totalFloor, setTotalFloor] = useState(["Floor1"]);
 
   const [builtUpAreaSum, setBuiltUpAreaSum] = useState(0);
@@ -224,16 +211,20 @@ const BuildingInfo = () => {
     const existingRoadMts = document.getElementById("existingRoadMts").value;
     const proposedRoadMts = document.getElementById("proposedRoadMts").value;
     const marketValueSqym = document.getElementById("marketValueSqym").value;
-    // const floorName = document.getElementById("floorName").value;
 
-    // const floorName0Element = document.getElementById("floorName0");
-    // const floorName0 = floorName0Element ? floorName0Element.value : "";
+    console.log(totalFloor, "totalFloor");
 
-    // const floorName1Element = document.getElementById("floorName1");
-    // const floorName1 = floorName1Element ? floorName1Element.value : "";
+    const floorDetails = totalFloor.map((floor, index) => {
+      console.log(floor);
 
-    // const floorName2Element = document.getElementById("floorName2");
-    // const floorName2 = floorName2Element ? floorName2Element.value : "";
+      return {
+        name: document.getElementById(`floorName${index}`).value,
+        builtUpArea: document.getElementById(`builtUpArea${index}`).value,
+        parkingArea: document.getElementById(`parkingArea${index}`).value,
+      };
+    });
+
+    console.log(floorDetails, "FloorDetails");
 
     const totalBuiltUpArea = document.getElementById("totalBuiltUpArea").value;
     const totalParkingArea = document.getElementById("totalParkingArea").value;

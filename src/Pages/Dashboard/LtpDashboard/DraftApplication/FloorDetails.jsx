@@ -42,8 +42,8 @@ const FloorDetails = ({
         </label>
         <input
           type="number"
-          id={`buildUpArea${index}`}
-          name={`buildUpArea${index}`}
+          id={`builtUpArea${index}`}
+          name={`builtUpArea${index}`}
           placeholder="in Sq.M."
           className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
           onChange={(e) => handleBuiltUpArea(e.target.value, index)}
