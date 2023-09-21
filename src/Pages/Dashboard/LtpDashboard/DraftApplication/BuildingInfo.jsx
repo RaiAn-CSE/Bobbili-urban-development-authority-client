@@ -302,11 +302,12 @@ const BuildingInfo = () => {
   const [selectedVillage, setSelectedVillage] = useState("");
 
   useEffect(() => {
-    const apiUrl = "../../../../assets/buildingInfo.json";
-    axios
-      .get(apiUrl)
-      .then((response) => {
-        setDistrictData(response.data.district);
+    const apiUrl = "../../src/assets/buildingInfo.json";
+    fetch(apiUrl)
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result, "json fetch");
+        setDistrictData(result.district);
       })
       .catch((error) => {
         console.error("Error:", error);
