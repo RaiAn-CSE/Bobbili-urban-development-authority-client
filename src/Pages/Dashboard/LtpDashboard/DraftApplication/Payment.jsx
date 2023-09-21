@@ -10,27 +10,88 @@ import { AiOutlineFileText } from "react-icons/ai";
 
 const Payment = () => {
   // Sending data to Backend
-  const handleBackendData = () => {
-    const applicationId = JSON.parse(
-      localStorage.getItem("draftApplicationData")
-    ).applicationId;
-    getPostData({ applicationId: applicationId, payment: {} });
-  };
+  // const handleBackendData = () => {
+  //   const applicationId = JSON.parse(
+  //     localStorage.getItem("draftApplicationData")
+  //   ).applicationId;
+  //   getPostData({ applicationId: applicationId, payment: {} });
+  // };
+
+// Nature of the site
+  //  1. Approved Layout
+  //  2. Regularised Under LRS
+  //  3. Plot port of RLP/IPLP but not regularised
+  //  4. Congested/ Gramakanta/ Old Built-up area
+  //  5. Newly Developed/ Built up area
+
   const builtup_Area = 1;
   const vacant_area = 1;
   const net_Plot_Area = 1;
   const market_value = 1;
-
+  const nature_of_site = "";
+  
   // UDA Charge
   const builtupAreaChargedUnitRate = 15; //per Sqm.
-  const builtUpAreaDevelopmentCharged =
-    builtupAreaChargedUnitRate * builtup_Area;
+  const builtUpAreaDevelopmentCharged = builtupAreaChargedUnitRate * builtup_Area;
 
   const vacantAreaChargedUnitRate = 10; // per Sqm.
   const vacantAreaDevelopmentCharged = vacantAreaChargedUnitRate * vacant_area;
-  const UDATotal = () => {
-    return;
+  // 33% penalization
+  const calculatePenalizationCharges = (net_Plot_Area, nature_of_site) => {
+    // 200, 400 this are unit rate.
+    let penalizationCharges = 0;
+    if (nature_of_site !== "Plot port of RLP/IPLP but not regularised") {
+      return penalizationCharges;
+    }
+
+    if (net_Plot_Area <= 100) {
+      penalizationCharges = net_Plot_Area * 200 * 0.33;
+    } else if (net_Plot_Area <= 300) {
+      penalizationCharges = net_Plot_Area * 400 * 0.33;
+    }
+
+    return penalizationCharges;
   };
+  // Open Space Charge 14%
+  function calculateOpenSpaceCharge(nature_of_site, net_Plot_Area, market_value) {
+    let openSpaceCharge = 0;
+
+    switch (nature_of_site) {
+      case "Newly Developed/ Built up area":
+      case "Plot port of RLP/IPLP but not regularised":
+        openSpaceCharge = net_Plot_Area * 1.196 * market_value * 0.14;
+        break;
+      default:
+        openSpaceCharge = 0;
+    }
+
+    return openSpaceCharge;
+  }
+
+  // Labour Cess Component 2
+  const labourCessComponentUnitRate2 = 1400; // per Sq.M.
+
+  const laboutCessCompo2Calculation = (builtup_Area) => {
+    let labourCessComponentCharge2 = 0;
+
+    if (builtup_Area < 10000) {
+      labourCessComponentCharge2 = labourCessComponentUnitRate2 * builtup_Area * 10.76;
+    } else if (builtup_Area > 10000) {
+      labourCessComponentCharge2 = (labourCessComponentUnitRate2 * builtup_Area * 10.76) * (0.01 * 0.02);
+    }
+
+    return labourCessComponentCharge2;
+  };
+
+  const TotalPenalizationCharged = calculatePenalizationCharges(net_Plot_Area, nature_of_site);
+  const TotalOpenSpaceCharged = calculateOpenSpaceCharge(nature_of_site, net_Plot_Area, market_value);
+  const TotalLabourCessComp2Charged = laboutCessCompo2Calculation(builtup_Area);
+
+  const UDATotal = () => {
+    const Total = builtUpAreaDevelopmentCharged + vacantAreaDevelopmentCharged + TotalPenalizationCharged + TotalOpenSpaceCharged + TotalLabourCessComp2Charged;
+    return Total;
+  };
+  const UDATotalCharged=UDATotal();
 
   // Grama Panchayet fees
   const bettermentChargedUnitRate = 40; //per Sqm.
@@ -40,43 +101,28 @@ const Payment = () => {
   const buildingPermitFees = buildingPermitUnitRate * builtup_Area;
 
   const siteApprovalUnitRate = 10; //per Sqm.
-  const siteApprovalCharges = siteApprovalUnitRate * net_Plot_Area;
+  const siteApprovalCharged = siteApprovalUnitRate * net_Plot_Area;
 
-  const paperPublicationCharges = 1500; //Fixed
+  const paperPublicationCharged = 1500; //Fixed
 
   const processingUnitRate = 7; //per Sqm.
   const processingFees = processingUnitRate * builtup_Area;
 
-  // 33% penalization
-  const penalization = (net_Plot_Area) => {
-    if (net_Plot_Area > 100) {
-      const penalizationChargesUnitRate = 200; //per Sqm Less than 100Sqm
-      const penalizationCharges =
-        penalizationChargesUnitRate * net_Plot_Area * 0.33;
-      return penalizationCharges;
-    }
-    if (net_Plot_Area > 100 || net_Plot_Area <= 300) {
-      const penalizationChargesUnitRate = 400;
-      const penalizationCharges =
-        penalizationChargesUnitRate * net_Plot_Area * 0.33;
-      return penalizationCharges;
-    }
-  };
-
-  const openSpaceCharge = net_Plot_Area * 1.196 * market_value * 0.14; // Open Space Charge= 14%
-
   const gramaPanchayetTotal = () => {
-    return;
+    return bettermentCharged + buildingPermitFees + siteApprovalCharged + paperPublicationCharged + processingFees;
   };
+  const GramaPanchayetTotalCharged= gramaPanchayetTotal();
 
   // Green fee charge
+  // if proposed built up area above than 5000 Sq.ft
   const greenFeeChargesUnitRate = 3; //per Sq.ft
-  const greenFeeCharges = greenFeeChargesUnitRate * builtup_Area * 10.76;
+  if (builtup_Area > 5000) {
+    return greenFeeCharges = (greenFeeChargesUnitRate * builtup_Area * 10.76);
+  }
 
-  // Labour Cess
-  const labourCessComponentUnitRate = 1400;
-  const labourCessComponent =
-    labourCessComponentUnitRate * builtup_Area * 10.76 * 0.01 * 0.98;
+  // Labour Cess Component 1
+  const labourCessComponentUnitRate1 = 1400; // per Sq.M.
+  const labourCessComponentCharge1 = (labourCessComponentUnitRate1 * builtup_Area * 10.76) * (0.01 * 0.98);
 
   return (
     <div className="grid my-5 lg:my-0 lg:p-2">
@@ -125,6 +171,7 @@ const Payment = () => {
             label="Total"
             placeholder="7000"
             type="number"
+            value={UDATotalCharged}
           />
           <div>
             <button className="btn btn-md text-sm px-3 mt-10 ml-3 bg-green-300 hover:bg-green-400 hover:shadow-md transition-all duration-500">
@@ -194,6 +241,7 @@ const Payment = () => {
             label="Total"
             placeholder="13000"
             type="number"
+            value={GramaPanchayetTotalCharged}
           />
         </div>
 
