@@ -46,7 +46,7 @@ const DocumentUpload = () => {
     const applicationId = JSON.parse(
       localStorage.getItem("draftApplicationData")
     ).applicationId;
-    getPostData({ applicationId: applicationId, documents: {} });
+    getPostData({ applicationId: applicationId, documents: UpdatedDocuments }); //data send format
   };
 
   return (

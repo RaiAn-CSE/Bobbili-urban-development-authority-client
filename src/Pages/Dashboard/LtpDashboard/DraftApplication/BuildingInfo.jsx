@@ -19,7 +19,14 @@ const BuildingInfo = () => {
 
   const [isStepperVisible, currentStep, steps] = stepperData;
 
-  const { confirmAlert } = useContext(AuthContext);
+  const { confirmAlert, sendUserDataIntoDB, userInfoFromLocalStorage } =
+    useContext(AuthContext);
+
+  const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
+
+  const { _id: id } = userInfoFromLocalStorage();
+
+  console.log(id, "id");
 
   console.log(isStepperVisible);
   // Case Type
@@ -165,7 +172,7 @@ const BuildingInfo = () => {
   // ======================================================<<<(Built Up Area Calculation End)>>>>...
 
   // get data from input field :
-  const collectInputFieldData = () => {
+  const collectInputFieldData = async () => {
     // ==================================================<<<(General Information)>>>:
     const selectedApplicationType =
       document.querySelector('input[name="radio-1"]:checked')?.value || ""; // Get selected radio input's value
@@ -300,6 +307,13 @@ const BuildingInfo = () => {
       plotDetails,
       scheduleBoundaries,
     };
+
+    const url = `http://localhost:5000/updateDraftApplicationData/${id}`;
+
+    return await sendUserDataIntoDB(url, "PATCH", {
+      applicationNo,
+      buildingInfo,
+    });
   };
 
   const [districtData, setDistrictData] = useState([]); //==========<<<<<(District, Mandal & Village Start)>>>>> :
@@ -1080,6 +1094,7 @@ const BuildingInfo = () => {
         steps={steps}
         stepperData={stepperData}
         confirmAlert={confirmAlert}
+        collectInputFieldData={collectInputFieldData}
       />
     </div>
   );

@@ -25,8 +25,9 @@ const Drawing = () => {
     // Set File Uploaded Data
     setSelectedFiles({ ...selectedFiles, [eventId]: file });
   };
+
   const handleDrawing = () => {
-    getPostData(selectedFiles);
+    getPostData({ drawing: selectedFiles });
   };
 
   // Sending data to Backend

@@ -6,9 +6,12 @@ const SaveData = ({
   steps,
   confirmAlert,
   stepperData,
+  collectInputFieldData,
 }) => {
   let btnClass =
     "btn btn-md text-[#000000] hover:text-[#fff] rounded-lg transition-all duration-500 cursor-pointer hover:bg-emerald-400";
+
+  console.log(collectInputFieldData);
   return (
     <>
       {isStepperVisible && ( // Render the stepper only when isStepperVisible is true
@@ -21,7 +24,7 @@ const SaveData = ({
               //   // handleStepClick(currentStep + 1)
               //   confirmAlert()
               // }
-              onClick={() => confirmAlert(stepperData)}
+              onClick={() => confirmAlert(stepperData, collectInputFieldData)}
             >
               Save and Continue
             </button>

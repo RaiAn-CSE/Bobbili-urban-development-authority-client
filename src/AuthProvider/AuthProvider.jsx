@@ -61,8 +61,10 @@ const AuthProvider = ({ children }) => {
   };
 
   // confirmation message and send data to database
-  const confirmAlert = (stepperData, url, method, data) => {
+  const confirmAlert = (stepperData, collectInputFieldData) => {
     const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
+
+    console.log(collectInputFieldData);
     Swal.fire({
       title: "Do you want to save your information?",
       icon: "info",
@@ -74,9 +76,12 @@ const AuthProvider = ({ children }) => {
       showLoaderOnConfirm: true,
       preConfirm: async (confirm) => {
         console.log("confirm", confirm);
-        return sendUserDataIntoDB(url, (method = "PATCH"), data)
+
+        console.log(collectInputFieldData);
+
+        return await collectInputFieldData()
           .then((response) => {
-            console.log(response);
+            console.log(response, "response");
             if (!response.acknowledged) {
               throw new Error(response.statusText);
             }
@@ -89,13 +94,11 @@ const AuthProvider = ({ children }) => {
       allowOutsideClick: () => !Swal.isLoading(),
     }).then((result) => {
       console.log(result, "result");
-      if (result.isConfirmed) {
-        Swal.fire({
-          title: `${result.value.login}'s avatar`,
-          imageUrl: result.value.avatar_url,
-        });
-
-        // currentStep < steps.length - 1 && handleStepClick(currentStep + 1);
+      if (result.isConfirmed && result.value.acknowledged) {
+        toast.success("Data saved successfully");
+        currentStep < steps.length - 1 && handleStepClick(currentStep + 1);
+      } else {
+        toast.error("Failed to save data");
       }
     });
   };

@@ -31,12 +31,15 @@ function AppChecklist() {
     setQuestions(updatedQuestions);
   };
 
+  console.log(questions, "QW");
+
+  console.log({ appChecklist: questions }); // data send format
   // Sending data to Backend
   const handleBackendData = () => {
     const applicationId = JSON.parse(
       localStorage.getItem("draftApplicationData")
     ).applicationId;
-    getPostData({ applicationId: applicationId, appChecklist: { questions } });
+    getPostData({ applicationId: applicationId, appChecklist: questions });
   };
 
   return (
