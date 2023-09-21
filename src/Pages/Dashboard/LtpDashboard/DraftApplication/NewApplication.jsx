@@ -4,6 +4,7 @@ import { VscGitPullRequestCreate } from "react-icons/vsc";
 import { BsPlusLg } from "react-icons/bs";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import toast from "react-hot-toast";
+import AllDraftApplication from "./AllDraftApplication";
 
 const NewApplication = () => {
   const { userInfoFromLocalStorage, sendUserDataIntoDB } =
@@ -14,14 +15,25 @@ const NewApplication = () => {
   const { _id: userID } = userInfoFromLocalStorage();
 
   const navigate = useNavigate();
+  const date = new Date();
+
+  const [draftApplications, setDraftApplications] = useState([]);
 
   useEffect(() => {
     localStorage.removeItem("currentStep");
-  });
+
+    // get draftApplications
+    fetch(`http://localhost:5000/draftApplications/${userID}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setDraftApplications(data);
+      });
+  }, []);
 
   // Function to generate a unique number
   const generateApplicationNumber = () => {
-    const year = new Date().getFullYear();
+    const year = date.getFullYear();
     console.log(year);
     const applicationNo = `1177/1/${year}`;
 
@@ -49,6 +61,9 @@ const NewApplication = () => {
         labourCessCharge: {},
         greenFeeCharge: {},
       },
+      createdDate: `${date.getDate()}-${
+        date.getMonth() + 1
+      }-${date.getFullYear()}`,
     };
 
     sendUserDataIntoDB(url, "PATCH", data)
@@ -69,6 +84,14 @@ const NewApplication = () => {
       .catch(() => {
         toast.error("Failed to store data");
       });
+  };
+
+  // navigate after clicking on the draft application no
+
+  const showDraftApplication = (applicationNo) => {
+    console.log(applicationNo);
+    localStorage.setItem("CurrentAppNo", JSON.stringify(applicationNo));
+    navigate("/dashboard/draftApplication/buildingInfo");
   };
 
   return (
@@ -100,22 +123,15 @@ const NewApplication = () => {
             </tr>
           </thead>
           <tbody>
-            {/* row 1 */}
-            <tr>
-              <th>1.</th>
-              <td>1177/XX/001/BUDA/2023</td>
-              <td>XXXX XXX</td>
-              <td>99xxxxxxx99</td>
-              <td>New</td>
-              <td>Piridi</td>
-              <td>Bobbili</td>
-              <td>07-04-2023</td>
-              <td>
-                <button className="btn btn-xs btn-error text-white">
-                  Delete
-                </button>
-              </td>
-            </tr>
+            {/* show draft applications  */}
+
+            {draftApplications?.map((applicationData, index) => (
+              <AllDraftApplication
+                key={index}
+                applicationData={applicationData}
+                showDraftApplication={showDraftApplication}
+              />
+            ))}
           </tbody>
         </table>
       </div>

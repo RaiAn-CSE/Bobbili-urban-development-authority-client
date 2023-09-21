@@ -13,7 +13,7 @@ const DraftApplication = () => {
 
   // const { applicationNo } = location.state;
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
-  console.log(applicationNo);
+  // console.log(applicationNo);
 
   const steps = [
     "/buildingInfo",
@@ -48,7 +48,7 @@ const DraftApplication = () => {
     };
   }, [location.pathname]);
 
-  console.log(currentStep);
+  // console.log(currentStep);
 
   const handleStepClick = (index) => {
     setCurrentStep(index);
