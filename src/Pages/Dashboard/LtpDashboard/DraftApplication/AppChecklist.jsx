@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import ChecklistQuestions from "../../../../assets/AppChecklist.json";
 import { Link } from "react-router-dom";
-import usePostData from "../../../../CustomHook/usePostData";
-import useGetDraftAppData from "../../../../CustomHook/useGetDraftAppData";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
+import Application from "./Application";
 
 function AppChecklist() {
+  const [openApplication, setOpenApplication] = useState(false);
   // const LocalItems = JSON.parse(localStorage.getItem("ApplicationList"));
   const btn =
     "btn btn-md text-sm px-6 bg-Primary transition duration-700 hover:bg-btnHover hover:shadow-md";
@@ -22,10 +22,8 @@ function AppChecklist() {
 
   // Sending data to Backend
   const handleBackendData = () => {
-    const applicationId = JSON.parse(
-      localStorage.getItem("draftApplicationData")
-    ).applicationId;
-    getPostData({ applicationId: applicationId, appChecklist: { questions } });
+    const applicationId = JSON.parse(localStorage.getItem("draftApplicationData")).applicationId;
+    // sendUserDataIntoDB(url, { applicationId: applicationId, appChecklist: { questions } });
   };
 
   return (
@@ -33,7 +31,7 @@ function AppChecklist() {
       <div className="text-end mb-4">
         <button className="btn btn-sm text-xs bg-[#c0e9e4] transition-all duration-700 hover:bg-[#10ac84] text-[#000] hover:text-[#fff]">
           <HiOutlineClipboardDocumentList className="text-lg" />{" "}
-          <span>Application</span>
+          <span onClick={()=>setOpenApplication(true)}>Application</span>
         </button>
       </div>
       <div className="space-y-5">
@@ -47,9 +45,8 @@ function AppChecklist() {
             </p>
             <div className="space-x-10 mt-2 lg:pr-2">
               <label
-                className={`ml-2 inline-flex items-center space-x-1 text-black ${
-                  answer === "yes" && "font-extrabold"
-                }`}
+                className={`ml-2 inline-flex items-center space-x-1 text-black ${answer === "yes" && "font-extrabold"
+                  }`}
               >
                 <input
                   type="radio"
@@ -62,9 +59,8 @@ function AppChecklist() {
                 <span>Yes</span>
               </label>
               <label
-                className={`ml-2 inline-flex items-center space-x-1 text-black ${
-                  answer === "no" && "font-extrabold"
-                }`}
+                className={`ml-2 inline-flex items-center space-x-1 text-black ${answer === "no" && "font-extrabold"
+                  }`}
               >
                 <input
                   type="radio"
@@ -87,6 +83,7 @@ function AppChecklist() {
           </button>
         </Link>
       </div> */}
+      {openApplication ? <Application openApplication={openApplication} setOpenApplication={setOpenApplication} />:""}
     </div>
   );
 }

@@ -8,8 +8,7 @@ import toast from "react-hot-toast";
 const DocumentUpload = () => {
   const [selectedFiles, setSelectedFiles] = useState({});
   const [UpdatedDocuments, setUpdatedDocuments] = useState(Documents.Data);
-  const btn =
-    "btn btn-md text-sm bg-Primary transition duration-700 hover:bg-btnHover hover:shadow-md";
+  const btn = "btn btn-md text-sm bg-Primary transition duration-700 hover:bg-btnHover hover:shadow-md";
 
   const handleFileChange = (event, eventId) => {
     const file = event?.target?.files[0];
@@ -35,7 +34,7 @@ const DocumentUpload = () => {
     const applicationId = JSON.parse(
       localStorage.getItem("draftApplicationData")
     ).applicationId;
-    getPostData({ applicationId: applicationId, documents: {} });
+    usePostData({ applicationId: applicationId, documents: {} });
   };
 
   return (
