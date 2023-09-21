@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Outlet, useNavigate, useLocation } from "react-router-dom";
+import { Outlet, useNavigate, useLocation, useParams } from "react-router-dom";
 import { FaBuildingColumns } from "react-icons/fa6";
 import { GoChecklist } from "react-icons/go";
 import { BsHouseCheck, BsInfoCircle } from "react-icons/bs";
@@ -10,6 +10,10 @@ const DraftApplication = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [currentStep, setCurrentStep] = useState(0);
+
+  // const { applicationNo } = location.state;
+  const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
+  console.log(applicationNo);
 
   const steps = [
     "/buildingInfo",
@@ -97,29 +101,32 @@ const DraftApplication = () => {
   return (
     <>
       {isStepperVisible && ( // Render the stepper only when isStepperVisible is true
-        <div className="mt-3 mb-5">
-          <ul className="w-full steps steps-vertical lg:steps-horizontal rounded-lg">
-            {stepsContent.map((step, index) => (
-              <li
-                key={index}
-                data-content={index + 1}
-                className={`${stepClasses(index)} lg:relative lg:pt-1`}
-                onClick={() => handleStepClick(index)}
-              >
-                <div className="lg:absolute lg:top-0 z-10">
-                  <span
-                    className={`${btnClass} ${completeBtn(
-                      index
-                    )} w-[300px] lg:w-fit text-xs`}
-                  >
-                    {icons[index]}
-                    {step}
-                  </span>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <>
+          <p>Application No:{applicationNo}</p>
+          <div className="mt-3 mb-5">
+            <ul className="w-full steps steps-vertical lg:steps-horizontal rounded-lg">
+              {stepsContent.map((step, index) => (
+                <li
+                  key={index}
+                  data-content={index + 1}
+                  className={`${stepClasses(index)} lg:relative lg:pt-1`}
+                  onClick={() => handleStepClick(index)}
+                >
+                  <div className="lg:absolute lg:top-0 z-10">
+                    <span
+                      className={`${btnClass} ${completeBtn(
+                        index
+                      )} w-[300px] lg:w-fit text-xs`}
+                    >
+                      {icons[index]}
+                      {step}
+                    </span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </>
       )}
 
       {/* content  */}

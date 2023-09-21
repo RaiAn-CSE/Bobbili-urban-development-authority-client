@@ -1,20 +1,23 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { VscGitPullRequestCreate } from "react-icons/vsc";
 import { BsPlusLg } from "react-icons/bs";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
+import toast from "react-hot-toast";
 
 const NewApplication = () => {
-  useEffect(() => {
-    localStorage.removeItem("currentStep");
-  });
-
   const { userInfoFromLocalStorage, sendUserDataIntoDB } =
     useContext(AuthContext);
 
   console.log(userInfoFromLocalStorage());
 
   const { _id: userID } = userInfoFromLocalStorage();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    localStorage.removeItem("currentStep");
+  });
 
   // Function to generate a unique number
   const generateApplicationNumber = () => {
@@ -48,21 +51,36 @@ const NewApplication = () => {
       },
     };
 
-    sendUserDataIntoDB(url, "PATCH", data);
+    sendUserDataIntoDB(url, "PATCH", data)
+      .then((response) => {
+        console.log(response);
+        if (!response.acknowledged) {
+          toast.error("Failed to store data");
+        } else {
+          toast.success("Data stored Successfully");
+          // store current application No
+          localStorage.setItem(
+            "CurrentAppNo",
+            JSON.stringify(data.applicationNo)
+          );
+          navigate("/dashboard/draftApplication/buildingInfo");
+        }
+      })
+      .catch(() => {
+        toast.error("Failed to store data");
+      });
   };
 
   return (
     <div className="grid grid-cols-1 my-3">
       <div className="flex justify-end my-5 mr-3">
-        <Link
-          to="/dashboard/draftApplication/buildingInfo"
+        <button
+          className="btn flex bg-[#c0e9e4] transition-all duration-700 hover:bg-[#10ac84] text-[#000] hover:text-[#fff]"
           onClick={storeApplicationData}
         >
-          <button className="btn flex bg-[#c0e9e4] transition-all duration-700 hover:bg-[#10ac84] text-[#000] hover:text-[#fff]">
-            <span className="text-xs">Create a new application</span>
-            <BsPlusLg size={20} />
-          </button>
-        </Link>
+          <span className="text-xs">Create a new application</span>
+          <BsPlusLg size={20} />
+        </button>
       </div>
 
       <div className="w-full overflow-x-auto">

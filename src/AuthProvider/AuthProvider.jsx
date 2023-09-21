@@ -34,8 +34,7 @@ const AuthProvider = ({ children }) => {
   };
 
   //   send user data into the database
-  const sendUserDataIntoDB = (url, method = "PATCH", data) => {
-    setLoading(true);
+  const sendUserDataIntoDB = async (url, method = "PATCH", data) => {
     console.log(data);
     const config = {
       method,
@@ -44,21 +43,9 @@ const AuthProvider = ({ children }) => {
       },
       body: JSON.stringify(data),
     };
-    fetch(url, config)
-      .then((response) => {
-        console.log(response);
-        if (!response.ok) {
-          setLoading(false);
-          toast.error("Failed to store data");
-        } else {
-          setLoading(false);
-          toast.success("Data stored Successfully");
-        }
-      })
-      .catch((error) => {
-        setLoading(false);
-        toast.error("Failed to store data");
-      });
+    const response = await fetch(url, config);
+    const result = await response.json();
+    return result;
   };
 
   const getUserData = async (id) => {
