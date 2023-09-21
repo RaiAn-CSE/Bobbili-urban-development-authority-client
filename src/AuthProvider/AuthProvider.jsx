@@ -61,7 +61,7 @@ const AuthProvider = ({ children }) => {
   };
 
   // confirmation message and send data to database
-  const confirmAlert = (stepperData) => {
+  const confirmAlert = (stepperData, url, method, data) => {
     const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
     Swal.fire({
       title: "Do you want to save your information?",
@@ -72,29 +72,30 @@ const AuthProvider = ({ children }) => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       showLoaderOnConfirm: true,
-      // preConfirm: (confirm) => {
-      //   console.log("confirm", confirm);
-      //   return fetch(`//api.github.com/users/${confirm}`)
-      //     .then((response) => {
-      //       if (!response.ok) {
-      //         throw new Error(response.statusText);
-      //       }
-      //       return response.json();
-      //     })
-      //     .catch((error) => {
-      //       Swal.showValidationMessage(`Request failed: ${error}`);
-      //     });
-      // },
+      preConfirm: async (confirm) => {
+        console.log("confirm", confirm);
+        return sendUserDataIntoDB(url, (method = "PATCH"), data)
+          .then((response) => {
+            console.log(response);
+            if (!response.acknowledged) {
+              throw new Error(response.statusText);
+            }
+            return response;
+          })
+          .catch((error) => {
+            Swal.showValidationMessage(`Request failed: ${error}`);
+          });
+      },
       allowOutsideClick: () => !Swal.isLoading(),
     }).then((result) => {
       console.log(result, "result");
       if (result.isConfirmed) {
-        // Swal.fire({
-        //   title: `${result.value.login}'s avatar`,
-        //   imageUrl: result.value.avatar_url,
-        // });
+        Swal.fire({
+          title: `${result.value.login}'s avatar`,
+          imageUrl: result.value.avatar_url,
+        });
 
-        currentStep < steps.length - 1 && handleStepClick(currentStep + 1);
+        // currentStep < steps.length - 1 && handleStepClick(currentStep + 1);
       }
     });
   };
