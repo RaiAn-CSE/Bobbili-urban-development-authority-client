@@ -68,7 +68,7 @@ const NewApplication = () => {
   const generateApplicationNumber = () => {
     const year = date.getFullYear();
     console.log(year);
-    const applicationNo = `1177/1/${year}`;
+    const applicationNo = `1177/5/${year}`;
 
     return applicationNo;
   };
