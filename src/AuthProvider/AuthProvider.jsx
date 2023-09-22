@@ -108,6 +108,23 @@ const AuthProvider = ({ children }) => {
     });
   };
 
+  // confirmation to delete data from the database
+  const alertToConfirmDelete = (data, removeData) => {
+    Swal.fire({
+      title: "Do you want to delete the data?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, save it",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        removeData(data);
+      }
+    });
+  };
+
   //   create a object to transfer data into various components
   const userInfo = {
     updateUserInfoInLocalStorage,
@@ -115,6 +132,7 @@ const AuthProvider = ({ children }) => {
     sendUserDataIntoDB,
     getUserData,
     confirmAlert,
+    alertToConfirmDelete,
   };
   return (
     <>

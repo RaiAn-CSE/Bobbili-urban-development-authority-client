@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 
 const AllDraftApplication = ({
   serialNo,
   applicationData,
   showDraftApplication,
+  removeDraftApplication,
 }) => {
+  const { alertToConfirmDelete } = useContext(AuthContext);
   console.log(applicationData);
   const { applicationNo, buildingInfo, applicantInfo, createdDate } =
     applicationData;
@@ -43,7 +46,14 @@ const AllDraftApplication = ({
       </td>
       <td>{createdDate ?? "N/A"}</td>
       <td>
-        <button className="btn btn-xs btn-error text-white">Delete</button>
+        <button
+          className="btn btn-xs btn-error text-white"
+          onClick={() =>
+            alertToConfirmDelete(applicationNo, removeDraftApplication)
+          }
+        >
+          Delete
+        </button>
       </td>
     </tr>
   );

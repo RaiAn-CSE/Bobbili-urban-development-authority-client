@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import AllDraftApplication from "./AllDraftApplication";
 
 const NewApplication = () => {
-  const { userInfoFromLocalStorage, sendUserDataIntoDB } =
+  const { userInfoFromLocalStorage, sendUserDataIntoDB, alertToConfirmDelete } =
     useContext(AuthContext);
 
   console.log(userInfoFromLocalStorage());
@@ -23,7 +23,7 @@ const NewApplication = () => {
     ["draftApplications"],
     async () => {
       const response = await fetch(
-        `http://localhost:5000/draftApplication/${userID}`
+        `http://localhost:5000/draftApplications/${userID}`
       );
       return await response.json();
     }
@@ -42,6 +42,23 @@ const NewApplication = () => {
     localStorage.removeItem("currentStep");
   }, [isError]);
 
+  const removeDraftApplication = (applicationNo) => {
+    console.log(applicationNo, "DELTE APP NO");
+    fetch(`http://localhost:5000/deleteSingleDraft?appNo=${applicationNo}`, {
+      method: "DELETE",
+    })
+      .then((res) => {
+        // if (res.acknowledged) {
+        //   toast.success("Delete successfully");
+        //   refetch();
+        // } else {
+        //   toast.error("Failed to delete data");
+        // }
+      })
+      .catch(() => {
+        toast.error("Server is not responded");
+      });
+  };
   // Function to generate a unique number
   const generateApplicationNumber = () => {
     const year = date.getFullYear();
@@ -141,6 +158,7 @@ const NewApplication = () => {
                 serialNo={index}
                 applicationData={applicationData}
                 showDraftApplication={showDraftApplication}
+                removeDraftApplication={removeDraftApplication}
               />
             ))}
           </tbody>
