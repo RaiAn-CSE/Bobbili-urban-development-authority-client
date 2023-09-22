@@ -1,14 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import InputField from "../../../Components/InputField";
-import { AiFillPlusCircle } from "react-icons/ai";
 import { FaHandPointRight } from "react-icons/fa";
 import generalInfoImage from "../../../../assets/images/general-information.png";
 import plotImage from "../../../../assets/images/land.png";
 import wallImage from "../../../../assets/images/gate.png";
-import usePostData from "../../../../CustomHook/usePostData";
-import useGetDraftAppData from "../../../../CustomHook/useGetDraftAppData";
-import { useForm, Controller } from "react-hook-form";
-import axios from "axios";
 import { useOutletContext } from "react-router";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import SaveData from "./SaveData";
@@ -1080,12 +1075,7 @@ const BuildingInfo = () => {
         </div>
       </div>
 
-      <button type="submit" className="btn" onClick={collectInputFieldData}>
-        Get Data
-      </button>
-
       {/* save & continue  */}
-      {/* navigation button  */}
       <SaveData
         isStepperVisible={isStepperVisible}
         currentStep={currentStep}

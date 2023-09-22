@@ -1,8 +1,6 @@
 import React, { useContext, useState } from "react";
 import ChecklistQuestions from "../../../../assets/AppChecklist.json";
-import { Link, useOutletContext } from "react-router-dom";
-import usePostData from "../../../../CustomHook/usePostData";
-import useGetDraftAppData from "../../../../CustomHook/useGetDraftAppData";
+import { useOutletContext } from "react-router-dom";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import SaveData from "./SaveData";

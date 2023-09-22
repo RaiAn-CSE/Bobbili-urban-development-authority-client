@@ -1,8 +1,6 @@
 import React, { useContext, useState } from "react";
 import Documents from "../../../../assets/Documents.json";
-import { Link, useOutletContext } from "react-router-dom";
-import usePostData from "../../../../CustomHook/usePostData";
-import useGetDraftAppData from "../../../../CustomHook/useGetDraftAppData";
+import { useOutletContext } from "react-router-dom";
 import toast from "react-hot-toast";
 import SaveData from "./SaveData";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";

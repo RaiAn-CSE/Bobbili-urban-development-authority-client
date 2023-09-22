@@ -2,11 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import InputField from "../../../Components/InputField";
 import LTPImg from "../../../../assets/images/id-card.png";
 import OwnerImg from "../../../../assets/images/real-estate-agent.png";
-import usePostData from "../../../../CustomHook/usePostData";
-import useGetDraftAppData from "../../../../CustomHook/useGetDraftAppData";
 import OwnerDetail from "./OwnerDetail";
 import { useOutletContext } from "react-router";
-import Swal from "sweetalert2";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import SaveData from "./SaveData";
 
@@ -213,11 +210,7 @@ const ApplicantInfo = () => {
         ))}
       </div>
 
-      <button type="submit" className="btn" onClick={handleApplicantInfoData}>
-        Get Data
-      </button>
       {/* save & continue  */}
-      {/* navigation button  */}
       <SaveData
         isStepperVisible={isStepperVisible}
         currentStep={currentStep}
