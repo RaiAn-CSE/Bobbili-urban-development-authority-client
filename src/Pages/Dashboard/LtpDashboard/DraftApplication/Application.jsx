@@ -44,16 +44,22 @@ function Application({ setOpenApplication }) {
 									{Part01.column.col2.map((data, index) => (
 										<>
 											<tr key={index} className='bg-white'>
+												{/* col-01 */}
 												<th className='bg-white border border-black w-14'>{index + 1}</th>
-												<td className='bg-white border border-black w-64 p-0 pl-4'>{
-													index == 7 ? <span className='flex items-center justify-between'>
-														<span>PHONE</span>
-														<span className='flex flex-col border-black'>
-															{data.map((d, i) => <span className={`border-l border-black px-3 py-1 ${i == 0 && "border-b"}`}>{d}</span>)}
-														</span></span> : data}</td>
+												{/* col-02 */}
+												<td className='bg-white border border-black w-64 p-0 pl-4'>
+													{index == 7 ?
+														<span className='flex items-center justify-between'>
+															{/* sub col */}
+															<span>PHONE</span>
+															<p className='flex flex-col border-black'>
+																{data.map((d, i) => <p className={`border-l border-black px-3 py-1 ${i == 0 && "border-b"}`}>{d}</p>)}
+															</p>
+														</span> : data}
+												</td>
+
+												{/* col-03 */}
 												<td className='bg-white border border-black'>
-													{/* {index==7?PhoneTD.map(d=><p className='flex border'>{d}</p>)
-													:""} */}
 												</td>
 											</tr>
 										</>
@@ -61,15 +67,15 @@ function Application({ setOpenApplication }) {
 								</tbody>
 							</table>
 						</div>
-						{/* part02 */}
+						{/* Part02 */}
 						<div className="overflow-x-auto mt-10">
 							<table className="table bg-white table-sm">
 								{/*Part02 head */}
 								<thead>
 									<tr>
-										<th className='bg-blue-300 border border-black fontbold text-black'>B</th>
-										<th className='bg-blue-300 border-l border-t border-black fontbold text-black'>LOCATION OF THE PROPOSED SITE</th>
-										<th className='bg-blue-300 border-r border-t border-black fontbold text-black'></th>
+										<th className='bg-blue-300 border border-black fontbold'>B</th>
+										<th className='bg-blue-300 border-l border-t border-black'>LOCATION OF THE PROPOSED SITE</th>
+										<th className='bg-blue-300 border-r border-t border-black'></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -77,29 +83,27 @@ function Application({ setOpenApplication }) {
 									{Part02.map((data, index) => (
 										<>
 											<tr key={index} className='bg-white'>
+												{/* col-01 */}
 												<th className='bg-white border border-black w-14'>{index + 1}</th>
+												{/* col-02 */}
 												<td className='bg-white border border-black w-64 p-0'>{
 													part02SubArray.includes(index) ?
-														<span>
-															<span className='flex flex-col border-black text-green-600'>
-																{data.map((d, i) =>
-																	<span className={`border-black pl-4 py-1 ${i == 0 && "border-b"}`}>{d}</span>)}
-															</span>
-														</span>
+														<p className='flex '>
+															{data.map((d, i) =>
+																<p className={`border-black py-4 px-2 ${i == 0 && "border-r"}`}>{d}</p>)}
+														</p>
 														:
-														<span className='w-full pl-4 py-5 font-bold'>{data}</span>}
+														<p className='py-4 px-2'>{data}</p>}
 												</td>
-												{/* Left Table Data */}
+												{/* col-03 */}
 												<td className='bg-white border border-black p-0'>{
 													part02SubArray.includes(index) ?
-														<span>
-															<span className='flex flex-col border-black text-green-600'>
-																{data.map((d, i) =>
-																	<span className={`border-black pl-4 py-1 ${i == 0 && "border-b"}`}></span>)}
-															</span>
-														</span>
+														<p className='flex '>
+															{data.map((d, i) =>
+																<p className={`border-black py-4 px-2 ${i == 0 && "border-r"}`}>{d}</p>)}
+														</p>
 														:
-														<span className='w-full pl-4 py-5 font-bold'></span>}
+														<p className='py-4 px-2'></p>}
 												</td>
 											</tr>
 										</>
@@ -125,7 +129,7 @@ function Application({ setOpenApplication }) {
 									<>
 										<tr key={index} className='bg-white'>
 											<th className='bg-white border border-black w-14'>{index + 1}</th>
-											<td className='bg-white border border-black w-64'>{data}</td>
+											<td className='bg-white border border-black w-64 p-4'>{data}</td>
 											<td className='bg-white border border-black'></td>
 										</tr>
 									</>
@@ -136,7 +140,7 @@ function Application({ setOpenApplication }) {
 					{/* Part04 */}
 					<div className="overflow-x-auto mt-10">
 						<table className="table bg-white table-sm">
-							{/*Part03 head */}
+							{/*Part04 head */}
 							<thead>
 								<tr>
 									<th className='bg-blue-300 border border-black fontbold text-black'>D</th>
