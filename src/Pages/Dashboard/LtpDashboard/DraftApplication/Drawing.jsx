@@ -14,7 +14,7 @@ const Drawing = () => {
 
   console.log(stepperData);
 
-  const { confirmAlert } = useContext(AuthContext);
+  const { confirmAlert, sendUserDataIntoDB } = useContext(AuthContext);
 
   const btn =
     "btn btn-md text-xs px-4 md:text-sm md:px-6 bg-Primary transition duration-700 hover:bg-btnHover hover:shadow-md";
@@ -26,17 +26,14 @@ const Drawing = () => {
     setSelectedFiles({ ...selectedFiles, [eventId]: file });
   };
 
-  const handleDrawing = () => {
-    getPostData({ drawing: selectedFiles });
+  // send updated data into the database
+  const sendDrawingData = async (url) => {
+    return await sendUserDataIntoDB(url, "PATCH", {
+      applicationNo: JSON.parse(localStorage.getItem("CurrentAppNo")),
+      drawing: selectedFiles,
+    });
   };
 
-  // Sending data to Backend
-  const handleBackendData = () => {
-    const applicationId = JSON.parse(
-      localStorage.getItem("draftApplicationData")
-    ).applicationId;
-    getPostData({ applicationId: applicationId, drawing: {} });
-  };
   return (
     <div className="text-black h-screen p-5 mt-3">
       {/* AutoCAD Drawing */}
@@ -97,6 +94,7 @@ const Drawing = () => {
         steps={steps}
         stepperData={stepperData}
         confirmAlert={confirmAlert}
+        collectInputFieldData={sendDrawingData}
       />
     </div>
   );

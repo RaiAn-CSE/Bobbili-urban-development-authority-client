@@ -160,6 +160,14 @@ const Payment = () => {
   const labourCessComponentCharge1 =
     labourCessComponentUnitRate1 * builtup_Area * 10.76 * (0.01 * 0.98);
 
+  // send data into database
+  const sendPaymentData = async (url) => {
+    return await sendUserDataIntoDB(url, "PATCH", {
+      applicationNo: JSON.parse(localStorage.getItem("CurrentAppNo")),
+      payment: {},
+    });
+  };
+
   return (
     <div className="grid my-5 lg:my-0 lg:p-2">
       <div>
@@ -435,6 +443,7 @@ const Payment = () => {
         steps={steps}
         stepperData={stepperData}
         confirmAlert={confirmAlert}
+        collectInputFieldData={sendPaymentData}
       />
     </div>
   );

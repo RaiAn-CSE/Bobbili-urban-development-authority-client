@@ -17,7 +17,7 @@ const DocumentUpload = () => {
 
   console.log(stepperData);
 
-  const { confirmAlert } = useContext(AuthContext);
+  const { confirmAlert, sendUserDataIntoDB } = useContext(AuthContext);
 
   const btn =
     "btn btn-md text-sm bg-Primary transition duration-700 hover:bg-btnHover hover:shadow-md";
@@ -42,11 +42,11 @@ const DocumentUpload = () => {
   console.log(UpdatedDocuments, "UpdatesDocuments");
 
   // Sending data to Backend
-  const handleBackendData = () => {
-    const applicationId = JSON.parse(
-      localStorage.getItem("draftApplicationData")
-    ).applicationId;
-    getPostData({ applicationId: applicationId, documents: UpdatedDocuments }); //data send format
+  const sendDocumentsData = async (url) => {
+    return await sendUserDataIntoDB(url, "PATCH", {
+      applicationNo: JSON.parse(localStorage.getItem("CurrentAppNo")),
+      documents: UpdatedDocuments,
+    });
   };
 
   return (
@@ -92,6 +92,7 @@ const DocumentUpload = () => {
         steps={steps}
         stepperData={stepperData}
         confirmAlert={confirmAlert}
+        collectInputFieldData={sendDocumentsData}
       />
     </div>
   );
