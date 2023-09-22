@@ -8,19 +8,25 @@ function Application({ setOpenApplication }) {
 	const Part02 = ["PLOT NOs", "SANCTIONED LAYOUT NO. / LRS NO", ["SURVEY NO.", "VILLAGE"], "PREMISES / DOOR No.", "ROAD/ STREET", ["WARD NO.", "BLOCK No"], "LOCALITY", ["CIRCLE/DIVISION", "DIVISION"], ["CITY/TOWN", "DISTRICT"]];
 	const Part03 = ["SITE AREA (IN SQ.M)", "NO. OF FLOORS", "FLOOR AREA (IN SQ.M)", "PARKING FLOOR AREA (IN SQ.M)", "USE OF THE BUILDING"];
 	// index0 for part03
-	const row1 = [{ "(a) AS PER DOCUMENTS": "" },{ "(b) AS PER SUBMITTED PLAN": "" },{ "(c) ROAD WIDENING AREA": "" },{ "(d)   NET AREA": "" }];
-	
-	const row2 = [{ "CELLAR": "" },{ "STILT": "" },{ "GROUND": "" },{ "UPPER": "" },{ "FLOOR": "" },{ "TOTAL": "" }];
-	
+	const row1 = [{ "(a) AS PER DOCUMENTS": "" }, { "(b) AS PER SUBMITTED PLAN": "" }, { "(c) ROAD WIDENING AREA": "" }, { "(d)   NET AREA": "" }];
+
+	const row2 = [{ "CELLAR": "" }, { "STILT": "" }, { "GROUND": "" }, { "UPPER": "" }, { "FLOOR": "" }, { "TOTAL": "" }];
+
 	// index4
-	const row5 = [{"INDIVIDUAL RESIDENTIAL/GROUP HOUSING/ COMMERCIAL/INSTITUTIONAL/ROW HOUSING/OTHERS (SPECIFY)":"Hello, This is Tanjimul Islam Sabbir"}]
+	const row5 = [{ "INDIVIDUAL RESIDENTIAL/GROUP HOUSING/ COMMERCIAL/INSTITUTIONAL/ROW HOUSING/OTHERS (SPECIFY)": "Hello, This is Tanjimul Islam Sabbir" }]
 
+	// Part-4
+	const NameCol = [{ "BUILDER / DEVELOPER/ CONSTRUCTION FIRM": "" }, { "ARCHITECT": "" }, { "ENGINEER": "" }, { "STRUCTURAL ENGINEER": "" }, { "SUPERVISOR/SURVEYOR": "" }, { "TOWN PLANNER": "" }
+	]
+	const AddressCol = [{ address: "123 Main St" }, { address: "Apt 456" }, { address: "789 Elm St" }, { address: "Unit 101" }, { address: "456 Oak Ave" }, { address: "Suite 303" }];
 
-	const Part04 = ["BUILDER / DEVELOPER/ CONSTRUCTION FIRM", "ARCHITECT", "ENGINEER", "STRUCTURAL ENGINEER", "SUPERVISOR/SURVEYOR", "TOWN PLANNER"]
 	// Part01
 	const PhoneTD = ["d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d"];
+	// const PhoneData=[{mobile:""},{phone:""}];
 	const CityTown = ["PIN", "", "", "", "", "", ""];
+	// const CityTown=[{PIN:''}];
 	const Village = ["", ""];
+	// const Village=[{Village:"",Mondal:""}]
 	// Part02
 	const part01SubArray = [3, 4, 7];
 	const part02SubArray = [2, 5, 7, 8];
@@ -47,12 +53,17 @@ function Application({ setOpenApplication }) {
 		}
 
 		return (
-			<td className='bg-white border border-black p-0'>
+			<td className='bg-white border border-black p-0 text-xs'>
 				{part01SubArray.includes(index) ? (
 					<p className='flex'>
 						{subColData.map((d, i) => (
-							<p className={`w-full border-black py-5 border-l px-2 ${i === 0 && "border-l-0"}`}>
-								{d}
+							<p className={`w-full border-black p-0 border-l ${i === 0 && "border-l-0"}`}>
+								{index == 7 ?
+									<>
+										<p className='p-[10px]'>Mobile</p>
+										<p className='border-t border-black p-[10px]'>Phone</p>
+									</>
+									: <p className='p-5'>{d}</p>}
 							</p>
 						))}
 					</p>
@@ -64,7 +75,7 @@ function Application({ setOpenApplication }) {
 	};
 
 	// Part02
-	const ColDataShow02 = (data, index, subColData) => {
+	const ColDataShow02 = (data, index) => {
 		return (
 			<td className='bg-white border border-black p-0'>{
 				part02SubArray.includes(index) ?
@@ -95,10 +106,10 @@ function Application({ setOpenApplication }) {
 				part03SubArray.includes(index) ?
 					<p className='flex '>
 						{colData.map((d, i) =>
-							<p className={`w-full border-black pt-4 border-l ${i == 0 && "border-l-0"}`}>
+							<p className={`w-full border-black py-4 border-l ${i == 0 && "border-l-0"}`}>
 								<p className='px-2'>{Object.keys(colData[i])[0]}</p>
 								{/* {Object.values(colData[i])[0]} */}
-								<p className={`${index!==4?"border-t ":"font-bold inline-block border-b-2 border-dotted border-black underline-offset-4 mt-2 ml-2"} border-black px-2 pt-2`}>{i+1}</p>
+								<p className={`${index !== 4 ? "border-t " : "font-bold inline-block border-b-2 border-dotted border-black underline-offset-4 mt-2 ml-2"} border-black px-2 pt-2`}>{i + 1}</p>
 							</p>)}
 					</p>
 					:
@@ -106,22 +117,40 @@ function Application({ setOpenApplication }) {
 			</td>
 		)
 	}
+	// Part04
+	const ColDataShow04 = (data, numb) => {
+		return (
+			<>	{
+				data.map((d, i) => {
+					return (
+						<>
+							<p className={`${i==0?"border-t-0":"border-t"} border-black h-20 py-4 px-2 ${numb == 2 ? "block" : "hidden"}`}>
+								<p className={"font-bold inline-block border-b-2 border-dotted border-black underline-offset-4 mb-2"}>Tanjimul Islam Sabbir{Object.values(data[i])[0]}</p>
+								<p>{Object.keys(data[i])[0]}</p>
+							</p>
+							<p className={`border-black px-2 h-20 flex items-center ${i==0?"border-t-0":"border-t"} ${numb == 2 ? "hidden" : "block"}`}>{Object.values(data[i])[0]}</p>
+						</>
+					)
+				})
+			}</>
+		)
+	}
 	return (
 		<div className='w-full h-full text-black'>
 			<dialog id="my_modal_5" className="modal">
-				<div className="modal-box w-11/12 max-w-5xl p-14">
+				<div className="modal-box w-full max-w-6xl p-14">
 					{/* Header */}
 					<ApplicationHeader />
 					<div>
 						{/* Part01 */}
-						<div className="overflow-x-auto">
+						<div className="overflow-x-scroll">
 							<table className="table bg-white table-sm">
 								{/*Part01 head */}
 								<thead>
 									<tr>
-										<th className='bg-blue-300 border border-black fontbold text-black'>A</th>
-										<th className='bg-blue-300 border-l border-t border-black fontbold text-black'>ADDRESS OF THE APPLICANT</th>
-										<th className='bg-blue-300 border-r border-t border-black fontbold text-black'></th>
+										<th className='bg-blue-200 border border-black fontbold text-black'>A</th>
+										<th className='bg-blue-200 border-l border-t border-black fontbold text-black'>ADDRESS OF THE APPLICANT</th>
+										<th className='bg-blue-200 border-r border-t border-black fontbold text-black'></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -138,7 +167,7 @@ function Application({ setOpenApplication }) {
 															<p className={`w-1/2`}>PHONE</p>
 
 															<p className='flex flex-col border-black p-0'>
-																{data?.map((d, i) => <p className={`border-l py-[5px] border-black px-2 ${i == 0 && "border-b"}`}>{d}</p>)}
+																{data?.map((d, i) => <p className={`border-l p-2 border-black ${i == 0 && "border-b"}`}>{d}</p>)}
 															</p>
 														</p> : <> {index == 3 ? <p className='flex '>
 															{data.map((d, i) =>
@@ -160,9 +189,9 @@ function Application({ setOpenApplication }) {
 								{/*Part02 head */}
 								<thead>
 									<tr>
-										<th className='bg-blue-300 border border-black fontbold text-black'>B</th>
-										<th className='bg-blue-300 border-l border-t border-black text-black'>LOCATION OF THE PROPOSED SITE</th>
-										<th className='bg-blue-300 border-r border-t border-black'></th>
+										<th className='bg-blue-200 border border-black fontbold text-black'>B</th>
+										<th className='bg-blue-200 border-l border-t border-black text-black'>LOCATION OF THE PROPOSED SITE</th>
+										<th className='bg-blue-200 border-r border-t border-black'></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -197,9 +226,9 @@ function Application({ setOpenApplication }) {
 							{/*Part03 head */}
 							<thead>
 								<tr>
-									<th className='bg-blue-300 border border-black fontbold text-black'>C</th>
-									<th className='bg-blue-300 border-l border-t border-black fontbold text-black'>DETAILS OF THE PROPOSED CONSTRUCTION</th>
-									<th className='bg-blue-300 border-r border-t border-black fontbold text-black'></th>
+									<th className='bg-blue-200 border border-black fontbold text-black'>C</th>
+									<th className='bg-blue-200 border-l border-t border-black fontbold text-black'>DETAILS OF THE PROPOSED CONSTRUCTION</th>
+									<th className='bg-blue-200 border-r border-t border-black fontbold text-black'></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -223,11 +252,11 @@ function Application({ setOpenApplication }) {
 							{/*Part04 head */}
 							<thead>
 								<tr>
-									<th className='bg-blue-300 border border-black fontbold text-black'>D</th>
+									<th className='bg-blue-200 border border-black fontbold text-black'>D</th>
 
-									<th className='bg-blue-300 border-l border-t border-black fontbold text-black'>DETAILS OF THE LICENSED TECHNICAL PERSONNEL:</th>
-									<th className='bg-blue-300 border-t border-black fontbold text-black'></th>
-									<th className='bg-blue-300 border-r border-t border-black fontbold text-black'></th>
+									<th className='bg-blue-200 border-l border-t border-black fontbold text-black'>DETAILS OF THE LICENSED TECHNICAL PERSONNEL:</th>
+									<th className='bg-blue-200 border-t border-black fontbold text-black'></th>
+									<th className='bg-blue-200 border-r border-t border-black fontbold text-black'></th>
 								</tr>
 								<tr>
 									<th className='bg-white border border-black fontbold text-black'>SL.NO</th>
@@ -238,8 +267,11 @@ function Application({ setOpenApplication }) {
 							</thead>
 							<tbody>
 								{/* row 1 */}
-
-								{Part04.map((data, index) => (
+								<td className='bg-white border border-black'></td>
+								<td className='bg-white border border-black p-0'>	{ColDataShow04(NameCol, 2)}</td>
+								<td className='bg-white border border-black p-0'>	{ColDataShow04(AddressCol, 3)}</td>
+								<td className='bg-white border border-black'></td>
+								{/* {Part04.map((data, index) => (
 									<>
 
 										<tr key={index} className='bg-white'>
@@ -249,7 +281,7 @@ function Application({ setOpenApplication }) {
 											<td className='bg-white border border-black'></td>
 										</tr>
 									</>
-								))}
+								))} */}
 							</tbody>
 						</table>
 					</div>
