@@ -446,16 +446,6 @@ const Payment = () => {
         </div>
       </div>
 
-      {/* save & continue  */}
-      {/* navigation button  */}
-      <SaveData
-        isStepperVisible={isStepperVisible}
-        currentStep={currentStep}
-        steps={steps}
-        stepperData={stepperData}
-        confirmAlert={confirmAlert}
-        collectInputFieldData={sendPaymentData}
-      />
       <div className="px-3 mb-4 flex justify-end">
         <div className="w-[250px]">
           <input
@@ -466,6 +456,17 @@ const Payment = () => {
           />
         </div>
       </div>
+
+      {/* save & continue  */}
+      {/* navigation button  */}
+      <SaveData
+        isStepperVisible={isStepperVisible}
+        currentStep={currentStep}
+        steps={steps}
+        stepperData={stepperData}
+        confirmAlert={confirmAlert}
+        collectInputFieldData={sendPaymentData}
+      />
     </div>
   );
 };
