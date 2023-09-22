@@ -172,7 +172,7 @@ const BuildingInfo = () => {
   // ======================================================<<<(Built Up Area Calculation End)>>>>...
 
   // get data from input field :
-  const collectInputFieldData = async () => {
+  const collectInputFieldData = async (url) => {
     // ==================================================<<<(General Information)>>>:
     const selectedApplicationType =
       document.querySelector('input[name="radio-1"]:checked')?.value || ""; // Get selected radio input's value
@@ -307,8 +307,6 @@ const BuildingInfo = () => {
       plotDetails,
       scheduleBoundaries,
     };
-
-    const url = `http://localhost:5000/updateDraftApplicationData/${id}`;
 
     return await sendUserDataIntoDB(url, "PATCH", {
       applicationNo,

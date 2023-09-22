@@ -64,7 +64,12 @@ const AuthProvider = ({ children }) => {
   const confirmAlert = (stepperData, collectInputFieldData) => {
     const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
 
-    console.log(collectInputFieldData);
+    const url = `http://localhost:5000/updateDraftApplicationData/${
+      userInfoFromLocalStorage()._id
+    }`;
+
+    console.log(url, "url");
+
     Swal.fire({
       title: "Do you want to save your information?",
       icon: "info",
@@ -79,7 +84,7 @@ const AuthProvider = ({ children }) => {
 
         console.log(collectInputFieldData);
 
-        return await collectInputFieldData()
+        return await collectInputFieldData(url)
           .then((response) => {
             console.log(response, "response");
             if (!response.acknowledged) {

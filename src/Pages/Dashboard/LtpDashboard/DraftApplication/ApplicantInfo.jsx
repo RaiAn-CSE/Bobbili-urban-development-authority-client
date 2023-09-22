@@ -17,7 +17,9 @@ const ApplicantInfo = () => {
 
   console.log(stepperData);
 
-  const { confirmAlert } = useContext(AuthContext);
+  const { confirmAlert, sendUserDataIntoDB } = useContext(AuthContext);
+
+  const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
 
   const handleBackendData = () => {
     const applicationId = JSON.parse(localStorage.getItem("applicationId"));
@@ -42,7 +44,7 @@ const ApplicantInfo = () => {
     }
   };
 
-  const handleApplicantInfoData = () => {
+  const handleApplicantInfoData = async (url) => {
     // ====================LTP’s Details
     const ltpType = document.getElementById("ltpType").value;
     const ltpName = document.getElementById("ltpName").value;
@@ -70,7 +72,7 @@ const ApplicantInfo = () => {
 
     const ltpDetails = {
       type: ltpType,
-      name: name,
+      name: ltpName,
       licenseNo,
       validity,
       phoneNo: ltpPhoneNo,
@@ -82,7 +84,11 @@ const ApplicantInfo = () => {
       ltpDetails,
       applicantDetails: ownerDetail,
     };
-    console.log(applicantInfo);
+
+    return await sendUserDataIntoDB(url, "PATCH", {
+      applicationNo,
+      applicantInfo,
+    });
   };
 
   return (
@@ -218,6 +224,7 @@ const ApplicantInfo = () => {
         steps={steps}
         stepperData={stepperData}
         confirmAlert={confirmAlert}
+        collectInputFieldData={handleApplicantInfoData}
       />
     </div>
   );

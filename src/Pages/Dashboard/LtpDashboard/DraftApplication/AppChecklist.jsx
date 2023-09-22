@@ -16,7 +16,7 @@ function AppChecklist() {
 
   console.log(stepperData);
 
-  const { confirmAlert } = useContext(AuthContext);
+  const { confirmAlert, sendUserDataIntoDB } = useContext(AuthContext);
 
   const btn =
     "btn btn-md text-sm px-6 bg-Primary transition duration-700 hover:bg-btnHover hover:shadow-md";
@@ -35,11 +35,11 @@ function AppChecklist() {
 
   console.log({ appChecklist: questions }); // data send format
   // Sending data to Backend
-  const handleBackendData = () => {
-    const applicationId = JSON.parse(
-      localStorage.getItem("draftApplicationData")
-    ).applicationId;
-    getPostData({ applicationId: applicationId, appChecklist: questions });
+  const sendAppChecklistData = async (url) => {
+    return await sendUserDataIntoDB(url, "PATCH", {
+      applicationNo: JSON.parse(localStorage.getItem("CurrentAppNo")),
+      applicationCheckList: questions,
+    });
   };
 
   return (
@@ -110,6 +110,7 @@ function AppChecklist() {
         steps={steps}
         stepperData={stepperData}
         confirmAlert={confirmAlert}
+        collectInputFieldData={sendAppChecklistData}
       />
     </div>
   );
