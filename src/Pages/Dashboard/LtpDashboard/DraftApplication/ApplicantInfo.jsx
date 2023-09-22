@@ -165,38 +165,119 @@ const ApplicantInfo = () => {
               placeholder="xxxx@gmail.com"
               type="email"
             />
+            <h3 className="font-bold text-xl">LTP’s Details</h3>
           </div>
-          <div>
-            <div className="my-4 mx-3">
-              <label
-                htmlFor="message"
-                className="block text-gray-600 mb-1 font-semibold"
-              >
-                Address
-              </label>
-              <textarea
-                id="ltpAddress"
-                name="ltpAddress"
-                rows="4"
-                className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
-                placeholder="Dr. no., Street, Village, Mandal, Dist."
-              ></textarea>
+          {/* Divider  */}
+          <div className="divider m-0"></div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 my-8">
+            <div className="grid grid-cols-2">
+              <InputField
+                id="ltpType"
+                name="ltpType"
+                label="LTP Type"
+                placeholder="Licenced Engineer"
+              />
+              <InputField
+                id="ltpName"
+                name="ltpName"
+                label="LTP Name"
+                placeholder="xxxxxxxxxxxxxxxxx"
+              />
+              <InputField
+                id="licenceNo"
+                name="licenceNo"
+                label="Licence no."
+                placeholder="xx/xxxxx"
+                type="number"
+              />
+
+              <div className="my-4 mx-3">
+                <label
+                  htmlFor="ltpPhoneNo"
+                  className="block text-gray-600 mb-1 font-semibold"
+                >
+                  Validity
+                </label>
+                <input
+                  type="date"
+                  id="validity"
+                  name="validity"
+                  className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
+                  required
+                />
+              </div>
+
+              <div className="my-4 mx-3">
+                <label
+                  htmlFor="ltpPhoneNo"
+                  className="block text-gray-600 mb-1 font-semibold"
+                >
+                  Phone no.
+                </label>
+                <input
+                  id="ltpPhoneNo"
+                  name="ltpPhoneNo"
+                  placeholder="xxxxxxxxxx"
+                  value={ltpPhone}
+                  onChange={(e) => setPhoneNoLimit(e, setLtpPhone)}
+                  className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
+                  required
+                />
+              </div>
+
+              <InputField
+                id="ltpEmail"
+                name="ltpEmail"
+                label="E-mail"
+                placeholder="xxxx@gmail.com"
+                type="email"
+              />
+            </div>
+            <div>
+              <div className="my-4 mx-3">
+                <label
+                  htmlFor="message"
+                  className="block text-gray-600 mb-1 font-semibold"
+                >
+                  Address
+                </label>
+                <textarea
+                  id="ltpAddress"
+                  name="ltpAddress"
+                  rows="4"
+                  className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
+                  placeholder="Dr. no., Street, Village, Mandal, Dist."
+                  required
+                ></textarea>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Applicant’s Details  */}
-      <div className="my-5">
-        <div className="flex items-center">
-          <img
-            src={OwnerImg}
-            alt="An icon of the applicant section"
-            className="h-10 me-3"
-          />
-          <h3 className="font-bold text-xl">Applicant’s Details</h3>
+        {/* Applicant’s Details  */}
+        <div className="my-5">
+          <div className="flex items-center">
+            <img
+              src={OwnerImg}
+              alt="An icon of the applicant section"
+              className="h-10 me-3"
+            />
+            <h3 className="font-bold text-xl">Applicant’s Details</h3>
+          </div>
+          <div className="divider m-0"></div>
+
+          {totalApplicant?.map((applicantNo, index) => (
+            <OwnerDetail
+              key={index}
+              index={index}
+              length={totalApplicant.length}
+              applicantNo={applicantNo}
+              increaseApplicantNo={increaseApplicantNo}
+              setPhoneNoLimit={setPhoneNoLimit}
+            />
+          ))}
         </div>
-        <div className="divider m-0"></div>
 
         {totalApplicant?.map((applicantNo, index) => (
           <OwnerDetail
