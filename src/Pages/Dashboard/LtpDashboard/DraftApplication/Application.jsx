@@ -8,12 +8,11 @@ function Application({ setOpenApplication }) {
 	const Part02 = ["PLOT NOs", "SANCTIONED LAYOUT NO. / LRS NO", ["SURVEY NO.", "VILLAGE"], "PREMISES / DOOR No.", "ROAD/ STREET", ["WARD NO.", "BLOCK No"], "LOCALITY", ["CIRCLE/DIVISION", "DIVISION"], ["CITY/TOWN", "DISTRICT"]];
 	const Part03 = ["SITE AREA (IN SQ.M)", "NO. OF FLOORS", "FLOOR AREA (IN SQ.M)", "PARKING FLOOR AREA (IN SQ.M)", "USE OF THE BUILDING"];
 	const Part04 = ["BUILDER / DEVELOPER/ CONSTRUCTION FIRM", "ARCHITECT", "ENGINEER", "STRUCTURAL ENGINEER", "SUPERVISOR/SURVEYOR", "TOWN PLANNER"]
-// Part01
+	// Part01
 	const PhoneTD = ["d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d"];
-	const CityTown = ["PIN", "", "", "", "", "", ""]
-	const Village = ["", ""]
-// Part02
-
+	const CityTown = ["PIN", "", "", "", "", "", ""];
+	const Village = ["", ""];
+	// Part02
 	const part01SubArray = [3, 4, 7]
 	const part02SubArray = [2, 5, 7, 8];
 
@@ -43,7 +42,7 @@ function Application({ setOpenApplication }) {
 					<p className='flex'>
 						{subColData.map((d, i) => (
 							<p className={`w-full border-black py-5 border-l px-2 ${i === 0 && "border-l-0"}`}>
-								{i + 1}
+								{d}
 							</p>
 						))}
 					</p>
@@ -56,8 +55,6 @@ function Application({ setOpenApplication }) {
 
 	// Part02
 	const ColDataShow02 = (data, index, subColData) => {
-
-
 		return (
 			<td className='bg-white border border-black p-0'>{
 				part02SubArray.includes(index) ?
