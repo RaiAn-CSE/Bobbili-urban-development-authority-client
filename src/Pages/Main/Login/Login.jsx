@@ -87,6 +87,7 @@ const Login = () => {
 
           // move to another page after successfully login
           setLoading(false);
+          localStorage.setItem("theme", "light");
           toast.success("Login successfully");
           navigate(from, { replace: true });
         } else {
