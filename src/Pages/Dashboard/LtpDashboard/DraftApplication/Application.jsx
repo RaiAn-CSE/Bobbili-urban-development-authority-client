@@ -29,8 +29,8 @@ function Application({ setOpenApplication }) {
 					<ApplicationHeader />
 					<div>
 						{/* Part01 */}
-						<div className="overflow-x-auto table-sm">
-							<table className="table bg-white">
+						<div className="overflow-x-auto">
+							<table className="table bg-white table-sm">
 								{/*Part01 head */}
 								<thead>
 									<tr>
@@ -47,21 +47,18 @@ function Application({ setOpenApplication }) {
 												{/* col-01 */}
 												<th className='bg-white border border-black w-14'>{index + 1}</th>
 												{/* col-02 */}
-												<td className='bg-white border border-black w-64 p-0'>
+												<td className='bg-white border border-black w-36 p-0'>
 													{index == 7 ?
 														<p className='flex items-center justify-between py-0 pl-2'>
-															{/* sub col */}
 															<p className='w-1/2'>PHONE</p>
 
-															<p className='flex flex-col border-black'>
-																{data.map((d, i) => <p className={`border-l py-1 border-black px-2 ${i == 0 && "border-b"}`}>{d}</p>)}
+															<p className='flex flex-col border-black p-0'>
+																{data.map((d, i) => <p className={`border-l py-[5px] border-black px-2 ${i == 0 && "border-b"}`}>{d}</p>)}
 															</p>
-
-														</p> : 
+														</p> :
 														<p className='py-4 px-2'>{data}</p>}
 												</td>
-
-												{/* col-03 */}
+												{/* col-03+Row-08  */}
 												<td className='bg-white border border-black p-0'>{
 													index == 7 ?
 														<p className='flex '>
@@ -69,7 +66,7 @@ function Application({ setOpenApplication }) {
 																<p className={`w-full border-black py-5 border-r px-2 ${i == 11 && "border-r-0"}`}>{i + 1}</p>)}
 														</p>
 														:
-														<p className='py-4 px-2'>{index+1}</p>}
+														<p className='py-4 px-2'>{index + 1}</p>}
 												</td>
 											</tr >
 										</>
