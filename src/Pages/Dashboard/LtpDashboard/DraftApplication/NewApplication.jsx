@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { useQuery } from "react-query";
 import { BsPlusLg } from "react-icons/bs";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import toast from "react-hot-toast";
@@ -13,23 +13,34 @@ const NewApplication = () => {
   console.log(userInfoFromLocalStorage());
 
   const { _id: userID } = userInfoFromLocalStorage();
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
   const date = new Date();
 
-  const [draftApplications, setDraftApplications] = useState([]);
+  // get all draft applications
+  const { data, refetch, isLoading, isError } = useQuery(
+    ["draftApplications"],
+    async () => {
+      const response = await fetch(
+        `http://localhost:5000/draftApplication/${userID}`
+      );
+      return await response.json();
+    }
+  );
+
+  console.log(data, "Query");
 
   useEffect(() => {
-    localStorage.removeItem("currentStep");
+    if (isError) {
+      console.log("ERROR");
+      setError("No data found");
+    } else {
+      setError("");
+    }
 
-    // get draftApplications
-    fetch(`http://localhost:5000/draftApplications/${userID}`)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setDraftApplications(data);
-      });
-  }, []);
+    localStorage.removeItem("currentStep");
+  }, [isError]);
 
   // Function to generate a unique number
   const generateApplicationNumber = () => {
@@ -87,7 +98,6 @@ const NewApplication = () => {
   };
 
   // navigate after clicking on the draft application no
-
   const showDraftApplication = (applicationNo) => {
     console.log(applicationNo);
     localStorage.setItem("CurrentAppNo", JSON.stringify(applicationNo));
@@ -125,15 +135,24 @@ const NewApplication = () => {
           <tbody>
             {/* show draft applications  */}
 
-            {draftApplications?.map((applicationData, index) => (
+            {data?.map((applicationData, index) => (
               <AllDraftApplication
                 key={index}
+                serialNo={index}
                 applicationData={applicationData}
                 showDraftApplication={showDraftApplication}
               />
             ))}
           </tbody>
         </table>
+
+        {error && (
+          <p className="text-lg text-center my-4 font-bold text-error">
+            {error}
+          </p>
+        )}
+
+        {isLoading && <p>Loading...</p>}
       </div>
     </div>
   );
