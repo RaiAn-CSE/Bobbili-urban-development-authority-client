@@ -19,6 +19,9 @@ function Application({ setOpenApplication }) {
 	const NameCol = [{ "BUILDER / DEVELOPER/ CONSTRUCTION FIRM": "" }, { "ARCHITECT": "" }, { "ENGINEER": "" }, { "STRUCTURAL ENGINEER": "" }, { "SUPERVISOR/SURVEYOR": "" }, { "TOWN PLANNER": "" }
 	]
 	const AddressCol = [{ address: "123 Main St" }, { address: "Apt 456" }, { address: "789 Elm St" }, { address: "Unit 101" }, { address: "456 Oak Ave" }, { address: "Suite 303" }];
+	const LicenceNo = [{ licenceNo: "AB123456" },{ licenceNo: "CD789012" },{ licenceNo: "EF345678" },{ licenceNo: "GH901234" },{ licenceNo: "IJ567890" },{ licenceNo: "KL123456" },
+	];
+	
 
 	// Part01
 	const PhoneTD = ["d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d"];
@@ -270,7 +273,7 @@ function Application({ setOpenApplication }) {
 								<td className='bg-white border border-black'></td>
 								<td className='bg-white border border-black p-0'>	{ColDataShow04(NameCol, 2)}</td>
 								<td className='bg-white border border-black p-0'>	{ColDataShow04(AddressCol, 3)}</td>
-								<td className='bg-white border border-black'></td>
+								<td className='bg-white border border-black p-0'>{ColDataShow04(LicenceNo,4)}</td>
 								{/* {Part04.map((data, index) => (
 									<>
 
