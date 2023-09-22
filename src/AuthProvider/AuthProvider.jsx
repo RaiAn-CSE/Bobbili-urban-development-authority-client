@@ -64,7 +64,7 @@ const AuthProvider = ({ children }) => {
   const confirmAlert = (stepperData, collectInputFieldData) => {
     const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
 
-    const url = `http://localhost:5000/updateDraftApplicationData/${
+    const url = `https://residential-building.vercel.app/updateDraftApplicationData/${
       userInfoFromLocalStorage()._id
     }`;
 
@@ -125,6 +125,22 @@ const AuthProvider = ({ children }) => {
     });
   };
 
+  // specific application data
+  const getApplicationData = async (appNo) => {
+    const query = JSON.stringify({
+      appNo,
+      userId: userInfoFromLocalStorage()._id,
+    });
+
+    const response = await fetch(
+      `https://residential-building.vercel.app/getApplicationData?data=${query}`
+    );
+
+    return await response.json();
+  };
+
+  // getApplicationData("1177/3/2023");
+
   //   create a object to transfer data into various components
   const userInfo = {
     updateUserInfoInLocalStorage,
@@ -133,6 +149,7 @@ const AuthProvider = ({ children }) => {
     getUserData,
     confirmAlert,
     alertToConfirmDelete,
+    getApplicationData,
   };
   return (
     <>

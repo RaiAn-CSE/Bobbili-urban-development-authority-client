@@ -43,7 +43,9 @@ const AllUsers = () => {
   const deleteUser = (id) => {
     console.log(id);
 
-    fetch(`http://localhost:5000/deleteUser/${id}`, { method: "DELETE" })
+    fetch(`https://residential-building.vercel.app/deleteUser/${id}`, {
+      method: "DELETE",
+    })
       .then((res) => res.json())
       .then((response) => {
         console.log(response);
@@ -82,7 +84,7 @@ const AllUsers = () => {
 
     const { _id } = data;
 
-    fetch(`http://localhost:5000/updateUserInfo/${_id}`, {
+    fetch(`https://residential-building.vercel.app/updateUserInfo/${_id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
