@@ -44,16 +44,21 @@ const NewApplication = () => {
 
   const removeDraftApplication = (applicationNo) => {
     console.log(applicationNo, "DELTE APP NO");
-    fetch(`http://localhost:5000/deleteSingleDraft?appNo=${applicationNo}`, {
+    fetch(`http://localhost:5000/deleteSingleDraft`, {
       method: "DELETE",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ applicationNo, userID }),
     })
       .then((res) => {
-        // if (res.acknowledged) {
-        //   toast.success("Delete successfully");
-        //   refetch();
-        // } else {
-        //   toast.error("Failed to delete data");
-        // }
+        console.log(res);
+        if (res.ok) {
+          toast.success("Delete successfully");
+          refetch();
+        } else {
+          toast.error("Failed to delete data");
+        }
       })
       .catch(() => {
         toast.error("Server is not responded");
