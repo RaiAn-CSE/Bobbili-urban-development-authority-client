@@ -29,7 +29,7 @@ function AppChecklist() {
   return (
     <div className="px-3 text-sm py-1">
       <div className="text-end mb-4">
-        <button onClick={()=>setOpenApplication(true)} className="btn btn-sm text-xs bg-[#c0e9e4] transition-all duration-700 hover:bg-[#10ac84] text-[#000] hover:text-[#fff]">
+        <button onClick={() => setOpenApplication(true)} className="btn btn-sm text-xs bg-[#c0e9e4] transition-all duration-700 hover:bg-[#10ac84] text-[#000] hover:text-[#fff]">
           <HiOutlineClipboardDocumentList className="text-lg" />{" "}
           <span>Application</span>
         </button>
@@ -83,7 +83,7 @@ function AppChecklist() {
           </button>
         </Link>
       </div> */}
-      {openApplication ? <Application openApplication={openApplication} setOpenApplication={setOpenApplication} />:""}
+      {openApplication ? <Application openApplication={openApplication} setOpenApplication={setOpenApplication} /> : ""}
     </div>
   );
 }
