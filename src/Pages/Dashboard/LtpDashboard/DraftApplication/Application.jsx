@@ -8,10 +8,14 @@ function Application({ setOpenApplication }) {
 	const Part02 = ["PLOT NOs", "SANCTIONED LAYOUT NO. / LRS NO", ["SURVEY NO.", "VILLAGE"], "PREMISES / DOOR No.", "ROAD/ STREET", ["WARD NO.", "BLOCK No"], "LOCALITY", ["CIRCLE/DIVISION", "DIVISION"], ["CITY/TOWN", "DISTRICT"]];
 	const Part03 = ["SITE AREA (IN SQ.M)", "NO. OF FLOORS", "FLOOR AREA (IN SQ.M)", "PARKING FLOOR AREA (IN SQ.M)", "USE OF THE BUILDING"];
 	const Part04 = ["BUILDER / DEVELOPER/ CONSTRUCTION FIRM", "ARCHITECT", "ENGINEER", "STRUCTURAL ENGINEER", "SUPERVISOR/SURVEYOR", "TOWN PLANNER"]
+// Part01
+	const PhoneTD = ["d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d"];
+	const CityTown = ["PIN", "", "", "", "", "", ""]
+	const Village = ["", ""]
+// Part02
 
-	const PhoneTD = ["d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d"]
-
-	const part02SubArray = [2, 5, 7, 8]
+	const part01SubArray = [3, 4, 7]
+	const part02SubArray = [2, 5, 7, 8];
 
 	useEffect(() => {
 		// Opening the modal when the component mounts
@@ -21,6 +25,51 @@ function Application({ setOpenApplication }) {
 		}
 	}, []);
 
+	// Part01
+	const ColDataShow01 = (data, index) => {
+		let subColData;
+
+		if (index === 3) {
+			subColData = Village;
+		} else if (index === 4) {
+			subColData = CityTown;
+		} else {
+			subColData = PhoneTD;
+		}
+
+		return (
+			<td className='bg-white border border-black p-0'>
+				{part01SubArray.includes(index) ? (
+					<p className='flex'>
+						{subColData.map((d, i) => (
+							<p className={`w-full border-black py-5 border-l px-2 ${i === 0 && "border-l-0"}`}>
+								{i + 1}
+							</p>
+						))}
+					</p>
+				) : (
+					<p className='py-4 px-2'>{index + 1}</p>
+				)}
+			</td>
+		);
+	};
+
+	// Part02
+	const ColDataShow02 = (data, index, subColData) => {
+
+
+		return (
+			<td className='bg-white border border-black p-0'>{
+				part02SubArray.includes(index) ?
+					<p className='flex '>
+						{data.map((d, i) =>
+							<p className={`border-black py-4 border-l px-2 ${i == 0 && "w-1/2 border-l-0"}`}>{i + 1}</p>)}
+					</p>
+					:
+					<p className='py-4 px-2'></p>}
+			</td>
+		)
+	}
 	return (
 		<div className='w-full h-full text-black'>
 			<dialog id="my_modal_5" className="modal">
@@ -59,15 +108,7 @@ function Application({ setOpenApplication }) {
 														<p className='py-4 px-2'>{data}</p>}
 												</td>
 												{/* col-03+Row-08  */}
-												<td className='bg-white border border-black p-0'>{
-													index == 7 ?
-														<p className='flex '>
-															{PhoneTD.map((d, i) =>
-																<p className={`w-full border-black py-5 border-r px-2 ${i == 11 && "border-r-0"}`}>{i + 1}</p>)}
-														</p>
-														:
-														<p className='py-4 px-2'>{index + 1}</p>}
-												</td>
+												{ColDataShow01(data, index)}
 											</tr >
 										</>
 									))}
@@ -103,15 +144,7 @@ function Application({ setOpenApplication }) {
 														<p className='py-4 px-2'>{data}</p>}
 												</td>
 												{/* col-03 */}
-												<td className='bg-white border border-black p-0'>{
-													part02SubArray.includes(index) ?
-														<p className='flex '>
-															{data.map((d, i) =>
-																<p className={`border-black py-4 px-2 ${i == 0 && "w-1/2 border-r"}`}>{i + 1}</p>)}
-														</p>
-														:
-														<p className='py-4 px-2'></p>}
-												</td>
+												{ColDataShow02(data, index, part02SubArray)}
 											</tr>
 										</>
 									))}
