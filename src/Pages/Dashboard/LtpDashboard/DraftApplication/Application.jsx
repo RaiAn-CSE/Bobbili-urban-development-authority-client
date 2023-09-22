@@ -9,7 +9,7 @@ function Application({ setOpenApplication }) {
 	const Part03 = ["SITE AREA (IN SQ.M)", "NO. OF FLOORS", "FLOOR AREA (IN SQ.M)", "PARKING FLOOR AREA (IN SQ.M)", "USE OF THE BUILDING"];
 	const Part04 = ["BUILDER / DEVELOPER/ CONSTRUCTION FIRM", "ARCHITECT", "ENGINEER", "STRUCTURAL ENGINEER", "SUPERVISOR/SURVEYOR", "TOWN PLANNER"]
 
-	const PhoneTD = ["d", "d", "d", "d", "d", "", "", "", "", "", "", ""]
+	const PhoneTD = ["d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d"]
 
 	const part02SubArray = [2, 5, 7, 8]
 
@@ -47,34 +47,44 @@ function Application({ setOpenApplication }) {
 												{/* col-01 */}
 												<th className='bg-white border border-black w-14'>{index + 1}</th>
 												{/* col-02 */}
-												<td className='bg-white border border-black w-64 p-0 pl-4'>
+												<td className='bg-white border border-black w-64 p-0'>
 													{index == 7 ?
-														<span className='flex items-center justify-between'>
+														<p className='flex items-center justify-between py-0 pl-2'>
 															{/* sub col */}
-															<span>PHONE</span>
+															<p className='w-1/2'>PHONE</p>
+
 															<p className='flex flex-col border-black'>
-																{data.map((d, i) => <p className={`border-l border-black px-3 py-1 ${i == 0 && "border-b"}`}>{d}</p>)}
+																{data.map((d, i) => <p className={`border-l py-1 border-black px-2 ${i == 0 && "border-b"}`}>{d}</p>)}
 															</p>
-														</span> : data}
+
+														</p> : 
+														<p className='py-4 px-2'>{data}</p>}
 												</td>
 
 												{/* col-03 */}
-												<td className='bg-white border border-black'>
+												<td className='bg-white border border-black p-0'>{
+													index == 7 ?
+														<p className='flex '>
+															{PhoneTD.map((d, i) =>
+																<p className={`w-full border-black py-5 border-r px-2 ${i == 11 && "border-r-0"}`}>{i + 1}</p>)}
+														</p>
+														:
+														<p className='py-4 px-2'>{index+1}</p>}
 												</td>
-											</tr>
+											</tr >
 										</>
 									))}
 								</tbody>
 							</table>
 						</div>
 						{/* Part02 */}
-						<div className="overflow-x-auto mt-10">
+						<div className="overflow-x-auto mt-10 text-black">
 							<table className="table bg-white table-sm">
 								{/*Part02 head */}
 								<thead>
 									<tr>
-										<th className='bg-blue-300 border border-black fontbold'>B</th>
-										<th className='bg-blue-300 border-l border-t border-black'>LOCATION OF THE PROPOSED SITE</th>
+										<th className='bg-blue-300 border border-black fontbold text-black'>B</th>
+										<th className='bg-blue-300 border-l border-t border-black text-black'>LOCATION OF THE PROPOSED SITE</th>
 										<th className='bg-blue-300 border-r border-t border-black'></th>
 									</tr>
 								</thead>
@@ -90,7 +100,7 @@ function Application({ setOpenApplication }) {
 													part02SubArray.includes(index) ?
 														<p className='flex '>
 															{data.map((d, i) =>
-																<p className={`border-black py-4 px-2 ${i == 0 && "border-r"}`}>{d}</p>)}
+																<p className={`border-black py-4 px-2 ${i == 0 && "w-1/2 border-r"}`}>{d}</p>)}
 														</p>
 														:
 														<p className='py-4 px-2'>{data}</p>}
@@ -100,7 +110,7 @@ function Application({ setOpenApplication }) {
 													part02SubArray.includes(index) ?
 														<p className='flex '>
 															{data.map((d, i) =>
-																<p className={`border-black py-4 px-2 ${i == 0 && "border-r"}`}>{d}</p>)}
+																<p className={`border-black py-4 px-2 ${i == 0 && "w-1/2 border-r"}`}>{i + 1}</p>)}
 														</p>
 														:
 														<p className='py-4 px-2'></p>}
