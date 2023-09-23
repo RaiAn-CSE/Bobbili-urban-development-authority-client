@@ -27,6 +27,7 @@ function AppChecklist() {
   useEffect(() => {
     const gettingData = async () => {
       const applicationData = await getApplicationData(applicationNo);
+      console.log(applicationData)
       const applicationCheckList = applicationData.applicationCheckList;
       if (applicationCheckList.length) {
         setQuestions(applicationCheckList);
