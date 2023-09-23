@@ -374,7 +374,7 @@ const BuildingInfo = () => {
               value={selectedOptionCase}
               onChange={handleCaseTypeChange}
             >
-              <option disabled selected value="Select Case type">
+              <option disabled selected value="">
                 Select Case type
               </option>
               <option value="New">New</option>
@@ -423,7 +423,7 @@ const BuildingInfo = () => {
               value={selectedOptionPermission}
               onChange={handlePermissionChange}
             >
-              <option disabled selected value="Select Nature of permission">
+              <option disabled selected value="">
                 Select Nature of permission
               </option>
               <option value="General">General</option>
@@ -799,63 +799,6 @@ const BuildingInfo = () => {
             placeholder="per Sq.Yd."
           />
         </div>
-
-        {/* Render additional input field sets based on inputFieldCount */}
-        {/* {Array.from({ length: inputFieldCount }).map((_, index) => (
-          <div key={index} className="grid grid-cols-2 lg:grid-cols-4">
-            <div className="flex flex-col justify-center mx-3">
-              <label className="block text-gray-600 mb-1 font-semibold">
-                <span>Floor Name</span>
-              </label>
-              <select
-                id={`floorName${index}`}
-                className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
-              >
-                <option disabled selected>
-                  Select Floor Name
-                </option>
-                <option>Stilt / Parking Floor</option>
-                <option>Ground floor</option>
-                <option>First Floor</option>
-                <option>Second Floor</option>
-              </select>
-            </div>
-
-            <div className="my-4 mx-3">
-              <label
-                htmlFor={`builtUpArea${index}`}
-                className="block text-gray-600 mb-1 font-semibold"
-              >
-                Built up area (in Sq.M.)
-              </label>
-              <input
-                type="number"
-                id={`builtUpArea${index}`}
-                placeholder="in Sq.M."
-                className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
-                value={builtUpArea[index] || ""}
-                onChange={(e) => handleBuiltUpArea(index, e.target.value)}
-              />
-            </div>
-
-            <div className="my-4 mx-3">
-              <label
-                htmlFor={`parkingArea${index}`}
-                className="block text-gray-600 mb-1 font-semibold"
-              >
-                Parking Area (in Sq.M.)
-              </label>
-              <input
-                type="number"
-                id={`parkingArea${index}`}
-                placeholder="in Sq.M."
-                className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
-                value={parkingArea[index] || ""}
-                onChange={(e) => handleParkingArea(index, e.target.value)}
-              />
-            </div>
-          </div>
-        ))} */}
 
         <div className="grid grid-cols-2 lg:grid-cols-4">
           {totalFloor.map((floor, index) => (
