@@ -15,11 +15,11 @@ function ApplicationHeader() {
                     <tbody>
                         <div className='w-full flex items-center justify-between font-bold'>
                             <tr>
-                                {header.map(data => <td className='bg-green-200 border border-black'>{data}</td>)}
+                                {header.map(data => <td className='bg-green-200 border border-black px-2 h-10'>{data}</td>)}
                             </tr>
                             <tr>
-                                <td className='bg-green-200 border border-black'>
-                                    Date:</td> {FormDate.map(data => <td className='bg-green-200 border border-black'>{data}</td>)}
+                                <td className='bg-green-200 border border-black px-2 h-10'>
+                                    Date:</td> {FormDate.map(data => <td className='bg-green-200 border border-black px-2 h-10'>{data}</td>)}
                             </tr>
                         </div>
                     </tbody>

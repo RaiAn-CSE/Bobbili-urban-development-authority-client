@@ -110,6 +110,32 @@ function Application({ setOpenApplication }) {
   }, []);
 
   // Part01
+  function renderPart01Col2(data, index) {
+    if (index === 3 || index === 7) {
+      return (
+        <td key={index} className="bg-white border border-black w-36 p-0">
+          <div className="flex">
+            {data.map((e, i) => (
+              <p
+                key={i}
+                className={`flex items-center p-2 ${(index === 3 || index === 7) && "border-l"
+                  } border-black h-12 ${i === 0 && "border-l-0"}`}
+              >
+                {e}
+              </p>
+            ))}
+          </div>
+        </td>
+      );
+    } else {
+      return (
+        <td key={index} className="bg-white border border-black w-36 p-0">
+          <p className="h-12 p-2 flex items-center">{data}</p>
+        </td>
+      );
+    }
+  }
+
   const ColDataShow01 = (data, index) => {
     let subColData;
 
@@ -140,9 +166,8 @@ function Application({ setOpenApplication }) {
             {subColData.map((d, i) => {
               return (
                 <p
-                  className={`h-12 flex flex-col justify-center p-4 ${
-                    i > 0 && "border-l border-black"
-                  } ${i == 0 && "w-1/2 border-l-0"}`}
+                  className={`h-12 flex flex-col justify-center p-4 ${i > 0 && "border-l border-black"
+                    } ${i == 0 && "w-1/2 border-l-0"}`}
                 >
                   {d}
                 </p>
@@ -162,16 +187,15 @@ function Application({ setOpenApplication }) {
           <p className="flex ">
             {data.map((d, i) => (
               <p
-                className={`border-black py-4 border-l px-2 ${
-                  i == 0 && "w-1/2 border-l-0"
-                }`}
+                className={`border-black py-4 border-l px-2 ${i == 0 && "w-1/2 border-l-0"
+                  }`}
               >
                 {i + 1}
               </p>
             ))}
           </p>
         ) : (
-          <p className="py-4 px-2"></p>
+          <p className="py-4 px-2">{index+1}</p>
         )}
       </td>
     );
@@ -194,18 +218,16 @@ function Application({ setOpenApplication }) {
           <p className="flex ">
             {colData.map((d, i) => (
               <p
-                className={`w-full border-black py-4 border-l ${
-                  i == 0 && "border-l-0"
-                }`}
+                className={`w-full border-black py-4 border-l ${i == 0 && "border-l-0"
+                  }`}
               >
                 <p className="px-2">{Object.keys(colData[i])[0]}</p>
                 {/* {Object.values(colData[i])[0]} */}
                 <p
-                  className={`${
-                    index !== 4
-                      ? "border-t "
-                      : "font-bold inline-block border-b-2 border-dotted border-black underline-offset-4 mt-2 ml-2"
-                  } border-black px-2 pt-2`}
+                  className={`${index !== 4
+                    ? "border-t "
+                    : "font-bold inline-block border-b-2 border-dotted border-black underline-offset-4 mt-2 ml-2"
+                    } border-black px-2 pt-2`}
                 >
                   {i + 1}
                 </p>
@@ -227,11 +249,9 @@ function Application({ setOpenApplication }) {
           return (
             <>
               <p
-                className={`${
-                  i == 0 ? "border-t-0" : "border-t"
-                } border-black h-20 py-4 px-2 ${
-                  numb == 2 ? "block" : "hidden"
-                }`}
+                className={`${i == 0 ? "border-t-0" : "border-t"
+                  } border-black h-20 py-4 px-2 ${numb == 2 ? "block" : "hidden"
+                  }`}
               >
                 <p
                   className={
@@ -243,9 +263,8 @@ function Application({ setOpenApplication }) {
                 <p>{Object.keys(data[i])[0]}</p>
               </p>
               <p
-                className={`border-black px-2 h-20 flex items-center ${
-                  i == 0 ? "border-t-0" : "border-t"
-                } ${numb == 2 ? "hidden" : "block"}`}
+                className={`border-black px-2 h-20 flex items-center ${i == 0 ? "border-t-0" : "border-t"
+                  } ${numb == 2 ? "hidden" : "block"}`}
               >
                 {numb == 1 ? i + 1 : Object.values(data[i])[0]}
               </p>
@@ -258,7 +277,7 @@ function Application({ setOpenApplication }) {
   return (
     <div className="w-full h-full text-black">
       <dialog id="my_modal_5" className="modal">
-        <div className="modal-box w-full max-w-5xl p-14">
+        <div className="modal-box w-full max-w-4xl p-14">
           {/* Header */}
           <ApplicationHeader />
           <div>
@@ -287,19 +306,8 @@ function Application({ setOpenApplication }) {
                         </th>
 
                         {/* col-02 */}
-                        <td className="bg-white border border-black w-36 p-0">
-                          <p className={` h-12`}>
-                            {index == 3 || index == 7 ? (
-                              <p className={`flex ${(index == 3 || index == 7) &&"border-r"} border-black`}>
-							  {data.map((e) => {
-								  return <p>{e}</p>
-							  })}
-							</p>
-						  ) : (
-							<p>{data}</p>
-                            )}
-                          </p>
-                        </td>
+                        {renderPart01Col2(data, index)}
+
                         {/* col-03*/}
                         <td className="bg-white border border-black p-0">
                           {ColDataShow01(data, index)}
@@ -340,9 +348,8 @@ function Application({ setOpenApplication }) {
                             <p className="flex ">
                               {data.map((d, i) => (
                                 <p
-                                  className={`border-black py-4 px-2 ${
-                                    i == 0 && "w-1/2 border-r"
-                                  }`}
+                                  className={`border-black py-4 px-2 ${i == 0 && "w-1/2 border-r"
+                                    }`}
                                 >
                                   {d}
                                 </p>
