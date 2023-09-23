@@ -2,20 +2,17 @@ import React, { useEffect } from "react";
 import ApplicationHeader from "./ApplicationHeader";
 
 function Application({ setOpenApplication }) {
-  const Part01 = {
-    column: {
-      col2: [
-        "NAME",
-        "DOOR No. / FLAT No.",
-        "ROAD/STREET",
-        ["VILLAGE", "MANDAL"],
-        "CITY/TOWN",
-        "DISTRICT",
-        "E-MAIL",
-        ["MOBILE", "ALTERNATE"],
-      ],
-    },
-  };
+  const Part01 = [
+    "NAME",
+    "DOOR No. / FLAT No.",
+    "ROAD/STREET",
+    ["VILLAGE", "MANDAL"],
+    "CITY/TOWN",
+    "DISTRICT",
+    "E-MAIL",
+    ["MOBILE", "ALTERNATE"],
+  ];
+
   const Part02 = [
     "PLOT NOs",
     "SANCTIONED LAYOUT NO. / LRS NO",
@@ -100,7 +97,7 @@ function Application({ setOpenApplication }) {
   const Village = ["Binodpur", "Kazla"];
   // const Village=[{Village:"",Mondal:""}]
   // Part02
-  const part01SubArray = [3, 4, 7];
+  const part01IndexArray = [3, 4, 7];
   const part02SubArray = [2, 5, 7, 8];
   const part03SubArray = [0, 1, 4];
 
@@ -141,7 +138,15 @@ function Application({ setOpenApplication }) {
         <p>
           <p className="flex">
             {subColData.map((d, i) => {
-              return <p className={`h-12 flex flex-col justify-center p-4 ${i>0&&"border-l border-black"} ${i==0&&"w-1/2 border-l-0"}`}>{d}</p>;
+              return (
+                <p
+                  className={`h-12 flex flex-col justify-center p-4 ${
+                    i > 0 && "border-l border-black"
+                  } ${i == 0 && "w-1/2 border-l-0"}`}
+                >
+                  {d}
+                </p>
+              );
             })}
           </p>
         </p>
@@ -274,17 +279,28 @@ function Application({ setOpenApplication }) {
                 </thead>
                 <tbody>
                   {/* row 1 */}
-                  {Part01.column.col2.map((data, index) => (
+                  {Part01.map((data, index) => (
                     <>
                       <tr key={index} className="bg-white p-0">
-                        {/* col-01 */}
-                        <th className="bg-white border border-black w-14 p-0">
+                        <th className="bg-white border border-black w-14 px-2">
                           {index + 1}
                         </th>
-                        {/* col-02 */}
-                        <td className="bg-white border border-black w-36 p-0"></td>
-                        {/* col-03+Row-08  */}
 
+                        {/* col-02 */}
+                        <td className="bg-white border border-black w-36 p-0">
+                          <p className={` h-12`}>
+                            {index == 3 || index == 7 ? (
+                              <p className={`flex ${(index == 3 || index == 7) &&"border-r"} border-black`}>
+							  {data.map((e) => {
+								  return <p>{e}</p>
+							  })}
+							</p>
+						  ) : (
+							<p>{data}</p>
+                            )}
+                          </p>
+                        </td>
+                        {/* col-03*/}
                         <td className="bg-white border border-black p-0">
                           {ColDataShow01(data, index)}
                         </td>
