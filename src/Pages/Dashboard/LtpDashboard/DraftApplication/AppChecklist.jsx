@@ -6,24 +6,15 @@ import Application from "./Application";
 import { useOutletContext } from "react-router-dom";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import SaveData from "./SaveData";
+import toast from "react-hot-toast";
 
 function AppChecklist() {
   const [openApplication, setOpenApplication] = useState(false);
-  // const LocalItems = JSON.parse(localStorage.getItem("ApplicationList"));
-
-  const stepperData = useOutletContext();
-
-  const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
-
-  console.log(stepperData);
-
-  const { confirmAlert, sendUserDataIntoDB } = useContext(AuthContext);
-
-  const btn =
-    "btn btn-md text-sm px-6 bg-Primary transition duration-700 hover:bg-btnHover hover:shadow-md";
-
   const [questions, setQuestions] = useState(ChecklistQuestions.Questions);
-
+  const stepperData = useOutletContext();
+  const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
+  const { confirmAlert, sendUserDataIntoDB, getApplicationData } = useContext(AuthContext);
+  // after select question firing here
   const handleAnswer = (event, questionNo) => {
     const updatedQuestions = questions.map((question) => ({
       ...question,
@@ -31,19 +22,29 @@ function AppChecklist() {
     }));
     setQuestions(updatedQuestions);
   };
+  const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
+  
+  const gettingData = async () => {
+    const applicationData = await getApplicationData(applicationNo);
+    const applicationCheckList = applicationData.applicationCheckList;
+    if (applicationCheckList.length) {
+      setQuestions(applicationCheckList)
+    }
+  }
+  gettingData()
 
-  console.log(questions, "QW");
+
 
   console.log({ appChecklist: questions }); // data send format
   // Sending data to Backend
 
   const sendAppChecklistData = async (url) => {
     return await sendUserDataIntoDB(url, "PATCH", {
-      applicationNo: JSON.parse(localStorage.getItem("CurrentAppNo")),
+      applicationNo: applicationNo,
       applicationCheckList: questions,
     });
   };
-
+  const btn = "btn btn-md text-sm px-6 bg-Primary transition duration-700 hover:bg-btnHover hover:shadow-md";
   return (
     <div className="px-3 text-sm py-1">
       <div className="text-end mb-4">

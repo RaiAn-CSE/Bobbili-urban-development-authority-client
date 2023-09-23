@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import ApplicationHeader from '../../../Shared/ApplicationHeader';
+import ApplicationHeader from './ApplicationHeader';
 
 function Application({ setOpenApplication }) {
 	const Part01 = {
@@ -20,9 +20,9 @@ function Application({ setOpenApplication }) {
 	const NameCol = [{ "BUILDER / DEVELOPER/ CONSTRUCTION FIRM": "" }, { "ARCHITECT": "" }, { "ENGINEER": "" }, { "STRUCTURAL ENGINEER": "" }, { "SUPERVISOR/SURVEYOR": "" }, { "TOWN PLANNER": "" }
 	]
 	const AddressCol = [{ address: "123 Main St" }, { address: "Apt 456" }, { address: "789 Elm St" }, { address: "Unit 101" }, { address: "456 Oak Ave" }, { address: "Suite 303" }];
-	const LicenceNo = [{ licenceNo: "AB123456" },{ licenceNo: "CD789012" },{ licenceNo: "EF345678" },{ licenceNo: "GH901234" },{ licenceNo: "IJ567890" },{ licenceNo: "KL123456" },
+	const LicenceNo = [{ licenceNo: "AB123456" }, { licenceNo: "CD789012" }, { licenceNo: "EF345678" }, { licenceNo: "GH901234" }, { licenceNo: "IJ567890" }, { licenceNo: "KL123456" },
 	];
-	
+
 
 	// Part01
 	const PhoneTD = ["d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d", "d"];
@@ -127,12 +127,12 @@ function Application({ setOpenApplication }) {
 				data.map((d, i) => {
 					return (
 						<>
-							<p className={`${i==0?"border-t-0":"border-t"} border-black h-20 py-4 px-2 ${numb == 2 ? "block" : "hidden"}`}>
+							<p className={`${i == 0 ? "border-t-0" : "border-t"} border-black h-20 py-4 px-2 ${numb == 2 ? "block" : "hidden"}`}>
 								<p className={"font-semibold inline-block border-b-2 border-dotted border-black underline-offset-4 mb-2"}>Tanjimul Islam Sabbir{Object.values(data[i])[0]}</p>
 								<p>{Object.keys(data[i])[0]}</p>
 							</p>
-							<p className={`border-black px-2 h-20 flex items-center ${i==0?"border-t-0":"border-t"} ${numb == 2 ? "hidden" : "block"}`}>{
-							numb==1?i+1:Object.values(data[i])[0]}</p>
+							<p className={`border-black px-2 h-20 flex items-center ${i == 0 ? "border-t-0" : "border-t"} ${numb == 2 ? "hidden" : "block"}`}>{
+								numb == 1 ? i + 1 : Object.values(data[i])[0]}</p>
 						</>
 					)
 				})
@@ -142,12 +142,12 @@ function Application({ setOpenApplication }) {
 	return (
 		<div className='w-full h-full text-black'>
 			<dialog id="my_modal_5" className="modal">
-				<div className="modal-box w-full max-w-6xl p-14">
+				<div className="modal-box w-full max-w-5xl p-14">
 					{/* Header */}
 					<ApplicationHeader />
 					<div>
 						{/* Part01 */}
-						<div className="overflow-x-scroll">
+						<div className="overflow-x-auto">
 							<table className="table bg-white table-sm">
 								{/*Part01 head */}
 								<thead>
@@ -271,10 +271,10 @@ function Application({ setOpenApplication }) {
 							</thead>
 							<tbody>
 								{/* row 1 */}
-								<td className='bg-white border border-black p-0 w-10 font-bold'>{ColDataShow04([1,2,3,4,5,6],1)}</td>
+								<td className='bg-white border border-black p-0 w-10 font-bold'>{ColDataShow04([1, 2, 3, 4, 5, 6], 1)}</td>
 								<td className='bg-white border border-black p-0'>{ColDataShow04(NameCol, 2)}</td>
 								<td className='bg-white border border-black p-0'>{ColDataShow04(AddressCol, 3)}</td>
-								<td className='bg-white border border-black p-0'>{ColDataShow04(LicenceNo,4)}</td>
+								<td className='bg-white border border-black p-0'>{ColDataShow04(LicenceNo, 4)}</td>
 							</tbody>
 						</table>
 					</div>
