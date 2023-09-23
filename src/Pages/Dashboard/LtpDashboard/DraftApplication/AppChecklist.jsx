@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ChecklistQuestions from "../../../../assets/AppChecklist.json";
 import { Link } from "react-router-dom";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
@@ -23,17 +23,17 @@ function AppChecklist() {
     setQuestions(updatedQuestions);
   };
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
-  
-  const gettingData = async () => {
-    const applicationData = await getApplicationData(applicationNo);
-    const applicationCheckList = applicationData.applicationCheckList;
-    if (applicationCheckList.length) {
-      setQuestions(applicationCheckList)
-    }
-  }
-  gettingData()
 
-
+  useEffect(() => {
+    const gettingData = async () => {
+      const applicationData = await getApplicationData(applicationNo);
+      const applicationCheckList = applicationData.applicationCheckList;
+      if (applicationCheckList.length) {
+        setQuestions(applicationCheckList);
+      }
+    };
+    gettingData();
+  }, []);
 
   console.log({ appChecklist: questions }); // data send format
   // Sending data to Backend
