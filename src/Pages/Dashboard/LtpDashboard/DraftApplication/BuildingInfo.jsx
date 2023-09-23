@@ -616,14 +616,14 @@ const BuildingInfo = () => {
               )}
               {selectedNatureOfTheSite ===
                 "Plot port of RLP/IPLP but not regularised" && (
-                <InputField
-                  id="IplpNo"
-                  name=""
-                  label="RLP/IPLP no."
-                  placeholder="RLP/IPLP no."
-                  type="number"
-                />
-              )}
+                  <InputField
+                    id="IplpNo"
+                    name=""
+                    label="RLP/IPLP no."
+                    placeholder="RLP/IPLP no."
+                    type="number"
+                  />
+                )}
             </>
           )}
           {/*===================== Conditional Input Field End =====================*/}

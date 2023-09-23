@@ -66,9 +66,13 @@ const NewApplication = () => {
   };
   // Function to generate a unique number
   const generateApplicationNumber = () => {
-    const year = date.getFullYear();
-    console.log(year);
-    const applicationNo = `1177/7/${year}`;
+    const currentDate = new Date();
+    const second = currentDate.getSeconds();
+    const minute = currentDate.getMinutes();
+    const date = currentDate.getDate();
+    const year = currentDate.getFullYear();
+
+    const applicationNo = `${second}/${minute}/${date}/${year}`;
 
     return applicationNo;
   };
@@ -94,9 +98,8 @@ const NewApplication = () => {
         labourCessCharge: {},
         greenFeeCharge: {},
       },
-      createdDate: `${date.getDate()}-${
-        date.getMonth() + 1
-      }-${date.getFullYear()}`,
+      createdDate: `${date.getDate()}-${date.getMonth() + 1
+        }-${date.getFullYear()}`,
     };
 
     sendUserDataIntoDB(url, "PATCH", data)
