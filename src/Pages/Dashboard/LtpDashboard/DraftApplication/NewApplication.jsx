@@ -1,33 +1,81 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { VscGitPullRequestCreate } from "react-icons/vsc";
+import { useNavigate } from "react-router-dom";
+import { useQuery } from "react-query";
 import { BsPlusLg } from "react-icons/bs";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
+import toast from "react-hot-toast";
+import AllDraftApplication from "./AllDraftApplication";
 
 const NewApplication = () => {
-  useEffect(() => {
-    localStorage.removeItem("currentStep");
-  });
-
-  const { userInfoFromLocalStorage, sendUserDataIntoDB } =
+  const { userInfoFromLocalStorage, sendUserDataIntoDB, alertToConfirmDelete } =
     useContext(AuthContext);
 
-  console.log(userInfoFromLocalStorage);
+  console.log(userInfoFromLocalStorage());
 
-  const { _id: userID } = userInfoFromLocalStorage;
+  const { _id: userID } = userInfoFromLocalStorage();
+  const [error, setError] = useState("");
 
+  const navigate = useNavigate();
+  const date = new Date();
+
+  // get all draft applications
+  const { data, refetch, isLoading, isError } = useQuery(
+    ["draftApplications"],
+    async () => {
+      const response = await fetch(
+        `https://residential-building.vercel.app/draftApplications/${userID}`
+      );
+      return await response.json();
+    }
+  );
+
+  console.log(data, "Query");
+
+  useEffect(() => {
+    if (isError) {
+      console.log("ERROR");
+      setError("No data found");
+    } else {
+      setError("");
+    }
+
+    localStorage.removeItem("currentStep");
+  }, [isError]);
+
+  const removeDraftApplication = (applicationNo) => {
+    console.log(applicationNo, "DELTE APP NO");
+    fetch(`https://residential-building.vercel.app/deleteSingleDraft`, {
+      method: "DELETE",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ applicationNo, userID }),
+    })
+      .then((res) => {
+        console.log(res);
+        if (res.ok) {
+          toast.success("Delete successfully");
+          refetch();
+        } else {
+          toast.error("Failed to delete data");
+        }
+      })
+      .catch(() => {
+        toast.error("Server is not responded");
+      });
+  };
   // Function to generate a unique number
   const generateApplicationNumber = () => {
-    const year = new Date().getFullYear();
+    const year = date.getFullYear();
     console.log(year);
-    const applicationNo = `1177/1/${year}`;
+    const applicationNo = `1177/7/${year}`;
 
     return applicationNo;
   };
 
   // store new application information into the database
   const storeApplicationData = () => {
-    const url = `http://localhost:5000/updateUserData/${userID}`;
+    const url = `https://residential-building.vercel.app/updateDraftApplicationData/${userID}`;
 
     const data = {
       applicationNo: generateApplicationNumber(),
@@ -46,23 +94,48 @@ const NewApplication = () => {
         labourCessCharge: {},
         greenFeeCharge: {},
       },
+      createdDate: `${date.getDate()}-${
+        date.getMonth() + 1
+      }-${date.getFullYear()}`,
     };
 
-    sendUserDataIntoDB(url, "PATCH", data);
+    sendUserDataIntoDB(url, "PATCH", data)
+      .then((response) => {
+        console.log(response);
+        if (!response.acknowledged) {
+          toast.error("Failed to store data");
+        } else {
+          toast.success("Data stored Successfully");
+          // store current application No
+          localStorage.setItem(
+            "CurrentAppNo",
+            JSON.stringify(data.applicationNo)
+          );
+          navigate("/dashboard/draftApplication/buildingInfo");
+        }
+      })
+      .catch(() => {
+        toast.error("Failed to store data");
+      });
+  };
+
+  // navigate after clicking on the draft application no
+  const showDraftApplication = (applicationNo) => {
+    console.log(applicationNo);
+    localStorage.setItem("CurrentAppNo", JSON.stringify(applicationNo));
+    navigate("/dashboard/draftApplication/buildingInfo");
   };
 
   return (
     <div className="grid grid-cols-1 my-3">
       <div className="flex justify-end my-5 mr-3">
-        <Link
-          to="/dashboard/draftApplication/buildingInfo"
+        <button
+          className="btn flex bg-[#c0e9e4] transition-all duration-700 hover:bg-[#10ac84] text-[#000] hover:text-[#fff]"
           onClick={storeApplicationData}
         >
-          <button className="btn flex bg-[#c0e9e4] transition-all duration-700 hover:bg-[#10ac84] text-[#000] hover:text-[#fff]">
-            <span className="text-xs">Create a new application</span>
-            <BsPlusLg size={20} />
-          </button>
-        </Link>
+          <span className="text-xs">Create a new application</span>
+          <BsPlusLg size={20} />
+        </button>
       </div>
 
       <div className="w-full overflow-x-auto">
@@ -82,24 +155,27 @@ const NewApplication = () => {
             </tr>
           </thead>
           <tbody>
-            {/* row 1 */}
-            <tr>
-              <th>1.</th>
-              <td>1177/XX/001/BUDA/2023</td>
-              <td>XXXX XXX</td>
-              <td>99xxxxxxx99</td>
-              <td>New</td>
-              <td>Piridi</td>
-              <td>Bobbili</td>
-              <td>07-04-2023</td>
-              <td>
-                <button className="btn btn-xs btn-error text-white">
-                  Delete
-                </button>
-              </td>
-            </tr>
+            {/* show draft applications  */}
+
+            {data?.map((applicationData, index) => (
+              <AllDraftApplication
+                key={index}
+                serialNo={index}
+                applicationData={applicationData}
+                showDraftApplication={showDraftApplication}
+                removeDraftApplication={removeDraftApplication}
+              />
+            ))}
           </tbody>
         </table>
+
+        {error && (
+          <p className="text-lg text-center my-4 font-bold text-error">
+            {error}
+          </p>
+        )}
+
+        {isLoading && <p>Loading...</p>}
       </div>
     </div>
   );

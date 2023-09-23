@@ -1,19 +1,96 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import InputField from "../../../Components/InputField";
-import { Link } from "react-router-dom";
 import LTPImg from "../../../../assets/images/id-card.png";
 import OwnerImg from "../../../../assets/images/real-estate-agent.png";
-import usePostData from "../../../../CustomHook/usePostData";
-import useGetDraftAppData from "../../../../CustomHook/useGetDraftAppData";
+import OwnerDetail from "./OwnerDetail";
+import { useOutletContext } from "react-router";
+import { AuthContext } from "../../../../AuthProvider/AuthProvider";
+import SaveData from "./SaveData";
 
 const ApplicantInfo = () => {
+  const stepperData = useOutletContext();
+
+  const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
+
+  console.log(stepperData);
+
+  const { confirmAlert, sendUserDataIntoDB } = useContext(AuthContext);
+
+  const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
+
   const handleBackendData = () => {
     const applicationId = JSON.parse(localStorage.getItem("applicationId"));
     getPostData({ applicationId: applicationId, applicantInfo: {} });
   };
 
+  const [ltpPhone, setLtpPhone] = useState("");
+
+  const [totalApplicant, setTotalApplicant] = useState(["Owner1"]);
+  console.log(totalApplicant);
+
+  const increaseApplicantNo = () => {
+    const newOwner = `Owner${totalApplicant.length + 1}`;
+    setTotalApplicant((prev) => [...prev, newOwner]);
+  };
+
+  const setPhoneNoLimit = (e, setPhoneNo) => {
+    const value = e.target.value;
+    // Check if the Applicant Phone No Input value contains only digits and is not longer than 10 characters
+    if (/^\d*$/.test(value) && value.length <= 10) {
+      setPhoneNo(value);
+    }
+  };
+
+  const handleApplicantInfoData = async (url) => {
+    // ====================LTP’s Details
+    const ltpType = document.getElementById("ltpType").value;
+    const ltpName = document.getElementById("ltpName").value;
+    const licenseNo = document.getElementById("licenseNo").value;
+    const validity = document.getElementById("validity").value;
+    const ltpPhoneNo = document.getElementById("ltpPhoneNo").value;
+    const ltpEmail = document.getElementById("ltpEmail").value;
+    const ltpAddress = document.getElementById("ltpAddress").value;
+
+    const ownerDetail = totalApplicant.map((applicant, index) => {
+      console.log(applicant);
+
+      return {
+        name: document.getElementById(`applicantName${index}`).value,
+        identity: document.getElementById(`soWoCo${index}`).value,
+        phone: document.getElementById(`applicantPhoneNo${index}`).value,
+        email: document.getElementById(`applicantEmail${index}`).value,
+        adharNo: document.getElementById(`applicantAadharNo${index}`).value,
+        pinCode: document.getElementById(`applicantPinCode${index}`).value,
+        address: document.getElementById(`applicantAddress${index}`).value,
+      };
+    });
+
+    console.log(ownerDetail);
+
+    const ltpDetails = {
+      type: ltpType,
+      name: ltpName,
+      licenseNo,
+      validity,
+      phoneNo: ltpPhoneNo,
+      email: ltpEmail,
+      address: ltpAddress,
+    };
+
+    const applicantInfo = {
+      ltpDetails,
+      applicantDetails: ownerDetail,
+    };
+
+    return await sendUserDataIntoDB(url, "PATCH", {
+      applicationNo,
+      applicantInfo,
+    });
+  };
+
   return (
     <div className="grid my-5 lg:my-0 lg:p-2">
+      {/* LTP’s Details  */}
       <div>
         <div className="flex items-center">
           <img
@@ -23,45 +100,67 @@ const ApplicantInfo = () => {
           />
           <h3 className="font-bold text-xl">LTP’s Details</h3>
         </div>
+        {/* Divider  */}
         <div className="divider m-0"></div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 my-8">
           <div className="grid grid-cols-2">
             <InputField
-              id="name1"
-              name="Case Type"
+              id="ltpType"
+              name="ltpType"
               label="LTP Type"
               placeholder="Licenced Engineer"
             />
             <InputField
-              id="name2"
-              name="name1"
+              id="ltpName"
+              name="ltpName"
               label="LTP Name"
               placeholder="xxxxxxxxxxxxxxxxx"
             />
             <InputField
-              id="name4"
-              name="Nature of the site"
+              id="licenseNo"
+              name="licenseNo"
               label="Licence no."
               placeholder="xx/xxxxx"
               type="number"
             />
+
+            <div className="my-4 mx-3">
+              <label
+                htmlFor="ltpPhoneNo"
+                className="block text-gray-600 mb-1 font-semibold"
+              >
+                Validity
+              </label>
+              <input
+                type="date"
+                id="validity"
+                name="validity"
+                className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
+              />
+            </div>
+
+            <div className="my-4 mx-3">
+              <label
+                htmlFor="ltpPhoneNo"
+                className="block text-gray-600 mb-1 font-semibold"
+              >
+                Phone no.
+              </label>
+              <input
+                id="ltpPhoneNo"
+                type="text"
+                name="ltpPhoneNo"
+                placeholder="xxxxxxxxxx"
+                value={ltpPhone}
+                onChange={(e) => setPhoneNoLimit(e, setLtpPhone)}
+                className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
+              />
+            </div>
+
             <InputField
-              id="name5"
-              name="Survey no."
-              label="Validity"
-              placeholder="31/03/2024"
-            />
-            <InputField
-              id="name6"
-              name="District"
-              label="Phone no."
-              placeholder="xxxxxxxxxx"
-              type="number"
-            />
-            <InputField
-              id="name6"
-              name="Mandal"
+              id="ltpEmail"
+              name="ltpEmail"
               label="E-mail"
               placeholder="xxxx@gmail.com"
               type="email"
@@ -76,7 +175,8 @@ const ApplicantInfo = () => {
                 Address
               </label>
               <textarea
-                id="message"
+                id="ltpAddress"
+                name="ltpAddress"
                 rows="4"
                 className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
                 placeholder="Dr. no., Street, Village, Mandal, Dist."
@@ -86,6 +186,7 @@ const ApplicantInfo = () => {
         </div>
       </div>
 
+      {/* Applicant’s Details  */}
       <div className="my-5">
         <div className="flex items-center">
           <img
@@ -97,73 +198,27 @@ const ApplicantInfo = () => {
         </div>
         <div className="divider m-0"></div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 mt-8">
-          <div className="grid grid-cols-2 items-center">
-            <InputField
-              id="name13"
-              name="name1"
-              label="Name"
-              placeholder="Select Case type"
-            />
-            <InputField
-              id="name14"
-              name="name1"
-              label="S/o (or) W/o (or) C/o"
-              placeholder="Select Nature of permission"
-            />
-            <InputField
-              id="name15"
-              name="name1"
-              label="Phone no."
-              placeholder="Phone no."
-              type="number"
-            />
-            <InputField
-              id="name15"
-              name="name1"
-              label="E-mail"
-              placeholder="E-mail"
-              type="email"
-            />
-            <InputField
-              id="name15"
-              name="name1"
-              label="Aadhar no."
-              placeholder="Aadhar no."
-              type="number"
-            />
-            <InputField
-              id="name15"
-              name="name1"
-              label="PIN Code"
-              placeholder="PIN Code"
-              type="number"
-            />
-          </div>
-          <div className="my-4 mx-3">
-            <label
-              htmlFor="message"
-              className="block text-gray-600 mb-1 font-semibold"
-            >
-              Address
-            </label>
-            <textarea
-              id="message"
-              rows="4"
-              className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
-              placeholder="Dr. no., Street, Village, Mandal, Dist."
-            ></textarea>
-          </div>
-        </div>
+        {totalApplicant?.map((applicantNo, index) => (
+          <OwnerDetail
+            key={index}
+            index={index}
+            length={totalApplicant.length}
+            applicantNo={applicantNo}
+            increaseApplicantNo={increaseApplicantNo}
+            setPhoneNoLimit={setPhoneNoLimit}
+          />
+        ))}
       </div>
 
-      {/* <div className="flex justify-center md:justify-end mb-5">
-        <Link to="/dashboard/draftApplication/applicationChecklist">
-          <button className="btn btn-md bg-Primary hover:bg-btnHover hover:shadow-md transition-all duration-500">
-            Save And Continue
-          </button>
-        </Link>
-      </div> */}
+      {/* save & continue  */}
+      <SaveData
+        isStepperVisible={isStepperVisible}
+        currentStep={currentStep}
+        steps={steps}
+        stepperData={stepperData}
+        confirmAlert={confirmAlert}
+        collectInputFieldData={handleApplicantInfoData}
+      />
     </div>
   );
 };

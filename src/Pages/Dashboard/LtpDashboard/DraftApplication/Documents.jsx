@@ -1,14 +1,23 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Documents from "../../../../assets/Documents.json";
-import { Link } from "react-router-dom";
-import usePostData from "../../../../CustomHook/usePostData";
-import useGetDraftAppData from "../../../../CustomHook/useGetDraftAppData";
+import { useOutletContext } from "react-router-dom";
 import toast from "react-hot-toast";
+import SaveData from "./SaveData";
+import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 
 const DocumentUpload = () => {
   const [selectedFiles, setSelectedFiles] = useState({});
   const [UpdatedDocuments, setUpdatedDocuments] = useState(Documents.Data);
   const btn = "btn btn-md text-sm bg-Primary transition duration-700 hover:bg-btnHover hover:shadow-md";
+
+  const stepperData = useOutletContext();
+
+  const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
+
+  console.log(stepperData);
+
+  const { confirmAlert, sendUserDataIntoDB } = useContext(AuthContext);
+
 
   const handleFileChange = (event, eventId) => {
     const file = event?.target?.files[0];
@@ -30,11 +39,11 @@ const DocumentUpload = () => {
   console.log(UpdatedDocuments, "UpdatesDocuments");
 
   // Sending data to Backend
-  const handleBackendData = () => {
-    const applicationId = JSON.parse(
-      localStorage.getItem("draftApplicationData")
-    ).applicationId;
-    usePostData({ applicationId: applicationId, documents: {} });
+  const sendDocumentsData = async (url) => {
+    return await sendUserDataIntoDB(url, "PATCH", {
+      applicationNo: JSON.parse(localStorage.getItem("CurrentAppNo")),
+      documents: UpdatedDocuments,
+    });
   };
 
   return (
@@ -72,22 +81,18 @@ const DocumentUpload = () => {
         })}
       </div>
 
-      {/* <div className="lg:w-[91%] mt-16 flex justify-center md:justify-end">
-        <Link
-          onClick={() => handleDocuments()}
-          to="/dashboard/draftApplication/drawing"
-        >
-          <button className={`${btn}`}>Save And Continue</button>
-        </Link>
-      </div> */}
+      {/* save & continue  */}
+      {/* navigation button  */}
+      <SaveData
+        isStepperVisible={isStepperVisible}
+        currentStep={currentStep}
+        steps={steps}
+        stepperData={stepperData}
+        confirmAlert={confirmAlert}
+        collectInputFieldData={sendDocumentsData}
+      />
     </div>
   );
 };
 
 export default DocumentUpload;
-
-// [{
-
-//   draftApplication: [{ applicationId: "", buildingInfo: {}, applicantInfo:{}, appChecklist:{}, documents: {}, drawing: {},payment:{} }]
-// }
-// ]

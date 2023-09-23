@@ -1,8 +1,10 @@
 import React from "react";
+
 import userIcon from "../../../../assets/images/user.png";
 
-const IndividualUser = ({ user }) => {
-  console.log(user, "user");
+const IndividualUser = ({ user, deleteUser, updateUser }) => {
+  // console.log(user, "user");
+
   return (
     <>
       <tr>
@@ -22,8 +24,20 @@ const IndividualUser = ({ user }) => {
           </div>
         </td>
         <td>
-          <button className="btn btn-warning btn-xs me-3">update</button>
-          <button className="btn btn-error btn-xs">Delete</button>
+          {/* update user information button  */}
+          <button
+            className="btn btn-warning btn-xs me-3"
+            onClick={() => updateUser(user)}
+          >
+            update
+          </button>
+          <button
+            className="btn btn-error btn-xs"
+            onClick={() => deleteUser(user?._id)}
+            disabled={user?.role === "Admin1" || user?.role === "Admin2"}
+          >
+            Delete
+          </button>
         </td>
       </tr>
     </>

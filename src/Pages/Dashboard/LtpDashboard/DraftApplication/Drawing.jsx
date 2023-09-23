@@ -1,11 +1,19 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import usePostData from "../../../../CustomHook/usePostData";
-import useGetDraftAppData from "../../../../CustomHook/useGetDraftAppData";
+import { useContext, useState } from "react";
+import { useOutletContext } from "react-router-dom";
 import toast from "react-hot-toast";
+import { AuthContext } from "../../../../AuthProvider/AuthProvider";
+import SaveData from "./SaveData";
 
 const Drawing = () => {
   const [selectedFiles, setSelectedFiles] = useState({});
+  const stepperData = useOutletContext();
+
+  const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
+
+  console.log(stepperData);
+
+  const { confirmAlert, sendUserDataIntoDB } = useContext(AuthContext);
+
   const btn =
     "btn btn-md text-xs px-4 md:text-sm md:px-6 bg-Primary transition duration-700 hover:bg-btnHover hover:shadow-md";
 
@@ -15,17 +23,15 @@ const Drawing = () => {
     // Set File Uploaded Data
     setSelectedFiles({ ...selectedFiles, [eventId]: file });
   };
-  const handleDrawing = () => {
-    getPostData(selectedFiles);
+
+  // send updated data into the database
+  const sendDrawingData = async (url) => {
+    return await sendUserDataIntoDB(url, "PATCH", {
+      applicationNo: JSON.parse(localStorage.getItem("CurrentAppNo")),
+      drawing: selectedFiles,
+    });
   };
 
-  // Sending data to Backend
-  const handleBackendData = () => {
-    const applicationId = JSON.parse(
-      localStorage.getItem("draftApplicationData")
-    ).applicationId;
-    getPostData({ applicationId: applicationId, drawing: {} });
-  };
   return (
     <div className="text-black h-screen p-5 mt-3">
       {/* AutoCAD Drawing */}
@@ -78,14 +84,16 @@ const Drawing = () => {
         </div>
       </div>
 
-      {/* <div className="mt-16 flex justify-center md:justify-end">
-        <Link
-          onClick={() => handleDrawing()}
-          to="/dashboard/draftApplication/payment"
-        >
-          <button className={`${btn}`}>Save And Continue</button>
-        </Link>
-      </div> */}
+      {/* save & continue  */}
+      {/* navigation button  */}
+      <SaveData
+        isStepperVisible={isStepperVisible}
+        currentStep={currentStep}
+        steps={steps}
+        stepperData={stepperData}
+        confirmAlert={confirmAlert}
+        collectInputFieldData={sendDrawingData}
+      />
     </div>
   );
 };

@@ -1,11 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import UserImg from "../../assets/images//user.png";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/images/logo.png";
+import { FiSun } from "react-icons/fi";
+import { MdOutlineDarkMode } from "react-icons/md";
 
 const Navbar = () => {
   const navigate = useNavigate();
+
+  const [theme, setTheme] = useState("light");
+
+  useEffect(() => {
+    console.log("theme" in localStorage);
+    const themeStoredInLocalStorage = localStorage.getItem("theme");
+    if (
+      theme === "dark" ||
+      (!("theme" in localStorage) &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+
+      console.log(theme);
+    }
+  }, [theme]);
+
+  console.log(theme);
 
   const user = JSON.parse(localStorage.getItem("loggedUser"));
 
@@ -50,6 +72,14 @@ const Navbar = () => {
             <a onClick={handleLogOut}>Logout</a>
           </li>
         </ul>
+      </div>
+
+      <div>
+        {theme === "light" ? (
+          <FiSun onClick={() => setTheme("dark")} />
+        ) : (
+          <MdOutlineDarkMode onClick={() => setTheme("light")} />
+        )}
       </div>
     </div>
   );

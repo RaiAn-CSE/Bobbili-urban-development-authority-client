@@ -1,12 +1,24 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import ChecklistQuestions from "../../../../assets/AppChecklist.json";
 import { Link } from "react-router-dom";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 import Application from "./Application";
+import { useOutletContext } from "react-router-dom";
+import { AuthContext } from "../../../../AuthProvider/AuthProvider";
+import SaveData from "./SaveData";
 
 function AppChecklist() {
   const [openApplication, setOpenApplication] = useState(false);
   // const LocalItems = JSON.parse(localStorage.getItem("ApplicationList"));
+
+  const stepperData = useOutletContext();
+
+  const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
+
+  console.log(stepperData);
+
+  const { confirmAlert, sendUserDataIntoDB } = useContext(AuthContext);
+
   const btn =
     "btn btn-md text-sm px-6 bg-Primary transition duration-700 hover:bg-btnHover hover:shadow-md";
 
@@ -20,10 +32,16 @@ function AppChecklist() {
     setQuestions(updatedQuestions);
   };
 
+  console.log(questions, "QW");
+
+  console.log({ appChecklist: questions }); // data send format
   // Sending data to Backend
-  const handleBackendData = () => {
-    const applicationId = JSON.parse(localStorage.getItem("draftApplicationData")).applicationId;
-    // sendUserDataIntoDB(url, { applicationId: applicationId, appChecklist: { questions } });
+
+  const sendAppChecklistData = async (url) => {
+    return await sendUserDataIntoDB(url, "PATCH", {
+      applicationNo: JSON.parse(localStorage.getItem("CurrentAppNo")),
+      applicationCheckList: questions,
+    });
   };
 
   return (
@@ -76,14 +94,19 @@ function AppChecklist() {
           </div>
         ))}
       </div>
-      {/* <div className="mt-16 flex justify-center md:justify-end">
-        <Link to="/dashboard/draftApplication/documents">
-          <button className={`${btn}`} onClick={() => handleSave()}>
-            Save and Next
-          </button>
-        </Link>
-      </div> */}
-      {openApplication ? <Application openApplication={openApplication} setOpenApplication={setOpenApplication} /> : ""}
+      {/* Application Modal */}
+      {openApplication ? <Application setOpenApplication={setOpenApplication} /> : ""}
+
+      {/* save & continue  */}
+      {/* navigation button  */}
+      <SaveData
+        isStepperVisible={isStepperVisible}
+        currentStep={currentStep}
+        steps={steps}
+        stepperData={stepperData}
+        confirmAlert={confirmAlert}
+        collectInputFieldData={sendAppChecklistData}
+      />
     </div>
   );
 }

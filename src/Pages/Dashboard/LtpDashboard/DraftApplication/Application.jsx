@@ -6,6 +6,7 @@ function Application({ setOpenApplication }) {
 		column: { "col2": ["NAME", "DOOR No. / FLAT No.", "ROAD/STREET", ["VILLAGE", "MANDAL"], "CITY/TOWN", "DISTRICT", "E-MAIL", ["MOBILE", "ALTERNATE"]] }
 	}
 	const Part02 = ["PLOT NOs", "SANCTIONED LAYOUT NO. / LRS NO", ["SURVEY NO.", "VILLAGE"], "PREMISES / DOOR No.", "ROAD/ STREET", ["WARD NO.", "BLOCK No"], "LOCALITY", ["CIRCLE/DIVISION", "DIVISION"], ["CITY/TOWN", "DISTRICT"]];
+	// Part03
 	const Part03 = ["SITE AREA (IN SQ.M)", "NO. OF FLOORS", "FLOOR AREA (IN SQ.M)", "PARKING FLOOR AREA (IN SQ.M)", "USE OF THE BUILDING"];
 	// index0 for part03
 	const row1 = [{ "(a) AS PER DOCUMENTS": "" }, { "(b) AS PER SUBMITTED PLAN": "" }, { "(c) ROAD WIDENING AREA": "" }, { "(d)   NET AREA": "" }];
@@ -103,7 +104,6 @@ function Application({ setOpenApplication }) {
 		} else {
 			colData = []
 		}
-
 		return (
 			<td className='w-full bg-white border border-black p-0'>{
 				part03SubArray.includes(index) ?
@@ -128,7 +128,7 @@ function Application({ setOpenApplication }) {
 					return (
 						<>
 							<p className={`${i==0?"border-t-0":"border-t"} border-black h-20 py-4 px-2 ${numb == 2 ? "block" : "hidden"}`}>
-								<p className={"inline-block border-b-2 border-dotted border-black underline-offset-4 mb-2"}>Tanjimul Islam Sabbir{Object.values(data[i])[0]}</p>
+								<p className={"font-semibold inline-block border-b-2 border-dotted border-black underline-offset-4 mb-2"}>Tanjimul Islam Sabbir{Object.values(data[i])[0]}</p>
 								<p>{Object.keys(data[i])[0]}</p>
 							</p>
 							<p className={`border-black px-2 h-20 flex items-center ${i==0?"border-t-0":"border-t"} ${numb == 2 ? "hidden" : "block"}`}>{
@@ -271,7 +271,7 @@ function Application({ setOpenApplication }) {
 							</thead>
 							<tbody>
 								{/* row 1 */}
-								<td className='bg-white border border-black p-0 w-10'>{ColDataShow04([1,2,3,4,5,6],1)}</td>
+								<td className='bg-white border border-black p-0 w-10 font-bold'>{ColDataShow04([1,2,3,4,5,6],1)}</td>
 								<td className='bg-white border border-black p-0'>{ColDataShow04(NameCol, 2)}</td>
 								<td className='bg-white border border-black p-0'>{ColDataShow04(AddressCol, 3)}</td>
 								<td className='bg-white border border-black p-0'>{ColDataShow04(LicenceNo,4)}</td>

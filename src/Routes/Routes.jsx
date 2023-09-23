@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import Login from "../Pages/Login/Login";
+import Login from "../Pages/Main/Login/Login";
 import DashboardLayout from "../Layouts/DashboardLayout";
 import Dashboard from "../Pages/Shared/Dashboard";
 import PrivateRoute from "./PrivateRoute";
@@ -13,15 +13,27 @@ import Drawing from "../Pages/Dashboard/LtpDashboard/DraftApplication/Drawing";
 import Payment from "../Pages/Dashboard/LtpDashboard/DraftApplication/Payment";
 import SubmitApplication from "../Pages/Dashboard/LtpDashboard/Submitted/SubmitApplication";
 import AddUser from "../Pages/Dashboard/Admin/Admin2/AddUser";
-import UpdateUser from "../Pages/Dashboard/Admin/Admin2/UpdateUser";
 import AllUsers from "../Pages/Dashboard/Admin/Admin2/AllUsers";
 import Error from "../Pages/Shared/Error";
+import MainLayout from "../Layouts/MainLayout";
+import Carousel from "../Pages/Main/Carousel/Carousel";
+import ApplicationSearch from "../Pages/Main/ApplicationSearch/ApplicationSearch";
 
 const router = createBrowserRouter([
   {
     path: "/",
     errorElement: <Error />,
-    element: <Login />,
+    element: <MainLayout />,
+    children: [
+      {
+        path: "/",
+        element: <Carousel />,
+      },
+      {
+        path: "/applicationSearch",
+        element: <ApplicationSearch />,
+      },
+    ],
   },
   {
     path: "/dashboard",
@@ -58,11 +70,21 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/draftApplication",
-        element: (<PrivateRoute> <DraftApplication /> </PrivateRoute>),
+        element: (
+          <PrivateRoute>
+            {" "}
+            <DraftApplication />{" "}
+          </PrivateRoute>
+        ),
         children: [
           {
             path: "/dashboard/draftApplication",
-            element: (<PrivateRoute> <NewApplication /> </PrivateRoute>),
+            element: (
+              <PrivateRoute>
+                {" "}
+                <NewApplication />{" "}
+              </PrivateRoute>
+            ),
           },
           {
             path: "/dashboard/draftApplication/buildingInfo",

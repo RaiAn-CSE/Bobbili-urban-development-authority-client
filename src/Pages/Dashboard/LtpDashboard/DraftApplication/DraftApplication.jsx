@@ -11,6 +11,10 @@ const DraftApplication = () => {
   const location = useLocation();
   const [currentStep, setCurrentStep] = useState(0);
 
+  // const { applicationNo } = location.state;
+  const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
+  // console.log(applicationNo);
+
   const steps = [
     "/buildingInfo",
     "/applicantInfo",
@@ -44,13 +48,15 @@ const DraftApplication = () => {
     };
   }, [location.pathname]);
 
-  console.log(currentStep);
+  // console.log(currentStep);
 
   const handleStepClick = (index) => {
     setCurrentStep(index);
     localStorage.setItem("currentStep", index.toString()); // Store the current step in localStorage
     navigate(`/dashboard/draftApplication${steps[index]}`);
   };
+
+  // handle alert system
 
   const additionalSteps = [
     "/dashboard/draftApplication/buildingInfo",
@@ -97,68 +103,38 @@ const DraftApplication = () => {
   return (
     <>
       {isStepperVisible && ( // Render the stepper only when isStepperVisible is true
-        <div className="mt-3 mb-5">
-          <ul className="w-full steps steps-vertical lg:steps-horizontal rounded-lg">
-            {stepsContent.map((step, index) => (
-              <li
-                key={index}
-                data-content={index + 1}
-                className={`${stepClasses(index)} lg:relative lg:pt-1`}
-                onClick={() => handleStepClick(index)}
-              >
-                <div className="lg:absolute lg:top-0 z-10">
-                  <span
-                    className={`${btnClass} ${completeBtn(
-                      index
-                    )} w-[300px] lg:w-fit text-xs`}
-                  >
-                    {icons[index]}
-                    {step}
-                  </span>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <>
+          <p>Application No:{applicationNo}</p>
+          <div className="mt-3 mb-5">
+            <ul className="w-full steps steps-vertical lg:steps-horizontal rounded-lg">
+              {stepsContent.map((step, index) => (
+                <li
+                  key={index}
+                  data-content={index + 1}
+                  className={`${stepClasses(index)} lg:relative lg:pt-1`}
+                  onClick={() => handleStepClick(index)}
+                >
+                  <div className="lg:absolute lg:top-0 z-10">
+                    <span
+                      className={`${btnClass} ${completeBtn(
+                        index
+                      )} w-[300px] lg:w-fit text-xs`}
+                    >
+                      {icons[index]}
+                      {step}
+                    </span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </>
       )}
 
       {/* content  */}
-      <Outlet />
-
-      {/* navigation button  */}
-      {isStepperVisible && ( // Render the stepper only when isStepperVisible is true
-        <div className="flex justify-between my-8 px-10">
-          <button
-            className={`${btnClass} bg-emerald-400 text-white`}
-            onClick={() => currentStep > 0 && handleStepClick(currentStep - 1)}
-            disabled={currentStep === 0}
-          >
-            Previous
-          </button>
-
-          {currentStep !== steps.length - 1 ? (
-            <button
-              className={`${btnClass} bg-yellow-300 hover:shadow-md hover:bg-yellow-300 hover:text-black`}
-              onClick={() =>
-                currentStep < steps.length - 1 &&
-                handleStepClick(currentStep + 1)
-              }
-            >
-              Save and Continue
-            </button>
-          ) : (
-            <button
-              className={`btn btn-md text-[#000000] hover:text-[#fff] rounded-lg shadow-lg transition-all duration-500 cursor-pointer bg-yellow-300 hover:shadow-md hover:bg-yellow-300`}
-              onClick={() =>
-                currentStep < steps.length - 1 &&
-                handleStepClick(currentStep + 1)
-              }
-            >
-              Sent to department
-            </button>
-          )}
-        </div>
-      )}
+      <Outlet
+        context={[isStepperVisible, currentStep, steps, handleStepClick]}
+      />
     </>
   );
 };
