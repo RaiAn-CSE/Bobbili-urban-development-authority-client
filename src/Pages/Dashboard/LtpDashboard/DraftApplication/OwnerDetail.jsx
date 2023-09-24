@@ -29,7 +29,7 @@ const OwnerDetail = ({ index, length, applicantNo, setPhoneNoLimit, increaseAppl
           <div className="my-4 mx-3">
             <label
               htmlFor="ltpPhoneNo"
-              className="block text-gray-600 mb-1 font-semibold"
+              className="block text-gray-600 mb-1 font-semibold dark:text-gray-100"
             >
               Phone no.
             </label>
@@ -39,7 +39,7 @@ const OwnerDetail = ({ index, length, applicantNo, setPhoneNoLimit, increaseAppl
               placeholder="xxxxxxxxxx"
               value={applicantPhone}
               onChange={(e) => setPhoneNoLimit(e, setApplicantPhone)}
-              className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
+              className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
               required
             />
           </div>
@@ -70,14 +70,14 @@ const OwnerDetail = ({ index, length, applicantNo, setPhoneNoLimit, increaseAppl
           <div className="my-4 mx-3 basis-3/4">
             <label
               htmlFor="message"
-              className="block text-gray-600 mb-1 font-semibold"
+              className="block text-gray-600 mb-1 font-semibold dark:text-gray-100"
             >
               Address
             </label>
             <textarea
               id={`applicantAddress${index}`}
               rows="4"
-              className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
+              className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
               placeholder="Dr. no., Street, Village, Mandal, Dist."
               required
             ></textarea>

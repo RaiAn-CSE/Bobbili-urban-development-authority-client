@@ -92,8 +92,13 @@ const ApplicantInfo = () => {
     });
   };
 
+  // Classes for this component :
+  const labelClass = "block text-gray-600 mb-1 font-semibold dark:text-gray-100"
+  const inputClass = "w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
+
+
   return (
-    <div className="grid my-5 lg:my-0 lg:p-2">
+    <div className="grid my-5 lg:my-0 lg:p-2 dark:bg-black dark:text-gray-100">
       {/* LTP’s Details  */}
       <div>
         <div className="flex items-center">
@@ -132,7 +137,7 @@ const ApplicantInfo = () => {
             <div className="my-4 mx-3">
               <label
                 htmlFor="ltpPhoneNo"
-                className="block text-gray-600 mb-1 font-semibold"
+                className={labelClass}
               >
                 Validity
               </label>
@@ -140,14 +145,14 @@ const ApplicantInfo = () => {
                 type="date"
                 id="validity"
                 name="validity"
-                className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
+                className={inputClass}
               />
             </div>
 
             <div className="my-4 mx-3">
               <label
                 htmlFor="ltpPhoneNo"
-                className="block text-gray-600 mb-1 font-semibold"
+                className={labelClass}
               >
                 Phone no.
               </label>
@@ -158,7 +163,7 @@ const ApplicantInfo = () => {
                 placeholder="xxxxxxxxxx"
                 value={ltpPhone}
                 onChange={(e) => setPhoneNoLimit(e, setLtpPhone)}
-                className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
+                className={inputClass}
               />
             </div>
 
@@ -174,7 +179,7 @@ const ApplicantInfo = () => {
             <div className="my-4 mx-3">
               <label
                 htmlFor="message"
-                className="block text-gray-600 mb-1 font-semibold"
+                className={labelClass}
               >
                 Address
               </label>
@@ -182,7 +187,7 @@ const ApplicantInfo = () => {
                 id="ltpAddress"
                 name="ltpAddress"
                 rows="4"
-                className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
+                className={inputClass}
                 placeholder="Dr. no., Street, Village, Mandal, Dist."
               ></textarea>
             </div>
