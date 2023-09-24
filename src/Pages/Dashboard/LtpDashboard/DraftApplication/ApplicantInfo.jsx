@@ -14,7 +14,7 @@ const ApplicantInfo = () => {
 
   console.log(stepperData);
 
-  const { confirmAlert, sendUserDataIntoDB } = useContext(AuthContext);
+  const { confirmAlert, sendUserDataIntoDB, getUserData, getApplicationData } = useContext(AuthContext);
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
 
@@ -24,6 +24,10 @@ const ApplicantInfo = () => {
   };
 
   const [ltpPhone, setLtpPhone] = useState("");
+  console.log(ltpPhone);
+  console.log(getApplicationData);
+  console.log(getUserData);
+
 
   const [totalApplicant, setTotalApplicant] = useState(["Owner1"]);
   console.log(totalApplicant);

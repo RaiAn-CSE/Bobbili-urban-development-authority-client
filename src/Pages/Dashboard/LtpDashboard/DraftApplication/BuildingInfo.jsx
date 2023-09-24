@@ -30,15 +30,15 @@ const BuildingInfo = () => {
   console.log(isStepperVisible);
   // Case Type
   const [selectedOptionCase, setSelectedOptionCase] =
-    useState("Select Case type");
+    useState("");
 
   const [selectedOptionPermission, setSelectedOptionPermission] = useState(
-    "Select Nature of permission"
+    ""
   );
 
   // Nature of the site
   const [selectedNatureOfTheSite, setSelectedNatureOfTheSite] = useState(
-    "Select Nature of the site"
+    ""
   );
   const [showInputFields, setShowInputFields] = useState(false);
 
@@ -122,23 +122,13 @@ const BuildingInfo = () => {
 
   // handleBuiltUpArea
   const handleBuiltUpArea = (value, index) => {
-    console.log(index, "INDEX");
-
     const newBuiltUpArea = parseFloat(value) || 0;
-    console.log(newBuiltUpArea, "newBuiltuparea");
-
     const updateArea = [...builtUpArea];
-
     updateArea[index] = newBuiltUpArea;
-
-    console.log(updateArea, "Update Area");
-
     setBuiltUpArea(updateArea);
-
-    // setBuiltUpAreaSum((prev) => prev + newBuiltUpArea);
   };
 
-  console.log(builtUpArea, "BuiltupArea");
+  // console.log(builtUpArea, "BuiltupArea");
 
   const increaseFloorNo = () => {
     const newFloor = `Floor${totalFloor.length + 1}`;
@@ -156,8 +146,6 @@ const BuildingInfo = () => {
       return accumulator + currentValue;
     });
 
-    console.log(totalBuiltUpArea, "totalBuiltUpArea");
-
     setBuiltUpAreaSum(totalBuiltUpArea);
 
     const totalParkingArea = parkingArea.reduce(
@@ -167,7 +155,6 @@ const BuildingInfo = () => {
 
     setParkingAreaSum(totalParkingArea);
   }, [builtUpArea, parkingArea]);
-
   // ======================================================<<<(Built Up Area Calculation End)>>>>...
 
   // get data from input field :
@@ -348,8 +335,12 @@ const BuildingInfo = () => {
 
   // save data into database
 
+  // classes for this component:
+  const labelClass = "block text-gray-600 mb-1 font-semibold dark:text-gray-100"
+  const inputClass = "w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs dark:text-black"
+
   return (
-    <div className="grid my-5 lg:my-0 lg:p-2">
+    <div className="grid my-5 lg:my-0 lg:p-2 dark:bg-black dark:text-gray-100">
       {/* general information */}
       <div className="mb-10">
         {/* heading  */}
@@ -362,15 +353,12 @@ const BuildingInfo = () => {
 
         <div className="grid grid-cols-2 lg:grid-cols-4 my-5">
           <div className="flex flex-col justify-center px-3">
-            <label
-              htmlFor="nature"
-              className="block text-gray-600 mb-1 font-semibold"
-            >
+            <label htmlFor="nature" className={labelClass}>
               <span>Case Type</span>
             </label>
             <select
               id="caseType"
-              className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
+              className="w-full px-3 py-[10px] border border-[#10AC84] dark:text-black rounded-lg max-w-xs"
               value={selectedOptionCase}
               onChange={handleCaseTypeChange}
             >
@@ -389,7 +377,7 @@ const BuildingInfo = () => {
           </div>
 
           <div className="grid grid-cols-1 font-medium  lg:justify-items-center my-4 mx-3">
-            <p className="flex items-center font-semibold text-gray-600">
+            <p className="flex items-center font-semibold text-gray-600 dark:text-gray-100">
               Application Type?
             </p>
             <div className="grid-cols-1 lg:grid-cols-2 items-center">
@@ -415,11 +403,11 @@ const BuildingInfo = () => {
           </div>
 
           <div className="flex flex-col justify-center mx-3">
-            <label className="block text-gray-600 mb-1 font-semibold">
+            <label className="block text-gray-600 dark:text-gray-100 mb-1 font-semibold">
               <span>Nature of permission</span>
             </label>
             <select
-              className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
+              className={inputClass}
               value={selectedOptionPermission}
               onChange={handlePermissionChange}
             >
@@ -437,13 +425,13 @@ const BuildingInfo = () => {
           <div className="my-4 mx-3">
             <label
               htmlFor="nature"
-              className="block text-gray-600 mb-1 font-semibold"
+              className={labelClass}
             >
               <span>Nature of the site</span>
             </label>
             <select
               id="nature"
-              className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
+              className={inputClass}
               value={selectedNatureOfTheSite}
               onChange={handleNatureChange}
             >
@@ -467,13 +455,13 @@ const BuildingInfo = () => {
           />
 
           <div className="flex flex-col justify-center mx-3">
-            <label className="block text-gray-600 mb-1 font-semibold">
+            <label className={labelClass}>
               <span>District</span>
             </label>
             <select
               id="District"
               name="District"
-              className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
+              className={inputClass}
               onChange={handleDistrictChange}
               value={selectedDistrict}
             >
@@ -489,13 +477,13 @@ const BuildingInfo = () => {
           </div>
 
           <div className="flex flex-col justify-center mx-3">
-            <label className="block text-gray-600 mb-1 font-semibold">
+            <label className={labelClass}>
               <span>Mandal</span>
             </label>
             <select
               id="Mandal"
               name="Mandal"
-              className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
+              className={inputClass}
               onChange={handleMandalChange}
               value={selectedMandal}
               disabled={!selectedDistrict}
@@ -522,13 +510,13 @@ const BuildingInfo = () => {
           />
 
           <div className="flex flex-col justify-center mx-3">
-            <label className="block text-gray-600 mb-1 font-semibold">
+            <label className={labelClass}>
               <span>Village</span>
             </label>
             <select
               id="Village"
               name="Village"
-              className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
+              className={inputClass}
               value={selectedVillage}
               onChange={(e) => setSelectedVillage(e.target.value)}
               disabled={!selectedMandal}
@@ -657,7 +645,7 @@ const BuildingInfo = () => {
           <div className="my-4 mx-3">
             <label
               htmlFor="ProposedPlotArea"
-              className="block text-gray-600 mb-1 font-semibold"
+              className={labelClass}
             >
               Proposed Plot area
             </label>
@@ -665,7 +653,7 @@ const BuildingInfo = () => {
               type="number"
               id="ProposedPlotArea"
               placeholder="in Sq.M."
-              className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
+              className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
               value={proposedPlotArea}
               onChange={handleProposedPlotAreaChange}
             />
@@ -674,14 +662,14 @@ const BuildingInfo = () => {
           <div className="my-4 mx-3">
             <label
               htmlFor="ProposedPlot"
-              className="block text-gray-600 mb-1 font-semibold"
+              className={labelClass}
             >
               Road Widening Area
             </label>
             <input
               type="number"
               placeholder="in Sq.M."
-              className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
+              className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
               value={roadWideningArea}
               onChange={handleRoadWideningAreaChange}
             />
@@ -691,7 +679,7 @@ const BuildingInfo = () => {
           <div className="my-4 mx-3">
             <label
               htmlFor="disabled-input"
-              className="block text-gray-600 mb-1 font-semibold"
+              className={labelClass}
             >
               Net Plot Area (in Sq.M.)
             </label>
@@ -763,12 +751,12 @@ const BuildingInfo = () => {
 
         <div className="grid grid-cols-2 lg:grid-cols-4 mt-3">
           <div className="flex flex-col justify-center mx-3">
-            <label className="block text-gray-600 mb-1 font-semibold">
+            <label className={labelClass}>
               <span>Nature of Road</span>
             </label>
             <select
               id="natureOfRoad"
-              className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
+              className={inputClass}
             >
               <option disabled selected>
                 Select Nature of Road
@@ -818,7 +806,7 @@ const BuildingInfo = () => {
           <div className="my-4 mx-3">
             <label
               htmlFor="disabled-input"
-              className="block text-gray-600 mb-1 font-semibold"
+              className={labelClass}
             >
               Total Built up area
             </label>
@@ -836,7 +824,7 @@ const BuildingInfo = () => {
           <div className="my-4 mx-3">
             <label
               htmlFor="disabled-input2"
-              className="block text-gray-600 mb-1 font-semibold"
+              className={labelClass}
             >
               Total Parking area
             </label>
@@ -949,12 +937,12 @@ const BuildingInfo = () => {
         <div className="divider m-0"></div>
         <div className="grid grid-cols-2 lg:grid-cols-4 items-center my-5">
           <div className="flex flex-col  justify-center mx-3">
-            <label className="block text-gray-600 mb-1 font-semibold">
+            <label className={labelClass}>
               <span>North</span>
             </label>
             <select
               id="north"
-              className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
+              className={inputClass}
             >
               <option disabled selected>
                 Select North
@@ -967,12 +955,12 @@ const BuildingInfo = () => {
           </div>
 
           <div className="flex flex-col  justify-center mx-3">
-            <label className="block text-gray-600 mb-1 font-semibold">
+            <label className={labelClass}>
               <span>South</span>
             </label>
             <select
               id="south"
-              className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
+              className={inputClass}
             >
               <option disabled selected>
                 Select South
@@ -985,12 +973,12 @@ const BuildingInfo = () => {
           </div>
 
           <div className="flex flex-col  justify-center mx-3">
-            <label className="block text-gray-600 mb-1 font-semibold">
+            <label className={labelClass}>
               <span>East</span>
             </label>
             <select
               id="east"
-              className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
+              className={inputClass}
             >
               <option disabled selected>
                 Select East
@@ -1003,12 +991,12 @@ const BuildingInfo = () => {
           </div>
 
           <div className="flex flex-col  justify-center mx-3">
-            <label className="block text-gray-600 mb-1 font-semibold">
+            <label className={labelClass}>
               <span>West</span>
             </label>
             <select
               id="west"
-              className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
+              className={inputClass}
             >
               <option disabled selected>
                 Select West
