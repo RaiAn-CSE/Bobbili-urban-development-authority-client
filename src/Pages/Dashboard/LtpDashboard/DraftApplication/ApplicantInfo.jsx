@@ -100,7 +100,7 @@ const ApplicantInfo = () => {
   return (
     <div className="grid my-5 lg:my-0 lg:p-2 dark:bg-black dark:text-gray-100">
       {/* LTP’s Details  */}
-      <div className="divide-y-2 divide-gray-200">
+      <div className="divide-y-2 divide-gray-200 mb-[60px]">
         <div className="flex items-center">
           <img
             src={LTPImg}
@@ -109,10 +109,8 @@ const ApplicantInfo = () => {
           />
           <h3 className="font-bold text-xl">LTP’s Details</h3>
         </div>
-        {/* Divider  */}
-        {/* <div className="divider m-0 "></div> */}
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 mt-2 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 mt-2">
           <div className="grid grid-cols-2">
             <InputField
               id="ltpType"
