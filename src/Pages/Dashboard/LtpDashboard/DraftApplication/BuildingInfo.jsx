@@ -870,7 +870,7 @@ const BuildingInfo = () => {
             />
           </div>
 
-          <div className="grid grid-cols-1 mx-5 md:mx-10 lg:mx-14 my-10">
+          <div className="grid grid-cols-1 mx-5 md:mx-10 lg:mx-14 mb-5 mt-10">
             <div className="flex flex-col md:flex-row font-medium mb-4 text-lg">
               <div className="flex items-center mb-3 md:mb-0">
                 <FaHandPointRight className="me-3 w-5 lg:w-auto text-green-500" />
@@ -928,13 +928,13 @@ const BuildingInfo = () => {
       </div>
 
       {/* schedule boundaries  */}
-      <div className="divide-y-2 divide-gray-200 mb-10">
+      <div className="divide-y-2 divide-gray-200">
         <div className="flex items-center">
           <img src={wallImage} alt="A image of wall" className="h-8 me-3" />
           <h3 className="font-bold text-xl">Schedule of Boundaries</h3>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 items-center mt-2 mb-5">
+        <div className="grid grid-cols-2 lg:grid-cols-4 items-center mt-2">
           <div className="flex flex-col my-4 justify-center mx-3">
             <label className={labelClass}>
               <span>North</span>
