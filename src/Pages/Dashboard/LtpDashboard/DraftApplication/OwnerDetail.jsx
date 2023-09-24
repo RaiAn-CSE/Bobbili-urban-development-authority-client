@@ -10,7 +10,7 @@ const OwnerDetail = ({ index, length, applicantNo, setPhoneNoLimit, increaseAppl
 
   return (
     <div>
-      <p className="text-xl font-bold mt-5">{`${ownerSerial[index]} Owner Details`}</p>
+      <p className="text-xl font-bold mt-5">{`${ownerSerial[index]} Owner Details :`}</p>
       <div className="grid grid-cols-1 lg:grid-cols-2 mb-8">
         <div className="grid grid-cols-2 items-center">
           <InputField

@@ -342,17 +342,15 @@ const BuildingInfo = () => {
   return (
     <div className="grid my-5 lg:my-0 lg:p-2 dark:bg-black dark:text-gray-100">
       {/* general information */}
-      <div className="mb-10">
+      <div className="divide-y-2 divide-gray-200 mb-10">
         {/* heading  */}
         <div className="flex items-center">
           <img src={generalInfoImage} alt="" className="h-10 me-3" />
-          <h3 className="font-bold text-xl ">General Information</h3>
+          <h3 className="font-bold text-xl">General Information</h3>
         </div>
-        {/* divider  */}
-        <div className="divider m-0 mb-2"></div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 my-5">
-          <div className="flex flex-col justify-center px-3">
+        <div className="grid grid-cols-2 lg:grid-cols-4 mt-2 mb-5">
+          <div className="flex flex-col justify-center my-4 px-3">
             <label htmlFor="nature" className={labelClass}>
               <span>Case Type</span>
             </label>
@@ -402,7 +400,7 @@ const BuildingInfo = () => {
             </div>
           </div>
 
-          <div className="flex flex-col justify-center mx-3">
+          <div className="flex flex-col justify-center my-4 mx-3">
             <label className="block text-gray-600 dark:text-gray-100 mb-1 font-semibold">
               <span>Nature of permission</span>
             </label>
@@ -454,7 +452,7 @@ const BuildingInfo = () => {
             type="text"
           />
 
-          <div className="flex flex-col justify-center mx-3">
+          <div className="flex flex-col justify-center my-4 mx-3">
             <label className={labelClass}>
               <span>District</span>
             </label>
@@ -476,7 +474,7 @@ const BuildingInfo = () => {
             </select>
           </div>
 
-          <div className="flex flex-col justify-center mx-3">
+          <div className="flex flex-col justify-center my-4 mx-3">
             <label className={labelClass}>
               <span>Mandal</span>
             </label>
@@ -509,7 +507,7 @@ const BuildingInfo = () => {
             placeholder="Grama Panchayat"
           />
 
-          <div className="flex flex-col justify-center mx-3">
+          <div className="flex flex-col justify-center my-4 mx-3">
             <label className={labelClass}>
               <span>Village</span>
             </label>
@@ -619,324 +617,325 @@ const BuildingInfo = () => {
       </div>
 
       {/* plot details  */}
-      <div className="mb-5">
+      <div className="divide-y-2 divide-gray-200 mb-10">
         <div className="flex items-center">
           <img src={plotImage} alt="" className="h-10 me-3" />
-          <h3 className="font-bold text-xl my-3">Plot Details</h3>
+          <h3 className="font-bold text-xl">Plot Details</h3>
         </div>
-        <div className="divider m-0"></div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 mt-5">
-          <InputField
-            type="number"
-            id="TotalPlotDocument"
-            name=""
-            label="Total Plot are as per document"
-            placeholder="in Sq.M."
-          />
-          <InputField
-            type="number"
-            id="TotalPlotGround"
-            name=""
-            label="Total Plot are as on ground"
-            placeholder="in Sq.M."
-          />
-
-          <div className="my-4 mx-3">
-            <label
-              htmlFor="ProposedPlotArea"
-              className={labelClass}
-            >
-              Proposed Plot area
-            </label>
-            <input
+        <div className="mt-2">
+          <div className="grid grid-cols-2 lg:grid-cols-4">
+            <InputField
               type="number"
-              id="ProposedPlotArea"
+              id="TotalPlotDocument"
+              name=""
+              label="Total Plot are as per document"
               placeholder="in Sq.M."
-              className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
-              value={proposedPlotArea}
-              onChange={handleProposedPlotAreaChange}
             />
-          </div>
-
-          <div className="my-4 mx-3">
-            <label
-              htmlFor="ProposedPlot"
-              className={labelClass}
-            >
-              Road Widening Area
-            </label>
-            <input
+            <InputField
               type="number"
+              id="TotalPlotGround"
+              name=""
+              label="Total Plot are as on ground"
               placeholder="in Sq.M."
-              className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
-              value={roadWideningArea}
-              onChange={handleRoadWideningAreaChange}
             />
-          </div>
 
-          {/* Automatically calculated Plot Details  */}
-          <div className="my-4 mx-3">
-            <label
-              htmlFor="disabled-input"
-              className={labelClass}
-            >
-              Net Plot Area (in Sq.M.)
-            </label>
-            <input
-              type="text"
-              id="NetPlotArea"
-              name="NetPlotArea"
-              placeholder="Automatically calculated"
-              className="w-full px-3 py-2 border rounded-lg max-w-xs"
-              value={netPlotArea}
-              disabled
-            />
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 mx-5 md:mx-10 lg:mx-14 my-10">
-          <div className="flex flex-col md:flex-row font-medium mb-4 text-lg">
-            <div className="flex items-center mb-3 md:mb-0">
-              <FaHandPointRight className="me-3 w-5 lg:w-auto text-green-500" />
-              <p className="font-bold text-lg">
-                Whether site abuts any Existing Road?
-              </p>
+            <div className="my-4 mx-3">
+              <label
+                htmlFor="ProposedPlotArea"
+                className={labelClass}
+              >
+                Proposed Plot area
+              </label>
+              <input
+                type="number"
+                id="ProposedPlotArea"
+                placeholder="in Sq.M."
+                className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
+                value={proposedPlotArea}
+                onChange={handleProposedPlotAreaChange}
+              />
             </div>
-            <label className="inline-flex items-center ml-3">
-              <input
-                type="radio"
-                name="radio-2"
-                className="radio border border-[#10AC84] h-4 w-4"
-                value="yes"
-              />
-              <span className="ml-2 text-base">Yes</span>
-            </label>
-            <label className="inline-flex items-center ml-3">
-              <input
-                type="radio"
-                name="radio-2"
-                className="radio border border-[#10AC84] h-4 w-4"
-                value="no"
-              />
-              <span className="ml-2 text-base">No</span>
-            </label>
-          </div>
 
-          <div className="flex flex-col md:flex-row font-medium mb-4 text-lg mt-4">
-            <div className="flex items-center mb-3 md:mb-0">
-              <FaHandPointRight className="me-3 w-5 lg:w-auto text-green-500" />
-              <p className="font-bold text-lg">Status of Road?</p>
+            <div className="my-4 mx-3">
+              <label
+                htmlFor="ProposedPlot"
+                className={labelClass}
+              >
+                Road Widening Area
+              </label>
+              <input
+                type="number"
+                placeholder="in Sq.M."
+                className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
+                value={roadWideningArea}
+                onChange={handleRoadWideningAreaChange}
+              />
             </div>
-            <label className="inline-flex items-center ml-3">
-              <input
-                type="radio"
-                name="radio-3"
-                className="radio border border-[#10AC84] h-4 w-4"
-                value="Public"
-              />
-              <span className="ml-2 text-base">Public</span>
-            </label>
-            <label className="inline-flex items-center ml-3">
-              <input
-                type="radio"
-                name="radio-3"
-                className="radio border border-[#10AC84] h-4 w-4"
-                value="Private"
-              />
-              <span className="ml-2 text-base">Private</span>
-            </label>
-          </div>
-        </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 mt-3">
-          <div className="flex flex-col justify-center mx-3">
-            <label className={labelClass}>
-              <span>Nature of Road</span>
-            </label>
-            <select
-              id="natureOfRoad"
-              className={inputClass}
-            >
-              <option disabled selected>
-                Select Nature of Road
-              </option>
-              <option>BT Road</option>
-              <option>CC Road</option>
-              <option>WBM</option>
-              <option>Kutchha/ Graval</option>
-            </select>
+            {/* Automatically calculated Plot Details  */}
+            <div className="my-4 mx-3">
+              <label
+                htmlFor="disabled-input"
+                className={labelClass}
+              >
+                Net Plot Area (in Sq.M.)
+              </label>
+              <input
+                type="text"
+                id="NetPlotArea"
+                name="NetPlotArea"
+                placeholder="Automatically calculated"
+                className="w-full px-3 py-2 border rounded-lg max-w-xs"
+                value={netPlotArea}
+                disabled
+              />
+            </div>
           </div>
 
-          <InputField
-            id="existingRoadMts"
-            name="name1"
-            label="Existing road (in Mts.)"
-            placeholder="in Sq.M."
-          />
-          <InputField
-            id="proposedRoadMts"
-            name="name1"
-            label="Proposed road (in Mts.)"
-            placeholder="in Sq.M."
-          />
-          <InputField
-            id="marketValueSqym"
-            name="name1"
-            label="Market Value (per Sq.Yd.)"
-            placeholder="per Sq.Yd."
-          />
-        </div>
+          <div className="grid grid-cols-1 mx-5 md:mx-10 lg:mx-14 my-10">
+            <div className="flex flex-col md:flex-row font-medium mb-4 text-lg">
+              <div className="flex items-center mb-3 md:mb-0">
+                <FaHandPointRight className="me-3 w-5 lg:w-auto text-green-500" />
+                <p className="font-bold text-lg">
+                  Whether site abuts any Existing Road?
+                </p>
+              </div>
+              <label className="inline-flex items-center ml-3">
+                <input
+                  type="radio"
+                  name="radio-2"
+                  className="radio border border-[#10AC84] h-4 w-4"
+                  value="yes"
+                />
+                <span className="ml-2 text-base">Yes</span>
+              </label>
+              <label className="inline-flex items-center ml-3">
+                <input
+                  type="radio"
+                  name="radio-2"
+                  className="radio border border-[#10AC84] h-4 w-4"
+                  value="no"
+                />
+                <span className="ml-2 text-base">No</span>
+              </label>
+            </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4">
-          {totalFloor.map((floor, index) => (
-            <FloorDetails
-              key={index}
-              floor={floor}
-              index={index}
-              length={totalFloor.length}
-              increaseFloorNo={increaseFloorNo}
-              handleBuiltUpArea={handleBuiltUpArea}
-              handleParkingArea={handleParkingArea}
-            />
-          ))}
-        </div>
+            <div className="flex flex-col md:flex-row font-medium mb-4 text-lg mt-4">
+              <div className="flex items-center mb-3 md:mb-0">
+                <FaHandPointRight className="me-3 w-5 lg:w-auto text-green-500" />
+                <p className="font-bold text-lg">Status of Road?</p>
+              </div>
+              <label className="inline-flex items-center ml-3">
+                <input
+                  type="radio"
+                  name="radio-3"
+                  className="radio border border-[#10AC84] h-4 w-4"
+                  value="Public"
+                />
+                <span className="ml-2 text-base">Public</span>
+              </label>
+              <label className="inline-flex items-center ml-3">
+                <input
+                  type="radio"
+                  name="radio-3"
+                  className="radio border border-[#10AC84] h-4 w-4"
+                  value="Private"
+                />
+                <span className="ml-2 text-base">Private</span>
+              </label>
+            </div>
+          </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 mt-5">
-          <div className="my-4 mx-3">
-            <label
-              htmlFor="disabled-input"
-              className={labelClass}
-            >
-              Total Built up area
-            </label>
-            <input
-              type="text"
-              id="totalBuiltUpArea"
+          <div className="grid grid-cols-2 lg:grid-cols-4 mt-3">
+            <div className="flex flex-col justify-center mx-3">
+              <label className={labelClass}>
+                <span>Nature of Road</span>
+              </label>
+              <select
+                id="natureOfRoad"
+                className={inputClass}
+              >
+                <option disabled selected>
+                  Select Nature of Road
+                </option>
+                <option>BT Road</option>
+                <option>CC Road</option>
+                <option>WBM</option>
+                <option>Kutchha/ Graval</option>
+              </select>
+            </div>
+
+            <InputField
+              id="existingRoadMts"
               name="name1"
-              placeholder="Automatically calculated"
-              className="w-full px-3 py-2 border rounded-lg max-w-xs"
-              value={builtUpAreaSum}
-              disabled
+              label="Existing road (in Mts.)"
+              placeholder="in Sq.M."
             />
-          </div>
-
-          <div className="my-4 mx-3">
-            <label
-              htmlFor="disabled-input2"
-              className={labelClass}
-            >
-              Total Parking area
-            </label>
-            <input
-              id="totalParkingArea"
+            <InputField
+              id="proposedRoadMts"
               name="name1"
-              placeholder="Automatically calculated"
-              className="w-full px-3 py-2 border rounded-lg max-w-xs"
-              value={parkingAreaSum}
-              disabled
+              label="Proposed road (in Mts.)"
+              placeholder="in Sq.M."
+            />
+            <InputField
+              id="marketValueSqym"
+              name="name1"
+              label="Market Value (per Sq.Yd.)"
+              placeholder="per Sq.Yd."
             />
           </div>
-        </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4">
-          <InputField
-            id="frontSetback"
-            name="name72"
-            label="Front setback (in M.)"
-            placeholder="in M."
-          />
-          <InputField
-            id="rareSetback"
-            name="name1"
-            label="Rare setback (in M.)"
-            placeholder="in M."
-          />
-          <InputField
-            id="side1Setback"
-            name="name1"
-            label="Side1 setback (in M.)"
-            placeholder="in M."
-          />
-          <InputField
-            id="side2Setback"
-            name="name1"
-            label="Side 2 setback (in M.)"
-            placeholder="in M."
-          />
-          <InputField
-            id="buildingExcludeStilt"
-            name="name1"
-            label="Total Height of The Building Exclude Stilt (in Mts.)"
-            placeholder="in Mts."
-          />
-        </div>
-
-        <div className="grid grid-cols-1 mx-5 md:mx-10 lg:mx-14 my-10">
-          <div className="flex flex-col md:flex-row font-medium mb-4 text-lg">
-            <div className="flex items-center mb-3 md:mb-0">
-              <FaHandPointRight className="me-3 w-5 lg:w-auto text-green-500" />
-              <p className="font-bold text-lg">Compounding wall proposed?</p>
-            </div>
-            <label className="inline-flex items-center ml-3">
-              <input
-                type="radio"
-                name="radio-4"
-                className="radio border border-[#10AC84] h-4 w-4"
-                value="yes"
+          <div className="grid grid-cols-2 lg:grid-cols-4">
+            {totalFloor.map((floor, index) => (
+              <FloorDetails
+                key={index}
+                floor={floor}
+                index={index}
+                length={totalFloor.length}
+                increaseFloorNo={increaseFloorNo}
+                handleBuiltUpArea={handleBuiltUpArea}
+                handleParkingArea={handleParkingArea}
               />
-              <span className="ml-2 text-base">Yes</span>
-            </label>
-            <label className="inline-flex items-center ml-3">
-              <input
-                type="radio"
-                name="radio-4"
-                className="radio border border-[#10AC84] h-4 w-4"
-                value="no"
-              />
-              <span className="ml-2 text-base">No</span>
-            </label>
+            ))}
           </div>
 
-          <div className="flex flex-col md:flex-row font-medium mb-4 text-lg mt-4">
-            <div className="flex items-center mb-3 md:mb-0">
-              <FaHandPointRight className="me-3 w-7 lg:w-auto text-green-500" />
-              <p className="font-bold text-lg">
-                Whether site Registered as house plot/ Building prior to
-                18-01-2006?
-              </p>
+          <div className="grid grid-cols-2 lg:grid-cols-4 mt-5">
+            <div className="my-4 mx-3">
+              <label
+                htmlFor="disabled-input"
+                className={labelClass}
+              >
+                Total Built up area
+              </label>
+              <input
+                type="text"
+                id="totalBuiltUpArea"
+                name="name1"
+                placeholder="Automatically calculated"
+                className="w-full px-3 py-2 border rounded-lg max-w-xs"
+                value={builtUpAreaSum}
+                disabled
+              />
             </div>
-            <label className="inline-flex items-center ml-3">
+
+            <div className="my-4 mx-3">
+              <label
+                htmlFor="disabled-input2"
+                className={labelClass}
+              >
+                Total Parking area
+              </label>
               <input
-                type="radio"
-                name="radio-5"
-                className="radio border border-[#10AC84] h-4 w-4"
-                value="Yes"
+                id="totalParkingArea"
+                name="name1"
+                placeholder="Automatically calculated"
+                className="w-full px-3 py-2 border rounded-lg max-w-xs"
+                value={parkingAreaSum}
+                disabled
               />
-              <span className="ml-2 text-base">Yes</span>
-            </label>
-            <label className="inline-flex items-center ml-3">
-              <input
-                type="radio"
-                name="radio-5"
-                className="radio border border-[#10AC84] h-4 w-4"
-                value="No"
-              />
-              <span className="ml-2 text-base">No</span>
-            </label>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4">
+            <InputField
+              id="frontSetback"
+              name="name72"
+              label="Front setback (in M.)"
+              placeholder="in M."
+            />
+            <InputField
+              id="rareSetback"
+              name="name1"
+              label="Rare setback (in M.)"
+              placeholder="in M."
+            />
+            <InputField
+              id="side1Setback"
+              name="name1"
+              label="Side1 setback (in M.)"
+              placeholder="in M."
+            />
+            <InputField
+              id="side2Setback"
+              name="name1"
+              label="Side 2 setback (in M.)"
+              placeholder="in M."
+            />
+            <InputField
+              id="buildingExcludeStilt"
+              name="name1"
+              label="Total Height of The Building Exclude Stilt (in Mts.)"
+              placeholder="in Mts."
+            />
+          </div>
+
+          <div className="grid grid-cols-1 mx-5 md:mx-10 lg:mx-14 my-10">
+            <div className="flex flex-col md:flex-row font-medium mb-4 text-lg">
+              <div className="flex items-center mb-3 md:mb-0">
+                <FaHandPointRight className="me-3 w-5 lg:w-auto text-green-500" />
+                <p className="font-bold text-lg">Compounding wall proposed?</p>
+              </div>
+              <label className="inline-flex items-center ml-3">
+                <input
+                  type="radio"
+                  name="radio-4"
+                  className="radio border border-[#10AC84] h-4 w-4"
+                  value="yes"
+                />
+                <span className="ml-2 text-base">Yes</span>
+              </label>
+              <label className="inline-flex items-center ml-3">
+                <input
+                  type="radio"
+                  name="radio-4"
+                  className="radio border border-[#10AC84] h-4 w-4"
+                  value="no"
+                />
+                <span className="ml-2 text-base">No</span>
+              </label>
+            </div>
+
+            <div className="flex flex-col md:flex-row font-medium mb-4 text-lg mt-4">
+              <div className="flex items-center mb-3 md:mb-0">
+                <FaHandPointRight className="me-3 w-7 lg:w-auto text-green-500" />
+                <p className="font-bold text-lg">
+                  Whether site Registered as house plot/ Building prior to
+                  18-01-2006?
+                </p>
+              </div>
+              <label className="inline-flex items-center ml-3">
+                <input
+                  type="radio"
+                  name="radio-5"
+                  className="radio border border-[#10AC84] h-4 w-4"
+                  value="Yes"
+                />
+                <span className="ml-2 text-base">Yes</span>
+              </label>
+              <label className="inline-flex items-center ml-3">
+                <input
+                  type="radio"
+                  name="radio-5"
+                  className="radio border border-[#10AC84] h-4 w-4"
+                  value="No"
+                />
+                <span className="ml-2 text-base">No</span>
+              </label>
+            </div>
           </div>
         </div>
       </div>
 
       {/* schedule boundaries  */}
-      <div>
-        <div className="flex items-center mb-2">
+      <div className="divide-y-2 divide-gray-200 mb-10">
+        <div className="flex items-center">
           <img src={wallImage} alt="A image of wall" className="h-8 me-3" />
           <h3 className="font-bold text-xl">Schedule of Boundaries</h3>
         </div>
-        <div className="divider m-0"></div>
-        <div className="grid grid-cols-2 lg:grid-cols-4 items-center my-5">
-          <div className="flex flex-col  justify-center mx-3">
+
+        <div className="grid grid-cols-2 lg:grid-cols-4 items-center mt-2 mb-5">
+          <div className="flex flex-col my-4 justify-center mx-3">
             <label className={labelClass}>
               <span>North</span>
             </label>
@@ -954,7 +953,7 @@ const BuildingInfo = () => {
             </select>
           </div>
 
-          <div className="flex flex-col  justify-center mx-3">
+          <div className="flex flex-col my-4 justify-center mx-3">
             <label className={labelClass}>
               <span>South</span>
             </label>
@@ -972,7 +971,7 @@ const BuildingInfo = () => {
             </select>
           </div>
 
-          <div className="flex flex-col  justify-center mx-3">
+          <div className="flex flex-col my-4 justify-center mx-3">
             <label className={labelClass}>
               <span>East</span>
             </label>
@@ -990,7 +989,7 @@ const BuildingInfo = () => {
             </select>
           </div>
 
-          <div className="flex flex-col  justify-center mx-3">
+          <div className="flex flex-col my-4 justify-center mx-3">
             <label className={labelClass}>
               <span>West</span>
             </label>
