@@ -9,8 +9,8 @@ const OwnerDetail = ({ index, length, applicantNo, setPhoneNoLimit, increaseAppl
   const [applicantPhone, setApplicantPhone] = useState("");
 
   return (
-    <>
-      <p className="text-xl font-bold my-3">{`${ownerSerial[index]} Owner Details`}</p>
+    <div>
+      <p className="text-xl font-bold mt-5">{`${ownerSerial[index]} Owner Details`}</p>
       <div className="grid grid-cols-1 lg:grid-cols-2 mb-8">
         <div className="grid grid-cols-2 items-center">
           <InputField
@@ -94,7 +94,7 @@ const OwnerDetail = ({ index, length, applicantNo, setPhoneNoLimit, increaseAppl
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

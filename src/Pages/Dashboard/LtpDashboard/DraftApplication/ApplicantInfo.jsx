@@ -100,7 +100,7 @@ const ApplicantInfo = () => {
   return (
     <div className="grid my-5 lg:my-0 lg:p-2 dark:bg-black dark:text-gray-100">
       {/* LTP’s Details  */}
-      <div>
+      <div className="divide-y-2 divide-gray-200">
         <div className="flex items-center">
           <img
             src={LTPImg}
@@ -110,9 +110,9 @@ const ApplicantInfo = () => {
           <h3 className="font-bold text-xl">LTP’s Details</h3>
         </div>
         {/* Divider  */}
-        <div className="divider m-0"></div>
+        {/* <div className="divider m-0 "></div> */}
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 my-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 mt-2 mb-8">
           <div className="grid grid-cols-2">
             <InputField
               id="ltpType"
@@ -196,7 +196,7 @@ const ApplicantInfo = () => {
       </div>
 
       {/* Applicant’s Details  */}
-      <div className="my-5">
+      <div className="divide-y-2 divide-gray-200">
         <div className="flex items-center">
           <img
             src={OwnerImg}
@@ -205,18 +205,20 @@ const ApplicantInfo = () => {
           />
           <h3 className="font-bold text-xl">Applicant’s Details</h3>
         </div>
-        <div className="divider m-0"></div>
+        {/* <div className="divider m-0"></div> */}
 
-        {totalApplicant?.map((applicantNo, index) => (
-          <OwnerDetail
-            key={index}
-            index={index}
-            length={totalApplicant.length}
-            applicantNo={applicantNo}
-            increaseApplicantNo={increaseApplicantNo}
-            setPhoneNoLimit={setPhoneNoLimit}
-          />
-        ))}
+        <div className="mt-2">
+          {totalApplicant?.map((applicantNo, index) => (
+            <OwnerDetail
+              key={index}
+              index={index}
+              length={totalApplicant.length}
+              applicantNo={applicantNo}
+              increaseApplicantNo={increaseApplicantNo}
+              setPhoneNoLimit={setPhoneNoLimit}
+            />
+          ))}
+        </div>
       </div>
 
       {/* save & continue  */}
