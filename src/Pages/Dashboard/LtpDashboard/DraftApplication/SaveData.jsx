@@ -11,7 +11,7 @@ const SaveData = ({
   let btnClass =
     "btn btn-md text-[#000000] hover:text-[#fff] rounded-lg transition-all duration-500 cursor-pointer hover:bg-emerald-400";
 
-  console.log(collectInputFieldData);
+  // console.log(collectInputFieldData);
   return (
     <>
       {isStepperVisible && ( // Render the stepper only when isStepperVisible is true
@@ -31,10 +31,10 @@ const SaveData = ({
           ) : (
             <button
               className={`btn btn-md text-[#000000] hover:text-[#fff] rounded-lg shadow-lg transition-all duration-500 cursor-pointer bg-yellow-300 hover:shadow-md hover:bg-yellow-300`}
-              // onClick={() =>
-              //   currentStep < steps.length - 1 &&
-              //   handleStepClick(currentStep + 1)
-              // }
+            // onClick={() =>
+            //   currentStep < steps.length - 1 &&
+            //   handleStepClick(currentStep + 1)
+            // }
             >
               Sent to department
             </button>

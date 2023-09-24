@@ -64,9 +64,8 @@ const AuthProvider = ({ children }) => {
   const confirmAlert = (stepperData, collectInputFieldData) => {
     const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
 
-    const url = `https://residential-building.vercel.app/updateDraftApplicationData/${
-      userInfoFromLocalStorage()._id
-    }`;
+    const url = `https://residential-building.vercel.app/updateDraftApplicationData/${userInfoFromLocalStorage()._id
+      }`;
 
     console.log(url, "url");
 

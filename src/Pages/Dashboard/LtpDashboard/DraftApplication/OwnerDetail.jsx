@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import InputField from "../../../Components/InputField";
 
-const OwnerDetail = ({ index, length, applicantNo, setPhoneNoLimit, increaseApplicantNo }) => {
+const OwnerDetail = ({ index, length, applicantNo, setPhoneNoLimit, increaseApplicantNo, applicantDetails }) => {
   // console.log(applicantNo, index);
 
   const ownerSerial = ["First", "Second", "Third", "Fourth", "Fifth"];
 
   const [applicantPhone, setApplicantPhone] = useState("");
+
+  console.log(applicantDetails, "OwnerDetails Page applicantDetails");
+
+
+  // const { address, adharNo, email, identity, name, phone, pinCode } = applicantDetails;
+
 
   return (
     <div>
@@ -18,12 +24,14 @@ const OwnerDetail = ({ index, length, applicantNo, setPhoneNoLimit, increaseAppl
             name={`applicantName${index}`}
             label="Name"
             placeholder="Applicant Name"
+            ltpDetails={applicantDetails?.name}
           />
           <InputField
             id={`soWoCo${index}`}
             name={`soWoCo${index}`}
             label="S/o (or) W/o (or) C/o"
             placeholder="S/o (or) W/o (or) C/o"
+            ltpDetails={applicantDetails?.identity}
           />
 
           <div className="my-4 mx-3">
@@ -37,7 +45,7 @@ const OwnerDetail = ({ index, length, applicantNo, setPhoneNoLimit, increaseAppl
               id={`applicantPhoneNo${index}`}
               name={`applicantPhoneNo${index}`}
               placeholder="xxxxxxxxxx"
-              value={applicantPhone}
+              defaultValue={applicantDetails?.phone ? applicantDetails?.phone : applicantPhone}
               onChange={(e) => setPhoneNoLimit(e, setApplicantPhone)}
               className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
               required
@@ -50,6 +58,7 @@ const OwnerDetail = ({ index, length, applicantNo, setPhoneNoLimit, increaseAppl
             label="E-mail"
             placeholder="E-mail"
             type="email"
+            ltpDetails={applicantDetails?.email}
           />
           <InputField
             id={`applicantAadharNo${index}`}
@@ -57,6 +66,7 @@ const OwnerDetail = ({ index, length, applicantNo, setPhoneNoLimit, increaseAppl
             label="Aadhar no."
             placeholder="Aadhar no."
             type="number"
+            ltpDetails={applicantDetails?.adharNo}
           />
           <InputField
             id={`applicantPinCode${index}`}
@@ -64,8 +74,10 @@ const OwnerDetail = ({ index, length, applicantNo, setPhoneNoLimit, increaseAppl
             label="PIN Code"
             placeholder="PIN Code"
             type="number"
+            ltpDetails={applicantDetails?.pinCode}
           />
         </div>
+
         <div className="flex">
           <div className="my-4 mx-3 basis-3/4">
             <label
@@ -77,11 +89,13 @@ const OwnerDetail = ({ index, length, applicantNo, setPhoneNoLimit, increaseAppl
             <textarea
               id={`applicantAddress${index}`}
               rows="4"
+              defaultValue={applicantDetails?.address}
               className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
               placeholder="Dr. no., Street, Village, Mandal, Dist."
               required
             ></textarea>
           </div>
+
           {index === length - 1 && index < 4 && (
             <div className="flex justify-center items-center">
               <button

@@ -195,7 +195,7 @@ function Application({ setOpenApplication }) {
             ))}
           </p>
         ) : (
-          <p className="py-4 px-2">{index+1}</p>
+          <p className="py-4 px-2">{index + 1}</p>
         )}
       </td>
     );

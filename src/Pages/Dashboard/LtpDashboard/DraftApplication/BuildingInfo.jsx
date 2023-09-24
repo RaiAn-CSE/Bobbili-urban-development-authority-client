@@ -25,21 +25,17 @@ const BuildingInfo = () => {
 
   const { _id: id } = userInfoFromLocalStorage();
 
-  console.log(id, "id");
+  // console.log(id, "id");
 
-  console.log(isStepperVisible);
+  // console.log(isStepperVisible);
   // Case Type
   const [selectedOptionCase, setSelectedOptionCase] =
     useState("");
 
-  const [selectedOptionPermission, setSelectedOptionPermission] = useState(
-    ""
-  );
+  const [selectedOptionPermission, setSelectedOptionPermission] = useState("");
 
   // Nature of the site
-  const [selectedNatureOfTheSite, setSelectedNatureOfTheSite] = useState(
-    ""
-  );
+  const [selectedNatureOfTheSite, setSelectedNatureOfTheSite] = useState('');
   const [showInputFields, setShowInputFields] = useState(false);
 
   // Add a state variable to keep track of the number of sets of input fields
@@ -310,7 +306,7 @@ const BuildingInfo = () => {
     fetch(apiUrl)
       .then((response) => response.json())
       .then((result) => {
-        console.log(result, "json fetch");
+        // console.log(result, "json fetch");
         setDistrictData(result.district);
       })
       .catch((error) => {
@@ -333,7 +329,31 @@ const BuildingInfo = () => {
     setSelectedVillage("");
   }; //============================================================<<<<<(District, Mandal & Village End)>>>>> :
 
-  // save data into database
+
+
+  // const [ltpDetails, setLtpDetails] = useState('');
+  // const [applicantDetails, setApplicantDetails] = useState('');
+
+  // console.log(ltpDetails, 'ltpDetails');
+  // console.log(applicantDetails, 'applicantDetails');
+
+  // const { type, name, address, email, licenseNo, phoneNo, validity } = ltpDetails;
+  // const { identity, adharNo, pinCode, } = applicantDetails;
+
+  useEffect(() => {
+    const getData = async () => {
+      const applicationData = await getApplicationData(applicationNo);
+      // console.log(applicationData);
+      const ltpDetailsData = applicationData.buildingInfo;
+      const applicantDetailsData = applicationData.buildingInfo;
+      // setLtpDetails(ltpDetailsData);
+      // setApplicantDetails(applicantDetailsData);
+    };
+    getData();
+  }, []);
+
+
+
 
   // classes for this component:
   const labelClass = "block text-gray-600 mb-1 font-semibold dark:text-gray-100"
@@ -433,14 +453,14 @@ const BuildingInfo = () => {
               value={selectedNatureOfTheSite}
               onChange={handleNatureChange}
             >
-              <option disabled selected>
+              <option disabled selected value=''>
                 Select Nature of the site
               </option>
-              <option>Approved Layout</option>
-              <option>Regularised under LRS</option>
-              <option>Plot port of RLP/IPLP but not regularised</option>
-              <option>Congested/ Gramakanta/ Old Built-up area</option>
-              <option>Newly Developed/ Built up area</option>
+              <option value='Approved Layout'>Approved Layout</option>
+              <option value='Regularised under LRS'>Regularised under LRS</option>
+              <option value='Plot port of RLP/IPLP but not regularised'>Plot port of RLP/IPLP but not regularised</option>
+              <option value='Congested/ Gramakanta/ Old Built-up area'>Congested/ Gramakanta/ Old Built-up area</option>
+              <option value='Newly Developed/ Built up area'>Newly Developed/ Built up area</option>
             </select>
           </div>
 

@@ -1,6 +1,6 @@
 import React from "react";
 
-const InputField = ({ id, name, placeholder, type, label }) => {
+const InputField = ({ id, name, placeholder, type, label, ltpDetails }) => {
   // Define default values for type and placeholder if not provided
   const inputType = type || "text";
 
@@ -14,6 +14,7 @@ const InputField = ({ id, name, placeholder, type, label }) => {
         id={id}
         name={name}
         placeholder={placeholder} // Use the labelPlaceholder variable as the placeholder attribute
+        defaultValue={ltpDetails}
         className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
         required // Add the required attribute
       />
