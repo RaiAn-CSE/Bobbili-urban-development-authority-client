@@ -354,6 +354,7 @@ const BuildingInfo = () => {
   }, []);
 
   // Selector Get Data from server:
+  const [natureOfRoadValue, setNatureOfRoadValue] = useState('');
   const [northValue, setNorthValue] = useState('');
   const [southValue, setSouthValue] = useState('');
   const [eastValue, setEastValue] = useState('');
@@ -361,6 +362,10 @@ const BuildingInfo = () => {
 
   const handleNorthChange = (event) => {
     setNorthValue(event.target.value);
+  };
+
+  const handleNatureOfRoad = (event) => {
+    setNatureOfRoadValue(event.target.value);
   };
 
   const handleSouthChange = (event) => {
@@ -852,6 +857,9 @@ const BuildingInfo = () => {
               <select
                 id="natureOfRoad"
                 className={inputClass}
+                // value={natureOfRoad}
+                value={natureOfRoadValue ? natureOfRoadValue : natureOfRoad}
+                onChange={handleNatureOfRoad}
               >
                 <option disabled selected>
                   Select Nature of Road
