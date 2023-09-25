@@ -2,13 +2,10 @@ import React, { useState } from "react";
 import InputField from "../../../Components/InputField";
 
 const OwnerDetail = ({ index, length, applicantNo, setPhoneNoLimit, increaseApplicantNo, applicantDetails }) => {
-  // console.log(applicantNo, index);
 
   const ownerSerial = ["First", "Second", "Third", "Fourth", "Fifth"];
 
   const [applicantPhone, setApplicantPhone] = useState("");
-
-  // console.log(applicantDetails, "OwnerDetails Page applicantDetails");
 
   return (
     <div>

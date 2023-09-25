@@ -21,7 +21,7 @@ const BuildingInfo = () => {
   const { _id: id } = userInfoFromLocalStorage();
 
   // Case Type
-  const [selectedOptionCase, setSelectedOptionCase] = useState("");
+  const [selectedOptionCase, setSelectedOptionCase] = useState('');
 
   const [selectedOptionPermission, setSelectedOptionPermission] = useState("");
 
@@ -147,11 +147,16 @@ const BuildingInfo = () => {
   // get data from input field :
   const collectInputFieldData = async (url) => {
     // ==================================================<<<(General Information)>>>:
-    const selectedApplicationType =
-      document.querySelector('input[name="radio-1"]:checked')?.value || ""; // Get selected radio input's value
-
+    const caseTypeData = document.getElementById("caseType").value;
+    // Get selected radio input's value
+    const selectedApplicationType = document.querySelector('input[name="radio-1"]:checked')?.value || "";
+    const natureOfPermission = document.getElementById("natureOfPermission").value;
+    const natureOfTheSite = document.getElementById("natureOfTheSite").value;
     const surveyNo = document.getElementById("SurveyNo").value;
+    const district = document.getElementById("district").value;
+    const mandal = document.getElementById("mandal").value;
     const gramaPanchayat = document.getElementById("GramaPanchayat").value;
+    const village = document.getElementById("village").value;
 
     const bpsApprovedElement = document.getElementById("BpsApprovedNo");
     const bpsApprovedNo = bpsApprovedElement ? bpsApprovedElement.value : "";
@@ -177,10 +182,12 @@ const BuildingInfo = () => {
 
     const iplpNoElement = document.getElementById("IplpNo");
     const iplpNo = iplpNoElement ? iplpNoElement.value : "";
-    const totalPlotDocument =
-      document.getElementById("TotalPlotDocument").value; // ==========<<<(Plot Details)>>>:
+    // ================================================<<<(Plot Details)>>>:
+    const totalPlotDocument = document.getElementById("TotalPlotDocument").value;
     const totalPlotGround = document.getElementById("TotalPlotGround").value;
-    const netPlotArea = document.getElementById("NetPlotArea").value;
+    const proposedPlotAreaValue = document.getElementById("proposedPlotArea").value;
+    const roadWideningAreaValue = document.getElementById("roadWideningArea").value;
+    const netPlotAreaValue = document.getElementById("netPlotArea").value;
 
     const existingRoad =
       document.querySelector('input[name="radio-2"]:checked')?.value || "";
@@ -226,15 +233,15 @@ const BuildingInfo = () => {
     const west = document.getElementById("west").value;
 
     const generalInformation = {
-      caseType: selectedOptionCase,
+      caseType: caseTypeData,
       applicationType: selectedApplicationType,
-      natureOfPermission: selectedOptionPermission,
-      natureOfTheSite: selectedNatureOfTheSite,
+      natureOfPermission,
+      natureOfTheSite,
       surveyNo,
-      district: selectedDistrict,
-      mandal: selectedMandal,
+      district,
+      mandal,
       gramaPanchayat,
-      village: selectedVillage,
+      village,
       bpsApprovedNoServer: bpsApprovedNo,
       previewsApprovedFileNo,
       lpNo,
@@ -247,9 +254,9 @@ const BuildingInfo = () => {
     const plotDetails = {
       totalPlotDocument,
       totalPlotGround,
-      proposedPlotAreaCal: proposedPlotArea,
-      roadWideningAreaCal: roadWideningArea,
-      netPlotAreaCal: netPlotArea,
+      proposedPlotAreaCal: proposedPlotAreaValue,
+      roadWideningAreaCal: roadWideningAreaValue,
+      netPlotAreaCal: netPlotAreaValue,
       statusOfRoad,
       existingRoad,
       natureOfRoad,
@@ -286,8 +293,8 @@ const BuildingInfo = () => {
       buildingInfo,
     });
   };
-
-  const [districtData, setDistrictData] = useState([]); //==========<<<<<(District, Mandal & Village Start)>>>>> :
+  //==============================<<<<<(District, Mandal & Village Start)>>>>> :
+  const [districtData, setDistrictData] = useState([]);
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [selectedMandal, setSelectedMandal] = useState("");
   const [selectedVillage, setSelectedVillage] = useState("");
@@ -297,7 +304,6 @@ const BuildingInfo = () => {
     fetch(apiUrl)
       .then((response) => response.json())
       .then((result) => {
-        // console.log(result, "json fetch");
         setDistrictData(result.district);
       })
       .catch((error) => {
@@ -306,36 +312,35 @@ const BuildingInfo = () => {
   }, []);
 
   const handleDistrictChange = (event) => {
-    const selectedDistrict = event.target.value;
-    setSelectedDistrict(selectedDistrict);
+    setSelectedDistrict(event.target.value);
     // Reset selected mandal and village when district changes
     setSelectedMandal("");
     setSelectedVillage("");
   };
 
   const handleMandalChange = (event) => {
-    const selectedMandal = event.target.value;
-    setSelectedMandal(selectedMandal);
+    setSelectedMandal(event.target.value);
     // Reset selected village when mandal changes
     setSelectedVillage("");
-  }; //============================================================<<<<<(District, Mandal & Village End)>>>>> :
+  };
+  //==============================<<<<<(District, Mandal & Village End)>>>>> :
 
 
 
   const [generalInformation, setGeneralInformation] = useState('');
   const [plotDetails, setPlotDetails] = useState('');
+  const [plotDetailsFloor, setPlotDetailsFloor] = useState('');
   const [scheduleBoundaries, setScheduleBoundaries] = useState('');
 
   console.log(generalInformation, 'generalInformation');
   const { applicationType, bpsApprovedNoServer, caseType, district, gramaPanchayat, iplpNo, lpNo, lrsNo, mandal, natureOfPermission, natureOfTheSite, plotNo, plotNo2, previewsApprovedFileNo, surveyNo, village } = generalInformation;
 
-  // console.log(plotDetails, 'plotDetails');
+  console.log(plotDetails, 'plotDetails');
   const { proposedPlotAreaCal, roadWideningAreaCal, netPlotAreaCal, buildingExcludeStilt, compoundingWallProposed, existingRoad, existingRoadMts, frontSetback, marketValueSqym, natureOfRoad, proposedRoadMts, rareSetback, side1Setback, side2Setback, siteRegistered, statusOfRoad, totalBuiltUpArea, totalParkingArea, totalPlotDocument, totalPlotGround } = plotDetails;
 
   // console.log(scheduleBoundaries, 'scheduleBoundaries');
   const { east, west, north, south } = scheduleBoundaries;
   // console.log(north);
-
 
   useEffect(() => {
     const getData = async () => {
@@ -344,10 +349,13 @@ const BuildingInfo = () => {
 
       const generalInformation = applicationData.buildingInfo.generalInformation;
       const plotDetails = applicationData.buildingInfo.plotDetails;
+      const plotDetailsFloor = applicationData.buildingInfo.plotDetails.floorDetails;
+      console.log(plotDetailsFloor, "plotDetailsFloor");
       const scheduleBoundaries = applicationData.buildingInfo.scheduleBoundaries;
 
       setGeneralInformation(generalInformation);
       setPlotDetails(plotDetails);
+      setPlotDetailsFloor(plotDetailsFloor);
       setScheduleBoundaries(scheduleBoundaries);
     };
     getData();
@@ -432,7 +440,7 @@ const BuildingInfo = () => {
             <select
               id="caseType"
               className="w-full px-3 py-[10px] border border-[#10AC84] dark:text-black rounded-lg max-w-xs"
-              value={selectedOptionCase ? selectedOptionCase : caseType}
+              value={selectedOptionCase.length ? selectedOptionCase : caseType}
               onChange={handleCaseTypeChange}
             >
               <option disabled selected value="">
@@ -485,6 +493,7 @@ const BuildingInfo = () => {
               <span>Nature of permission</span>
             </label>
             <select
+              id="natureOfPermission"
               className={inputClass}
               value={selectedOptionPermission ? selectedOptionPermission : natureOfPermission}
               onChange={handlePermissionChange}
@@ -508,7 +517,7 @@ const BuildingInfo = () => {
               <span>Nature of the site</span>
             </label>
             <select
-              id="nature"
+              id="natureOfTheSite"
               className={inputClass}
               value={selectedNatureOfTheSite ? selectedNatureOfTheSite : natureOfTheSite}
               onChange={handleNatureChange}
@@ -538,7 +547,7 @@ const BuildingInfo = () => {
               <span>District</span>
             </label>
             <select
-              id="District"
+              id="district"
               name="District"
               className={inputClass}
               onChange={handleDistrictChange}
@@ -560,8 +569,8 @@ const BuildingInfo = () => {
               <span>Mandal</span>
             </label>
             <select
-              id="Mandal"
-              name="Mandal"
+              id="mandal"
+              name="mandal"
               className={inputClass}
               onChange={handleMandalChange}
               value={selectedMandal}
@@ -594,8 +603,8 @@ const BuildingInfo = () => {
               <span>Village</span>
             </label>
             <select
-              id="Village"
-              name="Village"
+              id="village"
+              name="village"
               className={inputClass}
               value={selectedVillage}
               onChange={(e) => setSelectedVillage(e.target.value)}
@@ -735,33 +744,35 @@ const BuildingInfo = () => {
 
             <div className="my-4 mx-3">
               <label
-                htmlFor="ProposedPlotArea"
+                htmlFor=""
                 className={labelClass}
               >
                 Proposed Plot area
               </label>
               <input
                 type="number"
-                id="ProposedPlotArea"
+                id="proposedPlotArea"
+                name="proposedPlotArea"
                 placeholder="in Sq.M."
                 className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
-                defaultValue={proposedPlotAreaCal ? proposedPlotAreaCal : proposedPlotArea}
+                defaultValue={proposedPlotArea ? proposedPlotArea : proposedPlotAreaCal}
                 onChange={handleProposedPlotAreaChange}
               />
             </div>
 
             <div className="my-4 mx-3">
               <label
-                htmlFor="ProposedPlot"
+                htmlFor=""
                 className={labelClass}
               >
                 Road Widening Area
               </label>
               <input
+                id="roadWideningArea"
                 type="number"
                 placeholder="in Sq.M."
                 className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
-                defaultValue={roadWideningAreaCal ? roadWideningAreaCal : roadWideningArea}
+                defaultValue={roadWideningArea ? roadWideningArea : roadWideningAreaCal}
                 onChange={handleRoadWideningAreaChange}
               />
             </div>
@@ -776,8 +787,8 @@ const BuildingInfo = () => {
               </label>
               <input
                 type="text"
-                id="NetPlotArea"
-                name="NetPlotArea"
+                id="netPlotArea"
+                name="netPlotArea"
                 placeholder="Automatically calculated"
                 className="w-full px-3 py-2 border rounded-lg max-w-xs"
                 value={netPlotArea ? netPlotArea : netPlotAreaCal}
@@ -904,6 +915,9 @@ const BuildingInfo = () => {
                 increaseFloorNo={increaseFloorNo}
                 handleBuiltUpArea={handleBuiltUpArea}
                 handleParkingArea={handleParkingArea}
+                parkingAreaValue={parkingArea[index]}
+                builtUpAreaValue={builtUpArea[index]}
+                plotDetailsFloor={plotDetailsFloor[index]}
               />
             ))}
           </div>
