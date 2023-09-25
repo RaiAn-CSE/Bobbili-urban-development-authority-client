@@ -3,6 +3,7 @@ import Documents from "../../../../assets/Documents.json";
 import { Link, useOutletContext } from "react-router-dom";
 import toast from "react-hot-toast";
 import SaveData from "./SaveData";
+import axios from "axios";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 
 const DocumentUpload = () => {
@@ -14,6 +15,8 @@ const DocumentUpload = () => {
     useContext(AuthContext);
 
   const formData = new FormData();
+
+  const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
 
   const handleFileChange = (event, eventId) => {
     const file = event?.target?.files[0];
@@ -42,13 +45,14 @@ const DocumentUpload = () => {
 
   console.log(UpdatedDocuments, "UpdatesDocuments");
 
-  const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
-
   useEffect(() => {
     const gettingData = async () => {
       let updatedDocumentsToAdd = [];
       const applicationData = await getApplicationData(applicationNo);
       const applicationCheckList = applicationData.applicationCheckList;
+      const documents = applicationData.documents;
+
+      console.log(documents);
       if (applicationCheckList.length) {
         // Declare the array here
         applicationCheckList.forEach((data, index) => {
@@ -68,6 +72,18 @@ const DocumentUpload = () => {
         });
       }
       setUpdatedDocuments([...UpdatedDocuments, ...updatedDocumentsToAdd]);
+
+      if (documents.length) {
+        setUpdatedDocuments((prev) => {
+          console.log(prev);
+          documents.forEach((document, index) => {
+            console.log(document, index);
+            prev[index].upload = document;
+          });
+
+          return prev;
+        });
+      }
     };
 
     gettingData();
@@ -96,6 +112,7 @@ const DocumentUpload = () => {
     // append data to formData so that the file data can be sent into the database
 
     UpdatedDocuments.forEach((document) => {
+      console.log(document);
       formData.append("files", document?.upload);
     });
 
@@ -116,9 +133,9 @@ const DocumentUpload = () => {
       console.log(response, "response");
 
       if (response?.data.msg === "Successfully uploaded") {
-        const documents = response.data.fileId;
+        const documents = response?.data?.fileId;
 
-        console.log(drawing, "DRAWING");
+        console.log(documents);
 
         return await sendUserDataIntoDB(url, "PATCH", {
           applicationNo,
@@ -131,14 +148,6 @@ const DocumentUpload = () => {
     }
   };
 
-  // Sending data to Backend
-  const sendDocumentsData = async (url) => {
-    return await sendUserDataIntoDB(url, "PATCH", {
-      applicationNo: JSON.parse(localStorage.getItem("CurrentAppNo")),
-      documents: UpdatedDocuments,
-    });
-  };
-
   return (
     <form
       onSubmit={(e) => {
@@ -146,8 +155,8 @@ const DocumentUpload = () => {
       }}
       className="text-black p-4"
     >
-      {UpdatedDocuments.map((Question) => {
-        const { id, question } = Question;
+      {UpdatedDocuments?.map((document) => {
+        const { id, question, upload } = document;
         return (
           <>
             <div key={id} className="w-full px-2 mt-10  mb-28">
@@ -163,13 +172,15 @@ const DocumentUpload = () => {
                   onChange={(event) => handleFileChange(event, id)}
                   className="file-input file-input-bordered file-input-md w-full max-w-xs"
                 />
-                <Link
-                  to={`https://drive.google.com/file/d//view?usp=sharing`}
-                  target="_blank"
-                  className="hover:underline ms-10 p-3"
-                >
-                  View old File
-                </Link>
+                {upload !== "" && (
+                  <Link
+                    to={`https://drive.google.com/file/d/${upload}/view?usp=sharing`}
+                    target="_blank"
+                    className="hover:underline ms-10 p-3"
+                  >
+                    View old File
+                  </Link>
+                )}
               </div>
             </div>
             <div className="divider"></div>
@@ -187,7 +198,7 @@ const DocumentUpload = () => {
         steps={steps}
         stepperData={stepperData}
         confirmAlert={confirmAlert}
-        collectInputFieldData={sendDocumentsData}
+        collectInputFieldData={handleFileUpload}
       />
     </form>
   );
