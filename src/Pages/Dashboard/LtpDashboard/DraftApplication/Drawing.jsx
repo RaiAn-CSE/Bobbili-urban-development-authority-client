@@ -12,9 +12,19 @@ const Drawing = () => {
     "Drawing PDF": "",
   });
 
+  const [savedData, setSavedData] = useState([]);
+
+  const { confirmAlert, sendUserDataIntoDB, getApplicationData } =
+    useContext(AuthContext);
+
+  const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
+
   useEffect(() => {
     localStorage.setItem("selectedFiles", JSON.stringify(["", ""]));
+
+    // get application data from the database
   }, []);
+
   const stepperData = useOutletContext();
 
   const [localFile, setLocalFile] = useState(
@@ -22,9 +32,11 @@ const Drawing = () => {
   );
 
   useEffect(() => {
-    const localStorageFile = JSON.parse(localStorage.getItem("selectedFiles"));
-    setLocalFile(localStorageFile);
-  }, [localFile]);
+    // setLocalFile(JSON.parse(localStorage.getItem("selectedFiles")));
+    return () => {
+      localStorage.removeItem("selectedFiles");
+    };
+  }, []);
 
   let btnClass =
     "btn btn-md text-[#000000] hover:text-[#fff] rounded-lg transition-all duration-500 cursor-pointer hover:bg-emerald-400";
@@ -32,10 +44,6 @@ const Drawing = () => {
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
 
   console.log(stepperData);
-
-  const { confirmAlert, sendUserDataIntoDB } = useContext(AuthContext);
-
-  const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
 
   const btn =
     "btn btn-md text-xs px-4 md:text-sm md:px-6 bg-Primary transition duration-700 hover:bg-btnHover hover:shadow-md";
@@ -57,7 +65,7 @@ const Drawing = () => {
 
     if (eventId === "AutoCAD Drawing") {
       localStoreDrawingData[0] = file?.name;
-
+      setLocalFile(localStoreDrawingData);
       console.log("Autocad");
       localStorage.setItem(
         "selectedFiles",
@@ -67,7 +75,7 @@ const Drawing = () => {
     if (eventId === "Drawing PDF") {
       console.log("DRA");
       localStoreDrawingData[1] = file?.name;
-
+      setLocalFile(localStoreDrawingData);
       localStorage.setItem(
         "selectedFiles",
         JSON.stringify(localStoreDrawingData)
@@ -153,14 +161,12 @@ const Drawing = () => {
             />
             <div className="flex justify-between items-center bg-white shadow-lg w-[230px] p-2 rounded-lg z-0">
               <MdOutlineAttachFile size={20} />
-              <p className="text-base">
-                {JSON.parse(localStorage.getItem("selectedFiles"))[0] !== ""
-                  ? JSON.parse(localStorage.getItem("selectedFiles"))[0].slice(
-                      0,
-                      12
-                    ) + "..."
-                  : "Select a file"}
-              </p>
+
+              {localFile && localFile[0] !== "" ? (
+                <p className="text-base">{localFile[0].slice(0, 12) + "..."}</p>
+              ) : (
+                <p className="text-base">Select a file</p>
+              )}
 
               <p className="bg-orange-400 text-white font-bold px-3 py-3 rounded-lg z-0">
                 Upload
@@ -190,14 +196,11 @@ const Drawing = () => {
             />
             <div className="flex justify-between items-center bg-white shadow-lg w-[230px] p-2 rounded-lg z-0">
               <MdOutlineAttachFile size={20} />
-              <p className="text-base">
-                {JSON.parse(localStorage.getItem("selectedFiles"))[1] !== ""
-                  ? JSON.parse(localStorage.getItem("selectedFiles"))[1].slice(
-                      0,
-                      12
-                    ) + "..."
-                  : "Select a file"}
-              </p>
+              {localFile && localFile[1] !== "" ? (
+                <p className="text-base">{localFile[1].slice(0, 12) + "..."}</p>
+              ) : (
+                <p className="text-base">Select a file</p>
+              )}
 
               <p className="bg-orange-400 text-white font-bold px-3 py-3 rounded-lg z-0">
                 Upload
