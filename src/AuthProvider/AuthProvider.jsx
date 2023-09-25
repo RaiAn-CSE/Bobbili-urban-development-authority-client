@@ -36,7 +36,7 @@ const AuthProvider = ({ children }) => {
 
   //   send user data into the database
   const sendUserDataIntoDB = async (url, method = "PATCH", data) => {
-    console.log(data);
+    console.log(data, "DATA");
     const config = {
       method,
       headers: {
@@ -82,7 +82,7 @@ const AuthProvider = ({ children }) => {
       preConfirm: async (confirm) => {
         console.log("confirm", confirm);
 
-        console.log(collectInputFieldData);
+        console.log(collectInputFieldData, "COLLECT INPUT FIELD DATA");
 
         return await collectInputFieldData(url)
           .then((response) => {

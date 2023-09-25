@@ -87,7 +87,7 @@ const NewApplication = () => {
       applicantInfo: { ltpDetails: {}, applicantDetails: {} },
       applicationCheckList: [],
       documents: [],
-      drawing: [],
+      drawing: { AutoCAD: "", Drawing: "" },
       payment: {
         udaCharge: {},
         gramaPanchayatFee: {},

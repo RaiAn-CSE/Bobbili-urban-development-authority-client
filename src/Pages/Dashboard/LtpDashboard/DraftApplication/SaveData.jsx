@@ -19,6 +19,7 @@ const SaveData = ({
           {currentStep !== steps.length - 1 ? (
             <button
               className={`${btnClass} bg-yellow-300 hover:shadow-md hover:bg-yellow-300 hover:text-black`}
+              type="submit"
               // onClick={() =>
               //   // currentStep < steps.length - 1 &&
               //   // handleStepClick(currentStep + 1)
