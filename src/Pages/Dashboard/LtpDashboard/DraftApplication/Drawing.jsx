@@ -1,16 +1,30 @@
-import { useContext, useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Link, useOutletContext } from "react-router-dom";
 import toast from "react-hot-toast";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
-import SaveData from "./SaveData";
 import axios from "axios";
+import { MdOutlineAttachFile } from "react-icons/md";
+import SaveData from "./SaveData";
 
 const Drawing = () => {
   const [selectedFiles, setSelectedFiles] = useState({
     "AutoCAD Drawing": "",
     "Drawing PDF": "",
   });
+
+  useEffect(() => {
+    localStorage.setItem("selectedFiles", JSON.stringify(["", ""]));
+  }, []);
   const stepperData = useOutletContext();
+
+  const [localFile, setLocalFile] = useState(
+    JSON.parse(localStorage.getItem("selectedFiles"))
+  );
+
+  useEffect(() => {
+    const localStorageFile = JSON.parse(localStorage.getItem("selectedFiles"));
+    setLocalFile(localStorageFile);
+  }, [localFile]);
 
   let btnClass =
     "btn btn-md text-[#000000] hover:text-[#fff] rounded-lg transition-all duration-500 cursor-pointer hover:bg-emerald-400";
@@ -27,6 +41,7 @@ const Drawing = () => {
     "btn btn-md text-xs px-4 md:text-sm md:px-6 bg-Primary transition duration-700 hover:bg-btnHover hover:shadow-md";
 
   const formData = new FormData();
+
   const handleFileChange = (event, eventId) => {
     const file = event?.target.files[0];
 
@@ -35,20 +50,37 @@ const Drawing = () => {
     // formData.append(eventId, file);
 
     file && toast.success(`${file?.name} uploaded successfully!`);
+
+    const localStoreDrawingData = JSON.parse(
+      localStorage.getItem("selectedFiles")
+    );
+
+    if (eventId === "AutoCAD Drawing") {
+      localStoreDrawingData[0] = file?.name;
+
+      console.log("Autocad");
+      localStorage.setItem(
+        "selectedFiles",
+        JSON.stringify(localStoreDrawingData)
+      );
+    }
+    if (eventId === "Drawing PDF") {
+      console.log("DRA");
+      localStoreDrawingData[1] = file?.name;
+
+      localStorage.setItem(
+        "selectedFiles",
+        JSON.stringify(localStoreDrawingData)
+      );
+    }
+
+    console.log(localStoreDrawingData, "PREVIOUS GET");
     // Set File Uploaded Data
     setSelectedFiles((prev) => {
       console.log(prev, "prev");
       prev[eventId] = file;
       return prev;
     });
-
-    // if (upload.length < 1) return;
-
-    // .append("file", upload[0]);
-
-    console.log(selectedFiles);
-
-    // console.log({ ...formData });
   };
 
   const handleFileUpload = async (url) => {
@@ -103,43 +135,52 @@ const Drawing = () => {
   };
 
   return (
-    <form
-      onSubmit={(e) => e.preventDefault()}
-      className="text-black h-screen p-5 mt-3"
-    >
+    <form onSubmit={(e) => e.preventDefault()} className="text-black p-5 mt-3">
       {/* AutoCAD Drawing */}
-      <div className="flex items-center text-base px-2 space-y-2 mb-8">
-        <p className="flex-1 pr-3">
+      <div className="flex justify-between items-center text-base px-2  mb-16">
+        <p className="pr-3">
           <span className="font-bold">1.</span> AutoCAD Drawing
         </p>
-        <div className="w-[30%] flex items-center space-x-1 text-sm">
-          <label
-            className={`cursor-pointer bg-gray-300 border py-2 px-4 rounded-full 
-          
-              `}
-          >
+        <div className="flex items-center text-sm">
+          <label className="relative cursor-pointer">
             {/* {selectedFiles["AutoCAD Drawing"]?.name ? "Uploaded" : "Upload"} */}
+
             <input
               type="file"
               accept=".dwg, .zip, .pdf,.png,.jpg"
               onChange={(event) => handleFileChange(event, "AutoCAD Drawing")}
-              style={{ display: "none" }}
+              className=" absolute top-1/2 left-0 translate-y-[-50%]  w-[200px] z-[-1]"
             />
+            <div className="flex justify-between items-center bg-white shadow-lg w-[230px] p-2 rounded-lg z-0">
+              <MdOutlineAttachFile size={20} />
+              <p className="text-base">
+                {JSON.parse(localStorage.getItem("selectedFiles"))[0] !== ""
+                  ? JSON.parse(localStorage.getItem("selectedFiles"))[0].slice(
+                      0,
+                      12
+                    ) + "..."
+                  : "Select a file"}
+              </p>
+
+              <p className="bg-orange-400 text-white font-bold px-3 py-3 rounded-lg z-0">
+                Upload
+              </p>
+            </div>
           </label>
+
+          <Link className="ms-10 bg-yellow-300 p-3 rounded-full">
+            View old File
+          </Link>
         </div>
       </div>
 
       {/* Drawing PDF */}
-      <div className="flex items-center text-base px-2 space-y-2">
-        <p className="flex-1 pr-3">
+      <div className="flex justify-between items-center text-base px-2 mb-16 ">
+        <p className="pr-3">
           <span className="font-bold">2.</span> Drawing PDF
         </p>
-        <div className="w-[30%] flex items-center space-x-1 text-sm">
-          <label
-            className={`cursor-pointer bg-gray-300 border py-2 px-4 rounded-full 
-         `}
-          >
-            {/* {selectedFiles["Drawing PDF"]?.name ? "Uploaded" : "Upload"} */}
+        <div className="flex items-center text-sm">
+          <label className="relative cursor-pointer">
             <input
               type="file"
               id="drawing"
@@ -147,11 +188,28 @@ const Drawing = () => {
               onChange={(event) => handleFileChange(event, "Drawing PDF")}
               style={{ display: "none" }}
             />
+            <div className="flex justify-between items-center bg-white shadow-lg w-[230px] p-2 rounded-lg z-0">
+              <MdOutlineAttachFile size={20} />
+              <p className="text-base">
+                {JSON.parse(localStorage.getItem("selectedFiles"))[1] !== ""
+                  ? JSON.parse(localStorage.getItem("selectedFiles"))[1].slice(
+                      0,
+                      12
+                    ) + "..."
+                  : "Select a file"}
+              </p>
+
+              <p className="bg-orange-400 text-white font-bold px-3 py-3 rounded-lg z-0">
+                Upload
+              </p>
+            </div>
           </label>
+
+          <Link className="ms-10 bg-yellow-300 p-3 rounded-full">
+            View old File
+          </Link>
         </div>
       </div>
-
-      <input type="submit" value="Submit" />
 
       {/* save & continue  */}
       {/* navigation button  */}
