@@ -77,20 +77,57 @@ const DocumentUpload = () => {
 
   // handle file upload
 
-  const handleFileUpload = () => {
+  const handleFileUpload = async (url) => {
     console.log(UpdatedDocuments, "UPDATE DOCUMENTS");
 
     // find empty field to stop sending data in to the database
-    const findEmptyField = UpdatedDocuments.find(
-      (field) => field?.upload === ""
-    );
+    // const findEmptyField = UpdatedDocuments.find(
+    //   (field) => field?.upload === ""
+    // );
 
-    console.log(findEmptyField, "Find empty field");
+    // console.log(findEmptyField, "Find empty field");
 
-    if (!findEmptyField) {
-      console.log("No empty");
-    } else {
-      toast.error("Please fill up all the fields");
+    // if (!findEmptyField) {
+    //   console.log("No empty");
+    // } else {
+    //   toast.error("Please fill up all the fields");
+    // }
+
+    // append data to formData so that the file data can be sent into the database
+
+    UpdatedDocuments.forEach((document) => {
+      formData.append("files", document?.upload);
+    });
+
+    console.log(...formData);
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/upload?page=document",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data", // Important for file uploads
+          },
+        }
+      );
+      // Handle success or display a success message to the user
+
+      console.log(response, "response");
+
+      if (response?.data.msg === "Successfully uploaded") {
+        const documents = response.data.fileId;
+
+        console.log(drawing, "DRAWING");
+
+        return await sendUserDataIntoDB(url, "PATCH", {
+          applicationNo,
+          documents,
+        });
+      }
+    } catch (error) {
+      // Handle errors, e.g., show an error message to the user
+      toast.error("Error to upload documents");
     }
   };
 
