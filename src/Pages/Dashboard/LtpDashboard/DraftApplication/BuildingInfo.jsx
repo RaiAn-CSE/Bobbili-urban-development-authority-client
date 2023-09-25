@@ -235,7 +235,7 @@ const BuildingInfo = () => {
       mandal: selectedMandal,
       gramaPanchayat,
       village: selectedVillage,
-      bpsApprovedNo,
+      bpsApprovedNoServer: bpsApprovedNo,
       previewsApprovedFileNo,
       lpNo,
       plotNo,
@@ -327,7 +327,7 @@ const BuildingInfo = () => {
   const [scheduleBoundaries, setScheduleBoundaries] = useState('');
 
   console.log(generalInformation, 'generalInformation');
-  const { applicationType, bpsApprovedNo, caseType, district, gramaPanchayat, iplpNo, lpNo, lrsNo, mandal, natureOfPermission, natureOfTheSite, plotNo, plotNo2, previewsApprovedFileNo, surveyNo, village } = generalInformation;
+  const { applicationType, bpsApprovedNoServer, caseType, district, gramaPanchayat, iplpNo, lpNo, lrsNo, mandal, natureOfPermission, natureOfTheSite, plotNo, plotNo2, previewsApprovedFileNo, surveyNo, village } = generalInformation;
 
   // console.log(plotDetails, 'plotDetails');
   const { proposedPlotAreaCal, roadWideningAreaCal, netPlotAreaCal, buildingExcludeStilt, compoundingWallProposed, existingRoad, existingRoadMts, frontSetback, marketValueSqym, natureOfRoad, proposedRoadMts, rareSetback, side1Setback, side2Setback, siteRegistered, statusOfRoad, totalBuiltUpArea, totalParkingArea, totalPlotDocument, totalPlotGround } = plotDetails;
@@ -419,6 +419,7 @@ const BuildingInfo = () => {
         </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 mt-2 mb-5">
+
           <div className="flex flex-col justify-center my-4 px-3">
             <label htmlFor="nature" className={labelClass}>
               <span>Case Type</span>
@@ -426,7 +427,7 @@ const BuildingInfo = () => {
             <select
               id="caseType"
               className="w-full px-3 py-[10px] border border-[#10AC84] dark:text-black rounded-lg max-w-xs"
-              defaultValue={generalInformation?.caseType ? generalInformation?.caseType : selectedOptionCase}
+              value={selectedOptionCase ? selectedOptionCase : caseType}
               onChange={handleCaseTypeChange}
             >
               <option disabled selected value="">
@@ -443,6 +444,7 @@ const BuildingInfo = () => {
             </select>
           </div>
 
+          {/* General Information radio button  */}
           <div className="grid grid-cols-1 font-medium  lg:justify-items-center my-4 mx-3">
             <p className="flex items-center font-semibold text-gray-600 dark:text-gray-100">
               Application Type?
@@ -479,7 +481,7 @@ const BuildingInfo = () => {
             </label>
             <select
               className={inputClass}
-              value={selectedOptionPermission}
+              value={selectedOptionPermission ? selectedOptionPermission : natureOfPermission}
               onChange={handlePermissionChange}
             >
               <option disabled selected value="">
@@ -503,7 +505,7 @@ const BuildingInfo = () => {
             <select
               id="nature"
               className={inputClass}
-              value={selectedNatureOfTheSite}
+              value={selectedNatureOfTheSite ? selectedNatureOfTheSite : natureOfTheSite}
               onChange={handleNatureChange}
             >
               <option disabled selected value=''>
@@ -535,7 +537,7 @@ const BuildingInfo = () => {
               name="District"
               className={inputClass}
               onChange={handleDistrictChange}
-              value={selectedDistrict}
+              value={selectedDistrict ? selectedDistrict : district}
             >
               <option value="" disabled>
                 Select District
@@ -618,6 +620,7 @@ const BuildingInfo = () => {
                   name="BpsApprovedNo"
                   label="BPS approved no."
                   placeholder="BPS approved no."
+                  ltpDetails={bpsApprovedNoServer}
                   type="number"
                 />
               </div>
@@ -632,6 +635,7 @@ const BuildingInfo = () => {
                   label="Previews approved file no."
                   placeholder="Previews approved file no."
                   type="number"
+                  ltpDetails={previewsApprovedFileNo}
                 />
               </div>
             )}
@@ -647,6 +651,7 @@ const BuildingInfo = () => {
                     label="L.P. no."
                     placeholder="L.P. no."
                     type="number"
+                    ltpDetails={lpNo}
                   />
                   <InputField
                     id="PlotNo"
@@ -654,9 +659,11 @@ const BuildingInfo = () => {
                     label="Plot no."
                     placeholder="Plot no."
                     type="number"
+                    ltpDetails={plotNo}
                   />
                 </>
               )}
+
               {selectedNatureOfTheSite === "Regularised under LRS" && (
                 <>
                   <InputField
@@ -665,6 +672,7 @@ const BuildingInfo = () => {
                     label="LRS no"
                     placeholder="LRS no."
                     type="number"
+                    ltpDetails={lrsNo}
                   />
                   <InputField
                     id="PlotNo2"
@@ -672,9 +680,11 @@ const BuildingInfo = () => {
                     label="Plot no"
                     placeholder="Plot no."
                     type="number"
+                    ltpDetails={plotNo2}
                   />
                 </>
               )}
+
               {selectedNatureOfTheSite ===
                 "Plot port of RLP/IPLP but not regularised" && (
                   <InputField
@@ -683,6 +693,7 @@ const BuildingInfo = () => {
                     label="RLP/IPLP no."
                     placeholder="RLP/IPLP no."
                     type="number"
+                    ltpDetails={iplpNo}
                   />
                 )}
             </>
