@@ -22,6 +22,11 @@ const Drawing = () => {
   useEffect(() => {
     localStorage.setItem("selectedFiles", JSON.stringify(["", ""]));
 
+    getApplicationData(applicationNo).then((res) => {
+      console.log(res);
+      setSavedData(res);
+    });
+
     // get application data from the database
   }, []);
 
@@ -174,9 +179,15 @@ const Drawing = () => {
             </div>
           </label>
 
-          <Link className="ms-10 bg-yellow-300 p-3 rounded-full">
-            View old File
-          </Link>
+          {savedData?.drawing?.AutoCAD && (
+            <Link
+              to={`https://drive.google.com/file/d/${savedData?.drawing?.AutoCAD}/view?usp=sharing`}
+              target="_blank"
+              className="ms-10 hover:underline bg-yellow-300 p-3 rounded-full"
+            >
+              View old File
+            </Link>
+          )}
         </div>
       </div>
 
@@ -208,9 +219,15 @@ const Drawing = () => {
             </div>
           </label>
 
-          <Link className="ms-10 bg-yellow-300 p-3 rounded-full">
-            View old File
-          </Link>
+          {savedData?.drawing?.Drawing && (
+            <Link
+              to={`https://drive.google.com/file/d/${savedData?.drawing?.Drawing}/view?usp=sharing`}
+              target="_blank"
+              className="ms-10 hover:underline bg-yellow-300 p-3 rounded-full"
+            >
+              View old File
+            </Link>
+          )}
         </div>
       </div>
 
