@@ -8,11 +8,7 @@ const OwnerDetail = ({ index, length, applicantNo, setPhoneNoLimit, increaseAppl
 
   const [applicantPhone, setApplicantPhone] = useState("");
 
-  console.log(applicantDetails, "OwnerDetails Page applicantDetails");
-
-
-  // const { address, adharNo, email, identity, name, phone, pinCode } = applicantDetails;
-
+  // console.log(applicantDetails, "OwnerDetails Page applicantDetails");
 
   return (
     <div>
