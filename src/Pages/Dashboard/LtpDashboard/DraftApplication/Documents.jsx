@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Documents from "../../../../assets/Documents.json";
 import { useOutletContext } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -8,21 +8,13 @@ import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 const DocumentUpload = () => {
   const [selectedFiles, setSelectedFiles] = useState({});
   const [UpdatedDocuments, setUpdatedDocuments] = useState(Documents.Data);
-
   const stepperData = useOutletContext();
-
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
-
-  console.log(stepperData);
-
-  const { confirmAlert, sendUserDataIntoDB } = useContext(AuthContext);
-
-  const btn =
-    "btn btn-md text-sm bg-Primary transition duration-700 hover:bg-btnHover hover:shadow-md";
+  const { confirmAlert, sendUserDataIntoDB, getApplicationData } = useContext(AuthContext);
 
   const handleFileChange = (event, eventId) => {
     const file = event?.target?.files[0];
-    file && toast.success(`${file?.name} uploaded successfully!`);
+    file && toast.success(`${file?.name.slice(0,20)}... uploaded successfully!`);
     // Update selectedFiles object with the selected file for the specific question ID.
     setSelectedFiles((prevSelectedFiles) => ({
       ...prevSelectedFiles,
@@ -39,6 +31,33 @@ const DocumentUpload = () => {
   };
   console.log(UpdatedDocuments, "UpdatesDocuments");
 
+  const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
+
+  useEffect(() => {
+
+    const gettingData = async () => {
+      let updatedDocumentsToAdd = [];
+      const applicationData = await getApplicationData(applicationNo);
+      const applicationCheckList = applicationData.applicationCheckList;
+      if (applicationCheckList.length) {
+        // Declare the array here
+        applicationCheckList.forEach((data, index) => {
+          const already=UpdatedDocuments.find(document=>document.question===data.question)
+            if(already){
+              return null;
+            }
+          if (index >= 8 && data.answer === "yes") {
+            updatedDocumentsToAdd.push({ id: UpdatedDocuments.length + updatedDocumentsToAdd.length + 1, question: data.question, upload: "" });
+          }
+        });
+      }
+      setUpdatedDocuments([...UpdatedDocuments, ...updatedDocumentsToAdd]);
+    };
+
+    gettingData();
+  }, []);
+
+  console.log(UpdatedDocuments, "updatedDocuments")
   // Sending data to Backend
   const sendDocumentsData = async (url) => {
     return await sendUserDataIntoDB(url, "PATCH", {
@@ -63,9 +82,8 @@ const DocumentUpload = () => {
 
               <div className="flex items-center">
                 <label
-                  className={`cursor-pointer bg-gray-300 py-2 px-4 rounded-full ${
-                    selectedFiles[id]?.name ? "bg-green-500" : "hover:shadow-md"
-                  }`}
+                  className={`cursor-pointer bg-gray-300 py-2 px-4 rounded-full ${selectedFiles[id]?.name ? "bg-green-500" : "hover:shadow-md"
+                    }`}
                 >
                   {selectedFiles[id]?.name ? "Uploaded" : "Upload"}
                   <input
@@ -97,9 +115,3 @@ const DocumentUpload = () => {
 };
 
 export default DocumentUpload;
-
-// [{
-
-//   draftApplication: [{ applicationId: "", buildingInfo: {}, applicantInfo:{}, appChecklist:{}, documents: {}, drawing: {},payment:{} }]
-// }
-// ]
