@@ -6,20 +6,16 @@ import Loading from "../../../Shared/Loading";
 function Application({ setOpenApplication }) {
   const { getApplicationData } = useContext(AuthContext);
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
-  const [generalInformation, setGeneralInformation] = useState();
-  const [plotDetails, setPlotDetails] = useState();
-  const [scheduleBoundaries, setScheduleBoundaries] = useState();
-  const [ltpDetailsData, setLtpDetailsData] = useState();
-  const [applicantDetailsData, setApplicantDetailsData] = useState();
-
-
+  const [generalInformation, setGeneralInformation] = useState({});
+  const [plotDetails, setPlotDetails] = useState({});
+  const [ltpDetailsData, setLtpDetailsData] = useState({});
+  const [applicantDetailsData, setApplicantDetailsData] = useState({});
 
   useEffect(() => {
     const gettingData = async () => {
       const applicationData = await getApplicationData(applicationNo);
       setGeneralInformation(applicationData?.buildingInfo?.generalInformation)
       setPlotDetails(applicationData?.buildingInfo?.plotDetails)
-      setScheduleBoundaries(applicationData?.buildingInfo?.scheduleBoundaries)
       setLtpDetailsData(applicationData?.applicantInfo?.ltpDetails)
       setApplicantDetailsData(applicationData?.applicantInfo?.applicantDetails)
     };

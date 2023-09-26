@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import InputField from "../../../Components/InputField";
 import { GiMoneyStack } from "react-icons/gi";
 import { GrAttachment } from "react-icons/gr";
@@ -13,43 +13,51 @@ import SaveData from "./SaveData";
 
 const Payment = () => {
   const stepperData = useOutletContext();
-
+  const { getApplicationData } = useContext(AuthContext);
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
+  const [generalInformation, setGeneralInformation] = useState({});
+  const [plotDetails, setPlotDetails] = useState({});
+  const [ltpDetailsData, setLtpDetailsData] = useState({});
+  const [applicantDetailsData, setApplicantDetailsData] = useState({});
 
-  console.log(stepperData);
+  const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
+
+  useEffect(() => {
+    const gettingData = async () => {
+      const applicationData = await getApplicationData(applicationNo);
+      setGeneralInformation(applicationData?.buildingInfo?.generalInformation)
+      setPlotDetails(applicationData?.buildingInfo?.plotDetails)
+      setLtpDetailsData(applicationData?.applicantInfo?.ltpDetails)
+      setApplicantDetailsData(applicationData?.applicantInfo?.applicantDetails)
+    };
+    gettingData();
+  }, []);
 
   const { confirmAlert } = useContext(AuthContext);
-  // Sending data to Backend
-  // const handleBackendData = () => {
-  //   const applicationId = JSON.parse(
-  //     localStorage.getItem("draftApplicationData")
-  //   ).applicationId;
-  //   getPostData({ applicationId: applicationId, payment: {} });
-  // };
+  // Plots Details
+  const { proposedPlotAreaCal, roadWideningAreaCal, netPlotAreaCal, buildingExcludeStilt, compoundingWallProposed, existingRoad, existingRoadMts, frontSetback, marketValueSqym, natureOfRoad, proposedRoadMts, rareSetback, side1Setback, side2Setback, siteRegistered, statusOfRoad, totalBuiltUpArea, totalParkingArea, totalPlotDocument, totalPlotGround } = plotDetails;
 
-  // Nature of the site
-  //  1. Approved Layout
-  //  2. Regularised Under LRS
-  //  3. Plot port of RLP/IPLP but not regularised
-  //  4. Congested/ Gramakanta/ Old Built-up area
-  //  5. Newly Developed/ Built up area
+  // General Informatin
+  const { applicationType, bpsApprovedNoServer, caseType, district, gramaPanchayat, iplpNo, lpNo, lrsNo, mandal, natureOfPermission, natureOfTheSite, plotNo, plotNo2, previewsApprovedFileNo, surveyNo, village } = generalInformation;
 
-  const builtup_Area = 1;
+  const builtup_Area = totalBuiltUpArea;
   const vacant_area = 1;
-  const net_Plot_Area = 1;
-  const market_value = 1;
-  const nature_of_site = "";
+  const net_Plot_Area = netPlotAreaCal;
+  const market_value = marketValueSqym;
+  const nature_of_site = natureOfTheSite;
+  const BuiltUp_area_SquareFeet = builtup_Area * 10.7639;
 
-  // UDA Charge
+  // ======UDA Charged Segment======
+  // ====Built up Development====
   const builtupAreaChargedUnitRate = 15; //per Sqm.
-  const builtUpAreaDevelopmentCharged =
-    builtupAreaChargedUnitRate * builtup_Area;
+  const builtUpAreaDevelopmentCharged = builtupAreaChargedUnitRate * builtup_Area;
 
+  // ====Vacant Development====
   const vacantAreaChargedUnitRate = 10; // per Sqm.
   const vacantAreaDevelopmentCharged = vacantAreaChargedUnitRate * vacant_area;
-  // 33% penalization
+
+  // ====33% Penalization====
   const calculatePenalizationCharges = (net_Plot_Area, nature_of_site) => {
-    // 200, 400 this are unit rate.
     let penalizationCharges = 0;
     if (nature_of_site !== "Plot port of RLP/IPLP but not regularised") {
       return penalizationCharges;
@@ -63,14 +71,12 @@ const Payment = () => {
 
     return penalizationCharges;
   };
-  // Open Space Charge 14%
-  function calculateOpenSpaceCharge(
-    nature_of_site,
-    net_Plot_Area,
-    market_value
-  ) {
-    let openSpaceCharge = 0;
+  // ====Total 33% Penalization Charged====
+  const TotalPenalizationCharged = calculatePenalizationCharges(net_Plot_Area, nature_of_site);
 
+  // ====14% Open Space====
+  function calculateOpenSpaceCharge(nature_of_site, net_Plot_Area, market_value) {
+    let openSpaceCharge = 0;
     switch (nature_of_site) {
       case "Newly Developed/ Built up area":
       case "Plot port of RLP/IPLP but not regularised":
@@ -79,38 +85,29 @@ const Payment = () => {
       default:
         openSpaceCharge = 0;
     }
-
     return openSpaceCharge;
   }
+  // ==== Total 14% Open Space Charged====
+  const TotalOpenSpaceCharged = calculateOpenSpaceCharge(nature_of_site, net_Plot_Area, market_value);
 
-  // Labour Cess Component 2
-  const labourCessComponentUnitRate2 = 1400; // per Sq.M.
+  // ==== Labour Cess Component 2 ====
+  const labourCessComponentUnitRate2 = 1400; // per Sq.Ft.
 
-  const laboutCessCompo2Calculation = (builtup_Area) => {
+  const laboutCessCompo2Calculation = (BuiltUp_area_SquareFeet) => {
     let labourCessComponentCharge2 = 0;
-
-    if (builtup_Area < 10000) {
+    if (BuiltUp_area_SquareFeet < 10000) {
       labourCessComponentCharge2 =
-        labourCessComponentUnitRate2 * builtup_Area * 10.76;
-    } else if (builtup_Area > 10000) {
+        labourCessComponentUnitRate2 * BuiltUp_area_SquareFeet * 10.76;
+    } else if (BuiltUp_area_SquareFeet > 10000) {
       labourCessComponentCharge2 =
-        labourCessComponentUnitRate2 * builtup_Area * 10.76 * (0.01 * 0.02);
+        labourCessComponentUnitRate2 * BuiltUp_area_SquareFeet * 10.76 * (0.01 * 0.02);
     }
-
     return labourCessComponentCharge2;
   };
-
-  const TotalPenalizationCharged = calculatePenalizationCharges(
-    net_Plot_Area,
-    nature_of_site
-  );
-  const TotalOpenSpaceCharged = calculateOpenSpaceCharge(
-    nature_of_site,
-    net_Plot_Area,
-    market_value
-  );
+  // ===== Total labour cess Compo 2 Charged====
   const TotalLabourCessComp2Charged = laboutCessCompo2Calculation(builtup_Area);
 
+  // =====UDA Total=====
   const UDATotal = () => {
     const Total =
       builtUpAreaDevelopmentCharged +
@@ -118,47 +115,52 @@ const Payment = () => {
       TotalPenalizationCharged +
       TotalOpenSpaceCharged +
       TotalLabourCessComp2Charged;
-    return Total;
+    return Total.toFixed(4);
   };
+  // =====UDA Total Charged=====
   const UDATotalCharged = UDATotal();
 
-  // Grama Panchayet fees
+  // =======Grama Panchayet Segment=======
+
+  // ====Grama Panchayet fees====
   const bettermentChargedUnitRate = 40; //per Sqm.
   const bettermentCharged = bettermentChargedUnitRate * net_Plot_Area;
 
+  // ====Building Permit====
   const buildingPermitUnitRate = 20; //per Sqm.
   const buildingPermitFees = buildingPermitUnitRate * builtup_Area;
 
+  // ====Site Approval Charged====
   const siteApprovalUnitRate = 10; //per Sqm.
   const siteApprovalCharged = siteApprovalUnitRate * net_Plot_Area;
 
+  // ====Paper Publication Charged====
   const paperPublicationCharged = 1500; //Fixed
 
+  // ====Processing Fees====
   const processingUnitRate = 7; //per Sqm.
   const processingFees = processingUnitRate * builtup_Area;
 
+  // =====Grama Panchayet Total=====
   const gramaPanchayetTotal = () => {
-    return (
-      bettermentCharged +
-      buildingPermitFees +
-      siteApprovalCharged +
-      paperPublicationCharged +
-      processingFees
-    );
+    const Total = (bettermentCharged + buildingPermitFees + siteApprovalCharged + paperPublicationCharged + processingFees)
+    return Total.toFixed(4);
   };
+  // =====Grama Panchayet Total Charged=====
   const GramaPanchayetTotalCharged = gramaPanchayetTotal();
 
-  // Green fee charge
-  // if proposed built up area above than 5000 Sq.ft
+
+  // ======Green Fee Charged======
+  let greenFeeCharged;
   const greenFeeChargesUnitRate = 3; //per Sq.ft
-  if (builtup_Area > 5000) {
-    return (greenFeeCharges = greenFeeChargesUnitRate * builtup_Area * 10.76);
+  if (BuiltUp_area_SquareFeet > 5000) {
+    greenFeeCharged = greenFeeChargesUnitRate * BuiltUp_area_SquareFeet * 10.76
+    return greenFeeCharged;
   }
 
-  // Labour Cess Component 1
-  const labourCessComponentUnitRate1 = 1400; // per Sq.M.
-  const labourCessComponentCharge1 =
-    labourCessComponentUnitRate1 * builtup_Area * 10.76 * (0.01 * 0.98);
+  // ====Labour Cess Component 1 Charged====
+  const labourCessComponentUnitRate1 = 1400; // per Sq.ft.
+  const labourCessCompo1Charged = labourCessComponentUnitRate1 * BuiltUp_area_SquareFeet * 10.76 * (0.01 * 0.98);
 
   // send data into database
   const sendPaymentData = async (url) => {
@@ -194,6 +196,7 @@ const Payment = () => {
             label="Development charges(on Vacant land)"
             placeholder="1000"
             type="number"
+            value={vacantAreaDevelopmentCharged}
           />
           <InputField
             id="myInput2"
@@ -201,6 +204,7 @@ const Payment = () => {
             label="Development charges(on Built-up area)"
             placeholder="1000"
             type="number"
+            value={builtUpAreaDevelopmentCharged}
           />
           <InputField
             id="myInput3"
@@ -208,6 +212,7 @@ const Payment = () => {
             label="Impact fee (50% to UDA)"
             placeholder="5000"
             type="number"
+            value={"No Calculation Provided"}
           />
           <InputField
             id="myInput4"
@@ -243,6 +248,7 @@ const Payment = () => {
             label="Site approval charges"
             placeholder="1000"
             type="number"
+            value={siteApprovalCharged}
           />
           <InputField
             id="myInput6"
@@ -250,6 +256,7 @@ const Payment = () => {
             label="Building permit fee"
             placeholder="1000"
             type="number"
+            value={buildingPermitFees}
           />
           <InputField
             id="myInput7"
@@ -257,6 +264,7 @@ const Payment = () => {
             label="Betterment charge"
             placeholder="1000"
             type="number"
+            value={bettermentCharged}
           />
           <InputField
             id="myInput8"
@@ -264,6 +272,7 @@ const Payment = () => {
             label="14% open space charges"
             placeholder="5000"
             type="number"
+            value={TotalOpenSpaceCharged}
           />
           <InputField
             id="myInput8"
@@ -271,6 +280,7 @@ const Payment = () => {
             label="Impact fee (50% to G.P.)"
             placeholder="5000"
             type="number"
+            value={"No Calculation Provided"}
           />
           <InputField
             id="myInput8"
@@ -278,6 +288,7 @@ const Payment = () => {
             label="33% penalization charges"
             placeholder="0"
             type="number"
+            value={TotalPenalizationCharged}
           />
           <InputField
             id="myInput8"
@@ -322,7 +333,7 @@ const Payment = () => {
         <div className="px-3 mb-4 flex justify-end">
           <div className="w-[250px]">
             <input
-              class="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
+              className="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
               type="file"
               id="formFileMultiple"
               multiple
@@ -384,7 +395,7 @@ const Payment = () => {
         <div className="px-3 mb-4 flex justify-end">
           <div className="w-[250px]">
             <input
-              class="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
+              className="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
               type="file"
               id="formFileMultiple"
               multiple
@@ -412,6 +423,7 @@ const Payment = () => {
             label="Site approval charges"
             placeholder="2000"
             type="number"
+            value={greenFeeCharged}
           />
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-4">
@@ -449,7 +461,7 @@ const Payment = () => {
       <div className="px-3 mb-4 flex justify-end">
         <div className="w-[250px]">
           <input
-            class="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
+            className="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
             type="file"
             id="formFileMultiple"
             multiple
