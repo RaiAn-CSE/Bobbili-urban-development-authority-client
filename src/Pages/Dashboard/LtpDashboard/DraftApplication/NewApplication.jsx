@@ -66,13 +66,9 @@ const NewApplication = () => {
   };
   // Function to generate a unique number
   const generateApplicationNumber = () => {
-    const currentDate = new Date();
-    const second = currentDate.getSeconds();
-    const minute = currentDate.getMinutes();
-    const date = currentDate.getDate();
-    const year = currentDate.getFullYear();
-
-    const applicationNo = `${second}/${minute}/${date}/${year}`;
+    const year = date.getFullYear();
+    console.log(year);
+    const applicationNo = `1177/9/${year}`;
 
     return applicationNo;
   };
@@ -81,6 +77,9 @@ const NewApplication = () => {
   const storeApplicationData = () => {
     const url = `https://residential-building.vercel.app/updateDraftApplicationData/${userID}`;
 
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const year = date.getFullYear();
     const data = {
       applicationNo: generateApplicationNumber(),
       buildingInfo: {
@@ -91,15 +90,14 @@ const NewApplication = () => {
       applicantInfo: { ltpDetails: {}, applicantDetails: {} },
       applicationCheckList: [],
       documents: [],
-      drawing: [],
+      drawing: { AutoCAD: "", Drawing: "" },
       payment: {
         udaCharge: {},
         gramaPanchayatFee: {},
         labourCessCharge: {},
         greenFeeCharge: {},
       },
-      createdDate: `${date.getDate()}-${date.getMonth() + 1
-        }-${date.getFullYear()}`,
+      createdDate: `${day}-${month}-${year}`,
     };
 
     sendUserDataIntoDB(url, "PATCH", data)

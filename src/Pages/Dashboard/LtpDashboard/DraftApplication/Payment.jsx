@@ -18,7 +18,8 @@ const Payment = () => {
 
   console.log(stepperData);
 
-  const { confirmAlert } = useContext(AuthContext);
+  const { confirmAlert, alertToTransferDataIntoDepartment } =
+    useContext(AuthContext);
   // Sending data to Backend
   // const handleBackendData = () => {
   //   const applicationId = JSON.parse(
@@ -466,6 +467,7 @@ const Payment = () => {
         stepperData={stepperData}
         confirmAlert={confirmAlert}
         collectInputFieldData={sendPaymentData}
+        sentToPS={alertToTransferDataIntoDepartment}
       />
     </div>
   );
