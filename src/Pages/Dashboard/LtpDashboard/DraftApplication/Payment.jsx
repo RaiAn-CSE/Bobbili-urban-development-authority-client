@@ -40,12 +40,14 @@ const Payment = () => {
   // General Informatin
   const { applicationType, bpsApprovedNoServer, caseType, district, gramaPanchayat, iplpNo, lpNo, lrsNo, mandal, natureOfPermission, natureOfTheSite, plotNo, plotNo2, previewsApprovedFileNo, surveyNo, village } = generalInformation;
 
-  const builtup_Area = totalBuiltUpArea;
+  const builtup_Area = Number(totalBuiltUpArea);
   const vacant_area = 1;
-  const net_Plot_Area = netPlotAreaCal;
-  const market_value = marketValueSqym;
+  const net_Plot_Area = Number(netPlotAreaCal);
+  const market_value = Number(marketValueSqym);
   const nature_of_site = natureOfTheSite;
   const BuiltUp_area_SquareFeet = builtup_Area * 10.7639;
+
+  console.log(typeof builtup_Area, "builtup_Area")
 
   // ======UDA Charged Segment======
   // ====Built up Development====
@@ -60,13 +62,15 @@ const Payment = () => {
   const calculatePenalizationCharges = (net_Plot_Area, nature_of_site) => {
     let penalizationCharges = 0;
     if (nature_of_site !== "Plot port of RLP/IPLP but not regularised") {
-      return penalizationCharges;
+      return penalizationCharges = 0;
     }
 
     if (net_Plot_Area <= 100) {
       penalizationCharges = net_Plot_Area * 200 * 0.33;
     } else if (net_Plot_Area <= 300) {
       penalizationCharges = net_Plot_Area * 400 * 0.33;
+    } else {
+      return penalizationCharges = 0;
     }
 
     return penalizationCharges;
@@ -74,19 +78,17 @@ const Payment = () => {
   // ====Total 33% Penalization Charged====
   const TotalPenalizationCharged = calculatePenalizationCharges(net_Plot_Area, nature_of_site);
 
-  // ====14% Open Space====
   function calculateOpenSpaceCharge(nature_of_site, net_Plot_Area, market_value) {
-    let openSpaceCharge = 0;
-    switch (nature_of_site) {
-      case "Newly Developed/ Built up area":
-      case "Plot port of RLP/IPLP but not regularised":
-        openSpaceCharge = net_Plot_Area * 1.196 * market_value * 0.14;
-        break;
-      default:
-        openSpaceCharge = 0;
+    const condition01 = nature_of_site === "Newly Developed/ Built up area";
+    const condition02 = nature_of_site === "Plot port of RLP/IPLP but not regularised";
+
+    if (condition01 || condition02) {
+      return net_Plot_Area * 1.196 * market_value * 0.14;
+    } else {
+      return 0;
     }
-    return openSpaceCharge;
   }
+
   // ==== Total 14% Open Space Charged====
   const TotalOpenSpaceCharged = calculateOpenSpaceCharge(nature_of_site, net_Plot_Area, market_value);
 
@@ -105,17 +107,18 @@ const Payment = () => {
     return labourCessComponentCharge2;
   };
   // ===== Total labour cess Compo 2 Charged====
-  const TotalLabourCessComp2Charged = laboutCessCompo2Calculation(builtup_Area);
+  const TotalLabourCessComp2Charged = laboutCessCompo2Calculation(BuiltUp_area_SquareFeet).toFixed(4);
 
   // =====UDA Total=====
   const UDATotal = () => {
-    const Total =
-      builtUpAreaDevelopmentCharged +
-      vacantAreaDevelopmentCharged +
-      TotalPenalizationCharged +
-      TotalOpenSpaceCharged +
-      TotalLabourCessComp2Charged;
-    return Total.toFixed(4);
+    // Calculate UDA Total Charged
+    const UDATotalCharged =
+      (builtUpAreaDevelopmentCharged +
+        vacantAreaDevelopmentCharged +
+        TotalPenalizationCharged +
+        TotalOpenSpaceCharged +
+        TotalLabourCessComp2Charged);
+    return UDATotalCharged;
   };
   // =====UDA Total Charged=====
   const UDATotalCharged = UDATotal();
@@ -143,25 +146,24 @@ const Payment = () => {
 
   // =====Grama Panchayet Total=====
   const gramaPanchayetTotal = () => {
-    const Total = (bettermentCharged + buildingPermitFees + siteApprovalCharged + paperPublicationCharged + processingFees)
-    return Total.toFixed(4);
+    return (bettermentCharged + buildingPermitFees + siteApprovalCharged + paperPublicationCharged + processingFees).toFixed(4);
   };
   // =====Grama Panchayet Total Charged=====
   const GramaPanchayetTotalCharged = gramaPanchayetTotal();
 
 
   // ======Green Fee Charged======
-  let greenFeeCharged;
+  let greenFeeCharged = 0;
   const greenFeeChargesUnitRate = 3; //per Sq.ft
   if (BuiltUp_area_SquareFeet > 5000) {
-    greenFeeCharged = greenFeeChargesUnitRate * BuiltUp_area_SquareFeet * 10.76
-    return greenFeeCharged;
+    greenFeeCharged = (greenFeeChargesUnitRate * BuiltUp_area_SquareFeet * 10.76).toFixed(4);
   }
 
   // ====Labour Cess Component 1 Charged====
   const labourCessComponentUnitRate1 = 1400; // per Sq.ft.
-  const labourCessCompo1Charged = labourCessComponentUnitRate1 * BuiltUp_area_SquareFeet * 10.76 * (0.01 * 0.98);
+  const labourCessCompo1Charged = (labourCessComponentUnitRate1 * BuiltUp_area_SquareFeet * 10.76 * (0.01 * 0.98)).toFixed(4);
 
+  console.log({ UDATotalCharged, GramaPanchayetTotalCharged, labourCessCompo1Charged, TotalLabourCessComp2Charged, builtup_Area, TotalOpenSpaceCharged, TotalPenalizationCharged, nature_of_site })
   // send data into database
   const sendPaymentData = async (url) => {
     return await sendUserDataIntoDB(url, "PATCH", {
@@ -212,7 +214,7 @@ const Payment = () => {
             label="Impact fee (50% to UDA)"
             placeholder="5000"
             type="number"
-            value={"No Calculation Provided"}
+            value={0}
           />
           <InputField
             id="myInput4"
@@ -280,7 +282,7 @@ const Payment = () => {
             label="Impact fee (50% to G.P.)"
             placeholder="5000"
             type="number"
-            value={"No Calculation Provided"}
+            value={0}
           />
           <InputField
             id="myInput8"

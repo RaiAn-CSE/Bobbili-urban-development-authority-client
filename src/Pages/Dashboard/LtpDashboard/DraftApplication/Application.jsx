@@ -17,7 +17,7 @@ function Application({ setOpenApplication }) {
       setGeneralInformation(applicationData?.buildingInfo?.generalInformation)
       setPlotDetails(applicationData?.buildingInfo?.plotDetails)
       setLtpDetailsData(applicationData?.applicantInfo?.ltpDetails)
-      setApplicantDetailsData(applicationData?.applicantInfo?.applicantDetails)
+      setApplicantDetailsData(applicationData?.applicantInfo?.applicantDetails[0])
     };
     gettingData();
   }, []);
@@ -36,27 +36,29 @@ function Application({ setOpenApplication }) {
 
 
   console.log("LtPName", name)
+  // ====Applicant Info
   const Part01 = [
-    "NAME",
-    "DOOR No. / FLAT No.",
-    "ROAD/STREET",
-    ["VILLAGE", "MANDAL"],
-    "CITY/TOWN",
-    "DISTRICT",
-    "E-MAIL",
-    ["MOBILE", "ALTERNATE"],
+    { "NAME": ApplicantName },
+    { "DOOR No. / FLAT No.": plotNo },
+    { "ROAD/STREET": existingRoad },
+    [{ "VILLAGE": village }, { "MANDAL": mandal }],
+    { "CITY/TOWN": ["PIN", pinCode] },
+    { "DISTRICT": district },
+    { "E-MAIL": applicantEmail },
+    [{ "MOBILE": applicantPhone }, { "ALTERNATE": applicantPhone }],
   ];
 
+  // LTP Info
   const Part02 = [
-    "PLOT NOs",
-    "SANCTIONED LAYOUT NO. / LRS NO",
-    ["SURVEY NO.", "VILLAGE"],
-    "PREMISES / DOOR No.",
-    "ROAD/ STREET",
-    ["WARD NO.", "BLOCK No"],
-    "LOCALITY",
-    ["CIRCLE/DIVISION", "DIVISION"],
-    ["CITY/TOWN", "DISTRICT"],
+    { "PLOT NOs": "" },
+    { "SANCTIONED LAYOUT NO. / LRS NO": "" },
+    [{ "SURVEY NO.": "" }, { "VILLAGE": "" }],
+    { "PREMISES / DOOR No.": "" },
+    { "ROAD/ STREET": "" },
+    [{ "WARD NO.": "" }, { "BLOCK No": "" }],
+    { "LOCALITY": "" },
+    [{ "CIRCLE/DIVISION": "" }, { "DIVISION": "" }],
+    [{ "CITY/TOWN": "" }, { "DISTRICT": "" }],
   ];
   // Part03
   const Part03 = [
@@ -70,8 +72,8 @@ function Application({ setOpenApplication }) {
   const row1 = [
     { "(a) AS PER DOCUMENTS": "" },
     { "(b) AS PER SUBMITTED PLAN": "" },
-    { "(c) ROAD WIDENING AREA": "" },
-    { "(d)   NET AREA": "" },
+    { "(c) ROAD WIDENING AREA": roadWideningAreaCal },
+    { "(d)   NET AREA": netPlotAreaCal },
   ];
 
   const row2 = [
@@ -83,6 +85,9 @@ function Application({ setOpenApplication }) {
     { TOTAL: "" },
   ];
 
+
+
+  // Part-4
   // index4
   const row5 = [
     {
@@ -91,7 +96,6 @@ function Application({ setOpenApplication }) {
     },
   ];
 
-  // Part-4
   const NameCol = [
     { "BUILDER / DEVELOPER/ CONSTRUCTION FIRM": "" },
     { ARCHITECT: "" },
@@ -119,16 +123,16 @@ function Application({ setOpenApplication }) {
 
   // Part01
   // Name
-  const applicantName = [name];
+  const applicantName = [ApplicantName];
   // const PhoneTD = ["d", "d"];
-  const flatNo = ["125"];
-  const roadStreet = ["1250/road, Randhuno-3"];
-  const applicantDistrict = ["Rajshahi"];
-  const applicantEmail = ["tanjimulislamsabbir@hotmail.com"];
-  const PhoneTD = ["01780242695", "01538280207"];
-  const CityTown = ["PIN", "3432"];
+  const flatNo = [plotNo];
+  const roadStreet = [existingRoad];
+  const applicantDistrict = [district];
+  const applicantEmail = [appLicantEmail];
+  const PhoneTD = [applicantPhone, applicantPhone];
+  const CityTown = ["PIN", pinCode];
   // const CityTown=[{PIN:''}];
-  const Village = ["Binodpur", "Kazla"];
+  const Village = [village, mandal];
   // const Village=[{Village:"",Mondal:""}]
   // Part02
   const part01IndexArray = [3, 4, 7];
@@ -164,40 +168,17 @@ function Application({ setOpenApplication }) {
     } else {
       return (
         <td key={index} className="bg-white border border-black w-36 p-0">
-          <p className="h-12 p-2 flex items-center">{data}</p>
+          <p className="h-12 p-2 flex items-center">{data[index]}</p>
         </td>
       );
     }
   }
 
   const ColDataShow01 = (data, index) => {
-    let subColData;
-
-    if (index === 0) {
-      subColData = applicantName;
-    } else if (index === 1) {
-      subColData = flatNo;
-    } else if (index === 2) {
-      subColData = roadStreet;
-    } else if (index === 3) {
-      subColData = Village;
-    } else if (index === 4) {
-      subColData = CityTown;
-    } else if (index === 5) {
-      subColData = applicantDistrict;
-    } else if (index === 6) {
-      subColData = applicantEmail;
-    } else if (index === 7) {
-      subColData = PhoneTD;
-    } else {
-      subColData = [];
-    }
-
     return (
-      <p>
         <p>
           <p className="flex">
-            {subColData.map((d, i) => {
+            {data.map((d, i) => {
               return (
                 <p
                   className={`h-12 flex flex-col justify-center p-4 ${i > 0 && "border-l border-black"
@@ -209,7 +190,6 @@ function Application({ setOpenApplication }) {
             })}
           </p>
         </p>
-      </p>
     );
   };
 
@@ -332,23 +312,27 @@ function Application({ setOpenApplication }) {
                 </thead>
                 <tbody>
                   {/* row 1 */}
-                  {Part01.map((data, index) => (
-                    <>
+                  {Part01.map((data, index) => {
+                    const keys = Object.keys(Part01[index]);
+                    const values = Object.values(Part01[index]);
+                    console.log({keys,values},"Part01")
+                    return <>
                       <tr key={index} className="bg-white p-0">
                         <th className="bg-white border border-black w-14 px-2">
                           {index + 1}
                         </th>
 
                         {/* col-02 */}
-                        {renderPart01Col2(data, index)}
+                        {renderPart01Col2(keys, index)}
 
                         {/* col-03*/}
                         <td className="bg-white border border-black p-0">
-                          {ColDataShow01(data, index)}
+                          {ColDataShow01(values, index)}
                         </td>
                       </tr>
                     </>
-                  ))}
+                  }
+                  )}
                 </tbody>
               </table>
             </div>
@@ -369,35 +353,40 @@ function Application({ setOpenApplication }) {
                 </thead>
                 <tbody>
                   {/* row 1 */}
-                  {Part02.map((data, index) => (
-                    <>
-                      <tr key={index} className="bg-white">
-                        {/* col-01 */}
-                        <th className="bg-white border border-black w-14">
-                          {index + 1}
-                        </th>
-                        {/* col-02 */}
-                        <td className="bg-white border border-black w-64 p-0">
-                          {part02SubArray.includes(index) ? (
-                            <p className="flex ">
-                              {data.map((d, i) => (
-                                <p
-                                  className={`border-black py-4 px-2 ${i == 0 && "w-1/2 border-r"
-                                    }`}
-                                >
-                                  {d}
-                                </p>
-                              ))}
-                            </p>
-                          ) : (
-                            <p className="py-4 px-2">{data}</p>
-                          )}
-                        </td>
-                        {/* col-03 */}
-                        {ColDataShow02(data, index, part02SubArray)}
-                      </tr>
-                    </>
-                  ))}
+                  {Part02.map((data, index) => {
+                    const keys = Object.keys(Part02[index]);
+                    const values = Object.values(Part02[index]);
+                    console.log({keys,values},"Part02")
+                    return (
+                      <>
+                        <tr key={index} className="bg-white">
+                          {/* col-01 */}
+                          <th className="bg-white border border-black w-14">
+                            {index + 1}
+                          </th>
+                          {/* col-02 */}
+                          <td className="bg-white border border-black w-64 p-0">
+                            {part02SubArray.includes(index) ? (
+                              <p className="flex ">
+                                {keys.map((d, i) => (
+                                  <p
+                                    className={`border-black py-4 px-2 ${i == 0 && "w-1/2 border-r"
+                                      }`}
+                                  >
+                                    {d}
+                                  </p>
+                                ))}
+                              </p>
+                            ) : (
+                              <p className="py-4 px-2">{keys[index]}</p>
+                            )}
+                          </td>
+                          {/* col-03 */}
+                          {ColDataShow02(values, index, part02SubArray)}
+                        </tr>
+                      </>
+                    )
+                  })}
                 </tbody>
               </table>
             </div>
