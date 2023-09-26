@@ -43,7 +43,7 @@ const FloorDetails = ({ index, floor, length, increaseFloorNo, handleBuiltUpArea
           name={`builtUpArea${index}`}
           placeholder="in Sq.M."
           className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
-          value={builtUpAreaValue ? builtUpAreaValue : plotDetailsFloor?.builtUpArea}
+          defaultValue={builtUpAreaValue ? builtUpAreaValue : plotDetailsFloor?.builtUpArea}
           onChange={(e) => handleBuiltUpArea(e.target.value, index)}
         />
       </div>
@@ -61,7 +61,7 @@ const FloorDetails = ({ index, floor, length, increaseFloorNo, handleBuiltUpArea
           name={`parkingArea${index}`}
           placeholder="in Sq.M."
           className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
-          value={parkingAreaValue ? parkingAreaValue : plotDetailsFloor?.parkingArea}
+          defaultValue={parkingAreaValue ? parkingAreaValue : plotDetailsFloor?.parkingArea}
           onChange={(e) => handleParkingArea(e.target.value, index)}
         />
       </div>

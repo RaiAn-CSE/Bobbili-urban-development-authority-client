@@ -64,8 +64,8 @@ const BuildingInfo = () => {
   };
 
   // Net Plot Area(in Sq.M.) Calculation :
-  const [proposedPlotArea, setProposedPlotArea] = useState("");
-  const [roadWideningArea, setRoadWideningArea] = useState("");
+  const [proposedPlotArea, setProposedPlotArea] = useState(0);
+  const [roadWideningArea, setRoadWideningArea] = useState(0);
   const [netPlotArea, setNetPlotArea] = useState("");
 
   // ========================(Calculation part start)
@@ -93,6 +93,7 @@ const BuildingInfo = () => {
 
     if (!isNaN(proposedArea) && !isNaN(wideningArea)) {
       const netArea = proposedArea - wideningArea;
+      console.log(netArea, 'netArea');
       setNetPlotArea(netArea.toFixed(2)); // Format to 2 decimal places
     } else {
       setNetPlotArea("");
@@ -340,7 +341,6 @@ const BuildingInfo = () => {
 
   // console.log(scheduleBoundaries, 'scheduleBoundaries');
   const { east, west, north, south } = scheduleBoundaries;
-  // console.log(north);
 
   useEffect(() => {
     const getData = async () => {
@@ -936,7 +936,7 @@ const BuildingInfo = () => {
                 name="name1"
                 placeholder="Automatically calculated"
                 className="w-full px-3 py-2 border rounded-lg max-w-xs"
-                value={builtUpAreaSum}
+                value={builtUpAreaSum ? builtUpAreaSum : totalBuiltUpArea}
                 disabled
               />
             </div>
@@ -953,7 +953,7 @@ const BuildingInfo = () => {
                 name="name1"
                 placeholder="Automatically calculated"
                 className="w-full px-3 py-2 border rounded-lg max-w-xs"
-                value={parkingAreaSum}
+                value={parkingAreaSum ? parkingAreaSum : totalParkingArea}
                 disabled
               />
             </div>
