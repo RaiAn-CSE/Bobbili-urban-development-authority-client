@@ -66,7 +66,11 @@ const AuthProvider = ({ children }) => {
   const alertToTransferDataIntoDepartment = (applicationNo) => {
     console.log(applicationNo, "CurrentApplicationNo");
 
-    const url = `http://localhost:5000/deleteApplication/${applicationNo}`;
+    const data = { userId: userInfoFromLocalStorage()._id, applicationNo };
+
+    const url = `http://localhost:5000/deleteApplication?data=${JSON.stringify(
+      data
+    )}`;
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to update this!",
@@ -75,11 +79,11 @@ const AuthProvider = ({ children }) => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, sent it!",
+      showLoaderOnConfirm: true,
       preConfirm: async (confirm) => {
         console.log("confirm", confirm);
 
-        return await axios
-          .delete(url)
+        return await fetch(url, { method: "DELETE" })
           .then((response) => {
             console.log(response, "response");
             if (!response.acknowledged) {

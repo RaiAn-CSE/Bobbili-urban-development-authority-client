@@ -68,7 +68,7 @@ const NewApplication = () => {
   const generateApplicationNumber = () => {
     const year = date.getFullYear();
     console.log(year);
-    const applicationNo = `1177/7/${year}`;
+    const applicationNo = `1177/9/${year}`;
 
     return applicationNo;
   };
@@ -77,6 +77,9 @@ const NewApplication = () => {
   const storeApplicationData = () => {
     const url = `https://residential-building.vercel.app/updateDraftApplicationData/${userID}`;
 
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const year = date.getFullYear();
     const data = {
       applicationNo: generateApplicationNumber(),
       buildingInfo: {
@@ -94,9 +97,7 @@ const NewApplication = () => {
         labourCessCharge: {},
         greenFeeCharge: {},
       },
-      createdDate: `${date.getDate()}-${
-        date.getMonth() + 1
-      }-${date.getFullYear()}`,
+      createdDate: `${day}-${month}-${year}`,
     };
 
     sendUserDataIntoDB(url, "PATCH", data)
