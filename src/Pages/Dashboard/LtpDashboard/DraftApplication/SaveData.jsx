@@ -1,4 +1,5 @@
 import React from "react";
+import { Navigate, useNavigate } from "react-router";
 
 const SaveData = ({
   isStepperVisible,
@@ -13,6 +14,8 @@ const SaveData = ({
     "btn btn-md text-[#000000] hover:text-[#fff] rounded-lg transition-all duration-500 cursor-pointer hover:bg-emerald-400";
 
   console.log(collectInputFieldData);
+
+  const navigate = useNavigate();
   return (
     <>
       {isStepperVisible && ( // Render the stepper only when isStepperVisible is true
@@ -47,7 +50,10 @@ const SaveData = ({
               <button
                 className={`btn btn-md text-[#000000] hover:text-[#fff] rounded-lg shadow-lg transition-all duration-500 cursor-pointer bg-yellow-300 hover:shadow-md hover:bg-yellow-300`}
                 onClick={() =>
-                  sentToPS(JSON.parse(localStorage.getItem("CurrentAppNo")))
+                  sentToPS(
+                    JSON.parse(localStorage.getItem("CurrentAppNo")),
+                    navigate
+                  )
                 }
               >
                 Sent to department

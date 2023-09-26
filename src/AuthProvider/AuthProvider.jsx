@@ -63,7 +63,7 @@ const AuthProvider = ({ children }) => {
 
   // set sweet alert's parameters dynamically
 
-  const alertToTransferDataIntoDepartment = (applicationNo) => {
+  const alertToTransferDataIntoDepartment = async (applicationNo, navigate) => {
     console.log(applicationNo, "CurrentApplicationNo");
 
     const data = { userId: userInfoFromLocalStorage()._id, applicationNo };
@@ -86,7 +86,7 @@ const AuthProvider = ({ children }) => {
         return await fetch(url, { method: "DELETE" })
           .then((response) => {
             console.log(response, "response");
-            if (!response.acknowledged) {
+            if (!response.ok) {
               throw new Error(response.statusText);
             }
             return response;
@@ -97,8 +97,23 @@ const AuthProvider = ({ children }) => {
       },
       allowOutsideClick: () => !Swal.isLoading(),
     }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire("Sent!", "Your file has been sent successfully.", "success");
+      console.log(result);
+      if (result.isConfirmed && result?.value?.ok) {
+        Swal.fire({
+          title: "Sent!",
+          text: "Your file has been sent successfully.",
+          icon: "success",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Ok",
+        }).then((res) => {
+          console.log(res);
+          if (res.isConfirmed) {
+            console.log("asi");
+            navigate("/dashboard/submitApplication");
+          } else {
+            navigate("/dashboard/draftApplication");
+          }
+        });
       }
     });
   };
