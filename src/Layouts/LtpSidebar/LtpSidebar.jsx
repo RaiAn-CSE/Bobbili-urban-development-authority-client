@@ -12,7 +12,7 @@ const LtpSidebar = () => {
 
   const liClass = ''
 
-  console.log(location);
+  // console.log(location);
   return (
     <div className={sidebarStyle.links}>
       <li className={`${path === "/dashboard" && "active"} mt-10`}>

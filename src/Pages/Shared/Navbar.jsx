@@ -12,7 +12,7 @@ const Navbar = () => {
   const [theme, setTheme] = useState("light");
 
   useEffect(() => {
-    console.log("theme" in localStorage);
+    // console.log("theme" in localStorage);
     const themeStoredInLocalStorage = localStorage.getItem("theme");
     if (
       theme === "dark" ||
@@ -23,11 +23,11 @@ const Navbar = () => {
     } else {
       document.documentElement.classList.remove("dark");
 
-      console.log(theme);
+      // console.log(theme);
     }
   }, [theme]);
 
-  console.log(theme);
+  // console.log(theme);
 
   const user = JSON.parse(localStorage.getItem("loggedUser"));
 

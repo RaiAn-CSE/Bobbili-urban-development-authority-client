@@ -12,9 +12,9 @@ const ApplicantInfo = () => {
 
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
 
-  console.log(stepperData);
+  // console.log(stepperData);
 
-  const { confirmAlert, sendUserDataIntoDB } = useContext(AuthContext);
+  const { confirmAlert, sendUserDataIntoDB, getApplicationData } = useContext(AuthContext);
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
 
@@ -25,8 +25,8 @@ const ApplicantInfo = () => {
 
   const [ltpPhone, setLtpPhone] = useState("");
 
+
   const [totalApplicant, setTotalApplicant] = useState(["Owner1"]);
-  console.log(totalApplicant);
 
   const increaseApplicantNo = () => {
     const newOwner = `Owner${totalApplicant.length + 1}`;
@@ -52,7 +52,6 @@ const ApplicantInfo = () => {
     const ltpAddress = document.getElementById("ltpAddress").value;
 
     const ownerDetail = totalApplicant.map((applicant, index) => {
-      console.log(applicant);
 
       return {
         name: document.getElementById(`applicantName${index}`).value,
@@ -64,8 +63,6 @@ const ApplicantInfo = () => {
         address: document.getElementById(`applicantAddress${index}`).value,
       };
     });
-
-    console.log(ownerDetail);
 
     const ltpDetails = {
       type: ltpType,
@@ -88,10 +85,38 @@ const ApplicantInfo = () => {
     });
   };
 
+
+  const [ltpDetails, setLtpDetails] = useState('');
+  const [applicantDetails, setApplicantDetails] = useState('');
+
+  // console.log(ltpDetails, 'ltpDetails');
+  // console.log(applicantDetails, 'applicantDetails');
+
+  const { type, name, address, email, licenseNo, phoneNo, validity } = ltpDetails;
+  // const { identity, adharNo, pinCode, } = applicantDetails;
+
+  useEffect(() => {
+    const getData = async () => {
+      const applicationData = await getApplicationData(applicationNo);
+      const ltpDetailsData = applicationData.applicantInfo.ltpDetails;
+      const applicantDetailsData = applicationData.applicantInfo.applicantDetails;
+      setLtpDetails(ltpDetailsData);
+      setApplicantDetails(applicantDetailsData);
+    };
+    getData();
+  }, []);
+
+
+
+  // Classes for this component :
+  const labelClass = "block text-gray-600 mb-1 font-semibold dark:text-gray-100"
+  const inputClass = "w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
+
+
   return (
-    <div className="grid my-5 lg:my-0 lg:p-2">
+    <div className="grid my-5 lg:my-0 lg:p-2 dark:bg-black dark:text-gray-100">
       {/* LTP’s Details  */}
-      <div>
+      <div className="divide-y-2 divide-gray-200 mb-[60px]">
         <div className="flex items-center">
           <img
             src={LTPImg}
@@ -100,22 +125,22 @@ const ApplicantInfo = () => {
           />
           <h3 className="font-bold text-xl">LTP’s Details</h3>
         </div>
-        {/* Divider  */}
-        <div className="divider m-0"></div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 my-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 mt-2">
           <div className="grid grid-cols-2">
             <InputField
               id="ltpType"
               name="ltpType"
               label="LTP Type"
               placeholder="Licenced Engineer"
+              ltpDetails={type}
             />
             <InputField
               id="ltpName"
               name="ltpName"
               label="LTP Name"
               placeholder="xxxxxxxxxxxxxxxxx"
+              ltpDetails={name}
             />
             <InputField
               id="licenseNo"
@@ -123,12 +148,13 @@ const ApplicantInfo = () => {
               label="Licence no."
               placeholder="xx/xxxxx"
               type="number"
+              ltpDetails={licenseNo}
             />
 
             <div className="my-4 mx-3">
               <label
-                htmlFor="ltpPhoneNo"
-                className="block text-gray-600 mb-1 font-semibold"
+                htmlFor="validity"
+                className={labelClass}
               >
                 Validity
               </label>
@@ -136,14 +162,15 @@ const ApplicantInfo = () => {
                 type="date"
                 id="validity"
                 name="validity"
-                className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
+                className={inputClass}
+                defaultValue={validity}
               />
             </div>
 
             <div className="my-4 mx-3">
               <label
                 htmlFor="ltpPhoneNo"
-                className="block text-gray-600 mb-1 font-semibold"
+                className={labelClass}
               >
                 Phone no.
               </label>
@@ -152,9 +179,9 @@ const ApplicantInfo = () => {
                 type="text"
                 name="ltpPhoneNo"
                 placeholder="xxxxxxxxxx"
-                value={ltpPhone}
+                defaultValue={phoneNo ? phoneNo : ltpPhone}
                 onChange={(e) => setPhoneNoLimit(e, setLtpPhone)}
-                className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
+                className={inputClass}
               />
             </div>
 
@@ -164,13 +191,14 @@ const ApplicantInfo = () => {
               label="E-mail"
               placeholder="xxxx@gmail.com"
               type="email"
+              ltpDetails={email}
             />
           </div>
           <div>
             <div className="my-4 mx-3">
               <label
-                htmlFor="message"
-                className="block text-gray-600 mb-1 font-semibold"
+                htmlFor="ltpAddress"
+                className={labelClass}
               >
                 Address
               </label>
@@ -178,7 +206,8 @@ const ApplicantInfo = () => {
                 id="ltpAddress"
                 name="ltpAddress"
                 rows="4"
-                className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
+                className={inputClass}
+                defaultValue={address}
                 placeholder="Dr. no., Street, Village, Mandal, Dist."
               ></textarea>
             </div>
@@ -187,7 +216,7 @@ const ApplicantInfo = () => {
       </div>
 
       {/* Applicant’s Details  */}
-      <div className="my-5">
+      <div className="divide-y-2 divide-gray-200">
         <div className="flex items-center">
           <img
             src={OwnerImg}
@@ -196,18 +225,21 @@ const ApplicantInfo = () => {
           />
           <h3 className="font-bold text-xl">Applicant’s Details</h3>
         </div>
-        <div className="divider m-0"></div>
+        {/* <div className="divider m-0"></div> */}
 
-        {totalApplicant?.map((applicantNo, index) => (
-          <OwnerDetail
-            key={index}
-            index={index}
-            length={totalApplicant.length}
-            applicantNo={applicantNo}
-            increaseApplicantNo={increaseApplicantNo}
-            setPhoneNoLimit={setPhoneNoLimit}
-          />
-        ))}
+        <div className="mt-2">
+          {totalApplicant?.map((applicantNo, index) => (
+            <OwnerDetail
+              key={index}
+              index={index}
+              length={totalApplicant.length}
+              applicantNo={applicantNo}
+              increaseApplicantNo={increaseApplicantNo}
+              setPhoneNoLimit={setPhoneNoLimit}
+              applicantDetails={applicantDetails[index]}
+            />
+          ))}
+        </div>
       </div>
 
       {/* save & continue  */}

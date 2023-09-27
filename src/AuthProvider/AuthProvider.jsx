@@ -1,6 +1,7 @@
 import React, { createContext, useState } from "react";
 import { toast } from "react-hot-toast";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 export const AuthContext = createContext();
 
@@ -36,7 +37,7 @@ const AuthProvider = ({ children }) => {
 
   //   send user data into the database
   const sendUserDataIntoDB = async (url, method = "PATCH", data) => {
-    console.log(data);
+    console.log(data, "DATA");
     const config = {
       method,
       headers: {
@@ -60,11 +61,66 @@ const AuthProvider = ({ children }) => {
     return data;
   };
 
+  // set sweet alert's parameters dynamically
+
+  const alertToTransferDataIntoDepartment = async (applicationNo, navigate) => {
+    console.log(applicationNo, "CurrentApplicationNo");
+
+    const data = { userId: userInfoFromLocalStorage()._id, applicationNo };
+
+    const url = `http://localhost:5000/deleteApplication?data=${JSON.stringify(
+      data
+    )}`;
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to update this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, sent it!",
+      showLoaderOnConfirm: true,
+      preConfirm: async (confirm) => {
+        console.log("confirm", confirm);
+
+        return await fetch(url, { method: "DELETE" })
+          .then((response) => {
+            console.log(response, "response");
+            if (!response.ok) {
+              throw new Error(response.statusText);
+            }
+            return response;
+          })
+          .catch((error) => {
+            Swal.showValidationMessage(`Request failed: ${error}`);
+          });
+      },
+      allowOutsideClick: () => !Swal.isLoading(),
+    }).then((result) => {
+      console.log(result);
+      if (result.isConfirmed && result?.value?.ok) {
+        Swal.fire({
+          title: "Sent!",
+          text: "Your file has been sent successfully.",
+          icon: "success",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Ok",
+        }).then((res) => {
+          console.log(res);
+          if (res.isConfirmed) {
+            console.log("asi");
+            navigate("/dashboard/submitApplication");
+          } else {
+            navigate("/dashboard/draftApplication");
+          }
+        });
+      }
+    });
+  };
+
   // confirmation message and send data to database
   const confirmAlert = (stepperData, collectInputFieldData) => {
-    const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
-
-    const url = `https://residential-building.vercel.app/updateDraftApplicationData/${
+    const url = `http://localhost:5000/updateDraftApplicationData/${
       userInfoFromLocalStorage()._id
     }`;
 
@@ -73,7 +129,6 @@ const AuthProvider = ({ children }) => {
     Swal.fire({
       title: "Do you want to save your information?",
       icon: "info",
-      showCancelButton: true,
       confirmButtonText: "Yes, save it",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -82,7 +137,7 @@ const AuthProvider = ({ children }) => {
       preConfirm: async (confirm) => {
         console.log("confirm", confirm);
 
-        console.log(collectInputFieldData);
+        console.log(collectInputFieldData, "COLLECT INPUT FIELD DATA");
 
         return await collectInputFieldData(url)
           .then((response) => {
@@ -101,7 +156,16 @@ const AuthProvider = ({ children }) => {
       console.log(result, "result");
       if (result.isConfirmed && result.value.acknowledged) {
         toast.success("Data saved successfully");
-        currentStep < steps.length - 1 && handleStepClick(currentStep + 1);
+
+        console.log(stepperData, "Stepper data");
+
+        // if stepper data is exist then update stepper steps and navigate to the next step
+        if (stepperData) {
+          console.log("Asci");
+          const [, currentStep, steps, handleStepClick] = stepperData;
+          console.log(currentStep < steps.length - 1);
+          currentStep < steps.length - 1 && handleStepClick(currentStep + 1);
+        }
       } else {
         toast.error("Failed to save data");
       }
@@ -150,6 +214,7 @@ const AuthProvider = ({ children }) => {
     confirmAlert,
     alertToConfirmDelete,
     getApplicationData,
+    alertToTransferDataIntoDepartment,
   };
   return (
     <>

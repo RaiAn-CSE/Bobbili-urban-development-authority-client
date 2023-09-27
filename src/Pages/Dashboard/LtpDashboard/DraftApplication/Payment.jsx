@@ -33,10 +33,9 @@ const Payment = () => {
     gettingData();
   }, []);
 
-  const { confirmAlert } = useContext(AuthContext);
+  const { confirmAlert, alertToTransferDataIntoDepartment } = useContext(AuthContext);
   // Plots Details
   const { proposedPlotAreaCal, roadWideningAreaCal, netPlotAreaCal, buildingExcludeStilt, compoundingWallProposed, existingRoad, existingRoadMts, frontSetback, marketValueSqym, natureOfRoad, proposedRoadMts, rareSetback, side1Setback, side2Setback, siteRegistered, statusOfRoad, totalBuiltUpArea, totalParkingArea, totalPlotDocument, totalPlotGround } = plotDetails;
-
   // General Informatin
   const { applicationType, bpsApprovedNoServer, caseType, district, gramaPanchayat, iplpNo, lpNo, lrsNo, mandal, natureOfPermission, natureOfTheSite, plotNo, plotNo2, previewsApprovedFileNo, surveyNo, village } = generalInformation;
 
@@ -480,6 +479,7 @@ const Payment = () => {
         stepperData={stepperData}
         confirmAlert={confirmAlert}
         collectInputFieldData={sendPaymentData}
+        sentToPS={alertToTransferDataIntoDepartment}
       />
     </div>
   );
