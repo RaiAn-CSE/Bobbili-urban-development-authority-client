@@ -143,6 +143,8 @@ const BuildingInfo = () => {
       setProposedPlotArea(plotDetails.proposedPlotAreaCal);
       setRoadWideningArea(plotDetails.roadWideningAreaCal);
       setNetPlotArea(plotDetails.netPlotAreaCal);
+      setBuiltUpAreaSum(plotDetails.totalBuiltUpArea);
+      setParkingAreaSum(plotDetails.totalParkingArea);
 
       setGeneralInformation(generalInformation);
       setPlotDetails(plotDetails);
@@ -459,8 +461,8 @@ const BuildingInfo = () => {
       proposedRoadMts,
       marketValueSqym,
       floorDetails,
-      totalBuiltUpArea,
-      totalParkingArea,
+      totalBuiltUpArea: totalBuiltUpArea === "" ? 0 : totalBuiltUpArea,
+      totalParkingArea: totalParkingArea === "" ? 0 : totalParkingArea,
       frontSetback,
       rareSetback,
       side1Setback,
