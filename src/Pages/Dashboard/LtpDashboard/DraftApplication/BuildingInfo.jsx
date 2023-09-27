@@ -25,19 +25,26 @@ const BuildingInfo = () => {
 
   const { _id: id } = userInfoFromLocalStorage();
 
+  // Here declared all variables initial value in the use state
+
+  // general information sections all variable initialization
+
+  const [generalInformation, setGeneralInformation] = useState("");
   // Case Type
   const [selectedOptionCase, setSelectedOptionCase] = useState("");
 
   const [selectedOptionPermission, setSelectedOptionPermission] = useState("");
 
-  // Nature of the site
+  // NATURE OF THE SITE
   const [selectedNatureOfTheSite, setSelectedNatureOfTheSite] = useState("");
   const [showInputFields, setShowInputFields] = useState(false);
 
-  // Add a state variable to keep track of the number of sets of input fields
-  const [inputFieldCount, setInputFieldCount] = useState(0);
+  const [districtData, setDistrictData] = useState([]);
+  const [selectedDistrict, setSelectedDistrict] = useState("");
+  const [selectedMandal, setSelectedMandal] = useState("");
+  const [selectedVillage, setSelectedVillage] = useState("");
 
-  const [generalInformation, setGeneralInformation] = useState("");
+  // HERE PLOT DETAIL SECTIONS VARIABLES ARE INITIALIZED
   const [plotDetails, setPlotDetails] = useState("");
   const [plotDetailsFloor, setPlotDetailsFloor] = useState("");
   const [scheduleBoundaries, setScheduleBoundaries] = useState("");
@@ -54,11 +61,17 @@ const BuildingInfo = () => {
   const [roadWideningArea, setRoadWideningArea] = useState("");
   const [netPlotArea, setNetPlotArea] = useState("");
 
-  // input validation
+  // HERE SCHEDULE BOUNDARIES SECTIONS VARIABLES ARE INITIALIZED
+  // Selector Get Data from server:
+  const [natureOfRoadValue, setNatureOfRoadValue] = useState("");
+  const [northValue, setNorthValue] = useState("");
+  const [southValue, setSouthValue] = useState("");
+  const [eastValue, setEastValue] = useState("");
+  const [westValue, setWestValue] = useState("");
 
-  const [errorProposedPlot, setErrorProposedPlot] = useState("");
-  const [errorRoadWide, setErrorRoadWide] = useState("");
+  // SIDE EFFECT HANDLED
 
+  // HERE TOTAL BUILTUP AREA AND TOTAL PARKING AREA IS CALCULATED
   useEffect(() => {
     console.log("TOTAL BUILT AND PARKING CALC");
     console.log(builtUpArea, "BUILTUPAREA");
@@ -77,6 +90,14 @@ const BuildingInfo = () => {
     setParkingAreaSum(totalParkingArea);
   }, [builtUpArea, parkingArea]);
 
+  // HERE NET PLOTAREA CALCULATED
+  useEffect(() => {
+    const plot = proposedPlotArea === "" ? 0 : proposedPlotArea;
+    const roadWide = roadWideningArea === "" ? 0 : roadWideningArea;
+    calculateNetPlotArea(plot, roadWide);
+  }, [proposedPlotArea, roadWideningArea]);
+
+  // HERE DATA IS GETTING FROM THE DATABASE AS WELL AS UPDATING THE USE STATES  AND  ALL DISTRICTS ARE FETCHED
   useEffect(() => {
     const getData = async () => {
       const applicationData = await getApplicationData(applicationNo);
@@ -84,12 +105,19 @@ const BuildingInfo = () => {
 
       const generalInformation =
         applicationData.buildingInfo.generalInformation;
+
       const plotDetails = applicationData.buildingInfo.plotDetails;
+
       const plotDetailsFloor =
         applicationData.buildingInfo.plotDetails.floorDetails;
-      console.log(plotDetailsFloor, "plotDetailsFloor");
+      console.log(generalInformation, "generalinformation");
+
       const scheduleBoundaries =
         applicationData.buildingInfo.scheduleBoundaries;
+
+      setSelectedDistrict(generalInformation.district);
+      setSelectedMandal(generalInformation.mandal);
+      setSelectedVillage(generalInformation.village);
 
       console.log(builtUpArea, "builtUp area");
       // update floor details as well as builtup area and parking area
@@ -122,18 +150,21 @@ const BuildingInfo = () => {
       setScheduleBoundaries(scheduleBoundaries);
     };
     getData();
+
+    const apiUrl = "../../src/assets/buildingInfo.json";
+    fetch(apiUrl)
+      .then((response) => response.json())
+      .then((result) => {
+        setDistrictData(result.district);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   }, []);
 
   console.log(plotDetails, "plotDetails");
 
   console.log(builtUpArea, "BUILT area");
-
-  // Function to add more 3 sets of input fields
-  const handleAddInputFields = () => {
-    if (inputFieldCount < 3) {
-      setInputFieldCount(inputFieldCount + 1);
-    }
-  };
 
   // Case Type
   const handleCaseTypeChange = (e) => {
@@ -202,12 +233,6 @@ const BuildingInfo = () => {
     // calculateNetPlotArea(plotValue, newValue);
   };
 
-  useEffect(() => {
-    const plot = proposedPlotArea === "" ? 0 : proposedPlotArea;
-    const roadWide = roadWideningArea === "" ? 0 : roadWideningArea;
-    calculateNetPlotArea(plot, roadWide);
-  }, [proposedPlotArea, roadWideningArea]);
-
   const calculateNetPlotArea = (proposed, widening) => {
     const proposedArea = parseFloat(proposed);
     const wideningArea = parseFloat(widening);
@@ -246,22 +271,6 @@ const BuildingInfo = () => {
   // ======================================================<<<(Built Up Area Calculation End)>>>>...
 
   //==============================<<<<<(District, Mandal & Village Start)>>>>> :
-  const [districtData, setDistrictData] = useState([]);
-  const [selectedDistrict, setSelectedDistrict] = useState("");
-  const [selectedMandal, setSelectedMandal] = useState("");
-  const [selectedVillage, setSelectedVillage] = useState("");
-
-  useEffect(() => {
-    const apiUrl = "../../src/assets/buildingInfo.json";
-    fetch(apiUrl)
-      .then((response) => response.json())
-      .then((result) => {
-        setDistrictData(result.district);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }, []);
 
   const handleDistrictChange = (event) => {
     setSelectedDistrict(event.target.value);
@@ -276,13 +285,6 @@ const BuildingInfo = () => {
     setSelectedVillage("");
   };
   //==============================<<<<<(District, Mandal & Village End)>>>>> :
-
-  // Selector Get Data from server:
-  const [natureOfRoadValue, setNatureOfRoadValue] = useState("");
-  const [northValue, setNorthValue] = useState("");
-  const [southValue, setSouthValue] = useState("");
-  const [eastValue, setEastValue] = useState("");
-  const [westValue, setWestValue] = useState("");
 
   const handleNorthChange = (event) => {
     setNorthValue(event.target.value);
@@ -690,9 +692,9 @@ const BuildingInfo = () => {
               name="District"
               className={inputClass}
               onChange={handleDistrictChange}
-              value={selectedDistrict ? selectedDistrict : district}
+              value={selectedDistrict}
             >
-              <option value="" disabled>
+              <option selected value="" disabled>
                 Select District
               </option>
               {districtData.map((district) => (
