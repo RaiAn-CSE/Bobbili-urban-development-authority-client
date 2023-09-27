@@ -129,7 +129,6 @@ const AuthProvider = ({ children }) => {
     Swal.fire({
       title: "Do you want to save your information?",
       icon: "info",
-      showCancelButton: true,
       confirmButtonText: "Yes, save it",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
