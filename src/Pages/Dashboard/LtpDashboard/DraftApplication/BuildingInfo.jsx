@@ -1072,7 +1072,9 @@ const BuildingInfo = () => {
                 handleParkingArea={handleParkingArea}
                 parkingAreaValue={parkingArea[index]}
                 builtUpAreaValue={builtUpArea[index]}
-                plotDetailsFloor={plotDetailsFloor[index]}
+                plotDetailsFloor={
+                  plotDetailsFloor ? plotDetailsFloor[index] : undefined
+                }
               />
             ))}
           </div>

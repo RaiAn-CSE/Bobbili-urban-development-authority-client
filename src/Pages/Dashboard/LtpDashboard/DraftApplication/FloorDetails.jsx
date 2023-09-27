@@ -1,11 +1,22 @@
 import React, { useState } from "react";
 
-const FloorDetails = ({ index, floor, length, increaseFloorNo, handleBuiltUpArea, handleParkingArea, plotDetailsFloor, parkingAreaValue, builtUpAreaValue }) => {
+const FloorDetails = ({
+  index,
+  floor,
+  length,
+  increaseFloorNo,
+  handleBuiltUpArea,
+  handleParkingArea,
+  plotDetailsFloor,
+  parkingAreaValue,
+  builtUpAreaValue,
+}) => {
+  const [floorChange, setFloorChange] = useState("");
 
-  const [floorChange, setFloorChange] = useState('')
+  console.log(plotDetailsFloor, "PLOTDETAILS floor");
   const handleFloorChange = (e) => {
     setFloorChange(e.target.value);
-  }
+  };
 
   return (
     <>
@@ -20,7 +31,7 @@ const FloorDetails = ({ index, floor, length, increaseFloorNo, handleBuiltUpArea
           value={floorChange ? floorChange : plotDetailsFloor?.name}
           onChange={handleFloorChange}
         >
-          <option disabled value='' selected>
+          <option disabled value="" selected>
             Select Floor Name
           </option>
           <option>Stilt / Parking Floor</option>
@@ -43,7 +54,9 @@ const FloorDetails = ({ index, floor, length, increaseFloorNo, handleBuiltUpArea
           name={`builtUpArea${index}`}
           placeholder="in Sq.M."
           className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
-          defaultValue={builtUpAreaValue ? builtUpAreaValue : plotDetailsFloor?.builtUpArea}
+          defaultValue={
+            builtUpAreaValue ? builtUpAreaValue : plotDetailsFloor?.builtUpArea
+          }
           onChange={(e) => handleBuiltUpArea(e.target.value, index)}
         />
       </div>
@@ -61,7 +74,9 @@ const FloorDetails = ({ index, floor, length, increaseFloorNo, handleBuiltUpArea
           name={`parkingArea${index}`}
           placeholder="in Sq.M."
           className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
-          defaultValue={parkingAreaValue ? parkingAreaValue : plotDetailsFloor?.parkingArea}
+          defaultValue={
+            parkingAreaValue ? parkingAreaValue : plotDetailsFloor?.parkingArea
+          }
           onChange={(e) => handleParkingArea(e.target.value, index)}
         />
       </div>
