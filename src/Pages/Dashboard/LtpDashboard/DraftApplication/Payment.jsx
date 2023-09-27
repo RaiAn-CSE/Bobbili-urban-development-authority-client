@@ -324,24 +324,67 @@ const Payment = () => {
     });
   };
 
-  // console.log({
-  //   UDATotalCharged,
-  //   GramaPanchayetTotalCharged,
-  //   labourCessCompo1Charged,
-  //   TotalLabourCessComp2Charged,
-  //   builtup_Area,
-  //   TotalOpenSpaceCharged,
-  //   TotalPenalizationCharged,
-  //   nature_of_site,
-  // });
-
   console.log(calculatedData, "Calculated data");
+
   // send data into database
-  const sendPaymentData = async (url) => {
-    return await sendUserDataIntoDB(url, "PATCH", {
-      applicationNo: JSON.parse(localStorage.getItem("CurrentAppNo")),
-      payment: {},
-    });
+  const sendPaymentData = async () => {
+    console.log("object");
+
+    // GET UDA CHARGE SECTIONS DATA
+    const vacantArea = document.getElementById("vacantArea");
+    const builtUpArea = document.getElementById("builtUpArea");
+    const UdaImpactFee = document.getElementById("UdaImpactFee");
+    const UDATotalCharged = document.getElementById("UDATotalCharged");
+    const gramaSiteApproval = document.getElementById("gramaSiteApproval");
+    const buildingPermitFees = document.getElementById("buildingPermitFees");
+    const bettermentCharged = document.getElementById("bettermentCharged");
+    const TotalOpenSpaceCharged = document.getElementById(
+      "TotalOpenSpaceCharged"
+    );
+    const gramaImpactFee = document.getElementById("gramaImpactFee");
+    const TotalPenalizationCharged = document.getElementById(
+      "TotalPenalizationCharged"
+    );
+    const GramaPanchayetTotalCharged = document.getElementById(
+      "GramaPanchayetTotalCharged"
+    );
+    const gramaChallanNo = document.getElementById("gramaChallanNo");
+    const gramaChallanDate = document.getElementById("gramaChallanDate");
+    const gramaBankName = document.getElementById("gramaBankName");
+    const gramaBankBranch = document.getElementById("gramaBankBranch");
+    const labourCessSiteApproval = document.getElementById(
+      "labourCessSiteApproval"
+    );
+    const labourCessChallanNo = document.getElementById("labourCessChallanNo");
+    const labourCessChallanDate = document.getElementById(
+      "labourCessChallanDate"
+    );
+    const labourCessBankName = document.getElementById("labourCessBankName");
+    const labourCessBankBranch = document.getElementById(
+      "labourCessBankBranch"
+    );
+    const greenFeeSiteApproval = document.getElementById(
+      "greenFeeSiteApproval"
+    );
+    const greenFeeChargeChallanNo = document.getElementById(
+      "greenFeeChargeChallanNo"
+    );
+    const greenFeeChargeChallanDate = document.getElementById(
+      "greenFeeChargeChallanDate"
+    );
+    const greenFeeChargeBankName = document.getElementById(
+      "greenFeeChargeBankName"
+    );
+    const greenFeeChargeBankBranch = document.getElementById(
+      "greenFeeChargeBankBranch"
+    );
+
+    const udaCharge = {};
+
+    // return await sendUserDataIntoDB(url, "PATCH", {
+    //   applicationNo: JSON.parse(localStorage.getItem("CurrentAppNo")),
+    //   payment: {},
+    // });
   };
 
   console.log(condition, "CONSOLE");
@@ -370,32 +413,32 @@ const Payment = () => {
 
         <div className="grid grid-cols-2 lg:grid-cols-3 mt-5 mb-7">
           <InputField
-            id="myInput1"
-            name="myInput"
+            id="vacantArea"
+            name="vacantArea"
             label="Development charges(on Vacant land)"
             placeholder="1000"
             type="number"
             ltpDetails={calculatedData?.vacantAreaDevelopmentCharged}
           />
           <InputField
-            id="myInput2"
-            name="myInput"
+            id="builtUpArea"
+            name="builtUpArea"
             label="Development charges(on Built-up area)"
             placeholder="1000"
             type="number"
             ltpDetails={calculatedData?.builtUpAreaDevelopmentCharged}
           />
           <InputField
-            id="myInput3"
-            name="myInput"
+            id="UdaImpactFee"
+            name="UdaImpactFee"
             label="Impact fee (50% to UDA)"
             placeholder="5000"
             type="number"
             ltpdetails={0}
           />
           <InputField
-            id="myInput4"
-            name="myInput"
+            id="UDATotalCharged"
+            name="UDATotalCharged"
             label="Total"
             placeholder="7000"
             type="number"
@@ -422,16 +465,16 @@ const Payment = () => {
 
         <div className="grid grid-cols-2 lg:grid-cols-4 mt-3">
           <InputField
-            id="myInput5"
-            name="myInput"
+            id="gramaSiteApproval"
+            name="gramaSiteApproval"
             label="Site approval charges"
             placeholder="1000"
             type="number"
             ltpDetails={calculatedData?.siteApprovalCharged}
           />
           <InputField
-            id="myInput6"
-            name="myInput"
+            id="buildingPermitFees"
+            name="buildingPermitFees"
             label="Building permit fee"
             placeholder="1000"
             type="number"
@@ -440,8 +483,8 @@ const Payment = () => {
 
           {condition !== 1 && (
             <InputField
-              id="myInput7"
-              name="myInput"
+              id="bettermentCharged"
+              name="bettermentCharged"
               label="Betterment charge"
               placeholder="1000"
               type="number"
@@ -450,8 +493,8 @@ const Payment = () => {
           )}
           {condition !== 1 && (
             <InputField
-              id="myInput8"
-              name="myInput"
+              id="TotalOpenSpaceCharged"
+              name="TotalOpenSpaceCharged"
               label="14% open space charges"
               placeholder="5000"
               type="number"
@@ -459,8 +502,8 @@ const Payment = () => {
             />
           )}
           <InputField
-            id="myInput8"
-            name="myInput"
+            id="gramaImpactFee"
+            name="gramaImpactFee"
             label="Impact fee (50% to G.P.)"
             placeholder="5000"
             type="number"
@@ -468,8 +511,8 @@ const Payment = () => {
           />
           {condition !== 1 && condition !== 2 && (
             <InputField
-              id="myInput8"
-              name="myInput"
+              id="TotalPenalizationCharged"
+              name="TotalPenalizationCharged"
               label="33% penalization charges"
               placeholder="0"
               type="number"
@@ -477,8 +520,8 @@ const Payment = () => {
             />
           )}
           <InputField
-            id="myInput8"
-            name="myInput"
+            id="GramaPanchayetTotalCharged"
+            name="GramaPanchayetTotalCharged"
             label="Total"
             placeholder="13000"
             type="number"
@@ -488,29 +531,29 @@ const Payment = () => {
 
         <div className="grid grid-cols-2 lg:grid-cols-4 mb-8">
           <InputField
-            id="myInput5"
-            name="myInput"
+            id="gramaChallanNo"
+            name="gramaChallanNo"
             label="DD/Challan no."
             placeholder="1234"
             type="number"
           />
           <InputField
-            id="myInput6"
-            name="myInput"
+            id="gramaChallanDate"
+            name="gramaChallanDate"
             label="DD/Challan date"
             placeholder="06-04-2023"
             type="text"
           />
           <InputField
-            id="myInput7"
-            name="myInput"
+            id="gramaBankName"
+            name="gramaBankName"
             label="Bank name"
             placeholder="xxxx"
             type="text"
           />
           <InputField
-            id="myInput8"
-            name="myInput"
+            id="gramaBankBranch"
+            name="gramaBankBranch"
             label="Branch"
             placeholder="xxxx"
             type="text"
@@ -521,8 +564,7 @@ const Payment = () => {
             <input
               className="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
               type="file"
-              id="formFileMultiple"
-              multiple
+              id="gramaBankReceipt"
             />
           </div>
         </div>
@@ -541,8 +583,8 @@ const Payment = () => {
 
         <div className="grid lg:grid-cols-4 mt-3">
           <InputField
-            id="myInput8"
-            name="myInput"
+            id="labourCessSiteApproval"
+            name="labourCessSiteApproval"
             label="Site approval charges"
             placeholder="3000"
             type="number"
@@ -551,29 +593,29 @@ const Payment = () => {
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 mb-8">
           <InputField
-            id="myInput5"
-            name="myInput"
+            id="labourCessChallanNo"
+            name="labourCessChallanNo"
             label="DD/Challan no."
             placeholder="1234"
             type="number"
           />
           <InputField
-            id="myInput6"
-            name="myInput"
+            id="labourCessChallanDate"
+            name="labourCessChallanDate"
             label="DD/Challan date"
             placeholder="06-04-2023"
             type="text"
           />
           <InputField
-            id="myInput7"
-            name="myInput"
+            id="labourCessBankName"
+            name="labourCessBankName"
             label="Bank name"
             placeholder="xxxx"
             type="text"
           />
           <InputField
-            id="myInput8"
-            name="myInput"
+            id="labourCessBankBranch"
+            name="labourCessBankBranch"
             label="Branch"
             placeholder="xxxx"
             type="text"
@@ -584,8 +626,7 @@ const Payment = () => {
             <input
               className="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
               type="file"
-              id="formFileMultiple"
-              multiple
+              id="labourCessBankReceipt"
             />
           </div>
         </div>
@@ -605,8 +646,8 @@ const Payment = () => {
 
         <div className="grid lg:grid-cols-4 mt-3">
           <InputField
-            id="myInput8"
-            name="myInput"
+            id="greenFeeSiteApproval"
+            name="greenFeeSiteApproval"
             label="Site approval charges"
             placeholder="2000"
             type="number"
@@ -615,29 +656,29 @@ const Payment = () => {
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-4">
           <InputField
-            id="myInput5"
-            name="myInput"
+            id="greenFeeChargeChallanNo"
+            name="greenFeeChargeChallanNo"
             label="DD/Challan no."
             placeholder="1234"
             type="number"
           />
           <InputField
-            id="myInput6"
-            name="myInput"
+            id="greenFeeChargeChallanDate"
+            name="greenFeeChargeChallanDate"
             label="DD/Challan date"
             placeholder="06-04-2023"
             type="text"
           />
           <InputField
-            id="myInput7"
-            name="myInput"
+            id="greenFeeChargeBankName"
+            name="greenFeeChargeBankName"
             label="Bank name"
             placeholder="xxxx"
             type="text"
           />
           <InputField
-            id="myInput8"
-            name="myInput"
+            id="greenFeeChargeBankBranch"
+            name="greenFeeChargeBankBranch"
             label="Branch"
             placeholder="xxxx"
             type="text"
@@ -650,11 +691,12 @@ const Payment = () => {
           <input
             className="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
             type="file"
-            id="formFileMultiple"
-            multiple
+            id="greenFeeBankReceipt"
           />
         </div>
       </div>
+
+      <input type="submit" value="GET" onClick={sendPaymentData} />
 
       {/* save & continue  */}
       {/* navigation button  */}
