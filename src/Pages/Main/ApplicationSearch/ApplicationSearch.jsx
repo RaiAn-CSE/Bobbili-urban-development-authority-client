@@ -6,8 +6,8 @@ import { MdOutlineNoteAlt } from "react-icons/md";
 
 const ApplicationSearch = () => {
 
-  const inputClass = "basis-[50%] w-full px-3 py-2 border rounded-lg max-w-xs"
-  const inputDiv = "flex items-center px-5 text-gray-400 mt-2"
+  // const inputClass = "basis-[50%] w-full px-3 py-2 border rounded-lg max-w-xs"
+  // const inputDiv = "flex items-center px-5 text-gray-400 mt-2"
 
   return (
     <div className="px-4 card bg-base-100 shadow-xl mx-4">
