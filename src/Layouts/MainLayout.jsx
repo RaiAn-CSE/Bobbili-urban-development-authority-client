@@ -21,7 +21,7 @@ const MainLayout = () => {
         Online Payment
       </Link>
       <Link
-        to='/listOfLTP'
+        to="/listOfLTP"
         type="button"
         className="relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white"
       >
@@ -73,7 +73,7 @@ const MainLayout = () => {
         </div>
 
         {/* Scrollable content */}
-        <div className="">
+        <div className="h-[400px] overflow-auto ">
           <Outlet />
         </div>
 
