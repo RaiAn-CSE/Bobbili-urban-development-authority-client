@@ -10,48 +10,157 @@ import { AiOutlineFileText } from "react-icons/ai";
 import { useOutletContext } from "react-router";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import SaveData from "./SaveData";
+import toast from "react-hot-toast";
 
 const Payment = () => {
   const stepperData = useOutletContext();
   const { getApplicationData } = useContext(AuthContext);
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
   const [generalInformation, setGeneralInformation] = useState({});
+  const [applicationData, setApplicationData] = useState([]);
   const [plotDetails, setPlotDetails] = useState({});
   const [ltpDetailsData, setLtpDetailsData] = useState({});
   const [applicantDetailsData, setApplicantDetailsData] = useState({});
+  const [natureOfTheSiteValue, setNatureOfTheSiteValue] = useState("");
+  const [condition, setCondition] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
 
   useEffect(() => {
+    console.log(applicationNo, "APPLICATION NO");
+
     const gettingData = async () => {
       const applicationData = await getApplicationData(applicationNo);
-      setGeneralInformation(applicationData?.buildingInfo?.generalInformation)
-      setPlotDetails(applicationData?.buildingInfo?.plotDetails)
-      setLtpDetailsData(applicationData?.applicantInfo?.ltpDetails)
-      setApplicantDetailsData(applicationData?.applicantInfo?.applicantDetails)
+
+      setLoading(true);
+      if (applicationData) {
+        setLoading(false);
+        setApplicationData(applicationData);
+      }
+      // if (applicationData) {
+      //   console.log(applicationData, "APPLICATION DATA");
+      //   console.log(
+      //     applicationData?.buildingInfo?.generalInformation,
+      //     "GENEERAL INFO"
+      //   );
+      // }
     };
     gettingData();
   }, []);
 
-  const { confirmAlert, alertToTransferDataIntoDepartment } = useContext(AuthContext);
-  // Plots Details
-  const { proposedPlotAreaCal, roadWideningAreaCal, netPlotAreaCal, buildingExcludeStilt, compoundingWallProposed, existingRoad, existingRoadMts, frontSetback, marketValueSqym, natureOfRoad, proposedRoadMts, rareSetback, side1Setback, side2Setback, siteRegistered, statusOfRoad, totalBuiltUpArea, totalParkingArea, totalPlotDocument, totalPlotGround } = plotDetails;
-  // General Informatin
-  const { applicationType, bpsApprovedNoServer, caseType, district, gramaPanchayat, iplpNo, lpNo, lrsNo, mandal, natureOfPermission, natureOfTheSite, plotNo, plotNo2, previewsApprovedFileNo, surveyNo, village } = generalInformation;
+  useEffect(() => {
+    console.log("UPDATED APPLICATION");
+    setGeneralInformation((prev) => {
+      console.log(prev, "Prev");
+      const newValue = applicationData?.buildingInfo?.generalInformation;
+      console.log(newValue, "new Value");
+      const updateValue = { ...prev, ...newValue };
 
-  const builtup_Area = Number(totalBuiltUpArea);
+      console.log(updateValue, "UPDATE VALUE");
+      return updateValue;
+    });
+
+    console.log(generalInformation, "AFTER UPDATE");
+    setPlotDetails((prev) => {
+      const newValue = applicationData?.buildingInfo?.plotDetails;
+      const updateValue = { ...prev, ...newValue };
+      return updateValue;
+    });
+    setLtpDetailsData((prev) => {
+      const newValue = applicationData?.applicantInfo?.ltpDetails;
+      const updateValue = { ...prev, ...newValue };
+      return updateValue;
+    });
+    setApplicantDetailsData((prev) => {
+      const newValue = applicationData?.applicantInfo?.applicantDetails;
+      const updateValue = { ...prev, ...newValue };
+      return updateValue;
+    });
+
+    console.log(generalInformation, "general information");
+    setNatureOfTheSiteValue(generalInformation.natureOfTheSite);
+    console.log(generalInformation?.natureOfTheSite, "After");
+    if (
+      generalInformation?.natureOfTheSite === "Approved Layout" ||
+      generalInformation?.natureOfTheSite === "Regularised under LRS" ||
+      generalInformation?.natureOfTheSite ===
+        "Congested/ Gramakanta/ Old Built-up area" ||
+      generalInformation.natureOfTheSite === "Newly Developed/ Built up area"
+    ) {
+      console.log("aschi");
+      setCondition(1);
+    }
+    if (
+      generalInformation?.natureOfTheSite === "Newly Developed/ Built up area"
+    ) {
+      setCondition(2);
+    }
+  }, [applicationData, condition]);
+
+  if (loading) {
+    return "Loading...";
+  }
+
+  const { confirmAlert, alertToTransferDataIntoDepartment } =
+    useContext(AuthContext);
+  // Plots Details
+  // const {
+  //   proposedPlotAreaCal,
+  //   roadWideningAreaCal,
+  //   netPlotAreaCal,
+  //   buildingExcludeStilt,
+  //   compoundingWallProposed,
+  //   existingRoad,
+  //   existingRoadMts,
+  //   frontSetback,
+  //   marketValueSqym,
+  //   natureOfRoad,
+  //   proposedRoadMts,
+  //   rareSetback,
+  //   side1Setback,
+  //   side2Setback,
+  //   siteRegistered,
+  //   statusOfRoad,
+  //   totalBuiltUpArea,
+  //   totalParkingArea,
+  //   totalPlotDocument,
+  //   totalPlotGround,
+  // } = plotDetails;
+  // // General Informatin
+  // const {
+  //   applicationType,
+  //   bpsApprovedNoServer,
+  //   caseType,
+  //   district,
+  //   gramaPanchayat,
+  //   iplpNo,
+  //   lpNo,
+  //   lrsNo,
+  //   mandal,
+  //   natureOfPermission,
+  //   natureOfTheSite,
+  //   plotNo,
+  //   plotNo2,
+  //   previewsApprovedFileNo,
+  //   surveyNo,
+  //   village,
+  // } = generalInformation;
+
+  const builtup_Area = Number(generalInformation?.totalBuiltUpArea);
   const vacant_area = 1;
-  const net_Plot_Area = Number(netPlotAreaCal);
-  const market_value = Number(marketValueSqym);
-  const nature_of_site = natureOfTheSite;
+  const net_Plot_Area = Number(generalInformation?.netPlotAreaCal);
+  const market_value = Number(generalInformation?.marketValueSqym);
+  const nature_of_site = generalInformation?.natureOfTheSite;
   const BuiltUp_area_SquareFeet = builtup_Area * 10.7639;
 
-  console.log(typeof builtup_Area, "builtup_Area")
+  console.log(typeof builtup_Area, "builtup_Area");
 
   // ======UDA Charged Segment======
   // ====Built up Development====
   const builtupAreaChargedUnitRate = 15; //per Sqm.
-  const builtUpAreaDevelopmentCharged = builtupAreaChargedUnitRate * builtup_Area;
+  const builtUpAreaDevelopmentCharged =
+    builtupAreaChargedUnitRate * builtup_Area;
 
   // ====Vacant Development====
   const vacantAreaChargedUnitRate = 10; // per Sqm.
@@ -61,7 +170,7 @@ const Payment = () => {
   const calculatePenalizationCharges = (net_Plot_Area, nature_of_site) => {
     let penalizationCharges = 0;
     if (nature_of_site !== "Plot port of RLP/IPLP but not regularised") {
-      return penalizationCharges = 0;
+      return (penalizationCharges = 0);
     }
 
     if (net_Plot_Area <= 100) {
@@ -69,17 +178,25 @@ const Payment = () => {
     } else if (net_Plot_Area <= 300) {
       penalizationCharges = net_Plot_Area * 400 * 0.33;
     } else {
-      return penalizationCharges = 0;
+      return (penalizationCharges = 0);
     }
 
     return penalizationCharges;
   };
   // ====Total 33% Penalization Charged====
-  const TotalPenalizationCharged = calculatePenalizationCharges(net_Plot_Area, nature_of_site);
+  const TotalPenalizationCharged = calculatePenalizationCharges(
+    net_Plot_Area,
+    nature_of_site
+  );
 
-  function calculateOpenSpaceCharge(nature_of_site, net_Plot_Area, market_value) {
+  function calculateOpenSpaceCharge(
+    nature_of_site,
+    net_Plot_Area,
+    market_value
+  ) {
     const condition01 = nature_of_site === "Newly Developed/ Built up area";
-    const condition02 = nature_of_site === "Plot port of RLP/IPLP but not regularised";
+    const condition02 =
+      nature_of_site === "Plot port of RLP/IPLP but not regularised";
 
     if (condition01 || condition02) {
       return net_Plot_Area * 1.196 * market_value * 0.14;
@@ -89,7 +206,11 @@ const Payment = () => {
   }
 
   // ==== Total 14% Open Space Charged====
-  const TotalOpenSpaceCharged = calculateOpenSpaceCharge(nature_of_site, net_Plot_Area, market_value);
+  const TotalOpenSpaceCharged = calculateOpenSpaceCharge(
+    nature_of_site,
+    net_Plot_Area,
+    market_value
+  );
 
   // ==== Labour Cess Component 2 ====
   const labourCessComponentUnitRate2 = 1400; // per Sq.Ft.
@@ -101,22 +222,27 @@ const Payment = () => {
         labourCessComponentUnitRate2 * BuiltUp_area_SquareFeet * 10.76;
     } else if (BuiltUp_area_SquareFeet > 10000) {
       labourCessComponentCharge2 =
-        labourCessComponentUnitRate2 * BuiltUp_area_SquareFeet * 10.76 * (0.01 * 0.02);
+        labourCessComponentUnitRate2 *
+        BuiltUp_area_SquareFeet *
+        10.76 *
+        (0.01 * 0.02);
     }
     return labourCessComponentCharge2;
   };
   // ===== Total labour cess Compo 2 Charged====
-  const TotalLabourCessComp2Charged = laboutCessCompo2Calculation(BuiltUp_area_SquareFeet).toFixed(4);
+  const TotalLabourCessComp2Charged = laboutCessCompo2Calculation(
+    BuiltUp_area_SquareFeet
+  ).toFixed(4);
 
   // =====UDA Total=====
   const UDATotal = () => {
     // Calculate UDA Total Charged
     const UDATotalCharged =
-      (builtUpAreaDevelopmentCharged +
-        vacantAreaDevelopmentCharged +
-        TotalPenalizationCharged +
-        TotalOpenSpaceCharged +
-        TotalLabourCessComp2Charged);
+      builtUpAreaDevelopmentCharged +
+      vacantAreaDevelopmentCharged +
+      TotalPenalizationCharged +
+      TotalOpenSpaceCharged +
+      TotalLabourCessComp2Charged;
     return UDATotalCharged;
   };
   // =====UDA Total Charged=====
@@ -145,24 +271,47 @@ const Payment = () => {
 
   // =====Grama Panchayet Total=====
   const gramaPanchayetTotal = () => {
-    return (bettermentCharged + buildingPermitFees + siteApprovalCharged + paperPublicationCharged + processingFees).toFixed(4);
+    return (
+      bettermentCharged +
+      buildingPermitFees +
+      siteApprovalCharged +
+      paperPublicationCharged +
+      processingFees
+    ).toFixed(4);
   };
   // =====Grama Panchayet Total Charged=====
   const GramaPanchayetTotalCharged = gramaPanchayetTotal();
-
 
   // ======Green Fee Charged======
   let greenFeeCharged = 0;
   const greenFeeChargesUnitRate = 3; //per Sq.ft
   if (BuiltUp_area_SquareFeet > 5000) {
-    greenFeeCharged = (greenFeeChargesUnitRate * BuiltUp_area_SquareFeet * 10.76).toFixed(4);
+    greenFeeCharged = (
+      greenFeeChargesUnitRate *
+      BuiltUp_area_SquareFeet *
+      10.76
+    ).toFixed(4);
   }
 
   // ====Labour Cess Component 1 Charged====
   const labourCessComponentUnitRate1 = 1400; // per Sq.ft.
-  const labourCessCompo1Charged = (labourCessComponentUnitRate1 * BuiltUp_area_SquareFeet * 10.76 * (0.01 * 0.98)).toFixed(4);
+  const labourCessCompo1Charged = (
+    labourCessComponentUnitRate1 *
+    BuiltUp_area_SquareFeet *
+    10.76 *
+    (0.01 * 0.98)
+  ).toFixed(4);
 
-  console.log({ UDATotalCharged, GramaPanchayetTotalCharged, labourCessCompo1Charged, TotalLabourCessComp2Charged, builtup_Area, TotalOpenSpaceCharged, TotalPenalizationCharged, nature_of_site })
+  console.log({
+    UDATotalCharged,
+    GramaPanchayetTotalCharged,
+    labourCessCompo1Charged,
+    TotalLabourCessComp2Charged,
+    builtup_Area,
+    TotalOpenSpaceCharged,
+    TotalPenalizationCharged,
+    nature_of_site,
+  });
   // send data into database
   const sendPaymentData = async (url) => {
     return await sendUserDataIntoDB(url, "PATCH", {
@@ -171,8 +320,13 @@ const Payment = () => {
     });
   };
 
+  console.log(condition, "CONSOLE");
+
   return (
-    <div className="grid my-5 lg:my-0 lg:p-2">
+    <form
+      onSubmit={(e) => e.preventDefault()}
+      className="grid my-5 lg:my-0 lg:p-2"
+    >
       <div>
         <div className="flex justify-end">
           <button className="btn btn-md">
@@ -259,22 +413,26 @@ const Payment = () => {
             type="number"
             value={buildingPermitFees}
           />
-          <InputField
-            id="myInput7"
-            name="myInput"
-            label="Betterment charge"
-            placeholder="1000"
-            type="number"
-            value={bettermentCharged}
-          />
-          <InputField
-            id="myInput8"
-            name="myInput"
-            label="14% open space charges"
-            placeholder="5000"
-            type="number"
-            value={TotalOpenSpaceCharged}
-          />
+          {condition !== 1 && (
+            <InputField
+              id="myInput7"
+              name="myInput"
+              label="Betterment charge"
+              placeholder="1000"
+              type="number"
+              value={bettermentCharged}
+            />
+          )}
+          {condition !== 1 && (
+            <InputField
+              id="myInput8"
+              name="myInput"
+              label="14% open space charges"
+              placeholder="5000"
+              type="number"
+              value={TotalOpenSpaceCharged}
+            />
+          )}
           <InputField
             id="myInput8"
             name="myInput"
@@ -283,14 +441,16 @@ const Payment = () => {
             type="number"
             value={0}
           />
-          <InputField
-            id="myInput8"
-            name="myInput"
-            label="33% penalization charges"
-            placeholder="0"
-            type="number"
-            value={TotalPenalizationCharged}
-          />
+          {condition !== 1 && condition !== 2 && (
+            <InputField
+              id="myInput8"
+              name="myInput"
+              label="33% penalization charges"
+              placeholder="0"
+              type="number"
+              value={TotalPenalizationCharged}
+            />
+          )}
           <InputField
             id="myInput8"
             name="myInput"
@@ -481,7 +641,7 @@ const Payment = () => {
         collectInputFieldData={sendPaymentData}
         sentToPS={alertToTransferDataIntoDepartment}
       />
-    </div>
+    </form>
   );
 };
 
