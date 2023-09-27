@@ -345,7 +345,7 @@ const BuildingInfo = () => {
   useEffect(() => {
     const getData = async () => {
       const applicationData = await getApplicationData(applicationNo);
-      console.log(applicationData);
+      console.log(applicationData, 'AllApplicationData');
 
       const generalInformation = applicationData.buildingInfo.generalInformation;
       const plotDetails = applicationData.buildingInfo.plotDetails;
@@ -868,7 +868,6 @@ const BuildingInfo = () => {
               <select
                 id="natureOfRoad"
                 className={inputClass}
-                // value={natureOfRoad}
                 value={natureOfRoadValue ? natureOfRoadValue : natureOfRoad}
                 onChange={handleNatureOfRoad}
               >

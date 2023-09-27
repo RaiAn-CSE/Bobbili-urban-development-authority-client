@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 const FloorDetails = ({ index, floor, length, increaseFloorNo, handleBuiltUpArea, handleParkingArea, plotDetailsFloor, parkingAreaValue, builtUpAreaValue }) => {
 
+  // console.log(plotDetailsFloor, 'plotDetailsFloor');
+
   const [floorChange, setFloorChange] = useState('')
   const handleFloorChange = (e) => {
     setFloorChange(e.target.value);
