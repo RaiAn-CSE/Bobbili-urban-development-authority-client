@@ -14,23 +14,104 @@ const BuildingInfo = () => {
 
   const [isStepperVisible, currentStep, steps] = stepperData;
 
-  const { confirmAlert, sendUserDataIntoDB, userInfoFromLocalStorage, getApplicationData } = useContext(AuthContext);
+  const {
+    confirmAlert,
+    sendUserDataIntoDB,
+    userInfoFromLocalStorage,
+    getApplicationData,
+  } = useContext(AuthContext);
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
 
   const { _id: id } = userInfoFromLocalStorage();
 
   // Case Type
-  const [selectedOptionCase, setSelectedOptionCase] = useState('');
+  const [selectedOptionCase, setSelectedOptionCase] = useState("");
 
   const [selectedOptionPermission, setSelectedOptionPermission] = useState("");
 
   // Nature of the site
-  const [selectedNatureOfTheSite, setSelectedNatureOfTheSite] = useState('');
+  const [selectedNatureOfTheSite, setSelectedNatureOfTheSite] = useState("");
   const [showInputFields, setShowInputFields] = useState(false);
 
   // Add a state variable to keep track of the number of sets of input fields
   const [inputFieldCount, setInputFieldCount] = useState(0);
+
+  const [generalInformation, setGeneralInformation] = useState("");
+  const [plotDetails, setPlotDetails] = useState("");
+  const [plotDetailsFloor, setPlotDetailsFloor] = useState("");
+  const [scheduleBoundaries, setScheduleBoundaries] = useState("");
+
+  const [totalFloor, setTotalFloor] = useState(["Floor1"]);
+
+  const [builtUpAreaSum, setBuiltUpAreaSum] = useState(0);
+  const [parkingAreaSum, setParkingAreaSum] = useState(0);
+
+  const [builtUpArea, setBuiltUpArea] = useState([0, 0, 0, 0]);
+  const [parkingArea, setParkingArea] = useState([0, 0, 0, 0]);
+
+  useEffect(() => {
+    console.log("TOTAL BUILT AND PARKING CALC");
+    console.log(builtUpArea, "BUILTUPAREA");
+    const totalBuiltUpArea = builtUpArea.reduce((accumulator, currentValue) => {
+      return accumulator + currentValue;
+    });
+
+    setBuiltUpAreaSum(totalBuiltUpArea);
+
+    console.log(parkingArea, "Parking area");
+    const totalParkingArea = parkingArea.reduce(
+      (acc, currentValue) => acc + currentValue,
+      0
+    );
+
+    setParkingAreaSum(totalParkingArea);
+  }, [builtUpArea, parkingArea]);
+
+  useEffect(() => {
+    const getData = async () => {
+      const applicationData = await getApplicationData(applicationNo);
+      console.log(applicationData);
+
+      const generalInformation =
+        applicationData.buildingInfo.generalInformation;
+      const plotDetails = applicationData.buildingInfo.plotDetails;
+      const plotDetailsFloor =
+        applicationData.buildingInfo.plotDetails.floorDetails;
+      console.log(plotDetailsFloor, "plotDetailsFloor");
+      const scheduleBoundaries =
+        applicationData.buildingInfo.scheduleBoundaries;
+
+      console.log(builtUpArea, "builtUp area");
+      plotDetails?.floorDetails?.map((floor, index) => {
+        setBuiltUpArea((prev) => {
+          const oldData = [...prev];
+          oldData[index] = parseFloat(floor?.builtUpArea);
+
+          console.log(oldData, "oldData");
+          return oldData;
+        });
+        setParkingArea((prev) => {
+          const oldData = [...prev];
+          oldData[index] = parseFloat(floor?.parkingArea);
+
+          console.log(oldData, "oldData");
+          return oldData;
+        });
+      });
+
+      console.log(builtUpArea, "Builtuparea adjacent");
+
+      setGeneralInformation(generalInformation);
+      setPlotDetails(plotDetails);
+      setPlotDetailsFloor(plotDetailsFloor);
+      setScheduleBoundaries(scheduleBoundaries);
+    };
+    getData();
+  }, []);
+  console.log(plotDetails, "plotDetails");
+
+  console.log(builtUpArea, "BUILT area");
 
   // Function to add more 3 sets of input fields
   const handleAddInputFields = () => {
@@ -93,20 +174,12 @@ const BuildingInfo = () => {
 
     if (!isNaN(proposedArea) && !isNaN(wideningArea)) {
       const netArea = proposedArea - wideningArea;
-      console.log(netArea, 'netArea');
+      console.log(netArea, "netArea");
       setNetPlotArea(netArea.toFixed(2)); // Format to 2 decimal places
     } else {
       setNetPlotArea("");
     }
   }; // ========================<<<(Calculation part End)>>>...
-
-  const [totalFloor, setTotalFloor] = useState(["Floor1"]);
-
-  const [builtUpAreaSum, setBuiltUpAreaSum] = useState(0);
-  const [parkingAreaSum, setParkingAreaSum] = useState(0);
-
-  const [builtUpArea, setBuiltUpArea] = useState([0]);
-  const [parkingArea, setParkingArea] = useState([0]);
 
   // handleBuiltUpArea
   const handleBuiltUpArea = (value, index) => {
@@ -124,25 +197,12 @@ const BuildingInfo = () => {
   };
 
   const handleParkingArea = (value, index) => {
-    const newParkingArea = [...parkingArea];
-    newParkingArea[index] = parseFloat(value) || 0;
-    setParkingArea(newParkingArea);
+    const newParkingArea = parseFloat(value) || 0;
+    const updateArea = [...parkingArea];
+    updateArea[index] = newParkingArea;
+    setParkingArea(updateArea);
   };
 
-  useEffect(() => {
-    const totalBuiltUpArea = builtUpArea.reduce((accumulator, currentValue) => {
-      return accumulator + currentValue;
-    });
-
-    setBuiltUpAreaSum(totalBuiltUpArea);
-
-    const totalParkingArea = parkingArea.reduce(
-      (acc, currentValue) => acc + currentValue,
-      0
-    );
-
-    setParkingAreaSum(totalParkingArea);
-  }, [builtUpArea, parkingArea]);
   // ======================================================<<<(Built Up Area Calculation End)>>>>...
 
   // get data from input field :
@@ -150,8 +210,10 @@ const BuildingInfo = () => {
     // ==================================================<<<(General Information)>>>:
     const caseTypeData = document.getElementById("caseType").value;
     // Get selected radio input's value
-    const selectedApplicationType = document.querySelector('input[name="radio-1"]:checked')?.value || "";
-    const natureOfPermission = document.getElementById("natureOfPermission").value;
+    const selectedApplicationType =
+      document.querySelector('input[name="radio-1"]:checked')?.value || "";
+    const natureOfPermission =
+      document.getElementById("natureOfPermission").value;
     const natureOfTheSite = document.getElementById("natureOfTheSite").value;
     const surveyNo = document.getElementById("SurveyNo").value;
     const district = document.getElementById("district").value;
@@ -184,10 +246,13 @@ const BuildingInfo = () => {
     const iplpNoElement = document.getElementById("IplpNo");
     const iplpNo = iplpNoElement ? iplpNoElement.value : "";
     // ================================================<<<(Plot Details)>>>:
-    const totalPlotDocument = document.getElementById("TotalPlotDocument").value;
+    const totalPlotDocument =
+      document.getElementById("TotalPlotDocument").value;
     const totalPlotGround = document.getElementById("TotalPlotGround").value;
-    const proposedPlotAreaValue = document.getElementById("proposedPlotArea").value;
-    const roadWideningAreaValue = document.getElementById("roadWideningArea").value;
+    const proposedPlotAreaValue =
+      document.getElementById("proposedPlotArea").value;
+    const roadWideningAreaValue =
+      document.getElementById("roadWideningArea").value;
     const netPlotAreaValue = document.getElementById("netPlotArea").value;
 
     const existingRoad =
@@ -200,10 +265,10 @@ const BuildingInfo = () => {
     const proposedRoadMts = document.getElementById("proposedRoadMts").value;
     const marketValueSqym = document.getElementById("marketValueSqym").value;
 
-    console.log(totalFloor, "totalFloor");
+    // console.log(totalFloor, "totalFloor");
 
     const floorDetails = totalFloor.map((floor, index) => {
-      console.log(floor);
+      // console.log(floor);
 
       return {
         name: document.getElementById(`floorName${index}`).value,
@@ -326,47 +391,59 @@ const BuildingInfo = () => {
   };
   //==============================<<<<<(District, Mandal & Village End)>>>>> :
 
+  // console.log(generalInformation, "generalInformation");
+  const {
+    applicationType,
+    bpsApprovedNoServer,
+    caseType,
+    district,
+    gramaPanchayat,
+    iplpNo,
+    lpNo,
+    lrsNo,
+    mandal,
+    natureOfPermission,
+    natureOfTheSite,
+    plotNo,
+    plotNo2,
+    previewsApprovedFileNo,
+    surveyNo,
+    village,
+  } = generalInformation;
 
-
-  const [generalInformation, setGeneralInformation] = useState('');
-  const [plotDetails, setPlotDetails] = useState('');
-  const [plotDetailsFloor, setPlotDetailsFloor] = useState('');
-  const [scheduleBoundaries, setScheduleBoundaries] = useState('');
-
-  console.log(generalInformation, 'generalInformation');
-  const { applicationType, bpsApprovedNoServer, caseType, district, gramaPanchayat, iplpNo, lpNo, lrsNo, mandal, natureOfPermission, natureOfTheSite, plotNo, plotNo2, previewsApprovedFileNo, surveyNo, village } = generalInformation;
-
-  console.log(plotDetails, 'plotDetails');
-  const { proposedPlotAreaCal, roadWideningAreaCal, netPlotAreaCal, buildingExcludeStilt, compoundingWallProposed, existingRoad, existingRoadMts, frontSetback, marketValueSqym, natureOfRoad, proposedRoadMts, rareSetback, side1Setback, side2Setback, siteRegistered, statusOfRoad, totalBuiltUpArea, totalParkingArea, totalPlotDocument, totalPlotGround } = plotDetails;
+  // console.log(plotDetails, "plotDetails");
+  const {
+    proposedPlotAreaCal,
+    roadWideningAreaCal,
+    netPlotAreaCal,
+    buildingExcludeStilt,
+    compoundingWallProposed,
+    existingRoad,
+    existingRoadMts,
+    frontSetback,
+    marketValueSqym,
+    natureOfRoad,
+    proposedRoadMts,
+    rareSetback,
+    side1Setback,
+    side2Setback,
+    siteRegistered,
+    statusOfRoad,
+    totalBuiltUpArea,
+    totalParkingArea,
+    totalPlotDocument,
+    totalPlotGround,
+  } = plotDetails;
 
   // console.log(scheduleBoundaries, 'scheduleBoundaries');
   const { east, west, north, south } = scheduleBoundaries;
 
-  useEffect(() => {
-    const getData = async () => {
-      const applicationData = await getApplicationData(applicationNo);
-      console.log(applicationData);
-
-      const generalInformation = applicationData.buildingInfo.generalInformation;
-      const plotDetails = applicationData.buildingInfo.plotDetails;
-      const plotDetailsFloor = applicationData.buildingInfo.plotDetails.floorDetails;
-      console.log(plotDetailsFloor, "plotDetailsFloor");
-      const scheduleBoundaries = applicationData.buildingInfo.scheduleBoundaries;
-
-      setGeneralInformation(generalInformation);
-      setPlotDetails(plotDetails);
-      setPlotDetailsFloor(plotDetailsFloor);
-      setScheduleBoundaries(scheduleBoundaries);
-    };
-    getData();
-  }, []);
-
   // Selector Get Data from server:
-  const [natureOfRoadValue, setNatureOfRoadValue] = useState('');
-  const [northValue, setNorthValue] = useState('');
-  const [southValue, setSouthValue] = useState('');
-  const [eastValue, setEastValue] = useState('');
-  const [westValue, setWestValue] = useState('');
+  const [natureOfRoadValue, setNatureOfRoadValue] = useState("");
+  const [northValue, setNorthValue] = useState("");
+  const [southValue, setSouthValue] = useState("");
+  const [eastValue, setEastValue] = useState("");
+  const [westValue, setWestValue] = useState("");
 
   const handleNorthChange = (event) => {
     setNorthValue(event.target.value);
@@ -388,38 +465,38 @@ const BuildingInfo = () => {
     setWestValue(event.target.value);
   };
 
-
   // Radio Button Get Data from server:
-  const [radio1, setRadio1] = useState('');
-  const [radio2, setRadio2] = useState('');
-  const [radio3, setRadio3] = useState('');
-  const [radio4, setRadio4] = useState('');
-  const [radio5, setRadio5] = useState('');
+  const [radio1, setRadio1] = useState("");
+  const [radio2, setRadio2] = useState("");
+  const [radio3, setRadio3] = useState("");
+  const [radio4, setRadio4] = useState("");
+  const [radio5, setRadio5] = useState("");
 
   const handleRadio1 = (e) => {
-    setRadio1(e.target.value)
-  }
+    setRadio1(e.target.value);
+  };
 
   const handleRadio2 = (e) => {
-    setRadio2(e.target.value)
-  }
+    setRadio2(e.target.value);
+  };
 
   const handleRadio3 = (e) => {
-    setRadio3(e.target.value)
-  }
+    setRadio3(e.target.value);
+  };
 
   const handleRadio4 = (e) => {
-    setRadio4(e.target.value)
-  }
+    setRadio4(e.target.value);
+  };
 
   const handleRadio5 = (e) => {
-    setRadio5(e.target.value)
-  }
-
+    setRadio5(e.target.value);
+  };
 
   // classes for this component:
-  const labelClass = "block text-gray-600 mb-1 font-semibold dark:text-gray-100"
-  const inputClass = "w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs dark:text-black"
+  const labelClass =
+    "block text-gray-600 mb-1 font-semibold dark:text-gray-100";
+  const inputClass =
+    "w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs dark:text-black";
 
   return (
     <div className="grid my-5 lg:my-0 lg:p-2 dark:bg-black dark:text-gray-100">
@@ -432,7 +509,6 @@ const BuildingInfo = () => {
         </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 mt-2 mb-5">
-
           <div className="flex flex-col justify-center my-4 px-3">
             <label htmlFor="nature" className={labelClass}>
               <span>Case Type</span>
@@ -469,7 +545,11 @@ const BuildingInfo = () => {
                   name="radio-1"
                   className="radio border border-[#10AC84] h-4 w-4"
                   value="Private"
-                  checked={radio1 === 'Private' ? radio1 === 'Private' : applicationType === "Private"}
+                  checked={
+                    radio1 === "Private"
+                      ? radio1 === "Private"
+                      : applicationType === "Private"
+                  }
                   onChange={handleRadio1}
                 />
                 <span className="ml-2 text-base">Private</span>
@@ -480,7 +560,11 @@ const BuildingInfo = () => {
                   name="radio-1"
                   className="radio border border-[#10AC84] h-4 w-4"
                   value="Govt. Land"
-                  checked={radio1 === 'Govt. Land' ? radio1 === 'Govt. Land' : applicationType === "Govt. Land"}
+                  checked={
+                    radio1 === "Govt. Land"
+                      ? radio1 === "Govt. Land"
+                      : applicationType === "Govt. Land"
+                  }
                   onChange={handleRadio1}
                 />
                 <span className="ml-2 text-base">Govt. Land</span>
@@ -495,7 +579,11 @@ const BuildingInfo = () => {
             <select
               id="natureOfPermission"
               className={inputClass}
-              value={selectedOptionPermission ? selectedOptionPermission : natureOfPermission}
+              value={
+                selectedOptionPermission
+                  ? selectedOptionPermission
+                  : natureOfPermission
+              }
               onChange={handlePermissionChange}
             >
               <option disabled selected value="">
@@ -510,26 +598,35 @@ const BuildingInfo = () => {
           </div>
 
           <div className="my-4 mx-3">
-            <label
-              htmlFor="nature"
-              className={labelClass}
-            >
+            <label htmlFor="nature" className={labelClass}>
               <span>Nature of the site</span>
             </label>
             <select
               id="natureOfTheSite"
               className={inputClass}
-              value={selectedNatureOfTheSite ? selectedNatureOfTheSite : natureOfTheSite}
+              value={
+                selectedNatureOfTheSite
+                  ? selectedNatureOfTheSite
+                  : natureOfTheSite
+              }
               onChange={handleNatureChange}
             >
-              <option disabled selected value=''>
+              <option disabled selected value="">
                 Select Nature of the site
               </option>
-              <option value='Approved Layout'>Approved Layout</option>
-              <option value='Regularised under LRS'>Regularised under LRS</option>
-              <option value='Plot port of RLP/IPLP but not regularised'>Plot port of RLP/IPLP but not regularised</option>
-              <option value='Congested/ Gramakanta/ Old Built-up area'>Congested/ Gramakanta/ Old Built-up area</option>
-              <option value='Newly Developed/ Built up area'>Newly Developed/ Built up area</option>
+              <option value="Approved Layout">Approved Layout</option>
+              <option value="Regularised under LRS">
+                Regularised under LRS
+              </option>
+              <option value="Plot port of RLP/IPLP but not regularised">
+                Plot port of RLP/IPLP but not regularised
+              </option>
+              <option value="Congested/ Gramakanta/ Old Built-up area">
+                Congested/ Gramakanta/ Old Built-up area
+              </option>
+              <option value="Newly Developed/ Built up area">
+                Newly Developed/ Built up area
+              </option>
             </select>
           </div>
 
@@ -701,15 +798,15 @@ const BuildingInfo = () => {
 
               {selectedNatureOfTheSite ===
                 "Plot port of RLP/IPLP but not regularised" && (
-                  <InputField
-                    id="IplpNo"
-                    name=""
-                    label="RLP/IPLP no."
-                    placeholder="RLP/IPLP no."
-                    type="number"
-                    ltpDetails={iplpNo}
-                  />
-                )}
+                <InputField
+                  id="IplpNo"
+                  name=""
+                  label="RLP/IPLP no."
+                  placeholder="RLP/IPLP no."
+                  type="number"
+                  ltpDetails={iplpNo}
+                />
+              )}
             </>
           )}
           {/*===================== Conditional Input Field End =====================*/}
@@ -743,10 +840,7 @@ const BuildingInfo = () => {
             />
 
             <div className="my-4 mx-3">
-              <label
-                htmlFor=""
-                className={labelClass}
-              >
+              <label htmlFor="" className={labelClass}>
                 Proposed Plot area
               </label>
               <input
@@ -755,16 +849,15 @@ const BuildingInfo = () => {
                 name="proposedPlotArea"
                 placeholder="in Sq.M."
                 className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
-                defaultValue={proposedPlotArea ? proposedPlotArea : proposedPlotAreaCal}
+                defaultValue={
+                  proposedPlotArea ? proposedPlotArea : proposedPlotAreaCal
+                }
                 onChange={handleProposedPlotAreaChange}
               />
             </div>
 
             <div className="my-4 mx-3">
-              <label
-                htmlFor=""
-                className={labelClass}
-              >
+              <label htmlFor="" className={labelClass}>
                 Road Widening Area
               </label>
               <input
@@ -772,17 +865,16 @@ const BuildingInfo = () => {
                 type="number"
                 placeholder="in Sq.M."
                 className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
-                defaultValue={roadWideningArea ? roadWideningArea : roadWideningAreaCal}
+                defaultValue={
+                  roadWideningArea ? roadWideningArea : roadWideningAreaCal
+                }
                 onChange={handleRoadWideningAreaChange}
               />
             </div>
 
             {/* Automatically calculated Plot Details  */}
             <div className="my-4 mx-3">
-              <label
-                htmlFor="disabled-input"
-                className={labelClass}
-              >
+              <label htmlFor="disabled-input" className={labelClass}>
                 Net Plot Area (in Sq.M.)
               </label>
               <input
@@ -798,7 +890,6 @@ const BuildingInfo = () => {
           </div>
 
           <div className="grid grid-cols-1 mx-5 md:mx-10 lg:mx-14 my-10">
-
             <div className="flex flex-col md:flex-row font-medium mb-4 text-lg">
               <div className="flex items-center mb-3 md:mb-0">
                 <FaHandPointRight className="me-3 w-5 lg:w-auto text-green-500" />
@@ -812,7 +903,9 @@ const BuildingInfo = () => {
                   name="radio-2"
                   className="radio border border-[#10AC84] h-4 w-4"
                   value="yes"
-                  checked={radio2 == 'yes' ? radio2 == 'yes' : existingRoad === 'yes'}
+                  checked={
+                    radio2 == "yes" ? radio2 == "yes" : existingRoad === "yes"
+                  }
                   onChange={handleRadio2}
                 />
                 <span className="ml-2 text-base">Yes</span>
@@ -823,7 +916,9 @@ const BuildingInfo = () => {
                   name="radio-2"
                   className="radio border border-[#10AC84] h-4 w-4"
                   value="no"
-                  checked={radio2 == 'no' ? radio2 == 'no' : existingRoad === 'no'}
+                  checked={
+                    radio2 == "no" ? radio2 == "no" : existingRoad === "no"
+                  }
                   onChange={handleRadio2}
                 />
                 <span className="ml-2 text-base">No</span>
@@ -841,7 +936,11 @@ const BuildingInfo = () => {
                   name="radio-3"
                   className="radio border border-[#10AC84] h-4 w-4"
                   value="Public"
-                  checked={radio3 == 'Public' ? radio3 == 'Public' : statusOfRoad === 'Public'}
+                  checked={
+                    radio3 == "Public"
+                      ? radio3 == "Public"
+                      : statusOfRoad === "Public"
+                  }
                   onChange={handleRadio3}
                 />
                 <span className="ml-2 text-base">Public</span>
@@ -852,7 +951,11 @@ const BuildingInfo = () => {
                   name="radio-3"
                   className="radio border border-[#10AC84] h-4 w-4"
                   value="Private"
-                  checked={radio3 == 'Private' ? radio3 == 'Private' : statusOfRoad === 'Private'}
+                  checked={
+                    radio3 == "Private"
+                      ? radio3 == "Private"
+                      : statusOfRoad === "Private"
+                  }
                   onChange={handleRadio3}
                 />
                 <span className="ml-2 text-base">Private</span>
@@ -924,10 +1027,7 @@ const BuildingInfo = () => {
 
           <div className="grid grid-cols-2 lg:grid-cols-4 mt-5">
             <div className="my-4 mx-3">
-              <label
-                htmlFor="disabled-input"
-                className={labelClass}
-              >
+              <label htmlFor="disabled-input" className={labelClass}>
                 Total Built up area
               </label>
               <input
@@ -936,16 +1036,13 @@ const BuildingInfo = () => {
                 name="name1"
                 placeholder="Automatically calculated"
                 className="w-full px-3 py-2 border rounded-lg max-w-xs"
-                value={builtUpAreaSum ? builtUpAreaSum : totalBuiltUpArea}
+                value={builtUpAreaSum}
                 disabled
               />
             </div>
 
             <div className="my-4 mx-3">
-              <label
-                htmlFor="disabled-input2"
-                className={labelClass}
-              >
+              <label htmlFor="disabled-input2" className={labelClass}>
                 Total Parking area
               </label>
               <input
@@ -953,7 +1050,7 @@ const BuildingInfo = () => {
                 name="name1"
                 placeholder="Automatically calculated"
                 className="w-full px-3 py-2 border rounded-lg max-w-xs"
-                value={parkingAreaSum ? parkingAreaSum : totalParkingArea}
+                value={parkingAreaSum}
                 disabled
               />
             </div>
@@ -1008,8 +1105,12 @@ const BuildingInfo = () => {
                   type="radio"
                   name="radio-4"
                   className="radio border border-[#10AC84] h-4 w-4"
-                  value='yes'
-                  checked={radio4 == 'yes' ? radio4 == 'yes' : compoundingWallProposed === 'yes'}
+                  value="yes"
+                  checked={
+                    radio4 == "yes"
+                      ? radio4 == "yes"
+                      : compoundingWallProposed === "yes"
+                  }
                   onChange={handleRadio4}
                 />
                 <span className="ml-2 text-base">Yes</span>
@@ -1020,7 +1121,11 @@ const BuildingInfo = () => {
                   name="radio-4"
                   className="radio border border-[#10AC84] h-4 w-4"
                   value="no"
-                  checked={radio4 == 'no' ? radio4 == 'no' : compoundingWallProposed === 'no'}
+                  checked={
+                    radio4 == "no"
+                      ? radio4 == "no"
+                      : compoundingWallProposed === "no"
+                  }
                   onChange={handleRadio4}
                 />
                 <span className="ml-2 text-base">No</span>
@@ -1040,8 +1145,10 @@ const BuildingInfo = () => {
                   type="radio"
                   name="radio-5"
                   className="radio border border-[#10AC84] h-4 w-4"
-                  value='yes'
-                  checked={radio5 == 'yes' ? radio5 == 'yes' : siteRegistered === 'yes'}
+                  value="yes"
+                  checked={
+                    radio5 == "yes" ? radio5 == "yes" : siteRegistered === "yes"
+                  }
                   onChange={handleRadio5}
                 />
                 <span className="ml-2 text-base">Yes</span>
@@ -1051,8 +1158,10 @@ const BuildingInfo = () => {
                   type="radio"
                   name="radio-5"
                   className="radio border border-[#10AC84] h-4 w-4"
-                  value='no'
-                  checked={radio5 == 'no' ? radio5 == 'no' : siteRegistered === 'no'}
+                  value="no"
+                  checked={
+                    radio5 == "no" ? radio5 == "no" : siteRegistered === "no"
+                  }
                   onChange={handleRadio5}
                 />
                 <span className="ml-2 text-base">No</span>
@@ -1080,13 +1189,13 @@ const BuildingInfo = () => {
               value={northValue ? northValue : north}
               onChange={handleNorthChange}
             >
-              <option disabled selected value=''>
+              <option disabled selected value="">
                 Select North
               </option>
-              <option value='Road'>Road</option>
-              <option value='Plot'>Plot</option>
-              <option value='Vacant land'>Vacant land</option>
-              <option value='Water body'>Water body</option>
+              <option value="Road">Road</option>
+              <option value="Plot">Plot</option>
+              <option value="Vacant land">Vacant land</option>
+              <option value="Water body">Water body</option>
             </select>
           </div>
 
@@ -1100,13 +1209,13 @@ const BuildingInfo = () => {
               value={southValue ? southValue : south}
               onChange={handleSouthChange}
             >
-              <option disabled selected value=''>
+              <option disabled selected value="">
                 Select South
               </option>
-              <option value='Road'>Road</option>
-              <option value='Plot'>Plot</option>
-              <option value='Vacant land'>Vacant land</option>
-              <option value='Water body'>Water body</option>
+              <option value="Road">Road</option>
+              <option value="Plot">Plot</option>
+              <option value="Vacant land">Vacant land</option>
+              <option value="Water body">Water body</option>
             </select>
           </div>
 
@@ -1120,13 +1229,13 @@ const BuildingInfo = () => {
               value={eastValue ? eastValue : east}
               onChange={handleEastChange}
             >
-              <option disabled selected value=''>
+              <option disabled selected value="">
                 Select East
               </option>
-              <option value='Road'>Road</option>
-              <option value='Plot'>Plot</option>
-              <option value='Vacant land'>Vacant land</option>
-              <option value='Water body'>Water body</option>
+              <option value="Road">Road</option>
+              <option value="Plot">Plot</option>
+              <option value="Vacant land">Vacant land</option>
+              <option value="Water body">Water body</option>
             </select>
           </div>
 
@@ -1140,13 +1249,13 @@ const BuildingInfo = () => {
               value={westValue ? westValue : west}
               onChange={handleWestChange}
             >
-              <option disabled selected value=''>
+              <option disabled selected value="">
                 Select West
               </option>
-              <option value='Road'>Road</option>
-              <option value='Plot'>Plot</option>
-              <option value='Vacant land'>Vacant land</option>
-              <option value='Water body'>Water body</option>
+              <option value="Road">Road</option>
+              <option value="Plot">Plot</option>
+              <option value="Vacant land">Vacant land</option>
+              <option value="Water body">Water body</option>
             </select>
           </div>
         </div>
@@ -1161,7 +1270,7 @@ const BuildingInfo = () => {
         confirmAlert={confirmAlert}
         collectInputFieldData={collectInputFieldData}
       />
-    </div >
+    </div>
   );
 };
 
