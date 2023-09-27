@@ -49,63 +49,63 @@ function Application({ setOpenApplication }) {
     { "NAME": "John Doe" },
     { "DOOR No. / FLAT No.": "123" },
     { "ROAD/STREET": "Main Street" },
-    [[{ "VILLAGE": "Village 1"}, {"MANDAL": "Mandal 1" }]],
+    [{ "VILLAGE": "Village 1" }, { "MANDAL": "Mandal 1" }],
     { "CITY/TOWN": ["PIN", "12345"] },
     { "DISTRICT": "District 1" },
     { "E-MAIL": "john@example.com" },
-    [[{ "MOBILE": "1234567890"}, {"ALTERNATE": "9876543210" }]]
+    [{ "MOBILE": "1234567890" }, { "ALTERNATE": "9876543210" }]
   ];
 
   let Part01Keys = [];
   let Part01Values = [];
 
-  Part01.map((item, i) => {
-    const values = Object.values(Part01[i])
-    Part01Values.push(values);
-    if (typeof item == "object") {
-      const keys = Object.keys(Part01[i]);
-      if (keys[0] == 0) {
-        return Part01Keys.push(item)
-      } else {
-        return Part01Keys.push(keys);
-      }
-    }
-  })
-  const Part01KeysArray = Part01Keys.flat();
-  const Part01ValuesArray = Part01Values.flat();
-  console.log({ Part01KeysArray, Part01ValuesArray });
+  // Part01.map((item, i) => {
+  //   // const values = Object.values(Part01[i])
+  //   // Part01Values.push(values);
+  //   if (typeof item == "object") {
+  //     const keys = Object.keys(Part01[i]);
+  //     if (keys[0] == 0) {
+  //       return Part01Keys.push(item)
+  //     } else {
+  //       return Part01Keys.push(keys);
+  //     }
+  //   }
+  // })
+  // const Part01KeysArray = Part01Keys.flat();
+  // const Part01ValuesArray = Part01Values.flat();
+  // console.log({ Part01KeysArray, Part01ValuesArray });
 
   // // LTP Info
   const Part02 = [
     { "PLOT NOs": "" },
     { "SANCTIONED LAYOUT NO. / LRS NO": "" },
-    [[{ "SURVEY NO.": "" }, { "VILLAGE": "" }]],
+    [{ "SURVEY NO.": "" }, { "VILLAGE": "" }],
     { "PREMISES / DOOR No.": "" },
     { "ROAD/ STREET": "" },
-    [[{ "WARD NO.": "" }, { "BLOCK No": "" }]],
+    [{ "WARD NO.": "" }, { "BLOCK No": "" }],
     { "LOCALITY": "" },
-    [[{ "CIRCLE/DIVISION": "" }, { "DIVISION": "" }]],
-    [[{ "CITY/TOWN": "" }, { "DISTRICT": "" }]],
+    [{ "CIRCLE/DIVISION": "" }, { "DIVISION": "" }],
+    [{ "CITY/TOWN": "" }, { "DISTRICT": "" }],
   ];
-  let Part02Keys = [];
-  let Part02Values = [];
+  // let Part02Keys = [];
+  // let Part02Values = [];
 
-  Part02.map((item, i) => {
-    const values = Object.values(Part02[i])
-    Part01Values.push(values);
+  // Part02.map((item, i) => {
+  //   const values = Object.values(Part02[i])
+  //   Part02Values.push(values);
 
-    if (typeof item == "object") {
-      const keys = Object.keys(Part02[i]);
-      if (keys[0] == 0) {
-        return Part02Keys.push(item)
-      } else {
-        return Part02Keys.push(keys);
-      }
-    }
-  })
-  const Part02KeysArray = Part02Keys.flat();
-  const Part02ValuesArray = Part02Values.flat();
-  console.log({ Part02KeysArray, Part02ValuesArray });
+  //   if (typeof item == "object") {
+  //     const keys = Object.keys(Part02[i]);
+  //     if (keys[0] == 0) {
+  //       return Part02Keys.push(item)
+  //     } else {
+  //       return Part02Keys.push(keys);
+  //     }
+  //   }
+  // })
+  // const Part02KeysArray = Part02Keys.flat();
+  // const Part02ValuesArray = Part02Values.flat();
+  // console.log({ Part02KeysArray, Part02ValuesArray });
 
   // Part03
   const Part03 = [
@@ -175,36 +175,38 @@ function Application({ setOpenApplication }) {
 
 
   // Part01
-  function renderCol(data) {
-    data.map((data, ind) => {
-      const isString = typeof data === "string"
-      // console.log(isString,data,"isString,data")
-      if (!isString) {
-        console.log(isString,data,"isString,data")
-        return (
-          <td className="bg-white border border-black w-36 p-0">
-            <div className="flex">
-              {data.map((e, i) => (
-                <p
-                  key={i}
-                  className={`flex items-center p-2 border-l
-                     border-black h-12 ${i === 0 && "w-1/2 border-l-0"}`}
-                >
-                  {e[i]}
-                </p>
-              ))}
-            </div>
-          </td>
-        );
-      } else {
-        return (
-          <td className="bg-white border border-black w-36 p-0">
-            <p className="h-12 p-2 flex items-center">{data}</p>
-          </td>
-        );
-      }
-    })
-  }
+  const renderCol = (data, index, type) => {
+    const isString = typeof data === "object";
+    const keys = type === "keys";
+ 
+    const isArray = Array.isArray(data)
+    if (isArray) {
+      return (
+        <td className="bg-white border border-black w-36 p-0">
+          <div className="flex">
+            {data.map((e, i) => (
+              <p
+                key={i}
+                className={`flex items-center p-2 border-l border-black h-12 ${i === 0 && "w-1/2 border-l-0"
+                  }`}
+              >
+                {(keys ? Object.keys(data[i]) : Object.values(data[i])) || e}
+              </p>
+            ))}
+
+          </div>
+        </td>
+      );
+    } else {
+      console.log(isString, data, "isString,data");
+      return (
+        <td className="bg-white border border-black w-36 p-0">
+          <p className="h-12 p-2 flex items-center">{(keys ? Object.keys(data) : Object.values(data))}</p>
+        </td>
+      );
+    }
+    ;
+  };
 
   // Part03
   const ColDataShow03 = (data, index) => {
@@ -303,18 +305,18 @@ function Application({ setOpenApplication }) {
                   </tr>
                 </thead>
                 <tbody>
-                  {Part01.map((data, index) => <tr className="bg-white p-0">
-                    <th className="bg-white border border-black w-14 px-2">
-                      {index + 1}
-                    </th>
+                  <tr className="bg-white p-0">
+                    <td>
+                      {Part01.map((data, index) => index + 1)}
+                    </td>
                     {/* col-02 */}
-                    {renderCol(Part01KeysArray)}
+                    {/* {renderCol(Part02KeysArray)} */}
 
                     {/* col-03*/}
                     <td className="bg-white border border-black p-0">
-                      {renderCol(Part01ValuesArray)}
+                      {/* {renderCol(Part02ValuesArray)} */}
                     </td>
-                  </tr>)}
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -335,18 +337,23 @@ function Application({ setOpenApplication }) {
                 </thead>
                 <tbody>
                   {/* row 1 */}
-                  <tr className="bg-white">
-                    {/* col-01 */}
-                    <th className="bg-white border border-black w-14">
-                      {Part02.map((data, index) => index + 1)}
-                    </th>
-                    {/* col-02 */}
-                    <td className="bg-white border border-black w-64 p-0">
-                      {renderCol(Part02KeysArray)}
-                    </td>
-                    {/* col-03 */}
-                    {renderCol(Part02ValuesArray)}
-                  </tr>
+                  {Part02.map((item, index) => {
+                    console.log(item, "Item")
+                    return (
+                      <tr key={item} className="bg-white">
+                        {/* col-01 */}
+                        <th className="bg-white border border-black w-14">
+                          {index + 1}
+                        </th>
+                        {/* col-02 */}
+
+                        {renderCol(item, index, "keys")}
+
+                        {/* col-03 */}
+                        {renderCol(item, index, "values")}
+                      </tr>
+                    )
+                  })}
                 </tbody>
               </table>
             </div>
@@ -442,8 +449,8 @@ function Application({ setOpenApplication }) {
             </button>
           </form>
         </div>
-      </dialog>
-    </div>
+      </dialog >
+    </div >
   );
 }
 
