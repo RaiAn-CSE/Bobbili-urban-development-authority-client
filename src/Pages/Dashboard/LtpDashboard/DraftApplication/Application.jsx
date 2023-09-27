@@ -22,53 +22,108 @@ function Application({ setOpenApplication }) {
   useEffect(() => {
     const gettingData = async () => {
       const applicationData = await getApplicationData(applicationNo);
-      setGeneralInformation(applicationData?.buildingInfo?.generalInformation)
-      setPlotDetails(applicationData?.buildingInfo?.plotDetails)
-      setLtpDetailsData(applicationData?.applicantInfo?.ltpDetails)
-      setApplicantDetailsData(applicationData?.applicantInfo?.applicantDetails[0])
+      setGeneralInformation(applicationData?.buildingInfo?.generalInformation);
+      setPlotDetails(applicationData?.buildingInfo?.plotDetails);
+      setLtpDetailsData(applicationData?.applicantInfo?.ltpDetails);
+      setApplicantDetailsData(
+        applicationData?.applicantInfo?.applicantDetails[0]
+      );
     };
     gettingData();
   }, []);
 
+  console.log(generalInformation, "General information");
 
   // General Information
-  const { applicationType, bpsApprovedNoServer, caseType, district, gramaPanchayat, iplpNo, lpNo, lrsNo, mandal, natureOfPermission, natureOfTheSite, plotNo, plotNo2, previewsApprovedFileNo, surveyNo, village } = generalInformation;
+  const {
+    applicationType,
+    bpsApprovedNoServer,
+    caseType,
+    district,
+    gramaPanchayat,
+    iplpNo,
+    lpNo,
+    lrsNo,
+    mandal,
+    natureOfPermission,
+    natureOfTheSite,
+    plotNo,
+    plotNo2,
+    previewsApprovedFileNo,
+    surveyNo,
+    village,
+  } = generalInformation;
   // console.log({generalInformation})
   // Plot Details
-  const { proposedPlotAreaCal, roadWideningAreaCal, netPlotAreaCal, buildingExcludeStilt, compoundingWallProposed, existingRoad, existingRoadMts, frontSetback, marketValueSqym, natureOfRoad, proposedRoadMts, rareSetback, side1Setback, side2Setback, siteRegistered, statusOfRoad, totalBuiltUpArea, totalParkingArea, totalPlotDocument, totalPlotGround } = plotDetails;
+  const {
+    proposedPlotAreaCal,
+    roadWideningAreaCal,
+    netPlotAreaCal,
+    buildingExcludeStilt,
+    compoundingWallProposed,
+    existingRoad,
+    existingRoadMts,
+    frontSetback,
+    marketValueSqym,
+    natureOfRoad,
+    proposedRoadMts,
+    rareSetback,
+    side1Setback,
+    side2Setback,
+    siteRegistered,
+    statusOfRoad,
+    totalBuiltUpArea,
+    totalParkingArea,
+    totalPlotDocument,
+    totalPlotGround,
+  } = plotDetails;
 
   // LTP Details
-  const { type, name, address: ltpAddress, email: ltpEmail, licenseNo, phoneNo: ltpPhone, validity } = ltpDetailsData;
+  const {
+    type,
+    name,
+    address: ltpAddress,
+    email: ltpEmail,
+    licenseNo,
+    phoneNo: ltpPhone,
+    validity,
+  } = ltpDetailsData;
   // Applicant Details
-  const { name: ApplicantName, identity, phone: applicantPhone, email: AppEmail, adharNo, pinCode, address: applicantAddress } = applicantDetailsData;
+  const {
+    name: ApplicantName,
+    identity,
+    phone: applicantPhone,
+    email: AppEmail,
+    adharNo,
+    pinCode,
+    address: applicantAddress,
+  } = applicantDetailsData || {};
 
-
-  console.log("LtPName", name)
+  console.log("LtPName", name);
   // ====Applicant Info
   const Part01 = [
-    { "NAME": ApplicantName },
+    { NAME: ApplicantName },
     { "DOOR No. / FLAT No.": adharNo },
     { "ROAD/STREET": roadWideningAreaCal },
-    [{ "VILLAGE": village }, { "MANDAL": mandal }],
+    [{ VILLAGE: village }, { MANDAL: mandal }],
     { "CITY/TOWN": ["PIN - ", pinCode] },
-    { "DISTRICT": district },
+    { DISTRICT: district },
     { "E-MAIL": AppEmail },
-    [{ "MOBILE": applicantPhone }, { "ALTERNATE": "9876543210" }]
+    [{ MOBILE: applicantPhone }, { ALTERNATE: "9876543210" }],
   ];
 
-  // // 
+  // //
   const Part02 = [
     { "PLOT NOs": plotNo },
     { "SANCTIONED LAYOUT NO. / LRS NO": lrsNo },
-    [{ "SURVEY NO.": surveyNo }, { "VILLAGE": village }],
+    [{ "SURVEY NO.": surveyNo }, { VILLAGE: village }],
     { "PREMISES / DOOR No.": 12 },
     { "ROAD/ STREET": existingRoad },
     [{ "WARD NO.": "Not got yet" }, { "BLOCK No": "Not got yet" }],
-    { "LOCALITY": "Not got yet " },
-    [{ "CIRCLE/DIVISION": gramaPanchayat }, { "DIVISION": gramaPanchayat }],
-    [{ "CITY/TOWN": district }, { "DISTRICT": district }],
+    { LOCALITY: "Not got yet " },
+    [{ "CIRCLE/DIVISION": gramaPanchayat }, { DIVISION: gramaPanchayat }],
+    [{ "CITY/TOWN": district }, { DISTRICT: district }],
   ];
-
 
   // Part03
   const Part03 = [
@@ -134,7 +189,7 @@ function Application({ setOpenApplication }) {
   // Part01 && Part02 Keys and Values
   const renderCol = (data, index, type) => {
     const keys = type === "keys";
-    const isArray = Array.isArray(data)
+    const isArray = Array.isArray(data);
     if (isArray) {
       return (
         <td className="bg-white border border-black w-36 p-0">
@@ -142,24 +197,25 @@ function Application({ setOpenApplication }) {
             {data.map((e, i) => (
               <p
                 key={i}
-                className={`flex items-center p-2 border-l border-black h-12 ${i === 0 && "w-1/2 border-l-0"
-                  }`}
+                className={`flex items-center p-2 border-l border-black h-12 ${
+                  i === 0 && "w-1/2 border-l-0"
+                }`}
               >
                 {(keys ? Object.keys(data[i]) : Object.values(data[i])) || e}
               </p>
             ))}
-
           </div>
         </td>
       );
     } else {
       return (
         <td className="bg-white border border-black w-36 p-0">
-          <p className="h-12 p-2 flex items-center">{(keys ? Object.keys(data) : Object.values(data))}</p>
+          <p className="h-12 p-2 flex items-center">
+            {keys ? Object.keys(data) : Object.values(data)}
+          </p>
         </td>
       );
     }
-    ;
   };
 
   // Part03
@@ -177,19 +233,22 @@ function Application({ setOpenApplication }) {
     return (
       <td className="w-full bg-white border border-black p-0">
         {part03SubArray.includes(index) ? (
-          <p className="flex ">
+          <p key={index} className="flex ">
             {colData.map((d, i) => (
               <p
-                className={`w-full border-black py-4 border-l ${i == 0 && "border-l-0"
-                  }`}
+                key={index}
+                className={`w-full border-black py-4 border-l ${
+                  i == 0 && "border-l-0"
+                }`}
               >
                 <p className="px-2">{Object.keys(colData[i])[0]}</p>
                 {/* {Object.values(colData[i])[0]} */}
                 <p
-                  className={`${index !== 4
-                    ? "border-t "
-                    : "font-bold inline-block border-b-2 border-dotted border-black underline-offset-4 mt-2 ml-2"
-                    } border-black px-2 pt-2`}
+                  className={`${
+                    index !== 4
+                      ? "border-t "
+                      : "font-bold inline-block border-b-2 border-dotted border-black underline-offset-4 mt-2 ml-2"
+                  } border-black px-2 pt-2`}
                 >
                   {i + 1}
                 </p>
@@ -205,15 +264,18 @@ function Application({ setOpenApplication }) {
   // Part04
   const ColDataShow04 = (data, numb) => {
     return (
-      <>
+      <div key={numb}>
         {" "}
         {data.map((d, i) => {
           return (
             <>
               <p
-                className={`${i == 0 ? "border-t-0" : "border-t"
-                  } border-black h-20 py-4 px-2 ${numb == 2 ? "block" : "hidden"
-                  }`}
+                key={i}
+                className={`${
+                  i == 0 ? "border-t-0" : "border-t"
+                } border-black h-20 py-4 px-2 ${
+                  numb == 2 ? "block" : "hidden"
+                }`}
               >
                 <p
                   className={
@@ -225,15 +287,16 @@ function Application({ setOpenApplication }) {
                 <p>{Object.keys(data[i])[0]}</p>
               </p>
               <p
-                className={`border-black px-2 h-20 flex items-center ${i == 0 ? "border-t-0" : "border-t"
-                  } ${numb == 2 ? "hidden" : "block"}`}
+                className={`border-black px-2 h-20 flex items-center ${
+                  i == 0 ? "border-t-0" : "border-t"
+                } ${numb == 2 ? "hidden" : "block"}`}
               >
                 {numb == 1 ? i + 1 : Object.values(data[i])[0]}
               </p>
             </>
           );
         })}
-      </>
+      </div>
     );
   };
   return (
@@ -273,7 +336,7 @@ function Application({ setOpenApplication }) {
                         {/* col-03 */}
                         {renderCol(item, index, "values")}
                       </tr>
-                    )
+                    );
                   })}
                 </tbody>
               </table>
@@ -309,7 +372,7 @@ function Application({ setOpenApplication }) {
                         {/* col-03 */}
                         {renderCol(item, index, "values")}
                       </tr>
-                    )
+                    );
                   })}
                 </tbody>
               </table>
@@ -333,18 +396,16 @@ function Application({ setOpenApplication }) {
               <tbody>
                 {/* row 1 */}
                 {Part03.map((data, index) => (
-                  <>
-                    <tr key={index} className="bg-white">
-                      <th className="bg-white border border-black w-14">
-                        {index + 1}
-                      </th>
-                      <td className="bg-white border border-black w-32 p-4">
-                        {data}
-                      </td>
-                      {/* <td className='bg-white border border-black'></td> */}
-                      {ColDataShow03(data, index)}
-                    </tr>
-                  </>
+                  <tr key={index} className="bg-white">
+                    <th className="bg-white border border-black w-14">
+                      {index + 1}
+                    </th>
+                    <td className="bg-white border border-black w-32 p-4">
+                      {data}
+                    </td>
+                    {/* <td className='bg-white border border-black'></td> */}
+                    {ColDataShow03(data, index)}
+                  </tr>
                 ))}
               </tbody>
             </table>
@@ -406,8 +467,8 @@ function Application({ setOpenApplication }) {
             </button>
           </form>
         </div>
-      </dialog >
-    </div >
+      </dialog>
+    </div>
   );
 }
 
