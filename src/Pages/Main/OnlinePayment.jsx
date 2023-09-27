@@ -1,13 +1,10 @@
 import React from 'react';
-import { AiOutlineFileDone } from "react-icons/ai";
-import { BsHouses } from "react-icons/bs";
-import { MdOutlineNoteAlt } from "react-icons/md";
 import MainPageInput from './MainPageInput';
 import { GiMoneyStack } from 'react-icons/gi';
 
 const OnlinePayment = () => {
     return (
-        <div className="px-4 card bg-base-100 shadow-xl mx-4">
+        <div className="px-4 card bg-base-100 shadow-xl mx-4 pb-4">
             <div className="">
 
                 <form>
@@ -114,7 +111,7 @@ const OnlinePayment = () => {
             <div className="flex justify-center items-center mt-3">
                 <h3 className='text-lg '>For UDA charge you can pay only Rs. xxxxx/= fee online, remaining all fee DD/Challan can be attached in LTP login only.</h3>
             </div>
-            <div className='flex justify-end my-5'>
+            <div className='flex justify-end mt-5'>
                 <button className="flex text-[#000] font-semibold absolute right-2.5 bottom-2.5 bg-[#ffd66c] hover:bg-[#e1bc60] focus:ring-4 focus:outline-none focus:ring-[#ffd66c] rounded-lg text-sm px-4 py-2">
                     <GiMoneyStack size={25} /> <span className='ml-1'>pay now</span>
                 </button>

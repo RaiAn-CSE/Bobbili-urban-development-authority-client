@@ -10,7 +10,7 @@ const ApplicationSearch = () => {
   // const inputDiv = "flex items-center px-5 text-gray-400 mt-2"
 
   return (
-    <div className="px-4 card bg-base-100 shadow-xl mx-4">
+    <div className="px-4 card bg-base-100 shadow-xl mx-4 pb-4">
       <div className="">
 
         <form>
@@ -184,7 +184,7 @@ const ApplicationSearch = () => {
         </div>
       </div>
 
-      <div className="flex justify-center items-center mt-3">
+      <div className="flex justify-center items-center mt-5">
         <div className="p-3">
           <span className="grid justify-center items-center"><AiOutlineFileDone size={25} /></span>
           <h4 className="text-base font-semibold">Application</h4>

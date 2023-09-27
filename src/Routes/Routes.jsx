@@ -19,6 +19,7 @@ import MainLayout from "../Layouts/MainLayout";
 import Carousel from "../Pages/Main/Carousel/Carousel";
 import ApplicationSearch from "../Pages/Main/ApplicationSearch/ApplicationSearch";
 import OnlinePayment from "../Pages/Main/OnlinePayment";
+import ListOfLTP from "../Pages/Main/ListOfLTP";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "/onlinePayment",
         element: <OnlinePayment />,
+      },
+      {
+        path: "/listOfLTP",
+        element: <ListOfLTP />,
       },
     ],
   },
