@@ -50,6 +50,15 @@ const BuildingInfo = () => {
   const [builtUpArea, setBuiltUpArea] = useState([0, 0, 0, 0]);
   const [parkingArea, setParkingArea] = useState([0, 0, 0, 0]);
 
+  const [proposedPlotArea, setProposedPlotArea] = useState("");
+  const [roadWideningArea, setRoadWideningArea] = useState("");
+  const [netPlotArea, setNetPlotArea] = useState("");
+
+  // input validation
+
+  const [errorProposedPlot, setErrorProposedPlot] = useState("");
+  const [errorRoadWide, setErrorRoadWide] = useState("");
+
   useEffect(() => {
     console.log("TOTAL BUILT AND PARKING CALC");
     console.log(builtUpArea, "BUILTUPAREA");
@@ -83,6 +92,7 @@ const BuildingInfo = () => {
         applicationData.buildingInfo.scheduleBoundaries;
 
       console.log(builtUpArea, "builtUp area");
+      // update floor details as well as builtup area and parking area
       plotDetails?.floorDetails?.map((floor, index) => {
         setBuiltUpArea((prev) => {
           const oldData = [...prev];
@@ -102,6 +112,10 @@ const BuildingInfo = () => {
 
       console.log(builtUpArea, "Builtuparea adjacent");
 
+      setProposedPlotArea(plotDetails.proposedPlotAreaCal);
+      setRoadWideningArea(plotDetails.roadWideningAreaCal);
+      setNetPlotArea(plotDetails.netPlotAreaCal);
+
       setGeneralInformation(generalInformation);
       setPlotDetails(plotDetails);
       setPlotDetailsFloor(plotDetailsFloor);
@@ -109,6 +123,7 @@ const BuildingInfo = () => {
     };
     getData();
   }, []);
+
   console.log(plotDetails, "plotDetails");
 
   console.log(builtUpArea, "BUILT area");
@@ -145,28 +160,53 @@ const BuildingInfo = () => {
   };
 
   // Net Plot Area(in Sq.M.) Calculation :
-  const [proposedPlotArea, setProposedPlotArea] = useState(0);
-  const [roadWideningArea, setRoadWideningArea] = useState(0);
-  const [netPlotArea, setNetPlotArea] = useState("");
 
   // ========================(Calculation part start)
   const handleProposedPlotAreaChange = (e) => {
-    const newValue = e.target.value;
+    let newValue = e.target.value;
+    console.log("New proposed value", newValue);
     // Check if the entered value is a valid number and less than or equal to 300
-    if (newValue <= 300) {
-      setProposedPlotArea(newValue);
-      calculateNetPlotArea(newValue, roadWideningArea);
+
+    console.log(roadWideningArea, "ROADWA");
+    const roadWideValue = roadWideningArea !== "" ? roadWideningArea : 0;
+    console.log(roadWideValue, "ROADWV");
+    if (newValue > 300) {
+      e.target.value = 300;
+      newValue = 300;
     }
+    if (newValue < 0) {
+      e.target.value = 0;
+      newValue = 0;
+    }
+    setProposedPlotArea(newValue);
+    // calculateNetPlotArea(newValue, roadWideValue);
   };
 
   const handleRoadWideningAreaChange = (e) => {
-    const newValue = e.target.value;
+    let newValue = e.target.value;
+    console.log(newValue, "NEW VAL:UE");
     // Check if the entered value is a valid number and less than or equal to 300
-    if (newValue <= 300) {
-      setRoadWideningArea(newValue);
-      calculateNetPlotArea(proposedPlotArea, newValue);
+
+    console.log(proposedPlotArea, "PRPA");
+    // const plotValue = proposedPlotArea !== "" ? proposedPlotArea : 0;
+    if (newValue > 300) {
+      e.target.value = 300;
+      newValue = 300;
     }
+    if (newValue < 0) {
+      e.target.value = 0;
+      newValue = 0;
+    }
+
+    setRoadWideningArea(newValue);
+    // calculateNetPlotArea(plotValue, newValue);
   };
+
+  useEffect(() => {
+    const plot = proposedPlotArea === "" ? 0 : proposedPlotArea;
+    const roadWide = roadWideningArea === "" ? 0 : roadWideningArea;
+    calculateNetPlotArea(plot, roadWide);
+  }, [proposedPlotArea, roadWideningArea]);
 
   const calculateNetPlotArea = (proposed, widening) => {
     const proposedArea = parseFloat(proposed);
@@ -204,6 +244,92 @@ const BuildingInfo = () => {
   };
 
   // ======================================================<<<(Built Up Area Calculation End)>>>>...
+
+  //==============================<<<<<(District, Mandal & Village Start)>>>>> :
+  const [districtData, setDistrictData] = useState([]);
+  const [selectedDistrict, setSelectedDistrict] = useState("");
+  const [selectedMandal, setSelectedMandal] = useState("");
+  const [selectedVillage, setSelectedVillage] = useState("");
+
+  useEffect(() => {
+    const apiUrl = "../../src/assets/buildingInfo.json";
+    fetch(apiUrl)
+      .then((response) => response.json())
+      .then((result) => {
+        setDistrictData(result.district);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, []);
+
+  const handleDistrictChange = (event) => {
+    setSelectedDistrict(event.target.value);
+    // Reset selected mandal and village when district changes
+    setSelectedMandal("");
+    setSelectedVillage("");
+  };
+
+  const handleMandalChange = (event) => {
+    setSelectedMandal(event.target.value);
+    // Reset selected village when mandal changes
+    setSelectedVillage("");
+  };
+  //==============================<<<<<(District, Mandal & Village End)>>>>> :
+
+  // Selector Get Data from server:
+  const [natureOfRoadValue, setNatureOfRoadValue] = useState("");
+  const [northValue, setNorthValue] = useState("");
+  const [southValue, setSouthValue] = useState("");
+  const [eastValue, setEastValue] = useState("");
+  const [westValue, setWestValue] = useState("");
+
+  const handleNorthChange = (event) => {
+    setNorthValue(event.target.value);
+  };
+
+  const handleNatureOfRoad = (event) => {
+    setNatureOfRoadValue(event.target.value);
+  };
+
+  const handleSouthChange = (event) => {
+    setSouthValue(event.target.value);
+  };
+
+  const handleEastChange = (event) => {
+    setEastValue(event.target.value);
+  };
+
+  const handleWestChange = (event) => {
+    setWestValue(event.target.value);
+  };
+
+  // Radio Button Get Data from server:
+  const [radio1, setRadio1] = useState("");
+  const [radio2, setRadio2] = useState("");
+  const [radio3, setRadio3] = useState("");
+  const [radio4, setRadio4] = useState("");
+  const [radio5, setRadio5] = useState("");
+
+  const handleRadio1 = (e) => {
+    setRadio1(e.target.value);
+  };
+
+  const handleRadio2 = (e) => {
+    setRadio2(e.target.value);
+  };
+
+  const handleRadio3 = (e) => {
+    setRadio3(e.target.value);
+  };
+
+  const handleRadio4 = (e) => {
+    setRadio4(e.target.value);
+  };
+
+  const handleRadio5 = (e) => {
+    setRadio5(e.target.value);
+  };
 
   // get data from input field :
   const collectInputFieldData = async (url) => {
@@ -245,6 +371,7 @@ const BuildingInfo = () => {
 
     const iplpNoElement = document.getElementById("IplpNo");
     const iplpNo = iplpNoElement ? iplpNoElement.value : "";
+
     // ================================================<<<(Plot Details)>>>:
     const totalPlotDocument =
       document.getElementById("TotalPlotDocument").value;
@@ -320,9 +447,9 @@ const BuildingInfo = () => {
     const plotDetails = {
       totalPlotDocument,
       totalPlotGround,
-      proposedPlotAreaCal: proposedPlotAreaValue,
-      roadWideningAreaCal: roadWideningAreaValue,
-      netPlotAreaCal: netPlotAreaValue,
+      proposedPlotAreaCal: proposedPlotArea === "" ? 0 : proposedPlotArea,
+      roadWideningAreaCal: roadWideningArea === "" ? 0 : roadWideningArea,
+      netPlotAreaCal: netPlotArea === "" ? 0 : netPlotArea,
       statusOfRoad,
       existingRoad,
       natureOfRoad,
@@ -359,37 +486,6 @@ const BuildingInfo = () => {
       buildingInfo,
     });
   };
-  //==============================<<<<<(District, Mandal & Village Start)>>>>> :
-  const [districtData, setDistrictData] = useState([]);
-  const [selectedDistrict, setSelectedDistrict] = useState("");
-  const [selectedMandal, setSelectedMandal] = useState("");
-  const [selectedVillage, setSelectedVillage] = useState("");
-
-  useEffect(() => {
-    const apiUrl = "../../src/assets/buildingInfo.json";
-    fetch(apiUrl)
-      .then((response) => response.json())
-      .then((result) => {
-        setDistrictData(result.district);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }, []);
-
-  const handleDistrictChange = (event) => {
-    setSelectedDistrict(event.target.value);
-    // Reset selected mandal and village when district changes
-    setSelectedMandal("");
-    setSelectedVillage("");
-  };
-
-  const handleMandalChange = (event) => {
-    setSelectedMandal(event.target.value);
-    // Reset selected village when mandal changes
-    setSelectedVillage("");
-  };
-  //==============================<<<<<(District, Mandal & Village End)>>>>> :
 
   // console.log(generalInformation, "generalInformation");
   const {
@@ -437,60 +533,6 @@ const BuildingInfo = () => {
 
   // console.log(scheduleBoundaries, 'scheduleBoundaries');
   const { east, west, north, south } = scheduleBoundaries;
-
-  // Selector Get Data from server:
-  const [natureOfRoadValue, setNatureOfRoadValue] = useState("");
-  const [northValue, setNorthValue] = useState("");
-  const [southValue, setSouthValue] = useState("");
-  const [eastValue, setEastValue] = useState("");
-  const [westValue, setWestValue] = useState("");
-
-  const handleNorthChange = (event) => {
-    setNorthValue(event.target.value);
-  };
-
-  const handleNatureOfRoad = (event) => {
-    setNatureOfRoadValue(event.target.value);
-  };
-
-  const handleSouthChange = (event) => {
-    setSouthValue(event.target.value);
-  };
-
-  const handleEastChange = (event) => {
-    setEastValue(event.target.value);
-  };
-
-  const handleWestChange = (event) => {
-    setWestValue(event.target.value);
-  };
-
-  // Radio Button Get Data from server:
-  const [radio1, setRadio1] = useState("");
-  const [radio2, setRadio2] = useState("");
-  const [radio3, setRadio3] = useState("");
-  const [radio4, setRadio4] = useState("");
-  const [radio5, setRadio5] = useState("");
-
-  const handleRadio1 = (e) => {
-    setRadio1(e.target.value);
-  };
-
-  const handleRadio2 = (e) => {
-    setRadio2(e.target.value);
-  };
-
-  const handleRadio3 = (e) => {
-    setRadio3(e.target.value);
-  };
-
-  const handleRadio4 = (e) => {
-    setRadio4(e.target.value);
-  };
-
-  const handleRadio5 = (e) => {
-    setRadio5(e.target.value);
-  };
 
   // classes for this component:
   const labelClass =
@@ -854,6 +896,12 @@ const BuildingInfo = () => {
                 }
                 onChange={handleProposedPlotAreaChange}
               />
+              <p className="text-xs text-red-500 mt-2">
+                {console.log(proposedPlotArea, proposedPlotAreaCal, "INSIDE")}
+                {proposedPlotArea > 300 && proposedPlotArea !== ""
+                  ? "Value must be less than 300"
+                  : ""}
+              </p>
             </div>
 
             <div className="my-4 mx-3">
@@ -865,11 +913,15 @@ const BuildingInfo = () => {
                 type="number"
                 placeholder="in Sq.M."
                 className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
-                defaultValue={
-                  roadWideningArea ? roadWideningArea : roadWideningAreaCal
-                }
+                defaultValue={roadWideningArea}
                 onChange={handleRoadWideningAreaChange}
               />
+              {console.log(roadWideningArea, "Inside roadwidening")}
+              <p className="text-xs text-red-500 mt-2">
+                {roadWideningArea > 300 && roadWideningArea !== ""
+                  ? "Value must be less than 300"
+                  : ""}
+              </p>
             </div>
 
             {/* Automatically calculated Plot Details  */}
@@ -883,7 +935,7 @@ const BuildingInfo = () => {
                 name="netPlotArea"
                 placeholder="Automatically calculated"
                 className="w-full px-3 py-2 border rounded-lg max-w-xs"
-                value={netPlotArea ? netPlotArea : netPlotAreaCal}
+                value={netPlotArea}
                 disabled
               />
             </div>
