@@ -14,12 +14,14 @@ const MainLayout = () => {
         Application Search
       </Link>
       <Link
+        to="/onlinePayment"
         type="button"
         className="relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white"
       >
         Online Payment
       </Link>
       <Link
+        to='/listOfLTP'
         type="button"
         className="relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white"
       >
@@ -66,11 +68,15 @@ const MainLayout = () => {
       </div>
       <div className="grid grid-cols-[200px_minmax(700px,_1fr)_1fr]">
         {/* sidebar menus  */}
-        <div className="w-full flex flex-col justify-between text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+        <div className="w-full h-[400px] flex flex-col justify-between text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white shadow-lg">
           {menu}
         </div>
 
-        <Outlet />
+        {/* Scrollable content */}
+        <div className="">
+          <Outlet />
+        </div>
+
         <Login />
       </div>
     </div>
