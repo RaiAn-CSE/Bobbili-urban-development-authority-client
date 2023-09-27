@@ -120,7 +120,7 @@ const Login = () => {
 
   return (
     <>
-      <div className="relative">
+      <div className="relative shadow-lg h-full">
         {/* support icon  */}
 
         {/* login form  */}
@@ -189,7 +189,7 @@ const Login = () => {
                 Remember me
               </label>
             </div>
-            <div className="w-[30%] mx-auto">
+            <div className="w-fit mx-auto">
               {loading ? (
                 <BeatLoader
                   color={color}

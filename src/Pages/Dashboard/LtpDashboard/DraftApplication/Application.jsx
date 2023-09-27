@@ -1,7 +1,45 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ApplicationHeader from "./ApplicationHeader";
+import { AuthContext } from "../../../../AuthProvider/AuthProvider";
+import Loading from "../../../Shared/Loading";
 
 function Application({ setOpenApplication }) {
+  const { getApplicationData } = useContext(AuthContext);
+  const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
+  const [generalInformation, setGeneralInformation] = useState();
+  const [plotDetails, setPlotDetails] = useState();
+  const [scheduleBoundaries, setScheduleBoundaries] = useState();
+  const [ltpDetailsData, setLtpDetailsData] = useState();
+  const [applicantDetailsData, setApplicantDetailsData] = useState();
+
+
+
+  useEffect(() => {
+    const gettingData = async () => {
+      const applicationData = await getApplicationData(applicationNo);
+      setGeneralInformation(applicationData?.buildingInfo?.generalInformation)
+      setPlotDetails(applicationData?.buildingInfo?.plotDetails)
+      setScheduleBoundaries(applicationData?.buildingInfo?.scheduleBoundaries)
+      setLtpDetailsData(applicationData?.applicantInfo?.ltpDetails)
+      setApplicantDetailsData(applicationData?.applicantInfo?.applicantDetails)
+    };
+    gettingData();
+  }, []);
+
+
+  // General Information
+  const { applicationType, bpsApprovedNoServer, caseType, district, gramaPanchayat, iplpNo, lpNo, lrsNo, mandal, natureOfPermission, natureOfTheSite, plotNo, plotNo2, previewsApprovedFileNo, surveyNo, village } = generalInformation;
+  // console.log({generalInformation})
+  // Plot Details
+  const { proposedPlotAreaCal, roadWideningAreaCal, netPlotAreaCal, buildingExcludeStilt, compoundingWallProposed, existingRoad, existingRoadMts, frontSetback, marketValueSqym, natureOfRoad, proposedRoadMts, rareSetback, side1Setback, side2Setback, siteRegistered, statusOfRoad, totalBuiltUpArea, totalParkingArea, totalPlotDocument, totalPlotGround } = plotDetails;
+
+  // LTP Details
+  const { type, name, address: ltpAddress, email: ltpEmail, licenseNo, phoneNo: ltpPhone, validity } = ltpDetailsData;
+  // Applicant Details
+  const { name: ApplicantName, identity, phone: applicantPhone, email: appLicantEmail, adharNo, pinCode, address: applicantAddress } = applicantDetailsData;
+
+
+  console.log("LtPName", name)
   const Part01 = [
     "NAME",
     "DOOR No. / FLAT No.",
@@ -85,7 +123,7 @@ function Application({ setOpenApplication }) {
 
   // Part01
   // Name
-  const applicantName = ["Tanjimul Islam Sabbir"];
+  const applicantName = [name];
   // const PhoneTD = ["d", "d"];
   const flatNo = ["125"];
   const roadStreet = ["1250/road, Randhuno-3"];

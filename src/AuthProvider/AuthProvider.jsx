@@ -129,7 +129,6 @@ const AuthProvider = ({ children }) => {
     Swal.fire({
       title: "Do you want to save your information?",
       icon: "info",
-      showCancelButton: true,
       confirmButtonText: "Yes, save it",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -158,9 +157,13 @@ const AuthProvider = ({ children }) => {
       if (result.isConfirmed && result.value.acknowledged) {
         toast.success("Data saved successfully");
 
+        console.log(stepperData, "Stepper data");
+
         // if stepper data is exist then update stepper steps and navigate to the next step
         if (stepperData) {
-          const [currentStep, steps, handleStepClick] = stepperData;
+          console.log("Asci");
+          const [, currentStep, steps, handleStepClick] = stepperData;
+          console.log(currentStep < steps.length - 1);
           currentStep < steps.length - 1 && handleStepClick(currentStep + 1);
         }
       } else {
