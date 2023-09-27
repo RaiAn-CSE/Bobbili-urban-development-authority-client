@@ -11,8 +11,7 @@ const DocumentUpload = () => {
   const [UpdatedDocuments, setUpdatedDocuments] = useState(Documents.Data);
   const stepperData = useOutletContext();
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
-  const { confirmAlert, sendUserDataIntoDB, getApplicationData } =
-    useContext(AuthContext);
+  const { confirmAlert, sendUserDataIntoDB, getApplicationData } = useContext(AuthContext);
 
   const formData = new FormData();
 
@@ -89,13 +88,9 @@ const DocumentUpload = () => {
     gettingData();
   }, []);
 
-  console.log(UpdatedDocuments, "updatedDocuments");
-
   // handle file upload
-
   const handleFileUpload = async (url) => {
-    console.log(UpdatedDocuments, "UPDATE DOCUMENTS");
-
+  
     // find empty field to stop sending data in to the database
     // const findEmptyField = UpdatedDocuments.find(
     //   (field) => field?.upload === ""
@@ -159,7 +154,7 @@ const DocumentUpload = () => {
         const { id, question, upload } = document;
         return (
           <>
-            <div key={id} className="w-full px-2 mt-10  mb-28">
+            <div key={id} className="w-full px-2 mt-10 shadow-sm py-10 rounded">
               <p className="text-[17px] font-bold">
                 {id}. {question}
               </p>
@@ -176,19 +171,20 @@ const DocumentUpload = () => {
                   <Link
                     to={`https://drive.google.com/file/d/${upload}/view?usp=sharing`}
                     target="_blank"
-                    className="hover:underline ms-10 p-3"
+                    className="hover:underline ms-10 p-3 bg-gray-100 rounded-xl sm:rounded-full text-center"
                   >
                     View old File
                   </Link>
                 )}
               </div>
             </div>
-            <div className="divider"></div>
+            {/* <div className="divider"></div> */}
+            <hr/>
           </>
         );
       })}
 
-      <input onClick={handleFileUpload} type="submit" value="Submit" />
+      {/* <input onClick={handleFileUpload} type="submit" value="Submit" /> */}
 
       {/* save & continue  */}
       {/* navigation button  */}

@@ -16,12 +16,10 @@ const Drawing = () => {
 
   const { confirmAlert, sendUserDataIntoDB, getApplicationData } =
     useContext(AuthContext);
-
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
 
   useEffect(() => {
     localStorage.setItem("selectedFiles", JSON.stringify(["", ""]));
-
     getApplicationData(applicationNo).then((res) => {
       console.log(res);
       setSavedData(res);
@@ -43,27 +41,13 @@ const Drawing = () => {
     };
   }, []);
 
-  let btnClass =
-    "btn btn-md text-[#000000] hover:text-[#fff] rounded-lg transition-all duration-500 cursor-pointer hover:bg-emerald-400";
-
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
-
-  console.log(stepperData);
-
-  const btn =
-    "btn btn-md text-xs px-4 md:text-sm md:px-6 bg-Primary transition duration-700 hover:bg-btnHover hover:shadow-md";
-
   const formData = new FormData();
 
   const handleFileChange = (event, eventId) => {
     const file = event?.target.files[0];
-
-    console.log(file);
-
     // formData.append(eventId, file);
-
-    file && toast.success(`${file?.name} uploaded successfully!`);
-
+    file && toast.success(`${file?.name.slice(0,20)}... uploaded successfully!`);
     const localStoreDrawingData = JSON.parse(
       localStorage.getItem("selectedFiles")
     );
@@ -71,14 +55,12 @@ const Drawing = () => {
     if (eventId === "AutoCAD Drawing") {
       localStoreDrawingData[0] = file?.name;
       setLocalFile(localStoreDrawingData);
-      console.log("Autocad");
       localStorage.setItem(
         "selectedFiles",
         JSON.stringify(localStoreDrawingData)
       );
     }
     if (eventId === "Drawing PDF") {
-      console.log("DRA");
       localStoreDrawingData[1] = file?.name;
       setLocalFile(localStoreDrawingData);
       localStorage.setItem(
@@ -87,10 +69,9 @@ const Drawing = () => {
       );
     }
 
-    console.log(localStoreDrawingData, "PREVIOUS GET");
+    // console.log(localStoreDrawingData, "PREVIOUS GET");
     // Set File Uploaded Data
     setSelectedFiles((prev) => {
-      console.log(prev, "prev");
       prev[eventId] = file;
       return prev;
     });
@@ -107,8 +88,7 @@ const Drawing = () => {
         // console.log(selectedFiles[file]);
         formData.append("files", selectedFiles[file]);
       }
-      console.log(...formData);
-
+ 
       try {
         const response = await axios.post(
           "http://localhost:5000/upload?page=drawing",
@@ -164,7 +144,7 @@ const Drawing = () => {
               onChange={(event) => handleFileChange(event, "AutoCAD Drawing")}
               className=" absolute top-1/2 left-0 translate-y-[-50%]  w-[200px] z-[-1]"
             />
-            <div className="flex justify-between items-center bg-white shadow-lg w-[230px] p-2 rounded-lg z-0">
+            <div className="flex justify-between items-center bg-white shadow-sm w-[230px] p-2 rounded-lg z-0">
               <MdOutlineAttachFile size={20} />
 
               {localFile && localFile[0] !== "" ? (
@@ -205,7 +185,7 @@ const Drawing = () => {
               onChange={(event) => handleFileChange(event, "Drawing PDF")}
               style={{ display: "none" }}
             />
-            <div className="flex justify-between items-center bg-white shadow-lg w-[230px] p-2 rounded-lg z-0">
+            <div className="flex justify-between items-center bg-white shadow-sm w-[230px] p-2 rounded-lg z-0">
               <MdOutlineAttachFile size={20} />
               {localFile && localFile[1] !== "" ? (
                 <p className="text-base">{localFile[1].slice(0, 12) + "..."}</p>

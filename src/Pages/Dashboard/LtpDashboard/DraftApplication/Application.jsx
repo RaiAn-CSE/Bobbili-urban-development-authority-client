@@ -6,22 +6,26 @@ import Loading from "../../../Shared/Loading";
 function Application({ setOpenApplication }) {
   const { getApplicationData } = useContext(AuthContext);
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
-  const [generalInformation, setGeneralInformation] = useState();
-  const [plotDetails, setPlotDetails] = useState();
-  const [scheduleBoundaries, setScheduleBoundaries] = useState();
-  const [ltpDetailsData, setLtpDetailsData] = useState();
-  const [applicantDetailsData, setApplicantDetailsData] = useState();
+  const [generalInformation, setGeneralInformation] = useState({});
+  const [plotDetails, setPlotDetails] = useState({});
+  const [ltpDetailsData, setLtpDetailsData] = useState({});
+  const [applicantDetailsData, setApplicantDetailsData] = useState({});
 
-
+  useEffect(() => {
+    // Opening the modal when the component mounts
+    const modal = document.getElementById("my_modal_5");
+    if (modal) {
+      modal.showModal();
+    }
+  }, []);
 
   useEffect(() => {
     const gettingData = async () => {
       const applicationData = await getApplicationData(applicationNo);
       setGeneralInformation(applicationData?.buildingInfo?.generalInformation)
       setPlotDetails(applicationData?.buildingInfo?.plotDetails)
-      setScheduleBoundaries(applicationData?.buildingInfo?.scheduleBoundaries)
       setLtpDetailsData(applicationData?.applicantInfo?.ltpDetails)
-      setApplicantDetailsData(applicationData?.applicantInfo?.applicantDetails)
+      setApplicantDetailsData(applicationData?.applicantInfo?.applicantDetails[0])
     };
     gettingData();
   }, []);
@@ -36,32 +40,36 @@ function Application({ setOpenApplication }) {
   // LTP Details
   const { type, name, address: ltpAddress, email: ltpEmail, licenseNo, phoneNo: ltpPhone, validity } = ltpDetailsData;
   // Applicant Details
-  const { name: ApplicantName, identity, phone: applicantPhone, email: appLicantEmail, adharNo, pinCode, address: applicantAddress } = applicantDetailsData;
+  const { name: ApplicantName, identity, phone: applicantPhone, email: AppEmail, adharNo, pinCode, address: applicantAddress } = applicantDetailsData;
 
 
   console.log("LtPName", name)
+  // ====Applicant Info
   const Part01 = [
-    "NAME",
-    "DOOR No. / FLAT No.",
-    "ROAD/STREET",
-    ["VILLAGE", "MANDAL"],
-    "CITY/TOWN",
-    "DISTRICT",
-    "E-MAIL",
-    ["MOBILE", "ALTERNATE"],
+    { "NAME": ApplicantName },
+    { "DOOR No. / FLAT No.": adharNo },
+    { "ROAD/STREET": roadWideningAreaCal },
+    [{ "VILLAGE": village }, { "MANDAL": mandal }],
+    { "CITY/TOWN": ["PIN - ", pinCode] },
+    { "DISTRICT": district },
+    { "E-MAIL": AppEmail },
+    [{ "MOBILE": applicantPhone }, { "ALTERNATE": "9876543210" }]
   ];
 
+  // // 
   const Part02 = [
-    "PLOT NOs",
-    "SANCTIONED LAYOUT NO. / LRS NO",
-    ["SURVEY NO.", "VILLAGE"],
-    "PREMISES / DOOR No.",
-    "ROAD/ STREET",
-    ["WARD NO.", "BLOCK No"],
-    "LOCALITY",
-    ["CIRCLE/DIVISION", "DIVISION"],
-    ["CITY/TOWN", "DISTRICT"],
+    { "PLOT NOs": plotNo },
+    { "SANCTIONED LAYOUT NO. / LRS NO": lrsNo },
+    [{ "SURVEY NO.": surveyNo }, { "VILLAGE": village }],
+    { "PREMISES / DOOR No.": 12 },
+    { "ROAD/ STREET": existingRoad },
+    [{ "WARD NO.": "Not got yet" }, { "BLOCK No": "Not got yet" }],
+    { "LOCALITY": "Not got yet " },
+    [{ "CIRCLE/DIVISION": gramaPanchayat }, { "DIVISION": gramaPanchayat }],
+    [{ "CITY/TOWN": district }, { "DISTRICT": district }],
   ];
+
+
   // Part03
   const Part03 = [
     "SITE AREA (IN SQ.M)",
@@ -74,8 +82,8 @@ function Application({ setOpenApplication }) {
   const row1 = [
     { "(a) AS PER DOCUMENTS": "" },
     { "(b) AS PER SUBMITTED PLAN": "" },
-    { "(c) ROAD WIDENING AREA": "" },
-    { "(d)   NET AREA": "" },
+    { "(c) ROAD WIDENING AREA": roadWideningAreaCal },
+    { "(d)   NET AREA": netPlotAreaCal },
   ];
 
   const row2 = [
@@ -87,6 +95,7 @@ function Application({ setOpenApplication }) {
     { TOTAL: "" },
   ];
 
+  // Part-4
   // index4
   const row5 = [
     {
@@ -95,7 +104,6 @@ function Application({ setOpenApplication }) {
     },
   ];
 
-  // Part-4
   const NameCol = [
     { "BUILDER / DEVELOPER/ CONSTRUCTION FIRM": "" },
     { ARCHITECT: "" },
@@ -105,139 +113,55 @@ function Application({ setOpenApplication }) {
     { "TOWN PLANNER": "" },
   ];
   const AddressCol = [
-    { address: "123 Main St" },
-    { address: "Apt 456" },
-    { address: "789 Elm St" },
-    { address: "Unit 101" },
-    { address: "456 Oak Ave" },
-    { address: "Suite 303" },
+    { address: village },
+    { address: village },
+    { address: village },
+    { address: village },
+    { address: village },
+    { address: village },
   ];
   const LicenceNo = [
-    { licenceNo: "AB123456" },
-    { licenceNo: "CD789012" },
-    { licenceNo: "EF345678" },
-    { licenceNo: "GH901234" },
-    { licenceNo: "IJ567890" },
-    { licenceNo: "KL123456" },
+    { licenceNo: adharNo },
+    { licenceNo: adharNo },
+    { licenceNo: adharNo },
+    { licenceNo: adharNo },
+    { licenceNo: adharNo },
+    { licenceNo: adharNo },
   ];
 
-  // Part01
-  // Name
-  const applicantName = [name];
-  // const PhoneTD = ["d", "d"];
-  const flatNo = ["125"];
-  const roadStreet = ["1250/road, Randhuno-3"];
-  const applicantDistrict = ["Rajshahi"];
-  const applicantEmail = ["tanjimulislamsabbir@hotmail.com"];
-  const PhoneTD = ["01780242695", "01538280207"];
-  const CityTown = ["PIN", "3432"];
-  // const CityTown=[{PIN:''}];
-  const Village = ["Binodpur", "Kazla"];
-  // const Village=[{Village:"",Mondal:""}]
-  // Part02
-  const part01IndexArray = [3, 4, 7];
-  const part02SubArray = [2, 5, 7, 8];
   const part03SubArray = [0, 1, 4];
 
-  useEffect(() => {
-    // Opening the modal when the component mounts
-    const modal = document.getElementById("my_modal_5");
-    if (modal) {
-      modal.showModal();
-    }
-  }, []);
-
-  // Part01
-  function renderPart01Col2(data, index) {
-    if (index === 3 || index === 7) {
+  // Part01 && Part02 Keys and Values
+  const renderCol = (data, index, type) => {
+    const keys = type === "keys";
+    const isArray = Array.isArray(data)
+    if (isArray) {
       return (
-        <td key={index} className="bg-white border border-black w-36 p-0">
+        <td className="bg-white border border-black w-36 p-0">
           <div className="flex">
             {data.map((e, i) => (
               <p
                 key={i}
-                className={`flex items-center p-2 ${(index === 3 || index === 7) && "border-l"
-                  } border-black h-12 ${i === 0 && "border-l-0"}`}
+                className={`flex items-center p-2 border-l border-black h-12 ${i === 0 && "w-1/2 border-l-0"
+                  }`}
               >
-                {e}
+                {(keys ? Object.keys(data[i]) : Object.values(data[i])) || e}
               </p>
             ))}
+
           </div>
         </td>
       );
     } else {
       return (
-        <td key={index} className="bg-white border border-black w-36 p-0">
-          <p className="h-12 p-2 flex items-center">{data}</p>
+        <td className="bg-white border border-black w-36 p-0">
+          <p className="h-12 p-2 flex items-center">{(keys ? Object.keys(data) : Object.values(data))}</p>
         </td>
       );
     }
-  }
-
-  const ColDataShow01 = (data, index) => {
-    let subColData;
-
-    if (index === 0) {
-      subColData = applicantName;
-    } else if (index === 1) {
-      subColData = flatNo;
-    } else if (index === 2) {
-      subColData = roadStreet;
-    } else if (index === 3) {
-      subColData = Village;
-    } else if (index === 4) {
-      subColData = CityTown;
-    } else if (index === 5) {
-      subColData = applicantDistrict;
-    } else if (index === 6) {
-      subColData = applicantEmail;
-    } else if (index === 7) {
-      subColData = PhoneTD;
-    } else {
-      subColData = [];
-    }
-
-    return (
-      <p>
-        <p>
-          <p className="flex">
-            {subColData.map((d, i) => {
-              return (
-                <p
-                  className={`h-12 flex flex-col justify-center p-4 ${i > 0 && "border-l border-black"
-                    } ${i == 0 && "w-1/2 border-l-0"}`}
-                >
-                  {d}
-                </p>
-              );
-            })}
-          </p>
-        </p>
-      </p>
-    );
+    ;
   };
 
-  // Part02
-  const ColDataShow02 = (data, index) => {
-    return (
-      <td className="bg-white border border-black p-0">
-        {part02SubArray.includes(index) ? (
-          <p className="flex ">
-            {data.map((d, i) => (
-              <p
-                className={`border-black py-4 border-l px-2 ${i == 0 && "w-1/2 border-l-0"
-                  }`}
-              >
-                {i + 1}
-              </p>
-            ))}
-          </p>
-        ) : (
-          <p className="py-4 px-2">{index + 1}</p>
-        )}
-      </td>
-    );
-  };
   // Part03
   const ColDataShow03 = (data, index) => {
     let colData;
@@ -336,23 +260,21 @@ function Application({ setOpenApplication }) {
                 </thead>
                 <tbody>
                   {/* row 1 */}
-                  {Part01.map((data, index) => (
-                    <>
-                      <tr key={index} className="bg-white p-0">
-                        <th className="bg-white border border-black w-14 px-2">
+                  {Part01.map((item, index) => {
+                    return (
+                      <tr key={item} className="bg-white">
+                        {/* col-01 */}
+                        <th className="bg-white border border-black w-14">
                           {index + 1}
                         </th>
-
                         {/* col-02 */}
-                        {renderPart01Col2(data, index)}
+                        {renderCol(item, index, "keys")}
 
-                        {/* col-03*/}
-                        <td className="bg-white border border-black p-0">
-                          {ColDataShow01(data, index)}
-                        </td>
+                        {/* col-03 */}
+                        {renderCol(item, index, "values")}
                       </tr>
-                    </>
-                  ))}
+                    )
+                  })}
                 </tbody>
               </table>
             </div>
@@ -373,35 +295,22 @@ function Application({ setOpenApplication }) {
                 </thead>
                 <tbody>
                   {/* row 1 */}
-                  {Part02.map((data, index) => (
-                    <>
-                      <tr key={index} className="bg-white">
+                  {Part02.map((item, index) => {
+                    return (
+                      <tr key={item} className="bg-white">
                         {/* col-01 */}
                         <th className="bg-white border border-black w-14">
                           {index + 1}
                         </th>
                         {/* col-02 */}
-                        <td className="bg-white border border-black w-64 p-0">
-                          {part02SubArray.includes(index) ? (
-                            <p className="flex ">
-                              {data.map((d, i) => (
-                                <p
-                                  className={`border-black py-4 px-2 ${i == 0 && "w-1/2 border-r"
-                                    }`}
-                                >
-                                  {d}
-                                </p>
-                              ))}
-                            </p>
-                          ) : (
-                            <p className="py-4 px-2">{data}</p>
-                          )}
-                        </td>
+
+                        {renderCol(item, index, "keys")}
+
                         {/* col-03 */}
-                        {ColDataShow02(data, index, part02SubArray)}
+                        {renderCol(item, index, "values")}
                       </tr>
-                    </>
-                  ))}
+                    )
+                  })}
                 </tbody>
               </table>
             </div>
@@ -497,8 +406,8 @@ function Application({ setOpenApplication }) {
             </button>
           </form>
         </div>
-      </dialog>
-    </div>
+      </dialog >
+    </div >
   );
 }
 
