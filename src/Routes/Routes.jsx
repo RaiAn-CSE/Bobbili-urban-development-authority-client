@@ -18,6 +18,7 @@ import Error from "../Pages/Shared/Error";
 import MainLayout from "../Layouts/MainLayout";
 import Carousel from "../Pages/Main/Carousel/Carousel";
 import ApplicationSearch from "../Pages/Main/ApplicationSearch/ApplicationSearch";
+import OnlinePayment from "../Pages/Main/OnlinePayment";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "/applicationSearch",
         element: <ApplicationSearch />,
+      },
+      {
+        path: "/onlinePayment",
+        element: <OnlinePayment />,
       },
     ],
   },
