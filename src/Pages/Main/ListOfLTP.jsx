@@ -1,6 +1,4 @@
 import React from 'react';
-import MainPageInput from './MainPageInput';
-import { GiMoneyStack } from 'react-icons/gi';
 
 const ListOfLTP = () => {
     return (
