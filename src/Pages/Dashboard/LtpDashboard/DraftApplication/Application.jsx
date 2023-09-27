@@ -12,6 +12,14 @@ function Application({ setOpenApplication }) {
   const [applicantDetailsData, setApplicantDetailsData] = useState({});
 
   useEffect(() => {
+    // Opening the modal when the component mounts
+    const modal = document.getElementById("my_modal_5");
+    if (modal) {
+      modal.showModal();
+    }
+  }, []);
+
+  useEffect(() => {
     const gettingData = async () => {
       const applicationData = await getApplicationData(applicationNo);
       setGeneralInformation(applicationData?.buildingInfo?.generalInformation)
@@ -32,34 +40,73 @@ function Application({ setOpenApplication }) {
   // LTP Details
   const { type, name, address: ltpAddress, email: ltpEmail, licenseNo, phoneNo: ltpPhone, validity } = ltpDetailsData;
   // Applicant Details
-  const { name: ApplicantName, identity, phone: applicantPhone, email: appLicantEmail, adharNo, pinCode, address: applicantAddress } = applicantDetailsData;
+  const { name: ApplicantName, identity, phone: applicantPhone, email: AppEmail, adharNo, pinCode, address: applicantAddress } = applicantDetailsData;
 
 
   console.log("LtPName", name)
   // ====Applicant Info
   const Part01 = [
-    { "NAME": ApplicantName },
-    { "DOOR No. / FLAT No.": plotNo },
-    { "ROAD/STREET": existingRoad },
-    [{ "VILLAGE": village }, { "MANDAL": mandal }],
-    { "CITY/TOWN": ["PIN", pinCode] },
-    { "DISTRICT": district },
-    { "E-MAIL": applicantEmail },
-    [{ "MOBILE": applicantPhone }, { "ALTERNATE": applicantPhone }],
+    { "NAME": "John Doe" },
+    { "DOOR No. / FLAT No.": "123" },
+    { "ROAD/STREET": "Main Street" },
+    [[{ "VILLAGE": "Village 1"}, {"MANDAL": "Mandal 1" }]],
+    { "CITY/TOWN": ["PIN", "12345"] },
+    { "DISTRICT": "District 1" },
+    { "E-MAIL": "john@example.com" },
+    [[{ "MOBILE": "1234567890"}, {"ALTERNATE": "9876543210" }]]
   ];
 
-  // LTP Info
+  let Part01Keys = [];
+  let Part01Values = [];
+
+  Part01.map((item, i) => {
+    const values = Object.values(Part01[i])
+    Part01Values.push(values);
+    if (typeof item == "object") {
+      const keys = Object.keys(Part01[i]);
+      if (keys[0] == 0) {
+        return Part01Keys.push(item)
+      } else {
+        return Part01Keys.push(keys);
+      }
+    }
+  })
+  const Part01KeysArray = Part01Keys.flat();
+  const Part01ValuesArray = Part01Values.flat();
+  console.log({ Part01KeysArray, Part01ValuesArray });
+
+  // // LTP Info
   const Part02 = [
     { "PLOT NOs": "" },
     { "SANCTIONED LAYOUT NO. / LRS NO": "" },
-    [{ "SURVEY NO.": "" }, { "VILLAGE": "" }],
+    [[{ "SURVEY NO.": "" }, { "VILLAGE": "" }]],
     { "PREMISES / DOOR No.": "" },
     { "ROAD/ STREET": "" },
-    [{ "WARD NO.": "" }, { "BLOCK No": "" }],
+    [[{ "WARD NO.": "" }, { "BLOCK No": "" }]],
     { "LOCALITY": "" },
-    [{ "CIRCLE/DIVISION": "" }, { "DIVISION": "" }],
-    [{ "CITY/TOWN": "" }, { "DISTRICT": "" }],
+    [[{ "CIRCLE/DIVISION": "" }, { "DIVISION": "" }]],
+    [[{ "CITY/TOWN": "" }, { "DISTRICT": "" }]],
   ];
+  let Part02Keys = [];
+  let Part02Values = [];
+
+  Part02.map((item, i) => {
+    const values = Object.values(Part02[i])
+    Part01Values.push(values);
+
+    if (typeof item == "object") {
+      const keys = Object.keys(Part02[i]);
+      if (keys[0] == 0) {
+        return Part02Keys.push(item)
+      } else {
+        return Part02Keys.push(keys);
+      }
+    }
+  })
+  const Part02KeysArray = Part02Keys.flat();
+  const Part02ValuesArray = Part02Values.flat();
+  console.log({ Part02KeysArray, Part02ValuesArray });
+
   // Part03
   const Part03 = [
     "SITE AREA (IN SQ.M)",
@@ -121,99 +168,44 @@ function Application({ setOpenApplication }) {
     { licenceNo: "KL123456" },
   ];
 
-  // Part01
-  // Name
-  const applicantName = [ApplicantName];
-  // const PhoneTD = ["d", "d"];
-  const flatNo = [plotNo];
-  const roadStreet = [existingRoad];
-  const applicantDistrict = [district];
-  const applicantEmail = [appLicantEmail];
-  const PhoneTD = [applicantPhone, applicantPhone];
-  const CityTown = ["PIN", pinCode];
-  // const CityTown=[{PIN:''}];
-  const Village = [village, mandal];
-  // const Village=[{Village:"",Mondal:""}]
-  // Part02
+
   const part01IndexArray = [3, 4, 7];
   const part02SubArray = [2, 5, 7, 8];
   const part03SubArray = [0, 1, 4];
 
-  useEffect(() => {
-    // Opening the modal when the component mounts
-    const modal = document.getElementById("my_modal_5");
-    if (modal) {
-      modal.showModal();
-    }
-  }, []);
 
   // Part01
-  function renderPart01Col2(data, index) {
-    if (index === 3 || index === 7) {
-      return (
-        <td key={index} className="bg-white border border-black w-36 p-0">
-          <div className="flex">
-            {data.map((e, i) => (
-              <p
-                key={i}
-                className={`flex items-center p-2 ${(index === 3 || index === 7) && "border-l"
-                  } border-black h-12 ${i === 0 && "border-l-0"}`}
-              >
-                {e}
-              </p>
-            ))}
-          </div>
-        </td>
-      );
-    } else {
-      return (
-        <td key={index} className="bg-white border border-black w-36 p-0">
-          <p className="h-12 p-2 flex items-center">{data[index]}</p>
-        </td>
-      );
-    }
+  function renderCol(data) {
+    data.map((data, ind) => {
+      const isString = typeof data === "string"
+      // console.log(isString,data,"isString,data")
+      if (!isString) {
+        console.log(isString,data,"isString,data")
+        return (
+          <td className="bg-white border border-black w-36 p-0">
+            <div className="flex">
+              {data.map((e, i) => (
+                <p
+                  key={i}
+                  className={`flex items-center p-2 border-l
+                     border-black h-12 ${i === 0 && "w-1/2 border-l-0"}`}
+                >
+                  {e[i]}
+                </p>
+              ))}
+            </div>
+          </td>
+        );
+      } else {
+        return (
+          <td className="bg-white border border-black w-36 p-0">
+            <p className="h-12 p-2 flex items-center">{data}</p>
+          </td>
+        );
+      }
+    })
   }
 
-  const ColDataShow01 = (data, index) => {
-    return (
-        <p>
-          <p className="flex">
-            {data.map((d, i) => {
-              return (
-                <p
-                  className={`h-12 flex flex-col justify-center p-4 ${i > 0 && "border-l border-black"
-                    } ${i == 0 && "w-1/2 border-l-0"}`}
-                >
-                  {d}
-                </p>
-              );
-            })}
-          </p>
-        </p>
-    );
-  };
-
-  // Part02
-  const ColDataShow02 = (data, index) => {
-    return (
-      <td className="bg-white border border-black p-0">
-        {part02SubArray.includes(index) ? (
-          <p className="flex ">
-            {data.map((d, i) => (
-              <p
-                className={`border-black py-4 border-l px-2 ${i == 0 && "w-1/2 border-l-0"
-                  }`}
-              >
-                {i + 1}
-              </p>
-            ))}
-          </p>
-        ) : (
-          <p className="py-4 px-2">{index + 1}</p>
-        )}
-      </td>
-    );
-  };
   // Part03
   const ColDataShow03 = (data, index) => {
     let colData;
@@ -311,28 +303,18 @@ function Application({ setOpenApplication }) {
                   </tr>
                 </thead>
                 <tbody>
-                  {/* row 1 */}
-                  {Part01.map((data, index) => {
-                    const keys = Object.keys(Part01[index]);
-                    const values = Object.values(Part01[index]);
-                    console.log({keys,values},"Part01")
-                    return <>
-                      <tr key={index} className="bg-white p-0">
-                        <th className="bg-white border border-black w-14 px-2">
-                          {index + 1}
-                        </th>
+                  {Part01.map((data, index) => <tr className="bg-white p-0">
+                    <th className="bg-white border border-black w-14 px-2">
+                      {index + 1}
+                    </th>
+                    {/* col-02 */}
+                    {renderCol(Part01KeysArray)}
 
-                        {/* col-02 */}
-                        {renderPart01Col2(keys, index)}
-
-                        {/* col-03*/}
-                        <td className="bg-white border border-black p-0">
-                          {ColDataShow01(values, index)}
-                        </td>
-                      </tr>
-                    </>
-                  }
-                  )}
+                    {/* col-03*/}
+                    <td className="bg-white border border-black p-0">
+                      {renderCol(Part01ValuesArray)}
+                    </td>
+                  </tr>)}
                 </tbody>
               </table>
             </div>
@@ -353,40 +335,18 @@ function Application({ setOpenApplication }) {
                 </thead>
                 <tbody>
                   {/* row 1 */}
-                  {Part02.map((data, index) => {
-                    const keys = Object.keys(Part02[index]);
-                    const values = Object.values(Part02[index]);
-                    console.log({keys,values},"Part02")
-                    return (
-                      <>
-                        <tr key={index} className="bg-white">
-                          {/* col-01 */}
-                          <th className="bg-white border border-black w-14">
-                            {index + 1}
-                          </th>
-                          {/* col-02 */}
-                          <td className="bg-white border border-black w-64 p-0">
-                            {part02SubArray.includes(index) ? (
-                              <p className="flex ">
-                                {keys.map((d, i) => (
-                                  <p
-                                    className={`border-black py-4 px-2 ${i == 0 && "w-1/2 border-r"
-                                      }`}
-                                  >
-                                    {d}
-                                  </p>
-                                ))}
-                              </p>
-                            ) : (
-                              <p className="py-4 px-2">{keys[index]}</p>
-                            )}
-                          </td>
-                          {/* col-03 */}
-                          {ColDataShow02(values, index, part02SubArray)}
-                        </tr>
-                      </>
-                    )
-                  })}
+                  <tr className="bg-white">
+                    {/* col-01 */}
+                    <th className="bg-white border border-black w-14">
+                      {Part02.map((data, index) => index + 1)}
+                    </th>
+                    {/* col-02 */}
+                    <td className="bg-white border border-black w-64 p-0">
+                      {renderCol(Part02KeysArray)}
+                    </td>
+                    {/* col-03 */}
+                    {renderCol(Part02ValuesArray)}
+                  </tr>
                 </tbody>
               </table>
             </div>
