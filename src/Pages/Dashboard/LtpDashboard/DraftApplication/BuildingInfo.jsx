@@ -14,32 +14,19 @@ const BuildingInfo = () => {
 
   const [isStepperVisible, currentStep, steps] = stepperData;
 
-  const {
-    confirmAlert,
-    sendUserDataIntoDB,
-    userInfoFromLocalStorage,
-    getApplicationData,
-  } = useContext(AuthContext);
+  const { confirmAlert, sendUserDataIntoDB, userInfoFromLocalStorage, getApplicationData } = useContext(AuthContext);
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
 
   const { _id: id } = userInfoFromLocalStorage();
 
-  console.log(id, "id");
-
-  console.log(isStepperVisible);
   // Case Type
-  const [selectedOptionCase, setSelectedOptionCase] =
-    useState("Select Case type");
+  const [selectedOptionCase, setSelectedOptionCase] = useState('');
 
-  const [selectedOptionPermission, setSelectedOptionPermission] = useState(
-    "Select Nature of permission"
-  );
+  const [selectedOptionPermission, setSelectedOptionPermission] = useState("");
 
   // Nature of the site
-  const [selectedNatureOfTheSite, setSelectedNatureOfTheSite] = useState(
-    "Select Nature of the site"
-  );
+  const [selectedNatureOfTheSite, setSelectedNatureOfTheSite] = useState('');
   const [showInputFields, setShowInputFields] = useState(false);
 
   // Add a state variable to keep track of the number of sets of input fields
@@ -77,8 +64,8 @@ const BuildingInfo = () => {
   };
 
   // Net Plot Area(in Sq.M.) Calculation :
-  const [proposedPlotArea, setProposedPlotArea] = useState("");
-  const [roadWideningArea, setRoadWideningArea] = useState("");
+  const [proposedPlotArea, setProposedPlotArea] = useState(0);
+  const [roadWideningArea, setRoadWideningArea] = useState(0);
   const [netPlotArea, setNetPlotArea] = useState("");
 
   // ========================(Calculation part start)
@@ -106,6 +93,7 @@ const BuildingInfo = () => {
 
     if (!isNaN(proposedArea) && !isNaN(wideningArea)) {
       const netArea = proposedArea - wideningArea;
+      console.log(netArea, 'netArea');
       setNetPlotArea(netArea.toFixed(2)); // Format to 2 decimal places
     } else {
       setNetPlotArea("");
@@ -122,23 +110,13 @@ const BuildingInfo = () => {
 
   // handleBuiltUpArea
   const handleBuiltUpArea = (value, index) => {
-    console.log(index, "INDEX");
-
     const newBuiltUpArea = parseFloat(value) || 0;
-    console.log(newBuiltUpArea, "newBuiltuparea");
-
     const updateArea = [...builtUpArea];
-
     updateArea[index] = newBuiltUpArea;
-
-    console.log(updateArea, "Update Area");
-
     setBuiltUpArea(updateArea);
-
-    // setBuiltUpAreaSum((prev) => prev + newBuiltUpArea);
   };
 
-  console.log(builtUpArea, "BuiltupArea");
+  // console.log(builtUpArea, "BuiltupArea");
 
   const increaseFloorNo = () => {
     const newFloor = `Floor${totalFloor.length + 1}`;
@@ -156,8 +134,6 @@ const BuildingInfo = () => {
       return accumulator + currentValue;
     });
 
-    console.log(totalBuiltUpArea, "totalBuiltUpArea");
-
     setBuiltUpAreaSum(totalBuiltUpArea);
 
     const totalParkingArea = parkingArea.reduce(
@@ -167,17 +143,21 @@ const BuildingInfo = () => {
 
     setParkingAreaSum(totalParkingArea);
   }, [builtUpArea, parkingArea]);
-
   // ======================================================<<<(Built Up Area Calculation End)>>>>...
 
   // get data from input field :
   const collectInputFieldData = async (url) => {
     // ==================================================<<<(General Information)>>>:
-    const selectedApplicationType =
-      document.querySelector('input[name="radio-1"]:checked')?.value || ""; // Get selected radio input's value
-
+    const caseTypeData = document.getElementById("caseType").value;
+    // Get selected radio input's value
+    const selectedApplicationType = document.querySelector('input[name="radio-1"]:checked')?.value || "";
+    const natureOfPermission = document.getElementById("natureOfPermission").value;
+    const natureOfTheSite = document.getElementById("natureOfTheSite").value;
     const surveyNo = document.getElementById("SurveyNo").value;
+    const district = document.getElementById("district").value;
+    const mandal = document.getElementById("mandal").value;
     const gramaPanchayat = document.getElementById("GramaPanchayat").value;
+    const village = document.getElementById("village").value;
 
     const bpsApprovedElement = document.getElementById("BpsApprovedNo");
     const bpsApprovedNo = bpsApprovedElement ? bpsApprovedElement.value : "";
@@ -203,10 +183,12 @@ const BuildingInfo = () => {
 
     const iplpNoElement = document.getElementById("IplpNo");
     const iplpNo = iplpNoElement ? iplpNoElement.value : "";
-    const totalPlotDocument =
-      document.getElementById("TotalPlotDocument").value; // ==========<<<(Plot Details)>>>:
+    // ================================================<<<(Plot Details)>>>:
+    const totalPlotDocument = document.getElementById("TotalPlotDocument").value;
     const totalPlotGround = document.getElementById("TotalPlotGround").value;
-    const netPlotArea = document.getElementById("NetPlotArea").value;
+    const proposedPlotAreaValue = document.getElementById("proposedPlotArea").value;
+    const roadWideningAreaValue = document.getElementById("roadWideningArea").value;
+    const netPlotAreaValue = document.getElementById("netPlotArea").value;
 
     const existingRoad =
       document.querySelector('input[name="radio-2"]:checked')?.value || "";
@@ -252,16 +234,16 @@ const BuildingInfo = () => {
     const west = document.getElementById("west").value;
 
     const generalInformation = {
-      caseType: selectedOptionCase,
+      caseType: caseTypeData,
       applicationType: selectedApplicationType,
-      natureOfPermission: selectedOptionPermission,
-      natureOfTheSite: selectedNatureOfTheSite,
+      natureOfPermission,
+      natureOfTheSite,
       surveyNo,
-      district: selectedDistrict,
-      mandal: selectedMandal,
+      district,
+      mandal,
       gramaPanchayat,
-      village: selectedVillage,
-      bpsApprovedNo,
+      village,
+      bpsApprovedNoServer: bpsApprovedNo,
       previewsApprovedFileNo,
       lpNo,
       plotNo,
@@ -273,9 +255,9 @@ const BuildingInfo = () => {
     const plotDetails = {
       totalPlotDocument,
       totalPlotGround,
-      proposedPlotArea,
-      roadWideningArea,
-      netPlotArea,
+      proposedPlotAreaCal: proposedPlotAreaValue,
+      roadWideningAreaCal: roadWideningAreaValue,
+      netPlotAreaCal: netPlotAreaValue,
       statusOfRoad,
       existingRoad,
       natureOfRoad,
@@ -312,8 +294,8 @@ const BuildingInfo = () => {
       buildingInfo,
     });
   };
-
-  const [districtData, setDistrictData] = useState([]); //==========<<<<<(District, Mandal & Village Start)>>>>> :
+  //==============================<<<<<(District, Mandal & Village Start)>>>>> :
+  const [districtData, setDistrictData] = useState([]);
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [selectedMandal, setSelectedMandal] = useState("");
   const [selectedVillage, setSelectedVillage] = useState("");
@@ -323,7 +305,6 @@ const BuildingInfo = () => {
     fetch(apiUrl)
       .then((response) => response.json())
       .then((result) => {
-        console.log(result, "json fetch");
         setDistrictData(result.district);
       })
       .catch((error) => {
@@ -332,49 +313,137 @@ const BuildingInfo = () => {
   }, []);
 
   const handleDistrictChange = (event) => {
-    const selectedDistrict = event.target.value;
-    setSelectedDistrict(selectedDistrict);
+    setSelectedDistrict(event.target.value);
     // Reset selected mandal and village when district changes
     setSelectedMandal("");
     setSelectedVillage("");
   };
 
   const handleMandalChange = (event) => {
-    const selectedMandal = event.target.value;
-    setSelectedMandal(selectedMandal);
+    setSelectedMandal(event.target.value);
     // Reset selected village when mandal changes
     setSelectedVillage("");
-  }; //============================================================<<<<<(District, Mandal & Village End)>>>>> :
+  };
+  //==============================<<<<<(District, Mandal & Village End)>>>>> :
 
-  // save data into database
+
+
+  const [generalInformation, setGeneralInformation] = useState('');
+  const [plotDetails, setPlotDetails] = useState('');
+  const [plotDetailsFloor, setPlotDetailsFloor] = useState('');
+  const [scheduleBoundaries, setScheduleBoundaries] = useState('');
+
+  console.log(generalInformation, 'generalInformation');
+  const { applicationType, bpsApprovedNoServer, caseType, district, gramaPanchayat, iplpNo, lpNo, lrsNo, mandal, natureOfPermission, natureOfTheSite, plotNo, plotNo2, previewsApprovedFileNo, surveyNo, village } = generalInformation;
+
+  console.log(plotDetails, 'plotDetails');
+  const { proposedPlotAreaCal, roadWideningAreaCal, netPlotAreaCal, buildingExcludeStilt, compoundingWallProposed, existingRoad, existingRoadMts, frontSetback, marketValueSqym, natureOfRoad, proposedRoadMts, rareSetback, side1Setback, side2Setback, siteRegistered, statusOfRoad, totalBuiltUpArea, totalParkingArea, totalPlotDocument, totalPlotGround } = plotDetails;
+
+  // console.log(scheduleBoundaries, 'scheduleBoundaries');
+  const { east, west, north, south } = scheduleBoundaries;
+
+  useEffect(() => {
+    const getData = async () => {
+      const applicationData = await getApplicationData(applicationNo);
+      console.log(applicationData);
+
+      const generalInformation = applicationData.buildingInfo.generalInformation;
+      const plotDetails = applicationData.buildingInfo.plotDetails;
+      const plotDetailsFloor = applicationData.buildingInfo.plotDetails.floorDetails;
+      console.log(plotDetailsFloor, "plotDetailsFloor");
+      const scheduleBoundaries = applicationData.buildingInfo.scheduleBoundaries;
+
+      setGeneralInformation(generalInformation);
+      setPlotDetails(plotDetails);
+      setPlotDetailsFloor(plotDetailsFloor);
+      setScheduleBoundaries(scheduleBoundaries);
+    };
+    getData();
+  }, []);
+
+  // Selector Get Data from server:
+  const [natureOfRoadValue, setNatureOfRoadValue] = useState('');
+  const [northValue, setNorthValue] = useState('');
+  const [southValue, setSouthValue] = useState('');
+  const [eastValue, setEastValue] = useState('');
+  const [westValue, setWestValue] = useState('');
+
+  const handleNorthChange = (event) => {
+    setNorthValue(event.target.value);
+  };
+
+  const handleNatureOfRoad = (event) => {
+    setNatureOfRoadValue(event.target.value);
+  };
+
+  const handleSouthChange = (event) => {
+    setSouthValue(event.target.value);
+  };
+
+  const handleEastChange = (event) => {
+    setEastValue(event.target.value);
+  };
+
+  const handleWestChange = (event) => {
+    setWestValue(event.target.value);
+  };
+
+
+  // Radio Button Get Data from server:
+  const [radio1, setRadio1] = useState('');
+  const [radio2, setRadio2] = useState('');
+  const [radio3, setRadio3] = useState('');
+  const [radio4, setRadio4] = useState('');
+  const [radio5, setRadio5] = useState('');
+
+  const handleRadio1 = (e) => {
+    setRadio1(e.target.value)
+  }
+
+  const handleRadio2 = (e) => {
+    setRadio2(e.target.value)
+  }
+
+  const handleRadio3 = (e) => {
+    setRadio3(e.target.value)
+  }
+
+  const handleRadio4 = (e) => {
+    setRadio4(e.target.value)
+  }
+
+  const handleRadio5 = (e) => {
+    setRadio5(e.target.value)
+  }
+
+
+  // classes for this component:
+  const labelClass = "block text-gray-600 mb-1 font-semibold dark:text-gray-100"
+  const inputClass = "w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs dark:text-black"
 
   return (
-    <div className="grid my-5 lg:my-0 lg:p-2">
+    <div className="grid my-5 lg:my-0 lg:p-2 dark:bg-black dark:text-gray-100">
       {/* general information */}
-      <div className="mb-10">
+      <div className="divide-y-2 divide-gray-200 mb-10">
         {/* heading  */}
         <div className="flex items-center">
           <img src={generalInfoImage} alt="" className="h-10 me-3" />
-          <h3 className="font-bold text-xl ">General Information</h3>
+          <h3 className="font-bold text-xl">General Information</h3>
         </div>
-        {/* divider  */}
-        <div className="divider m-0 mb-2"></div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 my-5">
-          <div className="flex flex-col justify-center px-3">
-            <label
-              htmlFor="nature"
-              className="block text-gray-600 mb-1 font-semibold"
-            >
+        <div className="grid grid-cols-2 lg:grid-cols-4 mt-2 mb-5">
+
+          <div className="flex flex-col justify-center my-4 px-3">
+            <label htmlFor="nature" className={labelClass}>
               <span>Case Type</span>
             </label>
             <select
               id="caseType"
-              className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
-              value={selectedOptionCase}
+              className="w-full px-3 py-[10px] border border-[#10AC84] dark:text-black rounded-lg max-w-xs"
+              value={selectedOptionCase.length ? selectedOptionCase : caseType}
               onChange={handleCaseTypeChange}
             >
-              <option disabled selected value="Select Case type">
+              <option disabled selected value="">
                 Select Case type
               </option>
               <option value="New">New</option>
@@ -388,8 +457,9 @@ const BuildingInfo = () => {
             </select>
           </div>
 
+          {/* General Information radio button  */}
           <div className="grid grid-cols-1 font-medium  lg:justify-items-center my-4 mx-3">
-            <p className="flex items-center font-semibold text-gray-600">
+            <p className="flex items-center font-semibold text-gray-600 dark:text-gray-100">
               Application Type?
             </p>
             <div className="grid-cols-1 lg:grid-cols-2 items-center">
@@ -399,6 +469,8 @@ const BuildingInfo = () => {
                   name="radio-1"
                   className="radio border border-[#10AC84] h-4 w-4"
                   value="Private"
+                  checked={radio1 === 'Private' ? radio1 === 'Private' : applicationType === "Private"}
+                  onChange={handleRadio1}
                 />
                 <span className="ml-2 text-base">Private</span>
               </label>
@@ -408,22 +480,25 @@ const BuildingInfo = () => {
                   name="radio-1"
                   className="radio border border-[#10AC84] h-4 w-4"
                   value="Govt. Land"
+                  checked={radio1 === 'Govt. Land' ? radio1 === 'Govt. Land' : applicationType === "Govt. Land"}
+                  onChange={handleRadio1}
                 />
                 <span className="ml-2 text-base">Govt. Land</span>
               </label>
             </div>
           </div>
 
-          <div className="flex flex-col justify-center mx-3">
-            <label className="block text-gray-600 mb-1 font-semibold">
+          <div className="flex flex-col justify-center my-4 mx-3">
+            <label className="block text-gray-600 dark:text-gray-100 mb-1 font-semibold">
               <span>Nature of permission</span>
             </label>
             <select
-              className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
-              value={selectedOptionPermission}
+              id="natureOfPermission"
+              className={inputClass}
+              value={selectedOptionPermission ? selectedOptionPermission : natureOfPermission}
               onChange={handlePermissionChange}
             >
-              <option disabled selected value="Select Nature of permission">
+              <option disabled selected value="">
                 Select Nature of permission
               </option>
               <option value="General">General</option>
@@ -437,24 +512,24 @@ const BuildingInfo = () => {
           <div className="my-4 mx-3">
             <label
               htmlFor="nature"
-              className="block text-gray-600 mb-1 font-semibold"
+              className={labelClass}
             >
               <span>Nature of the site</span>
             </label>
             <select
-              id="nature"
-              className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
-              value={selectedNatureOfTheSite}
+              id="natureOfTheSite"
+              className={inputClass}
+              value={selectedNatureOfTheSite ? selectedNatureOfTheSite : natureOfTheSite}
               onChange={handleNatureChange}
             >
-              <option disabled selected>
+              <option disabled selected value=''>
                 Select Nature of the site
               </option>
-              <option>Approved Layout</option>
-              <option>Regularised under LRS</option>
-              <option>Plot port of RLP/IPLP but not regularised</option>
-              <option>Congested/ Gramakanta/ Old Built-up area</option>
-              <option>Newly Developed/ Built up area</option>
+              <option value='Approved Layout'>Approved Layout</option>
+              <option value='Regularised under LRS'>Regularised under LRS</option>
+              <option value='Plot port of RLP/IPLP but not regularised'>Plot port of RLP/IPLP but not regularised</option>
+              <option value='Congested/ Gramakanta/ Old Built-up area'>Congested/ Gramakanta/ Old Built-up area</option>
+              <option value='Newly Developed/ Built up area'>Newly Developed/ Built up area</option>
             </select>
           </div>
 
@@ -464,18 +539,19 @@ const BuildingInfo = () => {
             label="Survey no."
             placeholder="Survey no."
             type="text"
+            ltpDetails={surveyNo}
           />
 
-          <div className="flex flex-col justify-center mx-3">
-            <label className="block text-gray-600 mb-1 font-semibold">
+          <div className="flex flex-col justify-center my-4 mx-3">
+            <label className={labelClass}>
               <span>District</span>
             </label>
             <select
-              id="District"
+              id="district"
               name="District"
-              className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
+              className={inputClass}
               onChange={handleDistrictChange}
-              value={selectedDistrict}
+              value={selectedDistrict ? selectedDistrict : district}
             >
               <option value="" disabled>
                 Select District
@@ -488,14 +564,14 @@ const BuildingInfo = () => {
             </select>
           </div>
 
-          <div className="flex flex-col justify-center mx-3">
-            <label className="block text-gray-600 mb-1 font-semibold">
+          <div className="flex flex-col justify-center my-4 mx-3">
+            <label className={labelClass}>
               <span>Mandal</span>
             </label>
             <select
-              id="Mandal"
-              name="Mandal"
-              className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
+              id="mandal"
+              name="mandal"
+              className={inputClass}
               onChange={handleMandalChange}
               value={selectedMandal}
               disabled={!selectedDistrict}
@@ -519,16 +595,17 @@ const BuildingInfo = () => {
             name="Grama Panchayat"
             label="Grama Panchayat"
             placeholder="Grama Panchayat"
+            ltpDetails={gramaPanchayat}
           />
 
-          <div className="flex flex-col justify-center mx-3">
-            <label className="block text-gray-600 mb-1 font-semibold">
+          <div className="flex flex-col justify-center my-4 mx-3">
+            <label className={labelClass}>
               <span>Village</span>
             </label>
             <select
-              id="Village"
-              name="Village"
-              className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
+              id="village"
+              name="village"
+              className={inputClass}
               value={selectedVillage}
               onChange={(e) => setSelectedVillage(e.target.value)}
               disabled={!selectedMandal}
@@ -557,6 +634,7 @@ const BuildingInfo = () => {
                   name="BpsApprovedNo"
                   label="BPS approved no."
                   placeholder="BPS approved no."
+                  ltpDetails={bpsApprovedNoServer}
                   type="number"
                 />
               </div>
@@ -571,6 +649,7 @@ const BuildingInfo = () => {
                   label="Previews approved file no."
                   placeholder="Previews approved file no."
                   type="number"
+                  ltpDetails={previewsApprovedFileNo}
                 />
               </div>
             )}
@@ -586,6 +665,7 @@ const BuildingInfo = () => {
                     label="L.P. no."
                     placeholder="L.P. no."
                     type="number"
+                    ltpDetails={lpNo}
                   />
                   <InputField
                     id="PlotNo"
@@ -593,9 +673,11 @@ const BuildingInfo = () => {
                     label="Plot no."
                     placeholder="Plot no."
                     type="number"
+                    ltpDetails={plotNo}
                   />
                 </>
               )}
+
               {selectedNatureOfTheSite === "Regularised under LRS" && (
                 <>
                   <InputField
@@ -604,6 +686,7 @@ const BuildingInfo = () => {
                     label="LRS no"
                     placeholder="LRS no."
                     type="number"
+                    ltpDetails={lrsNo}
                   />
                   <InputField
                     id="PlotNo2"
@@ -611,19 +694,22 @@ const BuildingInfo = () => {
                     label="Plot no"
                     placeholder="Plot no."
                     type="number"
+                    ltpDetails={plotNo2}
                   />
                 </>
               )}
+
               {selectedNatureOfTheSite ===
                 "Plot port of RLP/IPLP but not regularised" && (
-                <InputField
-                  id="IplpNo"
-                  name=""
-                  label="RLP/IPLP no."
-                  placeholder="RLP/IPLP no."
-                  type="number"
-                />
-              )}
+                  <InputField
+                    id="IplpNo"
+                    name=""
+                    label="RLP/IPLP no."
+                    placeholder="RLP/IPLP no."
+                    type="number"
+                    ltpDetails={iplpNo}
+                  />
+                )}
             </>
           )}
           {/*===================== Conditional Input Field End =====================*/}
@@ -631,449 +717,436 @@ const BuildingInfo = () => {
       </div>
 
       {/* plot details  */}
-      <div className="mb-5">
+      <div className="divide-y-2 divide-gray-200 mb-10">
         <div className="flex items-center">
           <img src={plotImage} alt="" className="h-10 me-3" />
-          <h3 className="font-bold text-xl my-3">Plot Details</h3>
+          <h3 className="font-bold text-xl">Plot Details</h3>
         </div>
-        <div className="divider m-0"></div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 mt-5">
-          <InputField
-            type="number"
-            id="TotalPlotDocument"
-            name=""
-            label="Total Plot are as per document"
-            placeholder="in Sq.M."
-          />
-          <InputField
-            type="number"
-            id="TotalPlotGround"
-            name=""
-            label="Total Plot are as on ground"
-            placeholder="in Sq.M."
-          />
-
-          <div className="my-4 mx-3">
-            <label
-              htmlFor="ProposedPlotArea"
-              className="block text-gray-600 mb-1 font-semibold"
-            >
-              Proposed Plot area
-            </label>
-            <input
+        <div className="mt-2">
+          <div className="grid grid-cols-2 lg:grid-cols-4">
+            <InputField
               type="number"
-              id="ProposedPlotArea"
+              id="TotalPlotDocument"
+              name=""
+              label="Total Plot are as per document"
               placeholder="in Sq.M."
-              className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
-              value={proposedPlotArea}
-              onChange={handleProposedPlotAreaChange}
+              ltpDetails={totalPlotDocument}
             />
-          </div>
-
-          <div className="my-4 mx-3">
-            <label
-              htmlFor="ProposedPlot"
-              className="block text-gray-600 mb-1 font-semibold"
-            >
-              Road Widening Area
-            </label>
-            <input
+            <InputField
               type="number"
+              id="TotalPlotGround"
+              name=""
+              label="Total Plot are as on ground"
               placeholder="in Sq.M."
-              className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
-              value={roadWideningArea}
-              onChange={handleRoadWideningAreaChange}
+              ltpDetails={totalPlotGround}
             />
-          </div>
 
-          {/* Automatically calculated Plot Details  */}
-          <div className="my-4 mx-3">
-            <label
-              htmlFor="disabled-input"
-              className="block text-gray-600 mb-1 font-semibold"
-            >
-              Net Plot Area (in Sq.M.)
-            </label>
-            <input
-              type="text"
-              id="NetPlotArea"
-              name="NetPlotArea"
-              placeholder="Automatically calculated"
-              className="w-full px-3 py-2 border rounded-lg max-w-xs"
-              value={netPlotArea}
-              disabled
-            />
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 mx-5 md:mx-10 lg:mx-14 my-10">
-          <div className="flex flex-col md:flex-row font-medium mb-4 text-lg">
-            <div className="flex items-center mb-3 md:mb-0">
-              <FaHandPointRight className="me-3 w-5 lg:w-auto text-green-500" />
-              <p className="font-bold text-lg">
-                Whether site abuts any Existing Road?
-              </p>
+            <div className="my-4 mx-3">
+              <label
+                htmlFor=""
+                className={labelClass}
+              >
+                Proposed Plot area
+              </label>
+              <input
+                type="number"
+                id="proposedPlotArea"
+                name="proposedPlotArea"
+                placeholder="in Sq.M."
+                className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
+                defaultValue={proposedPlotArea ? proposedPlotArea : proposedPlotAreaCal}
+                onChange={handleProposedPlotAreaChange}
+              />
             </div>
-            <label className="inline-flex items-center ml-3">
-              <input
-                type="radio"
-                name="radio-2"
-                className="radio border border-[#10AC84] h-4 w-4"
-                value="yes"
-              />
-              <span className="ml-2 text-base">Yes</span>
-            </label>
-            <label className="inline-flex items-center ml-3">
-              <input
-                type="radio"
-                name="radio-2"
-                className="radio border border-[#10AC84] h-4 w-4"
-                value="no"
-              />
-              <span className="ml-2 text-base">No</span>
-            </label>
-          </div>
 
-          <div className="flex flex-col md:flex-row font-medium mb-4 text-lg mt-4">
-            <div className="flex items-center mb-3 md:mb-0">
-              <FaHandPointRight className="me-3 w-5 lg:w-auto text-green-500" />
-              <p className="font-bold text-lg">Status of Road?</p>
+            <div className="my-4 mx-3">
+              <label
+                htmlFor=""
+                className={labelClass}
+              >
+                Road Widening Area
+              </label>
+              <input
+                id="roadWideningArea"
+                type="number"
+                placeholder="in Sq.M."
+                className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
+                defaultValue={roadWideningArea ? roadWideningArea : roadWideningAreaCal}
+                onChange={handleRoadWideningAreaChange}
+              />
             </div>
-            <label className="inline-flex items-center ml-3">
-              <input
-                type="radio"
-                name="radio-3"
-                className="radio border border-[#10AC84] h-4 w-4"
-                value="Public"
-              />
-              <span className="ml-2 text-base">Public</span>
-            </label>
-            <label className="inline-flex items-center ml-3">
-              <input
-                type="radio"
-                name="radio-3"
-                className="radio border border-[#10AC84] h-4 w-4"
-                value="Private"
-              />
-              <span className="ml-2 text-base">Private</span>
-            </label>
-          </div>
-        </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 mt-3">
-          <div className="flex flex-col justify-center mx-3">
-            <label className="block text-gray-600 mb-1 font-semibold">
-              <span>Nature of Road</span>
-            </label>
-            <select
-              id="natureOfRoad"
-              className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
-            >
-              <option disabled selected>
-                Select Nature of Road
-              </option>
-              <option>BT Road</option>
-              <option>CC Road</option>
-              <option>WBM</option>
-              <option>Kutchha/ Graval</option>
-            </select>
+            {/* Automatically calculated Plot Details  */}
+            <div className="my-4 mx-3">
+              <label
+                htmlFor="disabled-input"
+                className={labelClass}
+              >
+                Net Plot Area (in Sq.M.)
+              </label>
+              <input
+                type="text"
+                id="netPlotArea"
+                name="netPlotArea"
+                placeholder="Automatically calculated"
+                className="w-full px-3 py-2 border rounded-lg max-w-xs"
+                value={netPlotArea ? netPlotArea : netPlotAreaCal}
+                disabled
+              />
+            </div>
           </div>
 
-          <InputField
-            id="existingRoadMts"
-            name="name1"
-            label="Existing road (in Mts.)"
-            placeholder="in Sq.M."
-          />
-          <InputField
-            id="proposedRoadMts"
-            name="name1"
-            label="Proposed road (in Mts.)"
-            placeholder="in Sq.M."
-          />
-          <InputField
-            id="marketValueSqym"
-            name="name1"
-            label="Market Value (per Sq.Yd.)"
-            placeholder="per Sq.Yd."
-          />
-        </div>
+          <div className="grid grid-cols-1 mx-5 md:mx-10 lg:mx-14 my-10">
 
-        {/* Render additional input field sets based on inputFieldCount */}
-        {/* {Array.from({ length: inputFieldCount }).map((_, index) => (
-          <div key={index} className="grid grid-cols-2 lg:grid-cols-4">
+            <div className="flex flex-col md:flex-row font-medium mb-4 text-lg">
+              <div className="flex items-center mb-3 md:mb-0">
+                <FaHandPointRight className="me-3 w-5 lg:w-auto text-green-500" />
+                <p className="font-bold text-lg">
+                  Whether site abuts any Existing Road?
+                </p>
+              </div>
+              <label className="inline-flex items-center ml-3">
+                <input
+                  type="radio"
+                  name="radio-2"
+                  className="radio border border-[#10AC84] h-4 w-4"
+                  value="yes"
+                  checked={radio2 == 'yes' ? radio2 == 'yes' : existingRoad === 'yes'}
+                  onChange={handleRadio2}
+                />
+                <span className="ml-2 text-base">Yes</span>
+              </label>
+              <label className="inline-flex items-center ml-3">
+                <input
+                  type="radio"
+                  name="radio-2"
+                  className="radio border border-[#10AC84] h-4 w-4"
+                  value="no"
+                  checked={radio2 == 'no' ? radio2 == 'no' : existingRoad === 'no'}
+                  onChange={handleRadio2}
+                />
+                <span className="ml-2 text-base">No</span>
+              </label>
+            </div>
+
+            <div className="flex flex-col md:flex-row font-medium mb-4 text-lg mt-4">
+              <div className="flex items-center mb-3 md:mb-0">
+                <FaHandPointRight className="me-3 w-5 lg:w-auto text-green-500" />
+                <p className="font-bold text-lg">Status of Road?</p>
+              </div>
+              <label className="inline-flex items-center ml-3">
+                <input
+                  type="radio"
+                  name="radio-3"
+                  className="radio border border-[#10AC84] h-4 w-4"
+                  value="Public"
+                  checked={radio3 == 'Public' ? radio3 == 'Public' : statusOfRoad === 'Public'}
+                  onChange={handleRadio3}
+                />
+                <span className="ml-2 text-base">Public</span>
+              </label>
+              <label className="inline-flex items-center ml-3">
+                <input
+                  type="radio"
+                  name="radio-3"
+                  className="radio border border-[#10AC84] h-4 w-4"
+                  value="Private"
+                  checked={radio3 == 'Private' ? radio3 == 'Private' : statusOfRoad === 'Private'}
+                  onChange={handleRadio3}
+                />
+                <span className="ml-2 text-base">Private</span>
+              </label>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 mt-3">
             <div className="flex flex-col justify-center mx-3">
-              <label className="block text-gray-600 mb-1 font-semibold">
-                <span>Floor Name</span>
+              <label className={labelClass}>
+                <span>Nature of Road</span>
               </label>
               <select
-                id={`floorName${index}`}
-                className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
+                id="natureOfRoad"
+                className={inputClass}
+                // value={natureOfRoad}
+                value={natureOfRoadValue ? natureOfRoadValue : natureOfRoad}
+                onChange={handleNatureOfRoad}
               >
                 <option disabled selected>
-                  Select Floor Name
+                  Select Nature of Road
                 </option>
-                <option>Stilt / Parking Floor</option>
-                <option>Ground floor</option>
-                <option>First Floor</option>
-                <option>Second Floor</option>
+                <option>BT Road</option>
+                <option>CC Road</option>
+                <option>WBM</option>
+                <option>Kutchha/ Graval</option>
               </select>
             </div>
 
+            <InputField
+              id="existingRoadMts"
+              name="name1"
+              label="Existing road (in Mts.)"
+              placeholder="in Sq.M."
+              ltpDetails={existingRoadMts}
+            />
+            <InputField
+              id="proposedRoadMts"
+              name="name1"
+              label="Proposed road (in Mts.)"
+              placeholder="in Sq.M."
+              ltpDetails={proposedRoadMts}
+            />
+            <InputField
+              id="marketValueSqym"
+              name="name1"
+              label="Market Value (per Sq.Yd.)"
+              placeholder="per Sq.Yd."
+              ltpDetails={marketValueSqym}
+            />
+          </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4">
+            {totalFloor.map((floor, index) => (
+              <FloorDetails
+                key={index}
+                floor={floor}
+                index={index}
+                length={totalFloor.length}
+                increaseFloorNo={increaseFloorNo}
+                handleBuiltUpArea={handleBuiltUpArea}
+                handleParkingArea={handleParkingArea}
+                parkingAreaValue={parkingArea[index]}
+                builtUpAreaValue={builtUpArea[index]}
+                plotDetailsFloor={plotDetailsFloor[index]}
+              />
+            ))}
+          </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 mt-5">
             <div className="my-4 mx-3">
               <label
-                htmlFor={`builtUpArea${index}`}
-                className="block text-gray-600 mb-1 font-semibold"
+                htmlFor="disabled-input"
+                className={labelClass}
               >
-                Built up area (in Sq.M.)
+                Total Built up area
               </label>
               <input
-                type="number"
-                id={`builtUpArea${index}`}
-                placeholder="in Sq.M."
-                className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
-                value={builtUpArea[index] || ""}
-                onChange={(e) => handleBuiltUpArea(index, e.target.value)}
+                type="text"
+                id="totalBuiltUpArea"
+                name="name1"
+                placeholder="Automatically calculated"
+                className="w-full px-3 py-2 border rounded-lg max-w-xs"
+                value={builtUpAreaSum ? builtUpAreaSum : totalBuiltUpArea}
+                disabled
               />
             </div>
 
             <div className="my-4 mx-3">
               <label
-                htmlFor={`parkingArea${index}`}
-                className="block text-gray-600 mb-1 font-semibold"
+                htmlFor="disabled-input2"
+                className={labelClass}
               >
-                Parking Area (in Sq.M.)
+                Total Parking area
               </label>
               <input
-                type="number"
-                id={`parkingArea${index}`}
-                placeholder="in Sq.M."
-                className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
-                value={parkingArea[index] || ""}
-                onChange={(e) => handleParkingArea(index, e.target.value)}
+                id="totalParkingArea"
+                name="name1"
+                placeholder="Automatically calculated"
+                className="w-full px-3 py-2 border rounded-lg max-w-xs"
+                value={parkingAreaSum ? parkingAreaSum : totalParkingArea}
+                disabled
               />
             </div>
           </div>
-        ))} */}
 
-        <div className="grid grid-cols-2 lg:grid-cols-4">
-          {totalFloor.map((floor, index) => (
-            <FloorDetails
-              key={index}
-              floor={floor}
-              index={index}
-              length={totalFloor.length}
-              increaseFloorNo={increaseFloorNo}
-              handleBuiltUpArea={handleBuiltUpArea}
-              handleParkingArea={handleParkingArea}
+          <div className="grid grid-cols-2 lg:grid-cols-4">
+            <InputField
+              id="frontSetback"
+              name="name72"
+              label="Front setback (in M.)"
+              placeholder="in M."
+              ltpDetails={frontSetback}
             />
-          ))}
-        </div>
-
-        <div className="grid grid-cols-2 lg:grid-cols-4 mt-5">
-          <div className="my-4 mx-3">
-            <label
-              htmlFor="disabled-input"
-              className="block text-gray-600 mb-1 font-semibold"
-            >
-              Total Built up area
-            </label>
-            <input
-              type="text"
-              id="totalBuiltUpArea"
+            <InputField
+              id="rareSetback"
               name="name1"
-              placeholder="Automatically calculated"
-              className="w-full px-3 py-2 border rounded-lg max-w-xs"
-              value={builtUpAreaSum}
-              disabled
+              label="Rare setback (in M.)"
+              placeholder="in M."
+              ltpDetails={rareSetback}
             />
-          </div>
-
-          <div className="my-4 mx-3">
-            <label
-              htmlFor="disabled-input2"
-              className="block text-gray-600 mb-1 font-semibold"
-            >
-              Total Parking area
-            </label>
-            <input
-              id="totalParkingArea"
+            <InputField
+              id="side1Setback"
               name="name1"
-              placeholder="Automatically calculated"
-              className="w-full px-3 py-2 border rounded-lg max-w-xs"
-              value={parkingAreaSum}
-              disabled
+              label="Side1 setback (in M.)"
+              placeholder="in M."
+              ltpDetails={side1Setback}
+            />
+            <InputField
+              id="side2Setback"
+              name="name1"
+              label="Side 2 setback (in M.)"
+              placeholder="in M."
+              ltpDetails={side2Setback}
+            />
+            <InputField
+              id="buildingExcludeStilt"
+              name="name1"
+              label="Total Height of The Building Exclude Stilt (in Mts.)"
+              placeholder="in Mts."
+              ltpDetails={buildingExcludeStilt}
             />
           </div>
-        </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4">
-          <InputField
-            id="frontSetback"
-            name="name72"
-            label="Front setback (in M.)"
-            placeholder="in M."
-          />
-          <InputField
-            id="rareSetback"
-            name="name1"
-            label="Rare setback (in M.)"
-            placeholder="in M."
-          />
-          <InputField
-            id="side1Setback"
-            name="name1"
-            label="Side1 setback (in M.)"
-            placeholder="in M."
-          />
-          <InputField
-            id="side2Setback"
-            name="name1"
-            label="Side 2 setback (in M.)"
-            placeholder="in M."
-          />
-          <InputField
-            id="buildingExcludeStilt"
-            name="name1"
-            label="Total Height of The Building Exclude Stilt (in Mts.)"
-            placeholder="in Mts."
-          />
-        </div>
-
-        <div className="grid grid-cols-1 mx-5 md:mx-10 lg:mx-14 my-10">
-          <div className="flex flex-col md:flex-row font-medium mb-4 text-lg">
-            <div className="flex items-center mb-3 md:mb-0">
-              <FaHandPointRight className="me-3 w-5 lg:w-auto text-green-500" />
-              <p className="font-bold text-lg">Compounding wall proposed?</p>
+          <div className="grid grid-cols-1 mx-5 md:mx-10 lg:mx-14 mb-5 mt-10">
+            <div className="flex flex-col md:flex-row font-medium mb-4 text-lg">
+              <div className="flex items-center mb-3 md:mb-0">
+                <FaHandPointRight className="me-3 w-5 lg:w-auto text-green-500" />
+                <p className="font-bold text-lg">Compounding wall proposed?</p>
+              </div>
+              <label className="inline-flex items-center ml-3">
+                <input
+                  type="radio"
+                  name="radio-4"
+                  className="radio border border-[#10AC84] h-4 w-4"
+                  value='yes'
+                  checked={radio4 == 'yes' ? radio4 == 'yes' : compoundingWallProposed === 'yes'}
+                  onChange={handleRadio4}
+                />
+                <span className="ml-2 text-base">Yes</span>
+              </label>
+              <label className="inline-flex items-center ml-3">
+                <input
+                  type="radio"
+                  name="radio-4"
+                  className="radio border border-[#10AC84] h-4 w-4"
+                  value="no"
+                  checked={radio4 == 'no' ? radio4 == 'no' : compoundingWallProposed === 'no'}
+                  onChange={handleRadio4}
+                />
+                <span className="ml-2 text-base">No</span>
+              </label>
             </div>
-            <label className="inline-flex items-center ml-3">
-              <input
-                type="radio"
-                name="radio-4"
-                className="radio border border-[#10AC84] h-4 w-4"
-                value="yes"
-              />
-              <span className="ml-2 text-base">Yes</span>
-            </label>
-            <label className="inline-flex items-center ml-3">
-              <input
-                type="radio"
-                name="radio-4"
-                className="radio border border-[#10AC84] h-4 w-4"
-                value="no"
-              />
-              <span className="ml-2 text-base">No</span>
-            </label>
-          </div>
 
-          <div className="flex flex-col md:flex-row font-medium mb-4 text-lg mt-4">
-            <div className="flex items-center mb-3 md:mb-0">
-              <FaHandPointRight className="me-3 w-7 lg:w-auto text-green-500" />
-              <p className="font-bold text-lg">
-                Whether site Registered as house plot/ Building prior to
-                18-01-2006?
-              </p>
+            <div className="flex flex-col md:flex-row font-medium mb-4 text-lg mt-4">
+              <div className="flex items-center mb-3 md:mb-0">
+                <FaHandPointRight className="me-3 w-7 lg:w-auto text-green-500" />
+                <p className="font-bold text-lg">
+                  Whether site Registered as house plot/ Building prior to
+                  18-01-2006?
+                </p>
+              </div>
+              <label className="inline-flex items-center ml-3">
+                <input
+                  type="radio"
+                  name="radio-5"
+                  className="radio border border-[#10AC84] h-4 w-4"
+                  value='yes'
+                  checked={radio5 == 'yes' ? radio5 == 'yes' : siteRegistered === 'yes'}
+                  onChange={handleRadio5}
+                />
+                <span className="ml-2 text-base">Yes</span>
+              </label>
+              <label className="inline-flex items-center ml-3">
+                <input
+                  type="radio"
+                  name="radio-5"
+                  className="radio border border-[#10AC84] h-4 w-4"
+                  value='no'
+                  checked={radio5 == 'no' ? radio5 == 'no' : siteRegistered === 'no'}
+                  onChange={handleRadio5}
+                />
+                <span className="ml-2 text-base">No</span>
+              </label>
             </div>
-            <label className="inline-flex items-center ml-3">
-              <input
-                type="radio"
-                name="radio-5"
-                className="radio border border-[#10AC84] h-4 w-4"
-                value="Yes"
-              />
-              <span className="ml-2 text-base">Yes</span>
-            </label>
-            <label className="inline-flex items-center ml-3">
-              <input
-                type="radio"
-                name="radio-5"
-                className="radio border border-[#10AC84] h-4 w-4"
-                value="No"
-              />
-              <span className="ml-2 text-base">No</span>
-            </label>
           </div>
         </div>
       </div>
 
       {/* schedule boundaries  */}
-      <div>
-        <div className="flex items-center mb-2">
+      <div className="divide-y-2 divide-gray-200">
+        <div className="flex items-center">
           <img src={wallImage} alt="A image of wall" className="h-8 me-3" />
           <h3 className="font-bold text-xl">Schedule of Boundaries</h3>
         </div>
-        <div className="divider m-0"></div>
-        <div className="grid grid-cols-2 lg:grid-cols-4 items-center my-5">
-          <div className="flex flex-col  justify-center mx-3">
-            <label className="block text-gray-600 mb-1 font-semibold">
+
+        <div className="grid grid-cols-2 lg:grid-cols-4 items-center mt-2">
+          <div className="flex flex-col my-4 justify-center mx-3">
+            <label className={labelClass}>
               <span>North</span>
             </label>
             <select
               id="north"
-              className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
+              className={inputClass}
+              value={northValue ? northValue : north}
+              onChange={handleNorthChange}
             >
-              <option disabled selected>
+              <option disabled selected value=''>
                 Select North
               </option>
-              <option>Road</option>
-              <option>Plot</option>
-              <option>Vacant land</option>
-              <option>Water body</option>
+              <option value='Road'>Road</option>
+              <option value='Plot'>Plot</option>
+              <option value='Vacant land'>Vacant land</option>
+              <option value='Water body'>Water body</option>
             </select>
           </div>
 
-          <div className="flex flex-col  justify-center mx-3">
-            <label className="block text-gray-600 mb-1 font-semibold">
+          <div className="flex flex-col my-4 justify-center mx-3">
+            <label className={labelClass}>
               <span>South</span>
             </label>
             <select
               id="south"
-              className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
+              className={inputClass}
+              value={southValue ? southValue : south}
+              onChange={handleSouthChange}
             >
-              <option disabled selected>
+              <option disabled selected value=''>
                 Select South
               </option>
-              <option>Road</option>
-              <option>Plot</option>
-              <option>Vacant land</option>
-              <option>Water body</option>
+              <option value='Road'>Road</option>
+              <option value='Plot'>Plot</option>
+              <option value='Vacant land'>Vacant land</option>
+              <option value='Water body'>Water body</option>
             </select>
           </div>
 
-          <div className="flex flex-col  justify-center mx-3">
-            <label className="block text-gray-600 mb-1 font-semibold">
+          <div className="flex flex-col my-4 justify-center mx-3">
+            <label className={labelClass}>
               <span>East</span>
             </label>
             <select
               id="east"
-              className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
+              className={inputClass}
+              value={eastValue ? eastValue : east}
+              onChange={handleEastChange}
             >
-              <option disabled selected>
+              <option disabled selected value=''>
                 Select East
               </option>
-              <option>Road</option>
-              <option>Plot</option>
-              <option>Vacant land</option>
-              <option>Water body</option>
+              <option value='Road'>Road</option>
+              <option value='Plot'>Plot</option>
+              <option value='Vacant land'>Vacant land</option>
+              <option value='Water body'>Water body</option>
             </select>
           </div>
 
-          <div className="flex flex-col  justify-center mx-3">
-            <label className="block text-gray-600 mb-1 font-semibold">
+          <div className="flex flex-col my-4 justify-center mx-3">
+            <label className={labelClass}>
               <span>West</span>
             </label>
             <select
               id="west"
-              className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
+              className={inputClass}
+              value={westValue ? westValue : west}
+              onChange={handleWestChange}
             >
-              <option disabled selected>
+              <option disabled selected value=''>
                 Select West
               </option>
-              <option>Road</option>
-              <option>Plot</option>
-              <option>Vacant land</option>
-              <option>Water body</option>
+              <option value='Road'>Road</option>
+              <option value='Plot'>Plot</option>
+              <option value='Vacant land'>Vacant land</option>
+              <option value='Water body'>Water body</option>
             </select>
           </div>
         </div>
@@ -1088,7 +1161,7 @@ const BuildingInfo = () => {
         confirmAlert={confirmAlert}
         collectInputFieldData={collectInputFieldData}
       />
-    </div>
+    </div >
   );
 };
 

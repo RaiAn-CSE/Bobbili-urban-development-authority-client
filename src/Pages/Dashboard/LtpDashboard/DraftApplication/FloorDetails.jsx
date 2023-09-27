@@ -1,29 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 
-const FloorDetails = ({
-  index,
-  floor,
-  length,
-  increaseFloorNo,
-  handleBuiltUpArea,
-  handleParkingArea,
-}) => {
-  // console.log(floorInfo, index);
+const FloorDetails = ({ index, floor, length, increaseFloorNo, handleBuiltUpArea, handleParkingArea, plotDetailsFloor, parkingAreaValue, builtUpAreaValue }) => {
 
-  console.log(floor, index);
+  const [floorChange, setFloorChange] = useState('')
+  const handleFloorChange = (e) => {
+    setFloorChange(e.target.value);
+  }
 
   return (
     <>
       <div className="flex flex-col justify-center mx-3">
-        <label className="block text-gray-600 mb-1 font-semibold">
+        <label className="block text-gray-600 mb-1 font-semibold dark:text-gray-100">
           <span>Floor Name</span>
         </label>
         <select
           id={`floorName${index}`}
           name={`floorName${index}`}
-          className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs"
+          className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs dark:text-black"
+          value={floorChange ? floorChange : plotDetailsFloor?.name}
+          onChange={handleFloorChange}
         >
-          <option disabled selected>
+          <option disabled value='' selected>
             Select Floor Name
           </option>
           <option>Stilt / Parking Floor</option>
@@ -36,7 +33,7 @@ const FloorDetails = ({
       <div className="my-4 mx-3">
         <label
           htmlFor="ProposedPlotArea"
-          className="block text-gray-600 mb-1 font-semibold"
+          className="block text-gray-600 mb-1 font-semibold dark:text-gray-100"
         >
           Built up area (in Sq.M.)
         </label>
@@ -45,7 +42,8 @@ const FloorDetails = ({
           id={`builtUpArea${index}`}
           name={`builtUpArea${index}`}
           placeholder="in Sq.M."
-          className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
+          className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
+          defaultValue={builtUpAreaValue ? builtUpAreaValue : plotDetailsFloor?.builtUpArea}
           onChange={(e) => handleBuiltUpArea(e.target.value, index)}
         />
       </div>
@@ -53,7 +51,7 @@ const FloorDetails = ({
       <div className="my-4 mx-3">
         <label
           htmlFor="ProposedPlotArea"
-          className="block text-gray-600 mb-1 font-semibold"
+          className="block text-gray-600 mb-1 font-semibold dark:text-gray-100"
         >
           Parking Area (in Sq.M.)
         </label>
@@ -62,7 +60,8 @@ const FloorDetails = ({
           id={`parkingArea${index}`}
           name={`parkingArea${index}`}
           placeholder="in Sq.M."
-          className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs"
+          className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
+          defaultValue={parkingAreaValue ? parkingAreaValue : plotDetailsFloor?.parkingArea}
           onChange={(e) => handleParkingArea(e.target.value, index)}
         />
       </div>
