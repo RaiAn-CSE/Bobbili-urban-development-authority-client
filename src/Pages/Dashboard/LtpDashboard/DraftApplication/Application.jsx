@@ -46,66 +46,29 @@ function Application({ setOpenApplication }) {
   console.log("LtPName", name)
   // ====Applicant Info
   const Part01 = [
-    { "NAME": "John Doe" },
-    { "DOOR No. / FLAT No.": "123" },
-    { "ROAD/STREET": "Main Street" },
-    [{ "VILLAGE": "Village 1" }, { "MANDAL": "Mandal 1" }],
-    { "CITY/TOWN": ["PIN", "12345"] },
-    { "DISTRICT": "District 1" },
-    { "E-MAIL": "john@example.com" },
-    [{ "MOBILE": "1234567890" }, { "ALTERNATE": "9876543210" }]
+    { "NAME": ApplicantName },
+    { "DOOR No. / FLAT No.": adharNo },
+    { "ROAD/STREET": roadWideningAreaCal },
+    [{ "VILLAGE": village }, { "MANDAL": mandal }],
+    { "CITY/TOWN": ["PIN - ", pinCode] },
+    { "DISTRICT": district },
+    { "E-MAIL": AppEmail },
+    [{ "MOBILE": applicantPhone }, { "ALTERNATE": "9876543210" }]
   ];
 
-  let Part01Keys = [];
-  let Part01Values = [];
-
-  // Part01.map((item, i) => {
-  //   // const values = Object.values(Part01[i])
-  //   // Part01Values.push(values);
-  //   if (typeof item == "object") {
-  //     const keys = Object.keys(Part01[i]);
-  //     if (keys[0] == 0) {
-  //       return Part01Keys.push(item)
-  //     } else {
-  //       return Part01Keys.push(keys);
-  //     }
-  //   }
-  // })
-  // const Part01KeysArray = Part01Keys.flat();
-  // const Part01ValuesArray = Part01Values.flat();
-  // console.log({ Part01KeysArray, Part01ValuesArray });
-
-  // // LTP Info
+  // // 
   const Part02 = [
-    { "PLOT NOs": "" },
-    { "SANCTIONED LAYOUT NO. / LRS NO": "" },
-    [{ "SURVEY NO.": "" }, { "VILLAGE": "" }],
-    { "PREMISES / DOOR No.": "" },
-    { "ROAD/ STREET": "" },
-    [{ "WARD NO.": "" }, { "BLOCK No": "" }],
-    { "LOCALITY": "" },
-    [{ "CIRCLE/DIVISION": "" }, { "DIVISION": "" }],
-    [{ "CITY/TOWN": "" }, { "DISTRICT": "" }],
+    { "PLOT NOs": plotNo },
+    { "SANCTIONED LAYOUT NO. / LRS NO": lrsNo },
+    [{ "SURVEY NO.": surveyNo }, { "VILLAGE": village }],
+    { "PREMISES / DOOR No.": 12 },
+    { "ROAD/ STREET": existingRoad },
+    [{ "WARD NO.": "Not got yet" }, { "BLOCK No": "Not got yet" }],
+    { "LOCALITY": "Not got yet " },
+    [{ "CIRCLE/DIVISION": gramaPanchayat }, { "DIVISION": gramaPanchayat }],
+    [{ "CITY/TOWN": district }, { "DISTRICT": district }],
   ];
-  // let Part02Keys = [];
-  // let Part02Values = [];
 
-  // Part02.map((item, i) => {
-  //   const values = Object.values(Part02[i])
-  //   Part02Values.push(values);
-
-  //   if (typeof item == "object") {
-  //     const keys = Object.keys(Part02[i]);
-  //     if (keys[0] == 0) {
-  //       return Part02Keys.push(item)
-  //     } else {
-  //       return Part02Keys.push(keys);
-  //     }
-  //   }
-  // })
-  // const Part02KeysArray = Part02Keys.flat();
-  // const Part02ValuesArray = Part02Values.flat();
-  // console.log({ Part02KeysArray, Part02ValuesArray });
 
   // Part03
   const Part03 = [
@@ -132,8 +95,6 @@ function Application({ setOpenApplication }) {
     { TOTAL: "" },
   ];
 
-
-
   // Part-4
   // index4
   const row5 = [
@@ -152,33 +113,27 @@ function Application({ setOpenApplication }) {
     { "TOWN PLANNER": "" },
   ];
   const AddressCol = [
-    { address: "123 Main St" },
-    { address: "Apt 456" },
-    { address: "789 Elm St" },
-    { address: "Unit 101" },
-    { address: "456 Oak Ave" },
-    { address: "Suite 303" },
+    { address: village },
+    { address: village },
+    { address: village },
+    { address: village },
+    { address: village },
+    { address: village },
   ];
   const LicenceNo = [
-    { licenceNo: "AB123456" },
-    { licenceNo: "CD789012" },
-    { licenceNo: "EF345678" },
-    { licenceNo: "GH901234" },
-    { licenceNo: "IJ567890" },
-    { licenceNo: "KL123456" },
+    { licenceNo: adharNo },
+    { licenceNo: adharNo },
+    { licenceNo: adharNo },
+    { licenceNo: adharNo },
+    { licenceNo: adharNo },
+    { licenceNo: adharNo },
   ];
 
-
-  const part01IndexArray = [3, 4, 7];
-  const part02SubArray = [2, 5, 7, 8];
   const part03SubArray = [0, 1, 4];
 
-
-  // Part01
+  // Part01 && Part02 Keys and Values
   const renderCol = (data, index, type) => {
-    const isString = typeof data === "object";
     const keys = type === "keys";
- 
     const isArray = Array.isArray(data)
     if (isArray) {
       return (
@@ -198,7 +153,6 @@ function Application({ setOpenApplication }) {
         </td>
       );
     } else {
-      console.log(isString, data, "isString,data");
       return (
         <td className="bg-white border border-black w-36 p-0">
           <p className="h-12 p-2 flex items-center">{(keys ? Object.keys(data) : Object.values(data))}</p>
@@ -305,18 +259,22 @@ function Application({ setOpenApplication }) {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="bg-white p-0">
-                    <td>
-                      {Part01.map((data, index) => index + 1)}
-                    </td>
-                    {/* col-02 */}
-                    {/* {renderCol(Part02KeysArray)} */}
+                  {/* row 1 */}
+                  {Part01.map((item, index) => {
+                    return (
+                      <tr key={item} className="bg-white">
+                        {/* col-01 */}
+                        <th className="bg-white border border-black w-14">
+                          {index + 1}
+                        </th>
+                        {/* col-02 */}
+                        {renderCol(item, index, "keys")}
 
-                    {/* col-03*/}
-                    <td className="bg-white border border-black p-0">
-                      {/* {renderCol(Part02ValuesArray)} */}
-                    </td>
-                  </tr>
+                        {/* col-03 */}
+                        {renderCol(item, index, "values")}
+                      </tr>
+                    )
+                  })}
                 </tbody>
               </table>
             </div>
@@ -338,7 +296,6 @@ function Application({ setOpenApplication }) {
                 <tbody>
                   {/* row 1 */}
                   {Part02.map((item, index) => {
-                    console.log(item, "Item")
                     return (
                       <tr key={item} className="bg-white">
                         {/* col-01 */}
