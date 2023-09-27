@@ -327,67 +327,113 @@ const Payment = () => {
   console.log(calculatedData, "Calculated data");
 
   // send data into database
-  const sendPaymentData = async () => {
+  const sendPaymentData = async (url) => {
     console.log("object");
 
     // GET UDA CHARGE SECTIONS DATA
-    const vacantArea = document.getElementById("vacantArea");
-    const builtUpArea = document.getElementById("builtUpArea");
-    const UdaImpactFee = document.getElementById("UdaImpactFee");
-    const UDATotalCharged = document.getElementById("UDATotalCharged");
-    const gramaSiteApproval = document.getElementById("gramaSiteApproval");
-    const buildingPermitFees = document.getElementById("buildingPermitFees");
-    const bettermentCharged = document.getElementById("bettermentCharged");
+    const vacantArea = document.getElementById("vacantArea").value;
+    const builtUpArea = document.getElementById("builtUpArea").value;
+    const UdaImpactFee = document.getElementById("UdaImpactFee").value;
+    const UDATotalCharged = document.getElementById("UDATotalCharged").value;
+    const gramaSiteApproval =
+      document.getElementById("gramaSiteApproval").value;
+    const buildingPermitFees =
+      document.getElementById("buildingPermitFees").value;
+    const bettermentCharged =
+      document.getElementById("bettermentCharged").value;
     const TotalOpenSpaceCharged = document.getElementById(
       "TotalOpenSpaceCharged"
-    );
-    const gramaImpactFee = document.getElementById("gramaImpactFee");
+    ).value;
+    const gramaImpactFee = document.getElementById("gramaImpactFee").value;
     const TotalPenalizationCharged = document.getElementById(
       "TotalPenalizationCharged"
-    );
+    ).value;
     const GramaPanchayetTotalCharged = document.getElementById(
       "GramaPanchayetTotalCharged"
-    );
-    const gramaChallanNo = document.getElementById("gramaChallanNo");
-    const gramaChallanDate = document.getElementById("gramaChallanDate");
-    const gramaBankName = document.getElementById("gramaBankName");
-    const gramaBankBranch = document.getElementById("gramaBankBranch");
+    ).value;
+    const gramaChallanNo = document.getElementById("gramaChallanNo").value;
+    const gramaChallanDate = document.getElementById("gramaChallanDate").value;
+    const gramaBankName = document.getElementById("gramaBankName").value;
+    const gramaBankBranch = document.getElementById("gramaBankBranch").value;
     const labourCessSiteApproval = document.getElementById(
       "labourCessSiteApproval"
-    );
-    const labourCessChallanNo = document.getElementById("labourCessChallanNo");
+    ).value;
+    const labourCessChallanNo = document.getElementById(
+      "labourCessChallanNo"
+    ).value;
     const labourCessChallanDate = document.getElementById(
       "labourCessChallanDate"
-    );
-    const labourCessBankName = document.getElementById("labourCessBankName");
+    ).value;
+    const labourCessBankName =
+      document.getElementById("labourCessBankName").value;
     const labourCessBankBranch = document.getElementById(
       "labourCessBankBranch"
-    );
+    ).value;
     const greenFeeSiteApproval = document.getElementById(
       "greenFeeSiteApproval"
-    );
+    ).value;
     const greenFeeChargeChallanNo = document.getElementById(
       "greenFeeChargeChallanNo"
-    );
+    ).value;
     const greenFeeChargeChallanDate = document.getElementById(
       "greenFeeChargeChallanDate"
     );
     const greenFeeChargeBankName = document.getElementById(
       "greenFeeChargeBankName"
-    );
+    ).value;
     const greenFeeChargeBankBranch = document.getElementById(
       "greenFeeChargeBankBranch"
-    );
+    ).value;
 
-    const udaCharge = {};
+    const udaCharge = {
+      vacantArea,
+      builtUpArea,
+      UdaImpactFee,
+      UDATotalCharged,
+    };
+    const gramaPanchayatFee = {
+      gramaSiteApproval,
+      buildingPermitFees,
+      bettermentCharged,
+      TotalOpenSpaceCharged,
+      gramaImpactFee,
+      TotalPenalizationCharged,
+      GramaPanchayetTotalCharged,
+      gramaChallanNo,
+      gramaChallanDate,
+      gramaBankName,
+      gramaBankBranch,
+    };
+    const labourCessCharge = {
+      labourCessBankBranch,
+      labourCessBankName,
+      labourCessChallanDate,
+      labourCessChallanNo,
+      labourCessSiteApproval,
+    };
+    const greenFeeCharge = {
+      greenFeeChargeBankBranch,
+      greenFeeChargeBankName,
+      greenFeeChargeChallanDate,
+      greenFeeChargeChallanNo,
+      greenFeeSiteApproval,
+    };
 
-    // return await sendUserDataIntoDB(url, "PATCH", {
-    //   applicationNo: JSON.parse(localStorage.getItem("CurrentAppNo")),
-    //   payment: {},
-    // });
+    // console.log(udaCharge, greenFeeCharge, labourCessCharge, gramaPanchayatFee);
+
+    return await sendUserDataIntoDB(url, "PATCH", {
+      applicationNo: JSON.parse(localStorage.getItem("CurrentAppNo")),
+      payment: {
+        udaCharge,
+        greenFeeCharge,
+        labourCessCharge,
+        gramaPanchayatFee,
+      },
+    });
   };
 
   console.log(condition, "CONSOLE");
+  console.log(applicationData, "APPDATA");
 
   return (
     <form
