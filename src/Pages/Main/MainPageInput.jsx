@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ApplicationSearchInput = ({ label, id, text, placeholder }) => {
+const MainPageInput = ({ label, id, text, placeholder }) => {
     return (
         <div className='flex items-center px-5 text-gray-400 mt-2'>
             <label className="basis-[40%]" htmlFor={id}>
@@ -17,4 +17,4 @@ const ApplicationSearchInput = ({ label, id, text, placeholder }) => {
     );
 };
 
-export default ApplicationSearchInput;
+export default MainPageInput;
