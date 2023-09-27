@@ -79,7 +79,7 @@ const BuildingInfo = () => {
       return accumulator + currentValue;
     });
 
-    setBuiltUpAreaSum(totalBuiltUpArea);
+    setBuiltUpAreaSum(totalBuiltUpArea === 0 ? "" : totalBuiltUpArea);
 
     console.log(parkingArea, "Parking area");
     const totalParkingArea = parkingArea.reduce(
@@ -87,7 +87,7 @@ const BuildingInfo = () => {
       0
     );
 
-    setParkingAreaSum(totalParkingArea);
+    setParkingAreaSum(totalParkingArea === 0 ? "" : totalParkingArea);
   }, [builtUpArea, parkingArea]);
 
   // HERE NET PLOTAREA CALCULATED
@@ -400,11 +400,12 @@ const BuildingInfo = () => {
 
     const floorDetails = totalFloor.map((floor, index) => {
       // console.log(floor);
-
+      const builtUpArea = document.getElementById(`builtUpArea${index}`).value;
+      const parkingArea = document.getElementById(`parkingArea${index}`).value;
       return {
         name: document.getElementById(`floorName${index}`).value,
-        builtUpArea: document.getElementById(`builtUpArea${index}`).value,
-        parkingArea: document.getElementById(`parkingArea${index}`).value,
+        builtUpArea: builtUpArea === "" ? 0 : builtUpArea,
+        parkingArea: parkingArea === "" ? 0 : parkingArea,
       };
     });
 
