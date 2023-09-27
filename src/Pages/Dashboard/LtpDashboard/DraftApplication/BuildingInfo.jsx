@@ -14,30 +14,159 @@ const BuildingInfo = () => {
 
   const [isStepperVisible, currentStep, steps] = stepperData;
 
-  const { confirmAlert, sendUserDataIntoDB, userInfoFromLocalStorage, getApplicationData } = useContext(AuthContext);
+  const {
+    confirmAlert,
+    sendUserDataIntoDB,
+    userInfoFromLocalStorage,
+    getApplicationData,
+  } = useContext(AuthContext);
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
 
   const { _id: id } = userInfoFromLocalStorage();
 
+  // Here declared all variables initial value in the use state
+
+  // general information sections all variable initialization
+
+  const [generalInformation, setGeneralInformation] = useState("");
   // Case Type
-  const [selectedOptionCase, setSelectedOptionCase] = useState('');
+  const [selectedOptionCase, setSelectedOptionCase] = useState("");
 
   const [selectedOptionPermission, setSelectedOptionPermission] = useState("");
 
-  // Nature of the site
-  const [selectedNatureOfTheSite, setSelectedNatureOfTheSite] = useState('');
+  // NATURE OF THE SITE
+  const [selectedNatureOfTheSite, setSelectedNatureOfTheSite] = useState("");
   const [showInputFields, setShowInputFields] = useState(false);
 
-  // Add a state variable to keep track of the number of sets of input fields
-  const [inputFieldCount, setInputFieldCount] = useState(0);
+  const [districtData, setDistrictData] = useState([]);
+  const [selectedDistrict, setSelectedDistrict] = useState("");
+  const [selectedMandal, setSelectedMandal] = useState("");
+  const [selectedVillage, setSelectedVillage] = useState("");
 
-  // Function to add more 3 sets of input fields
-  const handleAddInputFields = () => {
-    if (inputFieldCount < 3) {
-      setInputFieldCount(inputFieldCount + 1);
-    }
-  };
+  // HERE PLOT DETAIL SECTIONS VARIABLES ARE INITIALIZED
+  const [plotDetails, setPlotDetails] = useState("");
+  const [plotDetailsFloor, setPlotDetailsFloor] = useState("");
+  const [scheduleBoundaries, setScheduleBoundaries] = useState("");
+
+  const [totalFloor, setTotalFloor] = useState(["Floor1"]);
+
+  const [builtUpAreaSum, setBuiltUpAreaSum] = useState(0);
+  const [parkingAreaSum, setParkingAreaSum] = useState(0);
+
+  const [builtUpArea, setBuiltUpArea] = useState([0, 0, 0, 0]);
+  const [parkingArea, setParkingArea] = useState([0, 0, 0, 0]);
+
+  const [proposedPlotArea, setProposedPlotArea] = useState("");
+  const [roadWideningArea, setRoadWideningArea] = useState("");
+  const [netPlotArea, setNetPlotArea] = useState("");
+
+  // HERE SCHEDULE BOUNDARIES SECTIONS VARIABLES ARE INITIALIZED
+  // Selector Get Data from server:
+  const [natureOfRoadValue, setNatureOfRoadValue] = useState("");
+  const [northValue, setNorthValue] = useState("");
+  const [southValue, setSouthValue] = useState("");
+  const [eastValue, setEastValue] = useState("");
+  const [westValue, setWestValue] = useState("");
+
+  // SIDE EFFECT HANDLED
+
+  // HERE TOTAL BUILTUP AREA AND TOTAL PARKING AREA IS CALCULATED
+  useEffect(() => {
+    console.log("TOTAL BUILT AND PARKING CALC");
+    console.log(builtUpArea, "BUILTUPAREA");
+    const totalBuiltUpArea = builtUpArea.reduce((accumulator, currentValue) => {
+      return accumulator + currentValue;
+    });
+
+    setBuiltUpAreaSum(totalBuiltUpArea === 0 ? "" : totalBuiltUpArea);
+
+    console.log(parkingArea, "Parking area");
+    const totalParkingArea = parkingArea.reduce(
+      (acc, currentValue) => acc + currentValue,
+      0
+    );
+
+    setParkingAreaSum(totalParkingArea === 0 ? "" : totalParkingArea);
+  }, [builtUpArea, parkingArea]);
+
+  // HERE NET PLOTAREA CALCULATED
+  useEffect(() => {
+    const plot = proposedPlotArea === "" ? 0 : proposedPlotArea;
+    const roadWide = roadWideningArea === "" ? 0 : roadWideningArea;
+    calculateNetPlotArea(plot, roadWide);
+  }, [proposedPlotArea, roadWideningArea]);
+
+  // HERE DATA IS GETTING FROM THE DATABASE AS WELL AS UPDATING THE USE STATES  AND  ALL DISTRICTS ARE FETCHED
+  useEffect(() => {
+    const getData = async () => {
+      const applicationData = await getApplicationData(applicationNo);
+      console.log(applicationData);
+
+      const generalInformation =
+        applicationData.buildingInfo.generalInformation;
+
+      const plotDetails = applicationData.buildingInfo.plotDetails;
+
+      const plotDetailsFloor =
+        applicationData.buildingInfo.plotDetails.floorDetails;
+      console.log(generalInformation, "generalinformation");
+
+      const scheduleBoundaries =
+        applicationData.buildingInfo.scheduleBoundaries;
+
+      setSelectedDistrict(generalInformation.district);
+      setSelectedMandal(generalInformation.mandal);
+      setSelectedVillage(generalInformation.village);
+
+      console.log(builtUpArea, "builtUp area");
+      // update floor details as well as builtup area and parking area
+      plotDetails?.floorDetails?.map((floor, index) => {
+        setBuiltUpArea((prev) => {
+          const oldData = [...prev];
+          oldData[index] = parseFloat(floor?.builtUpArea);
+
+          console.log(oldData, "oldData");
+          return oldData;
+        });
+        setParkingArea((prev) => {
+          const oldData = [...prev];
+          oldData[index] = parseFloat(floor?.parkingArea);
+
+          console.log(oldData, "oldData");
+          return oldData;
+        });
+      });
+
+      console.log(builtUpArea, "Builtuparea adjacent");
+
+      setProposedPlotArea(plotDetails.proposedPlotAreaCal);
+      setRoadWideningArea(plotDetails.roadWideningAreaCal);
+      setNetPlotArea(plotDetails.netPlotAreaCal);
+      setBuiltUpAreaSum(plotDetails.totalBuiltUpArea);
+      setParkingAreaSum(plotDetails.totalParkingArea);
+
+      setGeneralInformation(generalInformation);
+      setPlotDetails(plotDetails);
+      setPlotDetailsFloor(plotDetailsFloor);
+      setScheduleBoundaries(scheduleBoundaries);
+    };
+    getData();
+
+    const apiUrl = "../../src/assets/buildingInfo.json";
+    fetch(apiUrl)
+      .then((response) => response.json())
+      .then((result) => {
+        setDistrictData(result.district);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, []);
+
+  console.log(plotDetails, "plotDetails");
+
+  console.log(builtUpArea, "BUILT area");
 
   // Case Type
   const handleCaseTypeChange = (e) => {
@@ -64,27 +193,46 @@ const BuildingInfo = () => {
   };
 
   // Net Plot Area(in Sq.M.) Calculation :
-  const [proposedPlotArea, setProposedPlotArea] = useState(0);
-  const [roadWideningArea, setRoadWideningArea] = useState(0);
-  const [netPlotArea, setNetPlotArea] = useState("");
 
   // ========================(Calculation part start)
   const handleProposedPlotAreaChange = (e) => {
-    const newValue = e.target.value;
+    let newValue = e.target.value;
+    console.log("New proposed value", newValue);
     // Check if the entered value is a valid number and less than or equal to 300
-    if (newValue <= 300) {
-      setProposedPlotArea(newValue);
-      calculateNetPlotArea(newValue, roadWideningArea);
+
+    console.log(roadWideningArea, "ROADWA");
+    const roadWideValue = roadWideningArea !== "" ? roadWideningArea : 0;
+    console.log(roadWideValue, "ROADWV");
+    if (newValue > 300) {
+      e.target.value = 300;
+      newValue = 300;
     }
+    if (newValue < 0) {
+      e.target.value = 0;
+      newValue = 0;
+    }
+    setProposedPlotArea(newValue);
+    // calculateNetPlotArea(newValue, roadWideValue);
   };
 
   const handleRoadWideningAreaChange = (e) => {
-    const newValue = e.target.value;
+    let newValue = e.target.value;
+    console.log(newValue, "NEW VAL:UE");
     // Check if the entered value is a valid number and less than or equal to 300
-    if (newValue <= 300) {
-      setRoadWideningArea(newValue);
-      calculateNetPlotArea(proposedPlotArea, newValue);
+
+    console.log(proposedPlotArea, "PRPA");
+    // const plotValue = proposedPlotArea !== "" ? proposedPlotArea : 0;
+    if (newValue > 300) {
+      e.target.value = 300;
+      newValue = 300;
     }
+    if (newValue < 0) {
+      e.target.value = 0;
+      newValue = 0;
+    }
+
+    setRoadWideningArea(newValue);
+    // calculateNetPlotArea(plotValue, newValue);
   };
 
   const calculateNetPlotArea = (proposed, widening) => {
@@ -93,20 +241,12 @@ const BuildingInfo = () => {
 
     if (!isNaN(proposedArea) && !isNaN(wideningArea)) {
       const netArea = proposedArea - wideningArea;
-      console.log(netArea, 'netArea');
+      console.log(netArea, "netArea");
       setNetPlotArea(netArea.toFixed(2)); // Format to 2 decimal places
     } else {
       setNetPlotArea("");
     }
   }; // ========================<<<(Calculation part End)>>>...
-
-  const [totalFloor, setTotalFloor] = useState(["Floor1"]);
-
-  const [builtUpAreaSum, setBuiltUpAreaSum] = useState(0);
-  const [parkingAreaSum, setParkingAreaSum] = useState(0);
-
-  const [builtUpArea, setBuiltUpArea] = useState([0]);
-  const [parkingArea, setParkingArea] = useState([0]);
 
   // handleBuiltUpArea
   const handleBuiltUpArea = (value, index) => {
@@ -124,34 +264,86 @@ const BuildingInfo = () => {
   };
 
   const handleParkingArea = (value, index) => {
-    const newParkingArea = [...parkingArea];
-    newParkingArea[index] = parseFloat(value) || 0;
-    setParkingArea(newParkingArea);
+    const newParkingArea = parseFloat(value) || 0;
+    const updateArea = [...parkingArea];
+    updateArea[index] = newParkingArea;
+    setParkingArea(updateArea);
   };
 
-  useEffect(() => {
-    const totalBuiltUpArea = builtUpArea.reduce((accumulator, currentValue) => {
-      return accumulator + currentValue;
-    });
-
-    setBuiltUpAreaSum(totalBuiltUpArea);
-
-    const totalParkingArea = parkingArea.reduce(
-      (acc, currentValue) => acc + currentValue,
-      0
-    );
-
-    setParkingAreaSum(totalParkingArea);
-  }, [builtUpArea, parkingArea]);
   // ======================================================<<<(Built Up Area Calculation End)>>>>...
+
+  //==============================<<<<<(District, Mandal & Village Start)>>>>> :
+
+  const handleDistrictChange = (event) => {
+    setSelectedDistrict(event.target.value);
+    // Reset selected mandal and village when district changes
+    setSelectedMandal("");
+    setSelectedVillage("");
+  };
+
+  const handleMandalChange = (event) => {
+    setSelectedMandal(event.target.value);
+    // Reset selected village when mandal changes
+    setSelectedVillage("");
+  };
+  //==============================<<<<<(District, Mandal & Village End)>>>>> :
+
+  const handleNorthChange = (event) => {
+    setNorthValue(event.target.value);
+  };
+
+  const handleNatureOfRoad = (event) => {
+    setNatureOfRoadValue(event.target.value);
+  };
+
+  const handleSouthChange = (event) => {
+    setSouthValue(event.target.value);
+  };
+
+  const handleEastChange = (event) => {
+    setEastValue(event.target.value);
+  };
+
+  const handleWestChange = (event) => {
+    setWestValue(event.target.value);
+  };
+
+  // Radio Button Get Data from server:
+  const [radio1, setRadio1] = useState("");
+  const [radio2, setRadio2] = useState("");
+  const [radio3, setRadio3] = useState("");
+  const [radio4, setRadio4] = useState("");
+  const [radio5, setRadio5] = useState("");
+
+  const handleRadio1 = (e) => {
+    setRadio1(e.target.value);
+  };
+
+  const handleRadio2 = (e) => {
+    setRadio2(e.target.value);
+  };
+
+  const handleRadio3 = (e) => {
+    setRadio3(e.target.value);
+  };
+
+  const handleRadio4 = (e) => {
+    setRadio4(e.target.value);
+  };
+
+  const handleRadio5 = (e) => {
+    setRadio5(e.target.value);
+  };
 
   // get data from input field :
   const collectInputFieldData = async (url) => {
     // ==================================================<<<(General Information)>>>:
     const caseTypeData = document.getElementById("caseType").value;
     // Get selected radio input's value
-    const selectedApplicationType = document.querySelector('input[name="radio-1"]:checked')?.value || "";
-    const natureOfPermission = document.getElementById("natureOfPermission").value;
+    const selectedApplicationType =
+      document.querySelector('input[name="radio-1"]:checked')?.value || "";
+    const natureOfPermission =
+      document.getElementById("natureOfPermission").value;
     const natureOfTheSite = document.getElementById("natureOfTheSite").value;
     const surveyNo = document.getElementById("SurveyNo").value;
     const district = document.getElementById("district").value;
@@ -183,11 +375,15 @@ const BuildingInfo = () => {
 
     const iplpNoElement = document.getElementById("IplpNo");
     const iplpNo = iplpNoElement ? iplpNoElement.value : "";
+
     // ================================================<<<(Plot Details)>>>:
-    const totalPlotDocument = document.getElementById("TotalPlotDocument").value;
+    const totalPlotDocument =
+      document.getElementById("TotalPlotDocument").value;
     const totalPlotGround = document.getElementById("TotalPlotGround").value;
-    const proposedPlotAreaValue = document.getElementById("proposedPlotArea").value;
-    const roadWideningAreaValue = document.getElementById("roadWideningArea").value;
+    const proposedPlotAreaValue =
+      document.getElementById("proposedPlotArea").value;
+    const roadWideningAreaValue =
+      document.getElementById("roadWideningArea").value;
     const netPlotAreaValue = document.getElementById("netPlotArea").value;
 
     const existingRoad =
@@ -200,15 +396,16 @@ const BuildingInfo = () => {
     const proposedRoadMts = document.getElementById("proposedRoadMts").value;
     const marketValueSqym = document.getElementById("marketValueSqym").value;
 
-    console.log(totalFloor, "totalFloor");
+    // console.log(totalFloor, "totalFloor");
 
     const floorDetails = totalFloor.map((floor, index) => {
-      console.log(floor);
-
+      // console.log(floor);
+      const builtUpArea = document.getElementById(`builtUpArea${index}`).value;
+      const parkingArea = document.getElementById(`parkingArea${index}`).value;
       return {
         name: document.getElementById(`floorName${index}`).value,
-        builtUpArea: document.getElementById(`builtUpArea${index}`).value,
-        parkingArea: document.getElementById(`parkingArea${index}`).value,
+        builtUpArea: builtUpArea === "" ? 0 : builtUpArea,
+        parkingArea: parkingArea === "" ? 0 : parkingArea,
       };
     });
 
@@ -255,9 +452,9 @@ const BuildingInfo = () => {
     const plotDetails = {
       totalPlotDocument,
       totalPlotGround,
-      proposedPlotAreaCal: proposedPlotAreaValue,
-      roadWideningAreaCal: roadWideningAreaValue,
-      netPlotAreaCal: netPlotAreaValue,
+      proposedPlotAreaCal: proposedPlotArea === "" ? 0 : proposedPlotArea,
+      roadWideningAreaCal: roadWideningArea === "" ? 0 : roadWideningArea,
+      netPlotAreaCal: netPlotArea === "" ? 0 : netPlotArea,
       statusOfRoad,
       existingRoad,
       natureOfRoad,
@@ -265,8 +462,8 @@ const BuildingInfo = () => {
       proposedRoadMts,
       marketValueSqym,
       floorDetails,
-      totalBuiltUpArea,
-      totalParkingArea,
+      totalBuiltUpArea: totalBuiltUpArea === "" ? 0 : totalBuiltUpArea,
+      totalParkingArea: totalParkingArea === "" ? 0 : totalParkingArea,
       frontSetback,
       rareSetback,
       side1Setback,
@@ -294,132 +491,59 @@ const BuildingInfo = () => {
       buildingInfo,
     });
   };
-  //==============================<<<<<(District, Mandal & Village Start)>>>>> :
-  const [districtData, setDistrictData] = useState([]);
-  const [selectedDistrict, setSelectedDistrict] = useState("");
-  const [selectedMandal, setSelectedMandal] = useState("");
-  const [selectedVillage, setSelectedVillage] = useState("");
 
-  useEffect(() => {
-    const apiUrl = "../../src/assets/buildingInfo.json";
-    fetch(apiUrl)
-      .then((response) => response.json())
-      .then((result) => {
-        setDistrictData(result.district);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }, []);
+  // console.log(generalInformation, "generalInformation");
+  const {
+    applicationType,
+    bpsApprovedNoServer,
+    caseType,
+    district,
+    gramaPanchayat,
+    iplpNo,
+    lpNo,
+    lrsNo,
+    mandal,
+    natureOfPermission,
+    natureOfTheSite,
+    plotNo,
+    plotNo2,
+    previewsApprovedFileNo,
+    surveyNo,
+    village,
+  } = generalInformation;
 
-  const handleDistrictChange = (event) => {
-    setSelectedDistrict(event.target.value);
-    // Reset selected mandal and village when district changes
-    setSelectedMandal("");
-    setSelectedVillage("");
-  };
-
-  const handleMandalChange = (event) => {
-    setSelectedMandal(event.target.value);
-    // Reset selected village when mandal changes
-    setSelectedVillage("");
-  };
-  //==============================<<<<<(District, Mandal & Village End)>>>>> :
-
-
-
-  const [generalInformation, setGeneralInformation] = useState('');
-  const [plotDetails, setPlotDetails] = useState('');
-  const [plotDetailsFloor, setPlotDetailsFloor] = useState('');
-  const [scheduleBoundaries, setScheduleBoundaries] = useState('');
-
-  console.log(generalInformation, 'generalInformation');
-  const { applicationType, bpsApprovedNoServer, caseType, district, gramaPanchayat, iplpNo, lpNo, lrsNo, mandal, natureOfPermission, natureOfTheSite, plotNo, plotNo2, previewsApprovedFileNo, surveyNo, village } = generalInformation;
-
-  console.log(plotDetails, 'plotDetails');
-  const { proposedPlotAreaCal, roadWideningAreaCal, netPlotAreaCal, buildingExcludeStilt, compoundingWallProposed, existingRoad, existingRoadMts, frontSetback, marketValueSqym, natureOfRoad, proposedRoadMts, rareSetback, side1Setback, side2Setback, siteRegistered, statusOfRoad, totalBuiltUpArea, totalParkingArea, totalPlotDocument, totalPlotGround } = plotDetails;
+  // console.log(plotDetails, "plotDetails");
+  const {
+    proposedPlotAreaCal,
+    roadWideningAreaCal,
+    netPlotAreaCal,
+    buildingExcludeStilt,
+    compoundingWallProposed,
+    existingRoad,
+    existingRoadMts,
+    frontSetback,
+    marketValueSqym,
+    natureOfRoad,
+    proposedRoadMts,
+    rareSetback,
+    side1Setback,
+    side2Setback,
+    siteRegistered,
+    statusOfRoad,
+    totalBuiltUpArea,
+    totalParkingArea,
+    totalPlotDocument,
+    totalPlotGround,
+  } = plotDetails;
 
   // console.log(scheduleBoundaries, 'scheduleBoundaries');
   const { east, west, north, south } = scheduleBoundaries;
 
-  useEffect(() => {
-    const getData = async () => {
-      const applicationData = await getApplicationData(applicationNo);
-      console.log(applicationData, 'AllApplicationData');
-
-      const generalInformation = applicationData.buildingInfo.generalInformation;
-      const plotDetails = applicationData.buildingInfo.plotDetails;
-      const plotDetailsFloor = applicationData.buildingInfo.plotDetails.floorDetails;
-      console.log(plotDetailsFloor, "plotDetailsFloor");
-      const scheduleBoundaries = applicationData.buildingInfo.scheduleBoundaries;
-
-      setGeneralInformation(generalInformation);
-      setPlotDetails(plotDetails);
-      setPlotDetailsFloor(plotDetailsFloor);
-      setScheduleBoundaries(scheduleBoundaries);
-    };
-    getData();
-  }, []);
-
-  // Selector Get Data from server:
-  const [natureOfRoadValue, setNatureOfRoadValue] = useState('');
-  const [northValue, setNorthValue] = useState('');
-  const [southValue, setSouthValue] = useState('');
-  const [eastValue, setEastValue] = useState('');
-  const [westValue, setWestValue] = useState('');
-
-  const handleNorthChange = (event) => {
-    setNorthValue(event.target.value);
-  };
-
-  const handleNatureOfRoad = (event) => {
-    setNatureOfRoadValue(event.target.value);
-  };
-
-  const handleSouthChange = (event) => {
-    setSouthValue(event.target.value);
-  };
-
-  const handleEastChange = (event) => {
-    setEastValue(event.target.value);
-  };
-
-  const handleWestChange = (event) => {
-    setWestValue(event.target.value);
-  };
-
-
-  // Radio Button Get Data from server:
-  const [radio1, setRadio1] = useState('');
-  const [radio2, setRadio2] = useState('');
-  const [radio3, setRadio3] = useState('');
-  const [radio4, setRadio4] = useState('');
-  const [radio5, setRadio5] = useState('');
-
-  const handleRadio1 = (e) => {
-    setRadio1(e.target.value)
-  }
-
-  const handleRadio2 = (e) => {
-    setRadio2(e.target.value)
-  }
-
-  const handleRadio3 = (e) => {
-    setRadio3(e.target.value)
-  }
-
-  const handleRadio4 = (e) => {
-    setRadio4(e.target.value)
-  }
-
-  const handleRadio5 = (e) => {
-    setRadio5(e.target.value)
-  }
-
-
   // classes for this component:
-  const labelClass = "block text-gray-600 mb-1 font-semibold dark:text-gray-100"
-  const inputClass = "w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs dark:text-black"
+  const labelClass =
+    "block text-gray-600 mb-1 font-semibold dark:text-gray-100";
+  const inputClass =
+    "w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs dark:text-black";
 
   return (
     <div className="grid my-5 lg:my-0 lg:p-2 dark:bg-black dark:text-gray-100">
@@ -432,7 +556,6 @@ const BuildingInfo = () => {
         </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 mt-2 mb-5">
-
           <div className="flex flex-col justify-center my-4 px-3">
             <label htmlFor="nature" className={labelClass}>
               <span>Case Type</span>
@@ -469,7 +592,11 @@ const BuildingInfo = () => {
                   name="radio-1"
                   className="radio border border-[#10AC84] h-4 w-4"
                   value="Private"
-                  checked={radio1 === 'Private' ? radio1 === 'Private' : applicationType === "Private"}
+                  checked={
+                    radio1 === "Private"
+                      ? radio1 === "Private"
+                      : applicationType === "Private"
+                  }
                   onChange={handleRadio1}
                 />
                 <span className="ml-2 text-base">Private</span>
@@ -480,7 +607,11 @@ const BuildingInfo = () => {
                   name="radio-1"
                   className="radio border border-[#10AC84] h-4 w-4"
                   value="Govt. Land"
-                  checked={radio1 === 'Govt. Land' ? radio1 === 'Govt. Land' : applicationType === "Govt. Land"}
+                  checked={
+                    radio1 === "Govt. Land"
+                      ? radio1 === "Govt. Land"
+                      : applicationType === "Govt. Land"
+                  }
                   onChange={handleRadio1}
                 />
                 <span className="ml-2 text-base">Govt. Land</span>
@@ -495,7 +626,11 @@ const BuildingInfo = () => {
             <select
               id="natureOfPermission"
               className={inputClass}
-              value={selectedOptionPermission ? selectedOptionPermission : natureOfPermission}
+              value={
+                selectedOptionPermission
+                  ? selectedOptionPermission
+                  : natureOfPermission
+              }
               onChange={handlePermissionChange}
             >
               <option disabled selected value="">
@@ -510,26 +645,35 @@ const BuildingInfo = () => {
           </div>
 
           <div className="my-4 mx-3">
-            <label
-              htmlFor="nature"
-              className={labelClass}
-            >
+            <label htmlFor="nature" className={labelClass}>
               <span>Nature of the site</span>
             </label>
             <select
               id="natureOfTheSite"
               className={inputClass}
-              value={selectedNatureOfTheSite ? selectedNatureOfTheSite : natureOfTheSite}
+              value={
+                selectedNatureOfTheSite
+                  ? selectedNatureOfTheSite
+                  : natureOfTheSite
+              }
               onChange={handleNatureChange}
             >
-              <option disabled selected value=''>
+              <option disabled selected value="">
                 Select Nature of the site
               </option>
-              <option value='Approved Layout'>Approved Layout</option>
-              <option value='Regularised under LRS'>Regularised under LRS</option>
-              <option value='Plot port of RLP/IPLP but not regularised'>Plot port of RLP/IPLP but not regularised</option>
-              <option value='Congested/ Gramakanta/ Old Built-up area'>Congested/ Gramakanta/ Old Built-up area</option>
-              <option value='Newly Developed/ Built up area'>Newly Developed/ Built up area</option>
+              <option value="Approved Layout">Approved Layout</option>
+              <option value="Regularised under LRS">
+                Regularised under LRS
+              </option>
+              <option value="Plot port of RLP/IPLP but not regularised">
+                Plot port of RLP/IPLP but not regularised
+              </option>
+              <option value="Congested/ Gramakanta/ Old Built-up area">
+                Congested/ Gramakanta/ Old Built-up area
+              </option>
+              <option value="Newly Developed/ Built up area">
+                Newly Developed/ Built up area
+              </option>
             </select>
           </div>
 
@@ -551,9 +695,9 @@ const BuildingInfo = () => {
               name="District"
               className={inputClass}
               onChange={handleDistrictChange}
-              value={selectedDistrict ? selectedDistrict : district}
+              value={selectedDistrict}
             >
-              <option value="" disabled>
+              <option selected value="" disabled>
                 Select District
               </option>
               {districtData.map((district) => (
@@ -743,10 +887,7 @@ const BuildingInfo = () => {
             />
 
             <div className="my-4 mx-3">
-              <label
-                htmlFor=""
-                className={labelClass}
-              >
+              <label htmlFor="" className={labelClass}>
                 Proposed Plot area
               </label>
               <input
@@ -755,16 +896,21 @@ const BuildingInfo = () => {
                 name="proposedPlotArea"
                 placeholder="in Sq.M."
                 className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
-                defaultValue={proposedPlotArea ? proposedPlotArea : proposedPlotAreaCal}
+                defaultValue={
+                  proposedPlotArea ? proposedPlotArea : proposedPlotAreaCal
+                }
                 onChange={handleProposedPlotAreaChange}
               />
+              <p className="text-xs text-red-500 mt-2">
+                {console.log(proposedPlotArea, proposedPlotAreaCal, "INSIDE")}
+                {proposedPlotArea > 300 && proposedPlotArea !== ""
+                  ? "Value must be less than 300"
+                  : ""}
+              </p>
             </div>
 
             <div className="my-4 mx-3">
-              <label
-                htmlFor=""
-                className={labelClass}
-              >
+              <label htmlFor="" className={labelClass}>
                 Road Widening Area
               </label>
               <input
@@ -772,17 +918,20 @@ const BuildingInfo = () => {
                 type="number"
                 placeholder="in Sq.M."
                 className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
-                defaultValue={roadWideningArea ? roadWideningArea : roadWideningAreaCal}
+                defaultValue={roadWideningArea}
                 onChange={handleRoadWideningAreaChange}
               />
+              {console.log(roadWideningArea, "Inside roadwidening")}
+              <p className="text-xs text-red-500 mt-2">
+                {roadWideningArea > 300 && roadWideningArea !== ""
+                  ? "Value must be less than 300"
+                  : ""}
+              </p>
             </div>
 
             {/* Automatically calculated Plot Details  */}
             <div className="my-4 mx-3">
-              <label
-                htmlFor="disabled-input"
-                className={labelClass}
-              >
+              <label htmlFor="disabled-input" className={labelClass}>
                 Net Plot Area (in Sq.M.)
               </label>
               <input
@@ -791,14 +940,13 @@ const BuildingInfo = () => {
                 name="netPlotArea"
                 placeholder="Automatically calculated"
                 className="w-full px-3 py-2 border rounded-lg max-w-xs"
-                value={netPlotArea ? netPlotArea : netPlotAreaCal}
+                value={netPlotArea}
                 disabled
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 mx-5 md:mx-10 lg:mx-14 my-10">
-
             <div className="flex flex-col md:flex-row font-medium mb-4 text-lg">
               <div className="flex items-center mb-3 md:mb-0">
                 <FaHandPointRight className="me-3 w-5 lg:w-auto text-green-500" />
@@ -812,7 +960,9 @@ const BuildingInfo = () => {
                   name="radio-2"
                   className="radio border border-[#10AC84] h-4 w-4"
                   value="yes"
-                  checked={radio2 == 'yes' ? radio2 == 'yes' : existingRoad === 'yes'}
+                  checked={
+                    radio2 == "yes" ? radio2 == "yes" : existingRoad === "yes"
+                  }
                   onChange={handleRadio2}
                 />
                 <span className="ml-2 text-base">Yes</span>
@@ -823,7 +973,9 @@ const BuildingInfo = () => {
                   name="radio-2"
                   className="radio border border-[#10AC84] h-4 w-4"
                   value="no"
-                  checked={radio2 == 'no' ? radio2 == 'no' : existingRoad === 'no'}
+                  checked={
+                    radio2 == "no" ? radio2 == "no" : existingRoad === "no"
+                  }
                   onChange={handleRadio2}
                 />
                 <span className="ml-2 text-base">No</span>
@@ -841,7 +993,11 @@ const BuildingInfo = () => {
                   name="radio-3"
                   className="radio border border-[#10AC84] h-4 w-4"
                   value="Public"
-                  checked={radio3 == 'Public' ? radio3 == 'Public' : statusOfRoad === 'Public'}
+                  checked={
+                    radio3 == "Public"
+                      ? radio3 == "Public"
+                      : statusOfRoad === "Public"
+                  }
                   onChange={handleRadio3}
                 />
                 <span className="ml-2 text-base">Public</span>
@@ -852,7 +1008,11 @@ const BuildingInfo = () => {
                   name="radio-3"
                   className="radio border border-[#10AC84] h-4 w-4"
                   value="Private"
-                  checked={radio3 == 'Private' ? radio3 == 'Private' : statusOfRoad === 'Private'}
+                  checked={
+                    radio3 == "Private"
+                      ? radio3 == "Private"
+                      : statusOfRoad === "Private"
+                  }
                   onChange={handleRadio3}
                 />
                 <span className="ml-2 text-base">Private</span>
@@ -868,6 +1028,7 @@ const BuildingInfo = () => {
               <select
                 id="natureOfRoad"
                 className={inputClass}
+                // value={natureOfRoad}
                 value={natureOfRoadValue ? natureOfRoadValue : natureOfRoad}
                 onChange={handleNatureOfRoad}
               >
@@ -916,17 +1077,16 @@ const BuildingInfo = () => {
                 handleParkingArea={handleParkingArea}
                 parkingAreaValue={parkingArea[index]}
                 builtUpAreaValue={builtUpArea[index]}
-                plotDetailsFloor={plotDetailsFloor[index]}
+                plotDetailsFloor={
+                  plotDetailsFloor ? plotDetailsFloor[index] : undefined
+                }
               />
             ))}
           </div>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 mt-5">
             <div className="my-4 mx-3">
-              <label
-                htmlFor="disabled-input"
-                className={labelClass}
-              >
+              <label htmlFor="disabled-input" className={labelClass}>
                 Total Built up area
               </label>
               <input
@@ -935,16 +1095,13 @@ const BuildingInfo = () => {
                 name="name1"
                 placeholder="Automatically calculated"
                 className="w-full px-3 py-2 border rounded-lg max-w-xs"
-                value={builtUpAreaSum ? builtUpAreaSum : totalBuiltUpArea}
+                value={builtUpAreaSum}
                 disabled
               />
             </div>
 
             <div className="my-4 mx-3">
-              <label
-                htmlFor="disabled-input2"
-                className={labelClass}
-              >
+              <label htmlFor="disabled-input2" className={labelClass}>
                 Total Parking area
               </label>
               <input
@@ -952,7 +1109,7 @@ const BuildingInfo = () => {
                 name="name1"
                 placeholder="Automatically calculated"
                 className="w-full px-3 py-2 border rounded-lg max-w-xs"
-                value={parkingAreaSum ? parkingAreaSum : totalParkingArea}
+                value={parkingAreaSum}
                 disabled
               />
             </div>
@@ -1007,8 +1164,12 @@ const BuildingInfo = () => {
                   type="radio"
                   name="radio-4"
                   className="radio border border-[#10AC84] h-4 w-4"
-                  value='yes'
-                  checked={radio4 == 'yes' ? radio4 == 'yes' : compoundingWallProposed === 'yes'}
+                  value="yes"
+                  checked={
+                    radio4 == "yes"
+                      ? radio4 == "yes"
+                      : compoundingWallProposed === "yes"
+                  }
                   onChange={handleRadio4}
                 />
                 <span className="ml-2 text-base">Yes</span>
@@ -1019,7 +1180,11 @@ const BuildingInfo = () => {
                   name="radio-4"
                   className="radio border border-[#10AC84] h-4 w-4"
                   value="no"
-                  checked={radio4 == 'no' ? radio4 == 'no' : compoundingWallProposed === 'no'}
+                  checked={
+                    radio4 == "no"
+                      ? radio4 == "no"
+                      : compoundingWallProposed === "no"
+                  }
                   onChange={handleRadio4}
                 />
                 <span className="ml-2 text-base">No</span>
@@ -1039,8 +1204,10 @@ const BuildingInfo = () => {
                   type="radio"
                   name="radio-5"
                   className="radio border border-[#10AC84] h-4 w-4"
-                  value='yes'
-                  checked={radio5 == 'yes' ? radio5 == 'yes' : siteRegistered === 'yes'}
+                  value="yes"
+                  checked={
+                    radio5 == "yes" ? radio5 == "yes" : siteRegistered === "yes"
+                  }
                   onChange={handleRadio5}
                 />
                 <span className="ml-2 text-base">Yes</span>
@@ -1050,8 +1217,10 @@ const BuildingInfo = () => {
                   type="radio"
                   name="radio-5"
                   className="radio border border-[#10AC84] h-4 w-4"
-                  value='no'
-                  checked={radio5 == 'no' ? radio5 == 'no' : siteRegistered === 'no'}
+                  value="no"
+                  checked={
+                    radio5 == "no" ? radio5 == "no" : siteRegistered === "no"
+                  }
                   onChange={handleRadio5}
                 />
                 <span className="ml-2 text-base">No</span>
@@ -1079,13 +1248,13 @@ const BuildingInfo = () => {
               value={northValue ? northValue : north}
               onChange={handleNorthChange}
             >
-              <option disabled selected value=''>
+              <option disabled selected value="">
                 Select North
               </option>
-              <option value='Road'>Road</option>
-              <option value='Plot'>Plot</option>
-              <option value='Vacant land'>Vacant land</option>
-              <option value='Water body'>Water body</option>
+              <option value="Road">Road</option>
+              <option value="Plot">Plot</option>
+              <option value="Vacant land">Vacant land</option>
+              <option value="Water body">Water body</option>
             </select>
           </div>
 
@@ -1099,13 +1268,13 @@ const BuildingInfo = () => {
               value={southValue ? southValue : south}
               onChange={handleSouthChange}
             >
-              <option disabled selected value=''>
+              <option disabled selected value="">
                 Select South
               </option>
-              <option value='Road'>Road</option>
-              <option value='Plot'>Plot</option>
-              <option value='Vacant land'>Vacant land</option>
-              <option value='Water body'>Water body</option>
+              <option value="Road">Road</option>
+              <option value="Plot">Plot</option>
+              <option value="Vacant land">Vacant land</option>
+              <option value="Water body">Water body</option>
             </select>
           </div>
 
@@ -1119,13 +1288,13 @@ const BuildingInfo = () => {
               value={eastValue ? eastValue : east}
               onChange={handleEastChange}
             >
-              <option disabled selected value=''>
+              <option disabled selected value="">
                 Select East
               </option>
-              <option value='Road'>Road</option>
-              <option value='Plot'>Plot</option>
-              <option value='Vacant land'>Vacant land</option>
-              <option value='Water body'>Water body</option>
+              <option value="Road">Road</option>
+              <option value="Plot">Plot</option>
+              <option value="Vacant land">Vacant land</option>
+              <option value="Water body">Water body</option>
             </select>
           </div>
 
@@ -1139,13 +1308,13 @@ const BuildingInfo = () => {
               value={westValue ? westValue : west}
               onChange={handleWestChange}
             >
-              <option disabled selected value=''>
+              <option disabled selected value="">
                 Select West
               </option>
-              <option value='Road'>Road</option>
-              <option value='Plot'>Plot</option>
-              <option value='Vacant land'>Vacant land</option>
-              <option value='Water body'>Water body</option>
+              <option value="Road">Road</option>
+              <option value="Plot">Plot</option>
+              <option value="Vacant land">Vacant land</option>
+              <option value="Water body">Water body</option>
             </select>
           </div>
         </div>
@@ -1160,7 +1329,7 @@ const BuildingInfo = () => {
         confirmAlert={confirmAlert}
         collectInputFieldData={collectInputFieldData}
       />
-    </div >
+    </div>
   );
 };
 

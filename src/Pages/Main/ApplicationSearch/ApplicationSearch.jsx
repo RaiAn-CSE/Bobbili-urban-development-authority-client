@@ -1,4 +1,8 @@
 import React from "react";
+import ApplicationSearchInput from "./ApplicationSearchInput";
+import { AiOutlineFileDone } from "react-icons/ai";
+import { BsHouses } from "react-icons/bs";
+import { MdOutlineNoteAlt } from "react-icons/md";
 
 const ApplicationSearch = () => {
 
@@ -23,14 +27,41 @@ const ApplicationSearch = () => {
         </form>
 
       </div>
+
+      {/* Location details  */}
       <div className="divide-y-2 divide-gray-200 mt-5">
         <div className="flex mb-1">
-          <h3 className="basis-[50%] text-xl px-5">Location details</h3>
-          <h3 className="basis-[50%] text-xl px-5">Building info</h3>
+          <h3 className="basis-[50%] text-xl px-5 font-semibold">Location details</h3>
+          <h3 className="basis-[50%] text-xl px-5 font-semibold">Building info</h3>
         </div>
         <div className="flex">
           <div className="basis-[50%]">
-            <div className={inputDiv}>
+            <ApplicationSearchInput
+              label='Survey no'
+              id='surveyNo'
+              type='text'
+              placeholder='xxxxxxx'
+            />
+            <ApplicationSearchInput
+              label='Village'
+              id='village'
+              type='text'
+              placeholder='xxxxxxx'
+            />
+            <ApplicationSearchInput
+              label='Mandal'
+              id='mandal'
+              type='text'
+              placeholder='xxxxxxx'
+            />
+            <ApplicationSearchInput
+              label='District'
+              id='district'
+              type='text'
+              placeholder='xxxxxxx'
+            />
+
+            {/* <div className={inputDiv}>
               <label className="basis-[50%]" htmlFor="">Survey no</label>
               <input id="" className={inputClass} type="text" placeholder="xxxxxxx" />
             </div>
@@ -45,10 +76,37 @@ const ApplicationSearch = () => {
             <div className={inputDiv}>
               <label className="basis-[50%]" htmlFor="">District</label>
               <input id="" className={inputClass} type="text" placeholder="xxxxxxx" />
-            </div>
+            </div> */}
+
           </div>
+
           <div className="basis-[50%]">
-            <div className={inputDiv}>
+            <ApplicationSearchInput
+              label='Site area'
+              id='siteArea'
+              type='text'
+              placeholder='xxxxxxx'
+            />
+            <ApplicationSearchInput
+              label='No. of floors'
+              id='noOfFloors'
+              type='text'
+              placeholder='xxxxxxx'
+            />
+            <ApplicationSearchInput
+              label='N0. of units'
+              id='noOfUnits'
+              type='text'
+              placeholder='xxxxxxx'
+            />
+            <ApplicationSearchInput
+              label='Total Plinth Area'
+              id='totalPlinthArea'
+              type='text'
+              placeholder='xxxxxxx'
+            />
+
+            {/* <div className={inputDiv}>
               <label className="basis-[50%]" htmlFor="">Site area</label>
               <input id="" className={inputClass} type="text" placeholder="xxxxxxx" />
             </div>
@@ -63,36 +121,81 @@ const ApplicationSearch = () => {
             <div className="flex items-center px-5 text-gray-400 mt-2 w-full">
               <label className="basis-[50%]" htmlFor="">Total Plinth Area</label>
               <input id="" className={inputClass} type="text" placeholder="xxxxxxx" />
-            </div>
+            </div> */}
+
           </div>
+
         </div>
       </div>
+
+      {/* Owner details  */}
       <div className="divide-y-2 divide-gray-200 mt-5">
         <div className="flex mb-1">
-          <h3 className="basis-[50%] text-xl px-5">Owner details</h3>
-          <h3 className="basis-[50%] text-xl px-5">LTP Details</h3>
+          <h3 className="basis-[50%] text-xl px-5 font-semibold">Owner details</h3>
+          <h3 className="basis-[50%] text-xl px-5 font-semibold">LTP Details</h3>
         </div>
         <div className="flex">
           <div className="basis-[50%]">
-            <div className={inputDiv}>
+            <ApplicationSearchInput
+              label='Name'
+              id='name'
+              type='text'
+              placeholder='xxxxxxx'
+            />
+            <ApplicationSearchInput
+              label='Address'
+              id='address'
+              type='text'
+              placeholder='xxxxxxx'
+            />
+            {/* <div className={inputDiv}>
               <label className="basis-[50%]" htmlFor="">Name</label>
               <input id="" className={inputClass} type="text" placeholder="xxxxxxx" />
             </div>
             <div className={inputDiv}>
               <label className="basis-[50%]" htmlFor="">Address</label>
               <input id="" className={inputClass} type="text" placeholder="xxxxxxx" />
-            </div>
+            </div> */}
+
           </div>
           <div className="basis-[50%]">
-            <div className={inputDiv}>
+            <ApplicationSearchInput
+              label='Name'
+              id='name'
+              type='text'
+              placeholder='xxxxxxx'
+            />
+            <ApplicationSearchInput
+              label='Address'
+              id='address'
+              type='text'
+              placeholder='xxxxxxx'
+            />
+            {/* <div className={inputDiv}>
               <label className="basis-[50%]" htmlFor="">Name</label>
               <input id="" className={inputClass} type="text" placeholder="xxxxxxx" />
             </div>
             <div className={inputDiv}>
               <label className="basis-[50%]" htmlFor="">Address</label>
               <input id="" className={inputClass} type="text" placeholder="xxxxxxx" />
-            </div>
+            </div> */}
+
           </div>
+        </div>
+      </div>
+
+      <div className="flex justify-center items-center mt-3">
+        <div className="p-3">
+          <span className="grid justify-center items-center"><AiOutlineFileDone size={25} /></span>
+          <h4 className="text-base font-semibold">Application</h4>
+        </div>
+        <div className="p-3">
+          <span className="grid justify-center items-center"><BsHouses size={25} /></span>
+          <h4 className="text-base font-semibold">Drawing</h4>
+        </div>
+        <div className="p-3">
+          <span className="grid justify-center items-center"><MdOutlineNoteAlt size={25} /></span>
+          <h4 className="text-base font-semibold">Proceeding</h4>
         </div>
       </div>
     </div >
