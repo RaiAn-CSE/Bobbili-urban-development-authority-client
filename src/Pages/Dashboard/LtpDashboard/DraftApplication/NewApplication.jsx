@@ -66,9 +66,13 @@ const NewApplication = () => {
   };
   // Function to generate a unique number
   const generateApplicationNumber = () => {
-    const year = date.getFullYear();
-    console.log(year);
-    const applicationNo = `1177/9/${year}`;
+    const date = new Date();
+    const milisecond = date.getMilliseconds();
+    const second = date.getSeconds();
+    const hour = date.getHours();
+
+    console.log(hour, milisecond, second);
+    const applicationNo = `${milisecond}/${hour}/${second}`;
 
     return applicationNo;
   };
