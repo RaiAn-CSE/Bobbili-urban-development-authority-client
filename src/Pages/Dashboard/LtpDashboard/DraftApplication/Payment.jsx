@@ -397,7 +397,7 @@ const Payment = () => {
 
       try {
         const response = await axios.post(
-          "https://residential-building.vercel.app/upload?page=payment",
+          "http://localhost:5000/upload?page=payment",
           formData,
           {
             headers: {
