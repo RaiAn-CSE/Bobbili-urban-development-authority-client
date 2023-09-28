@@ -37,6 +37,8 @@ const Payment = () => {
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
 
+  const formData = new FormData();
+
   useEffect(() => {
     console.log(applicationNo, "APPLICATION NO");
 
@@ -347,106 +349,113 @@ const Payment = () => {
   const sendPaymentData = async (url) => {
     console.log("object");
 
-    // GET UDA CHARGE SECTIONS DATA
-    const vacantArea = document.getElementById("vacantArea").value;
-    const builtUpArea = document.getElementById("builtUpArea").value;
-    const UdaImpactFee = document.getElementById("UdaImpactFee").value;
-    const UDATotalCharged = document.getElementById("UDATotalCharged").value;
-    const gramaSiteApproval =
-      document.getElementById("gramaSiteApproval").value;
-    const buildingPermitFees =
-      document.getElementById("buildingPermitFees").value;
-    const bettermentCharged =
-      document.getElementById("bettermentCharged").value;
-    const TotalOpenSpaceCharged = document.getElementById(
-      "TotalOpenSpaceCharged"
-    ).value;
-    const gramaImpactFee = document.getElementById("gramaImpactFee").value;
-    const TotalPenalizationCharged = document.getElementById(
-      "TotalPenalizationCharged"
-    ).value;
-    const GramaPanchayetTotalCharged = document.getElementById(
-      "GramaPanchayetTotalCharged"
-    ).value;
-    const gramaChallanNo = document.getElementById("gramaChallanNo").value;
-    const gramaChallanDate = document.getElementById("gramaChallanDate").value;
-    const gramaBankName = document.getElementById("gramaBankName").value;
-    const gramaBankBranch = document.getElementById("gramaBankBranch").value;
-    const labourCessSiteApproval = document.getElementById(
-      "labourCessSiteApproval"
-    ).value;
-    const labourCessChallanNo = document.getElementById(
-      "labourCessChallanNo"
-    ).value;
-    const labourCessChallanDate = document.getElementById(
-      "labourCessChallanDate"
-    ).value;
-    const labourCessBankName =
-      document.getElementById("labourCessBankName").value;
-    const labourCessBankBranch = document.getElementById(
-      "labourCessBankBranch"
-    ).value;
-    const greenFeeSiteApproval = document.getElementById(
-      "greenFeeSiteApproval"
-    ).value;
-    const greenFeeChargeChallanNo = document.getElementById(
-      "greenFeeChargeChallanNo"
-    ).value;
-    const greenFeeChargeChallanDate = document.getElementById(
-      "greenFeeChargeChallanDate"
-    );
-    const greenFeeChargeBankName = document.getElementById(
-      "greenFeeChargeBankName"
-    ).value;
-    const greenFeeChargeBankBranch = document.getElementById(
-      "greenFeeChargeBankBranch"
-    ).value;
+    // UPLOAD IMAGE FILE INTO THE CLOUD STORAGE AT FIRST
+    for (const file in selectedFiles) {
+      console.log(file);
+      formData.append("files", selectedFiles[file]);
+    }
 
-    const udaCharge = {
-      vacantArea,
-      builtUpArea,
-      UdaImpactFee,
-      UDATotalCharged,
-    };
-    const gramaPanchayatFee = {
-      gramaSiteApproval,
-      buildingPermitFees,
-      bettermentCharged,
-      TotalOpenSpaceCharged,
-      gramaImpactFee,
-      TotalPenalizationCharged,
-      GramaPanchayetTotalCharged,
-      gramaChallanNo,
-      gramaChallanDate,
-      gramaBankName,
-      gramaBankBranch,
-    };
-    const labourCessCharge = {
-      labourCessBankBranch,
-      labourCessBankName,
-      labourCessChallanDate,
-      labourCessChallanNo,
-      labourCessSiteApproval,
-    };
-    const greenFeeCharge = {
-      greenFeeChargeBankBranch,
-      greenFeeChargeBankName,
-      greenFeeChargeChallanDate,
-      greenFeeChargeChallanNo,
-      greenFeeSiteApproval,
-    };
+    console.log(...formData);
+    // GET UDA CHARGE SECTIONS DATA
+    // const vacantArea = document.getElementById("vacantArea").value;
+    // const builtUpArea = document.getElementById("builtUpArea").value;
+    // const UdaImpactFee = document.getElementById("UdaImpactFee").value;
+    // const UDATotalCharged = document.getElementById("UDATotalCharged").value;
+    // const gramaSiteApproval =
+    //   document.getElementById("gramaSiteApproval").value;
+    // const buildingPermitFees =
+    //   document.getElementById("buildingPermitFees").value;
+    // const bettermentCharged =
+    //   document.getElementById("bettermentCharged").value;
+    // const TotalOpenSpaceCharged = document.getElementById(
+    //   "TotalOpenSpaceCharged"
+    // ).value;
+    // const gramaImpactFee = document.getElementById("gramaImpactFee").value;
+    // const TotalPenalizationCharged = document.getElementById(
+    //   "TotalPenalizationCharged"
+    // ).value;
+    // const GramaPanchayetTotalCharged = document.getElementById(
+    //   "GramaPanchayetTotalCharged"
+    // ).value;
+    // const gramaChallanNo = document.getElementById("gramaChallanNo").value;
+    // const gramaChallanDate = document.getElementById("gramaChallanDate").value;
+    // const gramaBankName = document.getElementById("gramaBankName").value;
+    // const gramaBankBranch = document.getElementById("gramaBankBranch").value;
+    // const labourCessSiteApproval = document.getElementById(
+    //   "labourCessSiteApproval"
+    // ).value;
+    // const labourCessChallanNo = document.getElementById(
+    //   "labourCessChallanNo"
+    // ).value;
+    // const labourCessChallanDate = document.getElementById(
+    //   "labourCessChallanDate"
+    // ).value;
+    // const labourCessBankName =
+    //   document.getElementById("labourCessBankName").value;
+    // const labourCessBankBranch = document.getElementById(
+    //   "labourCessBankBranch"
+    // ).value;
+    // const greenFeeSiteApproval = document.getElementById(
+    //   "greenFeeSiteApproval"
+    // ).value;
+    // const greenFeeChargeChallanNo = document.getElementById(
+    //   "greenFeeChargeChallanNo"
+    // ).value;
+    // const greenFeeChargeChallanDate = document.getElementById(
+    //   "greenFeeChargeChallanDate"
+    // );
+    // const greenFeeChargeBankName = document.getElementById(
+    //   "greenFeeChargeBankName"
+    // ).value;
+    // const greenFeeChargeBankBranch = document.getElementById(
+    //   "greenFeeChargeBankBranch"
+    // ).value;
+
+    // const udaCharge = {
+    //   vacantArea,
+    //   builtUpArea,
+    //   UdaImpactFee,
+    //   UDATotalCharged,
+    // };
+    // const gramaPanchayatFee = {
+    //   gramaSiteApproval,
+    //   buildingPermitFees,
+    //   bettermentCharged,
+    //   TotalOpenSpaceCharged,
+    //   gramaImpactFee,
+    //   TotalPenalizationCharged,
+    //   GramaPanchayetTotalCharged,
+    //   gramaChallanNo,
+    //   gramaChallanDate,
+    //   gramaBankName,
+    //   gramaBankBranch,
+    // };
+    // const labourCessCharge = {
+    //   labourCessBankBranch,
+    //   labourCessBankName,
+    //   labourCessChallanDate,
+    //   labourCessChallanNo,
+    //   labourCessSiteApproval,
+    // };
+    // const greenFeeCharge = {
+    //   greenFeeChargeBankBranch,
+    //   greenFeeChargeBankName,
+    //   greenFeeChargeChallanDate,
+    //   greenFeeChargeChallanNo,
+    //   greenFeeSiteApproval,
+    // };
 
     // console.log(udaCharge, greenFeeCharge, labourCessCharge, gramaPanchayatFee);
 
-    return await sendUserDataIntoDB(url, "PATCH", {
-      applicationNo: JSON.parse(localStorage.getItem("CurrentAppNo")),
-      payment: {
-        udaCharge,
-        greenFeeCharge,
-        labourCessCharge,
-        gramaPanchayatFee,
-      },
-    });
+    // return await sendUserDataIntoDB(url, "PATCH", {
+    //   applicationNo: JSON.parse(localStorage.getItem("CurrentAppNo")),
+    //   payment: {
+    //     udaCharge,
+    //     greenFeeCharge,
+    //     labourCessCharge,
+    //     gramaPanchayatFee,
+    //   },
+    // });
   };
 
   console.log(condition, "CONSOLE");
