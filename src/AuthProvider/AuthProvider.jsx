@@ -187,7 +187,6 @@ const AuthProvider = ({ children }) => {
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: "Yes, save it",
-      showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
     }).then((result) => {
