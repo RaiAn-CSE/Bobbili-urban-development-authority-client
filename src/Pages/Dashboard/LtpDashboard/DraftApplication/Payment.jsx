@@ -35,6 +35,7 @@ const Payment = () => {
     labourCessBankReceipt: "",
     greenFeeBankReceipt: "",
   });
+  const [sentData, setSentData] = useState(0);
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
 
@@ -832,6 +833,8 @@ const Payment = () => {
         confirmAlert={confirmAlert}
         collectInputFieldData={sendPaymentData}
         sentToPS={alertToTransferDataIntoDepartment}
+        setSentData={setSentData}
+        sentData={sentData}
       />
     </form>
   );
