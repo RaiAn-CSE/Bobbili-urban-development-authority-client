@@ -561,7 +561,7 @@ const BuildingInfo = () => {
             <select
               id="caseType"
               className="w-full px-3 py-[10px] border border-[#10AC84] dark:text-black rounded-lg max-w-xs"
-              value={selectedOptionCase.length ? selectedOptionCase : caseType}
+              value={selectedOptionCase ? selectedOptionCase : caseType}
               onChange={handleCaseTypeChange}
             >
               <option disabled selected value="">
