@@ -12,6 +12,7 @@ import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import toast from "react-hot-toast";
 import axios from "axios";
 import SaveData from "./SaveData";
+import { Link } from "react-router-dom";
 
 const Payment = () => {
   const stepperData = useOutletContext();
@@ -691,6 +692,9 @@ const Payment = () => {
             label="DD/Challan no."
             placeholder="1234"
             type="text"
+            ltpDetails={
+              applicationData?.payment?.gramaPanchayatFee?.gramaChallanNo ?? ""
+            }
           />
           <InputField
             id="gramaChallanDate"
@@ -698,6 +702,10 @@ const Payment = () => {
             label="DD/Challan date"
             placeholder="06-04-2023"
             type="text"
+            ltpDetails={
+              applicationData?.payment?.gramaPanchayatFee?.gramaChallanDate ??
+              ""
+            }
           />
           <InputField
             id="gramaBankName"
@@ -705,6 +713,9 @@ const Payment = () => {
             label="Bank name"
             placeholder="xxxx"
             type="text"
+            ltpDetails={
+              applicationData?.payment?.gramaPanchayatFee?.gramaBankName ?? ""
+            }
           />
           <InputField
             id="gramaBankBranch"
@@ -712,6 +723,9 @@ const Payment = () => {
             label="Branch"
             placeholder="xxxx"
             type="text"
+            ltpDetails={
+              applicationData?.payment?.gramaPanchayatFee?.gramaBankBranch ?? ""
+            }
           />
         </div>
         <div className="px-3 mb-8 flex justify-end">
@@ -723,6 +737,15 @@ const Payment = () => {
               onChange={(e) => handleFileChange(e, "gramaBankReceipt")}
             />
           </div>
+          {applicationData?.payment?.gramaPanchayatFee?.gramaBankReceipt && (
+            <Link
+              to={`https://drive.google.com/file/d/${applicationData?.payment?.gramaPanchayatFee?.gramaBankReceipt}/view?usp=sharing`}
+              target="_blank"
+              className="ms-10 hover:underline bg-yellow-300 p-3 rounded-full"
+            >
+              View old File
+            </Link>
+          )}
         </div>
       </div>
 
@@ -754,6 +777,10 @@ const Payment = () => {
             label="DD/Challan no."
             placeholder="1234"
             type="text"
+            ltpDetails={
+              applicationData?.payment?.labourCessCharge?.labourCessChallanNo ??
+              ""
+            }
           />
           <InputField
             id="labourCessChallanDate"
@@ -761,6 +788,10 @@ const Payment = () => {
             label="DD/Challan date"
             placeholder="06-04-2023"
             type="text"
+            ltpDetails={
+              applicationData?.payment?.labourCessCharge
+                ?.labourCessChallanDate ?? ""
+            }
           />
           <InputField
             id="labourCessBankName"
@@ -768,6 +799,10 @@ const Payment = () => {
             label="Bank name"
             placeholder="xxxx"
             type="text"
+            ltpDetails={
+              applicationData?.payment?.labourCessCharge?.labourCessBankName ??
+              ""
+            }
           />
           <InputField
             id="labourCessBankBranch"
@@ -775,6 +810,10 @@ const Payment = () => {
             label="Branch"
             placeholder="xxxx"
             type="text"
+            ltpDetails={
+              applicationData?.payment?.labourCessCharge
+                ?.labourCessBankBranch ?? ""
+            }
           />
         </div>
         <div className="px-3 mb-4 flex justify-end">
@@ -786,6 +825,17 @@ const Payment = () => {
               onChange={(e) => handleFileChange(e, "labourCessBankReceipt")}
             />
           </div>
+
+          {applicationData?.payment?.labourCessCharge
+            ?.labourCessBankReceipt && (
+            <Link
+              to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
+              target="_blank"
+              className="ms-10 hover:underline bg-yellow-300 p-3 rounded-full"
+            >
+              View old File
+            </Link>
+          )}
         </div>
       </div>
 
@@ -818,6 +868,10 @@ const Payment = () => {
             label="DD/Challan no."
             placeholder="1234"
             type="text"
+            ltpDetails={
+              applicationData?.payment?.greenFeeCharge
+                ?.greenFeeChargeChallanNo ?? ""
+            }
           />
           <InputField
             id="greenFeeChargeChallanDate"
@@ -825,6 +879,10 @@ const Payment = () => {
             label="DD/Challan date"
             placeholder="06-04-2023"
             type="text"
+            ltpDetails={
+              applicationData?.payment?.greenFeeCharge
+                ?.greenFeeChargeChallanDate ?? ""
+            }
           />
           <InputField
             id="greenFeeChargeBankName"
@@ -832,6 +890,10 @@ const Payment = () => {
             label="Bank name"
             placeholder="xxxx"
             type="text"
+            ltpDetails={
+              applicationData?.payment?.greenFeeCharge
+                ?.greenFeeChargeBankName ?? ""
+            }
           />
           <InputField
             id="greenFeeChargeBankBranch"
@@ -839,6 +901,10 @@ const Payment = () => {
             label="Branch"
             placeholder="xxxx"
             type="text"
+            ltpDetails={
+              applicationData?.payment?.greenFeeCharge
+                ?.greenFeeChargeBankBranch ?? ""
+            }
           />
         </div>
       </div>
@@ -852,6 +918,15 @@ const Payment = () => {
             onChange={(e) => handleFileChange(e, "greenFeeBankReceipt")}
           />
         </div>
+        {applicationData?.payment?.greenFeeCharge?.greenFeeBankReceipt && (
+          <Link
+            to={`https://drive.google.com/file/d/${applicationData?.payment?.greenFeeCharge?.greenFeeBankReceipt}/view?usp=sharing`}
+            target="_blank"
+            className="ms-10 hover:underline bg-yellow-300 p-3 rounded-full"
+          >
+            View old File
+          </Link>
+        )}
       </div>
 
       <input type="submit" value="GET" onClick={getData} />
