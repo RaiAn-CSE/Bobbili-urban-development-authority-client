@@ -119,7 +119,11 @@ const AuthProvider = ({ children }) => {
   };
 
   // confirmation message and send data to database
-  const confirmAlert = (stepperData, collectInputFieldData) => {
+  const confirmAlert = (
+    stepperData,
+    collectInputFieldData,
+    isPaymentDataSent
+  ) => {
     const url = `http://localhost:5000/updateDraftApplicationData/${
       userInfoFromLocalStorage()._id
     }`;
@@ -165,6 +169,10 @@ const AuthProvider = ({ children }) => {
           const [, currentStep, steps, handleStepClick] = stepperData;
           console.log(currentStep < steps.length - 1);
           currentStep < steps.length - 1 && handleStepClick(currentStep + 1);
+        }
+
+        if (isPaymentDataSent) {
+          isPaymentDataSent((prev) => prev + 1);
         }
       } else {
         toast.error("Failed to save data");

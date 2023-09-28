@@ -46,8 +46,7 @@ const SaveData = ({
                 //   confirmAlert()
                 // }
                 onClick={() => {
-                  confirmAlert(undefined, collectInputFieldData);
-                  setSentData((prev) => prev + 1);
+                  confirmAlert(undefined, collectInputFieldData, setSentData);
                 }}
               >
                 Save
