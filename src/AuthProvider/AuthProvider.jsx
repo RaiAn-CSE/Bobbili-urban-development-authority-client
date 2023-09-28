@@ -68,7 +68,7 @@ const AuthProvider = ({ children }) => {
 
     const data = { userId: userInfoFromLocalStorage()._id, applicationNo };
 
-    const url = `http://localhost:5000/deleteApplication?data=${JSON.stringify(
+    const url = `https://residential-building.vercel.app/deleteApplication?data=${JSON.stringify(
       data
     )}`;
     Swal.fire({
@@ -124,7 +124,7 @@ const AuthProvider = ({ children }) => {
     collectInputFieldData,
     isPaymentDataSent
   ) => {
-    const url = `http://localhost:5000/updateDraftApplicationData/${
+    const url = `https://residential-building.vercel.app/updateDraftApplicationData/${
       userInfoFromLocalStorage()._id
     }`;
 

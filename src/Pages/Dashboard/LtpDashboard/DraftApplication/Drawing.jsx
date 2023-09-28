@@ -50,7 +50,8 @@ const Drawing = () => {
   const handleFileChange = (event, eventId) => {
     const file = event?.target.files[0];
     // formData.append(eventId, file);
-    file && toast.success(`${file?.name.slice(0, 20)}... uploaded successfully!`);
+    file &&
+      toast.success(`${file?.name.slice(0, 20)}... uploaded successfully!`);
     const localStoreDrawingData = JSON.parse(
       localStorage.getItem("selectedFiles")
     );
@@ -94,7 +95,7 @@ const Drawing = () => {
 
       try {
         const response = await axios.post(
-          "http://localhost:5000/upload?page=drawing",
+          "https://residential-building.vercel.app/upload?page=drawing",
           formData,
           {
             headers: {
@@ -131,13 +132,21 @@ const Drawing = () => {
   };
 
   return (
-    <> <div className="text-end mb-4">
-      <button onClick={() => setOpenApplication(true)} className="btn btn-sm text-xs bg-[#c0e9e4] transition-all duration-700 hover:bg-[#10ac84] text-[#000] hover:text-[#fff]">
-        <HiOutlineClipboardDocumentList className="text-lg" />
-        <span>Application</span>
-      </button>
-    </div>
-      <form onSubmit={(e) => e.preventDefault()} className="text-black p-5 mt-3">
+    <>
+      {" "}
+      <div className="text-end mb-4">
+        <button
+          onClick={() => setOpenApplication(true)}
+          className="btn btn-sm text-xs bg-[#c0e9e4] transition-all duration-700 hover:bg-[#10ac84] text-[#000] hover:text-[#fff]"
+        >
+          <HiOutlineClipboardDocumentList className="text-lg" />
+          <span>Application</span>
+        </button>
+      </div>
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        className="text-black p-5 mt-3"
+      >
         {/* AutoCAD Drawing */}
         <div className="flex justify-between items-center text-base px-2  mb-16">
           <p className="pr-3">
@@ -157,7 +166,9 @@ const Drawing = () => {
                 <MdOutlineAttachFile size={20} />
 
                 {localFile && localFile[0] !== "" ? (
-                  <p className="text-base">{localFile[0].slice(0, 12) + "..."}</p>
+                  <p className="text-base">
+                    {localFile[0].slice(0, 12) + "..."}
+                  </p>
                 ) : (
                   <p className="text-base">Select a file</p>
                 )}
@@ -197,7 +208,9 @@ const Drawing = () => {
               <div className="flex justify-between items-center bg-white shadow-sm w-[230px] p-2 rounded-lg z-0">
                 <MdOutlineAttachFile size={20} />
                 {localFile && localFile[1] !== "" ? (
-                  <p className="text-base">{localFile[1].slice(0, 12) + "..."}</p>
+                  <p className="text-base">
+                    {localFile[1].slice(0, 12) + "..."}
+                  </p>
                 ) : (
                   <p className="text-base">Select a file</p>
                 )}
@@ -249,7 +262,11 @@ const Drawing = () => {
         )}
       </> */}
       </form>
-      {openApplication ? <Application setOpenApplication={setOpenApplication} /> : ""}
+      {openApplication ? (
+        <Application setOpenApplication={setOpenApplication} />
+      ) : (
+        ""
+      )}
     </>
   );
 };

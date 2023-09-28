@@ -14,7 +14,8 @@ const DocumentUpload = () => {
   const [UpdatedDocuments, setUpdatedDocuments] = useState(Documents.Data);
   const stepperData = useOutletContext();
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
-  const { confirmAlert, sendUserDataIntoDB, getApplicationData } = useContext(AuthContext);
+  const { confirmAlert, sendUserDataIntoDB, getApplicationData } =
+    useContext(AuthContext);
 
   const formData = new FormData();
 
@@ -93,7 +94,6 @@ const DocumentUpload = () => {
 
   // handle file upload
   const handleFileUpload = async (url) => {
-
     // find empty field to stop sending data in to the database
     // const findEmptyField = UpdatedDocuments.find(
     //   (field) => field?.upload === ""
@@ -118,7 +118,7 @@ const DocumentUpload = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/upload?page=document",
+        "https://residential-building.vercel.app/upload?page=document",
         formData,
         {
           headers: {
@@ -147,13 +147,16 @@ const DocumentUpload = () => {
   };
 
   return (
-    <>  
-    <div className="text-end mb-4">
-      <button onClick={() => setOpenApplication(true)} className="btn btn-sm text-xs bg-[#c0e9e4] transition-all duration-700 hover:bg-[#10ac84] text-[#000] hover:text-[#fff]">
-        <HiOutlineClipboardDocumentList className="text-lg" />
-        <span>Application</span>
-      </button>
-    </div>
+    <>
+      <div className="text-end mb-4">
+        <button
+          onClick={() => setOpenApplication(true)}
+          className="btn btn-sm text-xs bg-[#c0e9e4] transition-all duration-700 hover:bg-[#10ac84] text-[#000] hover:text-[#fff]"
+        >
+          <HiOutlineClipboardDocumentList className="text-lg" />
+          <span>Application</span>
+        </button>
+      </div>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -164,7 +167,10 @@ const DocumentUpload = () => {
           const { id, question, upload } = document;
           return (
             <>
-              <div key={id} className="w-full px-2 mt-10 shadow-sm py-10 rounded">
+              <div
+                key={id}
+                className="w-full px-2 mt-10 shadow-sm py-10 rounded"
+              >
                 <p className="text-[17px] font-bold">
                   {id}. {question}
                 </p>
@@ -194,7 +200,11 @@ const DocumentUpload = () => {
           );
         })}
 
-        {openApplication ? <Application setOpenApplication={setOpenApplication} /> : ""}
+        {openApplication ? (
+          <Application setOpenApplication={setOpenApplication} />
+        ) : (
+          ""
+        )}
 
         {/* save & continue  */}
         {/* navigation button  */}

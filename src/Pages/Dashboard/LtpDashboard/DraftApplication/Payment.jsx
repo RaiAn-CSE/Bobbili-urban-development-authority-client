@@ -95,7 +95,7 @@ const Payment = () => {
       generalInformation?.natureOfTheSite === "Approved Layout" ||
       generalInformation?.natureOfTheSite === "Regularised under LRS" ||
       generalInformation?.natureOfTheSite ===
-      "Congested/ Gramakanta/ Old Built-up area" ||
+        "Congested/ Gramakanta/ Old Built-up area" ||
       generalInformation.natureOfTheSite === "Newly Developed/ Built up area"
     ) {
       console.log("aschi");
@@ -397,7 +397,7 @@ const Payment = () => {
 
       try {
         const response = await axios.post(
-          "http://localhost:5000/upload?page=payment",
+          "https://residential-building.vercel.app/upload?page=payment",
           formData,
           {
             headers: {
@@ -555,13 +555,15 @@ const Payment = () => {
         className="grid my-5 lg:my-0 lg:p-2"
       >
         <div className="text-end mb-4">
-          <button onClick={() => setOpenApplication(true)} className="btn btn-sm text-xs bg-[#c0e9e4] transition-all duration-700 hover:bg-[#10ac84] text-[#000] hover:text-[#fff]">
+          <button
+            onClick={() => setOpenApplication(true)}
+            className="btn btn-sm text-xs bg-[#c0e9e4] transition-all duration-700 hover:bg-[#10ac84] text-[#000] hover:text-[#fff]"
+          >
             <HiOutlineClipboardDocumentList className="text-lg" />
             <span>Application</span>
           </button>
         </div>
         <div>
-
           <div className="flex items-center">
             <img
               src={UDAChargeImg}
@@ -698,7 +700,8 @@ const Payment = () => {
               placeholder="1234"
               type="text"
               ltpDetails={
-                applicationData?.payment?.gramaPanchayatFee?.gramaChallanNo ?? ""
+                applicationData?.payment?.gramaPanchayatFee?.gramaChallanNo ??
+                ""
               }
             />
             <InputField
@@ -729,7 +732,8 @@ const Payment = () => {
               placeholder="xxxx"
               type="text"
               ltpDetails={
-                applicationData?.payment?.gramaPanchayatFee?.gramaBankBranch ?? ""
+                applicationData?.payment?.gramaPanchayatFee?.gramaBankBranch ??
+                ""
               }
             />
           </div>
@@ -783,8 +787,8 @@ const Payment = () => {
               placeholder="1234"
               type="text"
               ltpDetails={
-                applicationData?.payment?.labourCessCharge?.labourCessChallanNo ??
-                ""
+                applicationData?.payment?.labourCessCharge
+                  ?.labourCessChallanNo ?? ""
               }
             />
             <InputField
@@ -805,8 +809,8 @@ const Payment = () => {
               placeholder="xxxx"
               type="text"
               ltpDetails={
-                applicationData?.payment?.labourCessCharge?.labourCessBankName ??
-                ""
+                applicationData?.payment?.labourCessCharge
+                  ?.labourCessBankName ?? ""
               }
             />
             <InputField
@@ -833,14 +837,14 @@ const Payment = () => {
 
             {applicationData?.payment?.labourCessCharge
               ?.labourCessBankReceipt && (
-                <Link
-                  to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
-                  target="_blank"
-                  className="ms-10 hover:underline bg-yellow-300 p-3 rounded-full"
-                >
-                  View old File
-                </Link>
-              )}
+              <Link
+                to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
+                target="_blank"
+                className="ms-10 hover:underline bg-yellow-300 p-3 rounded-full"
+              >
+                View old File
+              </Link>
+            )}
           </div>
         </div>
 
@@ -950,7 +954,11 @@ const Payment = () => {
           sentData={sentData}
         />
       </form>
-      {openApplication ? <Application setOpenApplication={setOpenApplication} /> : ""}
+      {openApplication ? (
+        <Application setOpenApplication={setOpenApplication} />
+      ) : (
+        ""
+      )}
     </>
   );
 };
