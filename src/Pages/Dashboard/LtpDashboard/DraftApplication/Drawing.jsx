@@ -95,7 +95,7 @@ const Drawing = () => {
 
       try {
         const response = await axios.post(
-          "http://localhost:5000/upload?page=drawing",
+          "https://residential-building.vercel.app/upload?page=drawing",
           formData,
           {
             headers: {
