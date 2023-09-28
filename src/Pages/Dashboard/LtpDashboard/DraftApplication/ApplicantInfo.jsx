@@ -35,9 +35,11 @@ const ApplicantInfo = () => {
 
   const setPhoneNoLimit = (e, setPhoneNo) => {
     const value = e.target.value;
+    console.log(value, 'value');
     // Check if the Applicant Phone No Input value contains only digits and is not longer than 10 characters
     if (/^\d*$/.test(value) && value.length <= 10) {
       setPhoneNo(value);
+      // console.log(value.length, 'in value');
     }
   };
 
@@ -182,6 +184,7 @@ const ApplicantInfo = () => {
                 defaultValue={phoneNo ? phoneNo : ltpPhone}
                 onChange={(e) => setPhoneNoLimit(e, setLtpPhone)}
                 className={inputClass}
+                maxLength={10}
               />
             </div>
 

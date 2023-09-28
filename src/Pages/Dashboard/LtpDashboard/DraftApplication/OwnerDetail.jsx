@@ -41,6 +41,7 @@ const OwnerDetail = ({ index, length, applicantNo, setPhoneNoLimit, increaseAppl
               defaultValue={applicantDetails?.phone ? applicantDetails?.phone : applicantPhone}
               onChange={(e) => setPhoneNoLimit(e, setApplicantPhone)}
               className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
+              maxLength={10}
               required
             />
           </div>
