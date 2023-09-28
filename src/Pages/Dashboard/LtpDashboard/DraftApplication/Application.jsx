@@ -32,7 +32,7 @@ function Application({ setOpenApplication }) {
     gettingData();
   }, []);
 
-  console.log(generalInformation, "General information");
+  console.log(generalInformation, "GENERAL INFORMATION");
 
   // General Information
   const {

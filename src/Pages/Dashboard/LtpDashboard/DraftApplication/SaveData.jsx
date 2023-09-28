@@ -9,6 +9,8 @@ const SaveData = ({
   stepperData,
   collectInputFieldData,
   sentToPS,
+  setSentData,
+  sentData,
 }) => {
   let btnClass =
     "btn btn-md text-[#000000] hover:text-[#fff] rounded-lg transition-all duration-500 cursor-pointer hover:bg-emerald-400";
@@ -43,12 +45,15 @@ const SaveData = ({
                 //   // handleStepClick(currentStep + 1)
                 //   confirmAlert()
                 // }
-                onClick={() => confirmAlert(undefined, collectInputFieldData)}
+                onClick={() => {
+                  confirmAlert(undefined, collectInputFieldData, setSentData);
+                }}
               >
                 Save
               </button>
               <button
                 className={`btn btn-md text-[#000000] hover:text-[#fff] rounded-lg shadow-lg transition-all duration-500 cursor-pointer bg-yellow-300 hover:shadow-md hover:bg-yellow-300`}
+                disabled={sentData === 0}
                 onClick={() =>
                   sentToPS(
                     JSON.parse(localStorage.getItem("CurrentAppNo")),

@@ -352,7 +352,7 @@ const Payment = () => {
 
   return (
     <>
-      <div className="flex items-end justify-end">
+      <div className="flex justify-end">
         <button onClick={() => setOpenApplication(true)} className="btn btn-sm text-xs bg-[#c0e9e4] transition-all duration-700 hover:bg-[#10ac84] text-[#000] hover:text-[#fff]">
           <HiOutlineClipboardDocumentList className="text-lg" />
           <span>Application</span>

@@ -120,12 +120,12 @@ const Login = () => {
 
   return (
     <>
-      <div className="relative shadow-lg h-full">
+      <div className="relative">
         {/* support icon  */}
 
         {/* login form  */}
 
-        <div className="rounded-lg border p-4 sm:p-6 md:p-8 ">
+        <div className="rounded-lg border p-4 sm:p-6 md:p-8 shadow-lg">
           <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
             <h1 className="text-2xl text-center font-bold Roboto text-gray-900 ">
               Sign in
