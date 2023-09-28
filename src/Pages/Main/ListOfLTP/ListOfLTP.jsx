@@ -2,8 +2,7 @@ import React from 'react';
 
 const ListOfLTP = () => {
     return (
-        <div className="">
-
+        <>
             <form>
                 <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                 <div className="relative">
@@ -60,7 +59,7 @@ const ListOfLTP = () => {
                     </table>
                 </div>
             </div>
-        </div >
+        </ >
     );
 };
 

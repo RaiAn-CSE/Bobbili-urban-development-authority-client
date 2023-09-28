@@ -10,7 +10,8 @@
 
 /* Customize the scrollbar style */
 .customScrolling::-webkit-scrollbar {
-    width: 2px;
+    width: 1px;
+    height: 10px;
     /* position: absolute; */
     /* Set the width of the scrollbar */
 }
