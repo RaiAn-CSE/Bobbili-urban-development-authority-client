@@ -15,7 +15,7 @@ const AuthProvider = ({ children }) => {
 
   // update user info
   const updateUserInfoInLocalStorage = (id) => {
-    fetch(`https://residential-building.vercel.app/getUser?id=${id}`)
+    fetch(`http://localhost:5000/getUser?id=${id}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -54,9 +54,7 @@ const AuthProvider = ({ children }) => {
   const getUserData = async (id) => {
     console.log(id, "AUTH ID");
 
-    const response = await fetch(
-      `https://residential-building.vercel.app/getUser?id=${id}`
-    );
+    const response = await fetch(`http://localhost:5000/getUser?id=${id}`);
     const data = await response.json();
     return data;
   };
@@ -68,7 +66,7 @@ const AuthProvider = ({ children }) => {
 
     const data = { userId: userInfoFromLocalStorage()._id, applicationNo };
 
-    const url = `https://residential-building.vercel.app/deleteApplication?data=${JSON.stringify(
+    const url = `http://localhost:5000/deleteApplication?data=${JSON.stringify(
       data
     )}`;
     Swal.fire({
@@ -124,7 +122,7 @@ const AuthProvider = ({ children }) => {
     collectInputFieldData,
     isPaymentDataSent
   ) => {
-    const url = `https://residential-building.vercel.app/updateDraftApplicationData/${
+    const url = `http://localhost:5000/updateDraftApplicationData/${
       userInfoFromLocalStorage()._id
     }`;
 
@@ -205,7 +203,7 @@ const AuthProvider = ({ children }) => {
     });
 
     const response = await fetch(
-      `https://residential-building.vercel.app/getApplicationData?data=${query}`
+      `http://localhost:5000/getApplicationData?data=${query}`
     );
 
     return await response.json();
