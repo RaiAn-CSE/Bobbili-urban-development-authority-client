@@ -18,8 +18,8 @@ import Error from "../Pages/Shared/Error";
 import MainLayout from "../Layouts/MainLayout";
 import Carousel from "../Pages/Main/Carousel/Carousel";
 import ApplicationSearch from "../Pages/Main/ApplicationSearch/ApplicationSearch";
-import OnlinePayment from "../Pages/Main/OnlinePayment";
-import ListOfLTP from "../Pages/Main/ListOfLTP";
+import OnlinePayment from "../Pages/Main/OnlinePayment/OnlinePayment";
+import ListOfLTP from '../Pages/Main/ListOfLTP/ListOfLTP';
 
 const router = createBrowserRouter([
   {

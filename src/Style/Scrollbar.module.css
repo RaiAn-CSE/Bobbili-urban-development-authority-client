@@ -1,0 +1,24 @@
+.customScrolling {
+    max-height: 400px;
+    overflow: hidden;
+    position: relative;
+}
+
+.customScrolling:hover {
+    overflow-y: auto;
+}
+
+/* Customize the scrollbar style */
+.customScrolling::-webkit-scrollbar {
+    width: 1px;
+    height: 10px;
+    /* position: absolute; */
+    /* Set the width of the scrollbar */
+}
+
+.customScrolling::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+    /* position: absolute; */
+    /* Set the color of the scrollbar thumb */
+}

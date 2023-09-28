@@ -37,7 +37,6 @@ const BuildingInfo = () => {
 
   // NATURE OF THE SITE
   const [selectedNatureOfTheSite, setSelectedNatureOfTheSite] = useState("");
-  const [showInputFields, setShowInputFields] = useState(false);
 
   const [districtData, setDistrictData] = useState([]);
   const [selectedDistrict, setSelectedDistrict] = useState("");
@@ -115,6 +114,9 @@ const BuildingInfo = () => {
       const scheduleBoundaries =
         applicationData.buildingInfo.scheduleBoundaries;
 
+      setSelectedOptionCase(generalInformation.caseType)
+      setSelectedOptionPermission(generalInformation.natureOfPermission)
+      setSelectedNatureOfTheSite(generalInformation.natureOfTheSite)
       setSelectedDistrict(generalInformation.district);
       setSelectedMandal(generalInformation.mandal);
       setSelectedVillage(generalInformation.village);
@@ -179,17 +181,6 @@ const BuildingInfo = () => {
   // Nature of the site
   const handleNatureChange = (e) => {
     setSelectedNatureOfTheSite(e.target.value);
-
-    // Check if the selected option should show additional input fields
-    if (
-      e.target.value === "Approved Layout" ||
-      e.target.value === "Regularised under LRS" ||
-      e.target.value === "Plot port of RLP/IPLP but not regularised"
-    ) {
-      setShowInputFields(true);
-    } else {
-      setShowInputFields(false);
-    }
   };
 
   // Net Plot Area(in Sq.M.) Calculation :
@@ -539,6 +530,13 @@ const BuildingInfo = () => {
   // console.log(scheduleBoundaries, 'scheduleBoundaries');
   const { east, west, north, south } = scheduleBoundaries;
 
+
+
+  console.log(selectedOptionCase, "selectedOptionCase");
+  console.log('hi there');
+
+
+
   // classes for this component:
   const labelClass =
     "block text-gray-600 mb-1 font-semibold dark:text-gray-100";
@@ -771,7 +769,8 @@ const BuildingInfo = () => {
 
           {/*===================== Conditionally render input fields based on Case Type  =====================*/}
           {selectedOptionCase === "Alteration Addition Existing" &&
-            selectedOptionPermission === "Regularised under BPS" && (
+            selectedOptionPermission === "Regularised under BPS" &&
+            (
               <div>
                 <InputField
                   id="BpsApprovedNo"
@@ -799,63 +798,59 @@ const BuildingInfo = () => {
             )}
 
           {/* Conditionally render input fields based on Nature of the site */}
-          {showInputFields && (
+          {selectedNatureOfTheSite === "Approved Layout" && (
             <>
-              {selectedNatureOfTheSite === "Approved Layout" && (
-                <>
-                  <InputField
-                    id="LpNo"
-                    name="LpNo"
-                    label="L.P. no."
-                    placeholder="L.P. no."
-                    type="number"
-                    ltpDetails={lpNo}
-                  />
-                  <InputField
-                    id="PlotNo"
-                    name="PlotNo"
-                    label="Plot no."
-                    placeholder="Plot no."
-                    type="number"
-                    ltpDetails={plotNo}
-                  />
-                </>
-              )}
-
-              {selectedNatureOfTheSite === "Regularised under LRS" && (
-                <>
-                  <InputField
-                    id="LrsNo"
-                    name=""
-                    label="LRS no"
-                    placeholder="LRS no."
-                    type="number"
-                    ltpDetails={lrsNo}
-                  />
-                  <InputField
-                    id="PlotNo2"
-                    name=""
-                    label="Plot no"
-                    placeholder="Plot no."
-                    type="number"
-                    ltpDetails={plotNo2}
-                  />
-                </>
-              )}
-
-              {selectedNatureOfTheSite ===
-                "Plot port of RLP/IPLP but not regularised" && (
-                <InputField
-                  id="IplpNo"
-                  name=""
-                  label="RLP/IPLP no."
-                  placeholder="RLP/IPLP no."
-                  type="number"
-                  ltpDetails={iplpNo}
-                />
-              )}
+              <InputField
+                id="LpNo"
+                name="LpNo"
+                label="L.P. no."
+                placeholder="L.P. no."
+                type="number"
+                ltpDetails={lpNo}
+              />
+              <InputField
+                id="PlotNo"
+                name="PlotNo"
+                label="Plot no."
+                placeholder="Plot no."
+                type="number"
+                ltpDetails={plotNo}
+              />
             </>
           )}
+
+          {selectedNatureOfTheSite === "Regularised under LRS" && (
+            <>
+              <InputField
+                id="LrsNo"
+                name=""
+                label="LRS no"
+                placeholder="LRS no."
+                type="number"
+                ltpDetails={lrsNo}
+              />
+              <InputField
+                id="PlotNo2"
+                name=""
+                label="Plot no"
+                placeholder="Plot no."
+                type="number"
+                ltpDetails={plotNo2}
+              />
+            </>
+          )}
+
+          {selectedNatureOfTheSite ===
+            "Plot port of RLP/IPLP but not regularised" && (
+              <InputField
+                id="IplpNo"
+                name=""
+                label="RLP/IPLP no."
+                placeholder="RLP/IPLP no."
+                type="number"
+                ltpDetails={iplpNo}
+              />
+            )}
           {/*===================== Conditional Input Field End =====================*/}
         </div>
       </div>
