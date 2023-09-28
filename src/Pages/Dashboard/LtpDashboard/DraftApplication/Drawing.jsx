@@ -47,7 +47,8 @@ const Drawing = () => {
   const handleFileChange = (event, eventId) => {
     const file = event?.target.files[0];
     // formData.append(eventId, file);
-    file && toast.success(`${file?.name.slice(0,20)}... uploaded successfully!`);
+    file &&
+      toast.success(`${file?.name.slice(0, 20)}... uploaded successfully!`);
     const localStoreDrawingData = JSON.parse(
       localStorage.getItem("selectedFiles")
     );
@@ -88,7 +89,7 @@ const Drawing = () => {
         // console.log(selectedFiles[file]);
         formData.append("files", selectedFiles[file]);
       }
- 
+
       try {
         const response = await axios.post(
           "http://localhost:5000/upload?page=drawing",

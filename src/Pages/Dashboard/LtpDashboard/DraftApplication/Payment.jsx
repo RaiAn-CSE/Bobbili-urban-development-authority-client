@@ -29,6 +29,11 @@ const Payment = () => {
   const [condition, setCondition] = useState("");
   const [loading, setLoading] = useState(false);
   const [calculatedData, setCalculatedData] = useState({});
+  const [selectedFiles, setSelectedFiles] = useState({
+    gramaBankReceipt: "",
+    labourCessBankReceipt: "",
+    greenFeeBankReceipt: "",
+  });
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
 
@@ -98,10 +103,6 @@ const Payment = () => {
     // calculation process
     calculateFees();
   }, [applicationData, condition]);
-
-  if (loading) {
-    return "Loading...";
-  }
 
   const calculateFees = () => {
     // Plots Details
@@ -326,6 +327,22 @@ const Payment = () => {
 
   console.log(calculatedData, "Calculated data");
 
+  // THIS FUNCTION USED FOR GETTING SELECTED FILE
+  const handleFileChange = (e, fileName) => {
+    const file = e.target.files[0];
+
+    file && toast.success("Uploaded successfully");
+
+    setSelectedFiles((prev) => {
+      console.log(prev, fileName, "BEFORE");
+      prev[fileName] = file;
+      console.log(prev, fileName, "AFTER");
+      return prev;
+    });
+    console.log(file, fileName, "GG");
+    console.log(selectedFiles, "HH");
+  };
+
   // send data into database
   const sendPaymentData = async (url) => {
     console.log("object");
@@ -434,6 +451,10 @@ const Payment = () => {
 
   console.log(condition, "CONSOLE");
   console.log(applicationData, "APPDATA");
+
+  if (loading) {
+    return "Loading...";
+  }
 
   return (
     <form
@@ -575,7 +596,7 @@ const Payment = () => {
           />
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 mb-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 mb-4">
           <InputField
             id="gramaChallanNo"
             name="gramaChallanNo"
@@ -605,12 +626,13 @@ const Payment = () => {
             type="text"
           />
         </div>
-        <div className="px-3 mb-4 flex justify-end">
-          <div className="w-[250px]">
+        <div className="px-3 mb-8 flex justify-end">
+          <div className="form-control w-full max-w-xs">
             <input
-              className="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
               type="file"
+              className="file-input file-input-bordered w-full max-w-xs"
               id="gramaBankReceipt"
+              onChange={(e) => handleFileChange(e, "gramaBankReceipt")}
             />
           </div>
         </div>
@@ -668,11 +690,12 @@ const Payment = () => {
           />
         </div>
         <div className="px-3 mb-4 flex justify-end">
-          <div className="w-[250px]">
+          <div className="form-control w-full max-w-xs">
             <input
-              className="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
               type="file"
+              className="file-input file-input-bordered w-full max-w-xs"
               id="labourCessBankReceipt"
+              onChange={(e) => handleFileChange(e, "labourCessBankReceipt")}
             />
           </div>
         </div>
@@ -733,11 +756,12 @@ const Payment = () => {
       </div>
 
       <div className="px-3 mb-4 flex justify-end">
-        <div className="w-[250px]">
+        <div className="form-control w-full max-w-xs">
           <input
-            className="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
             type="file"
+            className="file-input file-input-bordered w-full max-w-xs"
             id="greenFeeBankReceipt"
+            onChange={(e) => handleFileChange(e, "greenFeeBankReceipt")}
           />
         </div>
       </div>
