@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import ApplicationHeader from "./ApplicationHeader";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
-import Loading from "../../../Shared/Loading";
+import {RxCross1} from "react-icons/rx"
 
 function Application({ setOpenApplication }) {
   const { getApplicationData } = useContext(AuthContext);
@@ -109,7 +109,7 @@ function Application({ setOpenApplication }) {
     { "CITY/TOWN": ["PIN - ", pinCode] },
     { DISTRICT: district },
     { "E-MAIL": AppEmail },
-    [{ MOBILE: applicantPhone }, { ALTERNATE: "9876543210" }],
+    [{ MOBILE: applicantPhone }, { ALTERNATE: "" }],
   ];
 
   // //
@@ -119,8 +119,8 @@ function Application({ setOpenApplication }) {
     [{ "SURVEY NO.": surveyNo }, { VILLAGE: village }],
     { "PREMISES / DOOR No.": 12 },
     { "ROAD/ STREET": existingRoad },
-    [{ "WARD NO.": "Not got yet" }, { "BLOCK No": "Not got yet" }],
-    { LOCALITY: "Not got yet " },
+    [{ "WARD NO.": "" }, { "BLOCK No": "" }],
+    { LOCALITY: "" },
     [{ "CIRCLE/DIVISION": gramaPanchayat }, { DIVISION: gramaPanchayat }],
     [{ "CITY/TOWN": district }, { DISTRICT: district }],
   ];
@@ -155,7 +155,7 @@ function Application({ setOpenApplication }) {
   const row5 = [
     {
       "INDIVIDUAL RESIDENTIAL/GROUP HOUSING/ COMMERCIAL/INSTITUTIONAL/ROW HOUSING/OTHERS (SPECIFY)":
-        "Hello, This is Tanjimul Islam Sabbir",
+        "Hello",
     },
   ];
 
@@ -192,7 +192,7 @@ function Application({ setOpenApplication }) {
     const isArray = Array.isArray(data);
     if (isArray) {
       return (
-        <td className="bg-white border border-black w-36 p-0">
+        <td className={`bg-white border border-black ${type=="keys"&& "w-1/3"} p-0`}>
           <div className="flex">
             {data.map((e, i) => (
               <p
@@ -209,7 +209,7 @@ function Application({ setOpenApplication }) {
       );
     } else {
       return (
-        <td className="bg-white border border-black w-36 p-0">
+        <td className={`bg-white border border-black ${type=="keys"&& "w-1/3"} p-0`}>
           <p className="h-12 p-2 flex items-center">
             {keys ? Object.keys(data) : Object.values(data)}
           </p>
@@ -236,7 +236,7 @@ function Application({ setOpenApplication }) {
           <p key={index} className="flex ">
             {colData.map((d, i) => (
               <p
-                key={index}
+                key={i}
                 className={`w-full border-black py-4 border-l ${
                   i == 0 && "border-l-0"
                 }`}
@@ -282,7 +282,7 @@ function Application({ setOpenApplication }) {
                     "font-semibold inline-block border-b-2 border-dotted border-black underline-offset-4 mb-2"
                   }
                 >
-                  Tanjimul Islam Sabbir{Object.values(data[i])[0]}
+              Signature
                 </p>
                 <p>{Object.keys(data[i])[0]}</p>
               </p>
@@ -300,7 +300,7 @@ function Application({ setOpenApplication }) {
     );
   };
   return (
-    <div className="w-full h-full text-black">
+    <div className="w-full h-full text-black relative">
       <dialog id="my_modal_5" className="modal">
         <div className="modal-box w-full max-w-4xl p-14">
           {/* Header */}
@@ -327,7 +327,7 @@ function Application({ setOpenApplication }) {
                     return (
                       <tr key={item} className="bg-white">
                         {/* col-01 */}
-                        <th className="bg-white border border-black w-14">
+                        <th className="bg-white border border-black w-6">
                           {index + 1}
                         </th>
                         {/* col-02 */}
@@ -362,7 +362,7 @@ function Application({ setOpenApplication }) {
                     return (
                       <tr key={item} className="bg-white">
                         {/* col-01 */}
-                        <th className="bg-white border border-black w-14">
+                        <th className="bg-white border border-black w-6">
                           {index + 1}
                         </th>
                         {/* col-02 */}
@@ -397,10 +397,10 @@ function Application({ setOpenApplication }) {
                 {/* row 1 */}
                 {Part03.map((data, index) => (
                   <tr key={index} className="bg-white">
-                    <th className="bg-white border border-black w-14">
+                    <th className="bg-white border border-black">
                       {index + 1}
                     </th>
-                    <td className="bg-white border border-black w-32 p-4">
+                    <td className="bg-white border border-black p-4">
                       {data}
                     </td>
                     {/* <td className='bg-white border border-black'></td> */}
@@ -458,12 +458,12 @@ function Application({ setOpenApplication }) {
               </tbody>
             </table>
           </div>
-          <form method="dialog">
+          <form method="dialog" className="absolute top-10 right-8">
             <button
               onClick={() => setOpenApplication(false)}
-              className="btn mt-5 text-right"
+              className="text-center rounded-full text-red-500 border p-3 border-red-600"
             >
-              Close
+           <RxCross1 className="text-2xl"/>
             </button>
           </form>
         </div>

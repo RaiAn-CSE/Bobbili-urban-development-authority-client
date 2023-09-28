@@ -1,8 +1,17 @@
 import React from 'react'
 
 function ApplicationHeader() {
+    const currentDate = new Date();
+    const day = currentDate.getDate();
+    const month = currentDate.getMonth() + 1; // Adding 1 because months are zero-indexed
+    const year = currentDate.getFullYear();
+    
+    const monthString = month < 10 ? "0" + month : month.toString();
+    const FormDate = [...day.toString(), ...monthString, ...year.toString()];
+    
+
     const header = ["File No.", "ULB ABBREVIATION", "BP", "ZONE", "CIR", "WD", "", "", "", ""];
-    const FormDate = ["", "", "", "", "", ""]
+
     return (
         <div className='my-5'>
             <div className='text-center font-bold'>

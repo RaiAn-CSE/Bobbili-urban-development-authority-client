@@ -14,7 +14,7 @@ const LtpSidebar = () => {
 
   // console.log(location);
   return (
-    <div className={sidebarStyle.links}>
+    <div className={`${sidebarStyle.links}`}>
       <li className={`${path === "/dashboard" && "active"} mt-10`}>
         <span>
           <MdSpaceDashboard size={20} />

@@ -11,9 +11,13 @@ import { useOutletContext } from "react-router";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import SaveData from "./SaveData";
 import toast from "react-hot-toast";
+import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
+import Application from "./Application";
+import { RxCross1 } from "react-icons/rx";
 
 const Payment = () => {
   const stepperData = useOutletContext();
+  const [openApplication, setOpenApplication] = useState(false);
   const {
     getApplicationData,
     confirmAlert,
@@ -83,7 +87,7 @@ const Payment = () => {
       generalInformation?.natureOfTheSite === "Approved Layout" ||
       generalInformation?.natureOfTheSite === "Regularised under LRS" ||
       generalInformation?.natureOfTheSite ===
-        "Congested/ Gramakanta/ Old Built-up area" ||
+      "Congested/ Gramakanta/ Old Built-up area" ||
       generalInformation.natureOfTheSite === "Newly Developed/ Built up area"
     ) {
       console.log("aschi");
@@ -347,175 +351,306 @@ const Payment = () => {
   console.log(condition, "CONSOLE");
 
   return (
-    <form
-      onSubmit={(e) => e.preventDefault()}
-      className="grid my-5 lg:my-0 lg:p-2"
-    >
-      <div>
-        <div className="flex justify-end">
-          <button className="btn btn-md">
-            <AiOutlineFileText size={19} />
-            <span className="font-semibold">Application</span>
-          </button>
-        </div>
-        <div className="flex items-center">
-          <img
-            src={UDAChargeImg}
-            alt="Image icon for uda charge section"
-            className="h-10 me-3"
-          />
-          <h3 className="font-bold text-xl">UDA Charge</h3>
-        </div>
-        <div className="divider m-0"></div>
+    <>
+      <div className="flex items-end justify-end">
+        <button onClick={() => setOpenApplication(true)} className="btn btn-sm text-xs bg-[#c0e9e4] transition-all duration-700 hover:bg-[#10ac84] text-[#000] hover:text-[#fff]">
+          <HiOutlineClipboardDocumentList className="text-lg" />
+          <span>Application</span>
+        </button>
+      </div>
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        className="grid my-5 lg:my-0 lg:p-2"
+      >
 
-        <div className="grid grid-cols-2 lg:grid-cols-3 mt-5 mb-7">
-          <InputField
-            id="myInput1"
-            name="myInput"
-            label="Development charges(on Vacant land)"
-            placeholder="1000"
-            type="number"
-            ltpDetails={calculatedData?.vacantAreaDevelopmentCharged}
-          />
-          <InputField
-            id="myInput2"
-            name="myInput"
-            label="Development charges(on Built-up area)"
-            placeholder="1000"
-            type="number"
-            ltpDetails={calculatedData?.builtUpAreaDevelopmentCharged}
-          />
-          <InputField
-            id="myInput3"
-            name="myInput"
-            label="Impact fee (50% to UDA)"
-            placeholder="5000"
-            type="number"
-            ltpdetails={0}
-          />
-          <InputField
-            id="myInput4"
-            name="myInput"
-            label="Total"
-            placeholder="7000"
-            type="number"
-            ltpDetails={calculatedData?.UDATotalCharged}
-          />
-          <div>
-            <button className="btn btn-md text-sm px-3 mt-10 ml-3 bg-green-300 hover:bg-green-400 hover:shadow-md transition-all duration-500">
-              <GiMoneyStack size={25} /> pay now
-            </button>
+        <div>
+          <div className="flex items-center">
+            <img
+              src={UDAChargeImg}
+              alt="Image icon for uda charge section"
+              className="h-10 me-3"
+            />
+            <h3 className="font-bold text-xl">UDA Charge</h3>
+          </div>
+          <div className="divider m-0"></div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-3 mt-5 mb-7">
+            <InputField
+              id="myInput1"
+              name="myInput"
+              label="Development charges(on Vacant land)"
+              placeholder="1000"
+              type="number"
+              ltpDetails={calculatedData?.vacantAreaDevelopmentCharged}
+            />
+            <InputField
+              id="myInput2"
+              name="myInput"
+              label="Development charges(on Built-up area)"
+              placeholder="1000"
+              type="number"
+              ltpDetails={calculatedData?.builtUpAreaDevelopmentCharged}
+            />
+            <InputField
+              id="myInput3"
+              name="myInput"
+              label="Impact fee (50% to UDA)"
+              placeholder="5000"
+              type="number"
+              ltpdetails={0}
+            />
+            <InputField
+              id="myInput4"
+              name="myInput"
+              label="Total"
+              placeholder="7000"
+              type="number"
+              ltpDetails={calculatedData?.UDATotalCharged}
+            />
+            <div>
+              <button className="btn btn-md text-sm px-3 mt-10 ml-3 bg-green-300 hover:bg-green-400 hover:shadow-md transition-all duration-500">
+                <GiMoneyStack size={25} /> pay now
+              </button>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="my-5">
-        <div className="flex items-center">
-          <img
-            src={GramChargeImg}
-            alt="Image icon for Grama Panchayat fee section"
-            className="h-10 me-3"
-          />
-          <h3 className="font-bold text-xl">Grama Panchayat fee</h3>
-        </div>
-        <div className="divider m-0"></div>
+        <div className="my-5">
+          <div className="flex items-center">
+            <img
+              src={GramChargeImg}
+              alt="Image icon for Grama Panchayat fee section"
+              className="h-10 me-3"
+            />
+            <h3 className="font-bold text-xl">Grama Panchayat fee</h3>
+          </div>
+          <div className="divider m-0"></div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 mt-3">
-          <InputField
-            id="myInput5"
-            name="myInput"
-            label="Site approval charges"
-            placeholder="1000"
-            type="number"
-            ltpDetails={calculatedData?.siteApprovalCharged}
-          />
-          <InputField
-            id="myInput6"
-            name="myInput"
-            label="Building permit fee"
-            placeholder="1000"
-            type="number"
-            ltpDetails={calculatedData?.buildingPermitFees}
-          />
+          <div className="grid grid-cols-2 lg:grid-cols-4 mt-3">
+            <InputField
+              id="myInput5"
+              name="myInput"
+              label="Site approval charges"
+              placeholder="1000"
+              type="number"
+              ltpDetails={calculatedData?.siteApprovalCharged}
+            />
+            <InputField
+              id="myInput6"
+              name="myInput"
+              label="Building permit fee"
+              placeholder="1000"
+              type="number"
+              ltpDetails={calculatedData?.buildingPermitFees}
+            />
 
-          {condition !== 1 && (
+            {condition !== 1 && (
+              <InputField
+                id="myInput7"
+                name="myInput"
+                label="Betterment charge"
+                placeholder="1000"
+                type="number"
+                ltpDetails={calculatedData?.bettermentCharged}
+              />
+            )}
+            {condition !== 1 && (
+              <InputField
+                id="myInput8"
+                name="myInput"
+                label="14% open space charges"
+                placeholder="5000"
+                type="number"
+                ltpDetails={calculatedData?.TotalOpenSpaceCharged}
+              />
+            )}
+            <InputField
+              id="myInput8"
+              name="myInput"
+              label="Impact fee (50% to G.P.)"
+              placeholder="5000"
+              type="number"
+              ltpDetails={0}
+            />
+            {condition !== 1 && condition !== 2 && (
+              <InputField
+                id="myInput8"
+                name="myInput"
+                label="33% penalization charges"
+                placeholder="0"
+                type="number"
+                ltpDetails={calculatedData?.TotalPenalizationCharged}
+              />
+            )}
+            <InputField
+              id="myInput8"
+              name="myInput"
+              label="Total"
+              placeholder="13000"
+              type="number"
+              ltpDetails={calculatedData?.GramaPanchayetTotalCharged}
+            />
+          </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 mb-8">
+            <InputField
+              id="myInput5"
+              name="myInput"
+              label="DD/Challan no."
+              placeholder="1234"
+              type="number"
+            />
+            <InputField
+              id="myInput6"
+              name="myInput"
+              label="DD/Challan date"
+              placeholder="06-04-2023"
+              type="text"
+            />
             <InputField
               id="myInput7"
               name="myInput"
-              label="Betterment charge"
-              placeholder="1000"
-              type="number"
-              ltpDetails={calculatedData?.bettermentCharged}
+              label="Bank name"
+              placeholder="xxxx"
+              type="text"
             />
-          )}
-          {condition !== 1 && (
             <InputField
               id="myInput8"
               name="myInput"
-              label="14% open space charges"
-              placeholder="5000"
-              type="number"
-              ltpDetails={calculatedData?.TotalOpenSpaceCharged}
+              label="Branch"
+              placeholder="xxxx"
+              type="text"
             />
-          )}
-          <InputField
-            id="myInput8"
-            name="myInput"
-            label="Impact fee (50% to G.P.)"
-            placeholder="5000"
-            type="number"
-            ltpDetails={0}
-          />
-          {condition !== 1 && condition !== 2 && (
-            <InputField
-              id="myInput8"
-              name="myInput"
-              label="33% penalization charges"
-              placeholder="0"
-              type="number"
-              ltpDetails={calculatedData?.TotalPenalizationCharged}
-            />
-          )}
-          <InputField
-            id="myInput8"
-            name="myInput"
-            label="Total"
-            placeholder="13000"
-            type="number"
-            ltpDetails={calculatedData?.GramaPanchayetTotalCharged}
-          />
+          </div>
+          <div className="px-3 mb-4 flex justify-end">
+            <div className="w-[250px]">
+              <input
+                className="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
+                type="file"
+                id="formFileMultiple"
+                multiple
+              />
+            </div>
+          </div>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 mb-8">
-          <InputField
-            id="myInput5"
-            name="myInput"
-            label="DD/Challan no."
-            placeholder="1234"
-            type="number"
-          />
-          <InputField
-            id="myInput6"
-            name="myInput"
-            label="DD/Challan date"
-            placeholder="06-04-2023"
-            type="text"
-          />
-          <InputField
-            id="myInput7"
-            name="myInput"
-            label="Bank name"
-            placeholder="xxxx"
-            type="text"
-          />
-          <InputField
-            id="myInput8"
-            name="myInput"
-            label="Branch"
-            placeholder="xxxx"
-            type="text"
-          />
+        <div>
+          <div className="flex items-center">
+            <img
+              src={LabourChargeImg}
+              alt="Image icon for labour charge section"
+              className="h-10 me-3"
+            />
+            <h3 className="font-bold text-xl">Labour cess charge</h3>
+          </div>
+          <div className="divider m-0"></div>
+
+          <div className="grid lg:grid-cols-4 mt-3">
+            <InputField
+              id="myInput8"
+              name="myInput"
+              label="Site approval charges"
+              placeholder="3000"
+              type="number"
+              ltpDetails={calculatedData?.siteApprovalCharged}
+            />
+          </div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 mb-8">
+            <InputField
+              id="myInput5"
+              name="myInput"
+              label="DD/Challan no."
+              placeholder="1234"
+              type="number"
+            />
+            <InputField
+              id="myInput6"
+              name="myInput"
+              label="DD/Challan date"
+              placeholder="06-04-2023"
+              type="text"
+            />
+            <InputField
+              id="myInput7"
+              name="myInput"
+              label="Bank name"
+              placeholder="xxxx"
+              type="text"
+            />
+            <InputField
+              id="myInput8"
+              name="myInput"
+              label="Branch"
+              placeholder="xxxx"
+              type="text"
+            />
+          </div>
+          <div className="px-3 mb-4 flex justify-end">
+            <div className="w-[250px]">
+              <input
+                className="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
+                type="file"
+                id="formFileMultiple"
+                multiple
+              />
+            </div>
+          </div>
         </div>
+
+        {/* Green fee charge  */}
+        <div className="mt-5 mb-8">
+          <div className="flex items-center">
+            <img
+              src={GreenChargeImg}
+              alt="Image icon for green charge section"
+              className="h-10 me-3"
+            />
+            <h3 className="font-bold text-xl">Green fee charge</h3>
+          </div>
+          <div className="divider m-0"></div>
+
+          <div className="grid lg:grid-cols-4 mt-3">
+            <InputField
+              id="myInput8"
+              name="myInput"
+              label="Site approval charges"
+              placeholder="2000"
+              type="number"
+              ltpDetails={calculatedData?.greenFeeCharged}
+            />
+          </div>
+          <div className="grid grid-cols-2 lg:grid-cols-4">
+            <InputField
+              id="myInput5"
+              name="myInput"
+              label="DD/Challan no."
+              placeholder="1234"
+              type="number"
+            />
+            <InputField
+              id="myInput6"
+              name="myInput"
+              label="DD/Challan date"
+              placeholder="06-04-2023"
+              type="text"
+            />
+            <InputField
+              id="myInput7"
+              name="myInput"
+              label="Bank name"
+              placeholder="xxxx"
+              type="text"
+            />
+            <InputField
+              id="myInput8"
+              name="myInput"
+              label="Branch"
+              placeholder="xxxx"
+              type="text"
+            />
+          </div>
+        </div>
+
         <div className="px-3 mb-4 flex justify-end">
           <div className="w-[250px]">
             <input
@@ -526,148 +661,22 @@ const Payment = () => {
             />
           </div>
         </div>
-      </div>
 
-      <div>
-        <div className="flex items-center">
-          <img
-            src={LabourChargeImg}
-            alt="Image icon for labour charge section"
-            className="h-10 me-3"
-          />
-          <h3 className="font-bold text-xl">Labour cess charge</h3>
-        </div>
-        <div className="divider m-0"></div>
+        {/* save & continue  */}
+        {/* navigation button  */}
+        <SaveData
+          isStepperVisible={isStepperVisible}
+          currentStep={currentStep}
+          steps={steps}
+          stepperData={stepperData}
+          confirmAlert={confirmAlert}
+          collectInputFieldData={sendPaymentData}
+          sentToPS={alertToTransferDataIntoDepartment}
+        />
+      </form>
 
-        <div className="grid lg:grid-cols-4 mt-3">
-          <InputField
-            id="myInput8"
-            name="myInput"
-            label="Site approval charges"
-            placeholder="3000"
-            type="number"
-            ltpDetails={calculatedData?.siteApprovalCharged}
-          />
-        </div>
-        <div className="grid grid-cols-2 lg:grid-cols-4 mb-8">
-          <InputField
-            id="myInput5"
-            name="myInput"
-            label="DD/Challan no."
-            placeholder="1234"
-            type="number"
-          />
-          <InputField
-            id="myInput6"
-            name="myInput"
-            label="DD/Challan date"
-            placeholder="06-04-2023"
-            type="text"
-          />
-          <InputField
-            id="myInput7"
-            name="myInput"
-            label="Bank name"
-            placeholder="xxxx"
-            type="text"
-          />
-          <InputField
-            id="myInput8"
-            name="myInput"
-            label="Branch"
-            placeholder="xxxx"
-            type="text"
-          />
-        </div>
-        <div className="px-3 mb-4 flex justify-end">
-          <div className="w-[250px]">
-            <input
-              className="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
-              type="file"
-              id="formFileMultiple"
-              multiple
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* Green fee charge  */}
-      <div className="mt-5 mb-8">
-        <div className="flex items-center">
-          <img
-            src={GreenChargeImg}
-            alt="Image icon for green charge section"
-            className="h-10 me-3"
-          />
-          <h3 className="font-bold text-xl">Green fee charge</h3>
-        </div>
-        <div className="divider m-0"></div>
-
-        <div className="grid lg:grid-cols-4 mt-3">
-          <InputField
-            id="myInput8"
-            name="myInput"
-            label="Site approval charges"
-            placeholder="2000"
-            type="number"
-            ltpDetails={calculatedData?.greenFeeCharged}
-          />
-        </div>
-        <div className="grid grid-cols-2 lg:grid-cols-4">
-          <InputField
-            id="myInput5"
-            name="myInput"
-            label="DD/Challan no."
-            placeholder="1234"
-            type="number"
-          />
-          <InputField
-            id="myInput6"
-            name="myInput"
-            label="DD/Challan date"
-            placeholder="06-04-2023"
-            type="text"
-          />
-          <InputField
-            id="myInput7"
-            name="myInput"
-            label="Bank name"
-            placeholder="xxxx"
-            type="text"
-          />
-          <InputField
-            id="myInput8"
-            name="myInput"
-            label="Branch"
-            placeholder="xxxx"
-            type="text"
-          />
-        </div>
-      </div>
-
-      <div className="px-3 mb-4 flex justify-end">
-        <div className="w-[250px]">
-          <input
-            className="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
-            type="file"
-            id="formFileMultiple"
-            multiple
-          />
-        </div>
-      </div>
-
-      {/* save & continue  */}
-      {/* navigation button  */}
-      <SaveData
-        isStepperVisible={isStepperVisible}
-        currentStep={currentStep}
-        steps={steps}
-        stepperData={stepperData}
-        confirmAlert={confirmAlert}
-        collectInputFieldData={sendPaymentData}
-        sentToPS={alertToTransferDataIntoDepartment}
-      />
-    </form>
+      {openApplication ? <Application setOpenApplication={setOpenApplication} /> : ""}
+    </>
   );
 };
 

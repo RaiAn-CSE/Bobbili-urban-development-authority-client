@@ -5,8 +5,11 @@ import toast from "react-hot-toast";
 import SaveData from "./SaveData";
 import axios from "axios";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
+import Application from "./Application";
+import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 
 const DocumentUpload = () => {
+  const [openApplication, setOpenApplication] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState({});
   const [UpdatedDocuments, setUpdatedDocuments] = useState(Documents.Data);
   const stepperData = useOutletContext();
@@ -90,7 +93,7 @@ const DocumentUpload = () => {
 
   // handle file upload
   const handleFileUpload = async (url) => {
-  
+
     // find empty field to stop sending data in to the database
     // const findEmptyField = UpdatedDocuments.find(
     //   (field) => field?.upload === ""
@@ -144,59 +147,67 @@ const DocumentUpload = () => {
   };
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-      }}
-      className="text-black p-4"
-    >
-      {UpdatedDocuments?.map((document) => {
-        const { id, question, upload } = document;
-        return (
-          <>
-            <div key={id} className="w-full px-2 mt-10 shadow-sm py-10 rounded">
-              <p className="text-[17px] font-bold">
-                {id}. {question}
-              </p>
+    <>  
+    <div className="text-end mb-4">
+      <button onClick={() => setOpenApplication(true)} className="btn btn-sm text-xs bg-[#c0e9e4] transition-all duration-700 hover:bg-[#10ac84] text-[#000] hover:text-[#fff]">
+        <HiOutlineClipboardDocumentList className="text-lg" />
+        <span>Application</span>
+      </button>
+    </div>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+        className="text-black p-4"
+      >
+        {UpdatedDocuments?.map((document) => {
+          const { id, question, upload } = document;
+          return (
+            <>
+              <div key={id} className="w-full px-2 mt-10 shadow-sm py-10 rounded">
+                <p className="text-[17px] font-bold">
+                  {id}. {question}
+                </p>
 
-              <div className="flex justify-center items-center mt-10">
-                <input
-                  name={id}
-                  type="file"
-                  accept=".pdf, image/*"
-                  onChange={(event) => handleFileChange(event, id)}
-                  className="file-input file-input-bordered file-input-md w-full max-w-xs"
-                />
-                {upload !== "" && (
-                  <Link
-                    to={`https://drive.google.com/file/d/${upload}/view?usp=sharing`}
-                    target="_blank"
-                    className="hover:underline ms-10 p-3 bg-gray-100 rounded-xl sm:rounded-full text-center"
-                  >
-                    View old File
-                  </Link>
-                )}
+                <div className="flex justify-center items-center mt-10">
+                  <input
+                    name={id}
+                    type="file"
+                    accept=".pdf, image/*"
+                    onChange={(event) => handleFileChange(event, id)}
+                    className="file-input file-input-bordered file-input-md w-full max-w-xs"
+                  />
+                  {upload !== "" && (
+                    <Link
+                      to={`https://drive.google.com/file/d/${upload}/view?usp=sharing`}
+                      target="_blank"
+                      className="hover:underline ms-10 p-3 bg-gray-100 rounded-xl sm:rounded-full text-center"
+                    >
+                      View old File
+                    </Link>
+                  )}
+                </div>
               </div>
-            </div>
-            {/* <div className="divider"></div> */}
-            <hr/>
-          </>
-        );
-      })}
+              {/* <div className="divider"></div> */}
+              <hr />
+            </>
+          );
+        })}
 
-      {/* <input onClick={handleFileUpload} type="submit" value="Submit" /> */}
+        {openApplication ? <Application setOpenApplication={setOpenApplication} /> : ""}
 
-      {/* save & continue  */}
-      {/* navigation button  */}
-      <SaveData
-        isStepperVisible={isStepperVisible}
-        currentStep={currentStep}
-        steps={steps}
-        stepperData={stepperData}
-        confirmAlert={confirmAlert}
-        collectInputFieldData={handleFileUpload}
-      />
-    </form>
+        {/* save & continue  */}
+        {/* navigation button  */}
+        <SaveData
+          isStepperVisible={isStepperVisible}
+          currentStep={currentStep}
+          steps={steps}
+          stepperData={stepperData}
+          confirmAlert={confirmAlert}
+          collectInputFieldData={handleFileUpload}
+        />
+      </form>
+    </>
   );
 };
 
