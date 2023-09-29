@@ -57,6 +57,59 @@ const Payment = () => {
 
         if (Object.keys(applicationData).length) {
           setApplicationData(applicationData);
+          console.log("UPDATED APPLICATION");
+          setGeneralInformation((prev) => {
+            console.log(prev, "Prev");
+            const newValue = applicationData?.buildingInfo?.generalInformation;
+            console.log(newValue, "new Value");
+            const updateValue = { ...prev, ...newValue };
+
+            console.log(updateValue, "UPDATE VALUE");
+            return updateValue;
+          });
+
+          console.log(generalInformation, "AFTER UPDATE");
+          setPlotDetails((prev) => {
+            const newValue = applicationData?.buildingInfo?.plotDetails;
+            const updateValue = { ...prev, ...newValue };
+            return updateValue;
+          });
+          setLtpDetailsData((prev) => {
+            const newValue = applicationData?.applicantInfo?.ltpDetails;
+            const updateValue = { ...prev, ...newValue };
+            return updateValue;
+          });
+          setApplicantDetailsData((prev) => {
+            const newValue = applicationData?.applicantInfo?.applicantDetails;
+            const updateValue = { ...prev, ...newValue };
+            return updateValue;
+          });
+
+          console.log(generalInformation, "general information");
+          setNatureOfTheSiteValue(generalInformation.natureOfTheSite);
+          console.log(generalInformation?.natureOfTheSite, "After");
+          if (
+            generalInformation?.natureOfTheSite === "Approved Layout" ||
+            generalInformation?.natureOfTheSite === "Regularised under LRS" ||
+            generalInformation?.natureOfTheSite ===
+              "Congested/ Gramakanta/ Old Built-up area" ||
+            generalInformation.natureOfTheSite ===
+              "Newly Developed/ Built up area"
+          ) {
+            console.log("aschi");
+            setCondition(1);
+          }
+          if (
+            generalInformation?.natureOfTheSite ===
+            "Newly Developed/ Built up area"
+          ) {
+            setCondition(2);
+          }
+
+          console.log(condition, natureOfTheSiteValue, generalInformation);
+
+          // calculation process
+          calculateFees();
         } else {
           // Handle the case where no data is found, e.g., show a message or set an error state.
           toast.error("No data found");
@@ -70,61 +123,12 @@ const Payment = () => {
     };
 
     gettingData();
-  }, [applicationNo]);
+  }, [applicationNo, Object.keys(applicationData).length]);
 
-  useEffect(() => {
-    if (Object.keys(applicationData).length) {
-      console.log("UPDATED APPLICATION");
-      setGeneralInformation((prev) => {
-        console.log(prev, "Prev");
-        const newValue = applicationData?.buildingInfo?.generalInformation;
-        console.log(newValue, "new Value");
-        const updateValue = { ...prev, ...newValue };
-
-        console.log(updateValue, "UPDATE VALUE");
-        return updateValue;
-      });
-
-      console.log(generalInformation, "AFTER UPDATE");
-      setPlotDetails((prev) => {
-        const newValue = applicationData?.buildingInfo?.plotDetails;
-        const updateValue = { ...prev, ...newValue };
-        return updateValue;
-      });
-      setLtpDetailsData((prev) => {
-        const newValue = applicationData?.applicantInfo?.ltpDetails;
-        const updateValue = { ...prev, ...newValue };
-        return updateValue;
-      });
-      setApplicantDetailsData((prev) => {
-        const newValue = applicationData?.applicantInfo?.applicantDetails;
-        const updateValue = { ...prev, ...newValue };
-        return updateValue;
-      });
-
-      console.log(generalInformation, "general information");
-      setNatureOfTheSiteValue(generalInformation.natureOfTheSite);
-      console.log(generalInformation?.natureOfTheSite, "After");
-      if (
-        generalInformation?.natureOfTheSite === "Approved Layout" ||
-        generalInformation?.natureOfTheSite === "Regularised under LRS" ||
-        generalInformation?.natureOfTheSite ===
-          "Congested/ Gramakanta/ Old Built-up area" ||
-        generalInformation.natureOfTheSite === "Newly Developed/ Built up area"
-      ) {
-        console.log("aschi");
-        setCondition(1);
-      }
-      if (
-        generalInformation?.natureOfTheSite === "Newly Developed/ Built up area"
-      ) {
-        setCondition(2);
-      }
-
-      // calculation process
-      calculateFees();
-    }
-  }, [applicationData]);
+  // useEffect(() => {
+  //   if (Object.keys(applicationData).length) {
+  //   }
+  // }, [Object.keys(applicationData).length]);
 
   const calculateFees = () => {
     // Plots Details
