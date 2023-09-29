@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import ApplicationHeader from "./ApplicationHeader";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
-import {RxCross1} from "react-icons/rx"
+import { RxCross1 } from "react-icons/rx"
 
 function Application({ setOpenApplication }) {
   const { getApplicationData } = useContext(AuthContext);
@@ -11,13 +11,37 @@ function Application({ setOpenApplication }) {
   const [ltpDetailsData, setLtpDetailsData] = useState({});
   const [applicantDetailsData, setApplicantDetailsData] = useState({});
 
+  // useEffect(() => {
+  //   // Opening the modal when the component mounts
+  //   const modal = document.getElementById("my_modal_5");
+  //   if (modal) {
+  //     modal.showModal();
+  //   }
+  // }, []);
+
   useEffect(() => {
     // Opening the modal when the component mounts
     const modal = document.getElementById("my_modal_5");
     if (modal) {
       modal.showModal();
+      document.body.classList.add("modal-open")
     }
+
+    // Add an event listener to close the modal when clicking outside
+    modal.addEventListener("click", handleModalClick);
+
+    // Cleanup the event listener when the component unmounts
+    return () => {
+      modal.removeEventListener("click", handleModalClick);
+    };
   }, []);
+
+  const handleModalClick = (event) => {
+    if (event.target === event.currentTarget) {
+      // Clicked on the backdrop (outside of the modal)
+      setOpenApplication(false);
+    }
+  };
 
   useEffect(() => {
     const gettingData = async () => {
@@ -192,14 +216,13 @@ function Application({ setOpenApplication }) {
     const isArray = Array.isArray(data);
     if (isArray) {
       return (
-        <td className={`bg-white border border-black ${type=="keys"&& "w-1/3"} p-0`}>
+        <td className={`bg-white border border-black ${type == "keys" && "w-1/3"} p-0`}>
           <div className="flex">
             {data.map((e, i) => (
               <p
                 key={i}
-                className={`flex items-center p-2 border-l border-black h-12 ${
-                  i === 0 && "w-1/2 border-l-0"
-                }`}
+                className={`flex items-center p-2 border-l border-black h-12 ${i === 0 && "w-1/2 border-l-0"
+                  }`}
               >
                 {(keys ? Object.keys(data[i]) : Object.values(data[i])) || e}
               </p>
@@ -209,7 +232,7 @@ function Application({ setOpenApplication }) {
       );
     } else {
       return (
-        <td className={`bg-white border border-black ${type=="keys"&& "w-1/3"} p-0`}>
+        <td className={`bg-white border border-black ${type == "keys" && "w-1/3"} p-0`}>
           <p className="h-12 p-2 flex items-center">
             {keys ? Object.keys(data) : Object.values(data)}
           </p>
@@ -231,24 +254,22 @@ function Application({ setOpenApplication }) {
       colData = [];
     }
     return (
-      <td className="w-full bg-white border border-black p-0">
+      <td className="w-full bg-white border border-black p-0 ">
         {part03SubArray.includes(index) ? (
           <p key={index} className="flex ">
             {colData.map((d, i) => (
               <p
                 key={i}
-                className={`w-full border-black py-4 border-l ${
-                  i == 0 && "border-l-0"
-                }`}
+                className={`w-full border-black py-4 border-l ${i == 0 && "border-l-0"
+                  }`}
               >
                 <p className="px-2">{Object.keys(colData[i])[0]}</p>
                 {/* {Object.values(colData[i])[0]} */}
                 <p
-                  className={`${
-                    index !== 4
-                      ? "border-t "
-                      : "font-bold inline-block border-b-2 border-dotted border-black underline-offset-4 mt-2 ml-2"
-                  } border-black px-2 pt-2`}
+                  className={`${index !== 4
+                    ? "border-t "
+                    : "font-bold inline-block border-b-2 border-dotted border-black underline-offset-4 mt-2 ml-2"
+                    } border-black px-2 pt-2`}
                 >
                   {i + 1}
                 </p>
@@ -271,25 +292,22 @@ function Application({ setOpenApplication }) {
             <>
               <p
                 key={i}
-                className={`${
-                  i == 0 ? "border-t-0" : "border-t"
-                } border-black h-20 py-4 px-2 ${
-                  numb == 2 ? "block" : "hidden"
-                }`}
+                className={`${i == 0 ? "border-t-0" : "border-t"
+                  } border-black h-20 py-4 px-2 ${numb == 2 ? "block" : "hidden"
+                  }`}
               >
                 <p
                   className={
                     "font-semibold inline-block border-b-2 border-dotted border-black underline-offset-4 mb-2"
                   }
                 >
-              Signature
+                  Signature
                 </p>
                 <p>{Object.keys(data[i])[0]}</p>
               </p>
               <p
-                className={`border-black px-2 h-20 flex items-center ${
-                  i == 0 ? "border-t-0" : "border-t"
-                } ${numb == 2 ? "hidden" : "block"}`}
+                className={`border-black px-2 h-20 flex items-center ${i == 0 ? "border-t-0" : "border-t"
+                  } ${numb == 2 ? "hidden" : "block"}`}
               >
                 {numb == 1 ? i + 1 : Object.values(data[i])[0]}
               </p>
@@ -300,7 +318,7 @@ function Application({ setOpenApplication }) {
     );
   };
   return (
-    <div className="w-full h-full text-black relative">
+    <div className="w-full h-full text-black">
       <dialog id="my_modal_5" className="modal">
         <div className="modal-box w-full max-w-4xl p-14">
           {/* Header */}
@@ -308,7 +326,7 @@ function Application({ setOpenApplication }) {
           <div>
             {/* Part01 */}
             <div className="overflow-x-auto">
-              <table className="table bg-white table-sm">
+              <table className="table bg-white table-sm cursor-default">
                 {/*Part01 head */}
                 <thead>
                   <tr>
@@ -325,7 +343,7 @@ function Application({ setOpenApplication }) {
                   {/* row 1 */}
                   {Part01.map((item, index) => {
                     return (
-                      <tr key={item} className="bg-white">
+                      <tr key={index+1} className="bg-white">
                         {/* col-01 */}
                         <th className="bg-white border border-black w-6">
                           {index + 1}
@@ -360,7 +378,7 @@ function Application({ setOpenApplication }) {
                   {/* row 1 */}
                   {Part02.map((item, index) => {
                     return (
-                      <tr key={item} className="bg-white">
+                      <tr key={index} className="bg-white">
                         {/* col-01 */}
                         <th className="bg-white border border-black w-6">
                           {index + 1}
@@ -458,12 +476,12 @@ function Application({ setOpenApplication }) {
               </tbody>
             </table>
           </div>
-          <form method="dialog" className="absolute top-10 right-8">
+          <form method="dialog" className="mt-5">
             <button
               onClick={() => setOpenApplication(false)}
-              className="text-center rounded-full text-red-500 border p-3 border-red-600"
+              className="btn text-center"
             >
-           <RxCross1 className="text-2xl"/>
+              Close
             </button>
           </form>
         </div>
