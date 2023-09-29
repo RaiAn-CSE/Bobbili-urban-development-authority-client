@@ -6,6 +6,7 @@ import plotImage from "../../../../assets/images/land.png";
 import wallImage from "../../../../assets/images/gate.png";
 import { useOutletContext } from "react-router";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
+import allDistrictData from "../../../../assets/buildingInfo.json";
 import SaveData from "./SaveData";
 import FloorDetails from "./FloorDetails";
 
@@ -114,9 +115,9 @@ const BuildingInfo = () => {
       const scheduleBoundaries =
         applicationData.buildingInfo.scheduleBoundaries;
 
-      setSelectedOptionCase(generalInformation.caseType)
-      setSelectedOptionPermission(generalInformation.natureOfPermission)
-      setSelectedNatureOfTheSite(generalInformation.natureOfTheSite)
+      setSelectedOptionCase(generalInformation.caseType);
+      setSelectedOptionPermission(generalInformation.natureOfPermission);
+      setSelectedNatureOfTheSite(generalInformation.natureOfTheSite);
       setSelectedDistrict(generalInformation.district);
       setSelectedMandal(generalInformation.mandal);
       setSelectedVillage(generalInformation.village);
@@ -155,15 +156,17 @@ const BuildingInfo = () => {
     };
     getData();
 
-    const apiUrl = "../../src/assets/buildingInfo.json";
-    fetch(apiUrl)
-      .then((response) => response.json())
-      .then((result) => {
-        setDistrictData(result.district);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    // const apiUrl = "../../src/assets/buildingInfo.json";
+    // fetch(apiUrl)
+    //   .then((response) => response.json())
+    //   .then((result) => {
+    //     setDistrictData(result.district);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error:", error);
+    //   });
+
+    setDistrictData(allDistrictData.district);
   }, []);
 
   console.log(plotDetails, "plotDetails");
@@ -530,12 +533,8 @@ const BuildingInfo = () => {
   // console.log(scheduleBoundaries, 'scheduleBoundaries');
   const { east, west, north, south } = scheduleBoundaries;
 
-
-
   console.log(selectedOptionCase, "selectedOptionCase");
-  console.log('hi there');
-
-
+  console.log("hi there");
 
   // classes for this component:
   const labelClass =
@@ -769,8 +768,7 @@ const BuildingInfo = () => {
 
           {/*===================== Conditionally render input fields based on Case Type  =====================*/}
           {selectedOptionCase === "Alteration Addition Existing" &&
-            selectedOptionPermission === "Regularised under BPS" &&
-            (
+            selectedOptionPermission === "Regularised under BPS" && (
               <div>
                 <InputField
                   id="BpsApprovedNo"
@@ -842,15 +840,15 @@ const BuildingInfo = () => {
 
           {selectedNatureOfTheSite ===
             "Plot port of RLP/IPLP but not regularised" && (
-              <InputField
-                id="IplpNo"
-                name=""
-                label="RLP/IPLP no."
-                placeholder="RLP/IPLP no."
-                type="number"
-                ltpDetails={iplpNo}
-              />
-            )}
+            <InputField
+              id="IplpNo"
+              name=""
+              label="RLP/IPLP no."
+              placeholder="RLP/IPLP no."
+              type="number"
+              ltpDetails={iplpNo}
+            />
+          )}
           {/*===================== Conditional Input Field End =====================*/}
         </div>
       </div>
