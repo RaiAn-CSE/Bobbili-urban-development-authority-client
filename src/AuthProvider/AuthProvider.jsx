@@ -197,6 +197,7 @@ const AuthProvider = ({ children }) => {
   // specific application data
   const getApplicationData = async (appNo) => {
     try {
+      setLoading(true);
       const query = JSON.stringify({
         appNo,
         userId: userInfoFromLocalStorage()._id,
@@ -207,8 +208,6 @@ const AuthProvider = ({ children }) => {
       const response = await fetch(
         `http://localhost:5000/getApplicationData?data=${query}`
       );
-
-      console.log(response, "response");
 
       return await response.json();
     } catch (err) {

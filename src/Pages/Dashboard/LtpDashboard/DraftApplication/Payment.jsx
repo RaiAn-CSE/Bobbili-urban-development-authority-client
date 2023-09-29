@@ -1,12 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import InputField from "../../../Components/InputField";
 import { GiMoneyStack } from "react-icons/gi";
-import { GrAttachment } from "react-icons/gr";
 import UDAChargeImg from "../../../../assets/images/mobile-transfer.png";
 import GramChargeImg from "../../../../assets/images/pay-per-click.png";
 import LabourChargeImg from "../../../../assets/images/payment-method.png";
 import GreenChargeImg from "../../../../assets/images/money.png";
-import { AiOutlineFileText } from "react-icons/ai";
 import { useOutletContext } from "react-router";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import toast from "react-hot-toast";
@@ -26,14 +24,8 @@ const Payment = () => {
     sendUserDataIntoDB,
   } = useContext(AuthContext);
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
-  const [generalInformation, setGeneralInformation] = useState({});
   const [applicationData, setApplicationData] = useState({});
-  const [plotDetails, setPlotDetails] = useState({});
-  const [ltpDetailsData, setLtpDetailsData] = useState({});
-  const [applicantDetailsData, setApplicantDetailsData] = useState({});
-  const [natureOfTheSiteValue, setNatureOfTheSiteValue] = useState("");
   const [condition, setCondition] = useState("");
-  const [loading, setLoading] = useState(false);
   const [calculatedData, setCalculatedData] = useState({});
   const [selectedFiles, setSelectedFiles] = useState({
     gramaBankReceipt: "",
@@ -45,92 +37,61 @@ const Payment = () => {
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
 
   useEffect(() => {
-    console.log(applicationNo, "APPLICATION NO");
+    getApplicationData(applicationNo).then((applicationData) => {
+      setApplicationData(applicationData);
+      console.log(applicationData, "LJADJFKJAKSLDJKL:ASJKLFJA");
+      console.log(applicationData?.buildingInfo?.generalInformation);
 
-    const gettingData = async () => {
-      setLoading(true);
+      const generalInformation =
+        applicationData?.buildingInfo?.generalInformation;
 
-      try {
-        const applicationData = await getApplicationData(applicationNo);
-        console.log(applicationData, "APPLicationData");
-        console.log(Object.keys(applicationData).length, "APPLicationData");
+      const ltpDetails = applicationData?.applicantInfo?.ltpDetails;
 
-        if (Object.keys(applicationData).length) {
-          setApplicationData(applicationData);
-          console.log("UPDATED APPLICATION");
-          setGeneralInformation((prev) => {
-            console.log(prev, "Prev");
-            const newValue = applicationData?.buildingInfo?.generalInformation;
-            console.log(newValue, "new Value");
-            const updateValue = { ...prev, ...newValue };
+      const applicantDetailsData =
+        applicationData?.applicantInfo?.applicantDetails;
 
-            console.log(updateValue, "UPDATE VALUE");
-            return updateValue;
-          });
+      const plotDetails = applicationData?.buildingInfo?.plotDetails;
 
-          console.log(generalInformation, "AFTER UPDATE");
-          setPlotDetails((prev) => {
-            const newValue = applicationData?.buildingInfo?.plotDetails;
-            const updateValue = { ...prev, ...newValue };
-            return updateValue;
-          });
-          setLtpDetailsData((prev) => {
-            const newValue = applicationData?.applicantInfo?.ltpDetails;
-            const updateValue = { ...prev, ...newValue };
-            return updateValue;
-          });
-          setApplicantDetailsData((prev) => {
-            const newValue = applicationData?.applicantInfo?.applicantDetails;
-            const updateValue = { ...prev, ...newValue };
-            return updateValue;
-          });
+      console.log(
+        generalInformation,
+        ltpDetails,
+        applicantDetailsData,
+        plotDetails,
+        "INFORMATION"
+      );
 
-          console.log(generalInformation, "general information");
-          setNatureOfTheSiteValue(generalInformation.natureOfTheSite);
-          console.log(generalInformation?.natureOfTheSite, "After");
-          if (
-            generalInformation?.natureOfTheSite === "Approved Layout" ||
-            generalInformation?.natureOfTheSite === "Regularised under LRS" ||
-            generalInformation?.natureOfTheSite ===
-              "Congested/ Gramakanta/ Old Built-up area" ||
-            generalInformation.natureOfTheSite ===
-              "Newly Developed/ Built up area"
-          ) {
-            console.log("aschi");
-            setCondition(1);
-          }
-          if (
-            generalInformation?.natureOfTheSite ===
-            "Newly Developed/ Built up area"
-          ) {
-            setCondition(2);
-          }
-
-          console.log(condition, natureOfTheSiteValue, generalInformation);
-
-          // calculation process
-          calculateFees();
-        } else {
-          // Handle the case where no data is found, e.g., show a message or set an error state.
-          toast.error("No data found");
-        }
-      } catch (error) {
-        // Handle any errors that occur during the request, e.g., show an error message.
-        toast.error(error);
-      } finally {
-        setLoading(false);
+      if (
+        generalInformation?.natureOfTheSite === "Approved Layout" ||
+        generalInformation?.natureOfTheSite === "Regularised under LRS" ||
+        generalInformation?.natureOfTheSite ===
+          "Congested/ Gramakanta/ Old Built-up area" ||
+        generalInformation.natureOfTheSite === "Newly Developed/ Built up area"
+      ) {
+        console.log("aschi");
+        setCondition(1);
       }
-    };
+      if (
+        generalInformation?.natureOfTheSite === "Newly Developed/ Built up area"
+      ) {
+        setCondition(2);
+      }
+      // calculation process
+      calculateFees(
+        generalInformation,
+        ltpDetails,
+        applicantDetailsData,
+        plotDetails
+      );
+    });
+  }, []);
 
-    gettingData();
-  }, [applicationNo, Object.keys(applicationData).length]);
-
-  // useEffect(() => {
-  //   if (Object.keys(applicationData).length) {
-  //   }
-  // }, [Object.keys(applicationData).length]);
-
-  const calculateFees = () => {
+  const calculateFees = (
+    generalInformation,
+    ltpDetails,
+    applicantDetailsData,
+    plotDetails
+  ) => {
+    console.log("INSIDE CALCULATE FEES");
     // Plots Details
     const {
       proposedPlotAreaCal,
@@ -346,6 +307,8 @@ const Payment = () => {
       bettermentCharged,
       buildingPermitFees,
     });
+
+    console.log(calculatedData);
   };
 
   console.log(calculatedData, "Calculated data");
@@ -559,10 +522,6 @@ const Payment = () => {
 
   console.log(condition, "CONSOLE");
   console.log(applicationData, "APPDATA");
-
-  if (loading) {
-    return "Loading...";
-  }
 
   return (
     <>
