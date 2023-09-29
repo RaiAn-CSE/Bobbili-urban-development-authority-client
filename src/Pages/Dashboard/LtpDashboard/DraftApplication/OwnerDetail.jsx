@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 import InputField from "../../../Components/InputField";
 
-const OwnerDetail = ({ index, length, applicantNo, setPhoneNoLimit, increaseApplicantNo, applicantDetails }) => {
-
+const OwnerDetail = ({
+  index,
+  length,
+  applicantNo,
+  setPhoneNoLimit,
+  increaseApplicantNo,
+  applicantDetails,
+}) => {
   const ownerSerial = ["First", "Second", "Third", "Fourth", "Fifth"];
 
-  const [applicantPhone, setApplicantPhone] = useState("");
+  // const [applicantPhone, setApplicantPhone] = useState("");
 
   return (
     <div>
@@ -37,9 +43,10 @@ const OwnerDetail = ({ index, length, applicantNo, setPhoneNoLimit, increaseAppl
             <input
               id={`applicantPhoneNo${index}`}
               name={`applicantPhoneNo${index}`}
+              type="text"
               placeholder="xxxxxxxxxx"
-              defaultValue={applicantDetails?.phone ? applicantDetails?.phone : applicantPhone}
-              onChange={(e) => setPhoneNoLimit(e, setApplicantPhone)}
+              defaultValue={applicantDetails?.phone}
+              // onChange={(e) => setPhoneNoLimit(e, setApplicantPhone)}
               className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
               maxLength={10}
               required

@@ -14,17 +14,17 @@ const ApplicantInfo = () => {
 
   // console.log(stepperData);
 
-  const { confirmAlert, sendUserDataIntoDB, getApplicationData } = useContext(AuthContext);
+  const { confirmAlert, sendUserDataIntoDB, getApplicationData } =
+    useContext(AuthContext);
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
 
-  const handleBackendData = () => {
-    const applicationId = JSON.parse(localStorage.getItem("applicationId"));
-    getPostData({ applicationId: applicationId, applicantInfo: {} });
-  };
+  // const handleBackendData = () => {
+  //   const applicationId = JSON.parse(localStorage.getItem("applicationId"));
+  //   getPostData({ applicationId: applicationId, applicantInfo: {} });
+  // };
 
   const [ltpPhone, setLtpPhone] = useState("");
-
 
   const [totalApplicant, setTotalApplicant] = useState(["Owner1"]);
 
@@ -35,11 +35,14 @@ const ApplicantInfo = () => {
 
   const setPhoneNoLimit = (e, setPhoneNo) => {
     const value = e.target.value;
-    console.log(value, 'value');
+    console.log(value, "value");
     // Check if the Applicant Phone No Input value contains only digits and is not longer than 10 characters
+
+    console.log(/^\d*$/.test(value));
     if (/^\d*$/.test(value) && value.length <= 10) {
       setPhoneNo(value);
-      // console.log(value.length, 'in value');
+    } else {
+      e.target.value = ltpPhone;
     }
   };
 
@@ -54,7 +57,6 @@ const ApplicantInfo = () => {
     const ltpAddress = document.getElementById("ltpAddress").value;
 
     const ownerDetail = totalApplicant.map((applicant, index) => {
-
       return {
         name: document.getElementById(`applicantName${index}`).value,
         identity: document.getElementById(`soWoCo${index}`).value,
@@ -87,33 +89,34 @@ const ApplicantInfo = () => {
     });
   };
 
-
-  const [ltpDetails, setLtpDetails] = useState('');
-  const [applicantDetails, setApplicantDetails] = useState('');
+  const [ltpDetails, setLtpDetails] = useState("");
+  const [applicantDetails, setApplicantDetails] = useState("");
 
   // console.log(ltpDetails, 'ltpDetails');
   // console.log(applicantDetails, 'applicantDetails');
 
-  const { type, name, address, email, licenseNo, phoneNo, validity } = ltpDetails;
+  const { type, name, address, email, licenseNo, phoneNo, validity } =
+    ltpDetails;
   // const { identity, adharNo, pinCode, } = applicantDetails;
 
   useEffect(() => {
     const getData = async () => {
       const applicationData = await getApplicationData(applicationNo);
       const ltpDetailsData = applicationData.applicantInfo.ltpDetails;
-      const applicantDetailsData = applicationData.applicantInfo.applicantDetails;
+      const applicantDetailsData =
+        applicationData.applicantInfo.applicantDetails;
       setLtpDetails(ltpDetailsData);
       setApplicantDetails(applicantDetailsData);
+      setLtpPhone(ltpDetailsData?.phoneNo);
     };
     getData();
   }, []);
 
-
-
   // Classes for this component :
-  const labelClass = "block text-gray-600 mb-1 font-semibold dark:text-gray-100"
-  const inputClass = "w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
-
+  const labelClass =
+    "block text-gray-600 mb-1 font-semibold dark:text-gray-100";
+  const inputClass =
+    "w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black";
 
   return (
     <div className="grid my-5 lg:my-0 lg:p-2 dark:bg-black dark:text-gray-100">
@@ -154,10 +157,7 @@ const ApplicantInfo = () => {
             />
 
             <div className="my-4 mx-3">
-              <label
-                htmlFor="validity"
-                className={labelClass}
-              >
+              <label htmlFor="validity" className={labelClass}>
                 Validity
               </label>
               <input
@@ -170,10 +170,7 @@ const ApplicantInfo = () => {
             </div>
 
             <div className="my-4 mx-3">
-              <label
-                htmlFor="ltpPhoneNo"
-                className={labelClass}
-              >
+              <label htmlFor="ltpPhoneNo" className={labelClass}>
                 Phone no.
               </label>
               <input
@@ -181,7 +178,7 @@ const ApplicantInfo = () => {
                 type="text"
                 name="ltpPhoneNo"
                 placeholder="xxxxxxxxxx"
-                defaultValue={phoneNo ? phoneNo : ltpPhone}
+                defaultValue={ltpPhone}
                 onChange={(e) => setPhoneNoLimit(e, setLtpPhone)}
                 className={inputClass}
                 maxLength={10}
@@ -199,10 +196,7 @@ const ApplicantInfo = () => {
           </div>
           <div>
             <div className="my-4 mx-3">
-              <label
-                htmlFor="ltpAddress"
-                className={labelClass}
-              >
+              <label htmlFor="ltpAddress" className={labelClass}>
                 Address
               </label>
               <textarea
