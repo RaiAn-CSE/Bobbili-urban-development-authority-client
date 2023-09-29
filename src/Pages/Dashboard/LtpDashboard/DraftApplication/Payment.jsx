@@ -27,7 +27,7 @@ const Payment = () => {
   } = useContext(AuthContext);
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
   const [generalInformation, setGeneralInformation] = useState({});
-  const [applicationData, setApplicationData] = useState([]);
+  const [applicationData, setApplicationData] = useState({});
   const [plotDetails, setPlotDetails] = useState({});
   const [ltpDetailsData, setLtpDetailsData] = useState({});
   const [applicantDetailsData, setApplicantDetailsData] = useState({});
@@ -48,68 +48,83 @@ const Payment = () => {
     console.log(applicationNo, "APPLICATION NO");
 
     const gettingData = async () => {
-      const applicationData = await getApplicationData(applicationNo);
-
       setLoading(true);
-      if (applicationData) {
+
+      try {
+        const applicationData = await getApplicationData(applicationNo);
+        console.log(applicationData, "APPLicationData");
+        console.log(Object.keys(applicationData).length, "APPLicationData");
+
+        if (Object.keys(applicationData).length) {
+          setApplicationData(applicationData);
+        } else {
+          // Handle the case where no data is found, e.g., show a message or set an error state.
+          toast.error("No data found");
+        }
+      } catch (error) {
+        // Handle any errors that occur during the request, e.g., show an error message.
+        toast.error(error);
+      } finally {
         setLoading(false);
-        setApplicationData(applicationData);
       }
     };
+
     gettingData();
-  }, []);
+  }, [applicationNo]);
 
   useEffect(() => {
-    console.log("UPDATED APPLICATION");
-    setGeneralInformation((prev) => {
-      console.log(prev, "Prev");
-      const newValue = applicationData?.buildingInfo?.generalInformation;
-      console.log(newValue, "new Value");
-      const updateValue = { ...prev, ...newValue };
+    if (Object.keys(applicationData).length) {
+      console.log("UPDATED APPLICATION");
+      setGeneralInformation((prev) => {
+        console.log(prev, "Prev");
+        const newValue = applicationData?.buildingInfo?.generalInformation;
+        console.log(newValue, "new Value");
+        const updateValue = { ...prev, ...newValue };
 
-      console.log(updateValue, "UPDATE VALUE");
-      return updateValue;
-    });
+        console.log(updateValue, "UPDATE VALUE");
+        return updateValue;
+      });
 
-    console.log(generalInformation, "AFTER UPDATE");
-    setPlotDetails((prev) => {
-      const newValue = applicationData?.buildingInfo?.plotDetails;
-      const updateValue = { ...prev, ...newValue };
-      return updateValue;
-    });
-    setLtpDetailsData((prev) => {
-      const newValue = applicationData?.applicantInfo?.ltpDetails;
-      const updateValue = { ...prev, ...newValue };
-      return updateValue;
-    });
-    setApplicantDetailsData((prev) => {
-      const newValue = applicationData?.applicantInfo?.applicantDetails;
-      const updateValue = { ...prev, ...newValue };
-      return updateValue;
-    });
+      console.log(generalInformation, "AFTER UPDATE");
+      setPlotDetails((prev) => {
+        const newValue = applicationData?.buildingInfo?.plotDetails;
+        const updateValue = { ...prev, ...newValue };
+        return updateValue;
+      });
+      setLtpDetailsData((prev) => {
+        const newValue = applicationData?.applicantInfo?.ltpDetails;
+        const updateValue = { ...prev, ...newValue };
+        return updateValue;
+      });
+      setApplicantDetailsData((prev) => {
+        const newValue = applicationData?.applicantInfo?.applicantDetails;
+        const updateValue = { ...prev, ...newValue };
+        return updateValue;
+      });
 
-    console.log(generalInformation, "general information");
-    setNatureOfTheSiteValue(generalInformation.natureOfTheSite);
-    console.log(generalInformation?.natureOfTheSite, "After");
-    if (
-      generalInformation?.natureOfTheSite === "Approved Layout" ||
-      generalInformation?.natureOfTheSite === "Regularised under LRS" ||
-      generalInformation?.natureOfTheSite ===
-        "Congested/ Gramakanta/ Old Built-up area" ||
-      generalInformation.natureOfTheSite === "Newly Developed/ Built up area"
-    ) {
-      console.log("aschi");
-      setCondition(1);
+      console.log(generalInformation, "general information");
+      setNatureOfTheSiteValue(generalInformation.natureOfTheSite);
+      console.log(generalInformation?.natureOfTheSite, "After");
+      if (
+        generalInformation?.natureOfTheSite === "Approved Layout" ||
+        generalInformation?.natureOfTheSite === "Regularised under LRS" ||
+        generalInformation?.natureOfTheSite ===
+          "Congested/ Gramakanta/ Old Built-up area" ||
+        generalInformation.natureOfTheSite === "Newly Developed/ Built up area"
+      ) {
+        console.log("aschi");
+        setCondition(1);
+      }
+      if (
+        generalInformation?.natureOfTheSite === "Newly Developed/ Built up area"
+      ) {
+        setCondition(2);
+      }
+
+      // calculation process
+      calculateFees();
     }
-    if (
-      generalInformation?.natureOfTheSite === "Newly Developed/ Built up area"
-    ) {
-      setCondition(2);
-    }
-
-    // calculation process
-    calculateFees();
-  }, [applicationData, condition]);
+  }, [applicationData]);
 
   const calculateFees = () => {
     // Plots Details
@@ -394,7 +409,7 @@ const Payment = () => {
 
       try {
         const response = await axios.post(
-          "https://residential-building.vercel.app/upload?page=payment",
+          "http://localhost:5000/upload?page=payment",
           formData,
           {
             headers: {
