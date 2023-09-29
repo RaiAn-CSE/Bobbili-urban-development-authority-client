@@ -32,6 +32,11 @@ const Payment = () => {
     labourCessBankReceipt: "",
     greenFeeBankReceipt: "",
   });
+  const [imageId, setImageId] = useState({
+    gramaBankReceipt: "",
+    labourCessBankReceipt: "",
+    greenFeeBankReceipt: "",
+  });
   const [sentData, setSentData] = useState(0);
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
@@ -52,6 +57,28 @@ const Payment = () => {
 
       const plotDetails = applicationData?.buildingInfo?.plotDetails;
 
+      const gramaPanchaytImgId = applicationData?.payment?.gramaPanchayatFee
+        ?.gramaBankReceipt
+        ? applicationData?.payment?.gramaPanchayatFee?.gramaBankReceipt
+        : "";
+
+      const greenFeeImgId = applicationData?.payment?.greenFeeCharge
+        ?.greenFeeBankReceipt
+        ? applicationData?.payment?.greenFeeCharge?.greenFeeBankReceipt
+        : "";
+
+      const labourCessImageId = applicationData?.payment?.labourCessCharge
+        ?.labourCessBankReceipt
+        ? applicationData?.payment?.labourCessCharge?.labourCessBankReceipt
+        : "";
+
+      setImageId({
+        gramaBankReceipt: gramaPanchaytImgId,
+        labourCessBankReceipt: labourCessImageId,
+        greenFeeBankReceipt: greenFeeImgId,
+      });
+
+      console.log(imageId, "IMAGE ID");
       console.log(
         generalInformation,
         ltpDetails,
@@ -358,167 +385,167 @@ const Payment = () => {
 
   // send data into database
   const sendPaymentData = async (url) => {
-    const formData = new FormData();
     console.log("object");
 
-    const checkEmptyFileInput = Object.values(selectedFiles).every(
-      (file) => file !== ""
-    );
-    console.log(checkEmptyFileInput);
+    let fileUploadSuccess = 1;
 
-    if (checkEmptyFileInput) {
-      // UPLOAD IMAGE FILE INTO THE CLOUD STORAGE AT FIRST
-      for (const file in selectedFiles) {
-        console.log(file);
-        formData.append("files", selectedFiles[file]);
-      }
-      console.log(...formData);
+    console.log(selectedFiles, "SELECTED FILES");
 
-      try {
-        const response = await axios.post(
-          "http://localhost:5000/upload?page=payment",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data", // Important for file uploads
-            },
-          }
-        );
-        // Handle success or display a success message to the user
+    // UPLOAD IMAGE FILE INTO THE CLOUD STORAGE AT FIRST
+    for (const file in selectedFiles) {
+      const formData = new FormData();
+      console.log(file);
 
-        console.log(response, "response");
+      if (selectedFiles[file]) {
+        formData.append("file", selectedFiles[file]);
 
-        if (response?.data.msg === "Successfully uploaded") {
-          const fileId = response.data.fileId;
-          console.log(fileId, fileId);
-
-          const vacantArea = document.getElementById("vacantArea")?.value;
-
-          const builtUpArea = document.getElementById("builtUpArea")?.value;
-          const UdaImpactFee = document.getElementById("UdaImpactFee")?.value;
-          const UDATotalCharged =
-            document.getElementById("UDATotalCharged")?.value;
-          const gramaSiteApproval =
-            document.getElementById("gramaSiteApproval")?.value;
-          const buildingPermitFees =
-            document.getElementById("buildingPermitFees")?.value;
-          const bettermentCharged =
-            document.getElementById("bettermentCharged")?.value;
-          const TotalOpenSpaceCharged = document.getElementById(
-            "TotalOpenSpaceCharged"
-          )?.value;
-          const gramaImpactFee =
-            document.getElementById("gramaImpactFee")?.value;
-          const TotalPenalizationCharged = document.getElementById(
-            "TotalPenalizationCharged"
-          )?.value;
-          const GramaPanchayetTotalCharged = document.getElementById(
-            "GramaPanchayetTotalCharged"
-          )?.value;
-          const gramaChallanNo =
-            document.getElementById("gramaChallanNo")?.value;
-          const gramaChallanDate =
-            document.getElementById("gramaChallanDate")?.value;
-          const gramaBankName = document.getElementById("gramaBankName")?.value;
-          const gramaBankBranch =
-            document.getElementById("gramaBankBranch")?.value;
-          const labourCessSiteApproval = document.getElementById(
-            "labourCessSiteApproval"
-          )?.value;
-          const labourCessChallanNo = document.getElementById(
-            "labourCessChallanNo"
-          )?.value;
-          const labourCessChallanDate = document.getElementById(
-            "labourCessChallanDate"
-          )?.value;
-          const labourCessBankName =
-            document.getElementById("labourCessBankName")?.value;
-          const labourCessBankBranch = document.getElementById(
-            "labourCessBankBranch"
-          )?.value;
-          const greenFeeSiteApproval = document.getElementById(
-            "greenFeeSiteApproval"
-          )?.value;
-          const greenFeeChargeChallanNo = document.getElementById(
-            "greenFeeChargeChallanNo"
-          )?.value;
-          const greenFeeChargeChallanDate = document.getElementById(
-            "greenFeeChargeChallanDate"
-          )?.value;
-          const greenFeeChargeBankName = document.getElementById(
-            "greenFeeChargeBankName"
-          )?.value;
-          const greenFeeChargeBankBranch = document.getElementById(
-            "greenFeeChargeBankBranch"
-          )?.value;
-
-          console.log(fileId, "Aschi");
-
-          const udaCharge = {
-            vacantArea: vacantArea ?? "",
-            builtUpArea: builtUpArea ?? "",
-            UdaImpactFee: UdaImpactFee ?? "",
-            UDATotalCharged: UDATotalCharged ?? "",
-          };
-          const gramaPanchayatFee = {
-            gramaSiteApproval: gramaSiteApproval ?? "",
-            buildingPermitFees: buildingPermitFees ?? "",
-            bettermentCharged: bettermentCharged ?? "",
-            TotalOpenSpaceCharged: TotalOpenSpaceCharged ?? "",
-            gramaImpactFee: gramaImpactFee ?? "",
-            TotalPenalizationCharged: TotalPenalizationCharged ?? "",
-            GramaPanchayetTotalCharged: GramaPanchayetTotalCharged ?? "",
-            gramaChallanNo: gramaChallanNo ?? "",
-            gramaChallanDate: gramaChallanDate ?? "",
-            gramaBankName: gramaBankName ?? "",
-            gramaBankBranch: gramaBankBranch ?? "",
-            gramaBankReceipt: fileId[0],
-          };
-          const labourCessCharge = {
-            labourCessBankBranch: labourCessBankBranch ?? "",
-            labourCessBankName: labourCessBankName ?? "",
-            labourCessChallanDate: labourCessChallanDate ?? "",
-            labourCessChallanNo: labourCessChallanNo ?? "",
-            labourCessSiteApproval: labourCessSiteApproval ?? "",
-            labourCessBankReceipt: fileId[1],
-          };
-          const greenFeeCharge = {
-            greenFeeChargeBankBranch: greenFeeChargeBankBranch ?? "",
-            greenFeeChargeBankName: greenFeeChargeBankName ?? "",
-            greenFeeChargeChallanDate: greenFeeChargeChallanDate ?? "",
-            greenFeeChargeChallanNo: greenFeeChargeChallanNo ?? "",
-            greenFeeSiteApproval: greenFeeSiteApproval ?? "",
-            greenFeeBankReceipt: fileId[2],
-          };
-
-          console.log("PRINT ALL GETTED DATA");
-
-          console.log(
-            udaCharge,
-            gramaPanchayatFee,
-            labourCessCharge,
-            greenFeeCharge
+        console.log(...formData);
+        try {
+          const response = await axios.post(
+            "http://localhost:5000/upload?page=payment",
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data", // Important for file uploads
+              },
+            }
           );
+          // Handle success or display a success message to the user
 
-          return await sendUserDataIntoDB(url, "PATCH", {
-            applicationNo: JSON.parse(localStorage.getItem("CurrentAppNo")),
-            payment: {
-              udaCharge,
-              greenFeeCharge,
-              labourCessCharge,
-              gramaPanchayatFee,
-            },
-          });
+          console.log(response, "response");
+
+          if (response?.data.msg === "Successfully uploaded") {
+            const fileId = response.data.fileId;
+            console.log(fileId, "fileId");
+            fileUploadSuccess = 1;
+            imageId[file] = fileId;
+
+            console.log(imageId, "IMAGE ID");
+          }
+        } catch (error) {
+          console.log(error, "ERROR");
+          // Handle errors, e.g., show an error message to the user
+          toast.error("Error to upload documents");
+          fileUploadSuccess = 0;
         }
-      } catch (error) {
-        console.log(error, "ERROR");
-        // Handle errors, e.g., show an error message to the user
-        toast.error("Error to upload documents");
       }
-    } else {
-      toast.error("Please check empty field");
     }
+
+    if (fileUploadSuccess) {
+    } else {
+      toast.error("Server error");
+    }
+
+    // return await sendUserDataIntoDB(url, "PATCH", {
+    //   applicationNo: JSON.parse(localStorage.getItem("CurrentAppNo")),
+    //   payment: {
+    //     udaCharge,
+    //     greenFeeCharge,
+    //     labourCessCharge,
+    //     gramaPanchayatFee,
+    //   },
+    // });
+
+    const vacantArea = document.getElementById("vacantArea")?.value;
+
+    const builtUpArea = document.getElementById("builtUpArea")?.value;
+    const UdaImpactFee = document.getElementById("UdaImpactFee")?.value;
+    const UDATotalCharged = document.getElementById("UDATotalCharged")?.value;
+    const gramaSiteApproval =
+      document.getElementById("gramaSiteApproval")?.value;
+    const buildingPermitFees =
+      document.getElementById("buildingPermitFees")?.value;
+    const bettermentCharged =
+      document.getElementById("bettermentCharged")?.value;
+    const TotalOpenSpaceCharged = document.getElementById(
+      "TotalOpenSpaceCharged"
+    )?.value;
+    const gramaImpactFee = document.getElementById("gramaImpactFee")?.value;
+    const TotalPenalizationCharged = document.getElementById(
+      "TotalPenalizationCharged"
+    )?.value;
+    const GramaPanchayetTotalCharged = document.getElementById(
+      "GramaPanchayetTotalCharged"
+    )?.value;
+    const gramaChallanNo = document.getElementById("gramaChallanNo")?.value;
+    const gramaChallanDate = document.getElementById("gramaChallanDate")?.value;
+    const gramaBankName = document.getElementById("gramaBankName")?.value;
+    const gramaBankBranch = document.getElementById("gramaBankBranch")?.value;
+    const labourCessSiteApproval = document.getElementById(
+      "labourCessSiteApproval"
+    )?.value;
+    const labourCessChallanNo = document.getElementById(
+      "labourCessChallanNo"
+    )?.value;
+    const labourCessChallanDate = document.getElementById(
+      "labourCessChallanDate"
+    )?.value;
+    const labourCessBankName =
+      document.getElementById("labourCessBankName")?.value;
+    const labourCessBankBranch = document.getElementById(
+      "labourCessBankBranch"
+    )?.value;
+    const greenFeeSiteApproval = document.getElementById(
+      "greenFeeSiteApproval"
+    )?.value;
+    const greenFeeChargeChallanNo = document.getElementById(
+      "greenFeeChargeChallanNo"
+    )?.value;
+    const greenFeeChargeChallanDate = document.getElementById(
+      "greenFeeChargeChallanDate"
+    )?.value;
+    const greenFeeChargeBankName = document.getElementById(
+      "greenFeeChargeBankName"
+    )?.value;
+    const greenFeeChargeBankBranch = document.getElementById(
+      "greenFeeChargeBankBranch"
+    )?.value;
+
+    const udaCharge = {
+      vacantArea: vacantArea ?? "",
+      builtUpArea: builtUpArea ?? "",
+      UdaImpactFee: UdaImpactFee ?? "",
+      UDATotalCharged: UDATotalCharged ?? "",
+    };
+    const gramaPanchayatFee = {
+      gramaSiteApproval: gramaSiteApproval ?? "",
+      buildingPermitFees: buildingPermitFees ?? "",
+      bettermentCharged: bettermentCharged ?? "",
+      TotalOpenSpaceCharged: TotalOpenSpaceCharged ?? "",
+      gramaImpactFee: gramaImpactFee ?? "",
+      TotalPenalizationCharged: TotalPenalizationCharged ?? "",
+      GramaPanchayetTotalCharged: GramaPanchayetTotalCharged ?? "",
+      gramaChallanNo: gramaChallanNo ?? "",
+      gramaChallanDate: gramaChallanDate ?? "",
+      gramaBankName: gramaBankName ?? "",
+      gramaBankBranch: gramaBankBranch ?? "",
+      // gramaBankReceipt: fileId[0],
+    };
+    const labourCessCharge = {
+      labourCessBankBranch: labourCessBankBranch ?? "",
+      labourCessBankName: labourCessBankName ?? "",
+      labourCessChallanDate: labourCessChallanDate ?? "",
+      labourCessChallanNo: labourCessChallanNo ?? "",
+      labourCessSiteApproval: labourCessSiteApproval ?? "",
+      // labourCessBankReceipt: fileId[1],
+    };
+    const greenFeeCharge = {
+      greenFeeChargeBankBranch: greenFeeChargeBankBranch ?? "",
+      greenFeeChargeBankName: greenFeeChargeBankName ?? "",
+      greenFeeChargeChallanDate: greenFeeChargeChallanDate ?? "",
+      greenFeeChargeChallanNo: greenFeeChargeChallanNo ?? "",
+      greenFeeSiteApproval: greenFeeSiteApproval ?? "",
+      // greenFeeBankReceipt: fileId[2],
+    };
+
+    console.log("PRINT ALL GETTED DATA");
+
+    console.log(udaCharge, gramaPanchayatFee, labourCessCharge, greenFeeCharge);
+    // console.log(...formData);
   };
+
+  console.log(selectedFiles, "SELECTED FILES");
+  console.log(imageId, "IMAGE ID");
 
   console.log(condition, "CONSOLE");
   console.log(applicationData, "APPDATA");
@@ -913,7 +940,7 @@ const Payment = () => {
           )}
         </div>
 
-        <input type="submit" value="GET" onClick={getData} />
+        <input type="submit" value="GET" onClick={sendPaymentData} />
 
         {/* save & continue  */}
         {/* navigation button  */}
