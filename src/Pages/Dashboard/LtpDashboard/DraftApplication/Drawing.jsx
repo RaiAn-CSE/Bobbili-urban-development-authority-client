@@ -11,8 +11,12 @@ import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 const Drawing = () => {
   const [openApplication, setOpenApplication] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState({
-    "AutoCAD Drawing": "",
-    "Drawing PDF": "",
+    AutoCAD: "",
+    Drawing: "",
+  });
+  const [imageId, setImageId] = useState({
+    AutoCAD: "",
+    Drawing: "",
   });
 
   const [savedData, setSavedData] = useState([]);
@@ -26,6 +30,13 @@ const Drawing = () => {
     getApplicationData(applicationNo).then((res) => {
       console.log(res);
       setSavedData(res);
+      if (Object.keys(res?.drawing).length) {
+        const drawingDataFromDB = res?.drawing;
+        console.log(drawingDataFromDB);
+        setImageId(drawingDataFromDB);
+        console.log(imageId);
+        console.log("object");
+      }
     });
 
     // get application data from the database
@@ -45,92 +56,119 @@ const Drawing = () => {
   }, []);
 
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
-  const formData = new FormData();
 
   const handleFileChange = (event, eventId) => {
     const file = event?.target.files[0];
     // formData.append(eventId, file);
-    file &&
+    console.log(file, "FILE");
+    if (file) {
       toast.success(`${file?.name.slice(0, 20)}... uploaded successfully!`);
-    const localStoreDrawingData = JSON.parse(
-      localStorage.getItem("selectedFiles")
-    );
-
-    if (eventId === "AutoCAD Drawing") {
-      localStoreDrawingData[0] = file?.name;
-      setLocalFile(localStoreDrawingData);
-      localStorage.setItem(
-        "selectedFiles",
-        JSON.stringify(localStoreDrawingData)
+      const localStoreDrawingData = JSON.parse(
+        localStorage.getItem("selectedFiles")
       );
-    }
-    if (eventId === "Drawing PDF") {
-      localStoreDrawingData[1] = file?.name;
-      setLocalFile(localStoreDrawingData);
-      localStorage.setItem(
-        "selectedFiles",
-        JSON.stringify(localStoreDrawingData)
-      );
-    }
 
-    // console.log(localStoreDrawingData, "PREVIOUS GET");
-    // Set File Uploaded Data
-    setSelectedFiles((prev) => {
-      prev[eventId] = file;
-      return prev;
-    });
+      if (eventId === "AutoCAD") {
+        localStoreDrawingData[0] = file?.name;
+        setLocalFile(localStoreDrawingData);
+        localStorage.setItem(
+          "selectedFiles",
+          JSON.stringify(localStoreDrawingData)
+        );
+      }
+      if (eventId === "Drawing") {
+        localStoreDrawingData[1] = file?.name;
+        setLocalFile(localStoreDrawingData);
+        localStorage.setItem(
+          "selectedFiles",
+          JSON.stringify(localStoreDrawingData)
+        );
+      }
+
+      // console.log(localStoreDrawingData, "PREVIOUS GET");
+      // Set File Uploaded Data
+      setSelectedFiles((prev) => {
+        prev[eventId] = file;
+        return prev;
+      });
+    }
   };
+
+  // const uploadFileInCloudStorage = (formData) => {
+  //   for (const file in selectedFiles) {
+  //     console.log(selectedFiles[file]);
+  //     console.log(file);
+  //     formData.append("files", selectedFiles[file]);
+
+  //   }
+  // };
 
   const handleFileUpload = async (url) => {
+    let fileUploadSuccess = 0;
+    // uploadFileInCloudStorage(formData);
     // e.preventDefault();
-    if (
-      selectedFiles["AutoCAD Drawing"] !== "" &&
-      selectedFiles["Drawing PDF"] !== ""
-    ) {
-      console.log(selectedFiles["AutoCAD Drawing"]);
-      for (const file in selectedFiles) {
-        // console.log(selectedFiles[file]);
-        formData.append("files", selectedFiles[file]);
-      }
 
-      try {
-        const response = await axios.post(
-          "http://localhost:5000/upload?page=drawing",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data", // Important for file uploads
-            },
+    for (const file in selectedFiles) {
+      const formData = new FormData();
+
+      console.log(...formData, "FORM DATA");
+
+      console.log(file);
+      console.log(selectedFiles[file]);
+
+      if (selectedFiles[file]) {
+        formData.append("file", selectedFiles[file]);
+        try {
+          const response = await axios.post(
+            "http://localhost:5000/upload?page=drawing",
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data", // Important for file uploads
+              },
+            }
+          );
+          // Handle success or display a success message to the user
+
+          console.log(response, "response");
+
+          if (response?.data.msg === "Successfully uploaded") {
+            const fileId = response.data.fileId;
+            // setImageId((prev) => {
+            //   const newFile = {};
+            //   newFile[file] = fileId;
+            //   console.log(newFile);
+            //   const newImageFile = { ...prev, ...newFile };
+            //   return newImageFile;
+            // });
+            imageId[file] = fileId;
+
+            console.log(imageId);
+            fileUploadSuccess = 1;
           }
-        );
-        // Handle success or display a success message to the user
-
-        console.log(response, "response");
-
-        if (response?.data.msg === "Successfully uploaded") {
-          const fileId = response.data.fileId;
-
-          const drawing = {
-            AutoCAD: fileId[0],
-            Drawing: fileId[1],
-          };
-
-          console.log(drawing, "DRAWING");
-
-          return await sendUserDataIntoDB(url, "PATCH", {
-            applicationNo,
-            drawing,
-          });
+        } catch (error) {
+          // Handle errors, e.g., show an error message to the user
+          toast.error("Error to upload documents");
+          fileUploadSuccess = 0;
         }
-      } catch (error) {
-        // Handle errors, e.g., show an error message to the user
-        toast.error("Error to upload documents");
       }
-    } else {
-      toast.error("Please upload all");
+    }
+
+    if (fileUploadSuccess) {
+      console.log(fileUploadSuccess, imageId);
+      const drawing = {
+        AutoCAD: imageId["AutoCAD"],
+        Drawing: imageId["Drawing"],
+      };
+
+      console.log(drawing, "DRAWING");
+
+      return await sendUserDataIntoDB(url, "PATCH", {
+        applicationNo,
+        drawing,
+      });
     }
   };
-
+  console.log(imageId, "IMAGE ID");
   return (
     <>
       {" "}
@@ -159,7 +197,7 @@ const Drawing = () => {
               <input
                 type="file"
                 accept=".dwg, .zip, .pdf,.png,.jpg"
-                onChange={(event) => handleFileChange(event, "AutoCAD Drawing")}
+                onChange={(event) => handleFileChange(event, "AutoCAD")}
                 className=" absolute top-1/2 left-0 translate-y-[-50%]  w-[200px] z-[-1]"
               />
               <div className="flex justify-between items-center bg-white shadow-sm w-[230px] p-2 rounded-lg z-0">
@@ -167,7 +205,7 @@ const Drawing = () => {
 
                 {localFile && localFile[0] !== "" ? (
                   <p className="text-base">
-                    {localFile[0].slice(0, 12) + "..."}
+                    {localFile[0]?.slice(0, 12) + "..."}
                   </p>
                 ) : (
                   <p className="text-base">Select a file</p>
@@ -202,14 +240,14 @@ const Drawing = () => {
                 type="file"
                 id="drawing"
                 accept=".pdf, image/*"
-                onChange={(event) => handleFileChange(event, "Drawing PDF")}
+                onChange={(event) => handleFileChange(event, "Drawing")}
                 style={{ display: "none" }}
               />
               <div className="flex justify-between items-center bg-white shadow-sm w-[230px] p-2 rounded-lg z-0">
                 <MdOutlineAttachFile size={20} />
                 {localFile && localFile[1] !== "" ? (
                   <p className="text-base">
-                    {localFile[1].slice(0, 12) + "..."}
+                    {localFile[1]?.slice(0, 12) + "..."}
                   </p>
                 ) : (
                   <p className="text-base">Select a file</p>
@@ -232,7 +270,7 @@ const Drawing = () => {
             )}
           </div>
         </div>
-
+        <input type="submit" value="get" onClick={handleFileUpload} />
         {/* save & continue  */}
         {/* navigation button  */}
         <SaveData
