@@ -23,7 +23,7 @@ const NewApplication = () => {
     ["draftApplications"],
     async () => {
       const response = await fetch(
-        `http://localhost:5000/draftApplications/${userID}`
+        `https://residential-building.vercel.app/draftApplications/${userID}`
       );
       return await response.json();
     }
@@ -44,7 +44,7 @@ const NewApplication = () => {
 
   const removeDraftApplication = (applicationNo) => {
     console.log(applicationNo, "DELTE APP NO");
-    fetch(`http://localhost:5000/deleteSingleDraft`, {
+    fetch(`https://residential-building.vercel.app/deleteSingleDraft`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
@@ -79,12 +79,13 @@ const NewApplication = () => {
 
   // store new application information into the database
   const storeApplicationData = () => {
-    const url = `http://localhost:5000/updateDraftApplicationData/${userID}`;
+    const url = `https://residential-building.vercel.app/addApplication`;
 
     const day = date.getDate().toString().padStart(2, "0");
     const month = (date.getMonth() + 1).toString().padStart(2, "0");
     const year = date.getFullYear();
     const data = {
+      userId: userID,
       applicationNo: generateApplicationNumber(),
       buildingInfo: {
         generalInformation: {},
@@ -104,10 +105,16 @@ const NewApplication = () => {
       createdDate: `${day}-${month}-${year}`,
     };
 
-    sendUserDataIntoDB(url, "PATCH", data)
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
       .then((response) => {
         console.log(response);
-        if (!response.acknowledged) {
+        if (!response.ok) {
           toast.error("Failed to store data");
         } else {
           toast.success("Data stored Successfully");

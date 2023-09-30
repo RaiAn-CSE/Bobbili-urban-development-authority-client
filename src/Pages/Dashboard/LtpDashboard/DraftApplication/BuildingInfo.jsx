@@ -104,23 +104,23 @@ const BuildingInfo = () => {
       console.log(applicationData);
 
       const generalInformation =
-        applicationData.buildingInfo.generalInformation;
+        applicationData?.buildingInfo?.generalInformation;
 
-      const plotDetails = applicationData.buildingInfo.plotDetails;
+      const plotDetails = applicationData?.buildingInfo?.plotDetails;
 
       const plotDetailsFloor =
-        applicationData.buildingInfo.plotDetails.floorDetails;
+        applicationData?.buildingInfo?.plotDetails?.floorDetails;
       console.log(generalInformation, "generalinformation");
 
       const scheduleBoundaries =
-        applicationData.buildingInfo.scheduleBoundaries;
+        applicationData?.buildingInfo?.scheduleBoundaries;
 
-      setSelectedOptionCase(generalInformation.caseType);
-      setSelectedOptionPermission(generalInformation.natureOfPermission);
-      setSelectedNatureOfTheSite(generalInformation.natureOfTheSite);
-      setSelectedDistrict(generalInformation.district);
-      setSelectedMandal(generalInformation.mandal);
-      setSelectedVillage(generalInformation.village);
+      setSelectedOptionCase(generalInformation?.caseType);
+      setSelectedOptionPermission(generalInformation?.natureOfPermission);
+      setSelectedNatureOfTheSite(generalInformation?.natureOfTheSite);
+      setSelectedDistrict(generalInformation?.district);
+      setSelectedMandal(generalInformation?.mandal);
+      setSelectedVillage(generalInformation?.village);
 
       console.log(builtUpArea, "builtUp area");
       // update floor details as well as builtup area and parking area
@@ -143,11 +143,11 @@ const BuildingInfo = () => {
 
       console.log(builtUpArea, "Builtuparea adjacent");
 
-      setProposedPlotArea(plotDetails.proposedPlotAreaCal);
-      setRoadWideningArea(plotDetails.roadWideningAreaCal);
-      setNetPlotArea(plotDetails.netPlotAreaCal);
-      setBuiltUpAreaSum(plotDetails.totalBuiltUpArea);
-      setParkingAreaSum(plotDetails.totalParkingArea);
+      setProposedPlotArea(plotDetails?.proposedPlotAreaCal);
+      setRoadWideningArea(plotDetails?.roadWideningAreaCal);
+      setNetPlotArea(plotDetails?.netPlotAreaCal);
+      setBuiltUpAreaSum(plotDetails?.totalBuiltUpArea);
+      setParkingAreaSum(plotDetails?.totalParkingArea);
 
       setGeneralInformation(generalInformation);
       setPlotDetails(plotDetails);
@@ -532,6 +532,8 @@ const BuildingInfo = () => {
 
   // console.log(scheduleBoundaries, 'scheduleBoundaries');
   const { east, west, north, south } = scheduleBoundaries;
+
+  console.log(generalInformation, "GENERAL INFORMATION");
 
   console.log(selectedOptionCase, "selectedOptionCase");
   console.log("hi there");

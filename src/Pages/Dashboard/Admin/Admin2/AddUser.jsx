@@ -10,7 +10,7 @@ const AddUser = () => {
     const userInfo = { ...data, draftApplication: [], submitApplication: [] };
 
     // store users data in the database
-    fetch("http://localhost:5000/addUser", {
+    fetch("https://residential-building.vercel.app/addUser", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
