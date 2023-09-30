@@ -93,7 +93,7 @@ const NewApplication = () => {
       },
       applicantInfo: { ltpDetails: {}, applicantDetails: {} },
       applicationCheckList: [],
-      documents: [],
+      documents: {},
       drawing: { AutoCAD: "", Drawing: "" },
       payment: {
         udaCharge: {},

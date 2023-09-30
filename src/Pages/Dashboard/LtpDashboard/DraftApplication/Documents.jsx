@@ -10,14 +10,15 @@ import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 
 const DocumentUpload = () => {
   const [openApplication, setOpenApplication] = useState(false);
-  const [selectedFiles, setSelectedFiles] = useState(Documents.Data);
-  const [UpdatedDocuments, setUpdatedDocuments] = useState(Documents.Data);
+
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [UpdatedDocuments, setUpdatedDocuments] = useState([...Documents.Data]);
+  const [imageId, setImageId] = useState([]);
+
   const stepperData = useOutletContext();
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
   const { confirmAlert, sendUserDataIntoDB, getApplicationData } =
     useContext(AuthContext);
-
-  const formData = new FormData();
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
 
@@ -26,19 +27,46 @@ const DocumentUpload = () => {
     file &&
       toast.success(`${file?.name.slice(0, 20)}... uploaded successfully!`);
 
-    selectedFiles[index].upload = file;
+    selectedFiles[index] = file;
 
     console.log(selectedFiles, "Selected files");
   };
 
+  // useEffect(() => {
+  //   fetch("http://localhost:5000/documents")
+  //     .then((res) => res.json())
+  //     .then((result) => {
+  //       console.log(result, "Result");
+
+  //       setUpdatedDocuments([...result[0].Data]);
+  //       setSelectedFiles([...result[0].Data]);
+
+  //       console.log(result.Data);
+  //       console.log(UpdatedDocuments, selectedFiles);
+  //       gettingData();
+  //       // console.log(UpdatedDocuments, "FETECH");
+  //     });
+  // }, []);
+
   useEffect(() => {
     const gettingData = async () => {
       let updatedDocumentsToAdd = [];
+      let updateNewSelectDocument = [];
       const applicationData = await getApplicationData(applicationNo);
       const applicationCheckList = applicationData.applicationCheckList;
       const documents = applicationData.documents;
-
       console.log(documents);
+
+      // setUpdatedDocuments((prev) => {
+      //   const updateDoc=[]
+      //   const originalDocument = [...OriginalDocuments.Data];
+      //   originalDocument.forEach(((originalItem, index) => {
+
+      //   }));
+      // });
+      console.log(UpdatedDocuments, "UPDATE BEFORE");
+      console.log(documents, "DB DATA");
+      let increaseDocument = UpdatedDocuments.length;
       if (applicationCheckList.length) {
         // Declare the array here
         applicationCheckList.forEach((data, index) => {
@@ -49,17 +77,17 @@ const DocumentUpload = () => {
             return null;
           }
           if (index >= 8 && data.answer === "yes") {
+            increaseDocument++;
             const newDocument = {
-              id: (UpdatedDocuments.length + 1).toString(),
+              id: increaseDocument.toString(),
               question: data.question,
-              upload: documents[index] ? documents[index] : "",
+              upload: "",
             };
             updatedDocumentsToAdd.push(newDocument);
-
-            selectedFiles.push(newDocument);
           }
         });
       }
+
       setUpdatedDocuments([...UpdatedDocuments, ...updatedDocumentsToAdd]);
 
       // RECEIVED DOCUMENT DATA FROM THE DB & STORE THEM IN THE UPDATED DOCUMENT STATE
@@ -75,14 +103,55 @@ const DocumentUpload = () => {
           return prev;
         });
       }
-    };
 
+      console.log(UpdatedDocuments);
+
+      // const newModified = UpdatedDocuments.map((doc, index) => {
+      //   console.log(doc, index);
+      //   // doc.upload = documents[index];
+      //   // return doc;
+      // });
+
+      // setUpdatedDocuments((prev) => {
+      //   // console.log(prev);
+      //   const oldData = prev;
+      //   const newData = oldData.map((data, index) => {
+      //     console.log(data);
+      //   });
+      // });
+
+      // console.log(newModified, "New modified");
+
+      // setUpdatedDocuments([...newModified]);
+
+      // setSelectedFiles((prev) => {
+      //   const newFile = prev.map((file) => {
+      //     file.upload = "";
+      //   });
+
+      //   console.log(newFile);
+
+      //   return newFile;
+      // });
+    };
     gettingData();
   }, []);
+
+  useEffect(() => {
+    console.log(UpdatedDocuments);
+    const emptyArray = Array.from({ length: UpdatedDocuments.length });
+
+    console.log(emptyArray);
+
+    setSelectedFiles(emptyArray);
+    setImageId(emptyArray);
+  }, [UpdatedDocuments]);
+
+  // console.log(OriginalDocuments.Data, "DOCUMENTS DATA");
   console.log(UpdatedDocuments, "UpdatesDocuments");
   console.log(selectedFiles, "Selected documents");
 
-  const [imageId, setImageId] = useState({});
+  console.log(imageId, "IMAGE ID");
 
   // handle file upload
   const handleFileUpload = async (url) => {
@@ -105,11 +174,11 @@ const DocumentUpload = () => {
 
     for (let i = 0; i < selectedFiles.length; i++) {
       const formData = new FormData();
-      console.log(selectedFiles[i].upload, "UPLOAD FILE");
-      if (selectedFiles[i]?.upload) {
-        console.log(selectedFiles[i].upload, "UPLOAD FILE");
 
-        formData.append("file", selectedFiles[i]?.upload);
+      if (selectedFiles[i]) {
+        console.log(selectedFiles, "UPLOAD FILE");
+
+        formData.append("file", selectedFiles[i]);
         try {
           const response = await axios.post(
             "http://localhost:5000/upload?page=document",
@@ -135,7 +204,12 @@ const DocumentUpload = () => {
           toast.error("Error to upload documents");
         }
       } else {
-        imageId[i] = "";
+        console.log("ELSE OF FILE");
+        imageId[i] = UpdatedDocuments[i]?.upload?.length
+          ? UpdatedDocuments[i]?.upload
+          : "";
+
+        console.log(imageId[i]);
       }
       fileCheckToUpload++;
     }

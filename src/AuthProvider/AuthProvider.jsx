@@ -164,16 +164,16 @@ const AuthProvider = ({ children }) => {
         console.log(stepperData, "Stepper data");
 
         // if stepper data is exist then update stepper steps and navigate to the next step
-        // if (stepperData) {
-        //   console.log("Asci");
-        //   const [, currentStep, steps, handleStepClick] = stepperData;
-        //   console.log(currentStep < steps.length - 1);
-        //   currentStep < steps.length - 1 && handleStepClick(currentStep + 1);
-        // }
+        if (stepperData) {
+          console.log("Asci");
+          const [, currentStep, steps, handleStepClick] = stepperData;
+          console.log(currentStep < steps.length - 1);
+          currentStep < steps.length - 1 && handleStepClick(currentStep + 1);
+        }
 
-        // if (isPaymentDataSent) {
-        //   isPaymentDataSent((prev) => prev + 1);
-        // }
+        if (isPaymentDataSent) {
+          isPaymentDataSent((prev) => prev + 1);
+        }
       } else {
         toast.error("Failed to save data");
       }
