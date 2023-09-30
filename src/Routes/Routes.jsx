@@ -20,6 +20,8 @@ import Carousel from "../Pages/Main/Carousel/Carousel";
 import ApplicationSearch from "../Pages/Main/ApplicationSearch/ApplicationSearch";
 import OnlinePayment from "../Pages/Main/OnlinePayment/OnlinePayment";
 import ListOfLTP from '../Pages/Main/ListOfLTP/ListOfLTP';
+import Inward from "../Pages/Dashboard/PsDashboard/InwardApplications/Inward";
+import SiteInspection from './../Pages/Dashboard/PsDashboard/InwardApplications/SiteInspection';
 
 const router = createBrowserRouter([
   {
@@ -151,6 +153,22 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <SubmitApplication />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/inWard",
+        element: (
+          <PrivateRoute>
+            <Inward />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/siteInspection",
+        element: (
+          <PrivateRoute>
+            <SiteInspection />
           </PrivateRoute>
         ),
       },

@@ -126,9 +126,8 @@ const AuthProvider = ({ children }) => {
     isPaymentDataSent
   ) => {
     console.log(userInfoFromLocalStorage()._id, "GET USER ID");
-    const url = `https://residential-building.vercel.app/updateDraftApplicationData/${
-      userInfoFromLocalStorage()._id
-    }`;
+    const url = `https://residential-building.vercel.app/updateDraftApplicationData/${userInfoFromLocalStorage()._id
+      }`;
 
     console.log(url, "url");
 

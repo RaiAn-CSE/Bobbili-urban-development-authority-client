@@ -91,7 +91,7 @@ const Payment = () => {
         generalInformation?.natureOfTheSite === "Approved Layout" ||
         generalInformation?.natureOfTheSite === "Regularised under LRS" ||
         generalInformation?.natureOfTheSite ===
-          "Congested/ Gramakanta/ Old Built-up area" ||
+        "Congested/ Gramakanta/ Old Built-up area" ||
         generalInformation.natureOfTheSite === "Newly Developed/ Built up area"
       ) {
         console.log("aschi");
@@ -832,14 +832,14 @@ const Payment = () => {
 
             {applicationData?.payment?.labourCessCharge
               ?.labourCessBankReceipt && (
-              <Link
-                to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
-                target="_blank"
-                className="ms-10 hover:underline bg-yellow-300 p-3 rounded-full"
-              >
-                View old File
-              </Link>
-            )}
+                <Link
+                  to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
+                  target="_blank"
+                  className="ms-10 hover:underline bg-yellow-300 p-3 rounded-full"
+                >
+                  View old File
+                </Link>
+              )}
           </div>
         </div>
 

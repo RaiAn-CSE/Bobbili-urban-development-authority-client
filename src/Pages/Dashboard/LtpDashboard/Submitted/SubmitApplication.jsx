@@ -12,8 +12,7 @@ const SubmitApplication = () => {
     ["allSubmitApplication"],
     async () => {
       const response = await fetch(
-        `https://residential-building.vercel.app/allSubmitApplications?id=${
-          userInfoFromLocalStorage()._id
+        `https://residential-building.vercel.app/allSubmitApplications?id=${userInfoFromLocalStorage()._id
         }`
       );
       return await response.json();
