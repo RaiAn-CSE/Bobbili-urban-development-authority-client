@@ -69,7 +69,7 @@ const DocumentUpload = () => {
             updatedDocumentsToAdd.push({
               id: UpdatedDocuments.length + updatedDocumentsToAdd.length + 1,
               question: data.question,
-              upload: "",
+              upload: documents[index].upload ? documents[index].upload : "",
             });
           }
         });
