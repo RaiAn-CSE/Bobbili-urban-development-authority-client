@@ -103,8 +103,7 @@ const ApplicantInfo = () => {
     const getData = async () => {
       const applicationData = await getApplicationData(applicationNo);
       const ltpDetailsData = applicationData.applicantInfo.ltpDetails;
-      const applicantDetailsData =
-        applicationData.applicantInfo.applicantDetails;
+      const applicantDetailsData = applicationData.applicantInfo.applicantDetails;
       setLtpDetails(ltpDetailsData);
       setApplicantDetails(applicantDetailsData);
       setLtpPhone(ltpDetailsData?.phoneNo);
