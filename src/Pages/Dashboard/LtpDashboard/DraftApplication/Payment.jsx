@@ -933,7 +933,7 @@ const Payment = () => {
           )}
         </div>
 
-        <input type="submit" value="GET" onClick={sendPaymentData} />
+        {/* <input type="submit" value="GET" onClick={sendPaymentData} /> */}
 
         {/* save & continue  */}
         {/* navigation button  */}

@@ -327,7 +327,7 @@ const DocumentUpload = () => {
           ""
         )}
 
-        <input type="submit" value="get" onClick={handleFileUpload} />
+        {/* <input type="submit" value="get" onClick={handleFileUpload} /> */}
 
         {/* save & continue  */}
         {/* navigation button  */}
