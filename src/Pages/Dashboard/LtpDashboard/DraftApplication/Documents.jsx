@@ -52,7 +52,7 @@ const DocumentUpload = () => {
             const newDocument = {
               id: (UpdatedDocuments.length + 1).toString(),
               question: data.question,
-              upload: documents[index]?.upload ? documents[index]?.upload : "",
+              upload: documents[index] ? documents[index] : "",
             };
             updatedDocumentsToAdd.push(newDocument);
 
@@ -63,12 +63,13 @@ const DocumentUpload = () => {
       setUpdatedDocuments([...UpdatedDocuments, ...updatedDocumentsToAdd]);
 
       // RECEIVED DOCUMENT DATA FROM THE DB & STORE THEM IN THE UPDATED DOCUMENT STATE
-      if (documents.length) {
+      if (Object.keys(documents).length) {
+        console.log("DOCUMENTS.length");
         setUpdatedDocuments((prev) => {
           console.log(prev);
-          documents.forEach((document, index) => {
+          prev.forEach((document, index) => {
             console.log(document, index);
-            prev[index].upload = document;
+            prev[index].upload = documents[index];
           });
 
           return prev;
@@ -127,11 +128,6 @@ const DocumentUpload = () => {
             const documentImageId = response?.data?.fileId;
 
             imageId[i] = documentImageId;
-
-            // return await sendUserDataIntoDB(url, "PATCH", {
-            //   applicationNo,
-            //   documents,
-            // });
           }
         } catch (error) {
           console.log(error, "ERROR");
@@ -188,6 +184,10 @@ const DocumentUpload = () => {
 
     if (fileCheckToUpload === selectedFiles.length) {
       console.log(imageId, "IMAGE IDS");
+      return await sendUserDataIntoDB(url, "PATCH", {
+        applicationNo,
+        documents: imageId,
+      });
     }
 
     console.log(...formData);
