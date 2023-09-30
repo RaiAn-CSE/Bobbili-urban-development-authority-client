@@ -387,7 +387,7 @@ const Payment = () => {
   const sendPaymentData = async (url) => {
     console.log("object");
 
-    let fileUploadSuccess = 1;
+    // let totalFileChecked = 1;
 
     console.log(selectedFiles, "SELECTED FILES");
 
@@ -417,7 +417,7 @@ const Payment = () => {
           if (response?.data.msg === "Successfully uploaded") {
             const fileId = response.data.fileId;
             console.log(fileId, "fileId");
-            fileUploadSuccess = 1;
+            // fileUploadSuccess = 1;
             imageId[file] = fileId;
 
             console.log(imageId, "IMAGE ID");
@@ -426,25 +426,9 @@ const Payment = () => {
           console.log(error, "ERROR");
           // Handle errors, e.g., show an error message to the user
           toast.error("Error to upload documents");
-          fileUploadSuccess = 0;
         }
       }
     }
-
-    if (fileUploadSuccess) {
-    } else {
-      toast.error("Server error");
-    }
-
-    // return await sendUserDataIntoDB(url, "PATCH", {
-    //   applicationNo: JSON.parse(localStorage.getItem("CurrentAppNo")),
-    //   payment: {
-    //     udaCharge,
-    //     greenFeeCharge,
-    //     labourCessCharge,
-    //     gramaPanchayatFee,
-    //   },
-    // });
 
     const vacantArea = document.getElementById("vacantArea")?.value;
 
@@ -519,7 +503,7 @@ const Payment = () => {
       gramaChallanDate: gramaChallanDate ?? "",
       gramaBankName: gramaBankName ?? "",
       gramaBankBranch: gramaBankBranch ?? "",
-      // gramaBankReceipt: fileId[0],
+      gramaBankReceipt: imageId["gramaBankReceipt"],
     };
     const labourCessCharge = {
       labourCessBankBranch: labourCessBankBranch ?? "",
@@ -527,7 +511,7 @@ const Payment = () => {
       labourCessChallanDate: labourCessChallanDate ?? "",
       labourCessChallanNo: labourCessChallanNo ?? "",
       labourCessSiteApproval: labourCessSiteApproval ?? "",
-      // labourCessBankReceipt: fileId[1],
+      labourCessBankReceipt: imageId["labourCessBankReceipt"],
     };
     const greenFeeCharge = {
       greenFeeChargeBankBranch: greenFeeChargeBankBranch ?? "",
@@ -535,13 +519,22 @@ const Payment = () => {
       greenFeeChargeChallanDate: greenFeeChargeChallanDate ?? "",
       greenFeeChargeChallanNo: greenFeeChargeChallanNo ?? "",
       greenFeeSiteApproval: greenFeeSiteApproval ?? "",
-      // greenFeeBankReceipt: fileId[2],
+      greenFeeBankReceipt: imageId["greenFeeBankReceipt"],
     };
 
     console.log("PRINT ALL GETTED DATA");
 
     console.log(udaCharge, gramaPanchayatFee, labourCessCharge, greenFeeCharge);
-    // console.log(...formData);
+
+    return await sendUserDataIntoDB(url, "PATCH", {
+      applicationNo: JSON.parse(localStorage.getItem("CurrentAppNo")),
+      payment: {
+        udaCharge,
+        greenFeeCharge,
+        labourCessCharge,
+        gramaPanchayatFee,
+      },
+    });
   };
 
   console.log(selectedFiles, "SELECTED FILES");
