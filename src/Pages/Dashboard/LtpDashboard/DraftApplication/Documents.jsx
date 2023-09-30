@@ -10,7 +10,7 @@ import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 
 const DocumentUpload = () => {
   const [openApplication, setOpenApplication] = useState(false);
-  const [selectedFiles, setSelectedFiles] = useState({});
+  const [selectedFiles, setSelectedFiles] = useState(Documents.Data);
   const [UpdatedDocuments, setUpdatedDocuments] = useState(Documents.Data);
   const stepperData = useOutletContext();
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
@@ -21,32 +21,15 @@ const DocumentUpload = () => {
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
 
-  const handleFileChange = (event, eventId) => {
+  const handleFileChange = (event, index) => {
     const file = event?.target?.files[0];
     file &&
       toast.success(`${file?.name.slice(0, 20)}... uploaded successfully!`);
-    // Update selectedFiles object with the selected file for the specific question ID.
-    // console.log(localStoreDrawingData, "PREVIOUS GET");
 
-    console.log(eventId, file);
-    // Set File Uploaded Data
-    setSelectedFiles((prevSelectedFiles) => ({
-      ...prevSelectedFiles,
-      [eventId]: file,
-    }));
+    selectedFiles[index].upload = file;
 
     console.log(selectedFiles, "Selected files");
-
-    // Update UpdatedDocuments with the selected file for the specific question ID.
-    const updatedData = UpdatedDocuments.map((Question) => {
-      const { id, question, upload } = Question;
-      return { id, question, upload: eventId === id ? file : upload };
-    });
-
-    setUpdatedDocuments(updatedData);
   };
-
-  console.log(UpdatedDocuments, "UpdatesDocuments");
 
   useEffect(() => {
     const gettingData = async () => {
@@ -66,16 +49,20 @@ const DocumentUpload = () => {
             return null;
           }
           if (index >= 8 && data.answer === "yes") {
-            updatedDocumentsToAdd.push({
-              id: UpdatedDocuments.length + updatedDocumentsToAdd.length + 1,
+            const newDocument = {
+              id: (UpdatedDocuments.length + 1).toString(),
               question: data.question,
-              upload: documents[index].upload ? documents[index].upload : "",
-            });
+              upload: documents[index]?.upload ? documents[index]?.upload : "",
+            };
+            updatedDocumentsToAdd.push(newDocument);
+
+            selectedFiles.push(newDocument);
           }
         });
       }
       setUpdatedDocuments([...UpdatedDocuments, ...updatedDocumentsToAdd]);
 
+      // RECEIVED DOCUMENT DATA FROM THE DB & STORE THEM IN THE UPDATED DOCUMENT STATE
       if (documents.length) {
         setUpdatedDocuments((prev) => {
           console.log(prev);
@@ -91,6 +78,10 @@ const DocumentUpload = () => {
 
     gettingData();
   }, []);
+  console.log(UpdatedDocuments, "UpdatesDocuments");
+  console.log(selectedFiles, "Selected documents");
+
+  const [imageId, setImageId] = useState({});
 
   // handle file upload
   const handleFileUpload = async (url) => {
@@ -109,41 +100,97 @@ const DocumentUpload = () => {
 
     // append data to formData so that the file data can be sent into the database
 
-    UpdatedDocuments.forEach((document) => {
-      console.log(document);
-      formData.append("files", document?.upload);
-    });
+    let fileCheckToUpload = 0;
+
+    for (let i = 0; i < selectedFiles.length; i++) {
+      const formData = new FormData();
+      console.log(selectedFiles[i].upload, "UPLOAD FILE");
+      if (selectedFiles[i]?.upload) {
+        console.log(selectedFiles[i].upload, "UPLOAD FILE");
+
+        formData.append("file", selectedFiles[i]?.upload);
+        try {
+          const response = await axios.post(
+            "http://localhost:5000/upload?page=document",
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data", // Important for file uploads
+              },
+            }
+          );
+          // Handle success or display a success message to the user
+
+          console.log(response, "response");
+
+          if (response?.data.msg === "Successfully uploaded") {
+            const documentImageId = response?.data?.fileId;
+
+            imageId[i] = documentImageId;
+
+            // return await sendUserDataIntoDB(url, "PATCH", {
+            //   applicationNo,
+            //   documents,
+            // });
+          }
+        } catch (error) {
+          console.log(error, "ERROR");
+          // Handle errors, e.g., show an error message to the user
+          toast.error("Error to upload documents");
+        }
+      } else {
+        imageId[i] = "";
+      }
+      fileCheckToUpload++;
+    }
+
+    // selectedFiles.forEach(async (document, index) => {
+    //   const formData = new FormData();
+    //   console.log(document);
+    //   if (document?.upload !== "") {
+    //     formData.append("file", document?.upload);
+    //     try {
+    //       const response = await axios.post(
+    //         "http://localhost:5000/upload?page=document",
+    //         formData,
+    //         {
+    //           headers: {
+    //             "Content-Type": "multipart/form-data", // Important for file uploads
+    //           },
+    //         }
+    //       );
+    //       // Handle success or display a success message to the user
+
+    //       console.log(response, "response");
+
+    //       if (response?.data.msg === "Successfully uploaded") {
+    //         const documentImageId = response?.data?.fileId;
+
+    //         imageId[index] = documentImageId;
+
+    //         // return await sendUserDataIntoDB(url, "PATCH", {
+    //         //   applicationNo,
+    //         //   documents,
+    //         // });
+    //       }
+    //     } catch (error) {
+    //       // Handle errors, e.g., show an error message to the user
+    //       toast.error("Error to upload documents");
+    //     }
+    //   } else {
+    //     imageId[index] = "";
+    //   }
+    //   fileCheckToUpload++;
+    // });
+
+    console.log(fileCheckToUpload, selectedFiles.length);
+    console.log(fileCheckToUpload === selectedFiles.length);
+
+    if (fileCheckToUpload === selectedFiles.length) {
+      console.log(imageId, "IMAGE IDS");
+    }
 
     console.log(...formData);
-
-    try {
-      const response = await axios.post(
-        "http://localhost:5000/upload?page=document",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data", // Important for file uploads
-          },
-        }
-      );
-      // Handle success or display a success message to the user
-
-      console.log(response, "response");
-
-      if (response?.data.msg === "Successfully uploaded") {
-        const documents = response?.data?.fileId;
-
-        console.log(documents);
-
-        return await sendUserDataIntoDB(url, "PATCH", {
-          applicationNo,
-          documents,
-        });
-      }
-    } catch (error) {
-      // Handle errors, e.g., show an error message to the user
-      toast.error("Error to upload documents");
-    }
   };
 
   return (
@@ -163,7 +210,7 @@ const DocumentUpload = () => {
         }}
         className="text-black p-4"
       >
-        {UpdatedDocuments?.map((document) => {
+        {UpdatedDocuments?.map((document, index) => {
           const { id, question, upload } = document;
           return (
             <>
@@ -180,7 +227,7 @@ const DocumentUpload = () => {
                     name={id}
                     type="file"
                     accept=".pdf, image/*"
-                    onChange={(event) => handleFileChange(event, id)}
+                    onChange={(event) => handleFileChange(event, index)}
                     className="file-input file-input-bordered file-input-md w-full max-w-xs"
                   />
                   {upload !== "" && (
@@ -205,6 +252,8 @@ const DocumentUpload = () => {
         ) : (
           ""
         )}
+
+        <input type="submit" value="get" onClick={handleFileUpload} />
 
         {/* save & continue  */}
         {/* navigation button  */}
