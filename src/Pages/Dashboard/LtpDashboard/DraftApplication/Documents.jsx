@@ -33,7 +33,7 @@ const DocumentUpload = () => {
   };
 
   // useEffect(() => {
-  //   fetch("http://localhost:5000/documents")
+  //   fetch("https://residential-building.vercel.app/documents")
   //     .then((res) => res.json())
   //     .then((result) => {
   //       console.log(result, "Result");
@@ -181,7 +181,7 @@ const DocumentUpload = () => {
         formData.append("file", selectedFiles[i]);
         try {
           const response = await axios.post(
-            "http://localhost:5000/upload?page=document",
+            "https://residential-building.vercel.app/upload?page=document",
             formData,
             {
               headers: {
@@ -221,7 +221,7 @@ const DocumentUpload = () => {
     //     formData.append("file", document?.upload);
     //     try {
     //       const response = await axios.post(
-    //         "http://localhost:5000/upload?page=document",
+    //         "https://residential-building.vercel.app/upload?page=document",
     //         formData,
     //         {
     //           headers: {
