@@ -28,3 +28,9 @@ body {
 /* .primaryColor{
   background-color: #edab03;
 } */
+.modal-box{
+  cursor: auto;
+}
+.modal-open{
+  cursor: pointer;
+}
