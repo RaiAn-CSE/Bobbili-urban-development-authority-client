@@ -3,52 +3,72 @@
     {
       "id": "1",
       "question": "Photographs Showing Access Roads.",
-      "upload": ""
+      "upload": "",
+      "approved": "",
+      "shortfall": ""
     },
     {
       "id": "2",
       "question": "Self-Attested Copies Of Ownership Documents/ Sale Deed Etc. Giving The Physical Description Of The Plot/ Property.",
-      "upload": ""
+      "upload": "",
+      "approved": "",
+      "shortfall": ""
     },
     {
       "id": "3",
       "question": "Self-Attested Copies Of Link Documents.",
-      "upload": ""
+      "upload": "",
+      "approved": "",
+      "shortfall": ""
     },
     {
       "id": "4",
       "question": "Latest Encumbrance Certificate Issued By Registration Department.",
-      "upload": ""
+      "upload": "",
+      "approved": "",
+      "shortfall": ""
     },
     {
       "id": "5",
       "question": "Master Plan/ ILUP/ RVM Extract Indicating The Site.",
-      "upload": ""
+      "upload": "",
+      "approved": "",
+      "shortfall": ""
     },
     {
       "id": "6",
       "question": "Topo Detailed Plan.",
-      "upload": ""
+      "upload": "",
+      "approved": "",
+      "shortfall": ""
     },
     {
       "id": "7",
       "question": "A Declaration Cum Undertaking And Indemnity Bond By The Owner/ LTP",
-      "upload": ""
+      "upload": "",
+      "approved": "",
+      "shortfall": ""
     },
     {
       "id": "8",
       "question": "Sign Drawing Plan Pdf And Application Form Of Owner & LTP",
-      "upload": ""
+      "upload": "",
+      "approved": "",
+      "shortfall": ""
     },
     {
       "id": "9",
       "question": "Previous Sanctioned Plan copy with details of approval for the existing building if any.",
-      "upload": ""
+      "upload": "",
+      "approved": "",
+      "shortfall": ""
     },
     {
       "id": "10",
       "question": "Whether The Land Is Converted Agriculture To Non-Agriculture Land As Per NALA Act, 2006?",
-      "upload": ""
+      "upload": "",
+      "approved": "",
+      "shortfall": ""
     }
   ]
 }
