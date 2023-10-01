@@ -6,6 +6,7 @@ import plotImage from "../../../../assets/images/land.png";
 import wallImage from "../../../../assets/images/gate.png";
 import { useOutletContext } from "react-router";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
+import allDistrictData from "../../../../assets/buildingInfo.json";
 import SaveData from "./SaveData";
 import FloorDetails from "./FloorDetails";
 
@@ -37,7 +38,6 @@ const BuildingInfo = () => {
 
   // NATURE OF THE SITE
   const [selectedNatureOfTheSite, setSelectedNatureOfTheSite] = useState("");
-  const [showInputFields, setShowInputFields] = useState(false);
 
   const [districtData, setDistrictData] = useState([]);
   const [selectedDistrict, setSelectedDistrict] = useState("");
@@ -104,20 +104,23 @@ const BuildingInfo = () => {
       console.log(applicationData);
 
       const generalInformation =
-        applicationData.buildingInfo.generalInformation;
+        applicationData?.buildingInfo?.generalInformation;
 
-      const plotDetails = applicationData.buildingInfo.plotDetails;
+      const plotDetails = applicationData?.buildingInfo?.plotDetails;
 
       const plotDetailsFloor =
-        applicationData.buildingInfo.plotDetails.floorDetails;
+        applicationData?.buildingInfo?.plotDetails?.floorDetails;
       console.log(generalInformation, "generalinformation");
 
       const scheduleBoundaries =
-        applicationData.buildingInfo.scheduleBoundaries;
+        applicationData?.buildingInfo?.scheduleBoundaries;
 
-      setSelectedDistrict(generalInformation.district);
-      setSelectedMandal(generalInformation.mandal);
-      setSelectedVillage(generalInformation.village);
+      setSelectedOptionCase(generalInformation?.caseType);
+      setSelectedOptionPermission(generalInformation?.natureOfPermission);
+      setSelectedNatureOfTheSite(generalInformation?.natureOfTheSite);
+      setSelectedDistrict(generalInformation?.district);
+      setSelectedMandal(generalInformation?.mandal);
+      setSelectedVillage(generalInformation?.village);
 
       console.log(builtUpArea, "builtUp area");
       // update floor details as well as builtup area and parking area
@@ -140,11 +143,11 @@ const BuildingInfo = () => {
 
       console.log(builtUpArea, "Builtuparea adjacent");
 
-      setProposedPlotArea(plotDetails.proposedPlotAreaCal);
-      setRoadWideningArea(plotDetails.roadWideningAreaCal);
-      setNetPlotArea(plotDetails.netPlotAreaCal);
-      setBuiltUpAreaSum(plotDetails.totalBuiltUpArea);
-      setParkingAreaSum(plotDetails.totalParkingArea);
+      setProposedPlotArea(plotDetails?.proposedPlotAreaCal);
+      setRoadWideningArea(plotDetails?.roadWideningAreaCal);
+      setNetPlotArea(plotDetails?.netPlotAreaCal);
+      setBuiltUpAreaSum(plotDetails?.totalBuiltUpArea);
+      setParkingAreaSum(plotDetails?.totalParkingArea);
 
       setGeneralInformation(generalInformation);
       setPlotDetails(plotDetails);
@@ -153,15 +156,17 @@ const BuildingInfo = () => {
     };
     getData();
 
-    const apiUrl = "../../src/assets/buildingInfo.json";
-    fetch(apiUrl)
-      .then((response) => response.json())
-      .then((result) => {
-        setDistrictData(result.district);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    // const apiUrl = "../../src/assets/buildingInfo.json";
+    // fetch(apiUrl)
+    //   .then((response) => response.json())
+    //   .then((result) => {
+    //     setDistrictData(result.district);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error:", error);
+    //   });
+
+    setDistrictData(allDistrictData.district);
   }, []);
 
   console.log(plotDetails, "plotDetails");
@@ -179,17 +184,6 @@ const BuildingInfo = () => {
   // Nature of the site
   const handleNatureChange = (e) => {
     setSelectedNatureOfTheSite(e.target.value);
-
-    // Check if the selected option should show additional input fields
-    if (
-      e.target.value === "Approved Layout" ||
-      e.target.value === "Regularised under LRS" ||
-      e.target.value === "Plot port of RLP/IPLP but not regularised"
-    ) {
-      setShowInputFields(true);
-    } else {
-      setShowInputFields(false);
-    }
   };
 
   // Net Plot Area(in Sq.M.) Calculation :
@@ -539,6 +533,11 @@ const BuildingInfo = () => {
   // console.log(scheduleBoundaries, 'scheduleBoundaries');
   const { east, west, north, south } = scheduleBoundaries;
 
+  console.log(generalInformation, "GENERAL INFORMATION");
+
+  console.log(selectedOptionCase, "selectedOptionCase");
+  console.log("hi there");
+
   // classes for this component:
   const labelClass =
     "block text-gray-600 mb-1 font-semibold dark:text-gray-100";
@@ -563,7 +562,7 @@ const BuildingInfo = () => {
             <select
               id="caseType"
               className="w-full px-3 py-[10px] border border-[#10AC84] dark:text-black rounded-lg max-w-xs"
-              value={selectedOptionCase.length ? selectedOptionCase : caseType}
+              value={selectedOptionCase ? selectedOptionCase : caseType}
               onChange={handleCaseTypeChange}
             >
               <option disabled selected value="">
@@ -799,62 +798,58 @@ const BuildingInfo = () => {
             )}
 
           {/* Conditionally render input fields based on Nature of the site */}
-          {showInputFields && (
+          {selectedNatureOfTheSite === "Approved Layout" && (
             <>
-              {selectedNatureOfTheSite === "Approved Layout" && (
-                <>
-                  <InputField
-                    id="LpNo"
-                    name="LpNo"
-                    label="L.P. no."
-                    placeholder="L.P. no."
-                    type="number"
-                    ltpDetails={lpNo}
-                  />
-                  <InputField
-                    id="PlotNo"
-                    name="PlotNo"
-                    label="Plot no."
-                    placeholder="Plot no."
-                    type="number"
-                    ltpDetails={plotNo}
-                  />
-                </>
-              )}
-
-              {selectedNatureOfTheSite === "Regularised under LRS" && (
-                <>
-                  <InputField
-                    id="LrsNo"
-                    name=""
-                    label="LRS no"
-                    placeholder="LRS no."
-                    type="number"
-                    ltpDetails={lrsNo}
-                  />
-                  <InputField
-                    id="PlotNo2"
-                    name=""
-                    label="Plot no"
-                    placeholder="Plot no."
-                    type="number"
-                    ltpDetails={plotNo2}
-                  />
-                </>
-              )}
-
-              {selectedNatureOfTheSite ===
-                "Plot port of RLP/IPLP but not regularised" && (
-                <InputField
-                  id="IplpNo"
-                  name=""
-                  label="RLP/IPLP no."
-                  placeholder="RLP/IPLP no."
-                  type="number"
-                  ltpDetails={iplpNo}
-                />
-              )}
+              <InputField
+                id="LpNo"
+                name="LpNo"
+                label="L.P. no."
+                placeholder="L.P. no."
+                type="number"
+                ltpDetails={lpNo}
+              />
+              <InputField
+                id="PlotNo"
+                name="PlotNo"
+                label="Plot no."
+                placeholder="Plot no."
+                type="number"
+                ltpDetails={plotNo}
+              />
             </>
+          )}
+
+          {selectedNatureOfTheSite === "Regularised under LRS" && (
+            <>
+              <InputField
+                id="LrsNo"
+                name=""
+                label="LRS no"
+                placeholder="LRS no."
+                type="number"
+                ltpDetails={lrsNo}
+              />
+              <InputField
+                id="PlotNo2"
+                name=""
+                label="Plot no"
+                placeholder="Plot no."
+                type="number"
+                ltpDetails={plotNo2}
+              />
+            </>
+          )}
+
+          {selectedNatureOfTheSite ===
+            "Plot port of RLP/IPLP but not regularised" && (
+            <InputField
+              id="IplpNo"
+              name=""
+              label="RLP/IPLP no."
+              placeholder="RLP/IPLP no."
+              type="number"
+              ltpDetails={iplpNo}
+            />
           )}
           {/*===================== Conditional Input Field End =====================*/}
         </div>

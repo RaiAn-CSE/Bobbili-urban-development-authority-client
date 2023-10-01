@@ -66,21 +66,26 @@ const NewApplication = () => {
   };
   // Function to generate a unique number
   const generateApplicationNumber = () => {
-    const year = date.getFullYear();
-    console.log(year);
-    const applicationNo = `1177/9/${year}`;
+    const date = new Date();
+    const milisecond = date.getMilliseconds();
+    const second = date.getSeconds();
+    const hour = date.getHours();
+
+    console.log(hour, milisecond, second);
+    const applicationNo = `${milisecond}/${hour}/${second}`;
 
     return applicationNo;
   };
 
   // store new application information into the database
   const storeApplicationData = () => {
-    const url = `https://residential-building.vercel.app/updateDraftApplicationData/${userID}`;
+    const url = `https://residential-building.vercel.app/addApplication`;
 
     const day = date.getDate().toString().padStart(2, "0");
     const month = (date.getMonth() + 1).toString().padStart(2, "0");
     const year = date.getFullYear();
     const data = {
+      userId: userID,
       applicationNo: generateApplicationNumber(),
       buildingInfo: {
         generalInformation: {},
@@ -89,7 +94,7 @@ const NewApplication = () => {
       },
       applicantInfo: { ltpDetails: {}, applicantDetails: {} },
       applicationCheckList: [],
-      documents: [],
+      documents: {},
       drawing: { AutoCAD: "", Drawing: "" },
       payment: {
         udaCharge: {},
@@ -100,10 +105,16 @@ const NewApplication = () => {
       createdDate: `${day}-${month}-${year}`,
     };
 
-    sendUserDataIntoDB(url, "PATCH", data)
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
       .then((response) => {
         console.log(response);
-        if (!response.acknowledged) {
+        if (!response.ok) {
           toast.error("Failed to store data");
         } else {
           toast.success("Data stored Successfully");

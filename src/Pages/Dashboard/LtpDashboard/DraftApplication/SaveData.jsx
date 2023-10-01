@@ -15,7 +15,7 @@ const SaveData = ({
   let btnClass =
     "btn btn-md text-[#000000] hover:text-[#fff] rounded-lg transition-all duration-500 cursor-pointer hover:bg-emerald-400";
 
-  console.log(collectInputFieldData);
+  // console.log(collectInputFieldData);
 
   const navigate = useNavigate();
   return (

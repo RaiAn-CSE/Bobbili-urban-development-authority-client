@@ -38,6 +38,7 @@ const AuthProvider = ({ children }) => {
   //   send user data into the database
   const sendUserDataIntoDB = async (url, method = "PATCH", data) => {
     console.log(data, "DATA");
+    console.log(url, "URL");
     const config = {
       method,
       headers: {
@@ -68,7 +69,7 @@ const AuthProvider = ({ children }) => {
 
     const data = { userId: userInfoFromLocalStorage()._id, applicationNo };
 
-    const url = `http://localhost:5000/deleteApplication?data=${JSON.stringify(
+    const url = `https://residential-building.vercel.app/deleteApplication?data=${JSON.stringify(
       data
     )}`;
     Swal.fire({
@@ -124,7 +125,8 @@ const AuthProvider = ({ children }) => {
     collectInputFieldData,
     isPaymentDataSent
   ) => {
-    const url = `http://localhost:5000/updateDraftApplicationData/${
+    console.log(userInfoFromLocalStorage()._id, "GET USER ID");
+    const url = `https://residential-building.vercel.app/updateDraftApplicationData/${
       userInfoFromLocalStorage()._id
     }`;
 
@@ -187,7 +189,6 @@ const AuthProvider = ({ children }) => {
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: "Yes, save it",
-      showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
     }).then((result) => {
@@ -199,16 +200,23 @@ const AuthProvider = ({ children }) => {
 
   // specific application data
   const getApplicationData = async (appNo) => {
-    const query = JSON.stringify({
-      appNo,
-      userId: userInfoFromLocalStorage()._id,
-    });
+    try {
+      setLoading(true);
+      const query = JSON.stringify({
+        appNo,
+        userId: userInfoFromLocalStorage()._id,
+      });
 
-    const response = await fetch(
-      `https://residential-building.vercel.app/getApplicationData?data=${query}`
-    );
+      console.log(query, "query");
 
-    return await response.json();
+      const response = await fetch(
+        `https://residential-building.vercel.app/getApplicationData?data=${query}`
+      );
+
+      return await response.json();
+    } catch (err) {
+      toast.error("ERROR");
+    }
   };
 
   // getApplicationData("1177/3/2023");

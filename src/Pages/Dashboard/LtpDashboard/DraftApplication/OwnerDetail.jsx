@@ -1,11 +1,25 @@
 import React, { useState } from "react";
 import InputField from "../../../Components/InputField";
 
-const OwnerDetail = ({ index, length, applicantNo, setPhoneNoLimit, increaseApplicantNo, applicantDetails }) => {
-
+const OwnerDetail = ({
+  index,
+  length,
+  applicantNo,
+  setPhoneNoLimit,
+  increaseApplicantNo,
+  applicantDetails,
+}) => {
   const ownerSerial = ["First", "Second", "Third", "Fourth", "Fifth"];
 
-  const [applicantPhone, setApplicantPhone] = useState("");
+  const handleInputPhone = (e) => {
+    // Remove non-numeric characters
+    const inputValue = e.target.value.replace(/[^0-9]/g, '');
+    // Limit the input to 10 characters
+    const truncatedValue = inputValue.slice(0, 10);
+    // Update the input field with the sanitized value
+    e.target.value = truncatedValue;
+  };
+
 
   return (
     <div>
@@ -37,10 +51,12 @@ const OwnerDetail = ({ index, length, applicantNo, setPhoneNoLimit, increaseAppl
             <input
               id={`applicantPhoneNo${index}`}
               name={`applicantPhoneNo${index}`}
+              type="text"
               placeholder="xxxxxxxxxx"
-              defaultValue={applicantDetails?.phone ? applicantDetails?.phone : applicantPhone}
-              onChange={(e) => setPhoneNoLimit(e, setApplicantPhone)}
+              defaultValue={applicantDetails?.phone}
               className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
+              maxLength={10}
+              onInput={handleInputPhone}
               required
             />
           </div>

@@ -1,12 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import InputField from "../../../Components/InputField";
 import { GiMoneyStack } from "react-icons/gi";
-import { GrAttachment } from "react-icons/gr";
 import UDAChargeImg from "../../../../assets/images/mobile-transfer.png";
 import GramChargeImg from "../../../../assets/images/pay-per-click.png";
 import LabourChargeImg from "../../../../assets/images/payment-method.png";
 import GreenChargeImg from "../../../../assets/images/money.png";
-import { AiOutlineFileText } from "react-icons/ai";
 import { useOutletContext } from "react-router";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import toast from "react-hot-toast";
@@ -26,16 +24,15 @@ const Payment = () => {
     sendUserDataIntoDB,
   } = useContext(AuthContext);
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
-  const [generalInformation, setGeneralInformation] = useState({});
-  const [applicationData, setApplicationData] = useState([]);
-  const [plotDetails, setPlotDetails] = useState({});
-  const [ltpDetailsData, setLtpDetailsData] = useState({});
-  const [applicantDetailsData, setApplicantDetailsData] = useState({});
-  const [natureOfTheSiteValue, setNatureOfTheSiteValue] = useState("");
+  const [applicationData, setApplicationData] = useState({});
   const [condition, setCondition] = useState("");
-  const [loading, setLoading] = useState(false);
   const [calculatedData, setCalculatedData] = useState({});
   const [selectedFiles, setSelectedFiles] = useState({
+    gramaBankReceipt: "",
+    labourCessBankReceipt: "",
+    greenFeeBankReceipt: "",
+  });
+  const [imageId, setImageId] = useState({
     gramaBankReceipt: "",
     labourCessBankReceipt: "",
     greenFeeBankReceipt: "",
@@ -45,73 +42,83 @@ const Payment = () => {
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
 
   useEffect(() => {
-    console.log(applicationNo, "APPLICATION NO");
+    getApplicationData(applicationNo).then((applicationData) => {
+      setApplicationData(applicationData);
+      console.log(applicationData, "LJADJFKJAKSLDJKL:ASJKLFJA");
+      console.log(applicationData?.buildingInfo?.generalInformation);
 
-    const gettingData = async () => {
-      const applicationData = await getApplicationData(applicationNo);
+      const generalInformation =
+        applicationData?.buildingInfo?.generalInformation;
 
-      setLoading(true);
-      if (applicationData) {
-        setLoading(false);
-        setApplicationData(applicationData);
+      const ltpDetails = applicationData?.applicantInfo?.ltpDetails;
+
+      const applicantDetailsData =
+        applicationData?.applicantInfo?.applicantDetails;
+
+      const plotDetails = applicationData?.buildingInfo?.plotDetails;
+
+      const gramaPanchaytImgId = applicationData?.payment?.gramaPanchayatFee
+        ?.gramaBankReceipt
+        ? applicationData?.payment?.gramaPanchayatFee?.gramaBankReceipt
+        : "";
+
+      const greenFeeImgId = applicationData?.payment?.greenFeeCharge
+        ?.greenFeeBankReceipt
+        ? applicationData?.payment?.greenFeeCharge?.greenFeeBankReceipt
+        : "";
+
+      const labourCessImageId = applicationData?.payment?.labourCessCharge
+        ?.labourCessBankReceipt
+        ? applicationData?.payment?.labourCessCharge?.labourCessBankReceipt
+        : "";
+
+      setImageId({
+        gramaBankReceipt: gramaPanchaytImgId,
+        labourCessBankReceipt: labourCessImageId,
+        greenFeeBankReceipt: greenFeeImgId,
+      });
+
+      console.log(imageId, "IMAGE ID");
+      console.log(
+        generalInformation,
+        ltpDetails,
+        applicantDetailsData,
+        plotDetails,
+        "INFORMATION"
+      );
+
+      if (
+        generalInformation?.natureOfTheSite === "Approved Layout" ||
+        generalInformation?.natureOfTheSite === "Regularised under LRS" ||
+        generalInformation?.natureOfTheSite ===
+          "Congested/ Gramakanta/ Old Built-up area" ||
+        generalInformation.natureOfTheSite === "Newly Developed/ Built up area"
+      ) {
+        console.log("aschi");
+        setCondition(1);
       }
-    };
-    gettingData();
+      if (
+        generalInformation?.natureOfTheSite === "Newly Developed/ Built up area"
+      ) {
+        setCondition(2);
+      }
+      // calculation process
+      calculateFees(
+        generalInformation,
+        ltpDetails,
+        applicantDetailsData,
+        plotDetails
+      );
+    });
   }, []);
 
-  useEffect(() => {
-    console.log("UPDATED APPLICATION");
-    setGeneralInformation((prev) => {
-      console.log(prev, "Prev");
-      const newValue = applicationData?.buildingInfo?.generalInformation;
-      console.log(newValue, "new Value");
-      const updateValue = { ...prev, ...newValue };
-
-      console.log(updateValue, "UPDATE VALUE");
-      return updateValue;
-    });
-
-    console.log(generalInformation, "AFTER UPDATE");
-    setPlotDetails((prev) => {
-      const newValue = applicationData?.buildingInfo?.plotDetails;
-      const updateValue = { ...prev, ...newValue };
-      return updateValue;
-    });
-    setLtpDetailsData((prev) => {
-      const newValue = applicationData?.applicantInfo?.ltpDetails;
-      const updateValue = { ...prev, ...newValue };
-      return updateValue;
-    });
-    setApplicantDetailsData((prev) => {
-      const newValue = applicationData?.applicantInfo?.applicantDetails;
-      const updateValue = { ...prev, ...newValue };
-      return updateValue;
-    });
-
-    console.log(generalInformation, "general information");
-    setNatureOfTheSiteValue(generalInformation.natureOfTheSite);
-    console.log(generalInformation?.natureOfTheSite, "After");
-    if (
-      generalInformation?.natureOfTheSite === "Approved Layout" ||
-      generalInformation?.natureOfTheSite === "Regularised under LRS" ||
-      generalInformation?.natureOfTheSite ===
-      "Congested/ Gramakanta/ Old Built-up area" ||
-      generalInformation.natureOfTheSite === "Newly Developed/ Built up area"
-    ) {
-      console.log("aschi");
-      setCondition(1);
-    }
-    if (
-      generalInformation?.natureOfTheSite === "Newly Developed/ Built up area"
-    ) {
-      setCondition(2);
-    }
-
-    // calculation process
-    calculateFees();
-  }, [applicationData, condition]);
-
-  const calculateFees = () => {
+  const calculateFees = (
+    generalInformation,
+    ltpDetails,
+    applicantDetailsData,
+    plotDetails
+  ) => {
+    console.log("INSIDE CALCULATE FEES");
     // Plots Details
     const {
       proposedPlotAreaCal,
@@ -319,17 +326,16 @@ const Payment = () => {
       TotalLabourCessComp2Charged,
       vacantAreaDevelopmentCharged,
       builtup_Area,
-      TotalOpenSpaceCharged,
-      TotalPenalizationCharged,
       nature_of_site,
       siteApprovalCharged,
       greenFeeCharged,
-      GramaPanchayetTotalCharged,
       TotalPenalizationCharged,
       TotalOpenSpaceCharged,
       bettermentCharged,
       buildingPermitFees,
     });
+
+    console.log(calculatedData);
   };
 
   console.log(calculatedData, "Calculated data");
@@ -379,174 +385,163 @@ const Payment = () => {
 
   // send data into database
   const sendPaymentData = async (url) => {
-    const formData = new FormData();
     console.log("object");
 
-    const checkEmptyFileInput = Object.values(selectedFiles).every(
-      (file) => file !== ""
-    );
-    console.log(checkEmptyFileInput);
+    // let totalFileChecked = 1;
 
-    if (checkEmptyFileInput) {
-      // UPLOAD IMAGE FILE INTO THE CLOUD STORAGE AT FIRST
-      for (const file in selectedFiles) {
-        console.log(file);
-        formData.append("files", selectedFiles[file]);
-      }
-      console.log(...formData);
+    console.log(selectedFiles, "SELECTED FILES");
 
-      try {
-        const response = await axios.post(
-          "http://localhost:5000/upload?page=payment",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data", // Important for file uploads
-            },
-          }
-        );
-        // Handle success or display a success message to the user
+    // UPLOAD IMAGE FILE INTO THE CLOUD STORAGE AT FIRST
+    for (const file in selectedFiles) {
+      const formData = new FormData();
+      console.log(file);
 
-        console.log(response, "response");
+      if (selectedFiles[file]) {
+        formData.append("file", selectedFiles[file]);
 
-        if (response?.data.msg === "Successfully uploaded") {
-          const fileId = response.data.fileId;
-          console.log(fileId, fileId);
-
-          const vacantArea = document.getElementById("vacantArea")?.value;
-
-          const builtUpArea = document.getElementById("builtUpArea")?.value;
-          const UdaImpactFee = document.getElementById("UdaImpactFee")?.value;
-          const UDATotalCharged =
-            document.getElementById("UDATotalCharged")?.value;
-          const gramaSiteApproval =
-            document.getElementById("gramaSiteApproval")?.value;
-          const buildingPermitFees =
-            document.getElementById("buildingPermitFees")?.value;
-          const bettermentCharged =
-            document.getElementById("bettermentCharged")?.value;
-          const TotalOpenSpaceCharged = document.getElementById(
-            "TotalOpenSpaceCharged"
-          )?.value;
-          const gramaImpactFee =
-            document.getElementById("gramaImpactFee")?.value;
-          const TotalPenalizationCharged = document.getElementById(
-            "TotalPenalizationCharged"
-          )?.value;
-          const GramaPanchayetTotalCharged = document.getElementById(
-            "GramaPanchayetTotalCharged"
-          )?.value;
-          const gramaChallanNo =
-            document.getElementById("gramaChallanNo")?.value;
-          const gramaChallanDate =
-            document.getElementById("gramaChallanDate")?.value;
-          const gramaBankName = document.getElementById("gramaBankName")?.value;
-          const gramaBankBranch =
-            document.getElementById("gramaBankBranch")?.value;
-          const labourCessSiteApproval = document.getElementById(
-            "labourCessSiteApproval"
-          )?.value;
-          const labourCessChallanNo = document.getElementById(
-            "labourCessChallanNo"
-          )?.value;
-          const labourCessChallanDate = document.getElementById(
-            "labourCessChallanDate"
-          )?.value;
-          const labourCessBankName =
-            document.getElementById("labourCessBankName")?.value;
-          const labourCessBankBranch = document.getElementById(
-            "labourCessBankBranch"
-          )?.value;
-          const greenFeeSiteApproval = document.getElementById(
-            "greenFeeSiteApproval"
-          )?.value;
-          const greenFeeChargeChallanNo = document.getElementById(
-            "greenFeeChargeChallanNo"
-          )?.value;
-          const greenFeeChargeChallanDate = document.getElementById(
-            "greenFeeChargeChallanDate"
-          )?.value;
-          const greenFeeChargeBankName = document.getElementById(
-            "greenFeeChargeBankName"
-          )?.value;
-          const greenFeeChargeBankBranch = document.getElementById(
-            "greenFeeChargeBankBranch"
-          )?.value;
-
-          console.log(fileId, "Aschi");
-
-          const udaCharge = {
-            vacantArea: vacantArea ?? "",
-            builtUpArea: builtUpArea ?? "",
-            UdaImpactFee: UdaImpactFee ?? "",
-            UDATotalCharged: UDATotalCharged ?? "",
-          };
-          const gramaPanchayatFee = {
-            gramaSiteApproval: gramaSiteApproval ?? "",
-            buildingPermitFees: buildingPermitFees ?? "",
-            bettermentCharged: bettermentCharged ?? "",
-            TotalOpenSpaceCharged: TotalOpenSpaceCharged ?? "",
-            gramaImpactFee: gramaImpactFee ?? "",
-            TotalPenalizationCharged: TotalPenalizationCharged ?? "",
-            GramaPanchayetTotalCharged: GramaPanchayetTotalCharged ?? "",
-            gramaChallanNo: gramaChallanNo ?? "",
-            gramaChallanDate: gramaChallanDate ?? "",
-            gramaBankName: gramaBankName ?? "",
-            gramaBankBranch: gramaBankBranch ?? "",
-            gramaBankReceipt: fileId[0],
-          };
-          const labourCessCharge = {
-            labourCessBankBranch: labourCessBankBranch ?? "",
-            labourCessBankName: labourCessBankName ?? "",
-            labourCessChallanDate: labourCessChallanDate ?? "",
-            labourCessChallanNo: labourCessChallanNo ?? "",
-            labourCessSiteApproval: labourCessSiteApproval ?? "",
-            labourCessBankReceipt: fileId[1],
-          };
-          const greenFeeCharge = {
-            greenFeeChargeBankBranch: greenFeeChargeBankBranch ?? "",
-            greenFeeChargeBankName: greenFeeChargeBankName ?? "",
-            greenFeeChargeChallanDate: greenFeeChargeChallanDate ?? "",
-            greenFeeChargeChallanNo: greenFeeChargeChallanNo ?? "",
-            greenFeeSiteApproval: greenFeeSiteApproval ?? "",
-            greenFeeBankReceipt: fileId[2],
-          };
-
-          console.log("PRINT ALL GETTED DATA");
-
-          console.log(
-            udaCharge,
-            gramaPanchayatFee,
-            labourCessCharge,
-            greenFeeCharge
+        console.log(...formData);
+        try {
+          const response = await axios.post(
+            "https://residential-building.vercel.app/upload?page=payment",
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data", // Important for file uploads
+              },
+            }
           );
+          // Handle success or display a success message to the user
 
-          return await sendUserDataIntoDB(url, "PATCH", {
-            applicationNo: JSON.parse(localStorage.getItem("CurrentAppNo")),
-            payment: {
-              udaCharge,
-              greenFeeCharge,
-              labourCessCharge,
-              gramaPanchayatFee,
-            },
-          });
+          console.log(response, "response");
+
+          if (response?.data.msg === "Successfully uploaded") {
+            const fileId = response.data.fileId;
+            console.log(fileId, "fileId");
+            // fileUploadSuccess = 1;
+            imageId[file] = fileId;
+
+            console.log(imageId, "IMAGE ID");
+          }
+        } catch (error) {
+          console.log(error, "ERROR");
+          // Handle errors, e.g., show an error message to the user
+          toast.error("Error to upload documents");
         }
-      } catch (error) {
-        console.log(error, "ERROR");
-        // Handle errors, e.g., show an error message to the user
-        toast.error("Error to upload documents");
       }
-    } else {
-      toast.error("Please check empty field");
     }
+
+    const vacantArea = document.getElementById("vacantArea")?.value;
+
+    const builtUpArea = document.getElementById("builtUpArea")?.value;
+    const UdaImpactFee = document.getElementById("UdaImpactFee")?.value;
+    const UDATotalCharged = document.getElementById("UDATotalCharged")?.value;
+    const gramaSiteApproval =
+      document.getElementById("gramaSiteApproval")?.value;
+    const buildingPermitFees =
+      document.getElementById("buildingPermitFees")?.value;
+    const bettermentCharged =
+      document.getElementById("bettermentCharged")?.value;
+    const TotalOpenSpaceCharged = document.getElementById(
+      "TotalOpenSpaceCharged"
+    )?.value;
+    const gramaImpactFee = document.getElementById("gramaImpactFee")?.value;
+    const TotalPenalizationCharged = document.getElementById(
+      "TotalPenalizationCharged"
+    )?.value;
+    const GramaPanchayetTotalCharged = document.getElementById(
+      "GramaPanchayetTotalCharged"
+    )?.value;
+    const gramaChallanNo = document.getElementById("gramaChallanNo")?.value;
+    const gramaChallanDate = document.getElementById("gramaChallanDate")?.value;
+    const gramaBankName = document.getElementById("gramaBankName")?.value;
+    const gramaBankBranch = document.getElementById("gramaBankBranch")?.value;
+    const labourCessSiteApproval = document.getElementById(
+      "labourCessSiteApproval"
+    )?.value;
+    const labourCessChallanNo = document.getElementById(
+      "labourCessChallanNo"
+    )?.value;
+    const labourCessChallanDate = document.getElementById(
+      "labourCessChallanDate"
+    )?.value;
+    const labourCessBankName =
+      document.getElementById("labourCessBankName")?.value;
+    const labourCessBankBranch = document.getElementById(
+      "labourCessBankBranch"
+    )?.value;
+    const greenFeeSiteApproval = document.getElementById(
+      "greenFeeSiteApproval"
+    )?.value;
+    const greenFeeChargeChallanNo = document.getElementById(
+      "greenFeeChargeChallanNo"
+    )?.value;
+    const greenFeeChargeChallanDate = document.getElementById(
+      "greenFeeChargeChallanDate"
+    )?.value;
+    const greenFeeChargeBankName = document.getElementById(
+      "greenFeeChargeBankName"
+    )?.value;
+    const greenFeeChargeBankBranch = document.getElementById(
+      "greenFeeChargeBankBranch"
+    )?.value;
+
+    const udaCharge = {
+      vacantArea: vacantArea ?? "",
+      builtUpArea: builtUpArea ?? "",
+      UdaImpactFee: UdaImpactFee ?? "",
+      UDATotalCharged: UDATotalCharged ?? "",
+    };
+    const gramaPanchayatFee = {
+      gramaSiteApproval: gramaSiteApproval ?? "",
+      buildingPermitFees: buildingPermitFees ?? "",
+      bettermentCharged: bettermentCharged ?? "",
+      TotalOpenSpaceCharged: TotalOpenSpaceCharged ?? "",
+      gramaImpactFee: gramaImpactFee ?? "",
+      TotalPenalizationCharged: TotalPenalizationCharged ?? "",
+      GramaPanchayetTotalCharged: GramaPanchayetTotalCharged ?? "",
+      gramaChallanNo: gramaChallanNo ?? "",
+      gramaChallanDate: gramaChallanDate ?? "",
+      gramaBankName: gramaBankName ?? "",
+      gramaBankBranch: gramaBankBranch ?? "",
+      gramaBankReceipt: imageId["gramaBankReceipt"],
+    };
+    const labourCessCharge = {
+      labourCessBankBranch: labourCessBankBranch ?? "",
+      labourCessBankName: labourCessBankName ?? "",
+      labourCessChallanDate: labourCessChallanDate ?? "",
+      labourCessChallanNo: labourCessChallanNo ?? "",
+      labourCessSiteApproval: labourCessSiteApproval ?? "",
+      labourCessBankReceipt: imageId["labourCessBankReceipt"],
+    };
+    const greenFeeCharge = {
+      greenFeeChargeBankBranch: greenFeeChargeBankBranch ?? "",
+      greenFeeChargeBankName: greenFeeChargeBankName ?? "",
+      greenFeeChargeChallanDate: greenFeeChargeChallanDate ?? "",
+      greenFeeChargeChallanNo: greenFeeChargeChallanNo ?? "",
+      greenFeeSiteApproval: greenFeeSiteApproval ?? "",
+      greenFeeBankReceipt: imageId["greenFeeBankReceipt"],
+    };
+
+    console.log("PRINT ALL GETTED DATA");
+
+    console.log(udaCharge, gramaPanchayatFee, labourCessCharge, greenFeeCharge);
+
+    return await sendUserDataIntoDB(url, "PATCH", {
+      applicationNo: JSON.parse(localStorage.getItem("CurrentAppNo")),
+      payment: {
+        udaCharge,
+        greenFeeCharge,
+        labourCessCharge,
+        gramaPanchayatFee,
+      },
+    });
   };
+
+  console.log(selectedFiles, "SELECTED FILES");
+  console.log(imageId, "IMAGE ID");
 
   console.log(condition, "CONSOLE");
   console.log(applicationData, "APPDATA");
-
-  if (loading) {
-    return "Loading...";
-  }
 
   return (
     <>
@@ -555,13 +550,15 @@ const Payment = () => {
         className="grid my-5 lg:my-0 lg:p-2"
       >
         <div className="text-end mb-4">
-          <button onClick={() => setOpenApplication(true)} className="btn btn-sm text-xs bg-[#c0e9e4] transition-all duration-700 hover:bg-[#10ac84] text-[#000] hover:text-[#fff]">
+          <button
+            onClick={() => setOpenApplication(true)}
+            className="btn btn-sm text-xs bg-[#c0e9e4] transition-all duration-700 hover:bg-[#10ac84] text-[#000] hover:text-[#fff]"
+          >
             <HiOutlineClipboardDocumentList className="text-lg" />
             <span>Application</span>
           </button>
         </div>
         <div>
-
           <div className="flex items-center">
             <img
               src={UDAChargeImg}
@@ -698,7 +695,8 @@ const Payment = () => {
               placeholder="1234"
               type="text"
               ltpDetails={
-                applicationData?.payment?.gramaPanchayatFee?.gramaChallanNo ?? ""
+                applicationData?.payment?.gramaPanchayatFee?.gramaChallanNo ??
+                ""
               }
             />
             <InputField
@@ -729,7 +727,8 @@ const Payment = () => {
               placeholder="xxxx"
               type="text"
               ltpDetails={
-                applicationData?.payment?.gramaPanchayatFee?.gramaBankBranch ?? ""
+                applicationData?.payment?.gramaPanchayatFee?.gramaBankBranch ??
+                ""
               }
             />
           </div>
@@ -783,8 +782,8 @@ const Payment = () => {
               placeholder="1234"
               type="text"
               ltpDetails={
-                applicationData?.payment?.labourCessCharge?.labourCessChallanNo ??
-                ""
+                applicationData?.payment?.labourCessCharge
+                  ?.labourCessChallanNo ?? ""
               }
             />
             <InputField
@@ -805,8 +804,8 @@ const Payment = () => {
               placeholder="xxxx"
               type="text"
               ltpDetails={
-                applicationData?.payment?.labourCessCharge?.labourCessBankName ??
-                ""
+                applicationData?.payment?.labourCessCharge
+                  ?.labourCessBankName ?? ""
               }
             />
             <InputField
@@ -833,14 +832,14 @@ const Payment = () => {
 
             {applicationData?.payment?.labourCessCharge
               ?.labourCessBankReceipt && (
-                <Link
-                  to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
-                  target="_blank"
-                  className="ms-10 hover:underline bg-yellow-300 p-3 rounded-full"
-                >
-                  View old File
-                </Link>
-              )}
+              <Link
+                to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
+                target="_blank"
+                className="ms-10 hover:underline bg-yellow-300 p-3 rounded-full"
+              >
+                View old File
+              </Link>
+            )}
           </div>
         </div>
 
@@ -934,7 +933,7 @@ const Payment = () => {
           )}
         </div>
 
-        <input type="submit" value="GET" onClick={getData} />
+        {/* <input type="submit" value="GET" onClick={sendPaymentData} /> */}
 
         {/* save & continue  */}
         {/* navigation button  */}
@@ -950,7 +949,11 @@ const Payment = () => {
           sentData={sentData}
         />
       </form>
-      {openApplication ? <Application setOpenApplication={setOpenApplication} /> : ""}
+      {openApplication ? (
+        <Application setOpenApplication={setOpenApplication} />
+      ) : (
+        ""
+      )}
     </>
   );
 };
