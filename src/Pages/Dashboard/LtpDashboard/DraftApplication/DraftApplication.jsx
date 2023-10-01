@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { FaBuildingColumns } from "react-icons/fa6";
 import { GoChecklist } from "react-icons/go";
 import { BsHouseCheck, BsInfoCircle } from "react-icons/bs";
 import { RiSecurePaymentLine } from "react-icons/ri";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
+import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 
 const DraftApplication = () => {
   const navigate = useNavigate();
@@ -14,6 +15,12 @@ const DraftApplication = () => {
   // const { applicationNo } = location.state;
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
   // console.log(applicationNo);
+
+  const { userInfoFromLocalStorage } = useContext(AuthContext);
+
+  const role = userInfoFromLocalStorage()?.role;
+
+  console.log(role);
 
   const steps = [
     "/buildingInfo",
@@ -32,6 +39,13 @@ const DraftApplication = () => {
     "Drawing",
     "Payment",
   ];
+
+  if (role === "PS") {
+    steps.push("/siteInspection");
+    stepsContent.push("Site Inspection");
+  }
+
+  console.log(stepsContent, steps);
 
   // Use localStorage to store and retrieve the current step
   useEffect(() => {
@@ -65,9 +79,14 @@ const DraftApplication = () => {
     "/dashboard/draftApplication/documents",
     "/dashboard/draftApplication/drawing",
     "/dashboard/draftApplication/payment",
+    "/dashboard/draftApplication/siteInspection",
   ];
 
+  console.log("DRAFT APPLICATION");
+
   const allSteps = [...steps, ...additionalSteps];
+
+  console.log(location.pathname);
 
   const isStepperVisible = allSteps.includes(location.pathname); // Check if current route is in the list of routes with the stepper
 
@@ -106,7 +125,7 @@ const DraftApplication = () => {
         <>
           <p>Application No:{applicationNo}</p>
           <div className="mt-3 mb-5">
-            <ul className="w-full steps steps-vertical lg:steps-horizontal rounded-lg">
+            <ul className="w-full steps steps-vertical lg:steps-horizontal grid grid-cols-4 rounded-lg">
               {stepsContent.map((step, index) => (
                 <li
                   key={index}
@@ -118,9 +137,9 @@ const DraftApplication = () => {
                     <span
                       className={`${btnClass} ${completeBtn(
                         index
-                      )} w-[300px] lg:w-fit text-xs`}
+                      )} w-[300px] lg:w-fit text-xs `}
                     >
-                      {icons[index]}
+                      {role !== "PS" && icons[index]}
                       {step}
                     </span>
                   </div>

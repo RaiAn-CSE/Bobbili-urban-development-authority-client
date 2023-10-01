@@ -53,9 +53,7 @@ const AuthProvider = ({ children }) => {
   const getUserData = async (id) => {
     console.log(id, "AUTH ID");
 
-    const response = await fetch(
-      `https://residential-building.vercel.app/getUser?id=${id}`
-    );
+    const response = await fetch(`http://localhost:5000/getUser?id=${id}`);
     const data = await response.json();
     return data;
   };

@@ -19,9 +19,9 @@ import MainLayout from "../Layouts/MainLayout";
 import Carousel from "../Pages/Main/Carousel/Carousel";
 import ApplicationSearch from "../Pages/Main/ApplicationSearch/ApplicationSearch";
 import OnlinePayment from "../Pages/Main/OnlinePayment/OnlinePayment";
-import ListOfLTP from '../Pages/Main/ListOfLTP/ListOfLTP';
+import ListOfLTP from "../Pages/Main/ListOfLTP/ListOfLTP";
 import Inward from "../Pages/Dashboard/PsDashboard/InwardApplications/Inward";
-import SiteInspection from './../Pages/Dashboard/PsDashboard/InwardApplications/SiteInspection';
+import SiteInspection from "./../Pages/Dashboard/PsDashboard/InwardApplications/SiteInspection";
 
 const router = createBrowserRouter([
   {
@@ -146,6 +146,14 @@ const router = createBrowserRouter([
               </PrivateRoute>
             ),
           },
+          {
+            path: "/dashboard/draftApplication/siteInspection",
+            element: (
+              <PrivateRoute>
+                <SiteInspection />
+              </PrivateRoute>
+            ),
+          },
         ],
       },
       {
@@ -161,14 +169,6 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Inward />
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "/dashboard/siteInspection",
-        element: (
-          <PrivateRoute>
-            <SiteInspection />
           </PrivateRoute>
         ),
       },
