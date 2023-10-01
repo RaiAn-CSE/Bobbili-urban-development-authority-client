@@ -21,7 +21,7 @@ const DocumentUpload = () => {
   const { confirmAlert, sendUserDataIntoDB, getApplicationData } = useContext(AuthContext);
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
-  const path = "PS"
+  const path = "LTP"
 
   const handleFileChange = (event, index) => {
     const file = event?.target?.files[0];
@@ -273,13 +273,13 @@ const DocumentUpload = () => {
             <>
               <div
                 key={id}
-                className="w-full px-2 mb-10 py-8 rounded"
+                className="w-full px-2 mb-10 py-5 rounded"
               >
                 <p className="text-[17px] font-bold">
                   {id}. {question}
                 </p>
 
-                <div className="flex  items-center mt-7">
+                <div className="flex  items-center mt-6">
                   {
                     path !== "PS" ? <input
                       name={id}
