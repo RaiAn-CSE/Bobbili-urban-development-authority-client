@@ -504,7 +504,7 @@ const BuildingInfo = () => {
     previewsApprovedFileNo,
     surveyNo,
     village,
-  } = generalInformation;
+  } = generalInformation ?? {};
 
   // console.log(plotDetails, "plotDetails");
   const {
@@ -528,10 +528,10 @@ const BuildingInfo = () => {
     totalParkingArea,
     totalPlotDocument,
     totalPlotGround,
-  } = plotDetails;
+  } = plotDetails ?? {};
 
   // console.log(scheduleBoundaries, 'scheduleBoundaries');
-  const { east, west, north, south } = scheduleBoundaries;
+  const { east, west, north, south } = scheduleBoundaries ?? {};
 
   console.log(generalInformation, "GENERAL INFORMATION");
 
@@ -842,15 +842,15 @@ const BuildingInfo = () => {
 
           {selectedNatureOfTheSite ===
             "Plot port of RLP/IPLP but not regularised" && (
-              <InputField
-                id="IplpNo"
-                name=""
-                label="RLP/IPLP no."
-                placeholder="RLP/IPLP no."
-                type="number"
-                ltpDetails={iplpNo}
-              />
-            )}
+            <InputField
+              id="IplpNo"
+              name=""
+              label="RLP/IPLP no."
+              placeholder="RLP/IPLP no."
+              type="number"
+              ltpDetails={iplpNo}
+            />
+          )}
           {/*===================== Conditional Input Field End =====================*/}
         </div>
       </div>

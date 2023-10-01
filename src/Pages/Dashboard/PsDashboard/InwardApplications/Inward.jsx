@@ -14,9 +14,7 @@ const Inward = () => {
   const { data, refetch, isLoading, isError } = useQuery(
     ["allSubmitApplication"],
     async () => {
-      const response = await fetch(
-        `http://localhost:5000/allSubmitApplication`
-      );
+      const response = await fetch(`http://localhost:5000/submitApplications`);
       return await response.json();
     }
   );
@@ -38,7 +36,6 @@ const Inward = () => {
     localStorage.setItem("CurrentAppNo", JSON.stringify(applicationNo));
     navigate("/dashboard/draftApplication/buildingInfo");
   };
-
 
   return (
     <div>

@@ -6,7 +6,6 @@ export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
 
-
   // get user information from the localStorage
   const userInfoFromLocalStorage = () => {
     return JSON.parse(localStorage.getItem("loggedUser"));
@@ -125,8 +124,9 @@ const AuthProvider = ({ children }) => {
     isPaymentDataSent
   ) => {
     console.log(userInfoFromLocalStorage()._id, "GET USER ID");
-    const url = `https://residential-building.vercel.app/updateDraftApplicationData/${userInfoFromLocalStorage()._id
-      }`;
+    const url = `https://residential-building.vercel.app/updateDraftApplicationData/${
+      userInfoFromLocalStorage()._id
+    }`;
 
     console.log(url, "url");
 
@@ -188,7 +188,7 @@ const AuthProvider = ({ children }) => {
       showCancelButton: true,
       confirmButtonText: "Yes, save it",
       confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      cancelButtonColor: "#dd3333",
     }).then((result) => {
       if (result.isConfirmed) {
         removeData(data);
@@ -209,7 +209,7 @@ const AuthProvider = ({ children }) => {
       console.log(query, "query");
 
       const response = await fetch(
-        `https://residential-building.vercel.app/getApplicationData?data=${query}`
+        `http://localhost:5000/getApplicationData?data=${query}`
       );
 
       return await response.json();
@@ -217,7 +217,6 @@ const AuthProvider = ({ children }) => {
       toast.error("ERROR");
     }
   };
-
 
   // getApplicationData("1177/3/2023");
 
