@@ -64,11 +64,69 @@ const SiteInspection = () => {
                                         feature are talking / Not talking<br />
                                         with the schedule of the Documents.</td>
                                 </tr>
+
+                                {/* Access Road  */}
+                                <tr className="border-b border-neutral-500">
+                                    <td rowSpan='5' className={tableDataClass}>3</td>
+                                    <td colSpan='3' className={`${tableDataClass} text-base font-semibold bg-gray-200`}>Access Road</td>
+                                </tr>
+                                <tr className="border-b border-neutral-500">
+                                    <td className={tableDataClass}>Nature of Road</td>
+                                    <td rowSpan='4' className={tableDataClass}>Public</td>
+                                    <td rowSpan='4' className={tableDataClass}>Public/Private</td>
+                                </tr>
+                                <tr className="border-b border-neutral-500">
+                                    <td className={tableDataClass}>Status of Approach Road</td>
+                                </tr>
+                                <tr className="border-b border-neutral-500">
+                                    <td className={tableDataClass}>Road Width</td>
+                                </tr>
+                                <tr className="border-b border-neutral-500">
+                                    <td className={tableDataClass}>Scope of Road Widening in Mts.</td>
+                                </tr>
+
+                                {/* Land Use  */}
+                                <tr className="border-b border-neutral-500">
+                                    <td rowSpan='5' className={tableDataClass}>4</td>
+                                    <td colSpan='3' className={`${tableDataClass} text-base font-semibold bg-gray-200`}>Land Use</td>
+                                </tr>
+                                <tr className="border-b border-neutral-500">
+                                    <td className={tableDataClass}>Land Use as per Master Plan</td>
+                                    <td rowSpan='4' className={tableDataClass}></td>
+                                    <td rowSpan='4' className={tableDataClass}></td>
+                                </tr>
+                                <tr className="border-b border-neutral-500">
+                                    <td className={tableDataClass}>Proposed activity</td>
+                                </tr>
+                                <tr className="border-b border-neutral-500">
+                                    <td className={tableDataClass}>Road Width</td>
+                                </tr>
+                                <tr className="border-b border-neutral-500">
+                                    <td className={tableDataClass}>Whether permission as per Zoning Regulations</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
+
+            {/* Radio Button  */}
+            <div className="grid-cols-1 lg:grid-cols-2 items-center my-5">
+                <label className="inline-flex items-center">
+                    <input type="radio" name="radioPs" className="radio border border-[#10AC84] h-4 w-4" value="Approved"
+                    // checked={radioPs === 'Approved'}
+                    />
+                    <span className="ml-2 text-base">Approved</span>
+                </label>
+                <label className="inline-flex items-center md:ml-3">
+                    <input type="radio" name="radioPs" className="radio border border-[#10AC84] h-4 w-4" value="Shortfall"
+                    // checked={radioPs === 'Shortfall'}
+                    />
+                    <span className="ml-2 text-base">Shortfall</span>
+                </label>
+            </div>
+
+            {/* Comment Box  */}
             <div className='flex items-center'>
                 <div className="my-4 basis-[80%]">
                     <label htmlFor="ltpAddress" className='block text-gray-600 mb-1 font-semibold dark:text-gray-100'>
@@ -78,9 +136,7 @@ const SiteInspection = () => {
                         id="recommendations"
                         name="Recommendations"
                         rows="5"
-                        // cols='50'
                         className='w-full px-3 py-2 border border-green-600 rounded-lg  dark:text-black'
-                        // defaultValue={}
                         placeholder="Comments"
                     ></textarea>
                 </div>
