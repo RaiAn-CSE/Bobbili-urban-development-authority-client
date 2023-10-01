@@ -1,12 +1,11 @@
 import React, { createContext, useState } from "react";
 import { toast } from "react-hot-toast";
 import Swal from "sweetalert2";
-import axios from "axios";
-
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
+
 
   // get user information from the localStorage
   const userInfoFromLocalStorage = () => {
@@ -204,6 +203,7 @@ const AuthProvider = ({ children }) => {
       const query = JSON.stringify({
         appNo,
         userId: userInfoFromLocalStorage()._id,
+        role: userInfoFromLocalStorage().role,
       });
 
       console.log(query, "query");
@@ -217,6 +217,7 @@ const AuthProvider = ({ children }) => {
       toast.error("ERROR");
     }
   };
+
 
   // getApplicationData("1177/3/2023");
 

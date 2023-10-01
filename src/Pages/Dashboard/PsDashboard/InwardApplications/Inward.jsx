@@ -2,10 +2,13 @@ import React, { useContext, useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import ShowSubmittedApplication from "../../LtpDashboard/Submitted/ShowSubmittedApplication";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const Inward = () => {
   const { userInfoFromLocalStorage } = useContext(AuthContext);
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   // get all applications which are submitted already
   const { data, refetch, isLoading, isError } = useQuery(
@@ -28,6 +31,15 @@ const Inward = () => {
   }, [isError]);
 
   console.log(data);
+
+  // navigate after clicking on the draft application no
+  const showDraftApplication = (applicationNo) => {
+    console.log(applicationNo);
+    localStorage.setItem("CurrentAppNo", JSON.stringify(applicationNo));
+    navigate("/dashboard/draftApplication/buildingInfo");
+  };
+
+
   return (
     <div>
       <p>this is Submit Application</p>
@@ -55,6 +67,7 @@ const Inward = () => {
                 key={index}
                 serialNo={index}
                 applicationData={applicationData}
+                showDraftApplication={showDraftApplication}
               />
             ))}
           </tbody>

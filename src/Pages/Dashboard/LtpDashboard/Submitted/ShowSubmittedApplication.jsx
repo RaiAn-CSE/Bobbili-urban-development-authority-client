@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+// import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 
-const ShowSubmittedApplication = ({ serialNo, applicationData }) => {
+const ShowSubmittedApplication = ({ serialNo, applicationData, showDraftApplication }) => {
   console.log(serialNo, applicationData);
+
+  // const { showDraftApplication } = useContext(AuthContext)
 
   const { applicationNo, buildingInfo, applicantInfo, submitDate, status } =
     applicationData;
@@ -11,7 +14,10 @@ const ShowSubmittedApplication = ({ serialNo, applicationData }) => {
   return (
     <tr>
       <th>{serialNo + 1}</th>
-      <td>{applicationNo}</td>
+      <td className="hover:underline"
+        onClick={() => showDraftApplication(applicationNo)}>
+        {applicationNo}
+      </td>
       <td>{applicantDetails.length ? applicantDetails[0].name : "N/A"}</td>
       <td>{applicantDetails.length ? applicantDetails[0].phone : "N/A"}</td>
       <td>
