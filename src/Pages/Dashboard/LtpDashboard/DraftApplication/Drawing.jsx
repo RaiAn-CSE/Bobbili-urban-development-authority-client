@@ -128,7 +128,7 @@ const Drawing = () => {
       });
     }
   };
-  const path = "LTP"
+  const path = "PS"
   return (
     <>
       <div className="text-end mb-4">

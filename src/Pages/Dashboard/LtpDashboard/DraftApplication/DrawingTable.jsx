@@ -18,9 +18,9 @@ function DrawingTable() {
 
   return (
     <div>
-      <div className="overflow-x-auto mb-20 w-full max-w-5xl ml-7">
+      <div className="overflow-x-auto mb-16 w-full max-w-5xl ml-7">
         <table className="table text-black table-md">
-          {/* head */}
+          {/* Table Header */}
           <thead className='text-black'>
             <tr>
               <th className='border border-black w-12'>Serial No.</th>
@@ -31,7 +31,6 @@ function DrawingTable() {
             </tr>
           </thead>
           <tbody>
-
             {
               TrData.map((data, index) => {
                 return (
@@ -43,9 +42,7 @@ function DrawingTable() {
                     <td className='border border-black bg-white'>{Object.values(data)[0][2]}</td>
                   </tr>)
               })
-
             }
-
           </tbody>
         </table>
       </div>

@@ -13,7 +13,7 @@ function DocumentFooter({ setApprovedConfirmation, setRecomendationMessage }) {
         <div>
             <div className="lg:ml-6">
                 {/* Approved Buttons */}
-                <div className="space-x-14 mb-10">
+                <div className="space-x-14 mb-7">
                     <label className={`ml-2 inline-flex items-center space-x-1 text-black"}`}>
                         <input
                             type="radio"
