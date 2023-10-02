@@ -11,13 +11,11 @@ import DocumentFooter from "./DocumentFooter";
 
 const DocumentUpload = () => {
   const [openApplication, setOpenApplication] = useState(false);
-
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [UpdatedDocuments, setUpdatedDocuments] = useState([...Documents.Data]);
   const [imageId, setImageId] = useState([]);
   const [approvedConfirmation,setApprovedConfirmation]=useState("");
   const [recomendationMessage,setRecomendationMessage]=useState("");
-console.log({approvedConfirmation,recomendationMessage})
   const stepperData = useOutletContext();
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
   const { confirmAlert, sendUserDataIntoDB, getApplicationData } = useContext(AuthContext);
