@@ -11,40 +11,36 @@ import DocumentFooter from "./DocumentFooter";
 
 const DocumentUpload = () => {
   const [openApplication, setOpenApplication] = useState(false);
-
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [UpdatedDocuments, setUpdatedDocuments] = useState([...Documents.Data]);
   const [imageId, setImageId] = useState([]);
-
+  const [approvedConfirmation,setApprovedConfirmation]=useState("");
+  const [recomendationMessage,setRecomendationMessage]=useState("");
   const stepperData = useOutletContext();
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
   const { confirmAlert, sendUserDataIntoDB, getApplicationData } = useContext(AuthContext);
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
-  const path = "LTP"
+  const path = "PS"
 
   const handleFileChange = (event, index) => {
     const file = event?.target?.files[0];
     file && toast.success(`${file?.name.slice(0, 20)}... uploaded successfully!`);
     selectedFiles[index] = file;
   };
+ 
+  // Updating documnets when Approved btn clicked (PS)
+    const handleAnswer = (event, index) => {
+      toast.success(`${event?.target?.value}`)
+      selectedFiles[index] = event?.target?.value;
+      const updatedApproved = UpdatedDocuments.map((file) => ({
+        ...file,
+        approved: file.id === index ? event.target.value : file.approved,
+      }));
+      setUpdatedDocuments(updatedApproved)
+    }
 
-  // useEffect(() => {
-  //   fetch("https://residential-building.vercel.app/documents")
-  //     .then((res) => res.json())
-  //     .then((result) => {
-  //       console.log(result, "Result");
-
-  //       setUpdatedDocuments([...result[0].Data]);
-  //       setSelectedFiles([...result[0].Data]);
-
-  //       console.log(result.Data);
-  //       console.log(UpdatedDocuments, selectedFiles);
-  //       gettingData();
-  //       // console.log(UpdatedDocuments, "FETECH");
-  //     });
-  // }, []);
-
+    // Adding checklist Data to Document from server data
   useEffect(() => {
     const gettingData = async () => {
       let updatedDocumentsToAdd = [];
@@ -52,16 +48,7 @@ const DocumentUpload = () => {
       const applicationData = await getApplicationData(applicationNo);
       const applicationCheckList = applicationData.applicationCheckList;
       const documents = applicationData.documents;
-      console.log(documents);
-
-      // setUpdatedDocuments((prev) => {
-      //   const updateDoc=[]
-      //   const originalDocument = [...OriginalDocuments.Data];
-      //   originalDocument.forEach(((originalItem, index) => {
-
-      //   }));
-      // });
-
+      
       let increaseDocument = UpdatedDocuments.length;
 
       if (applicationCheckList.length) {
@@ -77,6 +64,7 @@ const DocumentUpload = () => {
               id: increaseDocument.toString(),
               question: data.question,
               upload: "",
+              approved:""
             };
             updatedDocumentsToAdd.push(newDocument);
           }
@@ -91,40 +79,9 @@ const DocumentUpload = () => {
           prev.forEach((document, index) => {
             prev[index].upload = documents[index];
           });
-
           return prev;
         });
       }
-
-      console.log(UpdatedDocuments);
-
-      // const newModified = UpdatedDocuments.map((doc, index) => {
-      //   console.log(doc, index);
-      //   // doc.upload = documents[index];
-      //   // return doc;
-      // });
-
-      // setUpdatedDocuments((prev) => {
-      //   // console.log(prev);
-      //   const oldData = prev;
-      //   const newData = oldData.map((data, index) => {
-      //     console.log(data);
-      //   });
-      // });
-
-      // console.log(newModified, "New modified");
-
-      // setUpdatedDocuments([...newModified]);
-
-      // setSelectedFiles((prev) => {
-      //   const newFile = prev.map((file) => {
-      //     file.upload = "";
-      //   });
-
-      //   console.log(newFile);
-
-      //   return newFile;
-      // });
     };
     gettingData();
   }, []);
@@ -138,29 +95,13 @@ const DocumentUpload = () => {
 
   // handle file upload
   const handleFileUpload = async (url) => {
-    // find empty field to stop sending data in to the database
-    // const findEmptyField = UpdatedDocuments.find(
-    //   (field) => field?.upload === ""
-    // );
-
-    // console.log(findEmptyField, "Find empty field");
-
-    // if (!findEmptyField) {
-    //   console.log("No empty");
-    // } else {
-    //   toast.error("Please fill up all the fields");
-    // }
-
     // append data to formData so that the file data can be sent into the database
-
     let fileCheckToUpload = 0;
 
     for (let i = 0; i < selectedFiles.length; i++) {
       const formData = new FormData();
 
       if (selectedFiles[i]) {
-        console.log(selectedFiles, "UPLOAD FILE");
-
         formData.append("file", selectedFiles[i]);
         try {
           const response = await axios.post(
@@ -173,9 +114,6 @@ const DocumentUpload = () => {
             }
           );
           // Handle success or display a success message to the user
-
-          console.log(response, "response");
-
           if (response?.data.msg === "Successfully uploaded") {
             const documentImageId = response?.data?.fileId;
 
@@ -197,48 +135,6 @@ const DocumentUpload = () => {
       fileCheckToUpload++;
     }
 
-    // selectedFiles.forEach(async (document, index) => {
-    //   const formData = new FormData();
-    //   console.log(document);
-    //   if (document?.upload !== "") {
-    //     formData.append("file", document?.upload);
-    //     try {
-    //       const response = await axios.post(
-    //         "https://residential-building.vercel.app/upload?page=document",
-    //         formData,
-    //         {
-    //           headers: {
-    //             "Content-Type": "multipart/form-data", // Important for file uploads
-    //           },
-    //         }
-    //       );
-    //       // Handle success or display a success message to the user
-
-    //       console.log(response, "response");
-
-    //       if (response?.data.msg === "Successfully uploaded") {
-    //         const documentImageId = response?.data?.fileId;
-
-    //         imageId[index] = documentImageId;
-
-    //         // return await sendUserDataIntoDB(url, "PATCH", {
-    //         //   applicationNo,
-    //         //   documents,
-    //         // });
-    //       }
-    //     } catch (error) {
-    //       // Handle errors, e.g., show an error message to the user
-    //       toast.error("Error to upload documents");
-    //     }
-    //   } else {
-    //     imageId[index] = "";
-    //   }
-    //   fileCheckToUpload++;
-    // });
-
-    console.log(fileCheckToUpload, selectedFiles.length);
-    console.log(fileCheckToUpload === selectedFiles.length);
-
     if (fileCheckToUpload === selectedFiles.length) {
       console.log(imageId, "IMAGE IDS");
       return await sendUserDataIntoDB(url, "PATCH", {
@@ -246,8 +142,6 @@ const DocumentUpload = () => {
         documents: imageId,
       });
     }
-
-    console.log(...formData);
   };
 
   return (
@@ -268,7 +162,7 @@ const DocumentUpload = () => {
         className="text-black p-4"
       >
         {UpdatedDocuments?.map((document, index) => {
-          const { id, question, upload, approved, shortfall } = document;
+          const { id, question, upload, approved } = document;
           return (
             <>
               <div
@@ -290,7 +184,8 @@ const DocumentUpload = () => {
                     /> : <div>
                       <div className="space-x-10 mt-2 lg:pr-2">
                         <label
-                          className={`ml-2 inline-flex items-center space-x-1 text-black ${approved === "approved" && "font-extrabold"
+                          className={`ml-2 inline-flex items-center space-x-1 text-black 
+                          ${approved === "approved" && "font-extrabold"
                             }`}
                         >
                           <input
@@ -298,13 +193,14 @@ const DocumentUpload = () => {
                             name={id}
                             value="approved"
                             className="radio radio-sm radio-success mr-3 lg:mr-0"
-                            checked={approved === "approved"}
+                            // checked={approved === "approved"}
                             onChange={(event) => handleAnswer(event, id)}
                           />
                           <span>Approve</span>
                         </label>
                         <label
-                          className={`ml-2 inline-flex items-center space-x-1 text-black ${shortfall === "shortfall" && "font-extrabold"
+                          className={`ml-2 inline-flex items-center space-x-1 text-black 
+                          ${approved === "shortfall" && "font-extrabold"
                             }`}
                         >
                           <input
@@ -312,7 +208,7 @@ const DocumentUpload = () => {
                             name={id}
                             value="shortfall"
                             className="radio radio-sm radio-success mr-3 lg:mr-0"
-                            checked={shortfall === "shortfall"}
+                            // checked={shortfall === "shortfall"}
                             onChange={(event) => handleAnswer(event, id)}
                           />
                           <span>Shortfall</span>
@@ -342,7 +238,7 @@ const DocumentUpload = () => {
         )}
 
       </form>
-      {path === "PS"? <DocumentFooter />:""}
+      {path === "PS" ? <DocumentFooter setApprovedConfirmation={setApprovedConfirmation} setRecomendationMessage={setRecomendationMessage} /> : ""}
       <SaveData
         isStepperVisible={isStepperVisible}
         currentStep={currentStep}
