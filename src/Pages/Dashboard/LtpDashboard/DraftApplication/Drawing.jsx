@@ -172,7 +172,6 @@ const Drawing = () => {
   const path = "PS"
   return (
     <>
-      {" "}
       <div className="text-end mb-4">
         <button
           onClick={() => setOpenApplication(true)}
@@ -187,41 +186,35 @@ const Drawing = () => {
         className="text-black p-5 mt-3"
       >
         {/* AutoCAD Drawing */}
-        <div className="text-base px-2 mb-16">
-          <p className="pr-3">
-            <span className="font-bold">1.</span> AutoCAD Drawing
-          </p>
+        <div className="text-base px-2 mb-10">
+          <p className="pr-3 font-bold">1. AutoCAD Drawing</p>
           <div className="flex mt-5">
-           {path==="LTP"&& <label className="relative cursor-pointer">
+            {path === "LTP" && <label className="relative cursor-pointer">
               <input
                 type="file"
                 accept=".dwg, .zip, .pdf,.png,.jpg"
                 onChange={(event) => handleFileChange(event, "AutoCAD")}
                 className="file-input file-input-bordered file-input-md w-full max-w-xs"
               />
-             
             </label>}
-
             {savedData?.drawing?.AutoCAD && (
               <Link
                 to={`https://drive.google.com/file/d/${savedData?.drawing?.AutoCAD}/view?usp=sharing`}
                 target="_blank"
                 className="hover:underline bg-gray-300 p-2 px-4 rounded-full"
               >
-                   {path=="LTP"?"View old File":"View"}
+                {path == "LTP" ? "View old File" : "View File"}
               </Link>
             )}
           </div>
         </div>
 
         {/* Drawing PDF */}
-        <div className="text-base px-2 mb-16 ">
-          <p className="pr-3">
-            <span className="font-bold">2.</span> Drawing PDF
-          </p>
+        <div className="text-base px-2 mb-10">
+          <p className="pr-3 font-bold">2. Drawing PDF</p>
           <div className="flex items-center text-sm mt-5">
-           {path==="LTP"&& <label className="relative cursor-pointer">
-            <input
+            {path === "LTP" && <label className="relative cursor-pointer">
+              <input
                 type="file"
                 accept=".dwg, .zip, .pdf,.png,.jpg"
                 onChange={(event) => handleFileChange(event, "Drawing")}
@@ -235,23 +228,17 @@ const Drawing = () => {
                 target="_blank"
                 className="hover:underline bg-gray-300 p-2 px-4 rounded-full"
               >
-               {path=="LTP"?"View old File":"View"}
+                {path == "LTP" ? "View old File" : "View File"}
               </Link>
             )}
-
           </div>
-
         </div>
       </form>
-      {openApplication ? (
-        <Application setOpenApplication={setOpenApplication} />
-      ) : (
-        ""
-      )}
+
       {path == "PS" && <DrawingTable />}
-      {/* <input type="submit" value="get" onClick={handleFileUpload} /> */}
+      {openApplication && <Application setOpenApplication={setOpenApplication} />}
+
       {/* save & continue  */}
-      {/* navigation button  */}
       <SaveData
         isStepperVisible={isStepperVisible}
         currentStep={currentStep}
