@@ -4,6 +4,8 @@ import { GiMoneyStack } from 'react-icons/gi';
 const SiteInspection = () => {
 
     const tableDataClass = "whitespace-nowrap border-r px-6 py-4 border-neutral-500"
+    const inputClass = "input rounded-none w-full max-w-xs"
+    const inputTableDataClass = 'whitespace-nowrap border-r border-neutral-500'
     return (
         <div className="flex flex-col sm:px-6 lg:px-8">
             <div className="overflow-x-auto">
@@ -27,17 +29,39 @@ const SiteInspection = () => {
                                 </tr>
                                 <tr className="border-b border-neutral-500">
                                     <td className={tableDataClass}>Nature of site</td>
-                                    <td rowSpan='4' className={tableDataClass}>No</td>
-                                    <td rowSpan='4' className={tableDataClass}>Yes/No</td>
+                                    <td className={inputTableDataClass}>
+                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                    </td>
+                                    <td className={inputTableDataClass}>
+                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                    </td>
                                 </tr>
                                 <tr className="border-b border-neutral-500">
                                     <td className={tableDataClass}>Site level</td>
+                                    <td className={inputTableDataClass}>
+                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                    </td>
+                                    <td className={inputTableDataClass}>
+                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                    </td>
                                 </tr>
                                 <tr className="border-b border-neutral-500">
                                     <td className={tableDataClass}>Total area as on ground in Sq.M.</td>
+                                    <td className={inputTableDataClass}>
+                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                    </td>
+                                    <td className={inputTableDataClass}>
+                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                    </td>
                                 </tr>
                                 <tr className="border-b border-neutral-500">
                                     <td className={tableDataClass}>Work commented</td>
+                                    <td className={inputTableDataClass}>
+                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                    </td>
+                                    <td className={inputTableDataClass}>
+                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                    </td>
                                 </tr>
 
                                 {/* Site Boundaries  */}
@@ -47,22 +71,51 @@ const SiteInspection = () => {
                                 </tr>
                                 <tr className="border-b border-neutral-500">
                                     <td className={tableDataClass}>North</td>
-                                    <td rowSpan='5' className={tableDataClass}></td>
-                                    <td rowSpan='5' className={tableDataClass}>Yes/No</td>
+                                    <td className={inputTableDataClass}>
+                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                    </td>
+                                    <td className={inputTableDataClass}>
+                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                    </td>
                                 </tr>
                                 <tr className="border-b border-neutral-500">
                                     <td className={tableDataClass}>South</td>
+                                    <td className={inputTableDataClass}>
+                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                    </td>
+                                    <td className={inputTableDataClass}>
+                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                    </td>
                                 </tr>
                                 <tr className="border-b border-neutral-500">
                                     <td className={tableDataClass}>East</td>
+                                    <td className={inputTableDataClass}>
+                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                    </td>
+                                    <td className={inputTableDataClass}>
+                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                    </td>
                                 </tr>
                                 <tr className="border-b border-neutral-500">
                                     <td className={tableDataClass}>West</td>
+                                    <td className={inputTableDataClass}>
+                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                    </td>
+                                    <td className={inputTableDataClass}>
+                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                    </td>
                                 </tr>
                                 <tr className="border-b border-neutral-500">
                                     <td className={tableDataClass}>Whether the above physical<br />
                                         feature are talking / Not talking<br />
-                                        with the schedule of the Documents.</td>
+                                        with the schedule of the Documents.
+                                    </td>
+                                    <td className={inputTableDataClass}>
+                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                    </td>
+                                    <td className={inputTableDataClass}>
+                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                    </td>
                                 </tr>
 
                                 {/* Access Road  */}
@@ -72,17 +125,39 @@ const SiteInspection = () => {
                                 </tr>
                                 <tr className="border-b border-neutral-500">
                                     <td className={tableDataClass}>Nature of Road</td>
-                                    <td rowSpan='4' className={tableDataClass}>Public</td>
-                                    <td rowSpan='4' className={tableDataClass}>Public/Private</td>
+                                    <td className={inputTableDataClass}>
+                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                    </td>
+                                    <td className={inputTableDataClass}>
+                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                    </td>
                                 </tr>
                                 <tr className="border-b border-neutral-500">
                                     <td className={tableDataClass}>Status of Approach Road</td>
+                                    <td className={inputTableDataClass}>
+                                        <input type="text" placeholder="Public" className={inputClass} />
+                                    </td>
+                                    <td className={inputTableDataClass}>
+                                        <input type="text" placeholder="Public/Private" className={inputClass} />
+                                    </td>
                                 </tr>
                                 <tr className="border-b border-neutral-500">
                                     <td className={tableDataClass}>Road Width</td>
+                                    <td className={inputTableDataClass}>
+                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                    </td>
+                                    <td className={inputTableDataClass}>
+                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                    </td>
                                 </tr>
                                 <tr className="border-b border-neutral-500">
                                     <td className={tableDataClass}>Scope of Road Widening in Mts.</td>
+                                    <td className={inputTableDataClass}>
+                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                    </td>
+                                    <td className={inputTableDataClass}>
+                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                    </td>
                                 </tr>
 
                                 {/* Land Use  */}
@@ -92,17 +167,39 @@ const SiteInspection = () => {
                                 </tr>
                                 <tr className="border-b border-neutral-500">
                                     <td className={tableDataClass}>Land Use as per Master Plan</td>
-                                    <td rowSpan='4' className={tableDataClass}></td>
-                                    <td rowSpan='4' className={tableDataClass}></td>
+                                    <td className={inputTableDataClass}>
+                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                    </td>
+                                    <td className={inputTableDataClass}>
+                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                    </td>
                                 </tr>
                                 <tr className="border-b border-neutral-500">
                                     <td className={tableDataClass}>Proposed activity</td>
+                                    <td className={inputTableDataClass}>
+                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                    </td>
+                                    <td className={inputTableDataClass}>
+                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                    </td>
                                 </tr>
                                 <tr className="border-b border-neutral-500">
                                     <td className={tableDataClass}>Road Width</td>
+                                    <td className={inputTableDataClass}>
+                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                    </td>
+                                    <td className={inputTableDataClass}>
+                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                    </td>
                                 </tr>
                                 <tr className="border-b border-neutral-500">
                                     <td className={tableDataClass}>Whether permission as per Zoning Regulations</td>
+                                    <td className={inputTableDataClass}>
+                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                    </td>
+                                    <td className={inputTableDataClass}>
+                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
