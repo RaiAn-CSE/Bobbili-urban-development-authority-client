@@ -4,7 +4,7 @@ import { GiMoneyStack } from 'react-icons/gi';
 const SiteInspection = () => {
 
     const tableDataClass = "whitespace-nowrap border-r px-6 py-4 border-neutral-500"
-    const inputClass = "input rounded-none w-full max-w-xs"
+    const inputClass = "input rounded-none w-full max-w-xs focus:outline-none"
     const inputTableDataClass = 'whitespace-nowrap border-r border-neutral-500'
     return (
         <div className="flex flex-col sm:px-6 lg:px-8">
@@ -106,7 +106,8 @@ const SiteInspection = () => {
                                     </td>
                                 </tr>
                                 <tr className="border-b border-neutral-500">
-                                    <td className={tableDataClass}>Whether the above physical<br />
+                                    <td className={tableDataClass}>
+                                        Whether the above physical<br />
                                         feature are talking / Not talking<br />
                                         with the schedule of the Documents.
                                     </td>
@@ -156,7 +157,7 @@ const SiteInspection = () => {
                                         <input type="text" placeholder="Yes/No" className={inputClass} />
                                     </td>
                                     <td className={inputTableDataClass}>
-                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                        <input type="text" placeholder="0" className={inputClass} />
                                     </td>
                                 </tr>
 
