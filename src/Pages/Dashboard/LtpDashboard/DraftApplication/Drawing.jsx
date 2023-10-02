@@ -160,7 +160,7 @@ const Drawing = () => {
               <Link
                 to={`https://drive.google.com/file/d/${savedData?.drawing?.AutoCAD}/view?usp=sharing`}
                 target="_blank"
-                className="flex items-center hover:underline bg-gray-300 p-2 px-4 rounded-full"
+                className="flex items-center hover:underline bg-gray-300 p-2 px-5 rounded-full"
               >
                 {path == "LTP" ? "View old File" : "View File"}
               </Link>
@@ -185,7 +185,7 @@ const Drawing = () => {
               <Link
                 to={`https://drive.google.com/file/d/${savedData?.drawing?.Drawing}/view?usp=sharing`}
                 target="_blank"
-                className="hover:underline bg-gray-300 p-2 px-4 rounded-full"
+                className="hover:underline bg-gray-300 p-2 px-5 rounded-full"
               >
                 {path == "LTP" ? "View old File" : "View File"}
               </Link>
