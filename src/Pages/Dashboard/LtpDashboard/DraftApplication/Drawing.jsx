@@ -7,6 +7,7 @@ import { MdOutlineAttachFile } from "react-icons/md";
 import SaveData from "./SaveData";
 import Application from "./Application";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
+import DrawingTable from "./DrawingTable";
 
 const Drawing = () => {
   const [openApplication, setOpenApplication] = useState(false);
@@ -168,7 +169,7 @@ const Drawing = () => {
       });
     }
   };
-  console.log(imageId, "IMAGE ID");
+  const path = "PS"
   return (
     <>
       {" "}
@@ -186,125 +187,79 @@ const Drawing = () => {
         className="text-black p-5 mt-3"
       >
         {/* AutoCAD Drawing */}
-        <div className="flex justify-between items-center text-base px-2  mb-16">
+        <div className="text-base px-2 mb-16">
           <p className="pr-3">
             <span className="font-bold">1.</span> AutoCAD Drawing
           </p>
-          <div className="flex items-center text-sm">
-            <label className="relative cursor-pointer">
-              {/* {selectedFiles["AutoCAD Drawing"]?.name ? "Uploaded" : "Upload"} */}
-
+          <div className="flex mt-5">
+           {path==="LTP"&& <label className="relative cursor-pointer">
               <input
                 type="file"
                 accept=".dwg, .zip, .pdf,.png,.jpg"
                 onChange={(event) => handleFileChange(event, "AutoCAD")}
-                className=" absolute top-1/2 left-0 translate-y-[-50%]  w-[200px] z-[-1]"
+                className="file-input file-input-bordered file-input-md w-full max-w-xs"
               />
-              <div className="flex justify-between items-center bg-white shadow-sm w-[230px] p-2 rounded-lg z-0">
-                <MdOutlineAttachFile size={20} />
-
-                {localFile && localFile[0] !== "" ? (
-                  <p className="text-base">
-                    {localFile[0]?.slice(0, 12) + "..."}
-                  </p>
-                ) : (
-                  <p className="text-base">Select a file</p>
-                )}
-
-                <p className="bg-orange-400 text-white font-bold px-3 py-3 rounded-lg z-0">
-                  Upload
-                </p>
-              </div>
-            </label>
+             
+            </label>}
 
             {savedData?.drawing?.AutoCAD && (
               <Link
                 to={`https://drive.google.com/file/d/${savedData?.drawing?.AutoCAD}/view?usp=sharing`}
                 target="_blank"
-                className="ms-10 hover:underline bg-yellow-300 p-3 rounded-full"
+                className="hover:underline bg-gray-300 p-2 px-4 rounded-full"
               >
-                View old File
+                   {path=="LTP"?"View old File":"View"}
               </Link>
             )}
           </div>
         </div>
 
         {/* Drawing PDF */}
-        <div className="flex justify-between items-center text-base px-2 mb-16 ">
+        <div className="text-base px-2 mb-16 ">
           <p className="pr-3">
             <span className="font-bold">2.</span> Drawing PDF
           </p>
-          <div className="flex items-center text-sm">
-            <label className="relative cursor-pointer">
-              <input
+          <div className="flex items-center text-sm mt-5">
+           {path==="LTP"&& <label className="relative cursor-pointer">
+            <input
                 type="file"
-                id="drawing"
-                accept=".pdf, image/*"
+                accept=".dwg, .zip, .pdf,.png,.jpg"
                 onChange={(event) => handleFileChange(event, "Drawing")}
-                style={{ display: "none" }}
+                className="file-input file-input-bordered file-input-md w-full max-w-xs"
               />
-              <div className="flex justify-between items-center bg-white shadow-sm w-[230px] p-2 rounded-lg z-0">
-                <MdOutlineAttachFile size={20} />
-                {localFile && localFile[1] !== "" ? (
-                  <p className="text-base">
-                    {localFile[1]?.slice(0, 12) + "..."}
-                  </p>
-                ) : (
-                  <p className="text-base">Select a file</p>
-                )}
-
-                <p className="bg-orange-400 text-white font-bold px-3 py-3 rounded-lg z-0">
-                  Upload
-                </p>
-              </div>
-            </label>
+            </label>}
 
             {savedData?.drawing?.Drawing && (
               <Link
                 to={`https://drive.google.com/file/d/${savedData?.drawing?.Drawing}/view?usp=sharing`}
                 target="_blank"
-                className="ms-10 hover:underline bg-yellow-300 p-3 rounded-full"
+                className="hover:underline bg-gray-300 p-2 px-4 rounded-full"
               >
-                View old File
+               {path=="LTP"?"View old File":"View"}
               </Link>
             )}
+
           </div>
+
         </div>
-        {/* <input type="submit" value="get" onClick={handleFileUpload} /> */}
-        {/* save & continue  */}
-        {/* navigation button  */}
-        <SaveData
-          isStepperVisible={isStepperVisible}
-          currentStep={currentStep}
-          steps={steps}
-          stepperData={stepperData}
-          confirmAlert={confirmAlert}
-          collectInputFieldData={handleFileUpload}
-        />
-        {/* <>
-        {isStepperVisible && ( // Render the stepper only when isStepperVisible is true
-          <div className="flex justify-end my-8 px-10">
-            <button
-              className={`${btnClass} bg-yellow-300 hover:shadow-md hover:bg-yellow-300 hover:text-black`}
-              type="submit"
-              // onClick={() =>
-              //   // currentStep < steps.length - 1 &&
-              //   // handleStepClick(currentStep + 1)
-              //   confirmAlert()
-              // }
-              // onClick={() => confirmAlert(stepperData, collectInputFieldData)}
-            >
-              Save and Continue
-            </button>
-          </div>
-        )}
-      </> */}
       </form>
       {openApplication ? (
         <Application setOpenApplication={setOpenApplication} />
       ) : (
         ""
       )}
+      {path == "PS" && <DrawingTable />}
+      {/* <input type="submit" value="get" onClick={handleFileUpload} /> */}
+      {/* save & continue  */}
+      {/* navigation button  */}
+      <SaveData
+        isStepperVisible={isStepperVisible}
+        currentStep={currentStep}
+        steps={steps}
+        stepperData={stepperData}
+        confirmAlert={confirmAlert}
+        collectInputFieldData={handleFileUpload}
+      />
     </>
   );
 };
