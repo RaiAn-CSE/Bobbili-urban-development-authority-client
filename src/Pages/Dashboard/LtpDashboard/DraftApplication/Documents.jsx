@@ -14,8 +14,8 @@ const DocumentUpload = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [UpdatedDocuments, setUpdatedDocuments] = useState([...Documents.Data]);
   const [imageId, setImageId] = useState([]);
-  const [approvedConfirmation,setApprovedConfirmation]=useState("");
-  const [recomendationMessage,setRecomendationMessage]=useState("");
+  const [approvedConfirmation, setApprovedConfirmation] = useState("");
+  const [recomendationMessage, setRecomendationMessage] = useState("");
   const stepperData = useOutletContext();
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
   const { confirmAlert, sendUserDataIntoDB, getApplicationData } = useContext(AuthContext);
@@ -28,19 +28,19 @@ const DocumentUpload = () => {
     file && toast.success(`${file?.name.slice(0, 20)}... uploaded successfully!`);
     selectedFiles[index] = file;
   };
- 
-  // Updating documnets when Approved btn clicked (PS)
-    const handleAnswer = (event, index) => {
-      toast.success(`${event?.target?.value}`)
-      selectedFiles[index] = event?.target?.value;
-      const updatedApproved = UpdatedDocuments.map((file) => ({
-        ...file,
-        approved: file.id === index ? event.target.value : file.approved,
-      }));
-      setUpdatedDocuments(updatedApproved)
-    }
 
-    // Adding checklist Data to Document from server data
+  // Updating documnets when Approved btn clicked (PS)
+  const handleAnswer = (event, index) => {
+    toast.success(`${event?.target?.value}`)
+    selectedFiles[index] = event?.target?.value;
+    const updatedApproved = UpdatedDocuments.map((file) => ({
+      ...file,
+      approved: file.id === index ? event.target.value : file.approved,
+    }));
+    setUpdatedDocuments(updatedApproved)
+  }
+
+  // Adding checklist Data to Document from server data
   useEffect(() => {
     const gettingData = async () => {
       let updatedDocumentsToAdd = [];
@@ -48,7 +48,7 @@ const DocumentUpload = () => {
       const applicationData = await getApplicationData(applicationNo);
       const applicationCheckList = applicationData.applicationCheckList;
       const documents = applicationData.documents;
-      
+
       let increaseDocument = UpdatedDocuments.length;
 
       if (applicationCheckList.length) {
@@ -64,7 +64,7 @@ const DocumentUpload = () => {
               id: increaseDocument.toString(),
               question: data.question,
               upload: "",
-              approved:""
+              approved: ""
             };
             updatedDocumentsToAdd.push(newDocument);
           }
@@ -167,13 +167,23 @@ const DocumentUpload = () => {
             <>
               <div
                 key={id}
-                className="w-full px-2 mb-10 py-5 rounded"
+                className="w-full px-2 mb-5 py-5 rounded"
               >
                 <p className="text-[17px] font-bold">
                   {id}. {question}
                 </p>
 
-                <div className="flex  items-center mt-6">
+                <div className="flex items-center mt-6">
+                  {upload !== "" && (
+                    <Link
+                      to={`https://drive.google.com/file/d/${upload}/view?usp=sharing`}
+                      target="_blank"
+                      className="hover:underline mr-6 py-2 px-4 bg-gray-200 rounded-xl sm:rounded-full text-center"
+                    >
+                    {path == "LTP" ? "View old File" : "View File"}
+                    </Link>
+                  )}
+                  {/* Approved Button */}
                   {
                     path !== "PS" ? <input
                       name={id}
@@ -216,15 +226,7 @@ const DocumentUpload = () => {
                       </div>
                     </div>
                   }
-                  {upload !== "" && (
-                    <Link
-                      to={`https://drive.google.com/file/d/${upload}/view?usp=sharing`}
-                      target="_blank"
-                      className="hover:underline ms-10 p-3 bg-gray-200 rounded-xl sm:rounded-full text-center"
-                    >
-                      View old File
-                    </Link>
-                  )}
+
                 </div>
               </div>
             </>

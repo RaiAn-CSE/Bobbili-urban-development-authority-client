@@ -10,10 +10,10 @@ function DocumentFooter({ setApprovedConfirmation, setRecomendationMessage }) {
         setApprovedConfirmation(data)
     }
     return (
-        <div className='mt-10'>
+        <div>
             <div className="lg:ml-6">
                 {/* Approved Buttons */}
-                <div className="space-x-10 lg:pr-2">
+                <div className="space-x-14 mb-10">
                     <label className={`ml-2 inline-flex items-center space-x-1 text-black"}`}>
                         <input
                             type="radio"
@@ -38,7 +38,7 @@ function DocumentFooter({ setApprovedConfirmation, setRecomendationMessage }) {
                 </div>
                 {/* Recomendation */}
                 <div>
-                    <p className="my-3 font-bold">Recomendation</p>
+                    <p className="mb-4 font-bold">Recomendation</p>
                     <textarea onChange={(e) => handleRecomendationMessage(e)} className="textarea textarea-bordered border-black" cols={80} rows={5} name="recomendation"></textarea>
                 </div>
             </div>

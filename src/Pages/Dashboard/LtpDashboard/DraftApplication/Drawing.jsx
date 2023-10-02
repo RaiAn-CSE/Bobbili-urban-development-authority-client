@@ -3,7 +3,6 @@ import { Link, useOutletContext } from "react-router-dom";
 import toast from "react-hot-toast";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import axios from "axios";
-import { MdOutlineAttachFile } from "react-icons/md";
 import SaveData from "./SaveData";
 import Application from "./Application";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
@@ -19,11 +18,8 @@ const Drawing = () => {
     AutoCAD: "",
     Drawing: "",
   });
-
   const [savedData, setSavedData] = useState([]);
-
-  const { confirmAlert, sendUserDataIntoDB, getApplicationData } =
-    useContext(AuthContext);
+  const { confirmAlert, sendUserDataIntoDB, getApplicationData } = useContext(AuthContext);
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
 
   useEffect(() => {
@@ -39,8 +35,6 @@ const Drawing = () => {
         console.log("object");
       }
     });
-
-    // get application data from the database
   }, []);
 
   const stepperData = useOutletContext();
@@ -84,8 +78,6 @@ const Drawing = () => {
           JSON.stringify(localStoreDrawingData)
         );
       }
-
-      // console.log(localStoreDrawingData, "PREVIOUS GET");
       // Set File Uploaded Data
       setSelectedFiles((prev) => {
         prev[eventId] = file;
@@ -94,28 +86,11 @@ const Drawing = () => {
     }
   };
 
-  // const uploadFileInCloudStorage = (formData) => {
-  //   for (const file in selectedFiles) {
-  //     console.log(selectedFiles[file]);
-  //     console.log(file);
-  //     formData.append("files", selectedFiles[file]);
-
-  //   }
-  // };
-
   const handleFileUpload = async (url) => {
     let fileUploadSuccess = 0;
     // uploadFileInCloudStorage(formData);
-    // e.preventDefault();
-
     for (const file in selectedFiles) {
       const formData = new FormData();
-
-      console.log(...formData, "FORM DATA");
-
-      console.log(file);
-      console.log(selectedFiles[file]);
-
       if (selectedFiles[file]) {
         formData.append("file", selectedFiles[file]);
         try {
@@ -128,22 +103,9 @@ const Drawing = () => {
               },
             }
           );
-          // Handle success or display a success message to the user
-
-          console.log(response, "response");
-
           if (response?.data.msg === "Successfully uploaded") {
             const fileId = response.data.fileId;
-            // setImageId((prev) => {
-            //   const newFile = {};
-            //   newFile[file] = fileId;
-            //   console.log(newFile);
-            //   const newImageFile = { ...prev, ...newFile };
-            //   return newImageFile;
-            // });
             imageId[file] = fileId;
-
-            console.log(imageId);
             fileUploadSuccess = 1;
           }
         } catch (error) {
@@ -160,16 +122,13 @@ const Drawing = () => {
         AutoCAD: imageId["AutoCAD"],
         Drawing: imageId["Drawing"],
       };
-
-      console.log(drawing, "DRAWING");
-
       return await sendUserDataIntoDB(url, "PATCH", {
         applicationNo,
         drawing,
       });
     }
   };
-  const path = "PS"
+  const path = "LTP"
   return (
     <>
       <div className="text-end mb-4">
@@ -189,7 +148,7 @@ const Drawing = () => {
         <div className="text-base px-2 mb-10">
           <p className="pr-3 font-bold">1. AutoCAD Drawing</p>
           <div className="flex mt-5">
-            {path === "LTP" && <label className="relative cursor-pointer">
+            {path === "LTP" && <label className="relative cursor-pointer mr-6">
               <input
                 type="file"
                 accept=".dwg, .zip, .pdf,.png,.jpg"
@@ -201,7 +160,7 @@ const Drawing = () => {
               <Link
                 to={`https://drive.google.com/file/d/${savedData?.drawing?.AutoCAD}/view?usp=sharing`}
                 target="_blank"
-                className="hover:underline bg-gray-300 p-2 px-4 rounded-full"
+                className="flex items-center hover:underline bg-gray-300 p-2 px-4 rounded-full"
               >
                 {path == "LTP" ? "View old File" : "View File"}
               </Link>
@@ -213,7 +172,7 @@ const Drawing = () => {
         <div className="text-base px-2 mb-10">
           <p className="pr-3 font-bold">2. Drawing PDF</p>
           <div className="flex items-center text-sm mt-5">
-            {path === "LTP" && <label className="relative cursor-pointer">
+            {path === "LTP" && <label className="relative cursor-pointer mr-6">
               <input
                 type="file"
                 accept=".dwg, .zip, .pdf,.png,.jpg"

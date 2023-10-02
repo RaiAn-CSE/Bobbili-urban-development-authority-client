@@ -18,7 +18,7 @@ function DrawingTable() {
 
   return (
     <div>
-      <div className="overflow-x-auto mb-10 w-full max-w-5xl ml-7">
+      <div className="overflow-x-auto mb-20 w-full max-w-5xl ml-7">
         <table className="table text-black table-md">
           {/* head */}
           <thead className='text-black'>
