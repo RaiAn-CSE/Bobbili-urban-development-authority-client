@@ -1,5 +1,6 @@
 import React from 'react'
 import DocumentFooter from './DocumentFooter'
+import { Link } from 'react-router-dom'
 
 function DrawingTable() {
   const TrData = [
@@ -19,8 +20,10 @@ function DrawingTable() {
   const skipNumber = [5, 6, 7, 8]
   return (
     <div>
+
       <div className="overflow-x-auto mb-16 w-full max-w-5xl ml-7">
-        <table className="table text-black table-md">
+        <Link to="/" className="link link-success">Drawing Scrutiny report</Link>
+        <table className="table text-black table-sm mt-4">
           {/* Table Header */}
           <thead className='text-black'>
             <tr>
