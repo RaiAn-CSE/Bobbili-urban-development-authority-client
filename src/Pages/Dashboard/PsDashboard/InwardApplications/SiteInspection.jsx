@@ -108,12 +108,12 @@ const SiteInspection = () => {
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify(siteInspection),
+      body: JSON.stringify({ siteInspection }),
     })
       .then((res) => res.json())
       .then((result) => {
         console.log(result);
-        if (result.modifiedCount) {
+        if (result.acknowledged) {
           toast.success("Saved data successfully");
         } else {
           toast.error("Server Error");
