@@ -33,7 +33,7 @@ const AuthProvider = ({ children }) => {
       });
   };
 
-  //   send user data into the database
+  // send user data into the database
   const sendUserDataIntoDB = async (url, method = "PATCH", data) => {
     console.log(data, "DATA");
     console.log(url, "URL");
@@ -49,7 +49,7 @@ const AuthProvider = ({ children }) => {
     return result;
   };
 
-  // get userdata
+  // get user data
   const getUserData = async (id) => {
     console.log(id, "AUTH ID");
 
@@ -122,9 +122,20 @@ const AuthProvider = ({ children }) => {
     isPaymentDataSent
   ) => {
     console.log(userInfoFromLocalStorage()._id, "GET USER ID");
-    const url = `https://residential-building.vercel.app/updateDraftApplicationData/${
-      userInfoFromLocalStorage()._id
-    }`;
+
+    const role = userInfoFromLocalStorage().role;
+
+    const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
+
+    let url;
+
+    role === "LTP" &&
+      (url = `https://residential-building.vercel.app/updateDraftApplicationData/${
+        userInfoFromLocalStorage()._id
+      }`);
+
+    role === "PS" &&
+      (url = `http://localhost:5000/recommendDataOfPs?appNo=${applicationNo}`);
 
     console.log(url, "url");
 
@@ -215,8 +226,6 @@ const AuthProvider = ({ children }) => {
       toast.error("ERROR");
     }
   };
-
-  // getApplicationData("1177/3/2023");
 
   //   create a object to transfer data into various components
   const userInfo = {

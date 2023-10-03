@@ -103,27 +103,9 @@ const SiteInspection = () => {
 
     console.log(siteInspection, "SITE INSPECTION");
 
-    fetch(`http://localhost:5000/recommendDataOfPs?appNo=${applicationNo}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ siteInspection }),
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        console.log(result);
-        if (result.acknowledged) {
-          toast.success("Saved data successfully");
-        } else {
-          toast.error("Server Error");
-        }
-      });
-
-    // return await sendUserDataIntoDB(url, "PATCH", {
-    //     applicationNo,
-    //     siteInspection,
-    // });
+    return await sendUserDataIntoDB(url, "PATCH", {
+      siteInspection,
+    });
   };
 
   // Classes :
@@ -585,11 +567,11 @@ const SiteInspection = () => {
             placeholder="Comments"
           ></textarea>
         </div>
-        <div className="basic-[20%]">
+        {/* <div className="basic-[20%]">
           <button className="btn btn-md text-sm px-3 mt-10 ml-3 bg-green-300 hover:bg-green-400 hover:shadow-md transition-all duration-500">
             Save
           </button>
-        </div>
+        </div> */}
       </div>
       <button type="submit" onClick={collectInputFieldData} className="btn">
         Submit
