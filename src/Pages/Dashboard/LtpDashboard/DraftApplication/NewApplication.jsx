@@ -102,6 +102,10 @@ const NewApplication = () => {
         labourCessCharge: {},
         greenFeeCharge: {},
       },
+      // siteInspection: {
+      //   groundPosition: {},
+      //   siteBoundaries: {},
+      // },
       createdDate: `${day}-${month}-${year}`,
     };
 

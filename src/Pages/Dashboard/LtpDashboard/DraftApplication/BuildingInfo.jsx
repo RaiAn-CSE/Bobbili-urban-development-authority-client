@@ -842,15 +842,15 @@ const BuildingInfo = () => {
 
           {selectedNatureOfTheSite ===
             "Plot port of RLP/IPLP but not regularised" && (
-            <InputField
-              id="IplpNo"
-              name=""
-              label="RLP/IPLP no."
-              placeholder="RLP/IPLP no."
-              type="number"
-              ltpDetails={iplpNo}
-            />
-          )}
+              <InputField
+                id="IplpNo"
+                name=""
+                label="RLP/IPLP no."
+                placeholder="RLP/IPLP no."
+                type="number"
+                ltpDetails={iplpNo}
+              />
+            )}
           {/*===================== Conditional Input Field End =====================*/}
         </div>
       </div>
