@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import DocumentFooter from './DocumentFooter'
 import { Link } from 'react-router-dom'
 
-function DrawingTable() {
+function DrawingTable({ setApprovedConfirmation, setRecomendationMessage }) {
   const TrData = [
     { "Proposed Site Area": ["Tanjimul", "Islam", "Sabbir"] },
     { "Access Road Width": ["Tanjimul", "Islam", "Sabbir"] },
@@ -21,8 +21,8 @@ function DrawingTable() {
   return (
     <div>
 
-      <div className="overflow-x-auto mb-16 w-full max-w-5xl ml-7">
-        <Link to="/" className="link link-success">Drawing Scrutiny report</Link>
+      <div className="overflow-x-auto mb-16 w-full max-w-5xl md:ml-7">
+        <Link to="/" className="link">Drawing Scrutiny report</Link>
         <table className="table text-black table-sm mt-4">
           {/* Table Header */}
           <thead className='text-black'>
@@ -52,7 +52,7 @@ function DrawingTable() {
           </tbody>
         </table>
       </div>
-      <DocumentFooter />
+      <DocumentFooter setApprovedConfirmation={setApprovedConfirmation} setRecomendationMessage={setRecomendationMessage}/>
     </div>
   )
 }

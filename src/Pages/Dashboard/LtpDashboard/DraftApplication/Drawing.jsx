@@ -9,6 +9,9 @@ import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 import DrawingTable from "./DrawingTable";
 
 const Drawing = () => {
+  const [approvedConfirmation, setApprovedConfirmation] = useState("");
+  const [recomendationMessage, setRecomendationMessage] = useState("");
+console.log({approvedConfirmation,recomendationMessage})
   const [openApplication, setOpenApplication] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState({
     AutoCAD: "",
@@ -194,7 +197,7 @@ const Drawing = () => {
         </div>
       </form>
 
-      {path == "PS" && <DrawingTable />}
+      {path == "PS" && <DrawingTable setApprovedConfirmation={setApprovedConfirmation} setRecomendationMessage={setRecomendationMessage} />}
       {openApplication && <Application setOpenApplication={setOpenApplication} />}
 
       {/* save & continue  */}
