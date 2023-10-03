@@ -2,7 +2,7 @@ import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import Login from "../Pages/Main/Login/Login";
 import Logo from "../assets/images/logo.png";
-import customScroll from '../Style/Scrollbar.module.css'
+import customScroll from "../Style/Scrollbar.module.css";
 
 const MainLayout = () => {
   const menu = (
@@ -74,7 +74,9 @@ const MainLayout = () => {
         </div>
 
         {/* Scrollable content */}
-        <div className={`${customScroll.customScrolling} p-4 bg-base-100 shadow-md border rounded-lg mx-4`}>
+        <div
+          className={`${customScroll.customScrolling}  bg-base-100 shadow-md border rounded-lg mx-4`}
+        >
           <Outlet />
         </div>
 

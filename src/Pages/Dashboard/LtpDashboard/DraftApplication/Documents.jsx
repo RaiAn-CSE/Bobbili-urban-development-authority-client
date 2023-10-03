@@ -14,33 +14,35 @@ const DocumentUpload = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [UpdatedDocuments, setUpdatedDocuments] = useState([...Documents.Data]);
   const [imageId, setImageId] = useState([]);
-  const [approvedConfirmation,setApprovedConfirmation]=useState("");
-  const [recomendationMessage,setRecomendationMessage]=useState("");
+  const [approvedConfirmation, setApprovedConfirmation] = useState("");
+  const [recomendationMessage, setRecomendationMessage] = useState("");
   const stepperData = useOutletContext();
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
-  const { confirmAlert, sendUserDataIntoDB, getApplicationData } = useContext(AuthContext);
+  const { confirmAlert, sendUserDataIntoDB, getApplicationData } =
+    useContext(AuthContext);
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
-  const path = "PS"
+  const path = "PS";
 
   const handleFileChange = (event, index) => {
     const file = event?.target?.files[0];
-    file && toast.success(`${file?.name.slice(0, 20)}... uploaded successfully!`);
+    file &&
+      toast.success(`${file?.name.slice(0, 20)}... uploaded successfully!`);
     selectedFiles[index] = file;
   };
- 
-  // Updating documnets when Approved btn clicked (PS)
-    const handleAnswer = (event, index) => {
-      toast.success(`${event?.target?.value}`)
-      selectedFiles[index] = event?.target?.value;
-      const updatedApproved = UpdatedDocuments.map((file) => ({
-        ...file,
-        approved: file.id === index ? event.target.value : file.approved,
-      }));
-      setUpdatedDocuments(updatedApproved)
-    }
 
-    // Adding checklist Data to Document from server data
+  // Updating documnets when Approved btn clicked (PS)
+  const handleAnswer = (event, index) => {
+    toast.success(`${event?.target?.value}`);
+    selectedFiles[index] = event?.target?.value;
+    const updatedApproved = UpdatedDocuments.map((file) => ({
+      ...file,
+      approved: file.id === index ? event.target.value : file.approved,
+    }));
+    setUpdatedDocuments(updatedApproved);
+  };
+
+  // Adding checklist Data to Document from server data
   useEffect(() => {
     const gettingData = async () => {
       let updatedDocumentsToAdd = [];
@@ -48,13 +50,15 @@ const DocumentUpload = () => {
       const applicationData = await getApplicationData(applicationNo);
       const applicationCheckList = applicationData.applicationCheckList;
       const documents = applicationData.documents;
-      
+
       let increaseDocument = UpdatedDocuments.length;
 
       if (applicationCheckList.length) {
         // Declare the array here
         applicationCheckList.forEach((data, index) => {
-          const already = UpdatedDocuments.find((document) => document.question === data.question);
+          const already = UpdatedDocuments.find(
+            (document) => document.question === data.question
+          );
           if (already) {
             return null;
           }
@@ -64,7 +68,7 @@ const DocumentUpload = () => {
               id: increaseDocument.toString(),
               question: data.question,
               upload: "",
-              approved:""
+              approved: "",
             };
             updatedDocumentsToAdd.push(newDocument);
           }
@@ -165,28 +169,26 @@ const DocumentUpload = () => {
           const { id, question, upload, approved } = document;
           return (
             <>
-              <div
-                key={id}
-                className="w-full px-2 mb-10 py-5 rounded"
-              >
+              <div key={id} className="w-full px-2 mb-10 py-5 rounded">
                 <p className="text-[17px] font-bold">
                   {id}. {question}
                 </p>
 
                 <div className="flex  items-center mt-6">
-                  {
-                    path !== "PS" ? <input
+                  {path !== "PS" ? (
+                    <input
                       name={id}
                       type="file"
                       accept=".pdf, image/*"
                       onChange={(event) => handleFileChange(event, index)}
                       className="file-input file-input-bordered w-full max-w-xs"
-                    /> : <div>
+                    />
+                  ) : (
+                    <div>
                       <div className="space-x-10 mt-2 lg:pr-2">
                         <label
                           className={`ml-2 inline-flex items-center space-x-1 text-black 
-                          ${approved === "approved" && "font-extrabold"
-                            }`}
+                          ${approved === "approved" && "font-extrabold"}`}
                         >
                           <input
                             type="radio"
@@ -200,8 +202,7 @@ const DocumentUpload = () => {
                         </label>
                         <label
                           className={`ml-2 inline-flex items-center space-x-1 text-black 
-                          ${approved === "shortfall" && "font-extrabold"
-                            }`}
+                          ${approved === "shortfall" && "font-extrabold"}`}
                         >
                           <input
                             type="radio"
@@ -215,7 +216,7 @@ const DocumentUpload = () => {
                         </label>
                       </div>
                     </div>
-                  }
+                  )}
                   {upload !== "" && (
                     <Link
                       to={`https://drive.google.com/file/d/${upload}/view?usp=sharing`}
@@ -236,9 +237,15 @@ const DocumentUpload = () => {
         ) : (
           ""
         )}
-
       </form>
-      {path === "PS" ? <DocumentFooter setApprovedConfirmation={setApprovedConfirmation} setRecomendationMessage={setRecomendationMessage} /> : ""}
+      {path === "PS" ? (
+        <DocumentFooter
+          setApprovedConfirmation={setApprovedConfirmation}
+          setRecomendationMessage={setRecomendationMessage}
+        />
+      ) : (
+        ""
+      )}
       <SaveData
         isStepperVisible={isStepperVisible}
         currentStep={currentStep}
