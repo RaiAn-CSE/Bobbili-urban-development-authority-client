@@ -150,11 +150,11 @@ console.log({approvedConfirmation,recomendationMessage})
         {/* AutoCAD Drawing */}
         <div className="text-base px-2 mb-10">
           <p className="pr-3 font-bold">1. AutoCAD Drawing</p>
-          <div className="flex mt-5">
+          <div className="flex items-center mt-5">
             {path === "LTP" && <label className="relative cursor-pointer mr-6">
               <input
                 type="file"
-                accept=".dwg, .zip, .pdf,.png,.jpg"
+                accept=".dwg, .zip, .pdf, .png, .jpg"
                 onChange={(event) => handleFileChange(event, "AutoCAD")}
                 className="file-input file-input-bordered file-input-md w-full max-w-xs"
               />
@@ -163,7 +163,7 @@ console.log({approvedConfirmation,recomendationMessage})
               <Link
                 to={`https://drive.google.com/file/d/${savedData?.drawing?.AutoCAD}/view?usp=sharing`}
                 target="_blank"
-                className="flex items-center hover:underline bg-gray-300 p-2 px-5 rounded-full"
+                className="hover:underline bg-gray-300 py-2 px-5 rounded-full"
               >
                 {path == "LTP" ? "View old File" : "View File"}
               </Link>
@@ -174,7 +174,7 @@ console.log({approvedConfirmation,recomendationMessage})
         {/* Drawing PDF */}
         <div className="text-base px-2 mb-10">
           <p className="pr-3 font-bold">2. Drawing PDF</p>
-          <div className="flex items-center text-sm mt-5">
+          <div className="flex items-center mt-5">
             {path === "LTP" && <label className="relative cursor-pointer mr-6">
               <input
                 type="file"
@@ -188,7 +188,7 @@ console.log({approvedConfirmation,recomendationMessage})
               <Link
                 to={`https://drive.google.com/file/d/${savedData?.drawing?.Drawing}/view?usp=sharing`}
                 target="_blank"
-                className="hover:underline bg-gray-300 p-2 px-5 rounded-full"
+                className="hover:underline bg-gray-300 py-2 px-5 rounded-full"
               >
                 {path == "LTP" ? "View old File" : "View File"}
               </Link>

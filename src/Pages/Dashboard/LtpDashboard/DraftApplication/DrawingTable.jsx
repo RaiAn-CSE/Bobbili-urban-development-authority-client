@@ -9,7 +9,7 @@ function DrawingTable({ setApprovedConfirmation, setRecomendationMessage }) {
     { "Scope of Road Windering": ["Tanjimul", "Islam", "Sabbir"] },
     { "Setbacks": ["Tanjimul", "Islam", "Sabbir"] },
     { "North": ["Tanjimul", "Islam", "Sabbir"] },
-    { "South": ["Tanjimul", "Islam", "Sabbir"] },
+    { "South": ["Tanjimul", "Islam", "Hello"] },
     { "East": ["Tanjimul", "Islam", "Sabbir"] },
     { "West": ["Tanjimul", "Islam", "Sabbir"] },
     { "Number of floors": ["Tanjimul", "Islam", "Sabbir"] },
