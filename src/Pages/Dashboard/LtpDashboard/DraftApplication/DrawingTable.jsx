@@ -5,6 +5,7 @@ function DrawingTable() {
   const TrData = [
     { "Proposed Site Area": ["Tanjimul", "Islam", "Sabbir"] },
     { "Access Road Width": ["Tanjimul", "Islam", "Sabbir"] },
+    { "Scope of Road Windering": ["Tanjimul", "Islam", "Sabbir"] },
     { "Setbacks": ["Tanjimul", "Islam", "Sabbir"] },
     { "North": ["Tanjimul", "Islam", "Sabbir"] },
     { "South": ["Tanjimul", "Islam", "Sabbir"] },
@@ -15,7 +16,7 @@ function DrawingTable() {
     { "Green Strip": ["Yes", "Yes", "Yes/No"] },
     { "Staircase Width": ["Tanjimul", "Islam", "Sabbir"] }
   ]
-
+  const skipNumber = [5, 6, 7, 8]
   return (
     <div>
       <div className="overflow-x-auto mb-16 w-full max-w-5xl ml-7">
@@ -23,7 +24,7 @@ function DrawingTable() {
           {/* Table Header */}
           <thead className='text-black'>
             <tr>
-              <th className='border border-black w-12'>Serial No.</th>
+              <th className='border border-black w-8'>Serial No.</th>
               <th className='border border-black'>Description</th>
               <th className='border border-black'>As per G.O.s</th>
               <th className='border border-black'>As on Plan</th>
@@ -35,7 +36,9 @@ function DrawingTable() {
               TrData.map((data, index) => {
                 return (
                   <tr>
-                    <th className='border border-black bg-white'>{index + 1}</th>
+                    <th className='border border-black bg-white w-8 text-center'>
+                      {skipNumber.includes(index + 1) ? "" : skipNumber.find(num => num < index + 1) ? index - 3 : index + 1}
+                    </th>
                     <td className='border border-black bg-white'>{Object.keys(TrData[index])}</td>
                     <td className='border border-black bg-white'>{Object.values(data)[0][0]}</td>
                     <td className='border border-black bg-white'>{Object.values(data)[0][1]}</td>
