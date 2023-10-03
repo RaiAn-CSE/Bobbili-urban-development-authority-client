@@ -1,13 +1,112 @@
-import React from 'react';
-import { GiMoneyStack } from 'react-icons/gi';
+import React, { useContext, useEffect, useRef } from 'react';
+import SaveData from '../../LtpDashboard/DraftApplication/SaveData';
+import { AuthContext } from '../../../../AuthProvider/AuthProvider';
+import { useOutletContext } from 'react-router-dom';
 
 const SiteInspection = () => {
 
+    const {
+        confirmAlert,
+        sendUserDataIntoDB,
+        userInfoFromLocalStorage,
+        getApplicationData,
+    } = useContext(AuthContext);
+
+    const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
+
+    const stepperData = useOutletContext();
+
+    const [isStepperVisible, currentStep, steps] = stepperData;
+
+
+    useEffect(() => {
+        const getData = async () => {
+            const applicationData = await getApplicationData(applicationNo);
+            console.log(applicationData, 'applicationData');
+        };
+        getData();
+    }, []);
+
+    // let [formObject, setFormObject] = useState({ natureOfSite: "", siteLevel: "" })
+
+    // const inputOnChange = (property, value) => {
+
+    //     setFormObject(property => ({
+    //         ...property,
+    //         [property]: value
+    //     }))
+    // }
+
+    // const formSubmit = (e) => {
+    //     e.preventDefault();
+    //     console.log(formObject);
+
+    // }
+
+    const siteLevel = useRef();
+
+    const collectInputFieldData = async (url) => {
+        const natureOfSiteApp = document.getElementById("natureOfSiteApp").value;
+        const natureOfSiteObs = document.getElementById("natureOfSiteObs").value;
+        const siteLevelApp = siteLevel.current.value;
+        const siteLevelObs = document.getElementById("siteLevelObs").value;
+        const totalAreaAsOnGroundApp = document.getElementById("totalAreaAsOnGroundApp").value;
+        const totalAreaAsOnGroundObs = document.getElementById("totalAreaAsOnGroundObs").value;
+        const workCommentedApp = document.getElementById("workCommentedApp").value;
+        const workCommentedObs = document.getElementById("workCommentedObs").value;
+
+        const groundPosition = {
+            natureOfSite: [natureOfSiteApp, natureOfSiteObs],
+            siteLevel: [siteLevelApp, siteLevelObs],
+            totalAreaAsOnGround: [totalAreaAsOnGroundApp, totalAreaAsOnGroundObs],
+            workCommented: [workCommentedApp, workCommentedObs],
+        }
+
+        const northApp = document.getElementById("northApp").value;
+        const northObs = document.getElementById("northObs").value;
+        const southApp = document.getElementById("southApp").value;
+        const southObs = document.getElementById("southObs").value;
+        const eastApp = document.getElementById("eastApp").value;
+        const eastObs = document.getElementById("eastObs").value;
+        const westApp = document.getElementById("westApp").value;
+        const westObs = document.getElementById("westObs").value;
+        const scheduleOfTheDocumentsApp = document.getElementById("scheduleOfTheDocumentsApp").value;
+        const scheduleOfTheDocumentsObs = document.getElementById("scheduleOfTheDocumentsObs").value;
+
+        const siteBoundaries = {
+            north: [northApp, northObs],
+            south: [southApp, southObs],
+            east: [eastApp, eastObs],
+            west: [westApp, westObs],
+            scheduleOfTheDocuments: [scheduleOfTheDocumentsApp, scheduleOfTheDocumentsObs],
+        }
+
+        const siteInspection = {
+            groundPosition,
+            siteBoundaries,
+        }
+
+        console.log(siteInspection);
+
+        return await sendUserDataIntoDB(url, "PATCH", {
+            applicationNo,
+            siteInspection,
+        });
+
+    }
+
+
+
+    // Classes :
     const tableDataClass = "whitespace-nowrap border-r px-6 py-4 border-neutral-500"
     const inputClass = "input rounded-none w-full max-w-xs focus:outline-none"
     const inputTableDataClass = 'whitespace-nowrap border-r border-neutral-500'
+
     return (
-        <div className="flex flex-col sm:px-6 lg:px-8">
+        <div
+            // onSubmit={formSubmit}
+            className="flex flex-col sm:px-6 lg:px-8"
+        >
             <div className="overflow-x-auto">
                 <div className="inline-block min-w-full py-2">
                     <div className="overflow-hidden">
@@ -30,37 +129,68 @@ const SiteInspection = () => {
                                 <tr className="border-b border-neutral-500">
                                     <td className={tableDataClass}>Nature of site</td>
                                     <td className={inputTableDataClass}>
-                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                        <input type="text"
+                                            id='natureOfSiteApp'
+                                            // onChange={(e) => { inputOnChange("natureOfSite", e.target.value) }} 
+                                            // value={formObject.natureOfSite} 
+                                            placeholder="Yes/No"
+                                            className={inputClass}
+                                        />
                                     </td>
                                     <td className={inputTableDataClass}>
-                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                        <input
+                                            id='natureOfSiteObs'
+                                            type="text"
+                                            placeholder="Yes/No"
+                                            className={inputClass}
+                                        />
                                     </td>
                                 </tr>
                                 <tr className="border-b border-neutral-500">
                                     <td className={tableDataClass}>Site level</td>
                                     <td className={inputTableDataClass}>
-                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                        <input
+                                            type="text"
+                                            placeholder="Yes/No"
+                                            className={inputClass}
+                                            ref={siteLevel}
+                                        />
                                     </td>
                                     <td className={inputTableDataClass}>
-                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                        <input
+                                            id='siteLevelObs'
+                                            type="text"
+                                            placeholder="Yes/No"
+                                            className={inputClass}
+                                        />
                                     </td>
                                 </tr>
                                 <tr className="border-b border-neutral-500">
                                     <td className={tableDataClass}>Total area as on ground in Sq.M.</td>
                                     <td className={inputTableDataClass}>
-                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                        <input
+                                            id='totalAreaAsOnGroundApp'
+                                            type="text"
+                                            placeholder="Yes/No"
+                                            className={inputClass}
+                                        />
                                     </td>
                                     <td className={inputTableDataClass}>
-                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                        <input
+                                            id='totalAreaAsOnGroundObs'
+                                            type="text"
+                                            placeholder="Yes/No"
+                                            className={inputClass}
+                                        />
                                     </td>
                                 </tr>
                                 <tr className="border-b border-neutral-500">
                                     <td className={tableDataClass}>Work commented</td>
                                     <td className={inputTableDataClass}>
-                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                        <input id='workCommentedApp' type="text" placeholder="Yes/No" className={inputClass} />
                                     </td>
                                     <td className={inputTableDataClass}>
-                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                        <input id='workCommentedObs' type="text" placeholder="Yes/No" className={inputClass} />
                                     </td>
                                 </tr>
 
@@ -72,37 +202,37 @@ const SiteInspection = () => {
                                 <tr className="border-b border-neutral-500">
                                     <td className={tableDataClass}>North</td>
                                     <td className={inputTableDataClass}>
-                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                        <input id='northApp' type="text" placeholder="Yes/No" className={inputClass} />
                                     </td>
                                     <td className={inputTableDataClass}>
-                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                        <input id='northObs' type="text" placeholder="Yes/No" className={inputClass} />
                                     </td>
                                 </tr>
                                 <tr className="border-b border-neutral-500">
                                     <td className={tableDataClass}>South</td>
                                     <td className={inputTableDataClass}>
-                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                        <input id='southApp' type="text" placeholder="Yes/No" className={inputClass} />
                                     </td>
                                     <td className={inputTableDataClass}>
-                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                        <input id='southObs' type="text" placeholder="Yes/No" className={inputClass} />
                                     </td>
                                 </tr>
                                 <tr className="border-b border-neutral-500">
                                     <td className={tableDataClass}>East</td>
                                     <td className={inputTableDataClass}>
-                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                        <input id='eastApp' type="text" placeholder="Yes/No" className={inputClass} />
                                     </td>
                                     <td className={inputTableDataClass}>
-                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                        <input id='eastObs' type="text" placeholder="Yes/No" className={inputClass} />
                                     </td>
                                 </tr>
                                 <tr className="border-b border-neutral-500">
                                     <td className={tableDataClass}>West</td>
                                     <td className={inputTableDataClass}>
-                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                        <input id='westApp' type="text" placeholder="Yes/No" className={inputClass} />
                                     </td>
                                     <td className={inputTableDataClass}>
-                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                        <input id='westObs' type="text" placeholder="Yes/No" className={inputClass} />
                                     </td>
                                 </tr>
                                 <tr className="border-b border-neutral-500">
@@ -112,10 +242,10 @@ const SiteInspection = () => {
                                         with the schedule of the Documents.
                                     </td>
                                     <td className={inputTableDataClass}>
-                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                        <input id='scheduleOfTheDocumentsApp' type="text" placeholder="Yes/No" className={inputClass} />
                                     </td>
                                     <td className={inputTableDataClass}>
-                                        <input type="text" placeholder="Yes/No" className={inputClass} />
+                                        <input id='scheduleOfTheDocumentsObs' type="text" placeholder="Yes/No" className={inputClass} />
                                     </td>
                                 </tr>
 
@@ -244,6 +374,18 @@ const SiteInspection = () => {
                     </button>
                 </div>
             </div>
+            {/* <button type='submit' onClick={handleSiteInspection} className='btn'>Submit</button> */}
+
+
+            {/* save & continue  */}
+            <SaveData
+                isStepperVisible={isStepperVisible}
+                currentStep={currentStep}
+                steps={steps}
+                stepperData={stepperData}
+                confirmAlert={confirmAlert}
+                collectInputFieldData={collectInputFieldData}
+            />
         </div>
     );
 };
