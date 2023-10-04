@@ -246,7 +246,18 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  console.log(getSubmitApplicationData("275/15/13"));
+  // get all draft application data
+  const getAllDraftApplicationData = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/allDraftApplicationData`
+      );
+
+      return await response.json();
+    } catch (err) {
+      toast.error("Server Error");
+    }
+  };
 
   //   create a object to transfer data into various components
   const userInfo = {
@@ -259,7 +270,9 @@ const AuthProvider = ({ children }) => {
     getApplicationData,
     alertToTransferDataIntoDepartment,
     getSubmitApplicationData,
+    getAllDraftApplicationData,
   };
+
   return (
     <>
       <AuthContext.Provider value={userInfo}>{children}</AuthContext.Provider>
