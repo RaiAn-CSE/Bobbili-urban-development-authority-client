@@ -57,20 +57,25 @@ const MainLayout = () => {
     </>
   );
   return (
-    <div className="mx-10">
+    <div className="mx-10 ">
       {/* upper part  */}
-      <div className="mb-8 flex items-center">
+      <div className="mt-4 mb-14 flex justify-between items-center">
         <div className="basis-3/4">
-          <p className="text-3xl font-bold Roboto">
+          <p className="text-2xl text-gray-400 font-bold font-sofadi">
             Bobbili Urban Development Authority
           </p>
-          <p>Residential Building Plan Approval</p>
+          <p className="text-4xl mt-2 font-notSerif font-bold">
+            Residential Building Plan Approval
+          </p>
         </div>
 
-        <div className="basis-[20%] flex space-x-6">
-          <div className="w-12 h-12 bg-yellow-300 rounded-full flex justify-center items-center">
+        <div className="basis-[20%] flex justify-end space-x-6">
+          <Link
+            to="http://localhost:5173"
+            className="w-12 h-12 bg-yellow-300 rounded-full flex justify-center items-center"
+          >
             <AiOutlineHome className="text-2xl text-white" />
-          </div>
+          </Link>
           <div className="w-12 h-12 border border-green-600 rounded-full flex justify-center items-center">
             <MdOutlineDashboard className="text-2xl" />
           </div>
