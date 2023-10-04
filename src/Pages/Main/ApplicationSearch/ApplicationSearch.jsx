@@ -22,7 +22,6 @@ const ApplicationSearch = () => {
   const searchApplicationData = (e) => {
     const value = e.target.value;
 
-    // filterData = applicationData.find((data) => data.applicationNo === value);
     console.log(value, "FILTER DATA");
 
     if (value.includes("BUDA/2023")) {
@@ -30,16 +29,14 @@ const ApplicationSearch = () => {
       setFilteredData(
         applicationData.find((data) => data.applicationNo === value)
       );
-      //   filterData = applicationData.find((data) => data.applicationNo === value);
     } else {
       console.log("Asci");
-      // search by owner name
-      //   filterData = applicationData.find(
-      //     (data) => data?.applicantInfo?.applicantDetails[0]?.name === value
-      //   );
+
       setFilteredData(
         applicationData.find(
-          (data) => data?.applicantInfo?.applicantDetails[0]?.name === value
+          (data) =>
+            data?.applicantInfo?.applicantDetails[0]?.name.toLowerCase() ===
+            value.toLowerCase()
         )
       );
 
@@ -49,11 +46,8 @@ const ApplicationSearch = () => {
         )
       );
     }
-
-    // setFilteredData(
-    //   applicationData.find((data) => data.applicationNo === value)
-    // );
   };
+
   console.log(filteredData);
   return (
     <>
