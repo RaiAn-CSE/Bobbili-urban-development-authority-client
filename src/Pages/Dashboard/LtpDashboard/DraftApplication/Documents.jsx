@@ -169,12 +169,22 @@ const DocumentUpload = () => {
           const { id, question, upload, approved } = document;
           return (
             <>
-              <div key={id} className="w-full px-2 mb-10 py-5 rounded">
+              <div key={id} className="w-full px-2 mb-5 py-5 rounded">
                 <p className="text-[17px] font-bold">
                   {id}. {question}
                 </p>
 
-                <div className="flex  items-center mt-6">
+                <div className="flex items-center mt-6">
+                  {upload !== "" && (
+                    <Link
+                      to={`https://drive.google.com/file/d/${upload}/view?usp=sharing`}
+                      target="_blank"
+                      className="hover:underline mr-6 py-2 px-5 bg-gray-200 rounded-xl sm:rounded-full text-center"
+                    >
+                      {path == "LTP" ? "View old File" : "View File"}
+                    </Link>
+                  )}
+                  {/* Approved Button */}
                   {path !== "PS" ? (
                     <input
                       name={id}
@@ -216,15 +226,6 @@ const DocumentUpload = () => {
                         </label>
                       </div>
                     </div>
-                  )}
-                  {upload !== "" && (
-                    <Link
-                      to={`https://drive.google.com/file/d/${upload}/view?usp=sharing`}
-                      target="_blank"
-                      className="hover:underline ms-10 p-3 bg-gray-200 rounded-xl sm:rounded-full text-center"
-                    >
-                      View old File
-                    </Link>
                   )}
                 </div>
               </div>
