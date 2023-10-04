@@ -11,7 +11,9 @@ import DrawingTable from "./DrawingTable";
 const Drawing = () => {
   const [approvedConfirmation, setApprovedConfirmation] = useState("");
   const [recomendationMessage, setRecomendationMessage] = useState("");
-console.log({approvedConfirmation,recomendationMessage})
+
+  console.log({ approvedConfirmation, recomendationMessage });
+
   const [openApplication, setOpenApplication] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState({
     AutoCAD: "",
@@ -22,8 +24,14 @@ console.log({approvedConfirmation,recomendationMessage})
     Drawing: "",
   });
   const [savedData, setSavedData] = useState([]);
-  const { confirmAlert, sendUserDataIntoDB, getApplicationData } = useContext(AuthContext);
+  const {
+    confirmAlert,
+    sendUserDataIntoDB,
+    getApplicationData,
+    userInfoFromLocalStorage,
+  } = useContext(AuthContext);
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
+  const role = userInfoFromLocalStorage().role;
 
   useEffect(() => {
     localStorage.setItem("selectedFiles", JSON.stringify(["", ""]));
@@ -131,7 +139,7 @@ console.log({approvedConfirmation,recomendationMessage})
       });
     }
   };
-  const path = "PS"
+  const path = "PS";
   return (
     <>
       <div className="text-end mb-4">
@@ -151,21 +159,23 @@ console.log({approvedConfirmation,recomendationMessage})
         <div className="text-base px-2 mb-10">
           <p className="pr-3 font-bold">1. AutoCAD Drawing</p>
           <div className="flex items-center mt-5">
-            {path === "LTP" && <label className="relative cursor-pointer mr-6">
-              <input
-                type="file"
-                accept=".dwg, .zip, .pdf, .png, .jpg"
-                onChange={(event) => handleFileChange(event, "AutoCAD")}
-                className="file-input file-input-bordered file-input-md w-full max-w-xs"
-              />
-            </label>}
+            {role === "LTP" && (
+              <label className="relative cursor-pointer mr-6">
+                <input
+                  type="file"
+                  accept=".dwg, .zip, .pdf, .png, .jpg"
+                  onChange={(event) => handleFileChange(event, "AutoCAD")}
+                  className="file-input file-input-bordered file-input-md w-full max-w-xs"
+                />
+              </label>
+            )}
             {savedData?.drawing?.AutoCAD && (
               <Link
                 to={`https://drive.google.com/file/d/${savedData?.drawing?.AutoCAD}/view?usp=sharing`}
                 target="_blank"
                 className="hover:underline bg-gray-300 py-2 px-5 rounded-full"
               >
-                {path == "LTP" ? "View old File" : "View File"}
+                {role == "LTP" ? "View old File" : "View File"}
               </Link>
             )}
           </div>
@@ -175,14 +185,16 @@ console.log({approvedConfirmation,recomendationMessage})
         <div className="text-base px-2 mb-10">
           <p className="pr-3 font-bold">2. Drawing PDF</p>
           <div className="flex items-center mt-5">
-            {path === "LTP" && <label className="relative cursor-pointer mr-6">
-              <input
-                type="file"
-                accept=".dwg, .zip, .pdf,.png,.jpg"
-                onChange={(event) => handleFileChange(event, "Drawing")}
-                className="file-input file-input-bordered file-input-md w-full max-w-xs"
-              />
-            </label>}
+            {role === "LTP" && (
+              <label className="relative cursor-pointer mr-6">
+                <input
+                  type="file"
+                  accept=".dwg, .zip, .pdf,.png,.jpg"
+                  onChange={(event) => handleFileChange(event, "Drawing")}
+                  className="file-input file-input-bordered file-input-md w-full max-w-xs"
+                />
+              </label>
+            )}
 
             {savedData?.drawing?.Drawing && (
               <Link
@@ -190,15 +202,22 @@ console.log({approvedConfirmation,recomendationMessage})
                 target="_blank"
                 className="hover:underline bg-gray-300 py-2 px-5 rounded-full"
               >
-                {path == "LTP" ? "View old File" : "View File"}
+                {role == "LTP" ? "View old File" : "View File"}
               </Link>
             )}
           </div>
         </div>
       </form>
 
-      {path == "PS" && <DrawingTable setApprovedConfirmation={setApprovedConfirmation} setRecomendationMessage={setRecomendationMessage} />}
-      {openApplication && <Application setOpenApplication={setOpenApplication} />}
+      {role == "PS" && (
+        <DrawingTable
+          setApprovedConfirmation={setApprovedConfirmation}
+          setRecomendationMessage={setRecomendationMessage}
+        />
+      )}
+      {openApplication && (
+        <Application setOpenApplication={setOpenApplication} />
+      )}
 
       {/* save & continue  */}
       <SaveData
