@@ -8,8 +8,8 @@ export default {
         Primary: "#FFD66C",
         btnHover: "#edab03",
         violetLight: "#a36ee0",
-        black: "#a36ee0",
-        violetDark: "#1f1132",
+        violetDark: "#a36ee0",
+        black: "#1f1132",
       },
       fontFamily: {
         sofadi: ["Sofadi One", "cursive"],
