@@ -203,7 +203,7 @@ const Login = () => {
                 <input
                   type="submit"
                   value="Sign in"
-                  className="w-full Roboto bg-[#FFD66C] cursor-pointer hover:shadow-md font-bold  text-sm px-5 py-2.5 text-center "
+                  className="w-full Roboto bg-violetDark text-white cursor-pointer shadow-sm shadow-violetDark transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold  text-sm px-7 py-2.5 my-1 text-center "
                 />
               )}
             </div>

@@ -7,10 +7,14 @@ export default {
       colors: {
         Primary: "#FFD66C",
         btnHover: "#edab03",
+        violetLight: "#a36ee0",
+        violetDark: "#a36ee0",
+        black: "#1f1132",
       },
       fontFamily: {
         sofadi: ["Sofadi One", "cursive"],
         roboto: ["Roboto Condensed", "sans-serif"],
+        notSerif: ["Noto Serif JP", "seri"],
       },
     },
   },
