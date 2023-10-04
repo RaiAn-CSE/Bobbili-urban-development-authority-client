@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 const ListOfLTP = () => {
   const [filteredData, setFilteredData] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/allUser")
+    fetch("https://residential-building.vercel.app/allUser")
       .then((res) => res.json())
       .then((data) => {
         setFilteredData(data.filter((user) => user?.role === "LTP"));
