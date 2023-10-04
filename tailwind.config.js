@@ -8,7 +8,7 @@ export default {
         Primary: "#FFD66C",
         btnHover: "#edab03",
         violetLight: "#a36ee0",
-        violetDark: "#a36ee0",
+        violetDark: "#6a39a1",
         black: "#1f1132",
       },
       fontFamily: {

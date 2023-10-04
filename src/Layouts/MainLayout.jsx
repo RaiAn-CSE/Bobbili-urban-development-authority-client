@@ -31,13 +31,17 @@ const MainLayout = () => {
       <Link
         to="/listOfLTP"
         type="button"
-        className="relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white"
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium border-b border-gray-200 hover:bg-violetDark ${
+          path.includes("listOfLTP") ? "bg-violetDark" : ""
+        }`}
       >
         List of LTP's
       </Link>
       <Link
         type="button"
-        className="relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium rounded-b-lg border-b hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white"
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium rounded-b-lg border-b hover:bg-violetDark ${
+          path.includes("demoVideos") ? "bg-violetDark" : ""
+        }`}
       >
         Demo Videos
       </Link>
@@ -77,11 +81,11 @@ const MainLayout = () => {
         <div className="basis-[20%] flex justify-end space-x-6">
           <Link
             to="http://localhost:5173"
-            className="w-12 h-12 bg-violetDark shadow-md shadow-violetDark rounded-full flex justify-center items-center"
+            className="w-12 h-12 bg-violetLight shadow-md shadow-violetDark rounded-full flex justify-center items-center"
           >
             <AiOutlineHome className="text-2xl text-white" />
           </Link>
-          <div className="w-12 h-12 cursor-pointer transition-all duration-700 border border-violetDark rounded-full flex justify-center items-center hover:bg-violetDark hover:text-white hover:shadow-md hover:shadow-violetDark ">
+          <div className="w-12 h-12 cursor-pointer transition-all duration-700 border border-violetLight rounded-full flex justify-center items-center hover:bg-violetLight hover:text-white hover:shadow-md hover:shadow-violetDark ">
             <MdOutlineDashboard className="text-2xl" />
           </div>
         </div>
