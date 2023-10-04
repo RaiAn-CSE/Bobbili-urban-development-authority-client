@@ -16,9 +16,9 @@ function PsSidebar() {
       </li> */}
       <Link to='/dashboard'><button>Dashboard</button></Link>
       <Link to='/dashboard/Inward'><button>Inward Applications</button></Link>
-      <Link to='/PsDashboard/Outward'><button>Outward Application</button></Link>
-      <Link to='/PsDashboard/Search'><button>Search Application</button></Link>
-      <Link to='/PsDashboard/ReValidation'><button>Re-validation</button></Link>
+      <Link to='/dashboard/outwardApplication'><button>Outward Application</button></Link>
+      <Link to='/dashboard/searchApplication'><button>Search Application</button></Link>
+      <Link to='/dashboard/reValidation'><button>Re-validation</button></Link>
     </div>
   )
 }
