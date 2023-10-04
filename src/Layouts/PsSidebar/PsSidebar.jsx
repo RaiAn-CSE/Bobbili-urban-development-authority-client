@@ -1,11 +1,11 @@
-import React from 'react'
-import { Link, useLocation } from 'react-router-dom';
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
 
 function PsSidebar() {
   const path = useLocation().pathname;
 
   return (
-    <div className='min-h-screen flex flex-col space-y-4'>
+    <div className="min-h-screen flex flex-col space-y-4">
       {/* <li className={`${path === "/PsDashboard" && "active"} mt-10`}>
         <span>
           <MdSpaceDashboard size={20} />
@@ -19,8 +19,8 @@ function PsSidebar() {
       <Link to='/dashboard/outwardApplication'><button>Outward Application</button></Link>
       <Link to='/dashboard/searchApplication'><button>Search Application</button></Link>
       <Link to='/dashboard/reValidation'><button>Re-validation</button></Link>
-    </div>
-  )
+    </div >
+  );
 }
 
 export default PsSidebar;

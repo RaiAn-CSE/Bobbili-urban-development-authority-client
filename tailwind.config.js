@@ -8,6 +8,10 @@ export default {
         Primary: "#FFD66C",
         btnHover: "#edab03",
       },
+      fontFamily: {
+        sofadi: ["Sofadi One", "cursive"],
+        roboto: ["Roboto Condensed", "sans-serif"],
+      },
     },
   },
   plugins: [require("daisyui")],

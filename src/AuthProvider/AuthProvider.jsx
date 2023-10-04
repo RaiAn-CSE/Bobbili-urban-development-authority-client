@@ -33,7 +33,7 @@ const AuthProvider = ({ children }) => {
       });
   };
 
-  //   send user data into the database
+  // send user data into the database
   const sendUserDataIntoDB = async (url, method = "PATCH", data) => {
     console.log(data, "DATA");
     console.log(url, "URL");
@@ -49,7 +49,7 @@ const AuthProvider = ({ children }) => {
     return result;
   };
 
-  // get userdata
+  // get user data
   const getUserData = async (id) => {
     console.log(id, "AUTH ID");
 
@@ -122,9 +122,20 @@ const AuthProvider = ({ children }) => {
     isPaymentDataSent
   ) => {
     console.log(userInfoFromLocalStorage()._id, "GET USER ID");
-    const url = `https://residential-building.vercel.app/updateDraftApplicationData/${
-      userInfoFromLocalStorage()._id
-    }`;
+
+    const role = userInfoFromLocalStorage().role;
+
+    const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
+
+    let url;
+
+    role === "LTP" &&
+      (url = `https://residential-building.vercel.app/updateDraftApplicationData/${
+        userInfoFromLocalStorage()._id
+      }`);
+
+    role === "PS" &&
+      (url = `http://localhost:5000/recommendDataOfPs?appNo=${applicationNo}`);
 
     console.log(url, "url");
 
@@ -216,7 +227,37 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  // getApplicationData("1177/3/2023");
+  //ge specific submit data
+  const getSubmitApplicationData = async (appNo) => {
+    try {
+      const query = JSON.stringify({
+        appNo,
+      });
+
+      console.log(query, "query");
+
+      const response = await fetch(
+        `http://localhost:5000/getSubmitDataOfPs?appNo=${query}`
+      );
+
+      return await response.json();
+    } catch (err) {
+      toast.error("Server Error");
+    }
+  };
+
+  // get all draft application data
+  const getAllDraftApplicationData = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/allDraftApplicationData`
+      );
+
+      return await response.json();
+    } catch (err) {
+      toast.error("Server Error");
+    }
+  };
 
   //   create a object to transfer data into various components
   const userInfo = {
@@ -228,7 +269,10 @@ const AuthProvider = ({ children }) => {
     alertToConfirmDelete,
     getApplicationData,
     alertToTransferDataIntoDepartment,
+    getSubmitApplicationData,
+    getAllDraftApplicationData,
   };
+
   return (
     <>
       <AuthContext.Provider value={userInfo}>{children}</AuthContext.Provider>
