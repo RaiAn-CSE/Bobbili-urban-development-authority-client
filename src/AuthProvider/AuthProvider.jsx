@@ -227,6 +227,27 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  //ge specific submit data
+  const getSubmitApplicationData = async (appNo) => {
+    try {
+      const query = JSON.stringify({
+        appNo,
+      });
+
+      console.log(query, "query");
+
+      const response = await fetch(
+        `http://localhost:5000/getSubmitDataOfPs?appNo=${query}`
+      );
+
+      return await response.json();
+    } catch (err) {
+      toast.error("Server Error");
+    }
+  };
+
+  console.log(getSubmitApplicationData("275/15/13"));
+
   //   create a object to transfer data into various components
   const userInfo = {
     updateUserInfoInLocalStorage,
@@ -237,6 +258,7 @@ const AuthProvider = ({ children }) => {
     alertToConfirmDelete,
     getApplicationData,
     alertToTransferDataIntoDepartment,
+    getSubmitApplicationData,
   };
   return (
     <>

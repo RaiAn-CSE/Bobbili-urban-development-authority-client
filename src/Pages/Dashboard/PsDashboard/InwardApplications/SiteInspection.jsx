@@ -146,23 +146,6 @@ const SiteInspection = () => {
 
     console.log(siteInspection, "SITE INSPECTION");
 
-    fetch(`http://localhost:5000/recommendDataOfPs?appNo=${applicationNo}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ siteInspection }),
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        console.log(result);
-        if (result.acknowledged) {
-          toast.success("Saved data successfully");
-        } else {
-          toast.error("Server Error");
-        }
-      });
-
     return await sendUserDataIntoDB(url, "PATCH", {
       applicationNo,
       siteInspection,
