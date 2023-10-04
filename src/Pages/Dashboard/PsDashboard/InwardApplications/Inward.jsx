@@ -39,7 +39,6 @@ const Inward = () => {
 
   return (
     <div>
-      <p>this is Submit Application</p>
       <div className="w-full overflow-x-auto">
         <table className="table">
           {/* head */}

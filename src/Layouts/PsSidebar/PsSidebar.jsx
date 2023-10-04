@@ -14,22 +14,12 @@ function PsSidebar() {
           Dashboard
         </Link>
       </li> */}
-      <Link to="/dashboard">
-        <button>Dashboard</button>
-      </Link>
-      <Link to="/dashboard/Inward">
-        <button>Inward Applications</button>
-      </Link>
-      <Link to="/dashboard/Outward">
-        <button>Outward Application</button>
-      </Link>
-      <Link to="/dashboard/searchApplication">
-        <button>Search Application</button>
-      </Link>
-      <Link to="/dashboard/ReValidation">
-        <button>Re-validation</button>
-      </Link>
-    </div>
+      <Link to='/dashboard'><button>Dashboard</button></Link>
+      <Link to='/dashboard/Inward'><button>Inward Applications</button></Link>
+      <Link to='/dashboard/outwardApplication'><button>Outward Application</button></Link>
+      <Link to='/dashboard/searchApplication'><button>Search Application</button></Link>
+      <Link to='/dashboard/reValidation'><button>Re-validation</button></Link>
+    </div >
   );
 }
 
