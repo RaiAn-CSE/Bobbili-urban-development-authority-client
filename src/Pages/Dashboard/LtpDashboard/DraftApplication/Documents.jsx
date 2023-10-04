@@ -46,7 +46,7 @@ const DocumentUpload = () => {
     setUpdatedDocuments(updatedApproved);
   };
 
-  // Adding checklist Data to Document from server data
+  // Adding checklist Data to Document from server data && Updating Data from server Data
   useEffect(() => {
     const gettingData = async () => {
       let updatedDocumentsToAdd = [];
@@ -57,6 +57,7 @@ const DocumentUpload = () => {
 
       let increaseDocument = UpdatedDocuments.length;
 
+      // Adding checklist Data to Document from server data
       if (applicationCheckList.length) {
         // Declare the array here
         applicationCheckList.forEach((data, index) => {
@@ -81,6 +82,7 @@ const DocumentUpload = () => {
 
       setUpdatedDocuments([...UpdatedDocuments, ...updatedDocumentsToAdd]);
 
+      //Updating Data from server Data
       // RECEIVED DOCUMENT DATA FROM THE DB & STORE THEM IN THE UPDATED DOCUMENT STATE
       if (Object.keys(documents).length) {
         setUpdatedDocuments((prev) => {
@@ -89,6 +91,8 @@ const DocumentUpload = () => {
           });
           return prev;
         });
+        setApprovedConfirmation(documents.approved);
+        setRecomendationMessage(documents.message);
       }
     };
     gettingData();
@@ -148,10 +152,12 @@ const DocumentUpload = () => {
       return await sendUserDataIntoDB(url, "PATCH", {
         applicationNo,
         documents: imageId,
+        approved: approvedConfirmation, message: recomendationMessage
       });
     }
   };
-
+  // const PSDocumentInfo={applicationNo,documents:imageId,approved:approvedConfirmation,message:recomendationMessage}
+  console.log({ UpdatedDocuments })
   return (
     <div>
       <div className="text-end mb-4">
@@ -245,6 +251,7 @@ const DocumentUpload = () => {
       </form>
       {role === "PS" ? (
         <DocumentFooter
+          approvedConfirmation={approvedConfirmation}
           setApprovedConfirmation={setApprovedConfirmation}
           setRecomendationMessage={setRecomendationMessage}
         />

@@ -1,6 +1,4 @@
-import React from 'react'
-
-function DocumentFooter({ setApprovedConfirmation, setRecomendationMessage }) {
+function DocumentFooter({ approvedConfirmation,setApprovedConfirmation, setRecomendationMessage }) {
     const handleRecomendationMessage = (e) => {
         const RecomdMessage = e.target.value;
         console.log({ RecomdMessage })
