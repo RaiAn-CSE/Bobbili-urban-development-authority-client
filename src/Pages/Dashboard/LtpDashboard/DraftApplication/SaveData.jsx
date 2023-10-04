@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 
 const SaveData = ({
@@ -20,7 +20,9 @@ const SaveData = ({
   const { userInfoFromLocalStorage } = useContext(AuthContext);
 
   const role = userInfoFromLocalStorage().role;
-  console.log(role, "Saved Data");
+
+  const location = useLocation();
+  console.log(location, "Saved Data");
 
   const navigate = useNavigate();
   return (
@@ -75,9 +77,26 @@ const SaveData = ({
           {/* role ===ps  */}
 
           {role === "PS" && (
-            <button className="btn btn-md text-sm px-3 mt-10 ml-3 bg-green-300 hover:bg-green-400 hover:shadow-md transition-all duration-500" onClick={()=>{confirmAlert(undefined,collectInputFieldData)}}>
-              Save
-            </button>
+            <>
+              <button
+                className="btn btn-md text-sm px-3 mt-10 ml-3 bg-green-300 hover:bg-green-400 hover:shadow-md transition-all duration-500"
+                onClick={() => {
+                  confirmAlert(undefined, collectInputFieldData);
+                }}
+              >
+                Save
+              </button>
+              {location.pathname.includes("siteInspection") && (
+                <button
+                  className="btn btn-md text-sm px-3 mt-10 ml-3 bg-green-300 hover:bg-green-400 hover:shadow-md transition-all duration-500"
+                  onClick={() => {
+                    confirmAlert(undefined, collectInputFieldData);
+                  }}
+                >
+                  Submit
+                </button>
+              )}
+            </>
           )}
         </div>
       )}
