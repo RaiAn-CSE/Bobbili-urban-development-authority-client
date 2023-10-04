@@ -1,7 +1,9 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import Login from "../Pages/Main/Login/Login";
-import Logo from "../assets/images/logo.png";
+import { AiOutlineHome } from "react-icons/ai";
+import { MdOutlineDashboard } from "react-icons/md";
+
 import customScroll from "../Style/Scrollbar.module.css";
 
 const MainLayout = () => {
@@ -56,17 +58,26 @@ const MainLayout = () => {
   );
   return (
     <div className="mx-10">
-      {/* image  */}
-      <div className="mb-8">
-        <img
-          className="h-[18vw] md:h-[12vw] lg:h-[5vw] mx-auto my-4"
-          src={Logo}
-          alt="The website logo"
-        />
-        <h1 className="text-3xl text-center font-bold Roboto">
-          Bobbili Urban Development Authority
-        </h1>
+      {/* upper part  */}
+      <div className="mb-8 flex items-center">
+        <div className="basis-3/4">
+          <p className="text-3xl font-bold Roboto">
+            Bobbili Urban Development Authority
+          </p>
+          <p>Residential Building Plan Approval</p>
+        </div>
+
+        <div className="basis-[20%] flex space-x-6">
+          <div className="w-12 h-12 bg-yellow-300 rounded-full flex justify-center items-center">
+            <AiOutlineHome className="text-2xl text-white" />
+          </div>
+          <div className="w-12 h-12 border border-green-600 rounded-full flex justify-center items-center">
+            <MdOutlineDashboard className="text-2xl" />
+          </div>
+        </div>
       </div>
+
+      {/* lower part  */}
       <div className="grid grid-cols-[200px_minmax(700px,_1fr)_1fr]">
         {/* sidebar menus  */}
         <div className="w-full h-[400px] flex flex-col justify-between text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white shadow-lg">
