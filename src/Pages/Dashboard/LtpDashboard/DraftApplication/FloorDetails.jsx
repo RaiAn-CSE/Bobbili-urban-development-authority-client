@@ -31,7 +31,7 @@ const FloorDetails = ({
           value={floorChange ? floorChange : plotDetailsFloor?.name}
           onChange={handleFloorChange}
         >
-          <option disabled value="" selected>
+          <option disabled selected value="Select Floor Name">
             Select Floor Name
           </option>
           <option>Stilt / Parking Floor</option>

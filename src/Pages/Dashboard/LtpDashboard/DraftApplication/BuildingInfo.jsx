@@ -565,7 +565,7 @@ const BuildingInfo = () => {
               value={selectedOptionCase ? selectedOptionCase : caseType}
               onChange={handleCaseTypeChange}
             >
-              <option disabled selected value="">
+              <option disabled selected value="Select Case type">
                 Select Case type
               </option>
               <option value="New">New</option>
@@ -632,7 +632,7 @@ const BuildingInfo = () => {
               }
               onChange={handlePermissionChange}
             >
-              <option disabled selected value="">
+              <option disabled selected value="Select Nature of permission">
                 Select Nature of permission
               </option>
               <option value="General">General</option>
@@ -657,7 +657,7 @@ const BuildingInfo = () => {
               }
               onChange={handleNatureChange}
             >
-              <option disabled selected value="">
+              <option disabled selected value="Select Nature of the site">
                 Select Nature of the site
               </option>
               <option value="Approved Layout">Approved Layout</option>
@@ -696,7 +696,7 @@ const BuildingInfo = () => {
               onChange={handleDistrictChange}
               value={selectedDistrict}
             >
-              <option selected value="" disabled>
+              <option disabled selected value="Select District">
                 Select District
               </option>
               {districtData.map((district) => (
@@ -719,7 +719,7 @@ const BuildingInfo = () => {
               value={selectedMandal}
               disabled={!selectedDistrict}
             >
-              <option value="" disabled>
+              <option disabled selected value="Select Mandal">
                 Select Mandal
               </option>
               {selectedDistrict &&
@@ -753,7 +753,7 @@ const BuildingInfo = () => {
               onChange={(e) => setSelectedVillage(e.target.value)}
               disabled={!selectedMandal}
             >
-              <option value="" disabled>
+              <option disabled selected value="Select Village">
                 Select Village
               </option>
               {selectedMandal &&
@@ -1027,7 +1027,7 @@ const BuildingInfo = () => {
                 value={natureOfRoadValue ? natureOfRoadValue : natureOfRoad}
                 onChange={handleNatureOfRoad}
               >
-                <option disabled selected>
+                <option disabled selected value="Select Nature of Road">
                   Select Nature of Road
                 </option>
                 <option>BT Road</option>
@@ -1243,7 +1243,7 @@ const BuildingInfo = () => {
               value={northValue ? northValue : north}
               onChange={handleNorthChange}
             >
-              <option disabled selected value="">
+              <option disabled selected value="Select North">
                 Select North
               </option>
               <option value="Road">Road</option>
@@ -1263,7 +1263,7 @@ const BuildingInfo = () => {
               value={southValue ? southValue : south}
               onChange={handleSouthChange}
             >
-              <option disabled selected value="">
+              <option disabled selected value="Select South">
                 Select South
               </option>
               <option value="Road">Road</option>
@@ -1283,7 +1283,7 @@ const BuildingInfo = () => {
               value={eastValue ? eastValue : east}
               onChange={handleEastChange}
             >
-              <option disabled selected value="">
+              <option disabled selected value="Select East">
                 Select East
               </option>
               <option value="Road">Road</option>
@@ -1303,7 +1303,7 @@ const BuildingInfo = () => {
               value={westValue ? westValue : west}
               onChange={handleWestChange}
             >
-              <option disabled selected value="">
+              <option disabled selected value="Select West">
                 Select West
               </option>
               <option value="Road">Road</option>
