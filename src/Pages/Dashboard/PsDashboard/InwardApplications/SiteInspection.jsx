@@ -632,7 +632,7 @@ const SiteInspection = () => {
 
       {/* Comment Box  */}
       <div className="flex items-center">
-        <div className="my-4 basis-[80%]">
+        <div className="mt-4 basis-[80%]">
           <label
             htmlFor="ltpAddress"
             className="block text-gray-600 mb-1 font-semibold dark:text-gray-100"
@@ -647,15 +647,7 @@ const SiteInspection = () => {
             placeholder="Comments"
           ></textarea>
         </div>
-        <div className="basic-[20%]">
-          <button className="btn btn-md text-sm px-3 mt-10 ml-3 bg-green-300 hover:bg-green-400 hover:shadow-md transition-all duration-500">
-            Save
-          </button>
-        </div>
       </div>
-      <button type="submit" onClick={collectInputFieldData} className="btn">
-        Submit
-      </button>
 
       {/* save & continue  */}
       <SaveData
