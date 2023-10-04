@@ -1,11 +1,11 @@
-import React from 'react'
-import { Link, useLocation } from 'react-router-dom';
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
 
 function PsSidebar() {
   const path = useLocation().pathname;
 
   return (
-    <div className='min-h-screen flex flex-col space-y-4'>
+    <div className="min-h-screen flex flex-col space-y-4">
       {/* <li className={`${path === "/PsDashboard" && "active"} mt-10`}>
         <span>
           <MdSpaceDashboard size={20} />
@@ -14,13 +14,23 @@ function PsSidebar() {
           Dashboard
         </Link>
       </li> */}
-      <Link to='/dashboard'><button>Dashboard</button></Link>
-      <Link to='/dashboard/Inward'><button>Inward Applications</button></Link>
-      <Link to='/PsDashboard/Outward'><button>Outward Application</button></Link>
-      <Link to='/PsDashboard/Search'><button>Search Application</button></Link>
-      <Link to='/PsDashboard/ReValidation'><button>Re-validation</button></Link>
+      <Link to="/dashboard">
+        <button>Dashboard</button>
+      </Link>
+      <Link to="/dashboard/Inward">
+        <button>Inward Applications</button>
+      </Link>
+      <Link to="/dashboard/Outward">
+        <button>Outward Application</button>
+      </Link>
+      <Link to="/dashboard/searchApplication">
+        <button>Search Application</button>
+      </Link>
+      <Link to="/dashboard/ReValidation">
+        <button>Re-validation</button>
+      </Link>
     </div>
-  )
+  );
 }
 
 export default PsSidebar;

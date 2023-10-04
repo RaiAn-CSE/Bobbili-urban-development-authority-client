@@ -22,6 +22,7 @@ import OnlinePayment from "../Pages/Main/OnlinePayment/OnlinePayment";
 import ListOfLTP from "../Pages/Main/ListOfLTP/ListOfLTP";
 import Inward from "../Pages/Dashboard/PsDashboard/InwardApplications/Inward";
 import SiteInspection from "./../Pages/Dashboard/PsDashboard/InwardApplications/SiteInspection";
+import SearchApplications from "../Pages/Dashboard/PsDashboard/SearchApplications/SearchApplications";
 
 const router = createBrowserRouter([
   {
@@ -169,6 +170,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Inward />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/searchApplication",
+        element: (
+          <PrivateRoute>
+            <SearchApplications />
           </PrivateRoute>
         ),
       },

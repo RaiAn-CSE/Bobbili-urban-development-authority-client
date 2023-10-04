@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import Inward from "../InwardApplications/Inward";
 
 function SearchApplications() {
   return (
-    <div>SearchApplications</div>
-  )
+    <>
+      <Inward />
+    </>
+  );
 }
 
 export default SearchApplications;
