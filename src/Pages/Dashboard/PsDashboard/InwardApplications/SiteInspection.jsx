@@ -14,10 +14,35 @@ const SiteInspection = () => {
 
   const [isStepperVisible, currentStep, steps] = stepperData;
 
+  const [groundPosition, setGroundPosition] = useState("");
+  const [siteBoundaries, setSiteBoundaries] = useState("");
+  const [accessRoad, setAccessRoad] = useState("");
+  const [landUse, setLandUse] = useState("");
+  const [decision, setDecision] = useState("");
+  const [recommendations, setRecommendations] = useState("");
+
   useEffect(() => {
     const getData = async () => {
       const applicationData = await getApplicationData(applicationNo);
       console.log(applicationData, "applicationData");
+
+      const groundPosition = applicationData?.siteInspection?.groundPosition;
+      setGroundPosition(groundPosition);
+
+      const siteBoundaries = applicationData?.siteInspection?.siteBoundaries;
+      setSiteBoundaries(siteBoundaries);
+
+      const accessRoad = applicationData?.siteInspection?.accessRoad;
+      setAccessRoad(accessRoad);
+
+      const landUse = applicationData?.siteInspection?.landUse;
+      setLandUse(landUse);
+
+      const decision = applicationData?.siteInspection?.decision;
+      setDecision(decision);
+
+      const recommendations = applicationData?.siteInspection?.recommendations;
+      setRecommendations(recommendations);
     };
     getData();
   }, []);
@@ -37,6 +62,8 @@ const SiteInspection = () => {
   //     console.log(formObject);
 
   // }
+
+  // Get SiteInspection Data :
 
   // Decision :
   const [radioPs, setRadioPs] = useState("");
@@ -146,10 +173,36 @@ const SiteInspection = () => {
 
     console.log(siteInspection, "SITE INSPECTION");
 
+    // fetch(`http://localhost:5000/recommendDataOfPs?appNo=${applicationNo}`, {
+    //     method: "PATCH",
+    //     headers: {
+    //         "content-type": "application/json",
+    //     },
+    //     body: JSON.stringify({ siteInspection }),
+    // })
+    //     .then((res) => res.json())
+    //     .then((result) => {
+    //         console.log(result);
+    //         if (result.acknowledged) {
+    //             toast.success("Saved data successfully");
+    //         } else {
+    //             toast.error("Server Error");
+    //         }
+    //     });
+
     return await sendUserDataIntoDB(url, "PATCH", {
       applicationNo,
       siteInspection,
     });
+  };
+
+  const sentPsDecision = async (url) => {
+    url = `http://localhost:5000/submitPsDecision?appNo=${applicationNo}`;
+    console.log(url);
+
+    const response = await fetch(url, { method: "DELETE" });
+    console.log(response);
+    return await response.json();
   };
 
   // Classes :
@@ -171,7 +224,7 @@ const SiteInspection = () => {
                     className="border-r px-6 py-4 border-neutral-500"
                   >
                     {" "}
-                    Si. No.
+                    Sl. No.
                   </th>
                   <th
                     scope="col"
@@ -209,8 +262,7 @@ const SiteInspection = () => {
                     <input
                       type="text"
                       id="natureOfSiteApp"
-                      // onChange={(e) => { inputOnChange("natureOfSite", e.target.value) }}
-                      // value={formObject.natureOfSite}
+                      defaultValue={groundPosition?.natureOfSite?.[0]}
                       placeholder="Yes/No"
                       className={inputClass}
                     />
@@ -218,6 +270,7 @@ const SiteInspection = () => {
                   <td className={inputTableDataClass}>
                     <input
                       id="natureOfSiteObs"
+                      defaultValue={groundPosition?.natureOfSite?.[1]}
                       type="text"
                       placeholder="Yes/No"
                       className={inputClass}
@@ -230,6 +283,7 @@ const SiteInspection = () => {
                     <input
                       id="siteLevelApp"
                       type="text"
+                      defaultValue={groundPosition?.siteLevel?.[0]}
                       placeholder="Yes/No"
                       className={inputClass}
                     />
@@ -238,6 +292,7 @@ const SiteInspection = () => {
                     <input
                       id="siteLevelObs"
                       type="text"
+                      defaultValue={groundPosition?.siteLevel?.[1]}
                       placeholder="Yes/No"
                       className={inputClass}
                     />
@@ -251,6 +306,7 @@ const SiteInspection = () => {
                     <input
                       id="totalAreaAsOnGroundApp"
                       type="text"
+                      defaultValue={groundPosition?.totalAreaAsOnGround?.[0]}
                       placeholder="Yes/No"
                       className={inputClass}
                     />
@@ -259,6 +315,7 @@ const SiteInspection = () => {
                     <input
                       id="totalAreaAsOnGroundObs"
                       type="text"
+                      defaultValue={groundPosition?.totalAreaAsOnGround?.[1]}
                       placeholder="Yes/No"
                       className={inputClass}
                     />
@@ -270,6 +327,7 @@ const SiteInspection = () => {
                     <input
                       id="workCommentedApp"
                       type="text"
+                      defaultValue={groundPosition?.workCommented?.[0]}
                       placeholder="Yes/No"
                       className={inputClass}
                     />
@@ -278,6 +336,7 @@ const SiteInspection = () => {
                     <input
                       id="workCommentedObs"
                       type="text"
+                      defaultValue={groundPosition?.workCommented?.[1]}
                       placeholder="Yes/No"
                       className={inputClass}
                     />
@@ -302,6 +361,7 @@ const SiteInspection = () => {
                     <input
                       id="northApp"
                       type="text"
+                      defaultValue={siteBoundaries?.north?.[0]}
                       placeholder="Yes/No"
                       className={inputClass}
                     />
@@ -310,6 +370,7 @@ const SiteInspection = () => {
                     <input
                       id="northObs"
                       type="text"
+                      defaultValue={siteBoundaries?.north?.[1]}
                       placeholder="Yes/No"
                       className={inputClass}
                     />
@@ -321,6 +382,7 @@ const SiteInspection = () => {
                     <input
                       id="southApp"
                       type="text"
+                      defaultValue={siteBoundaries?.south?.[0]}
                       placeholder="Yes/No"
                       className={inputClass}
                     />
@@ -329,6 +391,7 @@ const SiteInspection = () => {
                     <input
                       id="southObs"
                       type="text"
+                      defaultValue={siteBoundaries?.south?.[1]}
                       placeholder="Yes/No"
                       className={inputClass}
                     />
@@ -340,6 +403,7 @@ const SiteInspection = () => {
                     <input
                       id="eastApp"
                       type="text"
+                      defaultValue={siteBoundaries?.east?.[0]}
                       placeholder="Yes/No"
                       className={inputClass}
                     />
@@ -348,6 +412,7 @@ const SiteInspection = () => {
                     <input
                       id="eastObs"
                       type="text"
+                      defaultValue={siteBoundaries?.east?.[1]}
                       placeholder="Yes/No"
                       className={inputClass}
                     />
@@ -359,6 +424,7 @@ const SiteInspection = () => {
                     <input
                       id="westApp"
                       type="text"
+                      defaultValue={siteBoundaries?.west?.[0]}
                       placeholder="Yes/No"
                       className={inputClass}
                     />
@@ -367,6 +433,7 @@ const SiteInspection = () => {
                     <input
                       id="westObs"
                       type="text"
+                      defaultValue={siteBoundaries?.west?.[1]}
                       placeholder="Yes/No"
                       className={inputClass}
                     />
@@ -384,6 +451,7 @@ const SiteInspection = () => {
                     <input
                       id="scheduleOfTheDocumentsApp"
                       type="text"
+                      defaultValue={siteBoundaries?.scheduleOfTheDocuments?.[0]}
                       placeholder="Yes/No"
                       className={inputClass}
                     />
@@ -392,6 +460,7 @@ const SiteInspection = () => {
                     <input
                       id="scheduleOfTheDocumentsObs"
                       type="text"
+                      defaultValue={siteBoundaries?.scheduleOfTheDocuments?.[1]}
                       placeholder="Yes/No"
                       className={inputClass}
                     />
@@ -416,6 +485,7 @@ const SiteInspection = () => {
                     <input
                       id="natureOfRoadApp"
                       type="text"
+                      defaultValue={accessRoad?.natureOfRoad?.[0]}
                       placeholder="Yes/No"
                       className={inputClass}
                     />
@@ -424,6 +494,7 @@ const SiteInspection = () => {
                     <input
                       id="natureOfRoadObs"
                       type="text"
+                      defaultValue={accessRoad?.natureOfRoad?.[1]}
                       placeholder="Yes/No"
                       className={inputClass}
                     />
@@ -435,6 +506,7 @@ const SiteInspection = () => {
                     <input
                       id="approachRoadApp"
                       type="text"
+                      defaultValue={accessRoad?.approachRoad?.[0]}
                       placeholder="Public"
                       className={inputClass}
                     />
@@ -443,6 +515,7 @@ const SiteInspection = () => {
                     <input
                       id="approachRoadObs"
                       type="text"
+                      defaultValue={accessRoad?.approachRoad?.[1]}
                       placeholder="Public/Private"
                       className={inputClass}
                     />
@@ -454,6 +527,7 @@ const SiteInspection = () => {
                     <input
                       id="roadWidthApp"
                       type="text"
+                      defaultValue={accessRoad?.accessRoadWidth?.[0]}
                       placeholder="Yes/No"
                       className={inputClass}
                     />
@@ -462,6 +536,7 @@ const SiteInspection = () => {
                     <input
                       id="roadWidthObs"
                       type="text"
+                      defaultValue={accessRoad?.accessRoadWidth?.[1]}
                       placeholder="Yes/No"
                       className={inputClass}
                     />
@@ -475,6 +550,7 @@ const SiteInspection = () => {
                     <input
                       id="scopeOfRoadApp"
                       type="text"
+                      defaultValue={accessRoad?.scopeOfRoad?.[0]}
                       placeholder="0"
                       className={inputClass}
                     />
@@ -482,6 +558,7 @@ const SiteInspection = () => {
                   <td className={inputTableDataClass}>
                     <input
                       id="scopeOfRoadObs"
+                      defaultValue={accessRoad?.scopeOfRoad?.[1]}
                       type="text"
                       placeholder="0"
                       className={inputClass}
@@ -509,6 +586,7 @@ const SiteInspection = () => {
                     <input
                       id="landUseApp"
                       type="text"
+                      defaultValue={landUse?.landUse?.[0]}
                       placeholder="Yes/No"
                       className={inputClass}
                     />
@@ -517,6 +595,7 @@ const SiteInspection = () => {
                     <input
                       id="landUseObs"
                       type="text"
+                      defaultValue={landUse?.landUse?.[1]}
                       placeholder="Yes/No"
                       className={inputClass}
                     />
@@ -528,6 +607,7 @@ const SiteInspection = () => {
                     <input
                       id="proposedActivityApp"
                       type="text"
+                      defaultValue={landUse?.proposedActivity?.[0]}
                       placeholder="Yes/No"
                       className={inputClass}
                     />
@@ -536,6 +616,7 @@ const SiteInspection = () => {
                     <input
                       id="proposedActivityObs"
                       type="text"
+                      defaultValue={landUse?.proposedActivity?.[1]}
                       placeholder="Yes/No"
                       className={inputClass}
                     />
@@ -547,6 +628,7 @@ const SiteInspection = () => {
                     <input
                       id="landRoadWidthApp"
                       type="text"
+                      defaultValue={landUse?.landRoadWidth?.[0]}
                       placeholder="Yes/No"
                       className={inputClass}
                     />
@@ -555,6 +637,7 @@ const SiteInspection = () => {
                     <input
                       id="landRoadWidthObs"
                       type="text"
+                      defaultValue={landUse?.landRoadWidth?.[1]}
                       placeholder="Yes/No"
                       className={inputClass}
                     />
@@ -568,6 +651,7 @@ const SiteInspection = () => {
                     <input
                       id="whetherPermissionApp"
                       type="text"
+                      defaultValue={landUse?.whetherPermission?.[0]}
                       placeholder="Yes/No"
                       className={inputClass}
                     />
@@ -576,6 +660,7 @@ const SiteInspection = () => {
                     <input
                       id="whetherPermissionObs"
                       type="text"
+                      defaultValue={landUse?.whetherPermission?.[1]}
                       placeholder="Yes/No"
                       className={inputClass}
                     />
@@ -595,7 +680,11 @@ const SiteInspection = () => {
             name="radioPs"
             className="radio border border-[#10AC84] h-4 w-4"
             value="Approved"
-            // checked={radioPs === 'Approved'}
+            checked={
+              radioPs === "Approved"
+                ? radioPs === "Approved"
+                : decision === "Approved"
+            }
             onChange={handleRadioPs}
           />
           <span className="ml-2 text-base">Approved</span>
@@ -606,7 +695,11 @@ const SiteInspection = () => {
             name="radioPs"
             className="radio border border-[#10AC84] h-4 w-4"
             value="Shortfall"
-            // checked={radioPs === 'Shortfall'}
+            checked={
+              radioPs === "Shortfall"
+                ? radioPs === "Shortfall"
+                : decision === "Shortfall"
+            }
             onChange={handleRadioPs}
           />
           <span className="ml-2 text-base">Shortfall</span>
@@ -615,7 +708,7 @@ const SiteInspection = () => {
 
       {/* Comment Box  */}
       <div className="flex items-center">
-        <div className="mt-4 basis-[80%]">
+        <div className="my-4 basis-[80%]">
           <label
             htmlFor="ltpAddress"
             className="block text-gray-600 mb-1 font-semibold dark:text-gray-100"
@@ -626,6 +719,7 @@ const SiteInspection = () => {
             id="recommendations"
             name="Recommendations"
             rows="5"
+            defaultValue={recommendations}
             className="w-full px-3 py-2 border border-green-600 rounded-lg  dark:text-black"
             placeholder="Comments"
           ></textarea>
@@ -640,6 +734,7 @@ const SiteInspection = () => {
         stepperData={stepperData}
         confirmAlert={confirmAlert}
         collectInputFieldData={collectInputFieldData}
+        sentData={sentPsDecision}
       />
     </div>
   );

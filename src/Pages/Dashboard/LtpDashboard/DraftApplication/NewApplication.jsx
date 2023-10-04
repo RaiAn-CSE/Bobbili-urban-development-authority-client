@@ -70,9 +70,10 @@ const NewApplication = () => {
     const milisecond = date.getMilliseconds();
     const second = date.getSeconds();
     const hour = date.getHours();
+    const year = date.getFullYear();
 
     console.log(hour, milisecond, second);
-    const applicationNo = `${milisecond}/${hour}/${second}`;
+    const applicationNo = `1177/${milisecond}/${hour}/${second}/BUDA/${year}`;
 
     return applicationNo;
   };

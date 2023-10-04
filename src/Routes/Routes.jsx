@@ -1,5 +1,4 @@
 import { createBrowserRouter } from "react-router-dom";
-import Login from "../Pages/Main/Login/Login";
 import DashboardLayout from "../Layouts/DashboardLayout";
 import Dashboard from "../Pages/Shared/Dashboard";
 import PrivateRoute from "./PrivateRoute";
@@ -22,6 +21,9 @@ import OnlinePayment from "../Pages/Main/OnlinePayment/OnlinePayment";
 import ListOfLTP from "../Pages/Main/ListOfLTP/ListOfLTP";
 import Inward from "../Pages/Dashboard/PsDashboard/InwardApplications/Inward";
 import SiteInspection from "./../Pages/Dashboard/PsDashboard/InwardApplications/SiteInspection";
+import SearchApplications from "../Pages/Dashboard/PsDashboard/SearchApplications/SearchApplications";
+import Outward from "../Pages/Dashboard/PsDashboard/OutwardApplications/Outward";
+import ReValidation from "../Pages/Dashboard/PsDashboard/ReValidation/ReValidation";
 
 const router = createBrowserRouter([
   {
@@ -169,6 +171,30 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Inward />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/outwardApplication",
+        element: (
+          <PrivateRoute>
+            <Outward />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/searchApplication",
+        element: (
+          <PrivateRoute>
+            <SearchApplications />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/reValidation",
+        element: (
+          <PrivateRoute>
+            <ReValidation />
           </PrivateRoute>
         ),
       },
