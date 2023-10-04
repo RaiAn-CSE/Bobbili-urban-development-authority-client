@@ -1,16 +1,12 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import SaveData from "../../LtpDashboard/DraftApplication/SaveData";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import { useOutletContext } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const SiteInspection = () => {
-  const {
-    confirmAlert,
-    sendUserDataIntoDB,
-    userInfoFromLocalStorage,
-    getApplicationData,
-  } = useContext(AuthContext);
+  const { confirmAlert, sendUserDataIntoDB, getApplicationData } =
+    useContext(AuthContext);
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
 
@@ -42,12 +38,17 @@ const SiteInspection = () => {
 
   // }
 
-  const siteLevel = useRef();
+  // Decision :
+  const [radioPs, setRadioPs] = useState("");
+  const handleRadioPs = (e) => {
+    setRadioPs(e.target.value);
+  };
 
   const collectInputFieldData = async (url) => {
+    // Ground Position :
     const natureOfSiteApp = document.getElementById("natureOfSiteApp").value;
     const natureOfSiteObs = document.getElementById("natureOfSiteObs").value;
-    const siteLevelApp = siteLevel.current.value;
+    const siteLevelApp = document.getElementById("siteLevelApp").value;
     const siteLevelObs = document.getElementById("siteLevelObs").value;
     const totalAreaAsOnGroundApp = document.getElementById(
       "totalAreaAsOnGroundApp"
@@ -57,14 +58,7 @@ const SiteInspection = () => {
     ).value;
     const workCommentedApp = document.getElementById("workCommentedApp").value;
     const workCommentedObs = document.getElementById("workCommentedObs").value;
-
-    const groundPosition = {
-      natureOfSite: [natureOfSiteApp, natureOfSiteObs],
-      siteLevel: [siteLevelApp, siteLevelObs],
-      totalAreaAsOnGround: [totalAreaAsOnGroundApp, totalAreaAsOnGroundObs],
-      workCommented: [workCommentedApp, workCommentedObs],
-    };
-
+    // Site Boundaries :
     const northApp = document.getElementById("northApp").value;
     const northObs = document.getElementById("northObs").value;
     const southApp = document.getElementById("southApp").value;
@@ -79,6 +73,41 @@ const SiteInspection = () => {
     const scheduleOfTheDocumentsObs = document.getElementById(
       "scheduleOfTheDocumentsObs"
     ).value;
+    // Access Road :
+    const natureOfRoadApp = document.getElementById("natureOfRoadApp").value;
+    const natureOfRoadObs = document.getElementById("natureOfRoadObs").value;
+    const approachRoadApp = document.getElementById("approachRoadApp").value;
+    const approachRoadObs = document.getElementById("approachRoadObs").value;
+    const roadWidthApp = document.getElementById("roadWidthApp").value;
+    const roadWidthObs = document.getElementById("roadWidthObs").value;
+    const scopeOfRoadApp = document.getElementById("scopeOfRoadApp").value;
+    const scopeOfRoadObs = document.getElementById("scopeOfRoadObs").value;
+    // Land Use :
+    const landUseApp = document.getElementById("landUseApp").value;
+    const landUseObs = document.getElementById("landUseObs").value;
+    const proposedActivityApp = document.getElementById(
+      "proposedActivityApp"
+    ).value;
+    const proposedActivityObs = document.getElementById(
+      "proposedActivityObs"
+    ).value;
+    const landRoadWidthApp = document.getElementById("landRoadWidthApp").value;
+    const landRoadWidthObs = document.getElementById("landRoadWidthApp").value;
+    const whetherPermissionApp = document.getElementById(
+      "whetherPermissionApp"
+    ).value;
+    const whetherPermissionObs = document.getElementById(
+      "whetherPermissionObs"
+    ).value;
+    // Comments
+    const recommendations = document.getElementById("recommendations").value;
+
+    const groundPosition = {
+      natureOfSite: [natureOfSiteApp, natureOfSiteObs],
+      siteLevel: [siteLevelApp, siteLevelObs],
+      totalAreaAsOnGround: [totalAreaAsOnGroundApp, totalAreaAsOnGroundObs],
+      workCommented: [workCommentedApp, workCommentedObs],
+    };
 
     const siteBoundaries = {
       north: [northApp, northObs],
@@ -91,19 +120,51 @@ const SiteInspection = () => {
       ],
     };
 
-    const accessRoad = {};
-    const landUse = {};
+    const accessRoad = {
+      natureOfRoad: [natureOfRoadApp, natureOfRoadObs],
+      approachRoad: [approachRoadApp, approachRoadObs],
+      accessRoadWidth: [roadWidthApp, roadWidthObs],
+      scopeOfRoad: [scopeOfRoadApp, scopeOfRoadObs],
+    };
 
+    const landUse = {
+      landUse: [landUseApp, landUseObs],
+      proposedActivity: [proposedActivityApp, proposedActivityObs],
+      landRoadWidth: [landRoadWidthApp, landRoadWidthObs],
+      whetherPermission: [whetherPermissionApp, whetherPermissionObs],
+    };
+
+    // All Information :
     const siteInspection = {
       groundPosition,
       siteBoundaries,
       accessRoad,
       landUse,
+      decision: radioPs,
+      recommendations,
     };
 
     console.log(siteInspection, "SITE INSPECTION");
 
+    fetch(`http://localhost:5000/recommendDataOfPs?appNo=${applicationNo}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ siteInspection }),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        if (result.acknowledged) {
+          toast.success("Saved data successfully");
+        } else {
+          toast.error("Server Error");
+        }
+      });
+
     return await sendUserDataIntoDB(url, "PATCH", {
+      applicationNo,
       siteInspection,
     });
   };
@@ -115,10 +176,7 @@ const SiteInspection = () => {
   const inputTableDataClass = "whitespace-nowrap border-r border-neutral-500";
 
   return (
-    <div
-      // onSubmit={formSubmit}
-      className="flex flex-col sm:px-6 lg:px-8"
-    >
+    <div className="flex flex-col sm:px-6 lg:px-8">
       <div className="overflow-x-auto">
         <div className="inline-block min-w-full py-2">
           <div className="overflow-hidden">
@@ -187,10 +245,10 @@ const SiteInspection = () => {
                   <td className={tableDataClass}>Site level</td>
                   <td className={inputTableDataClass}>
                     <input
+                      id="siteLevelApp"
                       type="text"
                       placeholder="Yes/No"
                       className={inputClass}
-                      ref={siteLevel}
                     />
                   </td>
                   <td className={inputTableDataClass}>
@@ -373,6 +431,7 @@ const SiteInspection = () => {
                   <td className={tableDataClass}>Nature of Road</td>
                   <td className={inputTableDataClass}>
                     <input
+                      id="natureOfRoadApp"
                       type="text"
                       placeholder="Yes/No"
                       className={inputClass}
@@ -380,6 +439,7 @@ const SiteInspection = () => {
                   </td>
                   <td className={inputTableDataClass}>
                     <input
+                      id="natureOfRoadObs"
                       type="text"
                       placeholder="Yes/No"
                       className={inputClass}
@@ -390,6 +450,7 @@ const SiteInspection = () => {
                   <td className={tableDataClass}>Status of Approach Road</td>
                   <td className={inputTableDataClass}>
                     <input
+                      id="approachRoadApp"
                       type="text"
                       placeholder="Public"
                       className={inputClass}
@@ -397,6 +458,7 @@ const SiteInspection = () => {
                   </td>
                   <td className={inputTableDataClass}>
                     <input
+                      id="approachRoadObs"
                       type="text"
                       placeholder="Public/Private"
                       className={inputClass}
@@ -407,6 +469,7 @@ const SiteInspection = () => {
                   <td className={tableDataClass}>Road Width</td>
                   <td className={inputTableDataClass}>
                     <input
+                      id="roadWidthApp"
                       type="text"
                       placeholder="Yes/No"
                       className={inputClass}
@@ -414,6 +477,7 @@ const SiteInspection = () => {
                   </td>
                   <td className={inputTableDataClass}>
                     <input
+                      id="roadWidthObs"
                       type="text"
                       placeholder="Yes/No"
                       className={inputClass}
@@ -426,13 +490,19 @@ const SiteInspection = () => {
                   </td>
                   <td className={inputTableDataClass}>
                     <input
+                      id="scopeOfRoadApp"
                       type="text"
-                      placeholder="Yes/No"
+                      placeholder="0"
                       className={inputClass}
                     />
                   </td>
                   <td className={inputTableDataClass}>
-                    <input type="text" placeholder="0" className={inputClass} />
+                    <input
+                      id="scopeOfRoadObs"
+                      type="text"
+                      placeholder="0"
+                      className={inputClass}
+                    />
                   </td>
                 </tr>
 
@@ -454,6 +524,7 @@ const SiteInspection = () => {
                   </td>
                   <td className={inputTableDataClass}>
                     <input
+                      id="landUseApp"
                       type="text"
                       placeholder="Yes/No"
                       className={inputClass}
@@ -461,6 +532,7 @@ const SiteInspection = () => {
                   </td>
                   <td className={inputTableDataClass}>
                     <input
+                      id="landUseObs"
                       type="text"
                       placeholder="Yes/No"
                       className={inputClass}
@@ -471,6 +543,7 @@ const SiteInspection = () => {
                   <td className={tableDataClass}>Proposed activity</td>
                   <td className={inputTableDataClass}>
                     <input
+                      id="proposedActivityApp"
                       type="text"
                       placeholder="Yes/No"
                       className={inputClass}
@@ -478,6 +551,7 @@ const SiteInspection = () => {
                   </td>
                   <td className={inputTableDataClass}>
                     <input
+                      id="proposedActivityObs"
                       type="text"
                       placeholder="Yes/No"
                       className={inputClass}
@@ -488,6 +562,7 @@ const SiteInspection = () => {
                   <td className={tableDataClass}>Road Width</td>
                   <td className={inputTableDataClass}>
                     <input
+                      id="landRoadWidthApp"
                       type="text"
                       placeholder="Yes/No"
                       className={inputClass}
@@ -495,6 +570,7 @@ const SiteInspection = () => {
                   </td>
                   <td className={inputTableDataClass}>
                     <input
+                      id="landRoadWidthObs"
                       type="text"
                       placeholder="Yes/No"
                       className={inputClass}
@@ -507,6 +583,7 @@ const SiteInspection = () => {
                   </td>
                   <td className={inputTableDataClass}>
                     <input
+                      id="whetherPermissionApp"
                       type="text"
                       placeholder="Yes/No"
                       className={inputClass}
@@ -514,6 +591,7 @@ const SiteInspection = () => {
                   </td>
                   <td className={inputTableDataClass}>
                     <input
+                      id="whetherPermissionObs"
                       type="text"
                       placeholder="Yes/No"
                       className={inputClass}
@@ -535,6 +613,7 @@ const SiteInspection = () => {
             className="radio border border-[#10AC84] h-4 w-4"
             value="Approved"
             // checked={radioPs === 'Approved'}
+            onChange={handleRadioPs}
           />
           <span className="ml-2 text-base">Approved</span>
         </label>
@@ -545,6 +624,7 @@ const SiteInspection = () => {
             className="radio border border-[#10AC84] h-4 w-4"
             value="Shortfall"
             // checked={radioPs === 'Shortfall'}
+            onChange={handleRadioPs}
           />
           <span className="ml-2 text-base">Shortfall</span>
         </label>
@@ -567,11 +647,11 @@ const SiteInspection = () => {
             placeholder="Comments"
           ></textarea>
         </div>
-        {/* <div className="basic-[20%]">
+        <div className="basic-[20%]">
           <button className="btn btn-md text-sm px-3 mt-10 ml-3 bg-green-300 hover:bg-green-400 hover:shadow-md transition-all duration-500">
             Save
           </button>
-        </div> */}
+        </div>
       </div>
       <button type="submit" onClick={collectInputFieldData} className="btn">
         Submit
