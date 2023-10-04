@@ -14,7 +14,7 @@ const MainLayout = () => {
         to="/applicationSearch"
         type="button"
         className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium border-b border-gray-200 rounded-t-lg ${
-          path.includes("applicationSearch") ? "bg-violetDark" : ""
+          path.includes("applicationSearch") ? "bg-violetLight" : ""
         }`}
       >
         Application Search
@@ -22,8 +22,8 @@ const MainLayout = () => {
       <Link
         to="/onlinePayment"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium border-b border-gray-200  hover:bg-violetDark ${
-          path.includes("onlinePayment") ? "bg-violetDark" : ""
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium border-b border-gray-200  hover:bg-violetLight ${
+          path.includes("onlinePayment") ? "bg-violetLight" : ""
         }`}
       >
         Online Payment
@@ -31,16 +31,16 @@ const MainLayout = () => {
       <Link
         to="/listOfLTP"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium border-b border-gray-200 hover:bg-violetDark ${
-          path.includes("listOfLTP") ? "bg-violetDark" : ""
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium border-b border-gray-200 hover:bg-violetLight ${
+          path.includes("listOfLTP") ? "bg-violetLight" : ""
         }`}
       >
         List of LTP's
       </Link>
       <Link
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium rounded-b-lg border-b hover:bg-violetDark ${
-          path.includes("demoVideos") ? "bg-violetDark" : ""
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium rounded-b-lg border-b hover:bg-violetLight ${
+          path.includes("demoVideos") ? "bg-violetLight" : ""
         }`}
       >
         Demo Videos
