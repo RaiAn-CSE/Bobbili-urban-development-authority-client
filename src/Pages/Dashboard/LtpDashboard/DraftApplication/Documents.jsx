@@ -18,11 +18,15 @@ const DocumentUpload = () => {
   const [recomendationMessage, setRecomendationMessage] = useState("");
   const stepperData = useOutletContext();
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
-  const { confirmAlert, sendUserDataIntoDB, getApplicationData } =
-    useContext(AuthContext);
+  const {
+    confirmAlert,
+    sendUserDataIntoDB,
+    getApplicationData,
+    userInfoFromLocalStorage,
+  } = useContext(AuthContext);
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
-  const path = "PS";
+  const role = userInfoFromLocalStorage().role;
 
   const handleFileChange = (event, index) => {
     const file = event?.target?.files[0];
@@ -181,11 +185,11 @@ const DocumentUpload = () => {
                       target="_blank"
                       className="hover:underline mr-6 py-2 px-5 bg-gray-200 rounded-xl sm:rounded-full text-center"
                     >
-                      {path == "LTP" ? "View old File" : "View File"}
+                      {role == "LTP" ? "View old File" : "View File"}
                     </Link>
                   )}
                   {/* Approved Button */}
-                  {path !== "PS" ? (
+                  {role !== "PS" ? (
                     <input
                       name={id}
                       type="file"
@@ -239,7 +243,7 @@ const DocumentUpload = () => {
           ""
         )}
       </form>
-      {path === "PS" ? (
+      {role === "PS" ? (
         <DocumentFooter
           setApprovedConfirmation={setApprovedConfirmation}
           setRecomendationMessage={setRecomendationMessage}
