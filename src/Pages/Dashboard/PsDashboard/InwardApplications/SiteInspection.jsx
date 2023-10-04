@@ -152,6 +152,15 @@ const SiteInspection = () => {
     });
   };
 
+  const sentPsDecision = async (url) => {
+    url = `http://localhost:5000/submitPsDecision?appNo=${applicationNo}`;
+    console.log(url);
+
+    const response = await fetch(url, { method: "DELETE" });
+    console.log(response);
+    return await response.json();
+  };
+
   // Classes :
   const tableDataClass =
     "whitespace-nowrap border-r px-6 py-4 border-neutral-500";
@@ -640,6 +649,7 @@ const SiteInspection = () => {
         stepperData={stepperData}
         confirmAlert={confirmAlert}
         collectInputFieldData={collectInputFieldData}
+        setSentData={sentPsDecision}
       />
     </div>
   );

@@ -90,7 +90,7 @@ const SaveData = ({
                 <button
                   className="btn btn-md text-sm px-3 mt-10 ml-3 bg-green-300 hover:bg-green-400 hover:shadow-md transition-all duration-500"
                   onClick={() => {
-                    confirmAlert(undefined, collectInputFieldData);
+                    confirmAlert(undefined, setSentData);
                   }}
                 >
                   Submit
