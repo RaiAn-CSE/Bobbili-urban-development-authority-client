@@ -31,7 +31,7 @@ const Drawing = () => {
     userInfoFromLocalStorage,
   } = useContext(AuthContext);
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
-  const role = userInfoFromLocalStorage().role;
+  const role = "PS"// userInfoFromLocalStorage().role;
 
   useEffect(() => {
     localStorage.setItem("selectedFiles", JSON.stringify(["", ""]));
@@ -136,7 +136,9 @@ const Drawing = () => {
       });
     }
   };
-  const path = "PS";
+  // Apu vai send ps data from here
+  const psData = { applicationNo, approvedConfirmation, message: recomendationMessage }
+
   return (
     <>
       <div className="text-end mb-4">

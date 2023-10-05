@@ -155,13 +155,14 @@ const DocumentUpload = () => {
       });
     }
   };
-  // PS data select and Send data
+  // PS data select and Send data 
   const PSKeys = ['id', 'approved'];
   const PSArray = UpdatedDocuments.map(({ ...obj }) =>
     PSKeys.reduce((acc, key) => ((acc[key] = obj[key]), acc), {})
   );
- const PSData={applicationNo,approvedConfirmation,message:recomendationMessage,...PSArray}
-//  Now send data to ps db
+ const PSData={applicationNo,approvedConfirmation,message:recomendationMessage,...PSArray};
+ 
+//  send data to ps db (Apu vai send ps data from here)
 
 // ps data get
 
