@@ -14,31 +14,30 @@ const DashboardLayout = () => {
   return (
     <>
       <Navbar />
-      <div className="drawer h-full relative">
-        <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
+      <div className="drawer h-full relative transition-all duration-700">
+        <input id="my-drawer-2" type="checkbox" className="drawer-toggle " />
         <div className="drawer-content p-2">
           {/* <!-- Page content here --> */}
 
           <label
             htmlFor="my-drawer-2"
-            className="btn btn-sm bg-[#10AC84] text-white border-0 drawer-button "
+            className="btn btn-md m-2 bg-violetLight shadow-md shadow-violetLight text-white border-0 drawer-button transition-all duration-700 hover:bg-black hover:shadow-black "
           >
-            <MdOutlineMenuOpen />
-            Sidebar
+            <MdOutlineMenuOpen size={24} />
           </label>
           <Outlet></Outlet>
         </div>
-        <div className="drawer-side shadow-md z-10 ">
+        <div className="drawer-side shadow-md z-10">
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
 
           <ul
-            className={`ps-3 w-full md:w-80 pt-4 h-screen  bg-black font-bold text-lg text-white fixed md:top-16`}
+            className={`ps-3 w-full md:w-80 pt-4 h-screen bg-black font-roboto font-bold  text-xl text-white fixed md:top-16`}
           >
             {/* <!-- Sidebar content here --> */}
             <li className="absolute right-2 top-4">
               <label
                 htmlFor="my-drawer-2"
-                className="btn btn-sm btn-circle bg-black  text-white"
+                className="btn btn-sm btn-circle bg-black text-white hover:bg-violetDark hover:border-0 "
               >
                 ✕
               </label>

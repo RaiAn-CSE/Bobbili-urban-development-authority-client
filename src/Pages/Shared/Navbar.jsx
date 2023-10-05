@@ -40,7 +40,7 @@ const Navbar = () => {
     <div className="navbar bg-base-100 sticky top-0 z-50 shadow-md">
       <div className="flex-1">
         <Link to="/dashboard" className="btn btn-ghost normal-case text-xl">
-          <img className="h-full" src={Logo} alt="The logo of the website" />
+          {/* <img className="h-full" src={Logo} alt="The logo of the website" /> */}
           <p className="hidden lg:block">Bobbili Urban Development Authority</p>
         </Link>
       </div>
