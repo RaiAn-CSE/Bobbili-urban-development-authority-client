@@ -40,10 +40,7 @@ const Drawing = () => {
       setSavedData(res);
       if (Object.keys(res?.drawing).length) {
         const drawingDataFromDB = res?.drawing;
-        console.log(drawingDataFromDB);
         setImageId(drawingDataFromDB);
-        console.log(imageId);
-        console.log("object");
       }
     });
   }, []);

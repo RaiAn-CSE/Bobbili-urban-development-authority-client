@@ -99,7 +99,6 @@ const DocumentUpload = () => {
   }, []);
 
   useEffect(() => {
-    console.log(UpdatedDocuments);
     const emptyArray = Array.from({ length: UpdatedDocuments.length });
     setSelectedFiles(emptyArray);
     setImageId(emptyArray);
@@ -148,7 +147,6 @@ const DocumentUpload = () => {
     }
 
     if (fileCheckToUpload === selectedFiles.length) {
-      console.log(imageId, "IMAGE IDS");
       return await sendUserDataIntoDB(url, "PATCH", {
         applicationNo,
         documents: imageId,
@@ -159,12 +157,14 @@ const DocumentUpload = () => {
   };
   // PS data select and Send data
   const PSKeys = ['id', 'approved'];
-
   const PSArray = UpdatedDocuments.map(({ ...obj }) =>
     PSKeys.reduce((acc, key) => ((acc[key] = obj[key]), acc), {})
   );
  const PSData={applicationNo,approvedConfirmation,message:recomendationMessage,...PSArray}
- console.log({PSData})
+//  Now send data to ps db
+
+// ps data get
+
   return (
     <div>
       <div className="text-end mb-4">
