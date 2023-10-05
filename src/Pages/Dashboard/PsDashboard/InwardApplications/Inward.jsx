@@ -25,7 +25,7 @@ const Inward = () => {
   const { data, refetch, isLoading, isError, isSuccess } = useQuery(
     ["allSubmitApplication"],
     async () => {
-      const response = await fetch(`https://residential-building.vercel.app/submitApplications`);
+      const response = await fetch(`http://localhost:5000/submitApplications`);
       return await response.json();
     }
   );

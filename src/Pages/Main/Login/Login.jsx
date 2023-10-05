@@ -110,7 +110,7 @@ const Login = () => {
   // if (loading) {
   //   return "Loading...";
   // }
-  let [color, setColor] = useState("#36d7b7");
+  let [color, setColor] = useState("#a36ee0");
   const override = {
     display: "block",
     width: "fit-content",

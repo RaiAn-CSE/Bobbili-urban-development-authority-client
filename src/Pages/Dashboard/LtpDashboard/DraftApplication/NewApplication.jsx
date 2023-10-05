@@ -23,7 +23,7 @@ const NewApplication = () => {
     ["draftApplications"],
     async () => {
       const response = await fetch(
-        `https://residential-building.vercel.app/draftApplications/${userID}`
+        `http://localhost:5000/draftApplications/${userID}`
       );
       return await response.json();
     }
@@ -44,7 +44,7 @@ const NewApplication = () => {
 
   const removeDraftApplication = (applicationNo) => {
     console.log(applicationNo, "DELTE APP NO");
-    fetch(`https://residential-building.vercel.app/deleteSingleDraft`, {
+    fetch(`http://localhost:5000/deleteSingleDraft`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
@@ -80,7 +80,7 @@ const NewApplication = () => {
 
   // store new application information into the database
   const storeApplicationData = () => {
-    const url = `https://residential-building.vercel.app/addApplication`;
+    const url = `http://localhost:5000/addApplication`;
 
     const day = date.getDate().toString().padStart(2, "0");
     const month = (date.getMonth() + 1).toString().padStart(2, "0");

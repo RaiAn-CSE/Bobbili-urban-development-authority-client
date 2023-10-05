@@ -117,7 +117,7 @@ const DocumentUpload = () => {
         formData.append("file", selectedFiles[i]);
         try {
           const response = await axios.post(
-            "https://residential-building.vercel.app/upload?page=document",
+            "http://localhost:5000/upload?page=document",
             formData,
             {
               headers: {
@@ -152,12 +152,19 @@ const DocumentUpload = () => {
       return await sendUserDataIntoDB(url, "PATCH", {
         applicationNo,
         documents: imageId,
-        approved: approvedConfirmation, message: recomendationMessage
+        approved: approvedConfirmation,
+        message: recomendationMessage,
       });
     }
   };
+
+  const sentPsDecision = () => {
+    const approved = UpdatedDocuments.filter((data) => data.approved);
+
+    console.log(approved, recomendationMessage);
+  };
   // const PSDocumentInfo={applicationNo,documents:imageId,approved:approvedConfirmation,message:recomendationMessage}
-  console.log({ UpdatedDocuments })
+  console.log({ UpdatedDocuments });
   return (
     <div>
       <div className="text-end mb-4">
@@ -258,13 +265,17 @@ const DocumentUpload = () => {
       ) : (
         ""
       )}
+
+      <input type="submit" value="get" onClick={sentPsDecision} />
       <SaveData
         isStepperVisible={isStepperVisible}
         currentStep={currentStep}
         steps={steps}
         stepperData={stepperData}
         confirmAlert={confirmAlert}
-        collectInputFieldData={handleFileUpload}
+        collectInputFieldData={
+          role === "LTP" ? handleFileUpload : sentPsDecision
+        }
       />
     </div>
   );
