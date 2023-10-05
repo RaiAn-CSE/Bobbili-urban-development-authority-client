@@ -10,12 +10,16 @@ import sidebarStyle from "../../Style/dashboardSidebar.module.css";
 const LtpSidebar = () => {
   const path = useLocation().pathname;
 
-  const liClass = ''
+  const liClass = "";
 
   // console.log(location);
   return (
-    <div className={`${sidebarStyle.links}`}>
-      <li className={`${path === "/dashboard" && "active"} mt-10`}>
+    <>
+      <li
+        className={`${
+          path === "/dashboard" && "bg-violetDark rounded-lg"
+        } mt-10 flex items-center ps-4`}
+      >
         <span>
           <MdSpaceDashboard size={20} />
         </span>
@@ -25,43 +29,57 @@ const LtpSidebar = () => {
       </li>
 
       <li
-        className={`${(path === "/dashboard/draftApplication" ||
-          path === "/dashboard/draftApplication/buildingInfo" ||
-          path === "/dashboard/draftApplication/applicantInfo" ||
-          path === "/dashboard/draftApplication/applicationChecklist" ||
-          path === "/dashboard/draftApplication/documents" ||
-          path === "/dashboard/draftApplication/drawing" ||
-          path === "/dashboard/draftApplication/payment") &&
-          "active"
-          }`}
+        className={`${
+          (path === "/dashboard/draftApplication" ||
+            path === "/dashboard/draftApplication/buildingInfo" ||
+            path === "/dashboard/draftApplication/applicantInfo" ||
+            path === "/dashboard/draftApplication/applicationChecklist" ||
+            path === "/dashboard/draftApplication/documents" ||
+            path === "/dashboard/draftApplication/drawing" ||
+            path === "/dashboard/draftApplication/payment") &&
+          "bg-violetDark"
+        } flex items-center ps-4`}
       >
         <span>
           <BiSolidImageAdd size={22} />
         </span>
-        <Link className="p-[10px]  font-medium " to="/dashboard/draftApplication" >
+        <Link
+          className="p-[10px] font-medium "
+          to="/dashboard/draftApplication"
+        >
           Draft Application
         </Link>
       </li>
 
-      <li className={`${path === "/dashboard/submitApplication" && "active"}`}>
+      <li
+        className={`${
+          path === "/dashboard/submitApplication" && "bg-violetDark"
+        } flex items-center ps-4`}
+      >
         <span>
           <BsSendCheckFill size={19} />
         </span>
-        <Link className="p-[10px]  font-medium " to="/dashboard/submitApplication" >
+        <Link
+          className="p-[10px] font-medium"
+          to="/dashboard/submitApplication"
+        >
           Submitted App:
         </Link>
       </li>
 
-      <li>
+      <li className="flex items-center ps-4">
         <span>
           <BiCheckDouble size={23} />
         </span>
-        <Link className="p-[10px]  font-medium " to="/dashboard/submitApplication">
+        <Link
+          className="p-[10px]  font-medium "
+          to="/dashboard/submitApplication"
+        >
           Approved
         </Link>
       </li>
 
-      <li>
+      <li className="flex items-center ps-4">
         <span>
           <AiOutlineForm size={20} />
         </span>
@@ -70,7 +88,7 @@ const LtpSidebar = () => {
         </Link>
       </li>
 
-      <li>
+      <li className="flex items-center ps-4">
         <span>
           <CgDanger size={22} />
         </span>
@@ -79,7 +97,7 @@ const LtpSidebar = () => {
         </Link>
       </li>
 
-      <li className="mt-5">
+      <li className="mt-5 flex items-center ps-4">
         <span>
           <MdOutlineLogout size={22} />
         </span>
@@ -87,7 +105,7 @@ const LtpSidebar = () => {
           Logout
         </Link>
       </li>
-    </div>
+    </>
   );
 };
 
