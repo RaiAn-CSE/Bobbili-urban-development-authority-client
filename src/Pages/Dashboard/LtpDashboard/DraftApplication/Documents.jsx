@@ -60,7 +60,7 @@ const DocumentUpload = () => {
       // Adding checklist Data to Document from server data
       if (applicationCheckList.length) {
         // Declare the array here
-        applicationCheckList.forEach((data, index) => {
+        applicationCheckList?.forEach((data, index) => {
           const already = UpdatedDocuments.find(
             (document) => document.question === data.question
           );
@@ -82,7 +82,7 @@ const DocumentUpload = () => {
 
       setUpdatedDocuments([...UpdatedDocuments, ...updatedDocumentsToAdd]);
 
-      //Updating Data from server Data
+      // Updating Data from server Data
       // RECEIVED DOCUMENT DATA FROM THE DB & STORE THEM IN THE UPDATED DOCUMENT STATE
       if (Object.keys(documents).length) {
         setUpdatedDocuments((prev) => {
@@ -152,12 +152,19 @@ const DocumentUpload = () => {
       return await sendUserDataIntoDB(url, "PATCH", {
         applicationNo,
         documents: imageId,
-        approved: approvedConfirmation, message: recomendationMessage
+        approved: approvedConfirmation,
+        message: recomendationMessage
       });
     }
   };
-  // const PSDocumentInfo={applicationNo,documents:imageId,approved:approvedConfirmation,message:recomendationMessage}
-  console.log({ UpdatedDocuments })
+  // PS data select and Send data
+  const PSKeys = ['id', 'approved'];
+
+  const PSArray = UpdatedDocuments.map(({ ...obj }) =>
+    PSKeys.reduce((acc, key) => ((acc[key] = obj[key]), acc), {})
+  );
+ const PSData={applicationNo,approvedConfirmation,message:recomendationMessage,...PSArray}
+ console.log({PSData})
   return (
     <div>
       <div className="text-end mb-4">

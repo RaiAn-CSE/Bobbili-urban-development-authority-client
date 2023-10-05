@@ -7,6 +7,7 @@ function DocumentFooter({ approvedConfirmation,setApprovedConfirmation, setRecom
     const handleConfirmation = (data) => {
         setApprovedConfirmation(data)
     }
+    const path="LTP"
     return (
         <div>
             <div className="lg:ml-6">
@@ -35,7 +36,7 @@ function DocumentFooter({ approvedConfirmation,setApprovedConfirmation, setRecom
                     </label>
                 </div>
                 {/* Recomendation */}
-                <div>
+                <div className={`${path}`}>
                     <p className="mb-4 font-bold">Recomendation</p>
                     <textarea onChange={(e) => handleRecomendationMessage(e)} className="textarea textarea-bordered border-black" cols={80} rows={5} name="recomendation"></textarea>
                 </div>
