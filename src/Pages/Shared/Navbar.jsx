@@ -9,7 +9,7 @@ import { MdOutlineDarkMode } from "react-icons/md";
 const Navbar = () => {
   const navigate = useNavigate();
 
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState(localStorage.getItem("theme"));
 
   useEffect(() => {
     // console.log("theme" in localStorage);
@@ -19,14 +19,17 @@ const Navbar = () => {
       window.matchMedia("(prefers-color-scheme: dark)").matches
     ) {
       document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
     } else {
       document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
 
       // console.log(theme);
     }
 
     return () => {
       document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
     };
   }, [theme]);
 
