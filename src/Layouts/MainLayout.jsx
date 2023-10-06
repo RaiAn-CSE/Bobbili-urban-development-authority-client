@@ -8,13 +8,14 @@ import customScroll from "../Style/Scrollbar.module.css";
 
 const MainLayout = () => {
   const path = useLocation().pathname;
+  const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
   const menu = (
     <>
       <Link
         to="/applicationSearch"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium border-b border-gray-200 rounded-t-lg ${
-          path.includes("applicationSearch") ? "bg-violetLight" : ""
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium border-b border-gray-200 rounded-t-lg hover:${gradientColor} ${
+          path.includes("applicationSearch") ? gradientColor : ""
         }`}
       >
         Application Search
@@ -22,8 +23,8 @@ const MainLayout = () => {
       <Link
         to="/onlinePayment"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium border-b border-gray-200  hover:bg-violetLight ${
-          path.includes("onlinePayment") ? "bg-violetLight" : ""
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium border-b border-gray-200  hover:${gradientColor} ${
+          path.includes("onlinePayment") ? gradientColor : ""
         }`}
       >
         Online Payment
@@ -31,16 +32,16 @@ const MainLayout = () => {
       <Link
         to="/listOfLTP"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium border-b border-gray-200 hover:bg-violetLight ${
-          path.includes("listOfLTP") ? "bg-violetLight" : ""
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium border-b border-gray-200 hover:${gradientColor} ${
+          path.includes("listOfLTP") ? gradientColor : ""
         }`}
       >
         List of LTP's
       </Link>
       <Link
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium rounded-b-lg border-b hover:bg-violetLight ${
-          path.includes("demoVideos") ? "bg-violetLight" : ""
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium rounded-b-lg border-b hover:${gradientColor} ${
+          path.includes("demoVideos") ? gradientColor : ""
         }`}
       >
         Demo Videos
