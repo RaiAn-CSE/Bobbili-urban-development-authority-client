@@ -12,7 +12,7 @@ const ListOfLTP = () => {
 
   console.log(filteredData, "FILTERED DATA");
   return (
-    <>
+    <div>
       <form>
         <label
           htmlFor="default-search"
@@ -97,7 +97,7 @@ const ListOfLTP = () => {
           </table>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

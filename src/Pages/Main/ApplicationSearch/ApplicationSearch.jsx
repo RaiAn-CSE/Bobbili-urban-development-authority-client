@@ -50,7 +50,7 @@ const ApplicationSearch = () => {
 
   console.log(filteredData);
   return (
-    <>
+    <div>
       <form>
         {/* <label
           htmlFor="default-search"
@@ -223,7 +223,7 @@ const ApplicationSearch = () => {
           <h4 className="text-base font-semibold">Proceeding</h4>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
