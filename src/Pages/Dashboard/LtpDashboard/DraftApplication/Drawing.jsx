@@ -31,7 +31,7 @@ const Drawing = () => {
     userInfoFromLocalStorage,
   } = useContext(AuthContext);
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
-  const role = userInfoFromLocalStorage().role;
+  const role = "PS"// userInfoFromLocalStorage().role;
 
   useEffect(() => {
     localStorage.setItem("selectedFiles", JSON.stringify(["", ""]));
@@ -40,10 +40,7 @@ const Drawing = () => {
       setSavedData(res);
       if (Object.keys(res?.drawing).length) {
         const drawingDataFromDB = res?.drawing;
-        console.log(drawingDataFromDB);
         setImageId(drawingDataFromDB);
-        console.log(imageId);
-        console.log("object");
       }
     });
   }, []);
@@ -139,7 +136,9 @@ const Drawing = () => {
       });
     }
   };
-  const path = "PS";
+  // Apu vai send ps data from here
+  const psData = { applicationNo, approvedConfirmation, message: recomendationMessage }
+
   return (
     <>
       <form

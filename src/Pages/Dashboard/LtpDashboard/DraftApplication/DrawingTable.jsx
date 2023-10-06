@@ -38,7 +38,7 @@ function DrawingTable({ setApprovedConfirmation, setRecomendationMessage }) {
             {
               TrData.map((data, index) => {
                 return (
-                  <tr>
+                  <tr key={index}>
                     <th className='border border-black bg-white w-8 text-center'>
                       {skipNumber.includes(index + 1) ? "" : skipNumber.find(num => num < index + 1) ? index - 3 : index + 1}
                     </th>

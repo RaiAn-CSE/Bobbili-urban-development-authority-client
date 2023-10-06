@@ -60,7 +60,7 @@ const DocumentUpload = () => {
       // Adding checklist Data to Document from server data
       if (applicationCheckList.length) {
         // Declare the array here
-        applicationCheckList.forEach((data, index) => {
+        applicationCheckList?.forEach((data, index) => {
           const already = UpdatedDocuments.find(
             (document) => document.question === data.question
           );
@@ -82,7 +82,7 @@ const DocumentUpload = () => {
 
       setUpdatedDocuments([...UpdatedDocuments, ...updatedDocumentsToAdd]);
 
-      //Updating Data from server Data
+      // Updating Data from server Data
       // RECEIVED DOCUMENT DATA FROM THE DB & STORE THEM IN THE UPDATED DOCUMENT STATE
       if (Object.keys(documents).length) {
         setUpdatedDocuments((prev) => {
@@ -99,7 +99,6 @@ const DocumentUpload = () => {
   }, []);
 
   useEffect(() => {
-    console.log(UpdatedDocuments);
     const emptyArray = Array.from({ length: UpdatedDocuments.length });
     setSelectedFiles(emptyArray);
     setImageId(emptyArray);
@@ -148,7 +147,6 @@ const DocumentUpload = () => {
     }
 
     if (fileCheckToUpload === selectedFiles.length) {
-      console.log(imageId, "IMAGE IDS");
       return await sendUserDataIntoDB(url, "PATCH", {
         applicationNo,
         documents: imageId,
@@ -158,13 +156,24 @@ const DocumentUpload = () => {
     }
   };
 
-  const sentPsDecision = () => {
-    const approved = UpdatedDocuments.filter((data) => data.approved);
+  //  send data to ps db (Apu vai send ps data from here)
 
-    console.log(approved, recomendationMessage);
+  // ps data get
+
+  const sentPsDecision = () => {
+    // PS data select and Send data
+    const PSKeys = ["id", "approved"];
+    const PSArray = UpdatedDocuments.map(({ ...obj }) =>
+      PSKeys.reduce((acc, key) => ((acc[key] = obj[key]), acc), {})
+    );
+    const PSData = {
+      applicationNo,
+      approvedConfirmation,
+      message: recomendationMessage,
+      ...PSArray,
+    };
   };
-  // const PSDocumentInfo={applicationNo,documents:imageId,approved:approvedConfirmation,message:recomendationMessage}
-  console.log({ UpdatedDocuments });
+
   return (
     <div>
       <form
