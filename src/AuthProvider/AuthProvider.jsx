@@ -73,8 +73,8 @@ const AuthProvider = ({ children }) => {
       text: "You won't be able to update this!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "bg-violetLight",
+      cancelButtonColor: "#000",
       confirmButtonText: "Yes, sent it!",
       showLoaderOnConfirm: true,
       preConfirm: async (confirm) => {
@@ -144,8 +144,8 @@ const AuthProvider = ({ children }) => {
       icon: "info",
       confirmButtonText: "Yes, save it",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "bg-violetLight",
+      cancelButtonColor: "#000",
       showLoaderOnConfirm: true,
       preConfirm: async (confirm) => {
         console.log("confirm", confirm);
@@ -195,9 +195,9 @@ const AuthProvider = ({ children }) => {
       title: "Do you want to delete the data?",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonText: "Yes, save it",
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#dd3333",
+      confirmButtonText: "Yes, delete it",
+      confirmButtonColor: "bg-violetLight",
+      cancelButtonColor: "#000",
     }).then((result) => {
       if (result.isConfirmed) {
         removeData(data);
