@@ -547,7 +547,7 @@ const Payment = () => {
     <>
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="grid my-5 lg:my-0 lg:p-2"
+        className="grid my-5 mx-7 font-roboto text-xl lg:my-0 lg:p-2"
       >
         <div className="text-end mb-4">
           <button
@@ -603,7 +603,7 @@ const Payment = () => {
               ltpDetails={calculatedData?.UDATotalCharged}
             />
             <div>
-              <button className="btn btn-md text-sm px-3 mt-10 ml-3 bg-green-300 hover:bg-green-400 hover:shadow-md transition-all duration-500">
+              <button className="btn btn-md text-sm px-3 mt-10 ml-3 bg-black text-white hover:bg-violetDark shadow-md transition-all duration-500">
                 <GiMoneyStack size={25} /> pay now
               </button>
             </div>
@@ -745,9 +745,9 @@ const Payment = () => {
               <Link
                 to={`https://drive.google.com/file/d/${applicationData?.payment?.gramaPanchayatFee?.gramaBankReceipt}/view?usp=sharing`}
                 target="_blank"
-                className="ms-10 hover:underline bg-yellow-300 p-3 rounded-full"
+                className="flex justify-center items-center ms-10 w-20 hover:underline bg-violetLight text-white font-bold shadow-lg rounded-full"
               >
-                View old File
+                View
               </Link>
             )}
           </div>
@@ -835,9 +835,9 @@ const Payment = () => {
               <Link
                 to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
                 target="_blank"
-                className="ms-10 hover:underline bg-yellow-300 p-3 rounded-full"
+                className="flex justify-center items-center ms-10 w-20 hover:underline bg-violetLight text-white font-bold shadow-lg rounded-full"
               >
-                View old File
+                View
               </Link>
             )}
           </div>
@@ -926,9 +926,9 @@ const Payment = () => {
             <Link
               to={`https://drive.google.com/file/d/${applicationData?.payment?.greenFeeCharge?.greenFeeBankReceipt}/view?usp=sharing`}
               target="_blank"
-              className="ms-10 hover:underline bg-yellow-300 p-3 rounded-full"
+              className="flex justify-center items-center ms-10 w-20 hover:underline bg-violetLight text-white font-bold shadow-lg rounded-full"
             >
-              View old File
+              View
             </Link>
           )}
         </div>
