@@ -259,6 +259,12 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  // logout function
+  const handleLogOut = () => {
+    localStorage.removeItem("loggedUser");
+    navigate("/");
+  };
+
   //   create a object to transfer data into various components
   const userInfo = {
     updateUserInfoInLocalStorage,
@@ -271,6 +277,7 @@ const AuthProvider = ({ children }) => {
     alertToTransferDataIntoDepartment,
     getSubmitApplicationData,
     getAllDraftApplicationData,
+    handleLogOut,
   };
 
   return (
