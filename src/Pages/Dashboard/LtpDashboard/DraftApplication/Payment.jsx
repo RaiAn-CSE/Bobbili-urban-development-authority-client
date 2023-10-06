@@ -40,6 +40,7 @@ const Payment = () => {
   const [sentData, setSentData] = useState(0);
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
+  const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
   useEffect(() => {
     getApplicationData(applicationNo).then((applicationData) => {
@@ -594,7 +595,9 @@ const Payment = () => {
               ltpDetails={calculatedData?.UDATotalCharged}
             />
             <div>
-              <button className="btn btn-md text-sm px-3 mt-10 ml-3 bg-black text-white hover:bg-violetDark shadow-md transition-all duration-500">
+              <button
+                className={`btn btn-md text-sm px-3 mt-10 ml-3  text-white shadow-md transition-all duration-500 ${gradientColor}`}
+              >
                 <GiMoneyStack size={25} /> pay now
               </button>
             </div>
