@@ -160,18 +160,24 @@ const DocumentUpload = () => {
 
   // ps data get
 
-  const sentPsDecision = () => {
+  const sentPsDecision = async (url) => {
     // PS data select and Send data
     const PSKeys = ["id", "approved"];
     const PSArray = UpdatedDocuments.map(({ ...obj }) =>
       PSKeys.reduce((acc, key) => ((acc[key] = obj[key]), acc), {})
     );
     const PSData = {
-      applicationNo,
-      approvedConfirmation,
-      message: recomendationMessage,
-      ...PSArray,
+      documentsObservation: { ...PSArray },
+      approved: approvedConfirmation ?? "",
+      message: recomendationMessage ?? "",
     };
+
+    console.log(PSData, "PSDATA");
+
+    return await sendUserDataIntoDB(url, "PATCH", {
+      applicationNo,
+      PsDocumentPageObservation: PSData,
+    });
   };
 
   return (
@@ -260,7 +266,6 @@ const DocumentUpload = () => {
         ""
       )}
 
-      <input type="submit" value="get" onClick={sentPsDecision} />
       <SaveData
         isStepperVisible={isStepperVisible}
         currentStep={currentStep}

@@ -21,6 +21,7 @@ const SaveData = ({
 
   const role = userInfoFromLocalStorage().role;
 
+  const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
   const location = useLocation();
   console.log(location, "Saved Data");
 
@@ -32,7 +33,7 @@ const SaveData = ({
           {role === "LTP" &&
             (currentStep !== steps.length - 1 ? (
               <button
-                className={`${btnClass} bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white font-roboto shadow-md shadow-violetDark border-none hover:bg-violetDark `}
+                className={`${btnClass} text-white font-roboto shadow-md shadow-violetDark border-none hover:bg-violetDark `}
                 type="submit"
                 // onClick={() =>
                 //   // currentStep < steps.length - 1 &&
@@ -79,7 +80,7 @@ const SaveData = ({
           {role === "PS" && (
             <>
               <button
-                className="btn btn-md text-sm px-3 mt-10 ml-3 bg-green-300 hover:bg-green-400 hover:shadow-md transition-all duration-500"
+                className={`btn btn-md ${gradientColor} text-sm text-white px-5 mt-10 ml-3 shadow-md transition-all duration-500`}
                 onClick={() => {
                   confirmAlert(undefined, collectInputFieldData);
                 }}
