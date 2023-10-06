@@ -196,14 +196,22 @@ const SiteInspection = () => {
     });
   };
 
-  const sentPsDecision = async (url) => {
-    url = `http://localhost:5000/submitPsDecision?appNo=${applicationNo}`;
-    console.log(url);
+  // const sentPsDecision = async (url) => {
+  //   url = `http://localhost:5000/recommendDataOfPs?appNo=${applicationNo}`;
+  //   console.log(url);
 
-    const response = await fetch(url, { method: "DELETE" });
-    console.log(response);
-    return await response.json();
-  };
+  //   const config={
+  //     method:"PATCH",
+  //     header:{
+  //       'content-type':'application/json'
+  //     },
+  //     body:JSON.stringify()
+  //   }
+
+  //   const response = await fetch(url, { method: "PATCH" });
+  //   console.log(response);
+  //   return await response.json();
+  // };
 
   // Classes :
   const tableDataClass =
