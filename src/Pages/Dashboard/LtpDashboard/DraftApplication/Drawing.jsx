@@ -31,7 +31,7 @@ const Drawing = () => {
     userInfoFromLocalStorage,
   } = useContext(AuthContext);
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
-  const role = "PS"// userInfoFromLocalStorage().role;
+  const role = "PS"; // userInfoFromLocalStorage().role;
 
   useEffect(() => {
     localStorage.setItem("selectedFiles", JSON.stringify(["", ""]));
@@ -137,7 +137,19 @@ const Drawing = () => {
     }
   };
   // Apu vai send ps data from here
-  const psData = { applicationNo, approvedConfirmation, message: recomendationMessage }
+
+  const sentPsDecision = async (url) => {
+    const psData = {
+      approved: approvedConfirmation,
+      message: recomendationMessage,
+    };
+
+    console.log(psData, "PSDATA");
+    return await sendUserDataIntoDB(url, "PATCH", {
+      applicationNo,
+      psDrawingPageObservation: psData,
+    });
+  };
 
   return (
     <>
@@ -216,7 +228,9 @@ const Drawing = () => {
         steps={steps}
         stepperData={stepperData}
         confirmAlert={confirmAlert}
-        collectInputFieldData={handleFileUpload}
+        collectInputFieldData={
+          role === "LTP" ? handleFileUpload : sentPsDecision
+        }
       />
     </>
   );

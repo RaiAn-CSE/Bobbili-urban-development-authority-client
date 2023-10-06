@@ -742,7 +742,6 @@ const SiteInspection = () => {
         stepperData={stepperData}
         confirmAlert={confirmAlert}
         collectInputFieldData={collectInputFieldData}
-        sentData={sentPsDecision}
       />
     </div>
   );

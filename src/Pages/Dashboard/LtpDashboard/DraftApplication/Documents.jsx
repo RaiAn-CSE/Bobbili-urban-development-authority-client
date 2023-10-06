@@ -176,7 +176,7 @@ const DocumentUpload = () => {
 
     return await sendUserDataIntoDB(url, "PATCH", {
       applicationNo,
-      PsDocumentPageObservation: PSData,
+      psDocumentPageObservation: PSData,
     });
   };
 
