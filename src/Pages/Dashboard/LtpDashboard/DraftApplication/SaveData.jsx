@@ -33,7 +33,7 @@ const SaveData = ({
           {role === "LTP" &&
             (currentStep !== steps.length - 1 ? (
               <button
-                className={`${btnClass} text-white font-roboto shadow-md shadow-violetDark border-none hover:bg-violetDark `}
+                className={`${btnClass} text-white ${gradientColor} font-roboto shadow-md shadow-violetDark border-none  `}
                 type="submit"
                 // onClick={() =>
                 //   // currentStep < steps.length - 1 &&
@@ -61,7 +61,7 @@ const SaveData = ({
                   Save
                 </button>
                 <button
-                  className={`btn btn-md text-[#000000] hover:text-[#fff] rounded-lg shadow-lg transition-all duration-500 cursor-pointer bg-yellow-300 hover:shadow-md hover:bg-yellow-300`}
+                  className={`btn btn-md text-white rounded-lg shadow-md border-0 mt-6 shadow-violetDark transition-all duration-500 cursor-pointer ${gradientColor}`}
                   disabled={sentData === 0}
                   onClick={() =>
                     sentToPS(
