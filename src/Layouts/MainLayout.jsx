@@ -97,7 +97,7 @@ const MainLayout = () => {
       {/* lower part  */}
       <div className="grid grid-cols-[200px_minmax(700px,_1fr)_1fr]">
         {/* sidebar menus  */}
-        <div className="w-full h-[400px] flex flex-col justify-between  bg-black text-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white shadow-lg">
+        <div className="w-full h-[400px] text-base flex flex-col justify-between  bg-black text-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white shadow-lg">
           {menu}
         </div>
 
