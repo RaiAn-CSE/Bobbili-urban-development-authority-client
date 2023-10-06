@@ -167,15 +167,6 @@ const DocumentUpload = () => {
   console.log({ UpdatedDocuments });
   return (
     <div>
-      <div className="text-end mb-4">
-        <button
-          onClick={() => setOpenApplication(true)}
-          className="btn btn-md text-sm bg-gradient-to-r from-violet-500 to-fuchsia-500 transition-all duration-700 hover:bg-violetDark shadow-md font-roboto shadow-violetLight border-0 text-white"
-        >
-          <HiOutlineClipboardDocumentList className="text-lg" />
-          <span>Application</span>
-        </button>
-      </div>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -249,12 +240,6 @@ const DocumentUpload = () => {
             </>
           );
         })}
-
-        {openApplication ? (
-          <Application setOpenApplication={setOpenApplication} />
-        ) : (
-          ""
-        )}
       </form>
       {role === "PS" ? (
         <DocumentFooter

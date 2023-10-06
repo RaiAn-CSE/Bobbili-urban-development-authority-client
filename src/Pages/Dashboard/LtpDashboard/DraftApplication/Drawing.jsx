@@ -142,15 +142,6 @@ const Drawing = () => {
   const path = "PS";
   return (
     <>
-      <div className="text-end mb-4">
-        <button
-          onClick={() => setOpenApplication(true)}
-          className="btn btn-sm text-xs bg-[#c0e9e4] transition-all duration-700 hover:bg-[#10ac84] text-[#000] hover:text-[#fff]"
-        >
-          <HiOutlineClipboardDocumentList className="text-lg" />
-          <span>Application</span>
-        </button>
-      </div>
       <form
         onSubmit={(e) => e.preventDefault()}
         className="text-black p-5 mt-3"

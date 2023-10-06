@@ -549,15 +549,6 @@ const Payment = () => {
         onSubmit={(e) => e.preventDefault()}
         className="grid my-5 mx-7 font-roboto text-xl lg:my-0 lg:p-2"
       >
-        <div className="text-end mb-4">
-          <button
-            onClick={() => setOpenApplication(true)}
-            className="btn btn-sm text-xs bg-[#c0e9e4] transition-all duration-700 hover:bg-[#10ac84] text-[#000] hover:text-[#fff]"
-          >
-            <HiOutlineClipboardDocumentList className="text-lg" />
-            <span>Application</span>
-          </button>
-        </div>
         <div>
           <div className="flex items-center">
             <img
@@ -949,11 +940,6 @@ const Payment = () => {
           sentData={sentData}
         />
       </form>
-      {openApplication ? (
-        <Application setOpenApplication={setOpenApplication} />
-      ) : (
-        ""
-      )}
     </>
   );
 };
