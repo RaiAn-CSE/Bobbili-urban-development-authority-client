@@ -18,6 +18,8 @@ const NewApplication = () => {
   const navigate = useNavigate();
   const date = new Date();
 
+  const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
+
   // get all draft applications
   const { data, refetch, isLoading, isError } = useQuery(
     ["draftApplications"],
@@ -143,10 +145,10 @@ const NewApplication = () => {
     <div className="grid grid-cols-1 my-3">
       <div className="flex justify-end my-5 mr-3">
         <button
-          className="btn flex bg-[#c0e9e4] transition-all duration-700 hover:bg-[#10ac84] text-[#000] hover:text-[#fff]"
+          className={`btn flex font-roboto ${gradientColor} transition-all duration-700 text-[#fff]`}
           onClick={storeApplicationData}
         >
-          <span className="text-xs">Create a new application</span>
+          <span className="text-sm">Create a new application</span>
           <BsPlusLg size={20} />
         </button>
       </div>
