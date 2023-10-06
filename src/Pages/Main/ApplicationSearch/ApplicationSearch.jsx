@@ -9,6 +9,8 @@ const ApplicationSearch = () => {
   const [applicationData, setApplicationData] = useState([]);
   const [filteredData, setFilteredData] = useState(null);
 
+  // console.log(filteredData, 'filteredData');
+
   const { getAllDraftApplicationData } = useContext(AuthContext);
 
   useEffect(() => {
@@ -48,7 +50,8 @@ const ApplicationSearch = () => {
     }
   };
 
-  console.log(filteredData);
+  console.log(filteredData, 'filteredData');
+
   return (
     <div className="h-full p-4 font-roboto">
       <form>
