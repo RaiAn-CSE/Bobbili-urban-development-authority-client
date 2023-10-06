@@ -123,7 +123,9 @@ const DraftApplication = () => {
     <>
       {isStepperVisible && ( // Render the stepper only when isStepperVisible is true
         <>
-          <p>Application No:{applicationNo}</p>
+          <p className="ms-10 my-8 font-roboto font-bold text-xl">
+            Application No: {applicationNo}
+          </p>
           <div className="mt-3 mb-5 font-roboto">
             <ul className="w-full steps steps-vertical lg:steps-horizontal  rounded-lg">
               {stepsContent.map((step, index) => (
