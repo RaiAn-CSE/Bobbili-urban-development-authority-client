@@ -120,20 +120,20 @@ const Login = () => {
 
   return (
     <>
-      <div className="relative">
+      <div className="relative font-roboto">
         {/* support icon  */}
 
         {/* login form  */}
 
         <div className="rounded-lg border p-4 sm:p-6 md:p-8 shadow-lg">
           <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-            <h1 className="text-2xl text-center font-bold Roboto text-gray-900 ">
+            <h1 className="text-3xl text-center font-bold  text-gray-900 ">
               Sign in
             </h1>
             <div>
               <label
                 htmlFor="userId"
-                className="block mb-2 text-sm font-bold Roboto text-gray-900 dark:text-white"
+                className="block mb-2 text-base font-bold  text-gray-900 dark:text-white"
               >
                 Your ID
               </label>
@@ -141,7 +141,7 @@ const Login = () => {
                 type="text"
                 {...register("id", { required: true })}
                 id="userId"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 defaultValue={cookieUserId}
                 placeholder="name@company.com"
                 required
@@ -150,7 +150,7 @@ const Login = () => {
             <div className="relative">
               <label
                 htmlFor="password"
-                className="block mb-2 text-sm font-bold Roboto text-gray-900 dark:text-white"
+                className="block mb-2 text-base font-bold  text-gray-900 dark:text-white"
               >
                 Your password
               </label>
@@ -159,7 +159,7 @@ const Login = () => {
                 id="password"
                 placeholder="••••••••"
                 defaultValue={cookieUserPassword}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pe-10"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pe-10"
                 {...register("password", { required: true })}
                 required
               />
@@ -184,7 +184,7 @@ const Login = () => {
               </div>
               <label
                 htmlFor="remember"
-                className="ml-2 text-sm font-medium Roboto text-gray-900 dark:text-gray-300"
+                className="ml-2 text-base font-medium  text-gray-900 dark:text-gray-300"
               >
                 Remember me
               </label>
@@ -203,7 +203,7 @@ const Login = () => {
                 <input
                   type="submit"
                   value="Sign in"
-                  className="w-full Roboto bg-violetLight text-white cursor-pointer shadow-sm shadow-violetDark transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold  text-sm px-7 py-2.5 my-1 text-center "
+                  className="w-full  bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white cursor-pointer shadow-sm shadow-violetDark transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold text-base px-7 py-2.5 my-1 text-center "
                 />
               )}
             </div>
