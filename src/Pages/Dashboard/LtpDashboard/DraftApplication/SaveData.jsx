@@ -32,7 +32,7 @@ const SaveData = ({
           {role === "LTP" &&
             (currentStep !== steps.length - 1 ? (
               <button
-                className={`${btnClass} bg-violetLight text-white font-roboto shadow-md shadow-violetDark border-none hover:bg-violetDark `}
+                className={`${btnClass} bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white font-roboto shadow-md shadow-violetDark border-none hover:bg-violetDark `}
                 type="submit"
                 // onClick={() =>
                 //   // currentStep < steps.length - 1 &&
@@ -46,7 +46,7 @@ const SaveData = ({
             ) : (
               <div>
                 <button
-                  className={`${btnClass} me-10 px-6 bg-violetLight text-white font-roboto shadow-md shadow-violetDark border-none hover:bg-violetDark`}
+                  className={`${btnClass} me-10 px-6 bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white font-roboto shadow-md shadow-violetDark border-none hover:bg-violetDark`}
                   type="submit"
                   // onClick={() =>
                   //   // currentStep < steps.length - 1 &&

@@ -745,7 +745,7 @@ const Payment = () => {
               <Link
                 to={`https://drive.google.com/file/d/${applicationData?.payment?.gramaPanchayatFee?.gramaBankReceipt}/view?usp=sharing`}
                 target="_blank"
-                className="flex justify-center items-center ms-10 w-20 hover:underline bg-violetLight text-white font-bold shadow-lg rounded-full"
+                className="flex justify-center items-center ms-10 w-20 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
               >
                 View
               </Link>
@@ -835,7 +835,7 @@ const Payment = () => {
               <Link
                 to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
                 target="_blank"
-                className="flex justify-center items-center ms-10 w-20 hover:underline bg-violetLight text-white font-bold shadow-lg rounded-full"
+                className="flex justify-center items-center ms-10 w-20 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
               >
                 View
               </Link>
@@ -926,7 +926,7 @@ const Payment = () => {
             <Link
               to={`https://drive.google.com/file/d/${applicationData?.payment?.greenFeeCharge?.greenFeeBankReceipt}/view?usp=sharing`}
               target="_blank"
-              className="flex justify-center items-center ms-10 w-20 hover:underline bg-violetLight text-white font-bold shadow-lg rounded-full"
+              className="flex justify-center items-center ms-10 w-20 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
             >
               View
             </Link>

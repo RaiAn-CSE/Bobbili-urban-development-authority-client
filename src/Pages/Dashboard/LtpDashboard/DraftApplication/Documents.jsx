@@ -170,7 +170,7 @@ const DocumentUpload = () => {
       <div className="text-end mb-4">
         <button
           onClick={() => setOpenApplication(true)}
-          className="btn btn-sm text-xs bg-[#c0e9e4] transition-all duration-700 hover:bg-[#10ac84] text-[#000] hover:text-[#fff]"
+          className="btn btn-md text-sm bg-gradient-to-r from-violet-500 to-fuchsia-500 transition-all duration-700 hover:bg-violetDark shadow-md font-roboto shadow-violetLight border-0 text-white"
         >
           <HiOutlineClipboardDocumentList className="text-lg" />
           <span>Application</span>
