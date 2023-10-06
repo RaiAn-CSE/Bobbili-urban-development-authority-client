@@ -82,11 +82,13 @@ const MainLayout = () => {
         <div className="basis-[20%] flex justify-end space-x-6">
           <Link
             to="http://localhost:5173"
-            className="w-12 h-12 bg-violetLight shadow-md shadow-violetDark rounded-full flex justify-center items-center"
+            className={`w-12 h-12 ${gradientColor} shadow-md shadow-violetDark rounded-full flex justify-center items-center`}
           >
             <AiOutlineHome className="text-2xl text-white" />
           </Link>
-          <div className="w-12 h-12 cursor-pointer transition-all duration-700 border border-violetLight rounded-full flex justify-center items-center hover:bg-violetLight hover:text-white hover:shadow-md hover:shadow-violetDark ">
+          <div
+            className={`w-12 h-12 cursor-pointer transition-all duration-700 border border-violetLight rounded-full flex justify-center items-center hover:${gradientColor} hover:text-white hover:shadow-md hover:shadow-violetDark`}
+          >
             <MdOutlineDashboard className="text-2xl" />
           </div>
         </div>
