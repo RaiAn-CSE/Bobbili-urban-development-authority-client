@@ -80,7 +80,7 @@ const SaveData = ({
           {role === "PS" && (
             <>
               <button
-                className={`btn btn-md ${gradientColor} text-sm text-white px-5 mt-10 ml-3 shadow-md transition-all duration-500`}
+                className={`btn btn-md ${gradientColor} text-sm text-white px-8 mt-10 ml-3 shadow-md hover:shadow-violetDark border-0 transition-all duration-500`}
                 onClick={() => {
                   confirmAlert(undefined, collectInputFieldData);
                 }}
@@ -89,7 +89,7 @@ const SaveData = ({
               </button>
               {location.pathname.includes("siteInspection") && (
                 <button
-                  className="btn btn-md text-sm px-3 mt-10 ml-3 bg-green-300 hover:bg-green-400 hover:shadow-md transition-all duration-500"
+                  className={`btn btn-md text-sm px-7 mt-10 ml-6 shadow-md hover:shadow-violetDark border-0 transition-all duration-500 bg-black hover:bg-black text-white`}
                   onClick={() => {
                     confirmAlert(undefined, sentData);
                   }}

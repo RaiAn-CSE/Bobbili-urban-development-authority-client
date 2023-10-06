@@ -19,7 +19,7 @@ const ShowSubmittedApplication = ({
     <tr>
       <th>{serialNo + 1}</th>
       <td
-        className="hover:underline"
+        className="hover:underline cursor-pointer"
         onClick={() => showDraftApplication(applicationNo)}
       >
         {applicationNo}
