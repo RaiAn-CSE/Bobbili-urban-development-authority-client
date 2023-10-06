@@ -100,7 +100,7 @@ const AuthProvider = ({ children }) => {
           title: "Sent!",
           text: "Your file has been sent successfully.",
           icon: "success",
-          confirmButtonColor: "#3085d6",
+          confirmButtonColor: "bg-violetLight",
           confirmButtonText: "Ok",
         }).then((res) => {
           console.log(res);
