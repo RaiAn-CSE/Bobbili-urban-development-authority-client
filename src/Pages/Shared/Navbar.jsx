@@ -13,11 +13,10 @@ const Navbar = () => {
 
   useEffect(() => {
     // console.log("theme" in localStorage);
-    const themeStoredInLocalStorage = localStorage.getItem("theme");
+
     if (
       theme === "dark" ||
-      (!("theme" in localStorage) &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
+      window.matchMedia("(prefers-color-scheme: dark)").matches
     ) {
       document.documentElement.classList.add("dark");
     } else {
@@ -27,7 +26,6 @@ const Navbar = () => {
     }
 
     return () => {
-      localStorage.setItem("theme", "light");
       document.documentElement.classList.remove("dark");
     };
   }, [theme]);

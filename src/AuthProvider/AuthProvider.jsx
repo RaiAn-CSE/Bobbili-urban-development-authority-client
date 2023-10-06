@@ -262,7 +262,10 @@ const AuthProvider = ({ children }) => {
   // logout function
   const handleLogOut = () => {
     localStorage.removeItem("loggedUser");
-    navigate("/");
+    toast.success("Logout successfully");
+    setTimeout(() => {
+      navigate("/");
+    }, 1000);
   };
 
   //   create a object to transfer data into various components
