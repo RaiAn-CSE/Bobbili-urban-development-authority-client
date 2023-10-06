@@ -50,7 +50,7 @@ const ApplicationSearch = () => {
 
   console.log(filteredData);
   return (
-    <>
+    <div className="h-full p-4 font-roboto">
       <form>
         {/* <label
           htmlFor="default-search"
@@ -58,6 +58,7 @@ const ApplicationSearch = () => {
         >
           Search
         </label> */}
+
         <div className="relative">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
             <svg
@@ -223,7 +224,7 @@ const ApplicationSearch = () => {
           <h4 className="text-base font-semibold">Proceeding</h4>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

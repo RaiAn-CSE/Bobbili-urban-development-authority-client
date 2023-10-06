@@ -24,7 +24,6 @@ function Application({ setOpenApplication }) {
     const modal = document.getElementById("my_modal_5");
     if (modal) {
       modal.showModal();
-      document.body.classList.add("modal-open")
     }
 
     // Add an event listener to close the modal when clicking outside
@@ -36,11 +35,8 @@ function Application({ setOpenApplication }) {
     };
   }, []);
 
-  const handleModalClick = (event) => {
-    if (event.target === event.currentTarget) {
-      // Clicked on the backdrop (outside of the modal)
-      setOpenApplication(false);
-    }
+  const handleModalClick = () => {
+    setOpenApplication(false);
   };
 
   useEffect(() => {
@@ -343,7 +339,7 @@ function Application({ setOpenApplication }) {
                   {/* row 1 */}
                   {Part01.map((item, index) => {
                     return (
-                      <tr key={index+1} className="bg-white">
+                      <tr key={index + 1} className="bg-white">
                         {/* col-01 */}
                         <th className="bg-white border border-black w-6">
                           {index + 1}

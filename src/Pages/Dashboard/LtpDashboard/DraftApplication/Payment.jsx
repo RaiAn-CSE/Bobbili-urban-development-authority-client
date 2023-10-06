@@ -40,6 +40,7 @@ const Payment = () => {
   const [sentData, setSentData] = useState(0);
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
+  const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
   useEffect(() => {
     getApplicationData(applicationNo).then((applicationData) => {
@@ -91,7 +92,7 @@ const Payment = () => {
         generalInformation?.natureOfTheSite === "Approved Layout" ||
         generalInformation?.natureOfTheSite === "Regularised under LRS" ||
         generalInformation?.natureOfTheSite ===
-        "Congested/ Gramakanta/ Old Built-up area" ||
+          "Congested/ Gramakanta/ Old Built-up area" ||
         generalInformation.natureOfTheSite === "Newly Developed/ Built up area"
       ) {
         console.log("aschi");
@@ -402,7 +403,7 @@ const Payment = () => {
         console.log(...formData);
         try {
           const response = await axios.post(
-            "https://residential-building.vercel.app/upload?page=payment",
+            "http://localhost:5000/upload?page=payment",
             formData,
             {
               headers: {
@@ -547,17 +548,8 @@ const Payment = () => {
     <>
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="grid my-5 lg:my-0 lg:p-2"
+        className="grid my-5 mx-7 font-roboto text-xl lg:my-0 lg:p-2"
       >
-        <div className="text-end mb-4">
-          <button
-            onClick={() => setOpenApplication(true)}
-            className="btn btn-sm text-xs bg-[#c0e9e4] transition-all duration-700 hover:bg-[#10ac84] text-[#000] hover:text-[#fff]"
-          >
-            <HiOutlineClipboardDocumentList className="text-lg" />
-            <span>Application</span>
-          </button>
-        </div>
         <div>
           <div className="flex items-center">
             <img
@@ -603,7 +595,9 @@ const Payment = () => {
               ltpDetails={calculatedData?.UDATotalCharged}
             />
             <div>
-              <button className="btn btn-md text-sm px-3 mt-10 ml-3 bg-green-300 hover:bg-green-400 hover:shadow-md transition-all duration-500">
+              <button
+                className={`btn btn-md text-sm px-3 mt-10 ml-3  text-white shadow-md transition-all duration-500 ${gradientColor}`}
+              >
                 <GiMoneyStack size={25} /> pay now
               </button>
             </div>
@@ -745,9 +739,9 @@ const Payment = () => {
               <Link
                 to={`https://drive.google.com/file/d/${applicationData?.payment?.gramaPanchayatFee?.gramaBankReceipt}/view?usp=sharing`}
                 target="_blank"
-                className="ms-10 hover:underline bg-yellow-300 p-3 rounded-full"
+                className="flex justify-center items-center ms-10 w-20 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
               >
-                View old File
+                View
               </Link>
             )}
           </div>
@@ -832,14 +826,14 @@ const Payment = () => {
 
             {applicationData?.payment?.labourCessCharge
               ?.labourCessBankReceipt && (
-                <Link
-                  to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
-                  target="_blank"
-                  className="ms-10 hover:underline bg-yellow-300 p-3 rounded-full"
-                >
-                  View old File
-                </Link>
-              )}
+              <Link
+                to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
+                target="_blank"
+                className="flex justify-center items-center ms-10 w-20 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
+              >
+                View
+              </Link>
+            )}
           </div>
         </div>
 
@@ -926,9 +920,9 @@ const Payment = () => {
             <Link
               to={`https://drive.google.com/file/d/${applicationData?.payment?.greenFeeCharge?.greenFeeBankReceipt}/view?usp=sharing`}
               target="_blank"
-              className="ms-10 hover:underline bg-yellow-300 p-3 rounded-full"
+              className="flex justify-center items-center ms-10 w-20 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
             >
-              View old File
+              View
             </Link>
           )}
         </div>
@@ -949,11 +943,6 @@ const Payment = () => {
           sentData={sentData}
         />
       </form>
-      {openApplication ? (
-        <Application setOpenApplication={setOpenApplication} />
-      ) : (
-        ""
-      )}
     </>
   );
 };

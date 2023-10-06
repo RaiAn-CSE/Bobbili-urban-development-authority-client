@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { MdOutlineLogout, MdSpaceDashboard } from "react-icons/md";
 import { BiCheckDouble, BiSolidImageAdd } from "react-icons/bi";
@@ -6,16 +6,23 @@ import { CgDanger } from "react-icons/cg";
 import { BsSendCheckFill } from "react-icons/bs";
 import { AiOutlineForm } from "react-icons/ai";
 import sidebarStyle from "../../Style/dashboardSidebar.module.css";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const LtpSidebar = () => {
   const path = useLocation().pathname;
 
-  const liClass = ''
+  const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
+
+  const { handleLogOut } = useContext(AuthContext);
 
   // console.log(location);
   return (
-    <div className={`${sidebarStyle.links}`}>
-      <li className={`${path === "/dashboard" && "active"} mt-10`}>
+    <>
+      <li
+        className={`${
+          path === "/dashboard" && gradientColor
+        } mt-10 flex items-center ps-4 hover:${gradientColor} rounded-l-lg mb-1`}
+      >
         <span>
           <MdSpaceDashboard size={20} />
         </span>
@@ -25,43 +32,61 @@ const LtpSidebar = () => {
       </li>
 
       <li
-        className={`${(path === "/dashboard/draftApplication" ||
-          path === "/dashboard/draftApplication/buildingInfo" ||
-          path === "/dashboard/draftApplication/applicantInfo" ||
-          path === "/dashboard/draftApplication/applicationChecklist" ||
-          path === "/dashboard/draftApplication/documents" ||
-          path === "/dashboard/draftApplication/drawing" ||
-          path === "/dashboard/draftApplication/payment") &&
-          "active"
-          }`}
+        className={`${
+          (path === "/dashboard/draftApplication" ||
+            path === "/dashboard/draftApplication/buildingInfo" ||
+            path === "/dashboard/draftApplication/applicantInfo" ||
+            path === "/dashboard/draftApplication/applicationChecklist" ||
+            path === "/dashboard/draftApplication/documents" ||
+            path === "/dashboard/draftApplication/drawing" ||
+            path === "/dashboard/draftApplication/payment") &&
+          gradientColor
+        } flex items-center ps-4 hover:${gradientColor} rounded-l-lg mb-1`}
       >
         <span>
           <BiSolidImageAdd size={22} />
         </span>
-        <Link className="p-[10px]  font-medium " to="/dashboard/draftApplication" >
+        <Link
+          className="p-[10px] font-medium "
+          to="/dashboard/draftApplication"
+        >
           Draft Application
         </Link>
       </li>
 
-      <li className={`${path === "/dashboard/submitApplication" && "active"}`}>
+      <li
+        className={`${
+          path === "/dashboard/submitApplication" && gradientColor
+        } flex items-center ps-4 hover:${gradientColor} rounded-l-lg mb-1`}
+      >
         <span>
           <BsSendCheckFill size={19} />
         </span>
-        <Link className="p-[10px]  font-medium " to="/dashboard/submitApplication" >
+        <Link
+          className="p-[10px] font-medium"
+          to="/dashboard/submitApplication"
+        >
           Submitted App:
         </Link>
       </li>
 
-      <li>
+      <li
+        className={`flex items-center ps-4 hover:${gradientColor} rounded-l-lg mb-1`}
+      >
         <span>
           <BiCheckDouble size={23} />
         </span>
-        <Link className="p-[10px]  font-medium " to="/dashboard/submitApplication">
+        <Link
+          className="p-[10px]  font-medium "
+          to="/dashboard/submitApplication"
+        >
           Approved
         </Link>
       </li>
 
-      <li>
+      <li
+        className={`flex items-center ps-4 hover:${gradientColor} rounded-l-lg mb-1`}
+      >
         <span>
           <AiOutlineForm size={20} />
         </span>
@@ -70,7 +95,9 @@ const LtpSidebar = () => {
         </Link>
       </li>
 
-      <li>
+      <li
+        className={`flex items-center ps-4 hover:${gradientColor} rounded-l-lg mb-1`}
+      >
         <span>
           <CgDanger size={22} />
         </span>
@@ -79,15 +106,17 @@ const LtpSidebar = () => {
         </Link>
       </li>
 
-      <li className="mt-5">
+      <li
+        className={`mt-5 flex items-center ps-4 hover:${gradientColor} rounded-l-lg mb-1`}
+      >
         <span>
           <MdOutlineLogout size={22} />
         </span>
-        <Link className="p-[10px]  font-medium" to="/#">
+        <Link className="p-[10px]  font-medium" onClick={handleLogOut}>
           Logout
         </Link>
       </li>
-    </div>
+    </>
   );
 };
 

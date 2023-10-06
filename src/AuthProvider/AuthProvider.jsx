@@ -13,7 +13,7 @@ const AuthProvider = ({ children }) => {
 
   // update user info
   const updateUserInfoInLocalStorage = (id) => {
-    fetch(`https://residential-building.vercel.app/getUser?id=${id}`)
+    fetch(`http://localhost:5000/getUser?id=${id}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -65,7 +65,7 @@ const AuthProvider = ({ children }) => {
 
     const data = { userId: userInfoFromLocalStorage()._id, applicationNo };
 
-    const url = `https://residential-building.vercel.app/deleteApplication?data=${JSON.stringify(
+    const url = `http://localhost:5000/deleteApplication?data=${JSON.stringify(
       data
     )}`;
     Swal.fire({
@@ -73,8 +73,8 @@ const AuthProvider = ({ children }) => {
       text: "You won't be able to update this!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "bg-violetLight",
+      cancelButtonColor: "#000",
       confirmButtonText: "Yes, sent it!",
       showLoaderOnConfirm: true,
       preConfirm: async (confirm) => {
@@ -100,7 +100,7 @@ const AuthProvider = ({ children }) => {
           title: "Sent!",
           text: "Your file has been sent successfully.",
           icon: "success",
-          confirmButtonColor: "#3085d6",
+          confirmButtonColor: "bg-violetLight",
           confirmButtonText: "Ok",
         }).then((res) => {
           console.log(res);
@@ -130,7 +130,7 @@ const AuthProvider = ({ children }) => {
     let url;
 
     role === "LTP" &&
-      (url = `https://residential-building.vercel.app/updateDraftApplicationData/${
+      (url = `http://localhost:5000/updateDraftApplicationData/${
         userInfoFromLocalStorage()._id
       }`);
 
@@ -144,8 +144,8 @@ const AuthProvider = ({ children }) => {
       icon: "info",
       confirmButtonText: "Yes, save it",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "bg-violetLight",
+      cancelButtonColor: "#000",
       showLoaderOnConfirm: true,
       preConfirm: async (confirm) => {
         console.log("confirm", confirm);
@@ -195,9 +195,9 @@ const AuthProvider = ({ children }) => {
       title: "Do you want to delete the data?",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonText: "Yes, save it",
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#dd3333",
+      confirmButtonText: "Yes, delete it",
+      confirmButtonColor: "bg-violetLight",
+      cancelButtonColor: "#000",
     }).then((result) => {
       if (result.isConfirmed) {
         removeData(data);
@@ -259,6 +259,15 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  // logout function
+  const handleLogOut = () => {
+    localStorage.removeItem("loggedUser");
+    toast.success("Logout successfully");
+    setTimeout(() => {
+      navigate("/");
+    }, 1000);
+  };
+
   //   create a object to transfer data into various components
   const userInfo = {
     updateUserInfoInLocalStorage,
@@ -271,6 +280,7 @@ const AuthProvider = ({ children }) => {
     alertToTransferDataIntoDepartment,
     getSubmitApplicationData,
     getAllDraftApplicationData,
+    handleLogOut,
   };
 
   return (

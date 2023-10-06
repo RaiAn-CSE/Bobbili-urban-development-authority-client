@@ -48,7 +48,7 @@ const OnlinePayment = () => {
 
   console.log(filteredData, "FILTERED DATA");
   return (
-    <>
+    <div className="h-full p-4 font-roboto">
       <form>
         {/* <label
           htmlFor="default-search"
@@ -191,7 +191,7 @@ const OnlinePayment = () => {
           <GiMoneyStack size={25} /> <span className="ml-1">pay now</span>
         </button>
       </div>
-    </>
+    </div>
   );
 };
 

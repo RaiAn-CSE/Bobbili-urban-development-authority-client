@@ -6,9 +6,15 @@ import sidebarStyle from "../../Style/dashboardSidebar.module.css";
 const SecondAdminSidebar = () => {
   const path = useLocation().pathname;
 
+  const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
+
   return (
-    <div className={`${sidebarStyle.links}`}>
-      <li className={`${path === "/dashboard" && "active"} mt-10`}>
+    <>
+      <li
+        className={`${
+          path === "/dashboard" && gradientColor
+        } mt-10 mb-1 ps-4 rounded-l-lg flex items-center hover:${gradientColor}`}
+      >
         <span>
           <MdSpaceDashboard size={20} />
         </span>
@@ -16,7 +22,11 @@ const SecondAdminSidebar = () => {
           Dashboard
         </Link>
       </li>
-      <li className={`${path === "/dashboard/addUser" && "active"}`}>
+      <li
+        className={`${
+          path === "/dashboard/addUser" && gradientColor
+        }  ps-4 mb-1 flex items-center rounded-l-lg hover:${gradientColor}`}
+      >
         <span>
           <MdSpaceDashboard size={20} />
         </span>
@@ -24,7 +34,11 @@ const SecondAdminSidebar = () => {
           Add User
         </Link>
       </li>
-      <li className={`${path === "/dashboard/allUser" && "active"}`}>
+      <li
+        className={`${
+          path === "/dashboard/allUser" && gradientColor
+        }  ps-4 mb-1 flex items-center rounded-l-lg hover:${gradientColor}`}
+      >
         <span>
           <MdSpaceDashboard size={20} />
         </span>
@@ -32,7 +46,7 @@ const SecondAdminSidebar = () => {
           All Users
         </Link>
       </li>
-    </div>
+    </>
   );
 };
 

@@ -10,13 +10,15 @@ const ListOfLTP = () => {
       });
   }, []);
 
+  const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
+
   console.log(filteredData, "FILTERED DATA");
   return (
-    <>
+    <div className="w-full h-full p-4">
       <form>
         <label
           htmlFor="default-search"
-          className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+          className={`mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white ${gradientColor}`}
         >
           Search
         </label>
@@ -45,12 +47,12 @@ const ListOfLTP = () => {
             placeholder="Application no. or owner name"
             required
           />
-          <button
+          {/* <button
             type="submit"
-            className="text-[#000] font-semibold absolute right-2.5 bottom-2.5 bg-[#ffd66c] hover:bg-[#e1bc60] focus:ring-4 focus:outline-none focus:ring-[#ffd66c] rounded-lg text-sm px-4 py-2"
+            className={`font-semibold absolute right-2.5 bottom-2.5 ${gradientColor} text-white rounded-lg text-sm px-4 py-2`}
           >
             Search
-          </button>
+          </button> */}
         </div>
       </form>
 
@@ -97,7 +99,7 @@ const ListOfLTP = () => {
           </table>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
