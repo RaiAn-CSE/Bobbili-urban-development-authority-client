@@ -114,24 +114,29 @@ const ApplicationSearch = () => {
               id="surveyNo"
               type="text"
               placeholder="xxxxxxx"
+              // filteredData?.buildingInfo?.generalInformation?.surveyNo
+              ltpDetails={filteredData?.buildingInfo?.generalInformation?.surveyNo}
             />
             <MainPageInput
               label="Village"
               id="village"
               type="text"
               placeholder="xxxxxxx"
+              ltpDetails={filteredData?.buildingInfo?.generalInformation?.village}
             />
             <MainPageInput
               label="Mandal"
               id="mandal"
               type="text"
               placeholder="xxxxxxx"
+              ltpDetails={filteredData?.buildingInfo?.generalInformation?.mandal}
             />
             <MainPageInput
               label="District"
               id="district"
               type="text"
               placeholder="xxxxxxx"
+              ltpDetails={filteredData?.buildingInfo?.generalInformation?.district}
             />
           </div>
 
@@ -181,12 +186,14 @@ const ApplicationSearch = () => {
               id="name1"
               type="text"
               placeholder="xxxxxxx"
+              ltpDetails={filteredData?.applicantInfo.applicantDetails?.[0].name}
             />
             <MainPageInput
               label="Address"
               id="address1"
               type="text"
               placeholder="xxxxxxx"
+              ltpDetails={filteredData?.applicantInfo.applicantDetails?.[0].address}
             />
           </div>
 
@@ -196,12 +203,14 @@ const ApplicationSearch = () => {
               id="name2"
               type="text"
               placeholder="xxxxxxx"
+              ltpDetails={filteredData?.applicantInfo.ltpDetails?.name}
             />
             <MainPageInput
               label="Address"
               id="address2"
               type="text"
               placeholder="xxxxxxx"
+              ltpDetails={filteredData?.applicantInfo.ltpDetails?.address}
             />
           </div>
         </div>
