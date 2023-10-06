@@ -27,6 +27,7 @@ const DocumentUpload = () => {
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
   const role = userInfoFromLocalStorage().role;
+  const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
   const handleFileChange = (event, index) => {
     const file = event?.target?.files[0];
@@ -198,17 +199,8 @@ const DocumentUpload = () => {
                 </p>
 
                 <div className="flex items-center mt-6">
-                  {upload !== "" && (
-                    <Link
-                      to={`https://drive.google.com/file/d/${upload}/view?usp=sharing`}
-                      target="_blank"
-                      className="hover:underline mr-6 py-2 px-5 bg-gray-200 rounded-xl sm:rounded-full text-center"
-                    >
-                      {role == "LTP" ? "View old File" : "View File"}
-                    </Link>
-                  )}
                   {/* Approved Button */}
-                  {role !== "PS" ? (
+                  {role === "LTP" && (
                     <input
                       name={id}
                       type="file"
@@ -216,38 +208,48 @@ const DocumentUpload = () => {
                       onChange={(event) => handleFileChange(event, index)}
                       className="file-input file-input-bordered w-full max-w-xs"
                     />
-                  ) : (
-                    <div>
-                      <div className="space-x-10 mt-2 lg:pr-2">
-                        <label
-                          className={`ml-2 inline-flex items-center space-x-1 text-black 
+                  )}
+
+                  {upload !== "" && (
+                    <Link
+                      to={`https://drive.google.com/file/d/${upload}/view?usp=sharing`}
+                      target="_blank"
+                      className={`${gradientColor} text-white hover:underline ms-5 py-2 px-5 rounded-full`}
+                    >
+                      View
+                    </Link>
+                  )}
+
+                  {role === "PS" && (
+                    <div className="space-x-10 mt-2 ms-4 lg:pr-2 ">
+                      <label
+                        className={`ml-2 inline-flex items-center space-x-1 text-black 
                           ${approved === "approved" && "font-extrabold"}`}
-                        >
-                          <input
-                            type="radio"
-                            name={id}
-                            value="approved"
-                            className="radio radio-sm radio-success mr-3 lg:mr-0"
-                            // checked={approved === "approved"}
-                            onChange={(event) => handleAnswer(event, id)}
-                          />
-                          <span>Approve</span>
-                        </label>
-                        <label
-                          className={`ml-2 inline-flex items-center space-x-1 text-black 
+                      >
+                        <input
+                          type="radio"
+                          name={id}
+                          value="approved"
+                          className="radio radio-sm radio-success mr-3 lg:mr-0"
+                          // checked={approved === "approved"}
+                          onChange={(event) => handleAnswer(event, id)}
+                        />
+                        <span>Approve</span>
+                      </label>
+                      <label
+                        className={`ml-2 inline-flex items-center space-x-1 text-black 
                           ${approved === "shortfall" && "font-extrabold"}`}
-                        >
-                          <input
-                            type="radio"
-                            name={id}
-                            value="shortfall"
-                            className="radio radio-sm radio-success mr-3 lg:mr-0"
-                            // checked={shortfall === "shortfall"}
-                            onChange={(event) => handleAnswer(event, id)}
-                          />
-                          <span>Shortfall</span>
-                        </label>
-                      </div>
+                      >
+                        <input
+                          type="radio"
+                          name={id}
+                          value="shortfall"
+                          className="radio radio-sm radio-success mr-3 lg:mr-0"
+                          // checked={shortfall === "shortfall"}
+                          onChange={(event) => handleAnswer(event, id)}
+                        />
+                        <span>Shortfall</span>
+                      </label>
                     </div>
                   )}
                 </div>
