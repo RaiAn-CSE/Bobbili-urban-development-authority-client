@@ -100,7 +100,7 @@ const MainLayout = () => {
 
         {/* Scrollable content */}
         <div
-          className={`${customScroll.customScrolling}  bg-base-100 shadow-md border rounded-lg mx-4`}
+          className={`${customScroll.customScrolling}  bg-base-100  rounded-lg mx-4 flex items-center`}
         >
           <Outlet />
         </div>
