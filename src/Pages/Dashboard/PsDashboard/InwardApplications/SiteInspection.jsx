@@ -21,6 +21,11 @@ const SiteInspection = () => {
   const [decision, setDecision] = useState("");
   const [recommendations, setRecommendations] = useState("");
 
+  const tableDataClass =
+    "whitespace-nowrap border-r px-6 py-4 border-neutral-500";
+  const inputClass = "input rounded-none w-full max-w-xs focus:outline-none";
+  const inputTableDataClass = "whitespace-nowrap border-r border-neutral-500";
+
   useEffect(() => {
     const getData = async () => {
       const applicationData = await getApplicationData(applicationNo);
@@ -196,28 +201,21 @@ const SiteInspection = () => {
     });
   };
 
-  // const sentPsDecision = async (url) => {
-  //   url = `http://localhost:5000/recommendDataOfPs?appNo=${applicationNo}`;
-  //   console.log(url);
+  const sentPsDecision = async (url) => {
+    url = `http://localhost:5000/decisionOfPs?appNo=${applicationNo}`;
+    console.log(url);
 
-  //   const config={
-  //     method:"PATCH",
-  //     header:{
-  //       'content-type':'application/json'
-  //     },
-  //     body:JSON.stringify()
-  //   }
+    const config = {
+      method: "POST",
+      header: {
+        "content-type": "application/json",
+      },
+    };
 
-  //   const response = await fetch(url, { method: "PATCH" });
-  //   console.log(response);
-  //   return await response.json();
-  // };
-
-  // Classes :
-  const tableDataClass =
-    "whitespace-nowrap border-r px-6 py-4 border-neutral-500";
-  const inputClass = "input rounded-none w-full max-w-xs focus:outline-none";
-  const inputTableDataClass = "whitespace-nowrap border-r border-neutral-500";
+    const response = await fetch(url, config);
+    console.log(await response.json());
+    // return await response.json();
+  };
 
   return (
     <div className="flex flex-col sm:px-6 lg:px-8">
@@ -742,6 +740,7 @@ const SiteInspection = () => {
         stepperData={stepperData}
         confirmAlert={confirmAlert}
         collectInputFieldData={collectInputFieldData}
+        sentData={sentPsDecision}
       />
     </div>
   );

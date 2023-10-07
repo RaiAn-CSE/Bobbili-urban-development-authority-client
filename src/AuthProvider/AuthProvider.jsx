@@ -116,11 +116,7 @@ const AuthProvider = ({ children }) => {
   };
 
   // confirmation message and send data to database
-  const confirmAlert = (
-    stepperData,
-    collectInputFieldData,
-    isPaymentDataSent
-  ) => {
+  const confirmAlert = (stepperData, collectInputFieldData, pageWiseAction) => {
     console.log(userInfoFromLocalStorage()._id, "GET USER ID");
 
     const role = userInfoFromLocalStorage().role;
@@ -180,8 +176,8 @@ const AuthProvider = ({ children }) => {
           currentStep < steps.length - 1 && handleStepClick(currentStep + 1);
         }
 
-        if (isPaymentDataSent) {
-          isPaymentDataSent((prev) => prev + 1);
+        if (pageWiseAction) {
+          pageWiseAction((prev) => prev + 1);
         }
       } else {
         toast.error("Failed to save data");
