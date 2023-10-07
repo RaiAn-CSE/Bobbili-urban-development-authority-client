@@ -31,7 +31,7 @@ const Drawing = () => {
     userInfoFromLocalStorage,
   } = useContext(AuthContext);
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
-  const role = "PS"// userInfoFromLocalStorage().role;
+  const role = userInfoFromLocalStorage().role;
 
   useEffect(() => {
     localStorage.setItem("selectedFiles", JSON.stringify(["", ""]));
