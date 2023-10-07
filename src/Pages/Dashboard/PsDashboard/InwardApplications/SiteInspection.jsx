@@ -206,15 +206,11 @@ const SiteInspection = () => {
     console.log(url);
 
     const config = {
-      method: "POST",
-      header: {
-        "content-type": "application/json",
-      },
+      method: "DELETE",
     };
 
     const response = await fetch(url, config);
-    console.log(await response.json());
-    // return await response.json();
+    return await response.json();
   };
 
   return (
@@ -740,6 +736,7 @@ const SiteInspection = () => {
         stepperData={stepperData}
         confirmAlert={confirmAlert}
         collectInputFieldData={collectInputFieldData}
+        sentData={sentPsDecision}
       />
     </div>
   );

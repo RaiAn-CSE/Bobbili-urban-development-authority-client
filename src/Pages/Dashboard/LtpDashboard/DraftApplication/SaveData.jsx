@@ -55,13 +55,18 @@ const SaveData = ({
                   //   confirmAlert()
                   // }
                   onClick={() => {
-                    confirmAlert(undefined, collectInputFieldData, setSentData);
+                    confirmAlert(undefined, collectInputFieldData, {
+                      page: "payment",
+                      setSentData,
+                    });
                   }}
                 >
                   Save
                 </button>
                 <button
-                  className={`btn btn-md text-white rounded-lg shadow-md border-0 mt-6 shadow-violetDark transition-all duration-500 cursor-pointer ${gradientColor}`}
+                  className={`btn btn-md text-white rounded-lg shadow-md border-0 mt-6  transition-all duration-500 cursor-pointer ${
+                    sentData === 1 && gradientColor
+                  } ${sentData === 1 && "shadow-violetDark"}`}
                   disabled={sentData === 0}
                   onClick={() =>
                     sentToPS(
@@ -91,7 +96,10 @@ const SaveData = ({
                 <button
                   className={`btn btn-md text-sm px-7 mt-10 ml-6 shadow-md hover:shadow-violetDark border-0 transition-all duration-500 bg-black hover:bg-black text-white`}
                   onClick={() => {
-                    confirmAlert(undefined, sentData);
+                    confirmAlert(undefined, sentData, {
+                      page: "siteInspection",
+                      navigate,
+                    });
                   }}
                 >
                   Submit
