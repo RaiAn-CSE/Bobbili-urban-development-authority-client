@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import useGetPageWiseApplication from "../../../CustomHook/useGetPageWiseApplication";
+import ShowAllShortfallApplications from "./ShowAllShortfallApplications";
 
 const Shortfall = () => {
   const { userInfoFromLocalStorage } = useContext(AuthContext);
@@ -45,20 +46,19 @@ const Shortfall = () => {
             <th>Case type</th>
             <th>Village</th>
             <th>Mandal</th>
-            <th>Submitted date</th>
-            <th>Status</th>
+            <th>Shortfall issued date</th>
           </tr>
         </thead>
         <tbody>
           {/* show draft applications  */}
 
-          {/* {data?.map((applicationData, index) => (
-            <ShowSubmittedApplication
+          {data?.map((applicationData, index) => (
+            <ShowAllShortfallApplications
               key={index}
               serialNo={index}
               applicationData={applicationData}
             />
-          ))} */}
+          ))}
         </tbody>
       </table>
 

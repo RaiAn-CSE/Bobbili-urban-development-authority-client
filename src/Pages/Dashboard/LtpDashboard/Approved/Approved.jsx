@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import { useQuery } from "react-query";
 import useGetPageWiseApplication from "../../../CustomHook/useGetPageWiseApplication";
+import ShowAllApprovedApplications from "./ShowAllApprovedApplications";
 
 const Approved = () => {
   const { userInfoFromLocalStorage } = useContext(AuthContext);
@@ -34,20 +35,19 @@ const Approved = () => {
             <th>Case type</th>
             <th>Village</th>
             <th>Mandal</th>
-            <th>Submitted date</th>
-            <th>Status</th>
+            <th>Approved date</th>
           </tr>
         </thead>
         <tbody>
           {/* show draft applications  */}
 
-          {/* {data?.map((applicationData, index) => (
-            <ShowSubmittedApplication
+          {data?.map((applicationData, index) => (
+            <ShowAllApprovedApplications
               key={index}
               serialNo={index}
               applicationData={applicationData}
             />
-          ))} */}
+          ))}
         </tbody>
       </table>
 
