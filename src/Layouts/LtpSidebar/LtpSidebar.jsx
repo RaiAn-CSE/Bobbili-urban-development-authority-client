@@ -78,7 +78,7 @@ const LtpSidebar = () => {
         </span>
         <Link
           className="p-[10px]  font-medium "
-          to="/dashboard/submitApplication"
+          to="/dashboard/approvedApplication"
         >
           Approved
         </Link>
@@ -90,7 +90,10 @@ const LtpSidebar = () => {
         <span>
           <AiOutlineForm size={20} />
         </span>
-        <Link className="p-[10px] font-medium " to="/#">
+        <Link
+          className="p-[10px] font-medium "
+          to="/dashboard/shortfallApplication"
+        >
           Shortfall
         </Link>
       </li>
