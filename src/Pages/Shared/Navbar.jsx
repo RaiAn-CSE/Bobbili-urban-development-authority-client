@@ -9,22 +9,28 @@ import { MdOutlineDarkMode } from "react-icons/md";
 const Navbar = () => {
   const navigate = useNavigate();
 
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState(localStorage.getItem("theme"));
 
   useEffect(() => {
     // console.log("theme" in localStorage);
-    const themeStoredInLocalStorage = localStorage.getItem("theme");
+
     if (
       theme === "dark" ||
-      (!("theme" in localStorage) &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
+      window.matchMedia("(prefers-color-scheme: dark)").matches
     ) {
       document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
     } else {
       document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
 
       // console.log(theme);
     }
+
+    return () => {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    };
   }, [theme]);
 
   // console.log(theme);
@@ -40,17 +46,22 @@ const Navbar = () => {
     <div className="navbar bg-base-100 sticky top-0 z-50 shadow-md">
       <div className="flex-1">
         <Link to="/dashboard" className="btn btn-ghost normal-case text-xl">
-          <img className="h-full" src={Logo} alt="The logo of the website" />
-          <p className="hidden lg:block">Bobbili Urban Development Authority</p>
+          {/* <img className="h-full" src={Logo} alt="The logo of the website" /> */}
+          <p className="hidden lg:block font-sofadi">
+            Bobbili Urban Development Authority
+          </p>
         </Link>
       </div>
 
-      <div className="me-3 flex flex-col">
-        <p className="roboto-bold">{user?.name}</p>
-        <small className="font-medium">({user?.role})</small>
+      <div className="me-3 flex flex-col font-roboto">
+        <p className="font-semibold md:text-lg">{user?.name}</p>
+        <small className="font-medium md:text-base">({user?.role})</small>
       </div>
       <div className="dropdown dropdown-end me-5">
-        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+        <label
+          tabIndex={0}
+          className="btn btn-ghost btn-circle avatar shadow-sm"
+        >
           <div className="w-10 rounded-full">
             <img src={UserImg} alt="An image of user icon" />
           </div>
@@ -74,11 +85,11 @@ const Navbar = () => {
         </ul>
       </div>
 
-      <div>
-        {theme === "light" ? (
-          <FiSun onClick={() => setTheme("dark")} />
+      <div className="mx-4">
+        {theme === "dark" ? (
+          <FiSun size={25} onClick={() => setTheme("light")} />
         ) : (
-          <MdOutlineDarkMode onClick={() => setTheme("light")} />
+          <MdOutlineDarkMode size={25} onClick={() => setTheme("dark")} />
         )}
       </div>
     </div>

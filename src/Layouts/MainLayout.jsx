@@ -8,40 +8,37 @@ import customScroll from "../Style/Scrollbar.module.css";
 
 const MainLayout = () => {
   const path = useLocation().pathname;
+  const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
   const menu = (
     <>
       <Link
         to="/applicationSearch"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium border-b border-gray-200 rounded-t-lg ${
-          path.includes("applicationSearch") ? "bg-violetLight" : ""
-        }`}
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium border-b border-gray-200 rounded-t-lg hover:${gradientColor} ${path.includes("applicationSearch") ? gradientColor : ""
+          }`}
       >
         Application Search
       </Link>
       <Link
         to="/onlinePayment"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium border-b border-gray-200  hover:bg-violetLight ${
-          path.includes("onlinePayment") ? "bg-violetLight" : ""
-        }`}
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium border-b border-gray-200  hover:${gradientColor} ${path.includes("onlinePayment") ? gradientColor : ""
+          }`}
       >
         Online Payment
       </Link>
       <Link
         to="/listOfLTP"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium border-b border-gray-200 hover:bg-violetLight ${
-          path.includes("listOfLTP") ? "bg-violetLight" : ""
-        }`}
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium border-b border-gray-200 hover:${gradientColor} ${path.includes("listOfLTP") ? gradientColor : ""
+          }`}
       >
         List of LTP's
       </Link>
       <Link
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium rounded-b-lg border-b hover:bg-violetLight ${
-          path.includes("demoVideos") ? "bg-violetLight" : ""
-        }`}
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium rounded-b-lg border-b hover:${gradientColor} ${path.includes("demoVideos") ? gradientColor : ""
+          }`}
       >
         Demo Videos
       </Link>
@@ -73,7 +70,7 @@ const MainLayout = () => {
           <p className="text-2xl text-gray-400 font-bold font-sofadi">
             Bobbili Urban Development Authority
           </p>
-          <p className="text-4xl mt-2 font-notSerif font-bold">
+          <p className="text-4xl mt-2 font-notSerif font-bold ">
             Residential Building Plan Approval
           </p>
         </div>
@@ -81,11 +78,13 @@ const MainLayout = () => {
         <div className="basis-[20%] flex justify-end space-x-6">
           <Link
             to="http://localhost:5173"
-            className="w-12 h-12 bg-violetLight shadow-md shadow-violetDark rounded-full flex justify-center items-center"
+            className={`w-12 h-12 ${gradientColor} shadow-md shadow-violetDark rounded-full flex justify-center items-center`}
           >
             <AiOutlineHome className="text-2xl text-white" />
           </Link>
-          <div className="w-12 h-12 cursor-pointer transition-all duration-700 border border-violetLight rounded-full flex justify-center items-center hover:bg-violetLight hover:text-white hover:shadow-md hover:shadow-violetDark ">
+          <div
+            className={`w-12 h-12 cursor-pointer transition-all duration-700 border border-violetLight rounded-full flex justify-center items-center hover:${gradientColor} hover:text-white hover:shadow-md hover:shadow-violetDark`}
+          >
             <MdOutlineDashboard className="text-2xl" />
           </div>
         </div>
@@ -94,13 +93,13 @@ const MainLayout = () => {
       {/* lower part  */}
       <div className="grid grid-cols-[200px_minmax(700px,_1fr)_1fr]">
         {/* sidebar menus  */}
-        <div className="w-full h-[400px] flex flex-col justify-between  bg-black text-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white shadow-lg">
+        <div className="w-full h-[400px] text-base flex flex-col justify-between  bg-black text-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white shadow-lg">
           {menu}
         </div>
 
         {/* Scrollable content */}
         <div
-          className={`${customScroll.customScrolling}  bg-base-100 shadow-md border rounded-lg mx-4`}
+          className={`${customScroll.customScrolling} bg-base-100  rounded-lg mx-4 flex items-center`}
         >
           <Outlet />
         </div>

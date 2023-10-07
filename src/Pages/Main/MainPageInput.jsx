@@ -1,6 +1,6 @@
 import React from 'react';
 
-const MainPageInput = ({ label, id, text, placeholder }) => {
+const MainPageInput = ({ label, id, text, placeholder, ltpDetails }) => {
     return (
         <div className='flex items-center px-5 text-gray-400 mt-4'>
             <label className="basis-[40%]" htmlFor={id}>
@@ -11,6 +11,7 @@ const MainPageInput = ({ label, id, text, placeholder }) => {
                 type={text}
                 className='basis-[60%] w-full px-3 py-[7px] border rounded-lg max-w-xs'
                 placeholder={placeholder}
+                defaultValue={ltpDetails}
                 disabled
             />
         </div>

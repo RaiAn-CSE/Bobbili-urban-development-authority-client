@@ -13,7 +13,7 @@ const AuthProvider = ({ children }) => {
 
   // update user info
   const updateUserInfoInLocalStorage = (id) => {
-    fetch(`https://residential-building.vercel.app/getUser?id=${id}`)
+    fetch(`http://localhost:5000/getUser?id=${id}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -53,7 +53,7 @@ const AuthProvider = ({ children }) => {
   const getUserData = async (id) => {
     console.log(id, "AUTH ID");
 
-    const response = await fetch(`https://residential-building.vercel.app/getUser?id=${id}`);
+    const response = await fetch(`http://localhost:5000/getUser?id=${id}`);
     const data = await response.json();
     return data;
   };
@@ -65,7 +65,7 @@ const AuthProvider = ({ children }) => {
 
     const data = { userId: userInfoFromLocalStorage()._id, applicationNo };
 
-    const url = `https://residential-building.vercel.app/deleteApplication?data=${JSON.stringify(
+    const url = `http://localhost:5000/deleteApplication?data=${JSON.stringify(
       data
     )}`;
     Swal.fire({
@@ -73,8 +73,8 @@ const AuthProvider = ({ children }) => {
       text: "You won't be able to update this!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "bg-violetLight",
+      cancelButtonColor: "#000",
       confirmButtonText: "Yes, sent it!",
       showLoaderOnConfirm: true,
       preConfirm: async (confirm) => {
@@ -100,7 +100,7 @@ const AuthProvider = ({ children }) => {
           title: "Sent!",
           text: "Your file has been sent successfully.",
           icon: "success",
-          confirmButtonColor: "#3085d6",
+          confirmButtonColor: "bg-violetLight",
           confirmButtonText: "Ok",
         }).then((res) => {
           console.log(res);
@@ -116,11 +116,7 @@ const AuthProvider = ({ children }) => {
   };
 
   // confirmation message and send data to database
-  const confirmAlert = (
-    stepperData,
-    collectInputFieldData,
-    isPaymentDataSent
-  ) => {
+  const confirmAlert = (stepperData, collectInputFieldData, pageWiseAction) => {
     console.log(userInfoFromLocalStorage()._id, "GET USER ID");
 
     const role = userInfoFromLocalStorage().role;
@@ -130,12 +126,12 @@ const AuthProvider = ({ children }) => {
     let url;
 
     role === "LTP" &&
-      (url = `https://residential-building.vercel.app/updateDraftApplicationData/${
+      (url = `http://localhost:5000/updateDraftApplicationData/${
         userInfoFromLocalStorage()._id
       }`);
 
     role === "PS" &&
-      (url = `https://residential-building.vercel.app/recommendDataOfPs?appNo=${applicationNo}`);
+      (url = `http://localhost:5000/recommendDataOfPs?appNo=${applicationNo}`);
 
     console.log(url, "url");
 
@@ -144,8 +140,8 @@ const AuthProvider = ({ children }) => {
       icon: "info",
       confirmButtonText: "Yes, save it",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "bg-violetLight",
+      cancelButtonColor: "#000",
       showLoaderOnConfirm: true,
       preConfirm: async (confirm) => {
         console.log("confirm", confirm);
@@ -155,7 +151,8 @@ const AuthProvider = ({ children }) => {
         return await collectInputFieldData(url)
           .then((response) => {
             console.log(response, "response");
-            if (!response.acknowledged) {
+
+            if (!response?.acknowledged) {
               throw new Error(response.statusText);
             }
             return response;
@@ -167,7 +164,7 @@ const AuthProvider = ({ children }) => {
       allowOutsideClick: () => !Swal.isLoading(),
     }).then((result) => {
       console.log(result, "result");
-      if (result.isConfirmed && result.value.acknowledged) {
+      if (result?.isConfirmed && result?.value?.acknowledged) {
         toast.success("Data saved successfully");
 
         console.log(stepperData, "Stepper data");
@@ -180,8 +177,14 @@ const AuthProvider = ({ children }) => {
           currentStep < steps.length - 1 && handleStepClick(currentStep + 1);
         }
 
-        if (isPaymentDataSent) {
-          isPaymentDataSent((prev) => prev + 1);
+        if (pageWiseAction?.page === "payment") {
+          const { setSentData } = pageWiseAction;
+          setSentData((prev) => prev + 1);
+        }
+
+        if (pageWiseAction?.page === "siteInspection") {
+          const { navigate } = pageWiseAction;
+          navigate("/dashboard/inward");
         }
       } else {
         toast.error("Failed to save data");
@@ -195,9 +198,9 @@ const AuthProvider = ({ children }) => {
       title: "Do you want to delete the data?",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonText: "Yes, save it",
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#dd3333",
+      confirmButtonText: "Yes, delete it",
+      confirmButtonColor: "bg-violetLight",
+      cancelButtonColor: "#000",
     }).then((result) => {
       if (result.isConfirmed) {
         removeData(data);
@@ -218,7 +221,7 @@ const AuthProvider = ({ children }) => {
       console.log(query, "query");
 
       const response = await fetch(
-        `https://residential-building.vercel.app/getApplicationData?data=${query}`
+        `http://localhost:5000/getApplicationData?data=${query}`
       );
 
       return await response.json();
@@ -237,7 +240,7 @@ const AuthProvider = ({ children }) => {
       console.log(query, "query");
 
       const response = await fetch(
-        `https://residential-building.vercel.app/getSubmitDataOfPs?appNo=${query}`
+        `http://localhost:5000/getSubmitDataOfPs?appNo=${query}`
       );
 
       return await response.json();
@@ -250,13 +253,22 @@ const AuthProvider = ({ children }) => {
   const getAllDraftApplicationData = async () => {
     try {
       const response = await fetch(
-        `https://residential-building.vercel.app/allDraftApplicationData`
+        `http://localhost:5000/allDraftApplicationData`
       );
 
       return await response.json();
     } catch (err) {
       toast.error("Server Error");
     }
+  };
+
+  // logout function
+  const handleLogOut = () => {
+    localStorage.removeItem("loggedUser");
+    toast.success("Logout successfully");
+    setTimeout(() => {
+      navigate("/");
+    }, 1000);
   };
 
   //   create a object to transfer data into various components
@@ -271,6 +283,7 @@ const AuthProvider = ({ children }) => {
     alertToTransferDataIntoDepartment,
     getSubmitApplicationData,
     getAllDraftApplicationData,
+    handleLogOut,
   };
 
   return (

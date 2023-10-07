@@ -12,7 +12,8 @@ const SubmitApplication = () => {
     ["allSubmitApplication"],
     async () => {
       const response = await fetch(
-        `https://residential-building.vercel.app/allSubmitApplications?id=${userInfoFromLocalStorage()._id
+        `http://localhost:5000/allSubmitApplications?id=${
+          userInfoFromLocalStorage()._id
         }`
       );
       return await response.json();
@@ -30,45 +31,40 @@ const SubmitApplication = () => {
 
   console.log(data);
   return (
-    <div>
-      <p>this is Submit Application</p>
-      <div className="w-full overflow-x-auto">
-        <table className="table">
-          {/* head */}
-          <thead>
-            <tr className="bg-[#2d3436] text-xs md:text-sm text-white hover:bg-[#353b48]">
-              <th>Sl.no.</th>
-              <th>Application no.</th>
-              <th>Owner name</th>
-              <th>Phone no.</th>
-              <th>Case type</th>
-              <th>Village</th>
-              <th>Mandal</th>
-              <th>Submitted date</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {/* show draft applications  */}
+    <div className="w-full overflow-x-auto mt-6">
+      <table className="table table-zebra">
+        {/* head */}
+        <thead>
+          <tr className="bg-[#2d3436] text-xs md:text-sm text-white hover:bg-[#353b48]">
+            <th>Sl.no.</th>
+            <th>Application no.</th>
+            <th>Owner name</th>
+            <th>Phone no.</th>
+            <th>Case type</th>
+            <th>Village</th>
+            <th>Mandal</th>
+            <th>Submitted date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {/* show draft applications  */}
 
-            {data?.map((applicationData, index) => (
-              <ShowSubmittedApplication
-                key={index}
-                serialNo={index}
-                applicationData={applicationData}
-              />
-            ))}
-          </tbody>
-        </table>
+          {data?.map((applicationData, index) => (
+            <ShowSubmittedApplication
+              key={index}
+              serialNo={index}
+              applicationData={applicationData}
+            />
+          ))}
+        </tbody>
+      </table>
 
-        {error && (
-          <p className="text-lg text-center my-4 font-bold text-error">
-            {error}
-          </p>
-        )}
+      {error && (
+        <p className="text-lg text-center my-4 font-bold text-error">{error}</p>
+      )}
 
-        {isLoading && <p>Loading...</p>}
-      </div>
+      {isLoading && <p>Loading...</p>}
     </div>
   );
 };

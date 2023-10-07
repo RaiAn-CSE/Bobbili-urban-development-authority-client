@@ -21,6 +21,7 @@ const SaveData = ({
 
   const role = userInfoFromLocalStorage().role;
 
+  const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
   const location = useLocation();
   console.log(location, "Saved Data");
 
@@ -32,7 +33,7 @@ const SaveData = ({
           {role === "LTP" &&
             (currentStep !== steps.length - 1 ? (
               <button
-                className={`${btnClass} bg-yellow-300 hover:shadow-md hover:bg-yellow-300 hover:text-black`}
+                className={`${btnClass} text-white ${gradientColor} font-roboto shadow-md shadow-violetDark border-none  `}
                 type="submit"
                 // onClick={() =>
                 //   // currentStep < steps.length - 1 &&
@@ -46,7 +47,7 @@ const SaveData = ({
             ) : (
               <div>
                 <button
-                  className={`${btnClass} me-10 px-6 bg-yellow-300 hover:shadow-md hover:bg-yellow-300 hover:text-black`}
+                  className={`${btnClass} me-10 px-6 bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white font-roboto shadow-md shadow-violetDark border-none hover:bg-violetDark`}
                   type="submit"
                   // onClick={() =>
                   //   // currentStep < steps.length - 1 &&
@@ -54,13 +55,18 @@ const SaveData = ({
                   //   confirmAlert()
                   // }
                   onClick={() => {
-                    confirmAlert(undefined, collectInputFieldData, setSentData);
+                    confirmAlert(undefined, collectInputFieldData, {
+                      page: "payment",
+                      setSentData,
+                    });
                   }}
                 >
                   Save
                 </button>
                 <button
-                  className={`btn btn-md text-[#000000] hover:text-[#fff] rounded-lg shadow-lg transition-all duration-500 cursor-pointer bg-yellow-300 hover:shadow-md hover:bg-yellow-300`}
+                  className={`btn btn-md text-white rounded-lg shadow-md border-0 mt-6  transition-all duration-500 cursor-pointer ${
+                    sentData === 1 && gradientColor
+                  } ${sentData === 1 && "shadow-violetDark"}`}
                   disabled={sentData === 0}
                   onClick={() =>
                     sentToPS(
@@ -79,7 +85,7 @@ const SaveData = ({
           {role === "PS" && (
             <>
               <button
-                className="btn btn-md text-sm px-3 mt-10 ml-3 bg-green-300 hover:bg-green-400 hover:shadow-md transition-all duration-500"
+                className={`btn btn-md ${gradientColor} text-sm text-white px-8 mt-10 ml-3 shadow-md hover:shadow-violetDark border-0 transition-all duration-500`}
                 onClick={() => {
                   confirmAlert(undefined, collectInputFieldData);
                 }}
@@ -88,9 +94,12 @@ const SaveData = ({
               </button>
               {location.pathname.includes("siteInspection") && (
                 <button
-                  className="btn btn-md text-sm px-3 mt-10 ml-3 bg-green-300 hover:bg-green-400 hover:shadow-md transition-all duration-500"
+                  className={`btn btn-md text-sm px-7 mt-10 ml-6 shadow-md hover:shadow-violetDark border-0 transition-all duration-500 bg-black hover:bg-black text-white`}
                   onClick={() => {
-                    confirmAlert(undefined, sentData);
+                    confirmAlert(undefined, sentData, {
+                      page: "siteInspection",
+                      navigate,
+                    });
                   }}
                 >
                   Submit

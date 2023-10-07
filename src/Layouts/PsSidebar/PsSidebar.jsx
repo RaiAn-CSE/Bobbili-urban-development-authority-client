@@ -1,25 +1,83 @@
 import React from "react";
+import { MdSpaceDashboard } from "react-icons/md";
 import { Link, useLocation } from "react-router-dom";
 
 function PsSidebar() {
   const path = useLocation().pathname;
 
+  const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
+
   return (
-    <div className="min-h-screen flex flex-col space-y-4">
-      {/* <li className={`${path === "/PsDashboard" && "active"} mt-10`}>
+    <>
+      <li
+        className={`${
+          path === "/dashboard" && gradientColor
+        } mt-10 flex items-center rounded-l-lg ps-3 hover:${gradientColor}`}
+      >
         <span>
           <MdSpaceDashboard size={20} />
         </span>
-        <Link className={`p-[10px] font-medium `} to="/PsDashboard">
+        <Link className={`p-[10px] font-medium `} to="/dashboard">
           Dashboard
         </Link>
-      </li> */}
-      <Link to='/dashboard'><button>Dashboard</button></Link>
-      <Link to='/dashboard/Inward'><button>Inward Applications</button></Link>
-      <Link to='/dashboard/outwardApplication'><button>Outward Application</button></Link>
-      <Link to='/dashboard/searchApplication'><button>Search Application</button></Link>
-      <Link to='/dashboard/reValidation'><button>Re-validation</button></Link>
-    </div >
+      </li>
+
+      <li
+        className={`${
+          path === "/dashboard/inward" && gradientColor
+        } mt-1  flex items-center rounded-l-lg ps-3 hover:${gradientColor}`}
+      >
+        <span>
+          <MdSpaceDashboard size={20} />
+        </span>
+        <Link className={`p-[10px] font-medium `} to="/dashboard/inward">
+          Inward Application
+        </Link>
+      </li>
+      <li
+        className={`${
+          path === "/dashboard/searchApplication" && gradientColor
+        } mt-1 flex items-center rounded-l-lg ps-3 hover:${gradientColor}`}
+      >
+        <span>
+          <MdSpaceDashboard size={20} />
+        </span>
+        <Link
+          className={`p-[10px] font-medium `}
+          to="/dashboard/searchApplication"
+        >
+          Search Application
+        </Link>
+      </li>
+      <li
+        className={`${
+          path === "/dashboard/reValidation" && gradientColor
+        } mt-1 flex items-center rounded-l-lg ps-3 hover:${gradientColor}`}
+      >
+        <span>
+          <MdSpaceDashboard size={20} />
+        </span>
+        <Link className={`p-[10px] font-medium `} to="/dashboard/reValidation">
+          Re-validation
+        </Link>
+      </li>
+
+      {/* <Link to="/dashboard">
+        <button>Dashboard</button>
+      </Link>
+      <Link to="/dashboard/Inward">
+        <button>Inward Applications</button>
+      </Link>
+      <Link to="/dashboard/outwardApplication">
+        <button>Outward Application</button>
+      </Link>
+      <Link to="/dashboard/searchApplication">
+        <button>Search Application</button>
+      </Link>
+      <Link to="/dashboard/reValidation">
+        <button>Re-validation</button>
+      </Link> */}
+    </>
   );
 }
 

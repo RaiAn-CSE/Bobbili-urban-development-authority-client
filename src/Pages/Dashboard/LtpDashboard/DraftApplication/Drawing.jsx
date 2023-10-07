@@ -30,6 +30,7 @@ const Drawing = () => {
     getApplicationData,
     userInfoFromLocalStorage,
   } = useContext(AuthContext);
+
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
   const role = userInfoFromLocalStorage().role;
 
@@ -46,6 +47,8 @@ const Drawing = () => {
   }, []);
 
   const stepperData = useOutletContext();
+
+  const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
   const [localFile, setLocalFile] = useState(
     JSON.parse(localStorage.getItem("selectedFiles"))
@@ -103,7 +106,7 @@ const Drawing = () => {
         formData.append("file", selectedFiles[file]);
         try {
           const response = await axios.post(
-            "https://residential-building.vercel.app/upload?page=drawing",
+            "http://localhost:5000/upload?page=drawing",
             formData,
             {
               headers: {
@@ -137,25 +140,28 @@ const Drawing = () => {
     }
   };
   // Apu vai send ps data from here
-  const psData = { applicationNo, approvedConfirmation, message: recomendationMessage }
+
+  const sentPsDecision = async (url) => {
+    const psData = {
+      approved: approvedConfirmation,
+      message: recomendationMessage,
+    };
+
+    console.log(psData, "PSDATA");
+    return await sendUserDataIntoDB(url, "PATCH", {
+      applicationNo,
+      psDrawingPageObservation: psData,
+    });
+  };
 
   return (
     <>
-      <div className="text-end mb-4">
-        <button
-          onClick={() => setOpenApplication(true)}
-          className="btn btn-sm text-xs bg-[#c0e9e4] transition-all duration-700 hover:bg-[#10ac84] text-[#000] hover:text-[#fff]"
-        >
-          <HiOutlineClipboardDocumentList className="text-lg" />
-          <span>Application</span>
-        </button>
-      </div>
       <form
         onSubmit={(e) => e.preventDefault()}
         className="text-black p-5 mt-3"
       >
         {/* AutoCAD Drawing */}
-        <div className="text-base px-2 mb-10">
+        <div className="text-base px-2 mb-16 ">
           <p className="pr-3 font-bold">1. AutoCAD Drawing</p>
           <div className="flex items-center mt-5">
             {role === "LTP" && (
@@ -172,9 +178,9 @@ const Drawing = () => {
               <Link
                 to={`https://drive.google.com/file/d/${savedData?.drawing?.AutoCAD}/view?usp=sharing`}
                 target="_blank"
-                className="hover:underline bg-gray-300 py-2 px-5 rounded-full"
+                className={`${gradientColor} text-white hover:underline  py-2 px-5 rounded-full`}
               >
-                {role == "LTP" ? "View old File" : "View File"}
+                View
               </Link>
             )}
           </div>
@@ -199,9 +205,9 @@ const Drawing = () => {
               <Link
                 to={`https://drive.google.com/file/d/${savedData?.drawing?.Drawing}/view?usp=sharing`}
                 target="_blank"
-                className="hover:underline bg-gray-300 py-2 px-5 rounded-full"
+                className={`${gradientColor} text-white hover:underline  py-2 px-5 rounded-full`}
               >
-                {role == "LTP" ? "View old File" : "View File"}
+                View
               </Link>
             )}
           </div>
@@ -225,7 +231,9 @@ const Drawing = () => {
         steps={steps}
         stepperData={stepperData}
         confirmAlert={confirmAlert}
-        collectInputFieldData={handleFileUpload}
+        collectInputFieldData={
+          role === "LTP" ? handleFileUpload : sentPsDecision
+        }
       />
     </>
   );

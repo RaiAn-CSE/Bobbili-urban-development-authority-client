@@ -21,6 +21,11 @@ const SiteInspection = () => {
   const [decision, setDecision] = useState("");
   const [recommendations, setRecommendations] = useState("");
 
+  const tableDataClass =
+    "whitespace-nowrap border-r px-6 py-4 border-neutral-500";
+  const inputClass = "input rounded-none w-full max-w-xs focus:outline-none";
+  const inputTableDataClass = "whitespace-nowrap border-r border-neutral-500";
+
   useEffect(() => {
     const getData = async () => {
       const applicationData = await getApplicationData(applicationNo);
@@ -173,7 +178,7 @@ const SiteInspection = () => {
 
     console.log(siteInspection, "SITE INSPECTION");
 
-    // fetch(`https://residential-building.vercel.app/recommendDataOfPs?appNo=${applicationNo}`, {
+    // fetch(`http://localhost:5000/recommendDataOfPs?appNo=${applicationNo}`, {
     //     method: "PATCH",
     //     headers: {
     //         "content-type": "application/json",
@@ -197,19 +202,16 @@ const SiteInspection = () => {
   };
 
   const sentPsDecision = async (url) => {
-    url = `https://residential-building.vercel.app/submitPsDecision?appNo=${applicationNo}`;
+    url = `http://localhost:5000/decisionOfPs?appNo=${applicationNo}`;
     console.log(url);
 
-    const response = await fetch(url, { method: "DELETE" });
-    console.log(response);
+    const config = {
+      method: "DELETE",
+    };
+
+    const response = await fetch(url, config);
     return await response.json();
   };
-
-  // Classes :
-  const tableDataClass =
-    "whitespace-nowrap border-r px-6 py-4 border-neutral-500";
-  const inputClass = "input rounded-none w-full max-w-xs focus:outline-none";
-  const inputTableDataClass = "whitespace-nowrap border-r border-neutral-500";
 
   return (
     <div className="flex flex-col sm:px-6 lg:px-8">

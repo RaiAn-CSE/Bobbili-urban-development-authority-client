@@ -11,12 +11,12 @@ const AllUsers = () => {
   const [userInfo, setUserInfo] = useState([]);
   const [showModal, setShowModal] = useState(true);
 
+  const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
+
   const { data, refetch, isLoading, isSuccess } = useQuery({
     queryKey: ["allUser"],
     queryFn: async () => {
-      const response = await fetch(
-        "https://residential-building.vercel.app/allUser"
-      );
+      const response = await fetch("http://localhost:5000/allUser");
       const data = await response.json();
       return data;
     },
@@ -43,7 +43,7 @@ const AllUsers = () => {
   const deleteUser = (id) => {
     console.log(id);
 
-    fetch(`https://residential-building.vercel.app/deleteUser/${id}`, {
+    fetch(`http://localhost:5000/deleteUser/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -84,7 +84,7 @@ const AllUsers = () => {
 
     const { _id } = data;
 
-    fetch(`https://residential-building.vercel.app/updateUserInfo/${_id}`, {
+    fetch(`http://localhost:5000/updateUserInfo/${_id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
@@ -126,7 +126,7 @@ const AllUsers = () => {
         <div>
           <label
             htmlFor="search"
-            className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
+            className="block mb-2 text-base font-roboto font-bold text-gray-900 dark:text-white"
           >
             Search User
           </label>
@@ -144,10 +144,10 @@ const AllUsers = () => {
       {/* display users  */}
       <div className="overflow-x-auto">
         <table
-          className={`table w-full md:w-[70%] mx-auto mt-10 ${tableStyle.table}`}
+          className={`table table-zebra w-full font-roboto md:w-[70%] mx-auto mt-10`}
         >
           {/* head */}
-          <thead className="bg-[#C0E9E4] Roboto font-bold text-black text-center">
+          <thead className={`bg-black font-bold text-white text-center`}>
             <tr>
               <th>Name</th>
               <th>Actions</th>
@@ -165,6 +165,12 @@ const AllUsers = () => {
           </tbody>
         </table>
       </div>
+
+      {records?.length === 0 && (
+        <p className="font-roboto font-bold text-red-500 text-xl mt-7 text-center">
+          No data found
+        </p>
+      )}
 
       {/* dialog box for update User  */}
       {/* Open the modal using document.getElementById('ID').showModal() method */}

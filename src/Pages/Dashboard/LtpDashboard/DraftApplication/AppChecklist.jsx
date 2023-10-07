@@ -13,7 +13,8 @@ function AppChecklist() {
   const [questions, setQuestions] = useState(ChecklistQuestions.Questions);
   const stepperData = useOutletContext();
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
-  const { confirmAlert, sendUserDataIntoDB, getApplicationData } = useContext(AuthContext);
+  const { confirmAlert, sendUserDataIntoDB, getApplicationData } =
+    useContext(AuthContext);
   // after select question firing here
   const handleAnswer = (event, questionNo) => {
     const updatedQuestions = questions.map((question) => ({
@@ -27,7 +28,7 @@ function AppChecklist() {
   useEffect(() => {
     const gettingData = async () => {
       const applicationData = await getApplicationData(applicationNo);
-      console.log(applicationData)
+      console.log(applicationData);
       const applicationCheckList = applicationData.applicationCheckList;
       if (applicationCheckList.length) {
         setQuestions(applicationCheckList);
@@ -45,15 +46,10 @@ function AppChecklist() {
       applicationCheckList: questions,
     });
   };
-  const btn = "btn btn-md text-sm px-6 bg-Primary transition duration-700 hover:bg-btnHover hover:shadow-md";
+  const btn =
+    "btn btn-md text-sm px-6 bg-Primary transition duration-700 hover:bg-btnHover hover:shadow-md";
   return (
     <div className="px-3 text-sm py-1 relative">
-      <div className="text-end mb-4">
-        <button onClick={() => setOpenApplication(true)} className="btn btn-sm text-xs bg-[#c0e9e4] transition-all duration-700 hover:bg-[#10ac84] text-[#000] hover:text-[#fff]">
-          <HiOutlineClipboardDocumentList className="text-lg" />{" "}
-          <span>Application</span>
-        </button>
-      </div>
       <div className="space-y-5">
         {questions.map(({ no, question, answer }) => (
           <div
@@ -65,8 +61,9 @@ function AppChecklist() {
             </p>
             <div className="space-x-10 mt-2 lg:pr-2">
               <label
-                className={`ml-2 inline-flex items-center space-x-1 text-black ${answer === "yes" && "font-extrabold"
-                  }`}
+                className={`ml-2 inline-flex items-center space-x-1 text-black ${
+                  answer === "yes" && "font-extrabold"
+                }`}
               >
                 <input
                   type="radio"
@@ -79,8 +76,9 @@ function AppChecklist() {
                 <span>Yes</span>
               </label>
               <label
-                className={`ml-2 inline-flex items-center space-x-1 text-black ${answer === "no" && "font-extrabold"
-                  }`}
+                className={`ml-2 inline-flex items-center space-x-1 text-black ${
+                  answer === "no" && "font-extrabold"
+                }`}
               >
                 <input
                   type="radio"
@@ -96,8 +94,6 @@ function AppChecklist() {
           </div>
         ))}
       </div>
-      {/* Application Modal */}
-      {openApplication ? <Application setOpenApplication={setOpenApplication} /> : ""}
 
       {/* save & continue  */}
       {/* navigation button  */}

@@ -407,6 +407,7 @@ const BuildingInfo = () => {
 
     const totalBuiltUpArea = document.getElementById("totalBuiltUpArea").value;
     const totalParkingArea = document.getElementById("totalParkingArea").value;
+    const vacantLand = document.getElementById("vacantLand").value;
     const frontSetback = document.getElementById("frontSetback").value;
     const rareSetback = document.getElementById("rareSetback").value;
     const side1Setback = document.getElementById("side1Setback").value;
@@ -458,6 +459,7 @@ const BuildingInfo = () => {
       floorDetails,
       totalBuiltUpArea: totalBuiltUpArea === "" ? 0 : totalBuiltUpArea,
       totalParkingArea: totalParkingArea === "" ? 0 : totalParkingArea,
+      vacantLand,
       frontSetback,
       rareSetback,
       side1Setback,
@@ -515,6 +517,7 @@ const BuildingInfo = () => {
     compoundingWallProposed,
     existingRoad,
     existingRoadMts,
+    vacantLand,
     frontSetback,
     marketValueSqym,
     natureOfRoad,
@@ -545,786 +548,799 @@ const BuildingInfo = () => {
     "w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs dark:text-black";
 
   return (
-    <div className="grid my-5 lg:my-0 lg:p-2 dark:bg-black dark:text-gray-100">
-      {/* general information */}
-      <div className="divide-y-2 divide-gray-200 mb-10">
-        {/* heading  */}
-        <div className="flex items-center">
-          <img src={generalInfoImage} alt="" className="h-10 me-3" />
-          <h3 className="font-bold text-xl">General Information</h3>
-        </div>
-
-        <div className="grid grid-cols-2 lg:grid-cols-4 mt-2 mb-5">
-          <div className="flex flex-col justify-center my-4 px-3">
-            <label htmlFor="nature" className={labelClass}>
-              <span>Case Type</span>
-            </label>
-            <select
-              id="caseType"
-              className="w-full px-3 py-[10px] border border-[#10AC84] dark:text-black rounded-lg max-w-xs"
-              value={selectedOptionCase ? selectedOptionCase : caseType}
-              onChange={handleCaseTypeChange}
-            >
-              <option disabled selected value="">
-                Select Case type
-              </option>
-              <option value="New">New</option>
-              <option value="Demolition and Reconstruction">
-                Demolition and Reconstruction
-              </option>
-              <option value="Alteration Addition Existing">
-                Alteration Addition Existing
-              </option>
-              <option value="Revision">Revision</option>
-            </select>
+    <>
+      <div className="grid my-5 mx-5 lg:my-0 lg:p-2 dark:bg-black dark:text-gray-100">
+        {/* general information */}
+        <div className="divide-y-2 divide-gray-200 mb-10">
+          {/* heading  */}
+          <div className="flex items-center">
+            <img src={generalInfoImage} alt="" className="h-10 me-3" />
+            <h3 className="font-bold text-xl">General Information</h3>
           </div>
 
-          {/* General Information radio button  */}
-          <div className="grid grid-cols-1 font-medium  lg:justify-items-center my-4 mx-3">
-            <p className="flex items-center font-semibold text-gray-600 dark:text-gray-100">
-              Application Type?
-            </p>
-            <div className="grid-cols-1 lg:grid-cols-2 items-center">
-              <label className="inline-flex items-center">
-                <input
-                  type="radio"
-                  name="radio-1"
-                  className="radio border border-[#10AC84] h-4 w-4"
-                  value="Private"
-                  checked={
-                    radio1 === "Private"
-                      ? radio1 === "Private"
-                      : applicationType === "Private"
-                  }
-                  onChange={handleRadio1}
-                />
-                <span className="ml-2 text-base">Private</span>
-              </label>
-              <label className="inline-flex items-center md:ml-3">
-                <input
-                  type="radio"
-                  name="radio-1"
-                  className="radio border border-[#10AC84] h-4 w-4"
-                  value="Govt. Land"
-                  checked={
-                    radio1 === "Govt. Land"
-                      ? radio1 === "Govt. Land"
-                      : applicationType === "Govt. Land"
-                  }
-                  onChange={handleRadio1}
-                />
-                <span className="ml-2 text-base">Govt. Land</span>
-              </label>
-            </div>
-          </div>
-
-          <div className="flex flex-col justify-center my-4 mx-3">
-            <label className="block text-gray-600 dark:text-gray-100 mb-1 font-semibold">
-              <span>Nature of permission</span>
-            </label>
-            <select
-              id="natureOfPermission"
-              className={inputClass}
-              value={
-                selectedOptionPermission
-                  ? selectedOptionPermission
-                  : natureOfPermission
-              }
-              onChange={handlePermissionChange}
-            >
-              <option disabled selected value="">
-                Select Nature of permission
-              </option>
-              <option value="General">General</option>
-              <option value="Regularised under BPS">
-                Regularised under BPS
-              </option>
-              <option value="Housing Scheme">Housing Scheme</option>
-            </select>
-          </div>
-
-          <div className="my-4 mx-3">
-            <label htmlFor="nature" className={labelClass}>
-              <span>Nature of the site</span>
-            </label>
-            <select
-              id="natureOfTheSite"
-              className={inputClass}
-              value={
-                selectedNatureOfTheSite
-                  ? selectedNatureOfTheSite
-                  : natureOfTheSite
-              }
-              onChange={handleNatureChange}
-            >
-              <option disabled selected value="">
-                Select Nature of the site
-              </option>
-              <option value="Approved Layout">Approved Layout</option>
-              <option value="Regularised under LRS">
-                Regularised under LRS
-              </option>
-              <option value="Plot port of RLP/IPLP but not regularised">
-                Plot port of RLP/IPLP but not regularised
-              </option>
-              <option value="Congested/ Gramakanta/ Old Built-up area">
-                Congested/ Gramakanta/ Old Built-up area
-              </option>
-              <option value="Newly Developed/ Built up area">
-                Newly Developed/ Built up area
-              </option>
-            </select>
-          </div>
-
-          <InputField
-            id="SurveyNo"
-            name="Survey no."
-            label="Survey no."
-            placeholder="Survey no."
-            type="text"
-            ltpDetails={surveyNo}
-          />
-
-          <div className="flex flex-col justify-center my-4 mx-3">
-            <label className={labelClass}>
-              <span>District</span>
-            </label>
-            <select
-              id="district"
-              name="District"
-              className={inputClass}
-              onChange={handleDistrictChange}
-              value={selectedDistrict}
-            >
-              <option selected value="" disabled>
-                Select District
-              </option>
-              {districtData.map((district) => (
-                <option key={district.name} value={district.name}>
-                  {district.name}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="flex flex-col justify-center my-4 mx-3">
-            <label className={labelClass}>
-              <span>Mandal</span>
-            </label>
-            <select
-              id="mandal"
-              name="mandal"
-              className={inputClass}
-              onChange={handleMandalChange}
-              value={selectedMandal}
-              disabled={!selectedDistrict}
-            >
-              <option value="" disabled>
-                Select Mandal
-              </option>
-              {selectedDistrict &&
-                districtData
-                  .find((district) => district.name === selectedDistrict)
-                  ?.mandal.map((mandal) => (
-                    <option key={mandal.name} value={mandal.name}>
-                      {mandal.name}
-                    </option>
-                  ))}
-            </select>
-          </div>
-
-          <InputField
-            id="GramaPanchayat"
-            name="Grama Panchayat"
-            label="Grama Panchayat"
-            placeholder="Grama Panchayat"
-            ltpDetails={gramaPanchayat}
-          />
-
-          <div className="flex flex-col justify-center my-4 mx-3">
-            <label className={labelClass}>
-              <span>Village</span>
-            </label>
-            <select
-              id="village"
-              name="village"
-              className={inputClass}
-              value={selectedVillage}
-              onChange={(e) => setSelectedVillage(e.target.value)}
-              disabled={!selectedMandal}
-            >
-              <option value="" disabled>
-                Select Village
-              </option>
-              {selectedMandal &&
-                districtData
-                  .find((district) => district.name === selectedDistrict)
-                  ?.mandal.find((mandal) => mandal.name === selectedMandal)
-                  ?.village.map((village) => (
-                    <option key={village} value={village}>
-                      {village}
-                    </option>
-                  ))}
-            </select>
-          </div>
-
-          {/*===================== Conditionally render input fields based on Case Type  =====================*/}
-          {selectedOptionCase === "Alteration Addition Existing" &&
-            selectedOptionPermission === "Regularised under BPS" && (
-              <div>
-                <InputField
-                  id="BpsApprovedNo"
-                  name="BpsApprovedNo"
-                  label="BPS approved no."
-                  placeholder="BPS approved no."
-                  ltpDetails={bpsApprovedNoServer}
-                  type="number"
-                />
-              </div>
-            )}
-
-          {selectedOptionCase === "Alteration Addition Existing" &&
-            selectedOptionPermission !== "Regularised under BPS" && (
-              <div>
-                <InputField
-                  id="PreviewsApprovedFileNo"
-                  name="PreviewsApprovedFileNo"
-                  label="Previews approved file no."
-                  placeholder="Previews approved file no."
-                  type="number"
-                  ltpDetails={previewsApprovedFileNo}
-                />
-              </div>
-            )}
-
-          {/* Conditionally render input fields based on Nature of the site */}
-          {selectedNatureOfTheSite === "Approved Layout" && (
-            <>
-              <InputField
-                id="LpNo"
-                name="LpNo"
-                label="L.P. no."
-                placeholder="L.P. no."
-                type="number"
-                ltpDetails={lpNo}
-              />
-              <InputField
-                id="PlotNo"
-                name="PlotNo"
-                label="Plot no."
-                placeholder="Plot no."
-                type="number"
-                ltpDetails={plotNo}
-              />
-            </>
-          )}
-
-          {selectedNatureOfTheSite === "Regularised under LRS" && (
-            <>
-              <InputField
-                id="LrsNo"
-                name=""
-                label="LRS no"
-                placeholder="LRS no."
-                type="number"
-                ltpDetails={lrsNo}
-              />
-              <InputField
-                id="PlotNo2"
-                name=""
-                label="Plot no"
-                placeholder="Plot no."
-                type="number"
-                ltpDetails={plotNo2}
-              />
-            </>
-          )}
-
-          {selectedNatureOfTheSite ===
-            "Plot port of RLP/IPLP but not regularised" && (
-              <InputField
-                id="IplpNo"
-                name=""
-                label="RLP/IPLP no."
-                placeholder="RLP/IPLP no."
-                type="number"
-                ltpDetails={iplpNo}
-              />
-            )}
-          {/*===================== Conditional Input Field End =====================*/}
-        </div>
-      </div>
-
-      {/* plot details  */}
-      <div className="divide-y-2 divide-gray-200 mb-10">
-        <div className="flex items-center">
-          <img src={plotImage} alt="" className="h-10 me-3" />
-          <h3 className="font-bold text-xl">Plot Details</h3>
-        </div>
-
-        <div className="mt-2">
-          <div className="grid grid-cols-2 lg:grid-cols-4">
-            <InputField
-              type="number"
-              id="TotalPlotDocument"
-              name=""
-              label="Total Plot are as per document"
-              placeholder="in Sq.M."
-              ltpDetails={totalPlotDocument}
-            />
-            <InputField
-              type="number"
-              id="TotalPlotGround"
-              name=""
-              label="Total Plot are as on ground"
-              placeholder="in Sq.M."
-              ltpDetails={totalPlotGround}
-            />
-
-            <div className="my-4 mx-3">
-              <label htmlFor="" className={labelClass}>
-                Proposed Plot area
-              </label>
-              <input
-                type="number"
-                id="proposedPlotArea"
-                name="proposedPlotArea"
-                placeholder="in Sq.M."
-                className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
-                defaultValue={
-                  proposedPlotArea ? proposedPlotArea : proposedPlotAreaCal
-                }
-                onChange={handleProposedPlotAreaChange}
-              />
-              <p className="text-xs text-red-500 mt-2">
-                {console.log(proposedPlotArea, proposedPlotAreaCal, "INSIDE")}
-                {proposedPlotArea > 300 && proposedPlotArea !== ""
-                  ? "Value must be less than 300"
-                  : ""}
-              </p>
-            </div>
-
-            <div className="my-4 mx-3">
-              <label htmlFor="" className={labelClass}>
-                Road Widening Area
-              </label>
-              <input
-                id="roadWideningArea"
-                type="number"
-                placeholder="in Sq.M."
-                className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
-                defaultValue={roadWideningArea}
-                onChange={handleRoadWideningAreaChange}
-              />
-              {console.log(roadWideningArea, "Inside roadwidening")}
-              <p className="text-xs text-red-500 mt-2">
-                {roadWideningArea > 300 && roadWideningArea !== ""
-                  ? "Value must be less than 300"
-                  : ""}
-              </p>
-            </div>
-
-            {/* Automatically calculated Plot Details  */}
-            <div className="my-4 mx-3">
-              <label htmlFor="disabled-input" className={labelClass}>
-                Net Plot Area (in Sq.M.)
-              </label>
-              <input
-                type="text"
-                id="netPlotArea"
-                name="netPlotArea"
-                placeholder="Automatically calculated"
-                className="w-full px-3 py-2 border rounded-lg max-w-xs"
-                value={netPlotArea}
-                disabled
-              />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 mx-5 md:mx-10 lg:mx-14 my-10">
-            <div className="flex flex-col md:flex-row font-medium mb-4 text-lg">
-              <div className="flex items-center mb-3 md:mb-0">
-                <FaHandPointRight className="me-3 w-5 lg:w-auto text-green-500" />
-                <p className="font-bold text-lg">
-                  Whether site abuts any Existing Road?
-                </p>
-              </div>
-              <label className="inline-flex items-center ml-3">
-                <input
-                  type="radio"
-                  name="radio-2"
-                  className="radio border border-[#10AC84] h-4 w-4"
-                  value="yes"
-                  checked={
-                    radio2 == "yes" ? radio2 == "yes" : existingRoad === "yes"
-                  }
-                  onChange={handleRadio2}
-                />
-                <span className="ml-2 text-base">Yes</span>
-              </label>
-              <label className="inline-flex items-center ml-3">
-                <input
-                  type="radio"
-                  name="radio-2"
-                  className="radio border border-[#10AC84] h-4 w-4"
-                  value="no"
-                  checked={
-                    radio2 == "no" ? radio2 == "no" : existingRoad === "no"
-                  }
-                  onChange={handleRadio2}
-                />
-                <span className="ml-2 text-base">No</span>
-              </label>
-            </div>
-
-            <div className="flex flex-col md:flex-row font-medium mb-4 text-lg mt-4">
-              <div className="flex items-center mb-3 md:mb-0">
-                <FaHandPointRight className="me-3 w-5 lg:w-auto text-green-500" />
-                <p className="font-bold text-lg">Status of Road?</p>
-              </div>
-              <label className="inline-flex items-center ml-3">
-                <input
-                  type="radio"
-                  name="radio-3"
-                  className="radio border border-[#10AC84] h-4 w-4"
-                  value="Public"
-                  checked={
-                    radio3 == "Public"
-                      ? radio3 == "Public"
-                      : statusOfRoad === "Public"
-                  }
-                  onChange={handleRadio3}
-                />
-                <span className="ml-2 text-base">Public</span>
-              </label>
-              <label className="inline-flex items-center ml-3">
-                <input
-                  type="radio"
-                  name="radio-3"
-                  className="radio border border-[#10AC84] h-4 w-4"
-                  value="Private"
-                  checked={
-                    radio3 == "Private"
-                      ? radio3 == "Private"
-                      : statusOfRoad === "Private"
-                  }
-                  onChange={handleRadio3}
-                />
-                <span className="ml-2 text-base">Private</span>
-              </label>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 lg:grid-cols-4 mt-3">
-            <div className="flex flex-col justify-center mx-3">
-              <label className={labelClass}>
-                <span>Nature of Road</span>
+          <div className="grid grid-cols-2 lg:grid-cols-4 mt-2 mb-5">
+            <div className="flex flex-col justify-center my-4 px-3">
+              <label htmlFor="nature" className={labelClass}>
+                <span>Case Type</span>
               </label>
               <select
-                id="natureOfRoad"
-                className={inputClass}
-                // value={natureOfRoad}
-                value={natureOfRoadValue ? natureOfRoadValue : natureOfRoad}
-                onChange={handleNatureOfRoad}
+                id="caseType"
+                className="w-full px-3 py-[10px] border border-[#10AC84] dark:text-black rounded-lg max-w-xs"
+                value={selectedOptionCase ? selectedOptionCase : caseType}
+                onChange={handleCaseTypeChange}
               >
-                <option disabled selected>
-                  Select Nature of Road
+                <option disabled selected value="">
+                  Select Case type
                 </option>
-                <option>BT Road</option>
-                <option>CC Road</option>
-                <option>WBM</option>
-                <option>Kutchha/ Graval</option>
+                <option value="New">New</option>
+                <option value="Demolition and Reconstruction">
+                  Demolition and Reconstruction
+                </option>
+                <option value="Alteration Addition Existing">
+                  Alteration Addition Existing
+                </option>
+                <option value="Revision">Revision</option>
+              </select>
+            </div>
+
+            {/* General Information radio button  */}
+            <div className="grid grid-cols-1 font-medium  lg:justify-items-center my-4 mx-3">
+              <p className="flex items-center font-semibold text-gray-600 dark:text-gray-100">
+                Application Type?
+              </p>
+              <div className="grid-cols-1 lg:grid-cols-2 items-center">
+                <label className="inline-flex items-center">
+                  <input
+                    type="radio"
+                    name="radio-1"
+                    className="radio border border-[#10AC84] h-4 w-4"
+                    value="Private"
+                    checked={
+                      radio1 === "Private"
+                        ? radio1 === "Private"
+                        : applicationType === "Private"
+                    }
+                    onChange={handleRadio1}
+                  />
+                  <span className="ml-2 text-base">Private</span>
+                </label>
+                <label className="inline-flex items-center md:ml-3">
+                  <input
+                    type="radio"
+                    name="radio-1"
+                    className="radio border border-[#10AC84] h-4 w-4"
+                    value="Govt. Land"
+                    checked={
+                      radio1 === "Govt. Land"
+                        ? radio1 === "Govt. Land"
+                        : applicationType === "Govt. Land"
+                    }
+                    onChange={handleRadio1}
+                  />
+                  <span className="ml-2 text-base">Govt. Land</span>
+                </label>
+              </div>
+            </div>
+
+            <div className="flex flex-col justify-center my-4 mx-3">
+              <label className="block text-gray-600 dark:text-gray-100 mb-1 font-semibold">
+                <span>Nature of permission</span>
+              </label>
+              <select
+                id="natureOfPermission"
+                className={inputClass}
+                value={
+                  selectedOptionPermission
+                    ? selectedOptionPermission
+                    : natureOfPermission
+                }
+                onChange={handlePermissionChange}
+              >
+                <option disabled selected value="">
+                  Select Nature of permission
+                </option>
+                <option value="General">General</option>
+                <option value="Regularised under BPS">
+                  Regularised under BPS
+                </option>
+                <option value="Housing Scheme">Housing Scheme</option>
+              </select>
+            </div>
+
+            <div className="my-4 mx-3">
+              <label htmlFor="nature" className={labelClass}>
+                <span>Nature of the site</span>
+              </label>
+              <select
+                id="natureOfTheSite"
+                className={inputClass}
+                value={
+                  selectedNatureOfTheSite
+                    ? selectedNatureOfTheSite
+                    : natureOfTheSite
+                }
+                onChange={handleNatureChange}
+              >
+                <option disabled selected value="">
+                  Select Nature of the site
+                </option>
+                <option value="Approved Layout">Approved Layout</option>
+                <option value="Regularised under LRS">
+                  Regularised under LRS
+                </option>
+                <option value="Plot port of RLP/IPLP but not regularised">
+                  Plot port of RLP/IPLP but not regularised
+                </option>
+                <option value="Congested/ Gramakanta/ Old Built-up area">
+                  Congested/ Gramakanta/ Old Built-up area
+                </option>
+                <option value="Newly Developed/ Built up area">
+                  Newly Developed/ Built up area
+                </option>
               </select>
             </div>
 
             <InputField
-              id="existingRoadMts"
-              name="name1"
-              label="Existing road (in Mts.)"
-              placeholder="in Sq.M."
-              ltpDetails={existingRoadMts}
+              id="SurveyNo"
+              name="Survey no."
+              label="Survey no."
+              placeholder="Survey no."
+              type="text"
+              ltpDetails={surveyNo}
             />
-            <InputField
-              id="proposedRoadMts"
-              name="name1"
-              label="Proposed road (in Mts.)"
-              placeholder="in Sq.M."
-              ltpDetails={proposedRoadMts}
-            />
-            <InputField
-              id="marketValueSqym"
-              name="name1"
-              label="Market Value (per Sq.Yd.)"
-              placeholder="per Sq.Yd."
-              ltpDetails={marketValueSqym}
-            />
-          </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4">
-            {totalFloor.map((floor, index) => (
-              <FloorDetails
-                key={index}
-                floor={floor}
-                index={index}
-                length={totalFloor.length}
-                increaseFloorNo={increaseFloorNo}
-                handleBuiltUpArea={handleBuiltUpArea}
-                handleParkingArea={handleParkingArea}
-                parkingAreaValue={parkingArea[index]}
-                builtUpAreaValue={builtUpArea[index]}
-                plotDetailsFloor={
-                  plotDetailsFloor ? plotDetailsFloor[index] : undefined
-                }
-              />
-            ))}
-          </div>
-
-          <div className="grid grid-cols-2 lg:grid-cols-4 mt-5">
-            <div className="my-4 mx-3">
-              <label htmlFor="disabled-input" className={labelClass}>
-                Total Built up area
+            <div className="flex flex-col justify-center my-4 mx-3">
+              <label className={labelClass}>
+                <span>District</span>
               </label>
-              <input
-                type="text"
-                id="totalBuiltUpArea"
-                name="name1"
-                placeholder="Automatically calculated"
-                className="w-full px-3 py-2 border rounded-lg max-w-xs"
-                value={builtUpAreaSum}
-                disabled
-              />
+              <select
+                id="district"
+                name="District"
+                className={inputClass}
+                onChange={handleDistrictChange}
+                value={selectedDistrict}
+              >
+                <option selected value="" disabled>
+                  Select District
+                </option>
+                {districtData.map((district) => (
+                  <option key={district.name} value={district.name}>
+                    {district.name}
+                  </option>
+                ))}
+              </select>
             </div>
 
-            <div className="my-4 mx-3">
-              <label htmlFor="disabled-input2" className={labelClass}>
-                Total Parking area
+            <div className="flex flex-col justify-center my-4 mx-3">
+              <label className={labelClass}>
+                <span>Mandal</span>
               </label>
-              <input
-                id="totalParkingArea"
-                name="name1"
-                placeholder="Automatically calculated"
-                className="w-full px-3 py-2 border rounded-lg max-w-xs"
-                value={parkingAreaSum}
-                disabled
-              />
+              <select
+                id="mandal"
+                name="mandal"
+                className={inputClass}
+                onChange={handleMandalChange}
+                value={selectedMandal}
+                disabled={!selectedDistrict}
+              >
+                <option value="" disabled>
+                  Select Mandal
+                </option>
+                {selectedDistrict &&
+                  districtData
+                    .find((district) => district.name === selectedDistrict)
+                    ?.mandal.map((mandal) => (
+                      <option key={mandal.name} value={mandal.name}>
+                        {mandal.name}
+                      </option>
+                    ))}
+              </select>
             </div>
-          </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4">
             <InputField
-              id="frontSetback"
-              name="name72"
-              label="Front setback (in M.)"
-              placeholder="in M."
-              ltpDetails={frontSetback}
+              id="GramaPanchayat"
+              name="Grama Panchayat"
+              label="Grama Panchayat"
+              placeholder="Grama Panchayat"
+              ltpDetails={gramaPanchayat}
             />
-            <InputField
-              id="rareSetback"
-              name="name1"
-              label="Rare setback (in M.)"
-              placeholder="in M."
-              ltpDetails={rareSetback}
-            />
-            <InputField
-              id="side1Setback"
-              name="name1"
-              label="Side1 setback (in M.)"
-              placeholder="in M."
-              ltpDetails={side1Setback}
-            />
-            <InputField
-              id="side2Setback"
-              name="name1"
-              label="Side 2 setback (in M.)"
-              placeholder="in M."
-              ltpDetails={side2Setback}
-            />
-            <InputField
-              id="buildingExcludeStilt"
-              name="name1"
-              label="Total Height of The Building Exclude Stilt (in Mts.)"
-              placeholder="in Mts."
-              ltpDetails={buildingExcludeStilt}
-            />
-          </div>
 
-          <div className="grid grid-cols-1 mx-5 md:mx-10 lg:mx-14 mb-5 mt-10">
-            <div className="flex flex-col md:flex-row font-medium mb-4 text-lg">
-              <div className="flex items-center mb-3 md:mb-0">
-                <FaHandPointRight className="me-3 w-5 lg:w-auto text-green-500" />
-                <p className="font-bold text-lg">Compounding wall proposed?</p>
-              </div>
-              <label className="inline-flex items-center ml-3">
-                <input
-                  type="radio"
-                  name="radio-4"
-                  className="radio border border-[#10AC84] h-4 w-4"
-                  value="yes"
-                  checked={
-                    radio4 == "yes"
-                      ? radio4 == "yes"
-                      : compoundingWallProposed === "yes"
-                  }
-                  onChange={handleRadio4}
+            <div className="flex flex-col justify-center my-4 mx-3">
+              <label className={labelClass}>
+                <span>Village</span>
+              </label>
+              <select
+                id="village"
+                name="village"
+                className={inputClass}
+                value={selectedVillage}
+                onChange={(e) => setSelectedVillage(e.target.value)}
+                disabled={!selectedMandal}
+              >
+                <option value="" disabled>
+                  Select Village
+                </option>
+                {selectedMandal &&
+                  districtData
+                    .find((district) => district.name === selectedDistrict)
+                    ?.mandal.find((mandal) => mandal.name === selectedMandal)
+                    ?.village.map((village) => (
+                      <option key={village} value={village}>
+                        {village}
+                      </option>
+                    ))}
+              </select>
+            </div>
+
+            {/*===================== Conditionally render input fields based on Case Type  =====================*/}
+            {selectedOptionCase === "Alteration Addition Existing" &&
+              selectedOptionPermission === "Regularised under BPS" && (
+                <div>
+                  <InputField
+                    id="BpsApprovedNo"
+                    name="BpsApprovedNo"
+                    label="BPS approved no."
+                    placeholder="BPS approved no."
+                    ltpDetails={bpsApprovedNoServer}
+                    type="number"
+                  />
+                </div>
+              )}
+
+            {selectedOptionCase === "Alteration Addition Existing" &&
+              selectedOptionPermission !== "Regularised under BPS" && (
+                <div>
+                  <InputField
+                    id="PreviewsApprovedFileNo"
+                    name="PreviewsApprovedFileNo"
+                    label="Previews approved file no."
+                    placeholder="Previews approved file no."
+                    type="number"
+                    ltpDetails={previewsApprovedFileNo}
+                  />
+                </div>
+              )}
+
+            {/* Conditionally render input fields based on Nature of the site */}
+            {selectedNatureOfTheSite === "Approved Layout" && (
+              <>
+                <InputField
+                  id="LpNo"
+                  name="LpNo"
+                  label="L.P. no."
+                  placeholder="L.P. no."
+                  type="number"
+                  ltpDetails={lpNo}
                 />
-                <span className="ml-2 text-base">Yes</span>
-              </label>
-              <label className="inline-flex items-center ml-3">
-                <input
-                  type="radio"
-                  name="radio-4"
-                  className="radio border border-[#10AC84] h-4 w-4"
-                  value="no"
-                  checked={
-                    radio4 == "no"
-                      ? radio4 == "no"
-                      : compoundingWallProposed === "no"
-                  }
-                  onChange={handleRadio4}
+                <InputField
+                  id="PlotNo"
+                  name="PlotNo"
+                  label="Plot no."
+                  placeholder="Plot no."
+                  type="number"
+                  ltpDetails={plotNo}
                 />
-                <span className="ml-2 text-base">No</span>
-              </label>
-            </div>
+              </>
+            )}
 
-            <div className="flex flex-col md:flex-row font-medium mb-4 text-lg mt-4">
-              <div className="flex items-center mb-3 md:mb-0">
-                <FaHandPointRight className="me-3 w-7 lg:w-auto text-green-500" />
-                <p className="font-bold text-lg">
-                  Whether site Registered as house plot/ Building prior to
-                  18-01-2006?
+            {selectedNatureOfTheSite === "Regularised under LRS" && (
+              <>
+                <InputField
+                  id="LrsNo"
+                  name=""
+                  label="LRS no"
+                  placeholder="LRS no."
+                  type="number"
+                  ltpDetails={lrsNo}
+                />
+                <InputField
+                  id="PlotNo2"
+                  name=""
+                  label="Plot no"
+                  placeholder="Plot no."
+                  type="number"
+                  ltpDetails={plotNo2}
+                />
+              </>
+            )}
+
+            {selectedNatureOfTheSite ===
+              "Plot port of RLP/IPLP but not regularised" && (
+                <InputField
+                  id="IplpNo"
+                  name=""
+                  label="RLP/IPLP no."
+                  placeholder="RLP/IPLP no."
+                  type="number"
+                  ltpDetails={iplpNo}
+                />
+              )}
+            {/*===================== Conditional Input Field End =====================*/}
+          </div>
+        </div>
+
+        {/* plot details  */}
+        <div className="divide-y-2 divide-gray-200 mb-10">
+          <div className="flex items-center">
+            <img src={plotImage} alt="" className="h-10 me-3" />
+            <h3 className="font-bold text-xl">Plot Details</h3>
+          </div>
+
+          <div className="mt-2">
+            <div className="grid grid-cols-2 lg:grid-cols-4">
+              <InputField
+                type="number"
+                id="TotalPlotDocument"
+                name=""
+                label="Total Plot are as per document"
+                placeholder="in Sq.M."
+                ltpDetails={totalPlotDocument}
+              />
+              <InputField
+                type="number"
+                id="TotalPlotGround"
+                name=""
+                label="Total Plot are as on ground"
+                placeholder="in Sq.M."
+                ltpDetails={totalPlotGround}
+              />
+
+              <div className="my-4 mx-3">
+                <label htmlFor="" className={labelClass}>
+                  Proposed Plot area
+                </label>
+                <input
+                  type="number"
+                  id="proposedPlotArea"
+                  name="proposedPlotArea"
+                  placeholder="in Sq.M."
+                  className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
+                  defaultValue={
+                    proposedPlotArea ? proposedPlotArea : proposedPlotAreaCal
+                  }
+                  onChange={handleProposedPlotAreaChange}
+                />
+                <p className="text-xs text-red-500 mt-2">
+                  {console.log(proposedPlotArea, proposedPlotAreaCal, "INSIDE")}
+                  {proposedPlotArea > 300 && proposedPlotArea !== ""
+                    ? "Value must be less than 300"
+                    : ""}
                 </p>
               </div>
-              <label className="inline-flex items-center ml-3">
+
+              <div className="my-4 mx-3">
+                <label htmlFor="" className={labelClass}>
+                  Road Widening Area
+                </label>
                 <input
-                  type="radio"
-                  name="radio-5"
-                  className="radio border border-[#10AC84] h-4 w-4"
-                  value="yes"
-                  checked={
-                    radio5 == "yes" ? radio5 == "yes" : siteRegistered === "yes"
-                  }
-                  onChange={handleRadio5}
+                  id="roadWideningArea"
+                  type="number"
+                  placeholder="in Sq.M."
+                  className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
+                  defaultValue={roadWideningArea}
+                  onChange={handleRoadWideningAreaChange}
                 />
-                <span className="ml-2 text-base">Yes</span>
-              </label>
-              <label className="inline-flex items-center ml-3">
+                {console.log(roadWideningArea, "Inside roadwidening")}
+                <p className="text-xs text-red-500 mt-2">
+                  {roadWideningArea > 300 && roadWideningArea !== ""
+                    ? "Value must be less than 300"
+                    : ""}
+                </p>
+              </div>
+
+              {/* Automatically calculated Plot Details  */}
+              <div className="my-4 mx-3">
+                <label htmlFor="disabled-input" className={labelClass}>
+                  Net Plot Area (in Sq.M.)
+                </label>
                 <input
-                  type="radio"
-                  name="radio-5"
-                  className="radio border border-[#10AC84] h-4 w-4"
-                  value="no"
-                  checked={
-                    radio5 == "no" ? radio5 == "no" : siteRegistered === "no"
-                  }
-                  onChange={handleRadio5}
+                  type="text"
+                  id="netPlotArea"
+                  name="netPlotArea"
+                  placeholder="Automatically calculated"
+                  className="w-full px-3 py-2 border rounded-lg max-w-xs"
+                  value={netPlotArea}
+                  disabled
                 />
-                <span className="ml-2 text-base">No</span>
-              </label>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 mx-5 md:mx-10 lg:mx-14 my-10">
+              <div className="flex flex-col md:flex-row font-medium mb-4 text-lg">
+                <div className="flex items-center mb-3 md:mb-0">
+                  <FaHandPointRight className="me-3 w-5 lg:w-auto text-green-500" />
+                  <p className="font-bold text-lg">
+                    Whether site abuts any Existing Road?
+                  </p>
+                </div>
+                <label className="inline-flex items-center ml-3">
+                  <input
+                    type="radio"
+                    name="radio-2"
+                    className="radio border border-[#10AC84] h-4 w-4"
+                    value="yes"
+                    checked={
+                      radio2 == "yes" ? radio2 == "yes" : existingRoad === "yes"
+                    }
+                    onChange={handleRadio2}
+                  />
+                  <span className="ml-2 text-base">Yes</span>
+                </label>
+                <label className="inline-flex items-center ml-3">
+                  <input
+                    type="radio"
+                    name="radio-2"
+                    className="radio border border-[#10AC84] h-4 w-4"
+                    value="no"
+                    checked={
+                      radio2 == "no" ? radio2 == "no" : existingRoad === "no"
+                    }
+                    onChange={handleRadio2}
+                  />
+                  <span className="ml-2 text-base">No</span>
+                </label>
+              </div>
+
+              <div className="flex flex-col md:flex-row font-medium mb-4 text-lg mt-4">
+                <div className="flex items-center mb-3 md:mb-0">
+                  <FaHandPointRight className="me-3 w-5 lg:w-auto text-green-500" />
+                  <p className="font-bold text-lg">Status of Road?</p>
+                </div>
+                <label className="inline-flex items-center ml-3">
+                  <input
+                    type="radio"
+                    name="radio-3"
+                    className="radio border border-[#10AC84] h-4 w-4"
+                    value="Public"
+                    checked={
+                      radio3 == "Public"
+                        ? radio3 == "Public"
+                        : statusOfRoad === "Public"
+                    }
+                    onChange={handleRadio3}
+                  />
+                  <span className="ml-2 text-base">Public</span>
+                </label>
+                <label className="inline-flex items-center ml-3">
+                  <input
+                    type="radio"
+                    name="radio-3"
+                    className="radio border border-[#10AC84] h-4 w-4"
+                    value="Private"
+                    checked={
+                      radio3 == "Private"
+                        ? radio3 == "Private"
+                        : statusOfRoad === "Private"
+                    }
+                    onChange={handleRadio3}
+                  />
+                  <span className="ml-2 text-base">Private</span>
+                </label>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 lg:grid-cols-4 mt-3">
+              <div className="flex flex-col justify-center mx-3">
+                <label className={labelClass}>
+                  <span>Nature of Road</span>
+                </label>
+                <select
+                  id="natureOfRoad"
+                  className={inputClass}
+                  // value={natureOfRoad}
+                  value={natureOfRoadValue ? natureOfRoadValue : natureOfRoad}
+                  onChange={handleNatureOfRoad}
+                >
+                  <option disabled selected>
+                    Select Nature of Road
+                  </option>
+                  <option>BT Road</option>
+                  <option>CC Road</option>
+                  <option>WBM</option>
+                  <option>Kutchha/ Graval</option>
+                </select>
+              </div>
+
+              <InputField
+                id="existingRoadMts"
+                name="name1"
+                label="Existing road (in Mts.)"
+                placeholder="in Sq.M."
+                ltpDetails={existingRoadMts}
+              />
+              <InputField
+                id="proposedRoadMts"
+                name="name1"
+                label="Proposed road (in Mts.)"
+                placeholder="in Sq.M."
+                ltpDetails={proposedRoadMts}
+              />
+              <InputField
+                id="marketValueSqym"
+                name="name1"
+                label="Market Value (per Sq.Yd.)"
+                placeholder="per Sq.Yd."
+                ltpDetails={marketValueSqym}
+              />
+            </div>
+
+            <div className="grid grid-cols-2 lg:grid-cols-4">
+              {totalFloor.map((floor, index) => (
+                <FloorDetails
+                  key={index}
+                  floor={floor}
+                  index={index}
+                  length={totalFloor.length}
+                  increaseFloorNo={increaseFloorNo}
+                  handleBuiltUpArea={handleBuiltUpArea}
+                  handleParkingArea={handleParkingArea}
+                  parkingAreaValue={parkingArea[index]}
+                  builtUpAreaValue={builtUpArea[index]}
+                  plotDetailsFloor={
+                    plotDetailsFloor ? plotDetailsFloor[index] : undefined
+                  }
+                />
+              ))}
+            </div>
+
+            <div className="grid grid-cols-2 lg:grid-cols-4 mt-5">
+              <div className="my-4 mx-3">
+                <label htmlFor="disabled-input" className={labelClass}>
+                  Total Built up area
+                </label>
+                <input
+                  type="text"
+                  id="totalBuiltUpArea"
+                  name="name1"
+                  placeholder="Automatically calculated"
+                  className="w-full px-3 py-2 border rounded-lg max-w-xs"
+                  value={builtUpAreaSum}
+                  disabled
+                />
+              </div>
+
+              <div className="my-4 mx-3">
+                <label htmlFor="disabled-input2" className={labelClass}>
+                  Total Parking area
+                </label>
+                <input
+                  id="totalParkingArea"
+                  name="name1"
+                  placeholder="Automatically calculated"
+                  className="w-full px-3 py-2 border rounded-lg max-w-xs"
+                  value={parkingAreaSum}
+                  disabled
+                />
+              </div>
+              <InputField
+                id="vacantLand"
+                name="vacantLand"
+                label="Vacant land area"
+                placeholder="in Sq.M."
+                ltpDetails={vacantLand}
+              />
+            </div>
+
+            <div className="grid grid-cols-2 lg:grid-cols-4">
+              <InputField
+                id="frontSetback"
+                name="name72"
+                label="Front setback (in M.)"
+                placeholder="in M."
+                ltpDetails={frontSetback}
+              />
+              <InputField
+                id="rareSetback"
+                name="name1"
+                label="Rare setback (in M.)"
+                placeholder="in M."
+                ltpDetails={rareSetback}
+              />
+              <InputField
+                id="side1Setback"
+                name="name1"
+                label="Side1 setback (in M.)"
+                placeholder="in M."
+                ltpDetails={side1Setback}
+              />
+              <InputField
+                id="side2Setback"
+                name="name1"
+                label="Side 2 setback (in M.)"
+                placeholder="in M."
+                ltpDetails={side2Setback}
+              />
+              <InputField
+                id="buildingExcludeStilt"
+                name="name1"
+                label="Total Height of The Building Exclude Stilt (in Mts.)"
+                placeholder="in Mts."
+                ltpDetails={buildingExcludeStilt}
+              />
+            </div>
+
+            <div className="grid grid-cols-1 mx-5 md:mx-10 lg:mx-14 mb-5 mt-10">
+              <div className="flex flex-col md:flex-row font-medium mb-4 text-lg">
+                <div className="flex items-center mb-3 md:mb-0">
+                  <FaHandPointRight className="me-3 w-5 lg:w-auto text-green-500" />
+                  <p className="font-bold text-lg">
+                    Compounding wall proposed?
+                  </p>
+                </div>
+                <label className="inline-flex items-center ml-3">
+                  <input
+                    type="radio"
+                    name="radio-4"
+                    className="radio border border-[#10AC84] h-4 w-4"
+                    value="yes"
+                    checked={
+                      radio4 == "yes"
+                        ? radio4 == "yes"
+                        : compoundingWallProposed === "yes"
+                    }
+                    onChange={handleRadio4}
+                  />
+                  <span className="ml-2 text-base">Yes</span>
+                </label>
+                <label className="inline-flex items-center ml-3">
+                  <input
+                    type="radio"
+                    name="radio-4"
+                    className="radio border border-[#10AC84] h-4 w-4"
+                    value="no"
+                    checked={
+                      radio4 == "no"
+                        ? radio4 == "no"
+                        : compoundingWallProposed === "no"
+                    }
+                    onChange={handleRadio4}
+                  />
+                  <span className="ml-2 text-base">No</span>
+                </label>
+              </div>
+
+              <div className="flex flex-col md:flex-row font-medium mb-4 text-lg mt-4">
+                <div className="flex items-center mb-3 md:mb-0">
+                  <FaHandPointRight className="me-3 w-7 lg:w-auto text-green-500" />
+                  <p className="font-bold text-lg">
+                    Whether site Registered as house plot/ Building prior to
+                    18-01-2006?
+                  </p>
+                </div>
+                <label className="inline-flex items-center ml-3">
+                  <input
+                    type="radio"
+                    name="radio-5"
+                    className="radio border border-[#10AC84] h-4 w-4"
+                    value="yes"
+                    checked={
+                      radio5 == "yes"
+                        ? radio5 == "yes"
+                        : siteRegistered === "yes"
+                    }
+                    onChange={handleRadio5}
+                  />
+                  <span className="ml-2 text-base">Yes</span>
+                </label>
+                <label className="inline-flex items-center ml-3">
+                  <input
+                    type="radio"
+                    name="radio-5"
+                    className="radio border border-[#10AC84] h-4 w-4"
+                    value="no"
+                    checked={
+                      radio5 == "no" ? radio5 == "no" : siteRegistered === "no"
+                    }
+                    onChange={handleRadio5}
+                  />
+                  <span className="ml-2 text-base">No</span>
+                </label>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* schedule boundaries  */}
-      <div className="divide-y-2 divide-gray-200">
-        <div className="flex items-center">
-          <img src={wallImage} alt="A image of wall" className="h-8 me-3" />
-          <h3 className="font-bold text-xl">Schedule of Boundaries</h3>
+        {/* schedule boundaries  */}
+        <div className="divide-y-2 divide-gray-200">
+          <div className="flex items-center">
+            <img src={wallImage} alt="A image of wall" className="h-8 me-3" />
+            <h3 className="font-bold text-xl">Schedule of Boundaries</h3>
+          </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 items-center mt-2">
+            <div className="flex flex-col my-4 justify-center mx-3">
+              <label className={labelClass}>
+                <span>North</span>
+              </label>
+              <select
+                id="north"
+                className={inputClass}
+                value={northValue ? northValue : north}
+                onChange={handleNorthChange}
+              >
+                <option disabled selected value="">
+                  Select North
+                </option>
+                <option value="Road">Road</option>
+                <option value="Plot">Plot</option>
+                <option value="Vacant land">Vacant land</option>
+                <option value="Water body">Water body</option>
+              </select>
+            </div>
+
+            <div className="flex flex-col my-4 justify-center mx-3">
+              <label className={labelClass}>
+                <span>South</span>
+              </label>
+              <select
+                id="south"
+                className={inputClass}
+                value={southValue ? southValue : south}
+                onChange={handleSouthChange}
+              >
+                <option disabled selected value="">
+                  Select South
+                </option>
+                <option value="Road">Road</option>
+                <option value="Plot">Plot</option>
+                <option value="Vacant land">Vacant land</option>
+                <option value="Water body">Water body</option>
+              </select>
+            </div>
+
+            <div className="flex flex-col my-4 justify-center mx-3">
+              <label className={labelClass}>
+                <span>East</span>
+              </label>
+              <select
+                id="east"
+                className={inputClass}
+                value={eastValue ? eastValue : east}
+                onChange={handleEastChange}
+              >
+                <option disabled selected value="">
+                  Select East
+                </option>
+                <option value="Road">Road</option>
+                <option value="Plot">Plot</option>
+                <option value="Vacant land">Vacant land</option>
+                <option value="Water body">Water body</option>
+              </select>
+            </div>
+
+            <div className="flex flex-col my-4 justify-center mx-3">
+              <label className={labelClass}>
+                <span>West</span>
+              </label>
+              <select
+                id="west"
+                className={inputClass}
+                value={westValue ? westValue : west}
+                onChange={handleWestChange}
+              >
+                <option disabled selected value="">
+                  Select West
+                </option>
+                <option value="Road">Road</option>
+                <option value="Plot">Plot</option>
+                <option value="Vacant land">Vacant land</option>
+                <option value="Water body">Water body</option>
+              </select>
+            </div>
+          </div>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 items-center mt-2">
-          <div className="flex flex-col my-4 justify-center mx-3">
-            <label className={labelClass}>
-              <span>North</span>
-            </label>
-            <select
-              id="north"
-              className={inputClass}
-              value={northValue ? northValue : north}
-              onChange={handleNorthChange}
-            >
-              <option disabled selected value="">
-                Select North
-              </option>
-              <option value="Road">Road</option>
-              <option value="Plot">Plot</option>
-              <option value="Vacant land">Vacant land</option>
-              <option value="Water body">Water body</option>
-            </select>
-          </div>
-
-          <div className="flex flex-col my-4 justify-center mx-3">
-            <label className={labelClass}>
-              <span>South</span>
-            </label>
-            <select
-              id="south"
-              className={inputClass}
-              value={southValue ? southValue : south}
-              onChange={handleSouthChange}
-            >
-              <option disabled selected value="">
-                Select South
-              </option>
-              <option value="Road">Road</option>
-              <option value="Plot">Plot</option>
-              <option value="Vacant land">Vacant land</option>
-              <option value="Water body">Water body</option>
-            </select>
-          </div>
-
-          <div className="flex flex-col my-4 justify-center mx-3">
-            <label className={labelClass}>
-              <span>East</span>
-            </label>
-            <select
-              id="east"
-              className={inputClass}
-              value={eastValue ? eastValue : east}
-              onChange={handleEastChange}
-            >
-              <option disabled selected value="">
-                Select East
-              </option>
-              <option value="Road">Road</option>
-              <option value="Plot">Plot</option>
-              <option value="Vacant land">Vacant land</option>
-              <option value="Water body">Water body</option>
-            </select>
-          </div>
-
-          <div className="flex flex-col my-4 justify-center mx-3">
-            <label className={labelClass}>
-              <span>West</span>
-            </label>
-            <select
-              id="west"
-              className={inputClass}
-              value={westValue ? westValue : west}
-              onChange={handleWestChange}
-            >
-              <option disabled selected value="">
-                Select West
-              </option>
-              <option value="Road">Road</option>
-              <option value="Plot">Plot</option>
-              <option value="Vacant land">Vacant land</option>
-              <option value="Water body">Water body</option>
-            </select>
-          </div>
-        </div>
+        {/* save & continue  */}
+        <SaveData
+          isStepperVisible={isStepperVisible}
+          currentStep={currentStep}
+          steps={steps}
+          stepperData={stepperData}
+          confirmAlert={confirmAlert}
+          collectInputFieldData={collectInputFieldData}
+        />
       </div>
-
-      {/* save & continue  */}
-      <SaveData
-        isStepperVisible={isStepperVisible}
-        currentStep={currentStep}
-        steps={steps}
-        stepperData={stepperData}
-        confirmAlert={confirmAlert}
-        collectInputFieldData={collectInputFieldData}
-      />
-    </div>
+    </>
   );
 };
 

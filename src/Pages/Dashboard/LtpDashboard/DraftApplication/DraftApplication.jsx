@@ -6,11 +6,13 @@ import { BsHouseCheck, BsInfoCircle } from "react-icons/bs";
 import { RiSecurePaymentLine } from "react-icons/ri";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
+import Application from "./Application";
 
 const DraftApplication = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [currentStep, setCurrentStep] = useState(0);
+  const [openApplication, setOpenApplication] = useState(false);
 
   // const { applicationNo } = location.state;
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
@@ -91,22 +93,24 @@ const DraftApplication = () => {
   const isStepperVisible = allSteps.includes(location.pathname); // Check if current route is in the list of routes with the stepper
 
   let btnClass =
-    "btn btn-md text-[#000000] hover:text-[#fff] rounded-lg transition-all duration-500 cursor-pointer hover:bg-emerald-400";
+    "btn btn-md hover:text-[#fff] rounded-lg transition-all duration-500 cursor-pointer hover:bg-black";
+
+  const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
   const stepClasses = (index) => {
     if (index === currentStep) {
-      return "step step-success";
+      return "step step-neutral";
     } else if (index < currentStep) {
-      return "step step-success";
+      return "step step-neutral";
     } else {
       return "step";
     }
   };
   const completeBtn = (index) => {
     if (index === currentStep) {
-      return "bg-emerald-400 text-white";
+      return "bg-black text-white shadow-sm shadow-black border-0 ";
     } else if (index < currentStep) {
-      return "bg-emerald-400 text-white";
+      return "bg-black text-white shadow-md shadow-black border-0";
     }
   };
 
@@ -119,13 +123,44 @@ const DraftApplication = () => {
     <RiSecurePaymentLine size={19} />,
   ];
 
+  const path = useLocation().pathname;
+
+  const applicationModalShow =
+    path.includes("applicationChecklist") ||
+    path.includes("documents") ||
+    path.includes("drawing") ||
+    path.includes("payment");
+
   return (
     <>
       {isStepperVisible && ( // Render the stepper only when isStepperVisible is true
         <>
-          <p>Application No:{applicationNo}</p>
-          <div className="mt-3 mb-5">
-            <ul className="w-full steps steps-vertical lg:steps-horizontal grid grid-cols-4 rounded-lg">
+          <div className="flex justify-between items-center mx-10">
+            <p
+              className={`my-8 font-roboto font-semibold text-xl ${gradientColor} text-transparent bg-clip-text`}
+            >
+              <span className="text-black">Application No:</span>{" "}
+              {applicationNo}
+            </p>
+            {applicationModalShow && (
+              <button
+                onClick={() => setOpenApplication(true)}
+                className={`btn btn-sm text-xs ${gradientColor} transition-all duration-700  text-white`}
+              >
+                <HiOutlineClipboardDocumentList className="text-lg" />{" "}
+                <span>Application</span>
+              </button>
+            )}
+
+            {/* Application Modal */}
+            {openApplication ? (
+              <Application setOpenApplication={setOpenApplication} />
+            ) : (
+              ""
+            )}
+          </div>
+          <div className="mt-3 mb-5 font-roboto">
+            <ul className="w-full steps steps-vertical lg:steps-horizontal  rounded-lg">
               {stepsContent.map((step, index) => (
                 <li
                   key={index}
@@ -137,7 +172,7 @@ const DraftApplication = () => {
                     <span
                       className={`${btnClass} ${completeBtn(
                         index
-                      )} w-[300px] lg:w-fit text-xs `}
+                      )} w-[300px] lg:w-fit text-sm `}
                     >
                       {role !== "PS" && icons[index]}
                       {step}
