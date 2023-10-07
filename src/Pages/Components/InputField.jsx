@@ -19,7 +19,7 @@ const InputField = ({ id, name, placeholder, type, label, ltpDetails }) => {
         placeholder={placeholder} // Use the labelPlaceholder variable as the placeholder attribute
         defaultValue={ltpDetails}
         className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
-        // Add the required attribute
+      // Add the required attribute
       />
     </div>
   );

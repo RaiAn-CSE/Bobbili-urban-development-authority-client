@@ -14,35 +14,31 @@ const MainLayout = () => {
       <Link
         to="/applicationSearch"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium border-b border-gray-200 rounded-t-lg hover:${gradientColor} ${
-          path.includes("applicationSearch") ? gradientColor : ""
-        }`}
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium border-b border-gray-200 rounded-t-lg hover:${gradientColor} ${path.includes("applicationSearch") ? gradientColor : ""
+          }`}
       >
         Application Search
       </Link>
       <Link
         to="/onlinePayment"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium border-b border-gray-200  hover:${gradientColor} ${
-          path.includes("onlinePayment") ? gradientColor : ""
-        }`}
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium border-b border-gray-200  hover:${gradientColor} ${path.includes("onlinePayment") ? gradientColor : ""
+          }`}
       >
         Online Payment
       </Link>
       <Link
         to="/listOfLTP"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium border-b border-gray-200 hover:${gradientColor} ${
-          path.includes("listOfLTP") ? gradientColor : ""
-        }`}
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium border-b border-gray-200 hover:${gradientColor} ${path.includes("listOfLTP") ? gradientColor : ""
+          }`}
       >
         List of LTP's
       </Link>
       <Link
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium rounded-b-lg border-b hover:${gradientColor} ${
-          path.includes("demoVideos") ? gradientColor : ""
-        }`}
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium rounded-b-lg border-b hover:${gradientColor} ${path.includes("demoVideos") ? gradientColor : ""
+          }`}
       >
         Demo Videos
       </Link>

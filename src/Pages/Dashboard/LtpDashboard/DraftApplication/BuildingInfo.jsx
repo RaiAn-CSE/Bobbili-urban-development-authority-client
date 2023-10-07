@@ -407,6 +407,7 @@ const BuildingInfo = () => {
 
     const totalBuiltUpArea = document.getElementById("totalBuiltUpArea").value;
     const totalParkingArea = document.getElementById("totalParkingArea").value;
+    const vacantLand = document.getElementById("vacantLand").value;
     const frontSetback = document.getElementById("frontSetback").value;
     const rareSetback = document.getElementById("rareSetback").value;
     const side1Setback = document.getElementById("side1Setback").value;
@@ -458,6 +459,7 @@ const BuildingInfo = () => {
       floorDetails,
       totalBuiltUpArea: totalBuiltUpArea === "" ? 0 : totalBuiltUpArea,
       totalParkingArea: totalParkingArea === "" ? 0 : totalParkingArea,
+      vacantLand,
       frontSetback,
       rareSetback,
       side1Setback,
@@ -515,6 +517,7 @@ const BuildingInfo = () => {
     compoundingWallProposed,
     existingRoad,
     existingRoadMts,
+    vacantLand,
     frontSetback,
     marketValueSqym,
     natureOfRoad,
@@ -843,15 +846,15 @@ const BuildingInfo = () => {
 
             {selectedNatureOfTheSite ===
               "Plot port of RLP/IPLP but not regularised" && (
-              <InputField
-                id="IplpNo"
-                name=""
-                label="RLP/IPLP no."
-                placeholder="RLP/IPLP no."
-                type="number"
-                ltpDetails={iplpNo}
-              />
-            )}
+                <InputField
+                  id="IplpNo"
+                  name=""
+                  label="RLP/IPLP no."
+                  placeholder="RLP/IPLP no."
+                  type="number"
+                  ltpDetails={iplpNo}
+                />
+              )}
             {/*===================== Conditional Input Field End =====================*/}
           </div>
         </div>
@@ -1109,6 +1112,13 @@ const BuildingInfo = () => {
                   disabled
                 />
               </div>
+              <InputField
+                id="vacantLand"
+                name="vacantLand"
+                label="Vacant land area"
+                placeholder="in Sq.M."
+                ltpDetails={vacantLand}
+              />
             </div>
 
             <div className="grid grid-cols-2 lg:grid-cols-4">
