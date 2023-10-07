@@ -1,23 +1,17 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import { useQuery } from "react-query";
+import useGetPageWiseApplication from "../../../CustomHook/useGetPageWiseApplication";
 
 const Approved = () => {
   const { userInfoFromLocalStorage } = useContext(AuthContext);
   const [error, setError] = useState("");
 
-  // get all applications which are submitted already
-  const { data, refetch, isLoading, isError } = useQuery(
-    ["allSubmitApplication"],
-    async () => {
-      const response = await fetch(
-        `http://localhost:5000/allSubmitApplications?id=${
-          userInfoFromLocalStorage()._id
-        }`
-      );
-      return await response.json();
-    }
+  const [data, refetch, isError, isLoading] = useGetPageWiseApplication(
+    "Approved Applications"
   );
+
+  console.log(data);
 
   useEffect(() => {
     if (isError) {
