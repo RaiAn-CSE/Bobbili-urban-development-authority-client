@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
+import { RiDeleteBin5Fill } from "react-icons/ri";
 
 const AllDraftApplication = ({
   serialNo,
@@ -47,12 +48,12 @@ const AllDraftApplication = ({
       <td>{createdDate ?? "N/A"}</td>
       <td>
         <button
-          className="btn btn-xs btn-error text-white"
+          className={`btn btn-sm text-white bg-red-500 hover:bg-red-500`}
           onClick={() =>
             alertToConfirmDelete(applicationNo, removeDraftApplication)
           }
         >
-          Delete
+          <RiDeleteBin5Fill size={19} />
         </button>
       </td>
     </tr>

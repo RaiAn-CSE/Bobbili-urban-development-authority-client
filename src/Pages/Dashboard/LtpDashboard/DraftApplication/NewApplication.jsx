@@ -166,7 +166,7 @@ const NewApplication = () => {
               <th>Village</th>
               <th>Mandal</th>
               <th>Created date</th>
-              <th>Button</th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody>
