@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const AddUser = () => {
   const { register, handleSubmit, resetField } = useForm();
 
   const [userType, setUserType] = useState(null);
+
+  const navigate = useNavigate();
 
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
   const onSubmit = (data) => {
@@ -17,37 +20,93 @@ const AddUser = () => {
       let userInfo;
 
       if (data?.role.toLowerCase() === "ltp") {
-        userInfo = { ...data, draftApplication: [], submitApplication: [] };
+        const { validity } = data;
+
+        const validityDate = new Date(validity);
+
+        const validityDay = validityDate
+          .getUTCDate()
+          .toString()
+          .padStart(2, "0");
+        const validityMonth = (validityDate.getUTCMonth() + 1)
+          .toString()
+          .padStart(2, "0");
+        const validityYear = validityDate.getUTCFullYear();
+
+        console.log(validityDay, validityMonth, validityYear, "VALIDITY");
+
+        const todayDate = new Date();
+
+        const todayDay = (todayDate.getUTCDate() + 1)
+          .toString()
+          .padStart(2, "0");
+        const todayMonth = (todayDate.getUTCMonth() + 1)
+          .toString()
+          .padStart(2, "0");
+        const todayYear = todayDate.getUTCFullYear();
+
+        console.log(todayDay, todayMonth, todayYear, "TODAY YEAR");
+
+        const validityFormat = `${validityYear}-${validityMonth}-${validityDay}`;
+        const todayFormat = `${todayYear}-${todayMonth}-${todayDay}`;
+
+        const checkValidity = new Date(validityFormat);
+        const checkToday = new Date(todayFormat);
+
+        const timeStampValidity = checkValidity.getTime();
+        const timeStampToday = checkToday.getTime();
+
+        if (timeStampValidity < timeStampToday) {
+          // validity is before today (expired)
+          console.log("validity is before today");
+
+          toast.error("Validity is expired");
+        } else if (timeStampValidity > timeStampToday) {
+          // validity is after today (available)
+          console.log("validity is after today");
+
+          const validity = validityFormat.split("-").reverse().join("-");
+          userInfo = {
+            ...data,
+            validity,
+          };
+        } else {
+          console.log("validity and today are the same");
+        }
+
+        console.log(validityDate, todayDate);
       } else {
         userInfo = { ...data };
       }
 
-      // store users data in the database
-      fetch("http://localhost:5000/addUser", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(userInfo),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
+      console.log(userInfo, "USER INFO");
 
-          if (data.acknowledged) {
-            toast.success("User added successfully");
-            resetField("name");
-            resetField("userId");
-            resetField("password");
-          }
-          if (data?.result === 0) {
-            console.log(data.message);
-            toast.error(data.message);
-          }
+      if (userInfo) {
+        // store users data in the database
+        fetch("http://localhost:5000/addUser", {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(userInfo),
         })
-        .catch(() => {
-          toast.error("Server is not responded");
-        });
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+
+            if (data.acknowledged) {
+              toast.success("User added successfully");
+              navigate("/dashboard/allUser");
+            }
+            if (data?.result === 0) {
+              console.log(data.message);
+              toast.error(data.message);
+            }
+          })
+          .catch(() => {
+            toast.error("Server is not responded");
+          });
+      }
     }
   };
 
