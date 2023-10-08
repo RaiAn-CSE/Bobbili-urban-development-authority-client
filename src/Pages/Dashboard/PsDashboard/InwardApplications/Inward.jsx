@@ -153,7 +153,7 @@ const Inward = () => {
           </tbody>
         </table>
 
-        {allData.length === 0 && (
+        {allData?.length === 0 && (
           <p className="text-center mt-8 font-bold text-xl">
             No application Found
           </p>
