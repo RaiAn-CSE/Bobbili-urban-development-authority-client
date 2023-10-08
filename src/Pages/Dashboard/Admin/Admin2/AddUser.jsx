@@ -9,7 +9,13 @@ const AddUser = () => {
   const onSubmit = (data) => {
     console.log(data);
 
-    const userInfo = { ...data, draftApplication: [], submitApplication: [] };
+    let userInfo;
+
+    if (data?.role.toLowerCase() === "ltp") {
+      userInfo = { ...data, draftApplication: [], submitApplication: [] };
+    } else {
+      userInfo = { ...data };
+    }
 
     // store users data in the database
     fetch("http://localhost:5000/addUser", {
@@ -119,6 +125,7 @@ const AddUser = () => {
             >
               <option value="LTP">LTP</option>
               <option value="PS">PS</option>
+              <option value="Super Admin">Super Admin</option>
               <option value="Admin1">Admin1</option>
               <option value="Admin2">Admin2</option>
             </select>
