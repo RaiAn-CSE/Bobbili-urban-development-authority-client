@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import userIcon from "../../../../assets/images/user.png";
+import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 
 const IndividualUser = ({ user, deleteUser, updateUser }) => {
+  const { userInfoFromLocalStorage } = useContext(AuthContext);
+
+  const userType = userInfoFromLocalStorage().role;
   // console.log(user, "user");
 
   return (
@@ -28,13 +32,14 @@ const IndividualUser = ({ user, deleteUser, updateUser }) => {
           <button
             className="btn btn-warning btn-xs me-3"
             onClick={() => updateUser(user)}
+            disabled={userType !== "Super Admin"}
           >
             update
           </button>
           <button
             className="btn btn-error btn-xs"
             onClick={() => deleteUser(user?._id)}
-            disabled={user?.role === "Admin1" || user?.role === "Admin2"}
+            disabled={userType !== "Super Admin"}
           >
             Delete
           </button>
