@@ -7,6 +7,7 @@ import PsSidebar from "./PsSidebar/PsSidebar";
 import SecondAdminSidebar from "./AdminSidebar/SecondAdminSidebar";
 import FirstAdminSidebar from "./AdminSidebar/FirstAdminSidebar";
 import { MdOutlineMenuOpen } from "react-icons/md";
+import AdminSideBar from "./AdminSidebar/AdminSideBar";
 
 const DashboardLayout = () => {
   const currentUser = JSON.parse(localStorage.getItem("loggedUser"));
@@ -44,8 +45,9 @@ const DashboardLayout = () => {
             </li>
             {(currentUser?.role === "LTP" && <LtpSidebar />) ||
               (currentUser?.role === "PS" && <PsSidebar />) ||
-              (currentUser?.role === "Admin1" && <FirstAdminSidebar />) ||
-              (currentUser?.role === "Admin2" && <SecondAdminSidebar />)}
+              ((currentUser?.role === "Admin1" ||
+                currentUser?.role === "Admin2" ||
+                currentUser?.role === "Super Admin") && <AdminSideBar />)}
           </ul>
         </div>
       </div>

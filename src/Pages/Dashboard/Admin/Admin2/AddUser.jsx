@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 
 const AddUser = () => {
   const { register, handleSubmit, resetField } = useForm();
 
   const [userType, setUserType] = useState(null);
+
+  const { userInfoFromLocalStorage } = useContext(AuthContext);
+
+  const userRole = userInfoFromLocalStorage().role;
 
   const navigate = useNavigate();
 
@@ -197,9 +202,12 @@ const AddUser = () => {
               <option value="LTP">LTP</option>
               <option value="PS">PS</option>
               <option value="UDA">UDA</option>
-              <option value="Super Admin">Super Admin</option>
-              <option value="Admin1">Admin1</option>
-              <option value="Admin2">Admin2</option>
+              {userRole === "Super Admin" && (
+                <>
+                  <option value="Admin1">Admin1</option>
+                  <option value="Admin2">Admin2</option>
+                </>
+              )}
             </select>
           </div>
         </div>
