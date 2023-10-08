@@ -160,7 +160,7 @@ const NewApplication = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 my-3 dark:text-white">
+    <div className="grid grid-cols-1 my-3 dark:text-gray-100">
       <div className="flex justify-end my-5 mr-3">
         <button
           className={`btn flex font-roboto ${gradientColor} transition-all duration-700 text-[#fff]`}

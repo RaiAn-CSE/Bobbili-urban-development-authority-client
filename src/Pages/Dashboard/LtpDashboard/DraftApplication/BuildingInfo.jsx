@@ -549,7 +549,7 @@ const BuildingInfo = () => {
 
   return (
     <>
-      <div className="grid my-5 mx-5 lg:my-0 lg:p-2 dark:bg-black dark:text-gray-100">
+      <div className="grid my-5 mx-5 lg:my-0 lg:p-2 dark:text-gray-100">
         {/* general information */}
         <div className="divide-y-2 divide-gray-200 mb-10">
           {/* heading  */}

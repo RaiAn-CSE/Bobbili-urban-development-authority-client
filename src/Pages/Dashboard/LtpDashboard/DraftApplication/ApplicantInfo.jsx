@@ -118,7 +118,7 @@ const ApplicantInfo = () => {
     "w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black";
 
   return (
-    <div className="grid my-5 lg:my-0 lg:p-2 dark:bg-black dark:text-gray-100">
+    <div className="grid my-5 lg:my-0 lg:p-2 dark:text-gray-100">
       {/* LTP’s Details  */}
       <div className="divide-y-2 divide-gray-200 mb-[60px]">
         <div className="flex items-center">
