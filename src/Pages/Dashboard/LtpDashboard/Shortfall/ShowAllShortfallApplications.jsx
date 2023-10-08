@@ -1,16 +1,11 @@
-import React, { useContext } from "react";
-// import { AuthContext } from "../../../../AuthProvider/AuthProvider";
+import React from "react";
 
-const ShowSubmittedApplication = ({
+const ShowAllShortfallApplications = ({
   serialNo,
   applicationData,
   showDraftApplication,
 }) => {
-  // console.log(serialNo, applicationData);
-
-  // const { showDraftApplication } = useContext(AuthContext)
-
-  const { applicationNo, buildingInfo, applicantInfo, submitDate, status } =
+  const { applicationNo, buildingInfo, applicantInfo, psSubmitDate } =
     applicationData;
 
   const { generalInformation } = buildingInfo;
@@ -39,10 +34,9 @@ const ShowSubmittedApplication = ({
         {" "}
         {generalInformation.mandal !== "" ? generalInformation.mandal : "N/A"}
       </td>
-      <td>{submitDate ?? "N/A"}</td>
-      <td>{status ?? "N/A"}</td>
+      <td>{psSubmitDate ?? "N/A"}</td>
     </tr>
   );
 };
 
-export default ShowSubmittedApplication;
+export default ShowAllShortfallApplications;

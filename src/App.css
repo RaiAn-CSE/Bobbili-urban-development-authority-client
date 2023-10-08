@@ -29,3 +29,7 @@ body {
 .modal-open {
   cursor: pointer;
 }
+
+.swal2-title {
+  font-family: "Roboto Condensed", "sans-serif";
+}

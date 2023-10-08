@@ -203,7 +203,7 @@ const Login = () => {
                 <input
                   type="submit"
                   value="Sign in"
-                  className="w-full  bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white cursor-pointer shadow-sm shadow-violetDark transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold text-base px-7 py-2.5 my-1 text-center"
+                  className="w-full  bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white cursor-pointer shadow-md shadow-violetDark transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold text-base px-7 py-2.5 my-1 text-center"
                 />
               )}
             </div>

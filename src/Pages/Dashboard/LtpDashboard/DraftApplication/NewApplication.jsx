@@ -5,6 +5,7 @@ import { BsPlusLg } from "react-icons/bs";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import toast from "react-hot-toast";
 import AllDraftApplication from "./AllDraftApplication";
+import Swal from "sweetalert2";
 
 const NewApplication = () => {
   const { userInfoFromLocalStorage, sendUserDataIntoDB, alertToConfirmDelete } =
@@ -141,12 +142,29 @@ const NewApplication = () => {
     navigate("/dashboard/draftApplication/buildingInfo");
   };
 
+  const showConfirmModal = () => {
+    Swal.fire({
+      title: "Do you want to create a new application?",
+      icon: "question",
+      showConfirmButton: true,
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      confirmButtonColor: "#a36ee0",
+      cancelButtonColor: "#1f1132",
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        storeApplicationData();
+      }
+    });
+  };
+
   return (
     <div className="grid grid-cols-1 my-3">
       <div className="flex justify-end my-5 mr-3">
         <button
           className={`btn flex font-roboto ${gradientColor} transition-all duration-700 text-[#fff]`}
-          onClick={storeApplicationData}
+          onClick={showConfirmModal}
         >
           <span className="text-sm">Create a new application</span>
           <BsPlusLg size={20} />
@@ -166,7 +184,7 @@ const NewApplication = () => {
               <th>Village</th>
               <th>Mandal</th>
               <th>Created date</th>
-              <th>Button</th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody>

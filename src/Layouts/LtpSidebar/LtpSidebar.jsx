@@ -71,26 +71,33 @@ const LtpSidebar = () => {
       </li>
 
       <li
-        className={`flex items-center ps-4 hover:${gradientColor} rounded-l-lg mb-1`}
+        className={`${
+          path === "/dashboard/approvedApplication" && gradientColor
+        } flex items-center ps-4 hover:${gradientColor} rounded-l-lg mb-1`}
       >
         <span>
           <BiCheckDouble size={23} />
         </span>
         <Link
           className="p-[10px]  font-medium "
-          to="/dashboard/submitApplication"
+          to="/dashboard/approvedApplication"
         >
           Approved
         </Link>
       </li>
 
       <li
-        className={`flex items-center ps-4 hover:${gradientColor} rounded-l-lg mb-1`}
+        className={`${
+          path === "/dashboard/shortfallApplication" && gradientColor
+        } flex items-center ps-4 hover:${gradientColor} rounded-l-lg mb-1`}
       >
         <span>
           <AiOutlineForm size={20} />
         </span>
-        <Link className="p-[10px] font-medium " to="/#">
+        <Link
+          className="p-[10px] font-medium "
+          to="/dashboard/shortfallApplication"
+        >
           Shortfall
         </Link>
       </li>

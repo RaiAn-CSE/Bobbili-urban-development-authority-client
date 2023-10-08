@@ -24,6 +24,8 @@ import SiteInspection from "./../Pages/Dashboard/PsDashboard/InwardApplications/
 import SearchApplications from "../Pages/Dashboard/PsDashboard/SearchApplications/SearchApplications";
 import Outward from "../Pages/Dashboard/PsDashboard/OutwardApplications/Outward";
 import ReValidation from "../Pages/Dashboard/PsDashboard/ReValidation/ReValidation";
+import Approved from "../Pages/Dashboard/LtpDashboard/Approved/Approved";
+import Shortfall from "../Pages/Dashboard/LtpDashboard/Shortfall/Shortfall";
 
 const router = createBrowserRouter([
   {
@@ -33,10 +35,6 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Carousel />,
-      },
-      {
-        path: "/applicationSearch",
         element: <ApplicationSearch />,
       },
       {
@@ -163,6 +161,22 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <SubmitApplication />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/approvedApplication",
+        element: (
+          <PrivateRoute>
+            <Approved />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/shortfallApplication",
+        element: (
+          <PrivateRoute>
+            <Shortfall />
           </PrivateRoute>
         ),
       },

@@ -116,11 +116,7 @@ const AuthProvider = ({ children }) => {
   };
 
   // confirmation message and send data to database
-  const confirmAlert = (
-    stepperData,
-    collectInputFieldData,
-    isPaymentDataSent
-  ) => {
+  const confirmAlert = (stepperData, collectInputFieldData, pageWiseAction) => {
     console.log(userInfoFromLocalStorage()._id, "GET USER ID");
 
     const role = userInfoFromLocalStorage().role;
@@ -155,7 +151,8 @@ const AuthProvider = ({ children }) => {
         return await collectInputFieldData(url)
           .then((response) => {
             console.log(response, "response");
-            if (!response.acknowledged) {
+
+            if (!response?.acknowledged) {
               throw new Error(response.statusText);
             }
             return response;
@@ -167,7 +164,7 @@ const AuthProvider = ({ children }) => {
       allowOutsideClick: () => !Swal.isLoading(),
     }).then((result) => {
       console.log(result, "result");
-      if (result.isConfirmed && result.value.acknowledged) {
+      if (result?.isConfirmed && result?.value?.acknowledged) {
         toast.success("Data saved successfully");
 
         console.log(stepperData, "Stepper data");
@@ -180,8 +177,14 @@ const AuthProvider = ({ children }) => {
           currentStep < steps.length - 1 && handleStepClick(currentStep + 1);
         }
 
-        if (isPaymentDataSent) {
-          isPaymentDataSent((prev) => prev + 1);
+        if (pageWiseAction?.page === "payment") {
+          const { setSentData } = pageWiseAction;
+          setSentData((prev) => prev + 1);
+        }
+
+        if (pageWiseAction?.page === "siteInspection") {
+          const { navigate } = pageWiseAction;
+          navigate("/dashboard/inward");
         }
       } else {
         toast.error("Failed to save data");

@@ -24,7 +24,14 @@ function PsSidebar() {
 
       <li
         className={`${
-          path === "/dashboard/inward" && gradientColor
+          (path === "/dashboard/inward" ||
+            path === "/dashboard/draftApplication/buildingInfo" ||
+            path === "/dashboard/draftApplication/applicantInfo" ||
+            path === "/dashboard/draftApplication/applicationChecklist" ||
+            path === "/dashboard/draftApplication/documents" ||
+            path === "/dashboard/draftApplication/drawing" ||
+            path === "/dashboard/draftApplication/payment") &&
+          gradientColor
         } mt-1  flex items-center rounded-l-lg ps-3 hover:${gradientColor}`}
       >
         <span>
