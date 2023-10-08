@@ -125,10 +125,13 @@ const AuthProvider = ({ children }) => {
 
     let url;
 
+    const filterDataForLtp = JSON.stringify({
+      userId: userInfoFromLocalStorage()._id,
+      oldApplicationNo: applicationNo,
+    });
+
     role === "LTP" &&
-      (url = `http://localhost:5000/updateDraftApplicationData/${
-        userInfoFromLocalStorage()._id
-      }`);
+      (url = `http://localhost:5000/updateDraftApplicationData?filterData=${filterDataForLtp}`);
 
     role === "PS" &&
       (url = `http://localhost:5000/recommendDataOfPs?appNo=${applicationNo}`);

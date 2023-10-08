@@ -15,7 +15,12 @@ const DraftApplication = () => {
   const [openApplication, setOpenApplication] = useState(false);
 
   // const { applicationNo } = location.state;
+  console.log(
+    JSON.parse(localStorage.getItem("CurrentAppNo")),
+    "APPLICATION NO"
+  );
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
+
   // console.log(applicationNo);
 
   const { userInfoFromLocalStorage } = useContext(AuthContext);
