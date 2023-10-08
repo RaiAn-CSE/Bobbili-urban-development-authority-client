@@ -35,10 +35,6 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Carousel />,
-      },
-      {
-        path: "/applicationSearch",
         element: <ApplicationSearch />,
       },
       {

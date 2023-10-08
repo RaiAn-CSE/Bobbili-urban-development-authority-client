@@ -8,16 +8,18 @@ import customScroll from "../Style/Scrollbar.module.css";
 
 const MainLayout = () => {
   const path = useLocation().pathname;
+  console.log(path);
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
   const active = "font-bold bg-gradient-to-r from-violet-500 to-fuchsia-500";
+
   const menu = (
     <>
       <Link
-        to="/applicationSearch"
+        to="/"
         type="button"
         className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm border-b border-gray-200 rounded-t-lg hover:${gradientColor} ${
-          path.includes("applicationSearch") ? active : ""
+          path.length === 1 && path.includes("/") ? active : ""
         }`}
       >
         Application Search
@@ -83,7 +85,7 @@ const MainLayout = () => {
 
         <div className="basis-[20%] flex justify-end space-x-6">
           <Link
-            to="http://localhost:5173"
+            to="/"
             className={`w-12 h-12 ${gradientColor} shadow-md shadow-violetDark rounded-full flex justify-center items-center`}
           >
             <AiOutlineHome className="text-2xl text-white" />
