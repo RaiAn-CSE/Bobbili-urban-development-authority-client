@@ -187,7 +187,7 @@ const DocumentUpload = () => {
         onSubmit={(e) => {
           e.preventDefault();
         }}
-        className="text-black p-4"
+        className="text-black p-4 dark:text-gray-100"
       >
         {UpdatedDocuments?.map((document, index) => {
           const { id, question, upload, approved } = document;
