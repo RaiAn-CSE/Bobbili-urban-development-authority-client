@@ -482,8 +482,17 @@ const BuildingInfo = () => {
       scheduleBoundaries,
     };
 
+    const splitApplicationNo = applicationNo.split("/");
+
+    splitApplicationNo[2] = village?.length ? village : "XX";
+    splitApplicationNo[3] = mandal?.length ? mandal : "XX";
+
+    const newApplicationNo = splitApplicationNo.join("/");
+
+    localStorage.setItem("CurrentAppNo", JSON.stringify(newApplicationNo));
+
     return await sendUserDataIntoDB(url, "PATCH", {
-      applicationNo,
+      applicationNo: newApplicationNo,
       buildingInfo,
     });
   };
@@ -846,15 +855,15 @@ const BuildingInfo = () => {
 
             {selectedNatureOfTheSite ===
               "Plot port of RLP/IPLP but not regularised" && (
-                <InputField
-                  id="IplpNo"
-                  name=""
-                  label="RLP/IPLP no."
-                  placeholder="RLP/IPLP no."
-                  type="number"
-                  ltpDetails={iplpNo}
-                />
-              )}
+              <InputField
+                id="IplpNo"
+                name=""
+                label="RLP/IPLP no."
+                placeholder="RLP/IPLP no."
+                type="number"
+                ltpDetails={iplpNo}
+              />
+            )}
             {/*===================== Conditional Input Field End =====================*/}
           </div>
         </div>
