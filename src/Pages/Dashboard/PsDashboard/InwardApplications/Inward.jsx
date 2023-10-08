@@ -23,12 +23,16 @@ const Inward = () => {
 
   // get all applications which are submitted already
   const { data, refetch, isLoading, isError, isSuccess } = useQuery(
-    ["allSubmitApplication"],
+    ["allInwardApplications"],
     async () => {
       const response = await fetch(`http://localhost:5000/submitApplications`);
       return await response.json();
     }
   );
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   useEffect(() => {
     if (isError) {
@@ -38,10 +42,8 @@ const Inward = () => {
       setError("");
     }
 
-    if (isSuccess) {
-      setAllData(data);
-    }
-  }, [isError, isSuccess]);
+    setAllData(data);
+  }, [isError, data]);
 
   console.log(allData);
   // console.log(data);
