@@ -63,23 +63,23 @@ const DocumentUpload = () => {
   }, []);
 
   
-  // send data to PS DB (Apu vai send PS data from here)
-  const sentPsDecision = async (url) => {
-    // PS data select and send data
-    const PSKeys = ["id", "approved"];
-    const PSArray = updatedDefaultDocument.map(({ ...obj }) =>
-      PSKeys.reduce((acc, key) => ((acc[key] = obj[key]), acc), {})
-    );
-    const PSData = {
-      documentsObservation: { ...PSArray },
-      approved: approvedConfirmation ?? "",
-      message: recomendationMessage ?? "",
-    };
-    return await sendUserDataIntoDB(url, "PATCH", {
-      applicationNo,
-      psDocumentPageObservation: PSData,
-    });
-  };
+  // // send data to PS DB (Apu vai send PS data from here)
+  // const sentPsDecision = async (url) => {
+  //   // PS data select and send data
+  //   const PSKeys = ["id", "approved"];
+  //   const PSArray = updatedDefaultDocument?.map(({ ...obj }) =>
+  //     PSKeys.reduce((acc, key) => ((acc[key] = obj[key]), acc), {})
+  //   );
+  //   const PSData = {
+  //     documentsObservation: { ...PSArray },
+  //     approved: approvedConfirmation ?? "",
+  //     message: recomendationMessage ?? "",
+  //   };
+  //   return await sendUserDataIntoDB(url, "PATCH", {
+  //     applicationNo,
+  //     psDocumentPageObservation: PSData,
+  //   });
+  // };
 
   return (
     <div>
@@ -94,11 +94,13 @@ const DocumentUpload = () => {
             PreviousDefaultDocumentData={PreviousDefaultDocumentData}
             role={role}
             handleFileChange={handleFileChange}
+            gradientColor={gradientColor}
           />
           <DynamicDocument
             role={role}
             UpdatedDynamicDocumentData={UpdatedDynamicDocumentData}
             handleFileChange={handleFileChange}
+            gradientColor={gradientColor}
           />
 
           <div className="flex items-center mt-6">
@@ -155,7 +157,7 @@ const DocumentUpload = () => {
         steps={steps}
         stepperData={stepperData}
         confirmAlert={confirmAlert}
-        collectInputFieldData={role === "LTP" ? handleFileUpload : sentPsDecision}
+        // collectInputFieldData={role === "LTP" ? handleFileUpload : sentPsDecision}
       />
     </div>
   );

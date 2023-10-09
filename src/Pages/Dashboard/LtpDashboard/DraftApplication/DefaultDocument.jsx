@@ -1,13 +1,16 @@
 import { useState } from "react";
 import DefaultDocumentData from "../../../../assets/DefaultDocument.json"
 
-function DefaultDocument({ PreviousDefaultDocumentData,role,handleFileChange }) {
+function DefaultDocument({ PreviousDefaultDocumentData, role, handleFileChange, gradientColor }) {
 
-    const [UpdatedDefaultData,setUpdatedDefaultData]=useState([]);
-    if(PreviousDefaultDocumentData){
-        setUpdatedDefaultData([...PreviousDefaultDocumentData])
-    }
+    const [UpdatedDefaultData, setUpdatedDefaultData] = useState([]);
     
+    if (PreviousDefaultDocumentData) {
+        setUpdatedDefaultData([...PreviousDefaultDocumentData])
+    } else {
+        setUpdatedDefaultData([...DefaultDocumentData])
+    }
+
     return (
         <div className="w-full px-2 py-5 rounded">
             {UpdatedDefaultData?.map(data => {
