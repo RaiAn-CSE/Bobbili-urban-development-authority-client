@@ -119,12 +119,12 @@ const Login = () => {
 
   return (
     <>
-      <div className="relative font-roboto">
+      <div className="relative font-roboto dark:bg-gray-700">
         {/* support icon  */}
 
         {/* login form  */}
 
-        <div className="rounded-lg border p-4 sm:p-6 md:p-8 shadow-lg">
+        <div className="rounded-lg border p-4 sm:p-6 md:p-8 shadow-lg dark:text-white">
           <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
             <h1 className="text-3xl text-center font-bold text-gray-900 dark:text-white">
               Sign in

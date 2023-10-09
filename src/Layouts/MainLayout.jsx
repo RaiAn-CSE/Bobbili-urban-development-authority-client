@@ -24,13 +24,20 @@ const MainLayout = () => {
       window.matchMedia("(prefers-color-scheme: dark)").matches
     ) {
       document.documentElement.classList.add("dark");
+      document.documentElement.classList.add("dark:bg-black");
       localStorage.setItem("theme", "dark");
     } else {
       document.documentElement.classList.remove("dark");
+      document.documentElement.classList.remove("dark:bg-black");
       localStorage.setItem("theme", "light");
 
       // console.log(theme);
     }
+    return () => {
+      document.documentElement.classList.remove("dark");
+      document.documentElement.classList.remove("dark:bg-black");
+      localStorage.setItem("theme", "light");
+    };
   }, [theme]);
 
   const menu = (
@@ -98,14 +105,14 @@ const MainLayout = () => {
     </>
   );
   return (
-    <div className="mx-10">
+    <div className="px-10 min-h-screen dark:bg-black">
       {/* upper part  */}
-      <div className="mt-4 mb-14 flex justify-between items-center">
+      <div className="py-3 flex justify-between items-center">
         <div className="basis-3/4">
           <p className="text-2xl text-gray-400 font-bold font-sofadi">
             Bobbili Urban Development Authority
           </p>
-          <p className="text-4xl mt-2 font-notSerif font-bold dark:text-white">
+          <p className="text-4xl mt-2 text-black font-notSerif font-bold dark:text-white">
             Residential Building Plan Approval
           </p>
         </div>
@@ -120,21 +127,29 @@ const MainLayout = () => {
           <div
             className={`w-12 h-12 cursor-pointer transition-all duration-700 border border-violetLight rounded-full flex justify-center items-center hover:text-white hover:shadow-md hover:shadow-violetDark  hover:${gradientColor}`}
           >
-            <MdOutlineDashboard className="text-2xl" />
+            <MdOutlineDashboard className="text-2xl dark:text-white" />
           </div>
 
           <div>
             {theme === "dark" ? (
-              <FiSun size={25} onClick={() => setTheme("light")} />
+              <FiSun
+                size={25}
+                onClick={() => setTheme("light")}
+                className="dark:text-white"
+              />
             ) : (
-              <MdOutlineDarkMode size={25} onClick={() => setTheme("dark")} />
+              <MdOutlineDarkMode
+                size={25}
+                onClick={() => setTheme("dark")}
+                className="dark:text-white"
+              />
             )}
           </div>
         </div>
       </div>
 
       {/* lower part  */}
-      <div className="grid grid-cols-[200px_minmax(700px,_1fr)_1fr] ">
+      <div className="grid grid-cols-[200px_minmax(700px,_1fr)_1fr] pt-10">
         {/* sidebar menus  */}
         <div className="w-full h-full text-base flex flex-col justify-between  bg-black text-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white shadow-lg">
           {menu}
