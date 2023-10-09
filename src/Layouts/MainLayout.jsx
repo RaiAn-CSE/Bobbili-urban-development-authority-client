@@ -105,7 +105,7 @@ const MainLayout = () => {
           <p className="text-2xl text-gray-400 font-bold font-sofadi">
             Bobbili Urban Development Authority
           </p>
-          <p className="text-4xl mt-2 font-notSerif font-bold">
+          <p className="text-4xl mt-2 font-notSerif font-bold dark:text-white">
             Residential Building Plan Approval
           </p>
         </div>
