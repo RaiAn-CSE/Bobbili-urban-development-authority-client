@@ -35,10 +35,10 @@ const UdaDashboard = () => {
   });
 
   return (
-    <div className="flex flex-col font-roboto w-11/12 mx-auto my-10 overflow-x-auto sm:rounded-lg">
+    <div className="flex flex-col font-roboto w-11/12 mx-auto my-10 overflow-x-auto sm:rounded-lg ">
       <button
         onClick={onDownload}
-        className={`${gradientColor} mb-8 font-roboto text-base text-white p-2 rounded-lg self-end flex items-center justify-center`}
+        className={`${gradientColor} transition-all duration-700 mb-8 font-roboto text-base text-white p-2 rounded-lg self-end flex items-center justify-center hover:shadow-lg hover:shadow-violetLight hover:bg-gradient-to-l`}
       >
         Export <TfiExport size={18} className="ms-2" />
       </button>

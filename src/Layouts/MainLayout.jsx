@@ -44,7 +44,7 @@ const MainLayout = () => {
       </Link>
       <Link
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm  rounded-b-lg border-b hover:${gradientColor} ${
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm border-b hover:${gradientColor} ${
           path.includes("demoVideos") ? active : ""
         }`}
       >
@@ -52,15 +52,19 @@ const MainLayout = () => {
       </Link>
       <Link
         type="button"
-        className="relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium rounded-b-lg border-b hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white"
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium  border-b hover:${gradientColor} ${
+          path.includes("privacyPolicy") ? active : ""
+        }`}
       >
         Privacy Policy
       </Link>
       <Link
         type="button"
-        className="relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium rounded-b-lg border-b hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white"
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium  border-b hover:${gradientColor} ${
+          path.includes("drawingFormat") ? active : ""
+        }`}
       >
-        Menu Item
+        Default Drawing Format
       </Link>
       <Link
         type="button"
@@ -99,15 +103,15 @@ const MainLayout = () => {
       </div>
 
       {/* lower part  */}
-      <div className="grid grid-cols-[200px_minmax(700px,_1fr)_1fr]">
+      <div className="grid grid-cols-[200px_minmax(700px,_1fr)_1fr] place-items-center">
         {/* sidebar menus  */}
-        <div className="w-full h-[400px] text-base flex flex-col justify-between  bg-black text-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white shadow-lg">
+        <div className="w-full h-full text-base flex flex-col justify-between  bg-black text-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white shadow-lg">
           {menu}
         </div>
 
         {/* Scrollable content */}
         <div
-          className={`${customScroll.customScrolling} bg-base-100  rounded-lg mx-4 flex items-center`}
+          className={`${customScroll.customScrolling} bg-base-100 shadow-md rounded-lg mx-4 flex items-center`}
         >
           <Outlet />
         </div>
