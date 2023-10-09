@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import Documents from "../../../../assets/Documents.json";
+import DynamicDocuments from "../../../../assets/Documents.json";
+import DefaultDocument from "../../../../assets/DefaultDocument.json"
 import { Link, useLocation, useOutletContext } from "react-router-dom";
 import toast from "react-hot-toast";
 import SaveData from "./SaveData";
@@ -12,7 +13,8 @@ import DocumentFooter from "./DocumentFooter";
 const DocumentUpload = () => {
   const [openApplication, setOpenApplication] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState([]);
-  const [UpdatedDocuments, setUpdatedDocuments] = useState([...Documents]);
+  const [UpdatedDynamicDocuments, setUpdatedDynamicDocuments] = useState([...Documents]);
+  const [updatedDefaultDocument, setUpdatedDefaultDocument] = useState([...DefaultDocument])
   const [imageId, setImageId] = useState([]);
   const [approvedConfirmation, setApprovedConfirmation] = useState("");
   const [recomendationMessage, setRecomendationMessage] = useState("");
@@ -50,45 +52,42 @@ const DocumentUpload = () => {
   // Adding checklist Data to Document from server data && Updating Data from server Data
   useEffect(() => {
     const gettingData = async () => {
-      let updatedDocumentsToAdd = [];
+      let updatedDynamicDocumentsToAdd = [];
       const applicationData = await getApplicationData(applicationNo);
       const applicationCheckList = applicationData.applicationCheckList;
-      const PreviousDocuments = applicationData.documents;
-      console.log(applicationCheckList, "ChecklistData")
-      // Adding checklist Data to Document from server data
+      const PreviousDefaultDocuments = applicationData.documents[0];
+      const PreviousDynamicDocuments = applicationData.documents[1];
+
+      // Checklist "yes" Data intigrating to Document 
       if (applicationCheckList.length) {
-        // Declare the array here
-        Documents?.forEach((data, index) => {
-          if (data.id <= 8) {
-            return;
-          }
+        DynamicDocuments?.forEach((data, index) => {
           applicationCheckList.forEach((document) => {
             const condition01 = data.question === document.question;
             const condition02 = document.answer === "yes";
             if (condition01 && condition02) {
-              return updatedDocumentsToAdd.push(data);;
+            const alreadyPrevious =  PreviousDynamicDocuments.map(prevDynData=>prevDynData.id==document.id)
+            return updatedDynamicDocumentsToAdd.push(data);
             }
           });
         });
       }
-      setUpdatedDocuments([
-        ...Documents.slice(0, 8),  // Add the first 8 elements from Documents
-        ...updatedDocumentsToAdd
-      ]);
-      
-      console.log(updatedDocumentsToAdd, "UpdatedDocument")
+      setUpdatedDynamicDocuments([...updatedDynamicDocumentsToAdd]);
+      // Merging with previous Dynamic Document Data
+    
+
+      console.log(updatedDynamicDocumentsToAdd, "updatedDynamicDocumentsToAdd")
       // Updating Data from server Data
       // RECEIVED DOCUMENT DATA FROM THE DB & STORE THEM IN THE UPDATED DOCUMENT STATE
-      if (Object.keys(PreviousDocuments).length) {
-        setUpdatedDocuments((prev) => {
-          prev.forEach((document, index) => {
-            prev[index].upload = PreviousDocuments[index];
-          });
-          return prev;
-        });
-        setApprovedConfirmation(PreviousDocuments.approved);
-        setRecomendationMessage(PreviousDocuments.message);
-      }
+      // if (Object.keys(PreviousDynamicDocuments).length) {
+      //   setUpdatedDynamicDocuments((prev) => {
+      //     prev.forEach((document, index) => {
+      //       prev[index].upload = PreviousDocuments[index];
+      //     });
+      //     return prev;
+      //   });
+      // setApprovedConfirmation(PreviousDocuments.approved);
+      // setRecomendationMessage(PreviousDocuments.message);
+      // }
     };
     gettingData();
   }, []);
