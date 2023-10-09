@@ -344,7 +344,7 @@ const BuildingInfo = () => {
     const surveyNo = document.getElementById("SurveyNo").value;
     const district = document.getElementById("district").value;
     const mandal = document.getElementById("mandal").value;
-    // const gramaPanchayat = document.getElementById("gramaPanchayat").value;
+    // const gramaPanchayat = document.getElementById("ramaPanchayat").value;
     const village = document.getElementById("village").value;
 
     const bpsApprovedElement = document.getElementById("BpsApprovedNo");
@@ -561,7 +561,8 @@ const BuildingInfo = () => {
   const labelClass =
     "block text-gray-600 mb-1 font-semibold dark:text-gray-100";
   const inputClass =
-    "w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs dark:text-black";
+    "w-full px-3 py-[10px] border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200";
+
 
   return (
     <>
@@ -581,7 +582,7 @@ const BuildingInfo = () => {
               </label>
               <select
                 id="caseType"
-                className="w-full px-3 py-[10px] border border-[#10AC84] dark:text-black rounded-lg max-w-xs"
+                className={inputClass}
                 value={selectedOptionCase ? selectedOptionCase : caseType}
                 onChange={handleCaseTypeChange}
               >
@@ -609,7 +610,7 @@ const BuildingInfo = () => {
                   <input
                     type="radio"
                     name="radio-1"
-                    className="radio border border-[#10AC84] h-4 w-4"
+                    className="radio border border-violet-500 h-4 w-4"
                     value="Private"
                     checked={
                       radio1 === "Private"
@@ -624,7 +625,7 @@ const BuildingInfo = () => {
                   <input
                     type="radio"
                     name="radio-1"
-                    className="radio border border-[#10AC84] h-4 w-4"
+                    className="radio border border-violet-500 h-4 w-4"
                     value="Govt. Land"
                     checked={
                       radio1 === "Govt. Land"
@@ -935,7 +936,7 @@ const BuildingInfo = () => {
                   id="proposedPlotArea"
                   name="proposedPlotArea"
                   placeholder="in Sq.Mts."
-                  className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
+                  className="w-full px-3 py-2 border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200"
                   defaultValue={
                     proposedPlotArea ? proposedPlotArea : proposedPlotAreaCal
                   }
@@ -957,7 +958,7 @@ const BuildingInfo = () => {
                   id="roadWideningArea"
                   type="number"
                   placeholder="in Sq.Mts."
-                  className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
+                  className="w-full px-3 py-2 border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200"
                   defaultValue={roadWideningArea}
                   onChange={handleRoadWideningAreaChange}
                 />
@@ -1000,7 +1001,7 @@ const BuildingInfo = () => {
                       <input
                         type="radio"
                         name="radio-2"
-                        className="radio border border-[#10AC84] h-4 w-4"
+                        className="radio border border-violet-500 h-4 w-4"
                         value="yes"
                         checked={
                           radio2 == "yes" ? radio2 == "yes" : existingRoad === "yes"
@@ -1013,7 +1014,7 @@ const BuildingInfo = () => {
                       <input
                         type="radio"
                         name="radio-2"
-                        className="radio border border-[#10AC84] h-4 w-4"
+                        className="radio border border-violet-500 h-4 w-4"
                         value="no"
                         checked={
                           radio2 == "no" ? radio2 == "no" : existingRoad === "no"
@@ -1035,7 +1036,7 @@ const BuildingInfo = () => {
                   <input
                     type="radio"
                     name="radio-3"
-                    className="radio border border-[#10AC84] h-4 w-4"
+                    className="radio border border-violet-500 h-4 w-4"
                     value="Public"
                     checked={
                       radio3 == "Public"
@@ -1050,7 +1051,7 @@ const BuildingInfo = () => {
                   <input
                     type="radio"
                     name="radio-3"
-                    className="radio border border-[#10AC84] h-4 w-4"
+                    className="radio border border-violet-500 h-4 w-4"
                     value="Private"
                     checked={
                       radio3 == "Private"
@@ -1217,7 +1218,7 @@ const BuildingInfo = () => {
                     <input
                       type="radio"
                       name="radio-4"
-                      className="radio border border-[#10AC84] h-4 w-4"
+                      className="radio border border-violet-500 h-4 w-4"
                       value="yes"
                       checked={
                         radio4 == "yes"
@@ -1232,7 +1233,7 @@ const BuildingInfo = () => {
                     <input
                       type="radio"
                       name="radio-4"
-                      className="radio border border-[#10AC84] h-4 w-4"
+                      className="radio border border-violet-500 h-4 w-4"
                       value="no"
                       checked={
                         radio4 == "no"
@@ -1267,7 +1268,7 @@ const BuildingInfo = () => {
                   <input
                     type="radio"
                     name="radio-5"
-                    className="radio border border-[#10AC84] h-4 w-4"
+                    className="radio border border-violet-500 h-4 w-4"
                     value="yes"
                     checked={
                       radio5 == "yes"
@@ -1282,7 +1283,7 @@ const BuildingInfo = () => {
                   <input
                     type="radio"
                     name="radio-5"
-                    className="radio border border-[#10AC84] h-4 w-4"
+                    className="radio border border-violet-500 h-4 w-4"
                     value="no"
                     checked={
                       radio5 == "no" ? radio5 == "no" : siteRegistered === "no"

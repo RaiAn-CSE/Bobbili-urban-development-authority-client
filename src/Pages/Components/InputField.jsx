@@ -4,6 +4,13 @@ const InputField = ({ id, name, placeholder, type, label, ltpDetails }) => {
   // Define default values for type and placeholder if not provided
   const inputType = type || "text";
 
+
+  // Define the gradient border style
+  const gradientBorderStyle = {
+    borderImage: "linear-gradient(90deg, red, yellow)",
+    borderImageSlice: "1",
+  };
+
   return (
     <div className="my-4 mx-3">
       <label
@@ -18,8 +25,7 @@ const InputField = ({ id, name, placeholder, type, label, ltpDetails }) => {
         name={name}
         placeholder={placeholder} // Use the labelPlaceholder variable as the placeholder attribute
         defaultValue={ltpDetails}
-        className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
-      // Add the required attribute
+        className="w-full px-3 py-2 border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200"
       />
     </div>
   );
