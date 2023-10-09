@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import Login from "../Pages/Main/Login/Login";
 import { AiOutlineHome } from "react-icons/ai";
-import { MdOutlineDashboard } from "react-icons/md";
+import { MdOutlineDarkMode, MdOutlineDashboard } from "react-icons/md";
 
 import customScroll from "../Style/Scrollbar.module.css";
+import { FiSun } from "react-icons/fi";
 
 const MainLayout = () => {
   const path = useLocation().pathname;
@@ -12,6 +13,25 @@ const MainLayout = () => {
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
   const active = "font-bold bg-gradient-to-r from-violet-500 to-fuchsia-500";
+
+  const [theme, setTheme] = useState(localStorage.getItem("theme"));
+
+  useEffect(() => {
+    // console.log("theme" in localStorage);
+
+    if (
+      theme === "dark" ||
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+    ) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+
+      // console.log(theme);
+    }
+  }, [theme]);
 
   const menu = (
     <>
@@ -78,19 +98,19 @@ const MainLayout = () => {
     </>
   );
   return (
-    <div className="mx-10 ">
+    <div className="mx-10">
       {/* upper part  */}
       <div className="mt-4 mb-14 flex justify-between items-center">
         <div className="basis-3/4">
           <p className="text-2xl text-gray-400 font-bold font-sofadi">
             Bobbili Urban Development Authority
           </p>
-          <p className="text-4xl mt-2 font-notSerif font-bold ">
+          <p className="text-4xl mt-2 font-notSerif font-bold">
             Residential Building Plan Approval
           </p>
         </div>
 
-        <div className="basis-[20%] flex justify-end space-x-6">
+        <div className="basis-[20%] flex justify-end items-center space-x-6">
           <Link
             to="/"
             className={`w-12 h-12 ${gradientColor} shadow-md shadow-violetDark rounded-full flex justify-center items-center`}
@@ -102,11 +122,19 @@ const MainLayout = () => {
           >
             <MdOutlineDashboard className="text-2xl" />
           </div>
+
+          <div>
+            {theme === "dark" ? (
+              <FiSun size={25} onClick={() => setTheme("light")} />
+            ) : (
+              <MdOutlineDarkMode size={25} onClick={() => setTheme("dark")} />
+            )}
+          </div>
         </div>
       </div>
 
       {/* lower part  */}
-      <div className="grid grid-cols-[200px_minmax(700px,_1fr)_1fr] place-items-center">
+      <div className="grid grid-cols-[200px_minmax(700px,_1fr)_1fr] ">
         {/* sidebar menus  */}
         <div className="w-full h-full text-base flex flex-col justify-between  bg-black text-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white shadow-lg">
           {menu}
@@ -114,7 +142,7 @@ const MainLayout = () => {
 
         {/* Scrollable content */}
         <div
-          className={`${customScroll.customScrolling} bg-base-100 shadow-md rounded-lg mx-4 flex items-center`}
+          className={`${customScroll.customScrolling} bg-base-100 shadow-md rounded-lg mx-4  flex items-center`}
         >
           <Outlet />
         </div>
