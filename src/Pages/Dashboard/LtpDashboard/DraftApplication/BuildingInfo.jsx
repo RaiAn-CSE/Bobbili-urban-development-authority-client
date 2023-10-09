@@ -186,7 +186,7 @@ const BuildingInfo = () => {
     setSelectedNatureOfTheSite(e.target.value);
   };
 
-  // Net Plot Area(in Sq.M.) Calculation :
+  // Net Plot Area(in Sq.Mts.) Calculation :
 
   // ========================(Calculation part start)
   const handleProposedPlotAreaChange = (e) => {
@@ -645,10 +645,10 @@ const BuildingInfo = () => {
                 }
                 onChange={handlePermissionChange}
               >
-                <option disabled selected value="">
+                {/* <option disabled selected value="">
                   Select Nature of permission
-                </option>
-                <option value="General">General</option>
+                </option> */}
+                <option selected value="General">General</option>
                 <option value="Regularised under BPS">
                   Regularised under BPS
                 </option>
@@ -855,15 +855,15 @@ const BuildingInfo = () => {
 
             {selectedNatureOfTheSite ===
               "Plot port of RLP/IPLP but not regularised" && (
-              <InputField
-                id="IplpNo"
-                name=""
-                label="RLP/IPLP no."
-                placeholder="RLP/IPLP no."
-                type="number"
-                ltpDetails={iplpNo}
-              />
-            )}
+                <InputField
+                  id="IplpNo"
+                  name=""
+                  label="RLP/IPLP no."
+                  placeholder="RLP/IPLP no."
+                  type="number"
+                  ltpDetails={iplpNo}
+                />
+              )}
             {/*===================== Conditional Input Field End =====================*/}
           </div>
         </div>
@@ -882,7 +882,7 @@ const BuildingInfo = () => {
                 id="TotalPlotDocument"
                 name=""
                 label="Total Plot are as per document"
-                placeholder="in Sq.M."
+                placeholder="in Sq.Mts."
                 ltpDetails={totalPlotDocument}
               />
               <InputField
@@ -890,7 +890,7 @@ const BuildingInfo = () => {
                 id="TotalPlotGround"
                 name=""
                 label="Total Plot are as on ground"
-                placeholder="in Sq.M."
+                placeholder="in Sq.Mts."
                 ltpDetails={totalPlotGround}
               />
 
@@ -902,7 +902,7 @@ const BuildingInfo = () => {
                   type="number"
                   id="proposedPlotArea"
                   name="proposedPlotArea"
-                  placeholder="in Sq.M."
+                  placeholder="in Sq.Mts."
                   className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
                   defaultValue={
                     proposedPlotArea ? proposedPlotArea : proposedPlotAreaCal
@@ -924,7 +924,7 @@ const BuildingInfo = () => {
                 <input
                   id="roadWideningArea"
                   type="number"
-                  placeholder="in Sq.M."
+                  placeholder="in Sq.Mts."
                   className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
                   defaultValue={roadWideningArea}
                   onChange={handleRoadWideningAreaChange}
@@ -940,7 +940,7 @@ const BuildingInfo = () => {
               {/* Automatically calculated Plot Details  */}
               <div className="my-4 mx-3">
                 <label htmlFor="disabled-input" className={labelClass}>
-                  Net Plot Area (in Sq.M.)
+                  Net Plot Area (in Sq.Mts.)
                 </label>
                 <input
                   type="text"
@@ -1054,14 +1054,14 @@ const BuildingInfo = () => {
                 id="existingRoadMts"
                 name="name1"
                 label="Existing road (in Mts.)"
-                placeholder="in Sq.M."
+                placeholder="in Sq.Mts."
                 ltpDetails={existingRoadMts}
               />
               <InputField
                 id="proposedRoadMts"
                 name="name1"
                 label="Proposed road (in Mts.)"
-                placeholder="in Sq.M."
+                placeholder="in Sq.Mts."
                 ltpDetails={proposedRoadMts}
               />
               <InputField
@@ -1125,7 +1125,7 @@ const BuildingInfo = () => {
                 id="vacantLand"
                 name="vacantLand"
                 label="Vacant land area"
-                placeholder="in Sq.M."
+                placeholder="in Sq.Mts."
                 ltpDetails={vacantLand}
               />
             </div>
@@ -1134,29 +1134,29 @@ const BuildingInfo = () => {
               <InputField
                 id="frontSetback"
                 name="name72"
-                label="Front setback (in M.)"
-                placeholder="in M."
+                label="Front setback (in Mts.)"
+                placeholder="in Mts."
                 ltpDetails={frontSetback}
               />
               <InputField
                 id="rareSetback"
                 name="name1"
-                label="Rare setback (in M.)"
-                placeholder="in M."
+                label="Rare setback (in Mts.)"
+                placeholder="in Mts."
                 ltpDetails={rareSetback}
               />
               <InputField
                 id="side1Setback"
                 name="name1"
-                label="Side1 setback (in M.)"
-                placeholder="in M."
+                label="Side1 setback (in Mts.)"
+                placeholder="in Mts."
                 ltpDetails={side1Setback}
               />
               <InputField
                 id="side2Setback"
                 name="name1"
-                label="Side 2 setback (in M.)"
-                placeholder="in M."
+                label="Side 2 setback (in Mts.)"
+                placeholder="in Mts."
                 ltpDetails={side2Setback}
               />
               <InputField

@@ -46,13 +46,13 @@ const FloorDetails = ({
           htmlFor="ProposedPlotArea"
           className="block text-gray-600 mb-1 font-semibold dark:text-gray-100"
         >
-          Built up area (in Sq.M.)
+          Built up area (in Sq.Mts.)
         </label>
         <input
           type="number"
           id={`builtUpArea${index}`}
           name={`builtUpArea${index}`}
-          placeholder="in Sq.M."
+          placeholder="in Sq.Mts."
           className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
           defaultValue={
             builtUpAreaValue ? builtUpAreaValue : plotDetailsFloor?.builtUpArea
@@ -66,13 +66,13 @@ const FloorDetails = ({
           htmlFor="ProposedPlotArea"
           className="block text-gray-600 mb-1 font-semibold dark:text-gray-100"
         >
-          Parking Area (in Sq.M.)
+          Parking Area (in Sq.Mts.)
         </label>
         <input
           type="number"
           id={`parkingArea${index}`}
           name={`parkingArea${index}`}
-          placeholder="in Sq.M."
+          placeholder="in Sq.Mts."
           className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
           defaultValue={
             parkingAreaValue ? parkingAreaValue : plotDetailsFloor?.parkingArea
