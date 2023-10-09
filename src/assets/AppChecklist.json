@@ -1,92 +1,92 @@
 {
     "Questions": [
         {
-            "no": 1,
+            "id": 1,
             "question": "Whether The Proposed Site Falls Under Un-Approved Layout in Which Building Approval Given?",
-            "answer": "yes"
+            "answer": ""
         },
         {
-            "no": 2,
+            "id": 2,
             "question": "Whether The Plot Is Affected by Road Widening?",
-            "answer": "yes"
+            "answer": ""
         },
         {
-            "no": 3,
+            "id": 3,
             "question": "Whether The Proposed Site Is Located in The Vicinity of Defence Establishments Within the Distance Of 500 Mts?",
-            "answer": "yes"
+            "answer": ""
         },
         {
-            "no": 4,
+            "id": 4,
             "question": "Whether The Proposed Site Is Located Within the Distance of Above 100m and up to 200m From the Protected Monuments as Notified Under Archaeological Monuments and Ancient Sites?",
-            "answer": "yes"
+            "answer": ""
         },
         {
-            "no": 5,
+            "id": 5,
             "question": "50m Within The Limits Of The Local Authorities. The Boundaries Of The River Shall Be As Fixed And Certified By The Irrigation Department And Revenue Department?",
-            "answer": "yes"
+            "answer": ""
         },
         {
-            "no": 6,
+            "id": 6,
             "question": "Whether The Edge Of The Proposed Building Is Within 30 Mtrs Distance From The Railway Property Boundary?",
-            "answer": "yes"
+            "answer": ""
         },
         {
-            "no": 7,
+            "id": 7,
             "question": "Whether Proposed Site Is Located In The Vicinity Of Oil/Gas Pipe Line?",
-            "answer": "yes"
+            "answer": ""
         },
         {
-            "no": 8,
+            "id": 8,
             "question": "Whether The Site Falls Under An Un-Approved Layout And Any Building Plan Approval Is Given Or Any Building Exist Prior To 1985 On This Site?",
-            "answer": "yes"
+            "answer": ""
         },
         {
-            "no": 9,
+            "id": 9,
             "question": "Whether The Proposal Comes Under Building Penalization Scheme Case?",
             "answer": ""
         },
         {
-            "no": 10,
+            "id": 10,
             "question": "Whether The Land Is Converted Agriculture To Non-Agriculture Land As Per NALA Act, 2006?",
             "answer": ""
         },
         {
-            "no": 11,
+            "id": 11,
             "question": "Whether Site Falls Under Approved Layout/ LRS/ Plot Part Of LRS Layout But Not Regularized?",
             "answer": ""
         },
         {
-            "no": 12,
+            "id": 12,
             "question": "Whether Any Approved Plan Given In Proposed Site?",
             "answer": ""
         },
         {
-            "no": 13,
+            "id": 13,
             "question": "If You Are In Airport Vicinity, Do You Have NOC From AAI?",
             "answer": ""
         },
         {
-            "no": 14,
+            "id": 14,
             "question": "Whether NOC Is Required From AAI?",
             "answer": ""
         },
         {
-            "no": 15,
+            "id": 15,
             "question": "Whether NMA NOC Is Available With You For Proposed Construction Sites?",
             "answer": ""
         },
         {
-            "no": 16,
+            "id": 16,
             "question": "Whether NOC Is Required From NMA?",
             "answer": ""
         },
         {
-            "no": 17,
+            "id": 17,
             "question": "Is CLU Is Applicable?",
             "answer": ""
         },
         {
-            "no": 18,
+            "id": 18,
             "question": "Whether the proposal falls in IJrbanisable Land use zone?",
             "answer": ""
         }

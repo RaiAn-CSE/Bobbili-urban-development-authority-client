@@ -13,7 +13,6 @@ const DocumentUpload = () => {
   const [openApplication, setOpenApplication] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [UpdatedDocuments, setUpdatedDocuments] = useState([...Documents]);
-  console.log(UpdatedDocuments,"0000")
   const [imageId, setImageId] = useState([]);
   const [approvedConfirmation, setApprovedConfirmation] = useState("");
   const [recomendationMessage, setRecomendationMessage] = useState("");
@@ -59,30 +58,36 @@ const DocumentUpload = () => {
       // Adding checklist Data to Document from server data
       if (applicationCheckList.length) {
         // Declare the array here
-        UpdatedDocuments?.forEach((data, index) => {
-          applicationCheckList.filter((document) => {
-            const condition01 = document.question === data.question;
-            const condition02 = data.answer === "yes";
+        Documents?.forEach((data, index) => {
+          if (data.id <= 8) {
+            return;
+          }
+          applicationCheckList.forEach((document) => {
+            const condition01 = data.question === document.question;
+            const condition02 = document.answer === "yes";
             if (condition01 && condition02) {
-              return updatedDocumentsToAdd.push(document);;
+              return updatedDocumentsToAdd.push(data);;
             }
           });
         });
       }
+      setUpdatedDocuments([
+        ...Documents.slice(0, 8),  // Add the first 8 elements from Documents
+        ...updatedDocumentsToAdd
+      ]);
+      
       console.log(updatedDocumentsToAdd, "UpdatedDocument")
-      setUpdatedDocuments([updatedDocumentsToAdd]);
-
       // Updating Data from server Data
       // RECEIVED DOCUMENT DATA FROM THE DB & STORE THEM IN THE UPDATED DOCUMENT STATE
-      if (Object.keys(documents).length) {
+      if (Object.keys(PreviousDocuments).length) {
         setUpdatedDocuments((prev) => {
           prev.forEach((document, index) => {
-            prev[index].upload = documents[index];
+            prev[index].upload = PreviousDocuments[index];
           });
           return prev;
         });
-        setApprovedConfirmation(documents.approved);
-        setRecomendationMessage(documents.message);
+        setApprovedConfirmation(PreviousDocuments.approved);
+        setRecomendationMessage(PreviousDocuments.message);
       }
     };
     gettingData();
@@ -174,7 +179,7 @@ const DocumentUpload = () => {
       >
         {UpdatedDocuments?.map((document, index) => {
           const { id, question, upload, approved, requirements } = document;
-          console.log(UpdatedDocuments,"UpdatedDocument")
+          console.log(UpdatedDocuments, "UpdatedDocument")
           return (
             <>
               <div key={id} className="w-full px-2 py-5 rounded">
@@ -202,7 +207,7 @@ const DocumentUpload = () => {
                   {id > 8 && <div className="ml-6">
                     {requirements?.map((requirement, ind) => {
                       const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n'];
-                      return (<div key={ind+1} className="mb-8">
+                      return (<div key={ind + 1} className="mb-8">
                         <div className="mb-3">
                           <span className="font-bold">{letters[ind]}. </span>{requirement.requirement}
                         </div>
@@ -216,9 +221,9 @@ const DocumentUpload = () => {
                           />
                         )}
 
-                        {upload !== "" && (
+                        {requirement.upload !== "" && (
                           <Link
-                            to={`https://drive.google.com/file/d/${upload}/view?usp=sharing`}
+                            to={`https://drive.google.com/file/d/${requirement.upload}/view?usp=sharing`}
                             target="_blank"
                             className={`${gradientColor} text-white hover:underline ms-5 py-2 px-5 rounded-full`}
                           >

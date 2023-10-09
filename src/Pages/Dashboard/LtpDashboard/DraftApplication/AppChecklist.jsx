@@ -16,12 +16,9 @@ function AppChecklist() {
   const { confirmAlert, sendUserDataIntoDB, getApplicationData } = useContext(AuthContext);
   // after select question firing here
   const handleAnswer = (event, questionNo) => {
-    if(questionNo<=8){
-      return toast.error("you can't select")
-    }
     const updatedQuestions = questions.map((question) => ({
       ...question,
-      answer: question.no === questionNo ? event.target.value : question.answer,
+      answer: question.id === questionNo ? event.target.value : question.answer,
     }));
     setQuestions(updatedQuestions);
   };
@@ -46,31 +43,32 @@ function AppChecklist() {
   };
   const btn =
     "btn btn-md text-sm px-6 bg-Primary transition duration-700 hover:bg-btnHover hover:shadow-md";
+    console.log(questions,"Questions")
   return (
     <div className="px-3 text-sm py-1 relative">
       <div className="space-y-5">
-        {questions.map(({ no, question, answer }) => (
+        {questions.map(({ id, question, answer }) => (
           <div
-            key={no}
+            key={id}
             className="lg:flex items-center justify-center shadow-sm shadow-gray-100 rounded p-3"
           >
             <p className="flex-1 text-black rounded mb-5 text-sm md:text-base lg:mb-0 lg:pr-4">
-              {no}. {question}
+              {id}. {question}
             </p>
             <div className="space-x-10 mt-2 lg:pr-2">
               <label
                 className={`ml-2 inline-flex items-center space-x-1 text-black 
                 ${
-                  (no<=8 || answer === "yes" )&& "font-extrabold"
+                  (answer === "yes" )&& "font-extrabold"
                 }`}
               >
                 <input
                   type="radio"
-                  name={no}
+                  name={id}
                   value="yes"
                   className="radio radio-sm radio-success mr-3 lg:mr-0"
-                  checked={no<=8? true:answer === "yes"}
-                  onChange={(event) => handleAnswer(event, no)}
+                  checked={answer === "yes"}
+                  onChange={(event) => handleAnswer(event, id)}
                 />
                 <span>Yes</span>
               </label>
@@ -82,11 +80,11 @@ function AppChecklist() {
               >
                 <input
                   type="radio"
-                  name={no}
+                  name={id}
                   value="no"
                   className="radio radio-sm radio-success mr-3 lg:mr-0"
-                  checked={no<=8?false: answer === "no"}
-                  onChange={(event) => handleAnswer(event, no)}
+                  checked={answer === "no"}
+                  onChange={(event) => handleAnswer(event, id)}
                 />
                 <span>No</span>
               </label>
