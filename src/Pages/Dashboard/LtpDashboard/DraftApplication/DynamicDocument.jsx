@@ -2,13 +2,14 @@ import { useState } from "react";
 import PsDocument from "./PsDocument";
 
 function DynamicDocument({ UpdatedDynamicDocumentData, role, handleFileChange, gradientColor }) {
-  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [DynamicDocumentSelectedFiles, setDynamicDocumentSelectedFiles] = useState([]);
+
   const someEventHandler = (event, index) => {
     handleFileChange(event, index);
-    const file = event.target.value;
-    selectedFiles[index] = file;
+    const file = event.target.files[0];
+    DynamicDocumentSelectedFiles[index] = file;
   };
-  console.log(selectedFiles, "selectedFIle Dynamic")
+  console.log(DynamicDocumentSelectedFiles, "selectedFIle Dynamic")
   return (
     <div>
       {UpdatedDynamicDocumentData?.map((document, index) => {
@@ -30,7 +31,7 @@ function DynamicDocument({ UpdatedDynamicDocumentData, role, handleFileChange, g
                           name={id}
                           type="file"
                           accept=".pdf, image/*"
-                          onChange={(event) => someEventHandler(event, index + 9)}
+                          onChange={(event) => someEventHandler(event, index)}
                           className="file-input file-input-bordered w-full max-w-xs"
                         />
                       )}

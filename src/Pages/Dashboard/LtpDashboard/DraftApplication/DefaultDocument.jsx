@@ -3,9 +3,9 @@ import DefaultDocumentData from "../../../../assets/DefaultDocument.json"
 import PsDocument from "./PsDocument";
 
 function DefaultDocument({ PreviousDefaultDocumentData, role, handleFileChange, gradientColor }) {
-    const [selectedFiles, setSelectedFiles] = useState([]);
+
+    const [DefaultDocumentSelectedFiles, setDefaultDocumentSelectedFiles] = useState([]);
     const [UpdatedDefaultData, setUpdatedDefaultData] = useState([]);
-    console.log(PreviousDefaultDocumentData, "PreviousDefaultData")
 
     useEffect(() => {
         if (PreviousDefaultDocumentData.length) {
@@ -13,13 +13,13 @@ function DefaultDocument({ PreviousDefaultDocumentData, role, handleFileChange, 
         } else {
             setUpdatedDefaultData([...DefaultDocumentData])
         }
-    }, [])
-    const someEventHandler = (event, index, id) => {
-        handleFileChange(event, index);
-        const file = event?.target.files[0];
-        selectedFiles[id] = file;
-    };
+    }, []);
 
+    const someEventHandler = (event, index,id) => {
+        const file = event?.target.files[0];
+        DefaultDocumentSelectedFiles[index] = file;
+        handleFileChange(event, index, DefaultDocumentSelectedFiles);
+    };
     return (
         <div>
             {UpdatedDefaultData?.map((data, index) => {

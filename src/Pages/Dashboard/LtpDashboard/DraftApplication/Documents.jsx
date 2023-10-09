@@ -11,7 +11,6 @@ import DynamicDocument from "./DynamicDocument";
 import PsDocument from "./PsDocument";
 
 const DocumentUpload = () => {
-  const [selectedFiles, setSelectedFiles] = useState([]);
   const [updatedDefaultDocument, setUpdatedDefaultDocument] = useState([]);
   const [imageId, setImageId] = useState([]);
   const [approvedConfirmation, setApprovedConfirmation] = useState("");
@@ -31,12 +30,12 @@ const DocumentUpload = () => {
   const role = userInfoFromLocalStorage().role;
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
-  const handleFileChange = (event, index) => {
+  const handleFileChange = (event, index, uploadedFiles) => {
     const file = event?.target?.files[0];
     file && toast.success(`${file?.name.slice(0, 20)}... Uploaded Successfully`);
-    selectedFiles[index] = file;
+    console.log(uploadedFiles,"UploadedFiles")
   };
-
+// console.log(DefaultDocumentSelectedFiles,DynamicDocumentSelectedFiles,"Default&Dynamic")
   // Adding checklist Data to Document from server data && Updating Data from server Data
   useEffect(() => {
     const gettingData = async () => {
@@ -96,12 +95,15 @@ const DocumentUpload = () => {
             role={role}
             handleFileChange={handleFileChange}
             gradientColor={gradientColor}
+            // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
           />
           <DynamicDocument
             role={role}
             UpdatedDynamicDocumentData={UpdatedDynamicDocumentData}
             handleFileChange={handleFileChange}
             gradientColor={gradientColor}
+            // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
+
           />
         </div>
       </form>
