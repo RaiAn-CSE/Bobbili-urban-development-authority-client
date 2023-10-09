@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import DynamicDocuments from "../../../../assets/Documents.json";
-import DefaultDocument from "../../../../assets/DefaultDocument.json"
 import { Link, useLocation, useOutletContext } from "react-router-dom";
 import toast from "react-hot-toast";
 import SaveData from "./SaveData";
@@ -9,6 +8,8 @@ import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import Application from "./Application";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 import DocumentFooter from "./DocumentFooter";
+import DefaultDocument from "./DefaultDocument";
+
 
 const DocumentUpload = () => {
   const [openApplication, setOpenApplication] = useState(false);
@@ -20,6 +21,7 @@ const DocumentUpload = () => {
   const [recomendationMessage, setRecomendationMessage] = useState("");
   const stepperData = useOutletContext();
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
+  const [PreviousDefaultDocumentData, setPreviousDefaultDocumentData] = useState([]);
   const {
     confirmAlert,
     sendUserDataIntoDB,
@@ -55,7 +57,7 @@ const DocumentUpload = () => {
       let updatedDynamicDocumentsToAdd = [];
       const applicationData = await getApplicationData(applicationNo);
       const applicationCheckList = applicationData.applicationCheckList;
-      const PreviousDefaultDocuments = applicationData.documents[0];
+      setPreviousDefaultDocumentData(applicationData.documents[0]);
       const PreviousDynamicDocuments = applicationData.documents[1];
 
       // Checklist "yes" Data intigrating to Document 
@@ -65,15 +67,15 @@ const DocumentUpload = () => {
             const condition01 = data.question === document.question;
             const condition02 = document.answer === "yes";
             if (condition01 && condition02) {
-            const alreadyPrevious =  PreviousDynamicDocuments.map(prevDynData=>prevDynData.id==document.id)
-            return updatedDynamicDocumentsToAdd.push(data);
+              const alreadyPrevious = PreviousDynamicDocuments.map(prevDynData => prevDynData.id == document.id)
+              return updatedDynamicDocumentsToAdd.push(data);
             }
           });
         });
       }
       setUpdatedDynamicDocuments([...updatedDynamicDocumentsToAdd]);
       // Merging with previous Dynamic Document Data
-    
+
 
       console.log(updatedDynamicDocumentsToAdd, "updatedDynamicDocumentsToAdd")
       // Updating Data from server Data
@@ -169,41 +171,23 @@ const DocumentUpload = () => {
   };
 
   return (
-    <div>
+    <div className="w-full text-[17px] px-2 py-5 rounded">
       <form
         onSubmit={(e) => {
           e.preventDefault();
         }}
         className="text-black p-4"
       >
-        {UpdatedDocuments?.map((document, index) => {
-          const { id, question, upload, approved, requirements } = document;
-          console.log(UpdatedDocuments, "UpdatedDocument")
+        <DefaultDocument PreviousDefaultDocumentData={PreviousDefaultDocumentData} />
+
+        {UpdatedDynamicDocuments?.map((document, index) => {
+          const { id, question, requirements } = document;
           return (
             <>
               <div key={id} className="w-full px-2 py-5 rounded">
                 <div className="text-[17px]">
                   <p className="pb-4 font-bold">{id}. {question}</p>
-                  {id <= 8 && <>{role === "LTP" && (
-                    <input
-                      name={id}
-                      type="file"
-                      accept=".pdf, image/*"
-                      onChange={(event) => handleFileChange(event, index)}
-                      className="file-input file-input-bordered w-full max-w-xs"
-                    />
-                  )}
-                    {upload !== "" && (
-                      <Link
-                        to={`https://drive.google.com/file/d/${upload}/view?usp=sharing`}
-                        target="_blank"
-                        className={`${gradientColor} text-white hover:underline ms-5 py-2 px-5 rounded-full`}
-                      >
-                        View
-                      </Link>
-                    )}</>}
-
-                  {id > 8 && <div className="ml-6">
+                  <div className="ml-6">
                     {requirements?.map((requirement, ind) => {
                       const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n'];
                       return (<div key={ind + 1} className="mb-8">
@@ -233,7 +217,7 @@ const DocumentUpload = () => {
                       )
                     }
                     )}
-                  </div>}
+                  </div>
                 </div>
 
                 <div className="flex items-center mt-6">
