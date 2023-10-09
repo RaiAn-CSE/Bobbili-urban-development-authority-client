@@ -121,7 +121,7 @@ const ApplicantInfo = () => {
   const labelClass =
     "block text-gray-600 mb-1 font-semibold dark:text-gray-100";
   const inputClass =
-    "w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black";
+    "w-full px-3 py-2 border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200";
 
   return (
     <div className="grid my-5 mx-5 lg:my-0 lg:p-2 dark:text-gray-100">

@@ -73,7 +73,7 @@ const OwnerDetail = ({
               type="text"
               placeholder="xxxxxxxxxx"
               defaultValue={applicantDetails?.phone}
-              className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
+              className="w-full px-3 py-2 border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200"
               maxLength={10}
               onInput={handleInputPhone}
               required
