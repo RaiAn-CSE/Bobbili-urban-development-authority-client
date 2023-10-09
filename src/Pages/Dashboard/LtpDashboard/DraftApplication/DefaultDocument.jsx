@@ -1,14 +1,16 @@
 import { useState } from "react";
 import DefaultDocumentData from "../../../../assets/DefaultDocument.json"
 
-function DefaultDocument({ PreviousDefaultDocumentData }) {
+function DefaultDocument({ PreviousDefaultDocumentData,role,handleFileChange }) {
+
     const [UpdatedDefaultData,setUpdatedDefaultData]=useState([]);
-    if(PreviousDefaultDocumentData.length){
-        setUpdatedDefaultData(PreviousDefaultDocumentData)
+    if(PreviousDefaultDocumentData){
+        setUpdatedDefaultData([...PreviousDefaultDocumentData])
     }
+    
     return (
         <div className="w-full px-2 py-5 rounded">
-            {UpdatedDefaultData.map(data => {
+            {UpdatedDefaultData?.map(data => {
                 const { id, question, approved, upload } = data;
                 return (
                     <div key={id}>
