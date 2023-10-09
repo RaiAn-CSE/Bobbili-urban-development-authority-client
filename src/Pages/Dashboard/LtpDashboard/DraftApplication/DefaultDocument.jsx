@@ -1,22 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DefaultDocumentData from "../../../../assets/DefaultDocument.json"
 
 function DefaultDocument({ PreviousDefaultDocumentData, role, handleFileChange, gradientColor }) {
 
     const [UpdatedDefaultData, setUpdatedDefaultData] = useState([]);
-    
-    if (PreviousDefaultDocumentData) {
-        setUpdatedDefaultData([...PreviousDefaultDocumentData])
-    } else {
-        setUpdatedDefaultData([...DefaultDocumentData])
-    }
+    console.log(PreviousDefaultDocumentData, "PreviousDefaultData")
 
+    useEffect(() => {
+        if (PreviousDefaultDocumentData.length) {
+            setUpdatedDefaultData([...PreviousDefaultDocumentData])
+        } else {
+            setUpdatedDefaultData([...DefaultDocumentData])
+        }
+    })
     return (
-        <div className="w-full px-2 py-5 rounded">
+        <div>
             {UpdatedDefaultData?.map(data => {
                 const { id, question, approved, upload } = data;
                 return (
-                    <div key={id}>
+                    <div key={id} className="w-full px-2 py-5 rounded mb-8">
                         <p className="pb-4 font-bold">{id}. {question}</p>
                         {role === "LTP" && (
                             <input

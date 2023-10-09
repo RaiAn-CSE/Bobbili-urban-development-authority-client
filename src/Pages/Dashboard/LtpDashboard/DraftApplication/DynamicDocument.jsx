@@ -7,7 +7,7 @@ function DynamicDocument({ UpdatedDynamicDocumentData, role, handleFileChange, g
         return (
           <div key={id} className="w-full px-2 py-5 rounded">
             <div className="text-[17px]">
-              <p className="pb-4 font-bold">{id}. {question}</p>
+              <p className="pb-4 font-bold">{index+9}. {question}</p>
               <div className="ml-6">
                 {requirements?.map((requirement, ind) => {
                   const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n'];
