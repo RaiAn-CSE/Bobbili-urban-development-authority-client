@@ -4,8 +4,6 @@ import sidebarStyle from "../Style/dashboardSidebar.module.css";
 import Navbar from "../Pages/Shared/Navbar";
 import LtpSidebar from "./LtpSidebar/LtpSidebar";
 import PsSidebar from "./PsSidebar/PsSidebar";
-import SecondAdminSidebar from "./AdminSidebar/SecondAdminSidebar";
-import FirstAdminSidebar from "./AdminSidebar/FirstAdminSidebar";
 import { MdOutlineMenuOpen } from "react-icons/md";
 import AdminSideBar from "./AdminSidebar/AdminSideBar";
 

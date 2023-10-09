@@ -274,6 +274,63 @@ const AuthProvider = ({ children }) => {
     }, 1000);
   };
 
+  // check license expiration of ltp
+  const checkLicenseExpirationOfLtp = (validity) => {
+    console.log(validity);
+    const validityDate = new Date(validity);
+
+    console.log(validityDate);
+
+    if (validityDate.toString().includes("Invalid Date")) {
+      return "Invalid Date";
+    }
+
+    const validityDay = validityDate.getUTCDate().toString().padStart(2, "0");
+    const validityMonth = (validityDate.getUTCMonth() + 1)
+      .toString()
+      .padStart(2, "0");
+    const validityYear = validityDate.getUTCFullYear();
+
+    console.log(validityDay, validityMonth, validityYear, "VALIDITY");
+
+    const todayDate = new Date();
+
+    const todayDay = todayDate.getUTCDate().toString().padStart(2, "0");
+    const todayMonth = (todayDate.getUTCMonth() + 1)
+      .toString()
+      .padStart(2, "0");
+    const todayYear = todayDate.getUTCFullYear();
+
+    console.log(todayDay, todayMonth, todayYear, "TODAY YEAR");
+
+    const validityFormat = `${validityYear}-${validityMonth}-${validityDay}`;
+    const todayFormat = `${todayYear}-${todayMonth}-${todayDay}`;
+
+    const checkValidity = new Date(validityFormat);
+    const checkToday = new Date(todayFormat);
+
+    const timeStampValidity = checkValidity.getTime();
+    const timeStampToday = checkToday.getTime();
+
+    if (timeStampValidity < timeStampToday) {
+      // validity is before today (expired)
+      console.log("validity is before today");
+
+      // toast.error("Validity is expired");
+      return "Validity is expired";
+    } else if (timeStampValidity > timeStampToday) {
+      // validity is after today (available)
+      console.log("validity is after today");
+
+      const validity = validityFormat.split("-").reverse().join("-");
+      return validity;
+    } else {
+      console.log("validity and today are the same");
+      // toast.info("Validity will be expired tomorrow");
+      return "Validity will be expired tomorrow";
+    }
+  };
+
   //   create a object to transfer data into various components
   const userInfo = {
     updateUserInfoInLocalStorage,
@@ -286,6 +343,7 @@ const AuthProvider = ({ children }) => {
     alertToTransferDataIntoDepartment,
     getSubmitApplicationData,
     getAllDraftApplicationData,
+    checkLicenseExpirationOfLtp,
     handleLogOut,
   };
 

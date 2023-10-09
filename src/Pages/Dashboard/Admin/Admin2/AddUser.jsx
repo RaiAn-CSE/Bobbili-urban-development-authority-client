@@ -9,7 +9,8 @@ const AddUser = () => {
 
   const [userType, setUserType] = useState(null);
 
-  const { userInfoFromLocalStorage } = useContext(AuthContext);
+  const { userInfoFromLocalStorage, checkLicenseExpirationOfLtp } =
+    useContext(AuthContext);
 
   const userRole = userInfoFromLocalStorage().role;
 
@@ -27,59 +28,16 @@ const AddUser = () => {
       if (data?.role.toLowerCase() === "ltp") {
         const { validity } = data;
 
-        const validityDate = new Date(validity);
+        const isValidate = checkLicenseExpirationOfLtp(validity);
 
-        const validityDay = validityDate
-          .getUTCDate()
-          .toString()
-          .padStart(2, "0");
-        const validityMonth = (validityDate.getUTCMonth() + 1)
-          .toString()
-          .padStart(2, "0");
-        const validityYear = validityDate.getUTCFullYear();
-
-        console.log(validityDay, validityMonth, validityYear, "VALIDITY");
-
-        const todayDate = new Date();
-
-        const todayDay = (todayDate.getUTCDate() + 1)
-          .toString()
-          .padStart(2, "0");
-        const todayMonth = (todayDate.getUTCMonth() + 1)
-          .toString()
-          .padStart(2, "0");
-        const todayYear = todayDate.getUTCFullYear();
-
-        console.log(todayDay, todayMonth, todayYear, "TODAY YEAR");
-
-        const validityFormat = `${validityYear}-${validityMonth}-${validityDay}`;
-        const todayFormat = `${todayYear}-${todayMonth}-${todayDay}`;
-
-        const checkValidity = new Date(validityFormat);
-        const checkToday = new Date(todayFormat);
-
-        const timeStampValidity = checkValidity.getTime();
-        const timeStampToday = checkToday.getTime();
-
-        if (timeStampValidity < timeStampToday) {
-          // validity is before today (expired)
-          console.log("validity is before today");
-
-          toast.error("Validity is expired");
-        } else if (timeStampValidity > timeStampToday) {
-          // validity is after today (available)
-          console.log("validity is after today");
-
-          const validity = validityFormat.split("-").reverse().join("-");
+        if (isValidate.length === 10) {
           userInfo = {
             ...data,
-            validity,
+            validity: isValidate,
           };
         } else {
-          console.log("validity and today are the same");
+          toast.error(isValidate);
         }
-
-        console.log(validityDate, todayDate);
       } else {
         userInfo = { ...data };
       }
