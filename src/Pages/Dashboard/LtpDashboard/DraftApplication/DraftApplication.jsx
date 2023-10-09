@@ -144,7 +144,9 @@ const DraftApplication = () => {
             <p
               className={`my-8 font-roboto font-semibold text-xl ${gradientColor} text-transparent bg-clip-text`}
             >
-              <span className="text-black">Application No:</span>{" "}
+              <span className="text-black dark:text-white">
+                Application No:
+              </span>{" "}
               {applicationNo}
             </p>
             {applicationModalShow && (
