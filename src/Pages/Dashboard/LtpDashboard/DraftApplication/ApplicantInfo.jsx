@@ -211,7 +211,7 @@ const ApplicantInfo = () => {
         </div>
       </div>
 
-      {/* Applicant’s Details  */}
+      {/* Owner’s Details  */}
       <div className="divide-y-2 divide-gray-200">
         <div className="flex items-center">
           <img
@@ -219,7 +219,7 @@ const ApplicantInfo = () => {
             alt="An icon of the applicant section"
             className="h-10 me-3"
           />
-          <h3 className="font-bold text-xl">Applicant’s Details</h3>
+          <h3 className="font-bold text-xl">Owner’s Details</h3>
         </div>
         {/* <div className="divider m-0"></div> */}
 

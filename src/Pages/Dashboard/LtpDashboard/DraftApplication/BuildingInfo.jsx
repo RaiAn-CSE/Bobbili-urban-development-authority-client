@@ -344,7 +344,7 @@ const BuildingInfo = () => {
     const surveyNo = document.getElementById("SurveyNo").value;
     const district = document.getElementById("district").value;
     const mandal = document.getElementById("mandal").value;
-    // const gramaPanchayat = document.getElementById("GramaPanchayat").value;
+    // const gramaPanchayat = document.getElementById("gramaPanchayat").value;
     const village = document.getElementById("village").value;
 
     const bpsApprovedElement = document.getElementById("BpsApprovedNo");
