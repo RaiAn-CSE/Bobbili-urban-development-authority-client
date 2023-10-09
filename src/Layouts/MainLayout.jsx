@@ -43,6 +43,7 @@ const MainLayout = () => {
         List of LTP's
       </Link>
       <Link
+        to="/demoVideos"
         type="button"
         className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm border-b hover:${gradientColor} ${
           path.includes("demoVideos") ? active : ""
@@ -51,17 +52,19 @@ const MainLayout = () => {
         Demo Videos
       </Link>
       <Link
+        to="/privacyPolicy"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium  border-b hover:${gradientColor} ${
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm  border-b hover:${gradientColor} ${
           path.includes("privacyPolicy") ? active : ""
         }`}
       >
         Privacy Policy
       </Link>
       <Link
+        to="/defaultDrawingFormat"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium  border-b hover:${gradientColor} ${
-          path.includes("drawingFormat") ? active : ""
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm border-b hover:${gradientColor} ${
+          path.includes("defaultDrawingFormat") ? active : ""
         }`}
       >
         Default Drawing Format
