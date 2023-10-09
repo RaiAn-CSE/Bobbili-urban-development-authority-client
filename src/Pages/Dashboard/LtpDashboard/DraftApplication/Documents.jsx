@@ -8,6 +8,7 @@ import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import DocumentFooter from "./DocumentFooter";
 import DefaultDocument from "./DefaultDocument";
 import DynamicDocument from "./DynamicDocument";
+import PsDocument from "./PsDocument";
 
 const DocumentUpload = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -18,7 +19,7 @@ const DocumentUpload = () => {
   const stepperData = useOutletContext();
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
   const [PreviousDefaultDocumentData, setPreviousDefaultDocumentData] = useState([]);
-  const [UpdatedDynamicDocumentData,setUpdatedDynamicDocumentData]=useState([]);
+  const [UpdatedDynamicDocumentData, setUpdatedDynamicDocumentData] = useState([]);
   const {
     confirmAlert,
     sendUserDataIntoDB,
@@ -62,7 +63,7 @@ const DocumentUpload = () => {
     gettingData();
   }, []);
 
-  
+
   // // send data to PS DB (Apu vai send PS data from here)
   // const sentPsDecision = async (url) => {
   //   // PS data select and send data
@@ -121,7 +122,7 @@ const DocumentUpload = () => {
         steps={steps}
         stepperData={stepperData}
         confirmAlert={confirmAlert}
-        // collectInputFieldData={role === "LTP" ? handleFileUpload : sentPsDecision}
+      // collectInputFieldData={role === "LTP" ? handleFileUpload : sentPsDecision}
       />
     </div>
   );

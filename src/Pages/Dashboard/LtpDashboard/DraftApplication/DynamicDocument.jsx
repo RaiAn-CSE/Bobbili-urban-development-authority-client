@@ -1,13 +1,14 @@
 import { useState } from "react";
+import PsDocument from "./PsDocument";
 
 function DynamicDocument({ UpdatedDynamicDocumentData, role, handleFileChange, gradientColor }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const someEventHandler = (event, index) => {
     handleFileChange(event, index);
-    const file=event.target.value;
-    selectedFiles[index]=file;
+    const file = event.target.value;
+    selectedFiles[index] = file;
   };
-  console.log(selectedFiles,"selectedFIle Dynamic")
+  console.log(selectedFiles, "selectedFIle Dynamic")
   return (
     <div>
       {UpdatedDynamicDocumentData?.map((document, index) => {
@@ -15,7 +16,7 @@ function DynamicDocument({ UpdatedDynamicDocumentData, role, handleFileChange, g
         return (
           <div key={id} className="w-full px-2 py-5 rounded">
             <div className="text-[17px]">
-              <p className="pb-4 font-bold">{index+9}. {question}</p>
+              <p className="pb-4 font-bold">{index + 9}. {question}</p>
               <div className="ml-6">
                 {requirements?.map((RequireData, ind) => {
                   const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n'];
@@ -29,7 +30,7 @@ function DynamicDocument({ UpdatedDynamicDocumentData, role, handleFileChange, g
                           name={id}
                           type="file"
                           accept=".pdf, image/*"
-                          onChange={(event) => someEventHandler(event, index+9)}
+                          onChange={(event) => someEventHandler(event, index + 9)}
                           className="file-input file-input-bordered w-full max-w-xs"
                         />
                       )}
@@ -44,6 +45,7 @@ function DynamicDocument({ UpdatedDynamicDocumentData, role, handleFileChange, g
                           View
                         </a>
                       )}
+                      <PsDocument role={role} />
                     </div>
                   );
                 })}

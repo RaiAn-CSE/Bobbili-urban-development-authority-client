@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import DefaultDocumentData from "../../../../assets/DefaultDocument.json"
+import PsDocument from "./PsDocument";
 
 function DefaultDocument({ PreviousDefaultDocumentData, role, handleFileChange, gradientColor }) {
     const [selectedFiles, setSelectedFiles] = useState([]);
@@ -12,16 +13,16 @@ function DefaultDocument({ PreviousDefaultDocumentData, role, handleFileChange, 
         } else {
             setUpdatedDefaultData([...DefaultDocumentData])
         }
-    },[])
-    const someEventHandler = (event, index,id) => {
+    }, [])
+    const someEventHandler = (event, index, id) => {
         handleFileChange(event, index);
         const file = event?.target.files[0];
-        selectedFiles[id]=file;
+        selectedFiles[id] = file;
     };
-    console.log(selectedFiles,"selectedFile")
+
     return (
         <div>
-            {UpdatedDefaultData?.map((data,index )=> {
+            {UpdatedDefaultData?.map((data, index) => {
                 const { id, question, approved, upload } = data;
                 return (
                     <div key={id} className="w-full px-2 py-5 rounded mb-8">
@@ -31,7 +32,7 @@ function DefaultDocument({ PreviousDefaultDocumentData, role, handleFileChange, 
                                 name={id}
                                 type="file"
                                 accept=".pdf, image/*"
-                                onChange={(event) => someEventHandler(event, index,id)}
+                                onChange={(event) => someEventHandler(event, index, id)}
                                 className="file-input file-input-bordered w-full max-w-xs"
                             />
                         )}
@@ -43,7 +44,9 @@ function DefaultDocument({ PreviousDefaultDocumentData, role, handleFileChange, 
                             >
                                 View
                             </Link>
-                        )}</div>
+                        )}
+                        <PsDocument role={role} />
+                    </div>
                 )
             })}
         </div>
