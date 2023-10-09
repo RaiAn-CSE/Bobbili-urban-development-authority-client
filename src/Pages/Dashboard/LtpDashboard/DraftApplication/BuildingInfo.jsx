@@ -344,7 +344,7 @@ const BuildingInfo = () => {
     const surveyNo = document.getElementById("SurveyNo").value;
     const district = document.getElementById("district").value;
     const mandal = document.getElementById("mandal").value;
-    const gramaPanchayat = document.getElementById("GramaPanchayat").value;
+    // const gramaPanchayat = document.getElementById("GramaPanchayat").value;
     const village = document.getElementById("village").value;
 
     const bpsApprovedElement = document.getElementById("BpsApprovedNo");
@@ -420,8 +420,8 @@ const BuildingInfo = () => {
 
     const compoundingWallProposed = document.querySelector('input[name="radio-4"]:checked')?.value || "";
     // runningMeter 
-    const runningMeterData = document.getElementById('runningMeter');
-    const runningMeter = runningMeterData ? runningMeterData.value : '';
+    // const runningMeterData = document.getElementById('runningMeter');
+    // const runningMeter = runningMeterData ? runningMeterData.value : '';
 
     const siteRegistered =
       document.querySelector('input[name="radio-5"]:checked')?.value || "";
@@ -438,7 +438,7 @@ const BuildingInfo = () => {
       surveyNo,
       district,
       mandal,
-      gramaPanchayat,
+      // gramaPanchayat,
       village,
       bpsApprovedNoServer: bpsApprovedNo,
       previewsApprovedFileNo,
@@ -509,7 +509,7 @@ const BuildingInfo = () => {
     bpsApprovedNoServer,
     caseType,
     district,
-    gramaPanchayat,
+    // gramaPanchayat,
     iplpNo,
     lpNo,
     lrsNo,
@@ -681,9 +681,13 @@ const BuildingInfo = () => {
                   Select Nature of the site
                 </option>
                 <option value="Approved Layout">Approved Layout</option>
-                <option value="Regularised under LRS">
-                  Regularised under LRS
-                </option>
+
+                {selectedOptionCase === 'Alteration Addition Existing' ? (
+                  <option value="Regularised under LRS">
+                    Regularised under LRS
+                  </option>
+                ) : null}
+
                 <option value="Plot port of RLP/IPLP but not regularised">
                   Plot port of RLP/IPLP but not regularised
                 </option>
