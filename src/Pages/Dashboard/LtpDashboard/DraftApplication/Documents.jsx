@@ -32,8 +32,7 @@ const DocumentUpload = () => {
 
   const handleFileChange = (event, index) => {
     const file = event?.target?.files[0];
-    file &&
-      toast.success(`${file?.name.slice(0, 20)}... uploaded successfully!`);
+    file && toast.success(`${file?.name.slice(0, 20)}... Uploaded Successfully`);
     selectedFiles[index] = file;
   };
 

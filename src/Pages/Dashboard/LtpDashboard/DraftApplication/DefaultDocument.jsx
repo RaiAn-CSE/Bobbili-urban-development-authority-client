@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import DefaultDocumentData from "../../../../assets/DefaultDocument.json"
 
 function DefaultDocument({ PreviousDefaultDocumentData, role, handleFileChange, gradientColor }) {
-
+    const [selectedFiles, setSelectedFiles] = useState([]);
     const [UpdatedDefaultData, setUpdatedDefaultData] = useState([]);
     console.log(PreviousDefaultDocumentData, "PreviousDefaultData")
 
@@ -12,14 +12,13 @@ function DefaultDocument({ PreviousDefaultDocumentData, role, handleFileChange, 
         } else {
             setUpdatedDefaultData([...DefaultDocumentData])
         }
-    })
-    const someEventHandler = (event, index) => {
-        // Call the function from props
+    },[])
+    const someEventHandler = (event, index,id) => {
         handleFileChange(event, index);
-
-        // Additional logic in the child component, if needed
+        const file = event?.target.files[0];
+        selectedFiles[id]=file;
     };
-
+    console.log(selectedFiles,"selectedFile")
     return (
         <div>
             {UpdatedDefaultData?.map((data,index )=> {
@@ -32,7 +31,7 @@ function DefaultDocument({ PreviousDefaultDocumentData, role, handleFileChange, 
                                 name={id}
                                 type="file"
                                 accept=".pdf, image/*"
-                                onChange={(event) => someEventHandler(event, index)}
+                                onChange={(event) => someEventHandler(event, index,id)}
                                 className="file-input file-input-bordered w-full max-w-xs"
                             />
                         )}
