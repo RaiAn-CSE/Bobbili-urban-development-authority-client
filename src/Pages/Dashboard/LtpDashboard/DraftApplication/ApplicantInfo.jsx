@@ -54,7 +54,9 @@ const ApplicantInfo = () => {
     const validity = document.getElementById("validity").value;
     const ltpPhoneNo = document.getElementById("ltpPhoneNo").value;
     const ltpEmail = document.getElementById("ltpEmail").value;
-    const ltpAddress = document.getElementById("ltpAddress").value;
+    // const ltpAddress = document.getElementById("ltpAddress").value;
+    const ltpRoadNo = document.getElementById("ltpRoadNo").value;
+    const ltpStreetNo = document.getElementById("ltpStreetNo").value;
 
     const ownerDetail = totalApplicant.map((applicant, index) => {
       return {
@@ -64,7 +66,9 @@ const ApplicantInfo = () => {
         email: document.getElementById(`applicantEmail${index}`).value,
         adharNo: document.getElementById(`applicantAadharNo${index}`).value,
         pinCode: document.getElementById(`applicantPinCode${index}`).value,
-        address: document.getElementById(`applicantAddress${index}`).value,
+        ownerRoadNo: document.getElementById(`ownerRoadNo${index}`).value,
+        ownerStreetNo: document.getElementById(`ownerStreetNo${index}`).value,
+        // address: document.getElementById(`applicantAddress${index}`).value,
       };
     });
 
@@ -75,7 +79,9 @@ const ApplicantInfo = () => {
       validity,
       phoneNo: ltpPhoneNo,
       email: ltpEmail,
-      address: ltpAddress,
+      // address: ltpAddress,
+      ltpRoadNo,
+      ltpStreetNo,
     };
 
     const applicantInfo = {
@@ -95,7 +101,7 @@ const ApplicantInfo = () => {
   // console.log(ltpDetails, 'ltpDetails');
   // console.log(applicantDetails, 'applicantDetails');
 
-  const { type, name, address, email, licenseNo, phoneNo, validity } =
+  const { type, name, ltpRoadNo, ltpStreetNo, email, licenseNo, phoneNo, validity } =
     ltpDetails;
   // const { identity, adharNo, pinCode, } = applicantDetails;
 
@@ -151,7 +157,7 @@ const ApplicantInfo = () => {
             label="Road no"
             placeholder="Road no"
             type="text"
-          // ltpDetails={email}
+            ltpDetails={ltpRoadNo}
           />
           <InputField
             id="ltpStreetNo"
@@ -159,7 +165,7 @@ const ApplicantInfo = () => {
             label="Street no"
             placeholder="Street no"
             type="text"
-          // ltpDetails={email}
+            ltpDetails={ltpStreetNo}
           />
           <InputField
             id="licenseNo"
