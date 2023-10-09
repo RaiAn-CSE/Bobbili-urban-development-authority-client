@@ -770,7 +770,7 @@ const BuildingInfo = () => {
                 <option disabled selected value="">
                   Select Grama Panchayat
                 </option>
-                <option value="Approved Layout">Grama Panchayat</option>
+                <option value="Approved Layout">Those Option Will Provided</option>
               </select>
             </div>
 
