@@ -27,7 +27,7 @@ const FloorDetails = ({
         <select
           id={`floorName${index}`}
           name={`floorName${index}`}
-          className="w-full px-3 py-[10px] border border-[#10AC84] rounded-lg max-w-xs dark:text-black"
+          className="w-full px-3 py-[10px] border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200"
           value={floorChange ? floorChange : plotDetailsFloor?.name}
           onChange={handleFloorChange}
         >
@@ -46,14 +46,14 @@ const FloorDetails = ({
           htmlFor="ProposedPlotArea"
           className="block text-gray-600 mb-1 font-semibold dark:text-gray-100"
         >
-          Built up area (in Sq.M.)
+          Built up area (in Sq.Mts.)
         </label>
         <input
           type="number"
           id={`builtUpArea${index}`}
           name={`builtUpArea${index}`}
-          placeholder="in Sq.M."
-          className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
+          placeholder="in Sq.Mts."
+          className="w-full px-3 py-2 border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200"
           defaultValue={
             builtUpAreaValue ? builtUpAreaValue : plotDetailsFloor?.builtUpArea
           }
@@ -66,14 +66,14 @@ const FloorDetails = ({
           htmlFor="ProposedPlotArea"
           className="block text-gray-600 mb-1 font-semibold dark:text-gray-100"
         >
-          Parking Area (in Sq.M.)
+          Parking Area (in Sq.Mts.)
         </label>
         <input
           type="number"
           id={`parkingArea${index}`}
           name={`parkingArea${index}`}
-          placeholder="in Sq.M."
-          className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
+          placeholder="in Sq.Mts."
+          className="w-full px-3 py-2 border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200"
           defaultValue={
             parkingAreaValue ? parkingAreaValue : plotDetailsFloor?.parkingArea
           }

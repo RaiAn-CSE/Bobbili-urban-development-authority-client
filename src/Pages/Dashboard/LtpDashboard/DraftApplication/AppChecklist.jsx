@@ -56,14 +56,13 @@ function AppChecklist() {
             key={no}
             className="lg:flex items-center justify-center shadow-sm shadow-gray-100 rounded p-3"
           >
-            <p className="flex-1 text-black rounded mb-5 text-sm md:text-base lg:mb-0 lg:pr-4">
+            <p className="flex-1 text-black rounded mb-5 text-sm md:text-base lg:mb-0 lg:pr-4 dark:text-gray-100">
               {no}. {question}
             </p>
             <div className="space-x-10 mt-2 lg:pr-2">
               <label
-                className={`ml-2 inline-flex items-center space-x-1 text-black ${
-                  answer === "yes" && "font-extrabold"
-                }`}
+                className={`ml-2 inline-flex items-center space-x-1 text-black ${answer === "yes" && "font-extrabold"
+                  }`}
               >
                 <input
                   type="radio"
@@ -76,9 +75,8 @@ function AppChecklist() {
                 <span>Yes</span>
               </label>
               <label
-                className={`ml-2 inline-flex items-center space-x-1 text-black ${
-                  answer === "no" && "font-extrabold"
-                }`}
+                className={`ml-2 inline-flex items-center space-x-1 text-black ${answer === "no" && "font-extrabold"
+                  }`}
               >
                 <input
                   type="radio"

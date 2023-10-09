@@ -93,7 +93,7 @@ const Payment = () => {
         generalInformation?.natureOfTheSite === "Approved Layout" ||
         generalInformation?.natureOfTheSite === "Regularised under LRS" ||
         generalInformation?.natureOfTheSite ===
-          "Congested/ Gramakanta/ Old Built-up area" ||
+        "Congested/ Gramakanta/ Old Built-up area" ||
         generalInformation.natureOfTheSite === "Newly Developed/ Built up area"
       ) {
         console.log("aschi");
@@ -549,7 +549,7 @@ const Payment = () => {
     <>
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="grid my-5 mx-7 font-roboto text-xl lg:my-0 lg:p-2"
+        className="grid my-5 mx-7 font-roboto text-xl lg:my-0 lg:p-2 dark:text-gray-100"
       >
         <div>
           <div className="flex items-center">
@@ -834,15 +834,15 @@ const Payment = () => {
 
             {applicationData?.payment?.labourCessCharge
               ?.labourCessBankReceipt && (
-              <Link
-                to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
-                target="_blank"
-                className="flex justify-center items-center ms-10 px-6 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
-              >
-                <MdReceiptLong className="me-1" />
-                View Challan
-              </Link>
-            )}
+                <Link
+                  to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
+                  target="_blank"
+                  className="flex justify-center items-center ms-10 px-6 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
+                >
+                  <MdReceiptLong className="me-1" />
+                  View Challan
+                </Link>
+              )}
           </div>
         </div>
 

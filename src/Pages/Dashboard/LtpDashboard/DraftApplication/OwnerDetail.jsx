@@ -20,12 +20,14 @@ const OwnerDetail = ({
     e.target.value = truncatedValue;
   };
 
+  console.log(applicantDetails, 'applicantDetails');
+
 
   return (
     <div>
       <p className="text-xl font-bold mt-5">{`${ownerSerial[index]} Owner Details :`}</p>
-      <div className="grid grid-cols-1 lg:grid-cols-2">
-        <div className="grid grid-cols-2 items-center">
+      <div className="flex">
+        <div className="basis-[80%] grid grid-cols-2 lg:grid-cols-3">
           <InputField
             id={`applicantName${index}`}
             name={`applicantName${index}`}
@@ -41,6 +43,23 @@ const OwnerDetail = ({
             ltpDetails={applicantDetails?.identity}
           />
 
+          <InputField
+            id={`ownerRoadNo${index}`}
+            name={`ownerRoadNo${index}`}
+            label="Road no"
+            placeholder="Road no"
+            type="text"
+            ltpDetails={applicantDetails?.ownerRoadNo}
+          />
+          <InputField
+            id={`ownerStreetNo${index}`}
+            name={`ownerStreetNo${index}`}
+            label="Street no"
+            placeholder="Street no"
+            type="text"
+            ltpDetails={applicantDetails?.ownerStreetNo}
+          />
+
           <div className="my-4 mx-3">
             <label
               htmlFor="ltpPhoneNo"
@@ -54,7 +73,7 @@ const OwnerDetail = ({
               type="text"
               placeholder="xxxxxxxxxx"
               defaultValue={applicantDetails?.phone}
-              className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
+              className="w-full px-3 py-2 border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200"
               maxLength={10}
               onInput={handleInputPhone}
               required
@@ -87,8 +106,8 @@ const OwnerDetail = ({
           />
         </div>
 
-        <div className="flex">
-          <div className="my-4 mx-3 basis-3/4">
+        <div className="flex basis-[20%] justify-center">
+          {/* <div className="my-4 mx-3 basis-3/4">
             <label
               htmlFor="message"
               className="block text-gray-600 mb-1 font-semibold dark:text-gray-100"
@@ -103,7 +122,7 @@ const OwnerDetail = ({
               placeholder="Dr. no., Street, Village, Mandal, Dist."
               required
             ></textarea>
-          </div>
+          </div> */}
 
           {index === length - 1 && index < 4 && (
             <div className="flex justify-center items-center">

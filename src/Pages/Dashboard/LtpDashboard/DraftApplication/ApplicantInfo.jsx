@@ -54,7 +54,9 @@ const ApplicantInfo = () => {
     const validity = document.getElementById("validity").value;
     const ltpPhoneNo = document.getElementById("ltpPhoneNo").value;
     const ltpEmail = document.getElementById("ltpEmail").value;
-    const ltpAddress = document.getElementById("ltpAddress").value;
+    // const ltpAddress = document.getElementById("ltpAddress").value;
+    const ltpRoadNo = document.getElementById("ltpRoadNo").value;
+    const ltpStreetNo = document.getElementById("ltpStreetNo").value;
 
     const ownerDetail = totalApplicant.map((applicant, index) => {
       return {
@@ -64,7 +66,9 @@ const ApplicantInfo = () => {
         email: document.getElementById(`applicantEmail${index}`).value,
         adharNo: document.getElementById(`applicantAadharNo${index}`).value,
         pinCode: document.getElementById(`applicantPinCode${index}`).value,
-        address: document.getElementById(`applicantAddress${index}`).value,
+        ownerRoadNo: document.getElementById(`ownerRoadNo${index}`).value,
+        ownerStreetNo: document.getElementById(`ownerStreetNo${index}`).value,
+        // address: document.getElementById(`applicantAddress${index}`).value,
       };
     });
 
@@ -75,7 +79,9 @@ const ApplicantInfo = () => {
       validity,
       phoneNo: ltpPhoneNo,
       email: ltpEmail,
-      address: ltpAddress,
+      // address: ltpAddress,
+      ltpRoadNo,
+      ltpStreetNo,
     };
 
     const applicantInfo = {
@@ -95,7 +101,7 @@ const ApplicantInfo = () => {
   // console.log(ltpDetails, 'ltpDetails');
   // console.log(applicantDetails, 'applicantDetails');
 
-  const { type, name, address, email, licenseNo, phoneNo, validity } =
+  const { type, name, ltpRoadNo, ltpStreetNo, email, licenseNo, phoneNo, validity } =
     ltpDetails;
   // const { identity, adharNo, pinCode, } = applicantDetails;
 
@@ -115,10 +121,10 @@ const ApplicantInfo = () => {
   const labelClass =
     "block text-gray-600 mb-1 font-semibold dark:text-gray-100";
   const inputClass =
-    "w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black";
+    "w-full px-3 py-2 border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200";
 
   return (
-    <div className="grid my-5 lg:my-0 lg:p-2 dark:bg-black dark:text-gray-100">
+    <div className="grid my-5 mx-5 lg:my-0 lg:p-2 dark:text-gray-100">
       {/* LTP’s Details  */}
       <div className="divide-y-2 divide-gray-200 mb-[60px]">
         <div className="flex items-center">
@@ -130,70 +136,84 @@ const ApplicantInfo = () => {
           <h3 className="font-bold text-xl">LTP’s Details</h3>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 mt-2">
-          <div className="grid grid-cols-2">
-            <InputField
-              id="ltpType"
-              name="ltpType"
-              label="LTP Type"
-              placeholder="Licenced Engineer"
-              ltpDetails={type}
-            />
-            <InputField
-              id="ltpName"
-              name="ltpName"
-              label="LTP Name"
-              placeholder="xxxxxxxxxxxxxxxxx"
-              ltpDetails={name}
-            />
-            <InputField
-              id="licenseNo"
-              name="licenseNo"
-              label="Licence no."
-              placeholder="xx/xxxxx"
-              type="number"
-              ltpDetails={licenseNo}
-            />
+        <div className="grid grid-cols-2 lg:grid-cols-4 mt-2">
+          <InputField
+            id="ltpType"
+            name="ltpType"
+            label="LTP Type"
+            placeholder="Licenced Engineer"
+            ltpDetails={type}
+          />
+          <InputField
+            id="ltpName"
+            name="ltpName"
+            label="LTP Name"
+            placeholder="xxxxxxxxxxxxxxxxx"
+            ltpDetails={name}
+          />
+          <InputField
+            id="ltpRoadNo"
+            name="ltpRoadNo"
+            label="Road no"
+            placeholder="Road no"
+            type="text"
+            ltpDetails={ltpRoadNo}
+          />
+          <InputField
+            id="ltpStreetNo"
+            name="ltpStreetNo"
+            label="Street no"
+            placeholder="Street no"
+            type="text"
+            ltpDetails={ltpStreetNo}
+          />
+          <InputField
+            id="licenseNo"
+            name="licenseNo"
+            label="Licence no."
+            placeholder="xx/xxxxx"
+            type="number"
+            ltpDetails={licenseNo}
+          />
 
-            <div className="my-4 mx-3">
-              <label htmlFor="validity" className={labelClass}>
-                Validity
-              </label>
-              <input
-                type="date"
-                id="validity"
-                name="validity"
-                className={inputClass}
-                defaultValue={validity}
-              />
-            </div>
-
-            <div className="my-4 mx-3">
-              <label htmlFor="ltpPhoneNo" className={labelClass}>
-                Phone no.
-              </label>
-              <input
-                id="ltpPhoneNo"
-                type="text"
-                name="ltpPhoneNo"
-                placeholder="xxxxxxxxxx"
-                defaultValue={ltpPhone}
-                onChange={(e) => setPhoneNoLimit(e, setLtpPhone)}
-                className={inputClass}
-                maxLength={10}
-              />
-            </div>
-
-            <InputField
-              id="ltpEmail"
-              name="ltpEmail"
-              label="E-mail"
-              placeholder="xxxx@gmail.com"
-              type="email"
-              ltpDetails={email}
+          <div className="my-4 mx-3">
+            <label htmlFor="validity" className={labelClass}>
+              Validity
+            </label>
+            <input
+              type="date"
+              id="validity"
+              name="validity"
+              className={inputClass}
+              defaultValue={validity}
             />
           </div>
-          <div>
+
+          <div className="my-4 mx-3">
+            <label htmlFor="ltpPhoneNo" className={labelClass}>
+              Phone no.
+            </label>
+            <input
+              id="ltpPhoneNo"
+              type="text"
+              name="ltpPhoneNo"
+              placeholder="xxxxxxxxxx"
+              defaultValue={ltpPhone}
+              onChange={(e) => setPhoneNoLimit(e, setLtpPhone)}
+              className={inputClass}
+              maxLength={10}
+            />
+          </div>
+
+          <InputField
+            id="ltpEmail"
+            name="ltpEmail"
+            label="E-mail"
+            placeholder="xxxx@gmail.com"
+            type="email"
+            ltpDetails={email}
+          />
+          {/* <div>
             <div className="my-4 mx-3">
               <label htmlFor="ltpAddress" className={labelClass}>
                 Address
@@ -207,11 +227,11 @@ const ApplicantInfo = () => {
                 placeholder="Dr. no., Street, Village, Mandal, Dist."
               ></textarea>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
-      {/* Applicant’s Details  */}
+      {/* Owner’s Details  */}
       <div className="divide-y-2 divide-gray-200">
         <div className="flex items-center">
           <img
@@ -219,7 +239,7 @@ const ApplicantInfo = () => {
             alt="An icon of the applicant section"
             className="h-10 me-3"
           />
-          <h3 className="font-bold text-xl">Applicant’s Details</h3>
+          <h3 className="font-bold text-xl">Owner’s Details</h3>
         </div>
         {/* <div className="divider m-0"></div> */}
 

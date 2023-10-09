@@ -161,8 +161,8 @@ const Drawing = () => {
         className="text-black p-5 mt-3"
       >
         {/* AutoCAD Drawing */}
-        <div className="text-base px-2 mb-16 ">
-          <p className="pr-3 font-bold">1. AutoCAD Drawing</p>
+        <div className="text-base px-2 mb-16">
+          <p className="pr-3 font-bold dark:text-gray-100">1. AutoCAD Drawing</p>
           <div className="flex items-center mt-5">
             {role === "LTP" && (
               <label className="relative cursor-pointer mr-6">
@@ -188,7 +188,7 @@ const Drawing = () => {
 
         {/* Drawing PDF */}
         <div className="text-base px-2 mb-10">
-          <p className="pr-3 font-bold">2. Drawing PDF</p>
+          <p className="pr-3 font-bold dark:text-gray-100">2. Drawing PDF</p>
           <div className="flex items-center mt-5">
             {role === "LTP" && (
               <label className="relative cursor-pointer mr-6">
