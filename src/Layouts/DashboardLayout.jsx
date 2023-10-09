@@ -14,9 +14,9 @@ const DashboardLayout = () => {
   return (
     <>
       <Navbar />
-      <div className="drawer h-full relative transition-all duration-700">
+      <div className="drawer min-h-[calc(100vh-69px)] relative transition-all duration-700">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle " />
-        <div className="drawer-content p-2 dark:bg-[#000]">
+        <div className="drawer-content p-2 dark:bg-[#000] ">
           {/* <!-- Page content here --> */}
 
           <label
