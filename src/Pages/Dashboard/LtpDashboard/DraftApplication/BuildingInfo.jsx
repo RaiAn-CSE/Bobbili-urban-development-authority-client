@@ -309,6 +309,8 @@ const BuildingInfo = () => {
   const [radio4, setRadio4] = useState("");
   const [radio5, setRadio5] = useState("");
 
+  console.log(radio4, 'radio4');
+
   const handleRadio1 = (e) => {
     setRadio1(e.target.value);
   };
@@ -416,8 +418,11 @@ const BuildingInfo = () => {
       "buildingExcludeStilt"
     ).value;
 
-    const compoundingWallProposed =
-      document.querySelector('input[name="radio-4"]:checked')?.value || "";
+    const compoundingWallProposed = document.querySelector('input[name="radio-4"]:checked')?.value || "";
+    // runningMeter 
+    const runningMeterData = document.getElementById('runningMeter');
+    const runningMeter = runningMeterData ? runningMeterData.value : '';
+
     const siteRegistered =
       document.querySelector('input[name="radio-5"]:checked')?.value || "";
     const north = document.getElementById("north").value; // ==========================<<<(Schedule of Boundaries)>>>:
@@ -466,6 +471,7 @@ const BuildingInfo = () => {
       side2Setback,
       buildingExcludeStilt,
       compoundingWallProposed,
+      runningMeter,
       siteRegistered,
     };
 
@@ -540,6 +546,7 @@ const BuildingInfo = () => {
     totalParkingArea,
     totalPlotDocument,
     totalPlotGround,
+    runningMeter,
   } = plotDetails ?? {};
 
   // console.log(scheduleBoundaries, 'scheduleBoundaries');
@@ -746,13 +753,34 @@ const BuildingInfo = () => {
               </select>
             </div>
 
-            <InputField
+            <div className="my-4 mx-3">
+              <label htmlFor="nature" className={labelClass}>
+                <span>Grama Panchayat</span>
+              </label>
+              <select
+                id="gramaPanchayat"
+                className={inputClass}
+              // value={
+              //   selectedNatureOfTheSite
+              //     ? selectedNatureOfTheSite
+              //     : natureOfTheSite
+              // }
+              // onChange={handleNatureChange}
+              >
+                <option disabled selected value="">
+                  Select Grama Panchayat
+                </option>
+                <option value="Approved Layout">Grama Panchayat</option>
+              </select>
+            </div>
+
+            {/* <InputField
               id="GramaPanchayat"
               name="Grama Panchayat"
               label="Grama Panchayat"
               placeholder="Grama Panchayat"
               ltpDetails={gramaPanchayat}
-            />
+            /> */}
 
             <div className="flex flex-col justify-center my-4 mx-3">
               <label className={labelClass}>
@@ -955,40 +983,44 @@ const BuildingInfo = () => {
             </div>
 
             <div className="grid grid-cols-1 mx-5 md:mx-10 lg:mx-14 my-10">
-              <div className="flex flex-col md:flex-row font-medium mb-4 text-lg">
-                <div className="flex items-center mb-3 md:mb-0">
-                  <FaHandPointRight className="me-3 w-5 lg:w-auto text-green-500" />
-                  <p className="font-bold text-lg">
-                    Whether site abuts any Existing Road?
-                  </p>
-                </div>
-                <label className="inline-flex items-center ml-3">
-                  <input
-                    type="radio"
-                    name="radio-2"
-                    className="radio border border-[#10AC84] h-4 w-4"
-                    value="yes"
-                    checked={
-                      radio2 == "yes" ? radio2 == "yes" : existingRoad === "yes"
-                    }
-                    onChange={handleRadio2}
-                  />
-                  <span className="ml-2 text-base">Yes</span>
-                </label>
-                <label className="inline-flex items-center ml-3">
-                  <input
-                    type="radio"
-                    name="radio-2"
-                    className="radio border border-[#10AC84] h-4 w-4"
-                    value="no"
-                    checked={
-                      radio2 == "no" ? radio2 == "no" : existingRoad === "no"
-                    }
-                    onChange={handleRadio2}
-                  />
-                  <span className="ml-2 text-base">No</span>
-                </label>
-              </div>
+              {selectedNatureOfTheSite ===
+                "Newly Developed/ Built up area" && (
+                  <div className="flex flex-col md:flex-row font-medium mb-4 text-lg">
+                    <div className="flex items-center mb-3 md:mb-0">
+                      <FaHandPointRight className="me-3 w-5 lg:w-auto text-green-500" />
+                      <p className="font-bold text-lg">
+                        Whether site abuts any Existing Road?
+                      </p>
+                    </div>
+                    <label className="inline-flex items-center ml-3">
+                      <input
+                        type="radio"
+                        name="radio-2"
+                        className="radio border border-[#10AC84] h-4 w-4"
+                        value="yes"
+                        checked={
+                          radio2 == "yes" ? radio2 == "yes" : existingRoad === "yes"
+                        }
+                        onChange={handleRadio2}
+                      />
+                      <span className="ml-2 text-base">Yes</span>
+                    </label>
+                    <label className="inline-flex items-center ml-3">
+                      <input
+                        type="radio"
+                        name="radio-2"
+                        className="radio border border-[#10AC84] h-4 w-4"
+                        value="no"
+                        checked={
+                          radio2 == "no" ? radio2 == "no" : existingRoad === "no"
+                        }
+                        onChange={handleRadio2}
+                      />
+                      <span className="ml-2 text-base">No</span>
+                    </label>
+                  </div>
+                )}
+
 
               <div className="flex flex-col md:flex-row font-medium mb-4 text-lg mt-4">
                 <div className="flex items-center mb-3 md:mb-0">
@@ -1169,43 +1201,54 @@ const BuildingInfo = () => {
             </div>
 
             <div className="grid grid-cols-1 mx-5 md:mx-10 lg:mx-14 mb-5 mt-10">
-              <div className="flex flex-col md:flex-row font-medium mb-4 text-lg">
-                <div className="flex items-center mb-3 md:mb-0">
-                  <FaHandPointRight className="me-3 w-5 lg:w-auto text-green-500" />
-                  <p className="font-bold text-lg">
-                    Compounding wall proposed?
-                  </p>
+              <div className="grid grid-cols-1 lg:grid-cols-2">
+                <div className="flex flex-col md:flex-row font-medium text-lg">
+                  <div className="flex items-center mb-3 md:mb-0">
+                    <FaHandPointRight className="me-3 w-5 lg:w-auto text-green-500" />
+                    <p className="font-bold text-lg">
+                      Compounding wall proposed?
+                    </p>
+                  </div>
+                  <label className="inline-flex items-center ml-3">
+                    <input
+                      type="radio"
+                      name="radio-4"
+                      className="radio border border-[#10AC84] h-4 w-4"
+                      value="yes"
+                      checked={
+                        radio4 == "yes"
+                          ? radio4 == "yes"
+                          : compoundingWallProposed === "yes"
+                      }
+                      onChange={handleRadio4}
+                    />
+                    <span className="ml-2 text-base">Yes</span>
+                  </label>
+                  <label className="inline-flex items-center ml-3">
+                    <input
+                      type="radio"
+                      name="radio-4"
+                      className="radio border border-[#10AC84] h-4 w-4"
+                      value="no"
+                      checked={
+                        radio4 == "no"
+                          ? radio4 == "no"
+                          : compoundingWallProposed === "no"
+                      }
+                      onChange={handleRadio4}
+                    />
+                    <span className="ml-2 text-base">No</span>
+                  </label>
                 </div>
-                <label className="inline-flex items-center ml-3">
-                  <input
-                    type="radio"
-                    name="radio-4"
-                    className="radio border border-[#10AC84] h-4 w-4"
-                    value="yes"
-                    checked={
-                      radio4 == "yes"
-                        ? radio4 == "yes"
-                        : compoundingWallProposed === "yes"
-                    }
-                    onChange={handleRadio4}
+                {/* {radio4 === "yes" || compoundingWallProposed === "yes" ? (
+                  <InputField
+                    id="runningMeter"
+                    name="runningMeter"
+                    label="Running meter"
+                    placeholder="Running meter"
+                    ltpDetails={runningMeter}
                   />
-                  <span className="ml-2 text-base">Yes</span>
-                </label>
-                <label className="inline-flex items-center ml-3">
-                  <input
-                    type="radio"
-                    name="radio-4"
-                    className="radio border border-[#10AC84] h-4 w-4"
-                    value="no"
-                    checked={
-                      radio4 == "no"
-                        ? radio4 == "no"
-                        : compoundingWallProposed === "no"
-                    }
-                    onChange={handleRadio4}
-                  />
-                  <span className="ml-2 text-base">No</span>
-                </label>
+                ) : null} */}
               </div>
 
               <div className="flex flex-col md:flex-row font-medium mb-4 text-lg mt-4">
