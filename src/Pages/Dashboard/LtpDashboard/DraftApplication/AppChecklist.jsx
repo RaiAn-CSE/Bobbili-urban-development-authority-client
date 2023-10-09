@@ -12,9 +12,8 @@ function AppChecklist() {
   const [openApplication, setOpenApplication] = useState(false);
   const [questions, setQuestions] = useState(ChecklistQuestions.Questions);
   const stepperData = useOutletContext();
-  const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
-  const { confirmAlert, sendUserDataIntoDB, getApplicationData } =
-    useContext(AuthContext);
+  const [isStepperVisible, currentStep, steps] = stepperData;
+  const { confirmAlert, sendUserDataIntoDB, getApplicationData } = useContext(AuthContext);
   // after select question firing here
   const handleAnswer = (event, questionNo) => {
     if(questionNo<=8){
@@ -31,7 +30,6 @@ function AppChecklist() {
   useEffect(() => {
     const gettingData = async () => {
       const applicationData = await getApplicationData(applicationNo);
-      console.log(applicationData);
       const applicationCheckList = applicationData.applicationCheckList;
       if (applicationCheckList.length) {
         setQuestions(applicationCheckList);
@@ -39,9 +37,6 @@ function AppChecklist() {
     };
     gettingData();
   }, []);
-
-  console.log({ appChecklist: questions }); // data send format
-  // Sending data to Backend
 
   const sendAppChecklistData = async (url) => {
     return await sendUserDataIntoDB(url, "PATCH", {

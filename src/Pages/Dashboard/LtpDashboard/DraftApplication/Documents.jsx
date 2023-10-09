@@ -13,6 +13,7 @@ const DocumentUpload = () => {
   const [openApplication, setOpenApplication] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [UpdatedDocuments, setUpdatedDocuments] = useState([...Documents]);
+  console.log(UpdatedDocuments,"0000")
   const [imageId, setImageId] = useState([]);
   const [approvedConfirmation, setApprovedConfirmation] = useState("");
   const [recomendationMessage, setRecomendationMessage] = useState("");
@@ -51,37 +52,25 @@ const DocumentUpload = () => {
   useEffect(() => {
     const gettingData = async () => {
       let updatedDocumentsToAdd = [];
-      let updateNewSelectDocument = [];
       const applicationData = await getApplicationData(applicationNo);
       const applicationCheckList = applicationData.applicationCheckList;
-      const documents = applicationData.documents;
-
-      let increaseDocument = UpdatedDocuments.length;
-
+      const PreviousDocuments = applicationData.documents;
+      console.log(applicationCheckList, "ChecklistData")
       // Adding checklist Data to Document from server data
       if (applicationCheckList.length) {
         // Declare the array here
-        applicationCheckList?.forEach((data, index) => {
-          const already = UpdatedDocuments.find(
-            (document) => document.question === data.question
-          );
-          if (already) {
-            return null;
-          }
-          if (index >= 8 && data.answer === "yes") {
-            increaseDocument++;
-            const newDocument = {
-              id: increaseDocument,
-              question: data.question,
-              upload: "",
-              approved: "",
-            };
-            updatedDocumentsToAdd.push(newDocument);
-          }
+        UpdatedDocuments?.forEach((data, index) => {
+          applicationCheckList.filter((document) => {
+            const condition01 = document.question === data.question;
+            const condition02 = data.answer === "yes";
+            if (condition01 && condition02) {
+              return updatedDocumentsToAdd.push(document);;
+            }
+          });
         });
       }
-
-      setUpdatedDocuments([...UpdatedDocuments, ...updatedDocumentsToAdd]);
+      console.log(updatedDocumentsToAdd, "UpdatedDocument")
+      setUpdatedDocuments([updatedDocumentsToAdd]);
 
       // Updating Data from server Data
       // RECEIVED DOCUMENT DATA FROM THE DB & STORE THEM IN THE UPDATED DOCUMENT STATE
@@ -156,12 +145,8 @@ const DocumentUpload = () => {
       });
     }
   };
-  console.log(UpdatedDocuments, "applicationData")
-
   //  send data to ps db (Apu vai send ps data from here)
-
   // ps data get
-
   const sentPsDecision = async (url) => {
     // PS data select and Send data
     const PSKeys = ["id", "approved"];
@@ -173,9 +158,6 @@ const DocumentUpload = () => {
       approved: approvedConfirmation ?? "",
       message: recomendationMessage ?? "",
     };
-
-    console.log(PSData, "PSDATA");
-
     return await sendUserDataIntoDB(url, "PATCH", {
       applicationNo,
       psDocumentPageObservation: PSData,
@@ -192,16 +174,35 @@ const DocumentUpload = () => {
       >
         {UpdatedDocuments?.map((document, index) => {
           const { id, question, upload, approved, requirements } = document;
-          console.log(requirements, "requirement")
+          console.log(UpdatedDocuments,"UpdatedDocument")
           return (
             <>
               <div key={id} className="w-full px-2 py-5 rounded">
                 <div className="text-[17px]">
                   <p className="pb-4 font-bold">{id}. {question}</p>
-                  <div className="ml-6">
-                    {requirements.map((requirement, ind) => {
-                      const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j','k','l','m','n'];
-                      return (<div key={requirement} className="mb-8">
+                  {id <= 8 && <>{role === "LTP" && (
+                    <input
+                      name={id}
+                      type="file"
+                      accept=".pdf, image/*"
+                      onChange={(event) => handleFileChange(event, index)}
+                      className="file-input file-input-bordered w-full max-w-xs"
+                    />
+                  )}
+                    {upload !== "" && (
+                      <Link
+                        to={`https://drive.google.com/file/d/${upload}/view?usp=sharing`}
+                        target="_blank"
+                        className={`${gradientColor} text-white hover:underline ms-5 py-2 px-5 rounded-full`}
+                      >
+                        View
+                      </Link>
+                    )}</>}
+
+                  {id > 8 && <div className="ml-6">
+                    {requirements?.map((requirement, ind) => {
+                      const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n'];
+                      return (<div key={ind+1} className="mb-8">
                         <div className="mb-3">
                           <span className="font-bold">{letters[ind]}. </span>{requirement.requirement}
                         </div>
@@ -228,13 +229,11 @@ const DocumentUpload = () => {
                       )
                     }
                     )}
-                  </div>
+                  </div>}
                 </div>
 
                 <div className="flex items-center mt-6">
                   {/* Approved Button */}
-
-
                   {role === "PS" && (
                     <div className="space-x-10 mt-2 ms-4 lg:pr-2 ">
                       <label

@@ -1,7 +1,6 @@
 function DocumentFooter({ approvedConfirmation,setApprovedConfirmation, setRecomendationMessage }) {
     const handleRecomendationMessage = (e) => {
         const RecomdMessage = e.target.value;
-        console.log({ RecomdMessage })
         setRecomendationMessage(RecomdMessage);
     }
     const handleConfirmation = (data) => {
