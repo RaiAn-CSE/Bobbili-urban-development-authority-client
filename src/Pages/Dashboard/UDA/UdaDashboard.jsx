@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useDownloadExcel } from "react-export-table-to-excel";
+import { TfiExport } from "react-icons/tfi";
 
 const UdaDashboard = () => {
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
   const [applicationNumbers, setApplicationNumbers] = useState(null);
+
+  const tableRef = useRef(null);
 
   useEffect(() => {
     axios
@@ -24,10 +28,23 @@ const UdaDashboard = () => {
       });
   }, []);
 
+  const { onDownload } = useDownloadExcel({
+    currentTableRef: tableRef.current,
+    filename: "TotalApplication table",
+    sheet: "TotalApplications",
+  });
+
   return (
-    <div className="relative font-roboto w-11/12 mx-auto my-10 overflow-x-auto shadow-md sm:rounded-lg">
+    <div className="flex flex-col font-roboto w-11/12 mx-auto my-10 overflow-x-auto sm:rounded-lg">
+      <button
+        onClick={onDownload}
+        className={`${gradientColor} mb-8 font-roboto text-base text-white p-2 rounded-lg self-end flex items-center justify-center`}
+      >
+        Export <TfiExport size={18} className="ms-2" />
+      </button>
       <table
-        className={`w-full text-sm text-left text-gray-500 dark:text-gray-400`}
+        className={`w-full text-sm text-left shadow-2xl shadow-violetLight  dark:text-gray-400`}
+        ref={tableRef}
       >
         <thead className={`bg-black text-sm text-white text-center uppercase `}>
           <tr>
