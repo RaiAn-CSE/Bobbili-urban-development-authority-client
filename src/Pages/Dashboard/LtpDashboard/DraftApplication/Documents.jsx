@@ -12,7 +12,7 @@ import DocumentFooter from "./DocumentFooter";
 const DocumentUpload = () => {
   const [openApplication, setOpenApplication] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState([]);
-  const [UpdatedDocuments, setUpdatedDocuments] = useState([...Documents.Data]);
+  const [UpdatedDocuments, setUpdatedDocuments] = useState([...Documents]);
   const [imageId, setImageId] = useState([]);
   const [approvedConfirmation, setApprovedConfirmation] = useState("");
   const [recomendationMessage, setRecomendationMessage] = useState("");
@@ -71,7 +71,7 @@ const DocumentUpload = () => {
           if (index >= 8 && data.answer === "yes") {
             increaseDocument++;
             const newDocument = {
-              id: increaseDocument.toString(),
+              id: increaseDocument,
               question: data.question,
               upload: "",
               approved: "",
@@ -156,7 +156,7 @@ const DocumentUpload = () => {
       });
     }
   };
-  console.log(UpdatedDocuments,"applicationData")
+  console.log(UpdatedDocuments, "applicationData")
 
   //  send data to ps db (Apu vai send ps data from here)
 
@@ -191,35 +191,49 @@ const DocumentUpload = () => {
         className="text-black p-4"
       >
         {UpdatedDocuments?.map((document, index) => {
-          const { id, question, upload, approved } = document;
+          const { id, question, upload, approved, requirements } = document;
+          console.log(requirements, "requirement")
           return (
             <>
-              <div key={id} className="w-full px-2 mb-5 py-5 rounded">
-                <p className="text-[17px] font-bold">
-                  {id}. {question}
-                </p>
+              <div key={id} className="w-full px-2 py-5 rounded">
+                <div className="text-[17px]">
+                  <p className="pb-4 font-bold">{id}. {question}</p>
+                  <div className="ml-6">
+                    {requirements.map((requirement, ind) => {
+                      const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j','k','l','m','n'];
+                      return (<div key={requirement} className="mb-8">
+                        <div className="mb-3">
+                          <span className="font-bold">{letters[ind]}. </span>{requirement.requirement}
+                        </div>
+                        {role === "LTP" && (
+                          <input
+                            name={id}
+                            type="file"
+                            accept=".pdf, image/*"
+                            onChange={(event) => handleFileChange(event, index)}
+                            className="file-input file-input-bordered w-full max-w-xs"
+                          />
+                        )}
+
+                        {upload !== "" && (
+                          <Link
+                            to={`https://drive.google.com/file/d/${upload}/view?usp=sharing`}
+                            target="_blank"
+                            className={`${gradientColor} text-white hover:underline ms-5 py-2 px-5 rounded-full`}
+                          >
+                            View
+                          </Link>
+                        )}
+                      </div>
+                      )
+                    }
+                    )}
+                  </div>
+                </div>
 
                 <div className="flex items-center mt-6">
                   {/* Approved Button */}
-                  {role === "LTP" && (
-                    <input
-                      name={id}
-                      type="file"
-                      accept=".pdf, image/*"
-                      onChange={(event) => handleFileChange(event, index)}
-                      className="file-input file-input-bordered w-full max-w-xs"
-                    />
-                  )}
 
-                  {upload !== "" && (
-                    <Link
-                      to={`https://drive.google.com/file/d/${upload}/view?usp=sharing`}
-                      target="_blank"
-                      className={`${gradientColor} text-white hover:underline ms-5 py-2 px-5 rounded-full`}
-                    >
-                      View
-                    </Link>
-                  )}
 
                   {role === "PS" && (
                     <div className="space-x-10 mt-2 ms-4 lg:pr-2 ">
