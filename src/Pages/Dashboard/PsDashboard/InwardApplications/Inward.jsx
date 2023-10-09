@@ -123,8 +123,8 @@ const Inward = () => {
           </div>
         </form>
       )}
-      <div className="w-full overflow-x-auto">
-        <table className="table">
+      <div className="w-full overflow-x-auto my-10">
+        <table className="table dark:text-white">
           {/* head */}
           <thead>
             <tr className="bg-[#2d3436] text-xs md:text-sm text-white hover:bg-[#353b48]">
