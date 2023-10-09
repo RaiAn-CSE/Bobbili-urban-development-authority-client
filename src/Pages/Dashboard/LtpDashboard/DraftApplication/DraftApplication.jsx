@@ -152,7 +152,7 @@ const DraftApplication = () => {
             {applicationModalShow && (
               <button
                 onClick={() => setOpenApplication(true)}
-                className={`btn btn-sm text-xs ${gradientColor} transition-all duration-700  text-white`}
+                className={`btn btn-sm text-xs ${gradientColor} transition-all duration-700  text-white dark:border-none`}
               >
                 <HiOutlineClipboardDocumentList className="text-lg" />{" "}
                 <span>Application</span>
