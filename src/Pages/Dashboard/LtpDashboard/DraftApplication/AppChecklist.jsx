@@ -17,6 +17,9 @@ function AppChecklist() {
     useContext(AuthContext);
   // after select question firing here
   const handleAnswer = (event, questionNo) => {
+    if(questionNo<=8){
+      return toast.error("you can't select")
+    }
     const updatedQuestions = questions.map((question) => ({
       ...question,
       answer: question.no === questionNo ? event.target.value : question.answer,
@@ -61,8 +64,9 @@ function AppChecklist() {
             </p>
             <div className="space-x-10 mt-2 lg:pr-2">
               <label
-                className={`ml-2 inline-flex items-center space-x-1 text-black ${
-                  answer === "yes" && "font-extrabold"
+                className={`ml-2 inline-flex items-center space-x-1 text-black 
+                ${
+                  (no<=8 || answer === "yes" )&& "font-extrabold"
                 }`}
               >
                 <input
@@ -70,13 +74,14 @@ function AppChecklist() {
                   name={no}
                   value="yes"
                   className="radio radio-sm radio-success mr-3 lg:mr-0"
-                  checked={answer === "yes"}
+                  checked={no<=8? true:answer === "yes"}
                   onChange={(event) => handleAnswer(event, no)}
                 />
                 <span>Yes</span>
               </label>
               <label
-                className={`ml-2 inline-flex items-center space-x-1 text-black ${
+                className={`ml-2 inline-flex items-center space-x-1 text-black 
+                ${
                   answer === "no" && "font-extrabold"
                 }`}
               >
@@ -85,7 +90,7 @@ function AppChecklist() {
                   name={no}
                   value="no"
                   className="radio radio-sm radio-success mr-3 lg:mr-0"
-                  checked={answer === "no"}
+                  checked={no<=8?false: answer === "no"}
                   onChange={(event) => handleAnswer(event, no)}
                 />
                 <span>No</span>

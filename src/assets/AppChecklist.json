@@ -87,22 +87,7 @@
         },
         {
             "no": 18,
-            "question": "Is The Plot In The Vicinity Of Aerodrome?",
-            "answer": ""
-        },
-        {
-            "no": 19,
-            "question": "Is The Building Which Are In The Area Of Water Bodies?",
-            "answer": ""
-        },
-        {
-            "no": 20,
-            "question": "Is The Building Which Are In The Area Of High Tension Line?",
-            "answer": ""
-        },
-        {
-            "no": 21,
-            "question": "Whether The Site Is Affected By Or In The Vicinity Of Any Special Zones Like CRZ, Etc.",
+            "question": "Whether the proposal falls in IJrbanisable Land use zone?",
             "answer": ""
         }
     ]

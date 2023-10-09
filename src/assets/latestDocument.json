@@ -1,0 +1,143 @@
+const checklist = [
+  {
+      id: 1,
+      question: "Whether The Proposed Site Falls Under Un-Approved Layout in Which Building Approval Given?",
+      requirements: {
+      "Market value certificate from SRO": "",
+    },
+  },
+  {
+      id: 2,
+      question: "Whether The Plot Is Affected by Road Widening?",
+      requirements: {
+      "Registered Gift deed in favour of road widening portion to corporation free of cost": "",
+    },
+  },
+  {
+      id: 3,
+      question: "Whether The Proposed Site Is Located in The Vicinity of Defence Establishments Within the Distance Of 500 Mts?",
+      requirements: {
+      "Clearance from defence Authority": "",
+    },
+  },
+  {
+      id: 4,
+      question: "Whether The Proposed Site Is Located Within the Distance of Above 100m and up to 200m From the Protected Monuments as Notified Under Archaeological Monuments and Ancient Sites?",
+      requirements: {
+      "NOC from National Monument Authority": "",
+    },
+  },
+  {
+      id: 5,
+      question: "50m Within The Limits Of The Local Authorities. The Boundaries Of The River Shall Be As Fixed And Certified By The Irrigation Department And Revenue Department?",
+      requirements: {
+      "NOC from Irrigation Department": "",
+      "NOC from Revenue Department": "",
+    },
+  },
+  {
+      id: 6,
+      question: "Whether The Edge Of The Proposed Building Is Within 30 Mtrs Distance From The Railway Property Boundary?",
+      requirements: {
+      "NOC From Railways Authority": "",
+    },
+  },
+  {
+      id: 7,
+      question: "Whether Proposed Site Is Located In The Vicinity Of Oil/Gas Pipe Line?",
+      requirements: {
+      "Clearance for Oil/Gas Authority": "",
+    },
+  },
+  {
+      id: 8,
+      question: "Whether The Site Falls Under An Un-Approved Layout And Any Building Plan Approval Is Given Or Any Building Exist Prior To 1985 On This Site?",
+      requirements: {
+      "Market value certified by registrar/revenue department": "",
+      "Property tax receipt for any approved building plan given on the site for evidence": "",
+    },
+  },
+  {
+      id: 9,
+      question: "Whether The Proposal Comes Under Building Penalization Scheme Case?",
+      requirements: {
+      "BPS regularization plan document": "",
+    },
+  },
+  {
+      id: 10,
+      question: "Whether The Land Is Converted Agriculture To Non-Agriculture Land As Per NALA Act, 2006?",
+      requirements: {
+      "NALA conversion proceeding": "",
+    },
+  },
+  {
+      id: 11,
+      question: "Whether Site Falls Under Approved Layout/ LRS/ Plot Part Of LRS Layout But Not Regularized?",
+      requirements: {
+      "Copy of Approved Layout Plan, Layout Proceedings/LRS Layout Plan, LRS Proceedings duly marking the site/plot": "",
+    },
+  },
+  {
+      id: 12,
+      question: "Whether Any Approved Plan Given In Proposed Site?",
+      requirements: {
+      "Previous Sanctioned Plan copy with details of approval for the existing building if any": "",
+    },
+  },
+  {
+      id: 13,
+      question: "If You Are In Airport Vicinity, Do You Have NOC From AAI?",
+      requirements: {
+      "NOC from AAI": "",
+    },
+  },
+  {
+      id: 14,
+      question: "Whether NOC Is Required From AAI?",
+      requirements: {
+      "Authorization Letter": "",
+      "Permission Letter": "",
+      "Site co-ordinates Certificate": "",
+      "Site Elevation Certificate": "",
+      "Under Taking 1A": "",
+    },
+  },
+  {
+      id: 15,
+      question: "Whether NMA NOC Is Available with You for Proposed Construction Sites?",
+      requirements: {
+      "N.O.C. from National Monuments Authority": "",
+    },
+  },
+  {
+      id: 16,
+      question: "Whether NOC Is Required From NMA?",
+      requirements: {
+      "Firm Files": "",
+      "Modern Construction Images": "",
+      "Google Earth Images": "",
+      "Ownership Document": "",
+      "Signature": "",
+      "Other Document": "",
+      "Elevation Document": "",
+      "Section Document": "",
+      "Typical Document": "",
+    },
+  },
+  {
+      id: 17,
+      question: "Is CLU Is Applicable?",
+      requirements: {
+      "Master plan copy": "",
+    },
+  },
+  {
+      id: 18,
+      question: "Whether the proposal falls in Urbanisable Land Use Zone?",
+      requirements: {
+      "Approval letter from competent authority for land usage permission in Urbanisable land use zone": "",
+    },
+  },
+];
+  

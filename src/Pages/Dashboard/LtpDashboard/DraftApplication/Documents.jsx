@@ -156,6 +156,7 @@ const DocumentUpload = () => {
       });
     }
   };
+  console.log(UpdatedDocuments,"applicationData")
 
   //  send data to ps db (Apu vai send ps data from here)
 
