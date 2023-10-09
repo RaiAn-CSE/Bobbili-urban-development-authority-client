@@ -180,7 +180,7 @@ const AllUsers = () => {
       {/* display users  */}
       <div className="overflow-x-auto">
         <table
-          className={`table table-zebra w-full font-roboto md:w-[70%] mx-auto mt-10`}
+          className={`table w-full font-roboto md:w-[70%] mx-auto mt-10 dark:text-white`}
         >
           {/* head */}
           <thead className={`bg-black font-bold text-white text-center`}>
@@ -216,12 +216,14 @@ const AllUsers = () => {
           id="update_user"
           className="modal modal-top h-full font-roboto transition-all duration-500"
         >
-          <div className="modal-box">
-            <h3 className="font-bold text-center my-10 text-2xl">Profile</h3>
+          <div className="modal-box dark:bg-black ">
+            <h3 className="font-bold text-center my-10 text-2xl dark:text-white">
+              Update Profile
+            </h3>
             {/* close the modal  */}
             <form method="dialog">
               <button
-                className="btn btn-sm btn-circle btn-ghost fixed right-2 top-2"
+                className="btn btn-sm btn-circle btn-ghost fixed right-2 top-2 dark:text-white"
                 htmlFor="update_user"
               >
                 ✕

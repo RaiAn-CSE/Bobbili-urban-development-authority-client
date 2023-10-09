@@ -21,7 +21,7 @@ const IndividualUser = ({ user, deleteUser, updateUser }) => {
             </div>
             <div>
               <div className="font-bold text-sm md:text-base">{user?.name}</div>
-              <div className="opacity-50 text-xs md:text-sm">
+              <div className="opacity-50 text-start text-xs md:text-sm">
                 ({user?.role})
               </div>
             </div>

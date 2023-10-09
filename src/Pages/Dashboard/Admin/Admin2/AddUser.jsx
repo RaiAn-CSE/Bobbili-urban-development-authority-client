@@ -80,10 +80,7 @@ const AddUser = () => {
   };
   return (
     <div className="mt-10">
-      <h1
-        className="text-xl
-      lg:text-3xl text-center font-roboto roboto-bold "
-      >
+      <h1 className="text-xl lg:text-3xl text-center font-roboto roboto-bold dark:text-white">
         Add a New User
       </h1>
 
