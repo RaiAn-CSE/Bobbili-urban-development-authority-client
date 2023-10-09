@@ -3,7 +3,7 @@ function DynamicDocument({ UpdatedDynamicDocumentData, role, handleFileChange, g
   return (
     <div>
       {UpdatedDynamicDocumentData?.map((document, index) => {
-        const { id, question, requirements } = document;
+        const { id, question, upload, approved, requirements } = document;
         return (
           <div key={id} className="w-full px-2 py-5 rounded">
             <div className="text-[17px]">
@@ -26,9 +26,9 @@ function DynamicDocument({ UpdatedDynamicDocumentData, role, handleFileChange, g
                         />
                       )}
 
-                      {requirement.upload !== "" && (
+                      {upload !== "" && (
                         <a
-                          href={`https://drive.google.com/file/d/${requirement.upload}/view?usp=sharing`}
+                          href={`https://drive.google.com/file/d/${upload}/view?usp=sharing`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className={`${gradientColor} text-white hover:underline ms-5 py-2 px-5 rounded-full`}
