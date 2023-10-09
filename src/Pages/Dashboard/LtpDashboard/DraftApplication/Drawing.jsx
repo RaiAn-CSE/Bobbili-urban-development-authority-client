@@ -162,7 +162,9 @@ const Drawing = () => {
       >
         {/* AutoCAD Drawing */}
         <div className="text-base px-2 mb-16">
-          <p className="pr-3 font-bold dark:text-gray-100">1. AutoCAD Drawing</p>
+          <p className="pr-3 font-bold dark:text-gray-100">
+            1. AutoCAD Drawing
+          </p>
           <div className="flex items-center mt-5">
             {role === "LTP" && (
               <label className="relative cursor-pointer mr-6">
@@ -170,7 +172,7 @@ const Drawing = () => {
                   type="file"
                   accept=".dwg, .zip, .pdf, .png, .jpg"
                   onChange={(event) => handleFileChange(event, "AutoCAD")}
-                  className="file-input file-input-bordered file-input-md w-full max-w-xs"
+                  className="file-input file-input-bordered file-input-md w-full max-w-xs dark:text-black dark:border-none"
                 />
               </label>
             )}
@@ -196,7 +198,7 @@ const Drawing = () => {
                   type="file"
                   accept=".dwg, .zip, .pdf,.png,.jpg"
                   onChange={(event) => handleFileChange(event, "Drawing")}
-                  className="file-input file-input-bordered file-input-md w-full max-w-xs"
+                  className="file-input file-input-bordered file-input-md w-full max-w-xs dark:text-black dark:border-none"
                 />
               </label>
             )}
