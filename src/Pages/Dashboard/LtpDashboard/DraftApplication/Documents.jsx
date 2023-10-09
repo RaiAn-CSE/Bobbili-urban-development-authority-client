@@ -31,7 +31,6 @@ const DocumentUpload = () => {
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
   const handleFileChange = (event, index) => {
-    toast.success("clicked function")
     const file = event?.target?.files[0];
     file &&
       toast.success(`${file?.name.slice(0, 20)}... uploaded successfully!`);

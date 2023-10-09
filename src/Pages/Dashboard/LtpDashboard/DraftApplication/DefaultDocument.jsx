@@ -13,9 +13,16 @@ function DefaultDocument({ PreviousDefaultDocumentData, role, handleFileChange, 
             setUpdatedDefaultData([...DefaultDocumentData])
         }
     })
+    const someEventHandler = (event, index) => {
+        // Call the function from props
+        handleFileChange(event, index);
+
+        // Additional logic in the child component, if needed
+    };
+
     return (
         <div>
-            {UpdatedDefaultData?.map(data => {
+            {UpdatedDefaultData?.map((data,index )=> {
                 const { id, question, approved, upload } = data;
                 return (
                     <div key={id} className="w-full px-2 py-5 rounded mb-8">
@@ -25,7 +32,7 @@ function DefaultDocument({ PreviousDefaultDocumentData, role, handleFileChange, 
                                 name={id}
                                 type="file"
                                 accept=".pdf, image/*"
-                                onChange={(event) => handleFileChange(event, index)}
+                                onChange={(event) => someEventHandler(event, index)}
                                 className="file-input file-input-bordered w-full max-w-xs"
                             />
                         )}
