@@ -118,7 +118,7 @@ const ApplicantInfo = () => {
     "w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black";
 
   return (
-    <div className="grid my-5 lg:my-0 lg:p-2 dark:text-gray-100">
+    <div className="grid my-5 mx-5 lg:my-0 lg:p-2 dark:text-gray-100">
       {/* LTP’s Details  */}
       <div className="divide-y-2 divide-gray-200 mb-[60px]">
         <div className="flex items-center">
@@ -130,70 +130,84 @@ const ApplicantInfo = () => {
           <h3 className="font-bold text-xl">LTP’s Details</h3>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 mt-2">
-          <div className="grid grid-cols-2">
-            <InputField
-              id="ltpType"
-              name="ltpType"
-              label="LTP Type"
-              placeholder="Licenced Engineer"
-              ltpDetails={type}
-            />
-            <InputField
-              id="ltpName"
-              name="ltpName"
-              label="LTP Name"
-              placeholder="xxxxxxxxxxxxxxxxx"
-              ltpDetails={name}
-            />
-            <InputField
-              id="licenseNo"
-              name="licenseNo"
-              label="Licence no."
-              placeholder="xx/xxxxx"
-              type="number"
-              ltpDetails={licenseNo}
-            />
+        <div className="grid grid-cols-2 lg:grid-cols-4 mt-2">
+          <InputField
+            id="ltpType"
+            name="ltpType"
+            label="LTP Type"
+            placeholder="Licenced Engineer"
+            ltpDetails={type}
+          />
+          <InputField
+            id="ltpName"
+            name="ltpName"
+            label="LTP Name"
+            placeholder="xxxxxxxxxxxxxxxxx"
+            ltpDetails={name}
+          />
+          <InputField
+            id="ltpRoadNo"
+            name="ltpRoadNo"
+            label="Road no"
+            placeholder="Road no"
+            type="text"
+          // ltpDetails={email}
+          />
+          <InputField
+            id="ltpStreetNo"
+            name="ltpStreetNo"
+            label="Street no"
+            placeholder="Street no"
+            type="text"
+          // ltpDetails={email}
+          />
+          <InputField
+            id="licenseNo"
+            name="licenseNo"
+            label="Licence no."
+            placeholder="xx/xxxxx"
+            type="number"
+            ltpDetails={licenseNo}
+          />
 
-            <div className="my-4 mx-3">
-              <label htmlFor="validity" className={labelClass}>
-                Validity
-              </label>
-              <input
-                type="date"
-                id="validity"
-                name="validity"
-                className={inputClass}
-                defaultValue={validity}
-              />
-            </div>
-
-            <div className="my-4 mx-3">
-              <label htmlFor="ltpPhoneNo" className={labelClass}>
-                Phone no.
-              </label>
-              <input
-                id="ltpPhoneNo"
-                type="text"
-                name="ltpPhoneNo"
-                placeholder="xxxxxxxxxx"
-                defaultValue={ltpPhone}
-                onChange={(e) => setPhoneNoLimit(e, setLtpPhone)}
-                className={inputClass}
-                maxLength={10}
-              />
-            </div>
-
-            <InputField
-              id="ltpEmail"
-              name="ltpEmail"
-              label="E-mail"
-              placeholder="xxxx@gmail.com"
-              type="email"
-              ltpDetails={email}
+          <div className="my-4 mx-3">
+            <label htmlFor="validity" className={labelClass}>
+              Validity
+            </label>
+            <input
+              type="date"
+              id="validity"
+              name="validity"
+              className={inputClass}
+              defaultValue={validity}
             />
           </div>
-          <div>
+
+          <div className="my-4 mx-3">
+            <label htmlFor="ltpPhoneNo" className={labelClass}>
+              Phone no.
+            </label>
+            <input
+              id="ltpPhoneNo"
+              type="text"
+              name="ltpPhoneNo"
+              placeholder="xxxxxxxxxx"
+              defaultValue={ltpPhone}
+              onChange={(e) => setPhoneNoLimit(e, setLtpPhone)}
+              className={inputClass}
+              maxLength={10}
+            />
+          </div>
+
+          <InputField
+            id="ltpEmail"
+            name="ltpEmail"
+            label="E-mail"
+            placeholder="xxxx@gmail.com"
+            type="email"
+            ltpDetails={email}
+          />
+          {/* <div>
             <div className="my-4 mx-3">
               <label htmlFor="ltpAddress" className={labelClass}>
                 Address
@@ -207,7 +221,7 @@ const ApplicantInfo = () => {
                 placeholder="Dr. no., Street, Village, Mandal, Dist."
               ></textarea>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
