@@ -42,15 +42,16 @@ const DocumentUpload = () => {
     }
 
     if (type === "dynamic") {
+      setSendingDocument({ default: DefaultData, dynamic: [...DynamicData, { id, uploadId, file }] });
       setDynamicData((prev) => {
         return [...prev, { id, uploadId, file }]
       });
-      setSendingDocument({ default: DefaultData, dynamic: DynamicData });
+
     } else {
+      setSendingDocument({ default: [...DefaultData, { id, file }], dynamic: DynamicData });
       setDefaultData((prev) => {
         return [...prev, { id, file }];
       });
-      setSendingDocument({ default: DefaultData, dynamic: DynamicData });
     }
   };
   console.log(sendingDocument, "sending Document")
