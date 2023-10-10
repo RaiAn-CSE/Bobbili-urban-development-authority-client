@@ -113,9 +113,9 @@ const DraftApplication = () => {
   };
   const completeBtn = (index) => {
     if (index === currentStep) {
-      return "bg-black text-white shadow-sm shadow-black border-0 ";
+      return `bg-black text-white shadow-sm shadow-black border-0 dark:${gradientColor}`;
     } else if (index < currentStep) {
-      return "bg-black text-white shadow-md shadow-black border-0";
+      return `bg-black text-white shadow-md shadow-black border-0 dark:${gradientColor}`;
     }
   };
 
