@@ -42,41 +42,18 @@ const DocumentUpload = () => {
     }
 
     if (type === "dynamic") {
-      const alreadyIndexed = DynamicData.findIndex((data) => data.id == id);
-
-      if (alreadyIndexed !== -1) {
-        // If an item with the same id exists, update the file property
-        const updatedDynamicData = [...DynamicData];
-        updatedDynamicData[alreadyIndexed].file = file;
-
-        setSendingDocument({ default: DefaultData, dynamic: updatedDynamicData });
-        setDynamicData(updatedDynamicData);
-      } else {
-        // If no item with the same id exists, add a new item
-        setSendingDocument({ default: DefaultData, dynamic: [...DynamicData, { id, uploadId, file }] });
-        setDynamicData((prev) => [...prev, { id, uploadId, file }]);
-      }
+      const data = { id, uploadId, file };
+      setDynamicData((prev) => [...prev, data]);
     } else {
-      const alreadyIndexed = DefaultData.findIndex((data) => data.id == id);
-
-      if (alreadyIndexed !== -1) {
-        // If an item with the same id exists, update the file property
-        const updatedDefaultData = [...DefaultData];
-        updatedDefaultData[alreadyIndexed].file = file;
-
-        setSendingDocument({ default: updatedDefaultData, dynamic: DynamicData });
-        setDefaultData(updatedDefaultData);
-      } else {
-        // If no item with the same id exists, add a new item
-        setSendingDocument({ default: [...DefaultData, { id, file }], dynamic: DynamicData });
-        setDefaultData((prev) => [...prev, { id, file }]);
-      }
+      const data = { id, file };
+      setDefaultData((prev) => [...prev, data]);
     }
-    console.log(uploadedFile, "sending Document")
   };
+  useEffect(() => {
+    setSendingDocument({ default: DefaultData, dynamic: DynamicData });
+  }, [DefaultData, DynamicData]);
 
-  
-  
+  console.log(sendingDocument, "Sending Document")
 
   // Adding checklist Data to Document from server data && Updating Data from server Data
   useEffect(() => {
