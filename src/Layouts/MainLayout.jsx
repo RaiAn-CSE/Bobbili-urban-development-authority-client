@@ -130,7 +130,7 @@ const MainLayout = () => {
             <MdOutlineDashboard className="text-2xl dark:text-white" />
           </div>
 
-          <div>
+          <div className="cursor-pointer">
             {theme === "dark" ? (
               <FiSun
                 size={25}

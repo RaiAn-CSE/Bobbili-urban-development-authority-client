@@ -178,12 +178,14 @@ const AllUsers = () => {
       </div>
 
       {/* display users  */}
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto transition-all duration-700">
         <table
           className={`table w-full font-roboto md:w-[70%] mx-auto mt-10 dark:text-white`}
         >
           {/* head */}
-          <thead className={`bg-black font-bold text-white text-center`}>
+          <thead
+            className={`bg-black font-bold text-white text-base text-center dark:bg-gradient-to-r dark:from-violet-500 dark:to-fuchsia-500`}
+          >
             <tr>
               <th>Name</th>
               <th>Actions</th>
