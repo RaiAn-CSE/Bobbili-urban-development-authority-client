@@ -76,11 +76,7 @@ const DocumentUpload = () => {
           });
         });
       }
-      // if (PreviousDynamicDocument.length) {
-      //   setUpdatedDynamicDocumentData([...PreviousDynamicDocument, ...updatedDynamicDocumentsToAdd]);
-      // } else {
       setUpdatedDynamicDocumentData(updatedDynamicDocumentsToAdd);
-      // }
     };
     gettingData();
   }, []);

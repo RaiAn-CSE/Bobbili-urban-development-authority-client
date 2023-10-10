@@ -211,6 +211,7 @@ const Drawing = () => {
               </Link>
             )}
           </div>
+          <p className="text-red-500 mt-2 text-sm">Note: Upload A3 file</p>
         </div>
       </form>
 
