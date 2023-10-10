@@ -11,7 +11,7 @@ const ImageUploadInput = ({ id }) => {
 
     return (
         <div className="flex items-center justify-center w-full">
-            <label htmlFor={id} className="flex flex-col items-center justify-center w-full cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+            <label htmlFor={id} className="flex flex-col items-center justify-center w-full cursor-pointer bg-gray-50 hover:bg-gray-100  dark:bg-gray-700  dark:hover:bg-gray-600">
                 <div className="flex flex-col items-center justify-center p-[10px]">
                     {selectedFile ? (
                         <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">

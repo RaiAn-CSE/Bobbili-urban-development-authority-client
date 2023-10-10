@@ -213,7 +213,7 @@ const SiteInspection = () => {
 
   const tableDataClass =
     "whitespace-nowrap border-r px-6 py-4 border-neutral-500";
-  const inputClass = "input rounded-none w-full max-w-xs focus:outline-none dark:text-black";
+  const inputClass = "input rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600";
   const inputTableDataClass = "whitespace-nowrap border-r border-neutral-500";
 
   return (
@@ -256,7 +256,7 @@ const SiteInspection = () => {
                   </td>
                   <td
                     colSpan="3"
-                    className={`${tableDataClass} text-base font-semibold bg-gray-200 dark:text-black`}
+                    className={`${tableDataClass} text-base font-semibold bg-gray-200 dark:text-black dark:bg-gradient-to-r dark:from-violet-300 dark:to-fuchsia-300`}
                   >
                     Ground Position
                   </td>
@@ -355,7 +355,7 @@ const SiteInspection = () => {
                   </td>
                   <td
                     colSpan="3"
-                    className={`${tableDataClass} text-base font-semibold bg-gray-200 dark:text-black`}
+                    className={`${tableDataClass} text-base font-semibold bg-gray-200 dark:text-black dark:bg-gradient-to-r dark:from-violet-300 dark:to-fuchsia-300`}
                   >
                     Site Boundaries
                   </td>
@@ -479,7 +479,7 @@ const SiteInspection = () => {
                       type="text"
                       defaultValue={siteBoundaries?.scheduleOfTheDocuments?.[0]}
                       placeholder="Yes/No"
-                      className={inputClass}
+                      className='h-[88px] px-4 rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600'
                     />
                   </td>
                   <td className={inputTableDataClass}>
@@ -488,7 +488,7 @@ const SiteInspection = () => {
                       type="text"
                       defaultValue={siteBoundaries?.scheduleOfTheDocuments?.[1]}
                       placeholder="Yes/No"
-                      className={inputClass}
+                      className='h-[88px] px-4 rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600'
                     />
                   </td>
                 </tr>
@@ -500,7 +500,7 @@ const SiteInspection = () => {
                   </td>
                   <td
                     colSpan="3"
-                    className={`${tableDataClass} text-base font-semibold bg-gray-200 dark:text-black`}
+                    className={`${tableDataClass} text-base font-semibold bg-gray-200 dark:text-black dark:bg-gradient-to-r dark:from-violet-300 dark:to-fuchsia-300`}
                   >
                     Access Road
                   </td>
@@ -536,10 +536,10 @@ const SiteInspection = () => {
                       placeholder="Public"
                       className={inputClass}
                     /> */}
-                    <div className="flex flex-col justify-center mx-3">
+                    <div className="flex flex-col justify-center">
                       <select
                         id="natureOfRoad"
-                        className='w-full px-3 py-[10px] border border-violet-500 max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200'
+                        className='input rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600'
                       // value={natureOfRoadValue ? natureOfRoadValue : natureOfRoad}
                       // onChange={handleNatureOfRoad}
                       >
@@ -556,10 +556,10 @@ const SiteInspection = () => {
                       placeholder="Public/Private"
                       className={inputClass}
                     /> */}
-                    <div className="flex flex-col justify-center mx-3">
+                    <div className="flex flex-col justify-center">
                       <select
                         id="natureOfRoad"
-                        className='w-full px-3 py-[10px] border border-violet-500 max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200'
+                        className='input rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600'
                       // value={natureOfRoadValue ? natureOfRoadValue : natureOfRoad}
                       // onChange={handleNatureOfRoad}
                       >
@@ -622,7 +622,7 @@ const SiteInspection = () => {
                   </td>
                   <td
                     colSpan="3"
-                    className={`${tableDataClass} text-base font-semibold bg-gray-200 dark:text-black`}
+                    className={`${tableDataClass} text-base font-semibold bg-gray-200 dark:text-black dark:bg-gradient-to-r dark:from-violet-300 dark:to-fuchsia-300`}
                   >
                     Land Use
                   </td>

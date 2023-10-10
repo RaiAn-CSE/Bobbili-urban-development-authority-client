@@ -7,6 +7,7 @@ Hover [#7e35a0]
 
 
 from-violet-500 to-fuchsia-500
+bg-gradient-to-r from-violet-500 to-fuchsia-500
 
 
 
