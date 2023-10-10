@@ -325,7 +325,12 @@ const BuildingInfo = () => {
 
   const handleRadio4 = (e) => {
     setRadio4(e.target.value);
+
+    console.log(e.target.value, 'e.target.value');
   };
+
+  console.log(radio4, 'Radio4');
+
 
   const handleRadio5 = (e) => {
     setRadio5(e.target.value);
@@ -1245,15 +1250,15 @@ const BuildingInfo = () => {
                     <span className="ml-2 text-base">No</span>
                   </label>
                 </div>
-                {/* {radio4 === "yes" || compoundingWallProposed === "yes" ? (
+                {radio4 === "yes" ? (
                   <InputField
                     id="runningMeter"
                     name="runningMeter"
                     label="Running meter"
                     placeholder="Running meter"
-                    ltpDetails={runningMeter}
+                  // ltpDetails={runningMeter}
                   />
-                ) : null} */}
+                ) : null}
               </div>
 
               <div className="flex flex-col md:flex-row font-medium mb-4 text-lg mt-4">
