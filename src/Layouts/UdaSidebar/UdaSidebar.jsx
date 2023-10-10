@@ -5,12 +5,15 @@ import { Link, useLocation } from "react-router-dom";
 const UdaSidebar = () => {
   const path = useLocation().pathname;
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
+
+  const hoverGradientColor =
+    "hover:bg-gradient-to-r hover:from-violet-500 hover:to-fuchsia-500";
   return (
     <>
       <li
         className={`${
           path === "/dashboard" && gradientColor
-        } mt-10 mb-1 ps-4 rounded-l-lg flex items-center hover:${gradientColor}`}
+        } mt-10 mb-1 ps-4 rounded-l-lg flex items-center ${hoverGradientColor}`}
       >
         <span>
           <MdSpaceDashboard size={20} />
