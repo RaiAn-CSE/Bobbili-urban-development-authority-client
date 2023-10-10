@@ -331,11 +331,11 @@ const BuildingInfo = () => {
     setRadio5(e.target.value);
   };
 
-  // const getValue = () => {
-  //   const runningMeterData = document.getElementById("runningMeter");
-  //   const runningMeter = runningMeterData ? runningMeterData.value : "";
-  //   console.log(runningMeter, "Running meter");
-  // };
+  const getValue = () => {
+    const runningMeterData = document.getElementById("runningMeter");
+    const runningMeter = runningMeterData ? runningMeterData.value : "";
+    console.log(runningMeter, "Running meter");
+  };
 
   // get data from input field :
   const collectInputFieldData = async (url) => {
@@ -1396,6 +1396,8 @@ const BuildingInfo = () => {
             </div>
           </div>
         </div>
+
+        <input type="submit" value="get" onClick={getValue} />
 
         {/* save & continue  */}
         <SaveData
