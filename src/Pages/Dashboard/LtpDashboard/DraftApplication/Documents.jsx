@@ -19,6 +19,7 @@ const DocumentUpload = () => {
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
   const [PreviousDefaultDocumentData, setPreviousDefaultDocumentData] = useState([]);
   const [UpdatedDynamicDocumentData, setUpdatedDynamicDocumentData] = useState([]);
+  const [sendingDocument, setSendingDocument] = useState([]);
   const {
     confirmAlert,
     sendUserDataIntoDB,
@@ -30,12 +31,34 @@ const DocumentUpload = () => {
   const role = userInfoFromLocalStorage().role;
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
-  const handleFileChange = (event, index, uploadedFiles) => {
-    const file = event?.target?.files[0];
-    file && toast.success(`${file?.name.slice(0, 20)}... Uploaded Successfully`);
-    console.log(uploadedFiles,"UploadedFiles")
+  const handleFileChange = (event, id, uploadedFiles, type, uploadId) => {
+    // Destructure variables from the event object
+    const { files, name } = event.target;
+    const file = files[0];
+  
+    if (file) {
+      toast.success(`${file.name.slice(0, 20)}... Uploaded Successfully`);
+    }
+  
+    // Create arrays to store dynamic and default data
+    const dynamicData = [];
+    const defaultData = [];
+  
+    // Create the object based on the type
+    if (type === "dynamic") {
+      dynamicData.push({ id, uploadId, file });
+    } else {
+      defaultData.push({ id, file });
+    }
+  
+    console.log("Dynamic Data:", dynamicData);
+    console.log("Default Data:", defaultData);
+  
+    // Depending on your use case, you might want to store these arrays in state or take further actions.
   };
-// console.log(DefaultDocumentSelectedFiles,DynamicDocumentSelectedFiles,"Default&Dynamic")
+  
+  console.log(sendingDocument, "sending Document")
+  // console.log(DefaultDocumentSelectedFiles,DynamicDocumentSelectedFiles,"Default&Dynamic")
   // Adding checklist Data to Document from server data && Updating Data from server Data
   useEffect(() => {
     const gettingData = async () => {
@@ -95,14 +118,14 @@ const DocumentUpload = () => {
             role={role}
             handleFileChange={handleFileChange}
             gradientColor={gradientColor}
-            // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
+          // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
           />
           <DynamicDocument
             role={role}
             UpdatedDynamicDocumentData={UpdatedDynamicDocumentData}
             handleFileChange={handleFileChange}
             gradientColor={gradientColor}
-            // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
+          // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
 
           />
         </div>

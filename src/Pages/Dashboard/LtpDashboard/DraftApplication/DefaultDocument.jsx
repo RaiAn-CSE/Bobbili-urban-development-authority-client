@@ -4,7 +4,7 @@ import PsDocument from "./PsDocument";
 
 function DefaultDocument({ PreviousDefaultDocumentData, role, handleFileChange, gradientColor }) {
 
-    const [DefaultDocumentSelectedFiles, setDefaultDocumentSelectedFiles] = useState([]);
+    const [selectedFiles, setSelectedFiles] = useState([]);
     const [UpdatedDefaultData, setUpdatedDefaultData] = useState([]);
 
     useEffect(() => {
@@ -15,11 +15,13 @@ function DefaultDocument({ PreviousDefaultDocumentData, role, handleFileChange, 
         }
     }, []);
 
-    const someEventHandler = (event, index,id) => {
+    const someEventHandler = (event, id) => {
         const file = event?.target.files[0];
-        DefaultDocumentSelectedFiles[index] = file;
-        handleFileChange(event, index, DefaultDocumentSelectedFiles);
+        selectedFiles[id] = file;
+        handleFileChange(event, id, selectedFiles, "default");
     };
+    // Create an array of objects from selectedFiles
+    
     return (
         <div>
             {UpdatedDefaultData?.map((data, index) => {
@@ -32,7 +34,7 @@ function DefaultDocument({ PreviousDefaultDocumentData, role, handleFileChange, 
                                 name={id}
                                 type="file"
                                 accept=".pdf, image/*"
-                                onChange={(event) => someEventHandler(event, index, id)}
+                                onChange={(event) => someEventHandler(event, id)}
                                 className="file-input file-input-bordered w-full max-w-xs"
                             />
                         )}
