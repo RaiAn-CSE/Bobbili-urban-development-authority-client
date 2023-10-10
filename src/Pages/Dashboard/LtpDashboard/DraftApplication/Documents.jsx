@@ -117,7 +117,7 @@ const DocumentUpload = () => {
         formData.append("file", selectedFiles[i]);
         try {
           const response = await axios.post(
-            "http://localhost:5000/upload?page=document",
+            "https://residential-building.vercel.app/upload?page=document",
             formData,
             {
               headers: {
@@ -187,14 +187,14 @@ const DocumentUpload = () => {
         onSubmit={(e) => {
           e.preventDefault();
         }}
-        className="text-black p-4 dark:text-gray-100"
+        className="text-black p-4 font-roboto dark:text-gray-100"
       >
         {UpdatedDocuments?.map((document, index) => {
           const { id, question, upload, approved } = document;
           return (
             <>
               <div key={id} className="w-full px-2 mb-5 py-5 rounded">
-                <p className="text-[17px] font-bold">
+                <p className="text-[17px] font-bold text-lg md:text-xl">
                   {id}. {question}
                 </p>
 
@@ -206,7 +206,7 @@ const DocumentUpload = () => {
                       type="file"
                       accept=".pdf, image/*"
                       onChange={(event) => handleFileChange(event, index)}
-                      className="file-input file-input-bordered w-full max-w-xs"
+                      className="file-input file-input-bordered w-full max-w-xs dark:text-black dark:border-none"
                     />
                   )}
 

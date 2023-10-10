@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import UserImg from "../../assets/images//user.png";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-import Logo from "../../assets/images/logo.png";
 import { FiSun } from "react-icons/fi";
 import { MdOutlineDarkMode } from "react-icons/md";
 
@@ -43,7 +42,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar bg-base-100 sticky top-0 z-50 shadow-md">
+    <div className="navbar bg-base-100 sticky top-0 z-50 shadow-md dark:bg-gradient-to-r dark:from-violet-500 dark:to-fuchsia-500 dark:text-white">
       <div className="flex-1">
         <Link to="/dashboard" className="btn btn-ghost normal-case text-xl">
           {/* <img className="h-full" src={Logo} alt="The logo of the website" /> */}
@@ -57,7 +56,7 @@ const Navbar = () => {
         <p className="font-semibold md:text-lg">{user?.name}</p>
         <small className="font-medium md:text-base">({user?.role})</small>
       </div>
-      <div className="dropdown dropdown-end me-5">
+      <div className="dropdown dropdown-end me-5 ">
         <label
           tabIndex={0}
           className="btn btn-ghost btn-circle avatar shadow-sm"
@@ -68,19 +67,21 @@ const Navbar = () => {
         </label>
         <ul
           tabIndex={0}
-          className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+          className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 dark:bg-black "
         >
           <li>
-            <a className="justify-between">
+            <a className="justify-between dark:text-white">
               Profile
               <span className="badge">New</span>
             </a>
           </li>
           <li>
-            <a>Settings</a>
+            <a className="dark:text-white">Settings</a>
           </li>
           <li>
-            <a onClick={handleLogOut}>Logout</a>
+            <a className="dark:text-white" onClick={handleLogOut}>
+              Logout
+            </a>
           </li>
         </ul>
       </div>

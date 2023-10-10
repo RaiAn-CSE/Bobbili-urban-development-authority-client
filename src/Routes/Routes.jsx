@@ -26,6 +26,9 @@ import Outward from "../Pages/Dashboard/PsDashboard/OutwardApplications/Outward"
 import ReValidation from "../Pages/Dashboard/PsDashboard/ReValidation/ReValidation";
 import Approved from "../Pages/Dashboard/LtpDashboard/Approved/Approved";
 import Shortfall from "../Pages/Dashboard/LtpDashboard/Shortfall/Shortfall";
+import DefaultDrawingFormat from "../Pages/Main/DefaultDrawingFormat/DefaultDrawingFormat";
+import PrivacyPolicy from "../Pages/Main/PrivacyPolicy/PrivacyPolicy";
+import DemoVideos from "../Pages/Main/DemoVideos/DemoVideos";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +47,18 @@ const router = createBrowserRouter([
       {
         path: "/listOfLTP",
         element: <ListOfLTP />,
+      },
+      {
+        path: "/demoVideos",
+        element: <DemoVideos />,
+      },
+      {
+        path: "/privacyPolicy",
+        element: <PrivacyPolicy />,
+      },
+      {
+        path: "/defaultDrawingFormat",
+        element: <DefaultDrawingFormat />,
       },
     ],
   },

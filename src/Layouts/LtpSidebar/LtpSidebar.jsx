@@ -13,6 +13,9 @@ const LtpSidebar = () => {
 
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
+  const hoverGradientColor =
+    "hover:bg-gradient-to-r hover:from-violet-500 hover:to-fuchsia-500";
+
   const { handleLogOut } = useContext(AuthContext);
 
   // console.log(location);
@@ -21,7 +24,7 @@ const LtpSidebar = () => {
       <li
         className={`${
           path === "/dashboard" && gradientColor
-        } mt-10 flex items-center ps-4 hover:${gradientColor} rounded-l-lg mb-1`}
+        } mt-10 flex items-center ps-4 ${hoverGradientColor} rounded-l-lg mb-1`}
       >
         <span>
           <MdSpaceDashboard size={20} />
@@ -41,7 +44,7 @@ const LtpSidebar = () => {
             path === "/dashboard/draftApplication/drawing" ||
             path === "/dashboard/draftApplication/payment") &&
           gradientColor
-        } flex items-center ps-4 hover:${gradientColor} rounded-l-lg mb-1`}
+        } flex items-center ps-4 ${hoverGradientColor} rounded-l-lg mb-1`}
       >
         <span>
           <BiSolidImageAdd size={22} />
@@ -57,7 +60,7 @@ const LtpSidebar = () => {
       <li
         className={`${
           path === "/dashboard/submitApplication" && gradientColor
-        } flex items-center ps-4 hover:${gradientColor} rounded-l-lg mb-1`}
+        } flex items-center ps-4 ${hoverGradientColor} rounded-l-lg mb-1`}
       >
         <span>
           <BsSendCheckFill size={19} />
@@ -73,7 +76,7 @@ const LtpSidebar = () => {
       <li
         className={`${
           path === "/dashboard/approvedApplication" && gradientColor
-        } flex items-center ps-4 hover:${gradientColor} rounded-l-lg mb-1`}
+        } flex items-center ps-4 ${hoverGradientColor} rounded-l-lg mb-1`}
       >
         <span>
           <BiCheckDouble size={23} />
@@ -89,7 +92,7 @@ const LtpSidebar = () => {
       <li
         className={`${
           path === "/dashboard/shortfallApplication" && gradientColor
-        } flex items-center ps-4 hover:${gradientColor} rounded-l-lg mb-1`}
+        } flex items-center ps-4 ${hoverGradientColor} rounded-l-lg mb-1`}
       >
         <span>
           <AiOutlineForm size={20} />
@@ -103,7 +106,7 @@ const LtpSidebar = () => {
       </li>
 
       <li
-        className={`flex items-center ps-4 hover:${gradientColor} rounded-l-lg mb-1`}
+        className={`flex items-center ps-4 ${hoverGradientColor} rounded-l-lg mb-1`}
       >
         <span>
           <CgDanger size={22} />
@@ -114,7 +117,7 @@ const LtpSidebar = () => {
       </li>
 
       <li
-        className={`mt-5 flex items-center ps-4 hover:${gradientColor} rounded-l-lg mb-1`}
+        className={`mt-5 flex items-center ps-4 ${hoverGradientColor} rounded-l-lg mb-1`}
       >
         <span>
           <MdOutlineLogout size={22} />

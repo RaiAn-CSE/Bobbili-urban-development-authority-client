@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-
 import SupportIcon from "../../../assets/images/customer-service.png";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router";
@@ -120,14 +119,14 @@ const Login = () => {
 
   return (
     <>
-      <div className="relative font-roboto">
+      <div className="relative font-roboto dark:bg-gray-700">
         {/* support icon  */}
 
         {/* login form  */}
 
-        <div className="rounded-lg border p-4 sm:p-6 md:p-8 shadow-lg">
+        <div className="rounded-lg border p-4 sm:p-6 md:p-8 shadow-lg dark:text-white">
           <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-            <h1 className="text-3xl text-center font-bold  text-gray-900 ">
+            <h1 className="text-3xl text-center font-bold text-gray-900 dark:text-white">
               Sign in
             </h1>
             <div>
@@ -203,7 +202,7 @@ const Login = () => {
                 <input
                   type="submit"
                   value="Sign in"
-                  className="w-full  bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white cursor-pointer shadow-md shadow-violetDark transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold text-base px-7 py-2.5 my-1 text-center"
+                  className="w-full bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white cursor-pointer shadow-md shadow-violetDark transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold text-base px-7 py-2.5 my-1 text-center"
                 />
               )}
             </div>

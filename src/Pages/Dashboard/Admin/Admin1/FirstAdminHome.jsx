@@ -1,10 +1,11 @@
 import React from "react";
+import ShowCharts from "../../../Shared/ShowCharts";
 
 const FirstAdminHome = () => {
   return (
-    <div>
-      <p>First admin dashboard</p>
-    </div>
+    <>
+      <ShowCharts />
+    </>
   );
 };
 

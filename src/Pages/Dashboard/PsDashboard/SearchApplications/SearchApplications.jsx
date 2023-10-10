@@ -13,7 +13,7 @@ function SearchApplications() {
   // const { data, refetch, isLoading, isError } = useQuery(
   //   ["allSubmitApplication"],
   //   async () => {
-  //     const response = await fetch(`http://localhost:5000/submitApplications`);
+  //     const response = await fetch(`https://residential-building.vercel.app/submitApplications`);
   //     return await response.json();
   //   }
   // );

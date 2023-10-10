@@ -93,7 +93,7 @@ const Payment = () => {
         generalInformation?.natureOfTheSite === "Approved Layout" ||
         generalInformation?.natureOfTheSite === "Regularised under LRS" ||
         generalInformation?.natureOfTheSite ===
-        "Congested/ Gramakanta/ Old Built-up area" ||
+          "Congested/ Gramakanta/ Old Built-up area" ||
         generalInformation.natureOfTheSite === "Newly Developed/ Built up area"
       ) {
         console.log("aschi");
@@ -404,7 +404,7 @@ const Payment = () => {
         console.log(...formData);
         try {
           const response = await axios.post(
-            "http://localhost:5000/upload?page=payment",
+            "https://residential-building.vercel.app/upload?page=payment",
             formData,
             {
               headers: {
@@ -734,7 +734,7 @@ const Payment = () => {
               {role === "LTP" && (
                 <input
                   type="file"
-                  className="file-input file-input-bordered w-full max-w-xs"
+                  className="file-input file-input-bordered w-full max-w-xs dark:text-black dark:border-none"
                   id="gramaBankReceipt"
                   onChange={(e) => handleFileChange(e, "gramaBankReceipt")}
                 />
@@ -825,7 +825,7 @@ const Payment = () => {
               {role === "LTP" && (
                 <input
                   type="file"
-                  className="file-input file-input-bordered w-full max-w-xs"
+                  className="file-input file-input-bordered w-full max-w-xs dark:text-black dark:border-none"
                   id="labourCessBankReceipt"
                   onChange={(e) => handleFileChange(e, "labourCessBankReceipt")}
                 />
@@ -834,15 +834,15 @@ const Payment = () => {
 
             {applicationData?.payment?.labourCessCharge
               ?.labourCessBankReceipt && (
-                <Link
-                  to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
-                  target="_blank"
-                  className="flex justify-center items-center ms-10 px-6 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
-                >
-                  <MdReceiptLong className="me-1" />
-                  View Challan
-                </Link>
-              )}
+              <Link
+                to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
+                target="_blank"
+                className="flex justify-center items-center ms-10 px-6 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
+              >
+                <MdReceiptLong className="me-1" />
+                View Challan
+              </Link>
+            )}
           </div>
         </div>
 
@@ -921,7 +921,7 @@ const Payment = () => {
             {role === "LTP" && (
               <input
                 type="file"
-                className="file-input file-input-bordered w-full max-w-xs"
+                className="file-input file-input-bordered w-full max-w-xs dark:text-black dark:border-none"
                 id="greenFeeBankReceipt"
                 onChange={(e) => handleFileChange(e, "greenFeeBankReceipt")}
               />

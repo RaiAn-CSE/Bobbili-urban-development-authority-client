@@ -13,7 +13,7 @@ const AuthProvider = ({ children }) => {
 
   // update user info
   const updateUserInfoInLocalStorage = (id) => {
-    fetch(`http://localhost:5000/getUser?id=${id}`)
+    fetch(`https://residential-building.vercel.app/getUser?id=${id}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -53,7 +53,9 @@ const AuthProvider = ({ children }) => {
   const getUserData = async (id) => {
     console.log(id, "AUTH ID");
 
-    const response = await fetch(`http://localhost:5000/getUser?id=${id}`);
+    const response = await fetch(
+      `https://residential-building.vercel.app/getUser?id=${id}`
+    );
     const data = await response.json();
     return data;
   };
@@ -65,7 +67,7 @@ const AuthProvider = ({ children }) => {
 
     const data = { userId: userInfoFromLocalStorage()._id, applicationNo };
 
-    const url = `http://localhost:5000/deleteApplication?data=${JSON.stringify(
+    const url = `https://residential-building.vercel.app/deleteApplication?data=${JSON.stringify(
       data
     )}`;
     Swal.fire({
@@ -131,10 +133,10 @@ const AuthProvider = ({ children }) => {
     });
 
     role === "LTP" &&
-      (url = `http://localhost:5000/updateDraftApplicationData?filterData=${filterDataForLtp}`);
+      (url = `https://residential-building.vercel.app/updateDraftApplicationData?filterData=${filterDataForLtp}`);
 
     role === "PS" &&
-      (url = `http://localhost:5000/recommendDataOfPs?appNo=${applicationNo}`);
+      (url = `https://residential-building.vercel.app/recommendDataOfPs?appNo=${applicationNo}`);
 
     console.log(url, "url");
 
@@ -224,7 +226,7 @@ const AuthProvider = ({ children }) => {
       console.log(query, "query");
 
       const response = await fetch(
-        `http://localhost:5000/getApplicationData?data=${query}`
+        `https://residential-building.vercel.app/getApplicationData?data=${query}`
       );
 
       return await response.json();
@@ -243,7 +245,7 @@ const AuthProvider = ({ children }) => {
       console.log(query, "query");
 
       const response = await fetch(
-        `http://localhost:5000/getSubmitDataOfPs?appNo=${query}`
+        `https://residential-building.vercel.app/getSubmitDataOfPs?appNo=${query}`
       );
 
       return await response.json();
@@ -256,7 +258,7 @@ const AuthProvider = ({ children }) => {
   const getAllDraftApplicationData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/allDraftApplicationData`
+        `https://residential-building.vercel.app/allDraftApplicationData`
       );
 
       return await response.json();
@@ -274,6 +276,63 @@ const AuthProvider = ({ children }) => {
     }, 1000);
   };
 
+  // check license expiration of ltp
+  const checkLicenseExpirationOfLtp = (validity) => {
+    console.log(validity);
+    const validityDate = new Date(validity);
+
+    console.log(validityDate);
+
+    if (validityDate.toString().includes("Invalid Date")) {
+      return "Invalid Date";
+    }
+
+    const validityDay = validityDate.getUTCDate().toString().padStart(2, "0");
+    const validityMonth = (validityDate.getUTCMonth() + 1)
+      .toString()
+      .padStart(2, "0");
+    const validityYear = validityDate.getUTCFullYear();
+
+    console.log(validityDay, validityMonth, validityYear, "VALIDITY");
+
+    const todayDate = new Date();
+
+    const todayDay = todayDate.getUTCDate().toString().padStart(2, "0");
+    const todayMonth = (todayDate.getUTCMonth() + 1)
+      .toString()
+      .padStart(2, "0");
+    const todayYear = todayDate.getUTCFullYear();
+
+    console.log(todayDay, todayMonth, todayYear, "TODAY YEAR");
+
+    const validityFormat = `${validityYear}-${validityMonth}-${validityDay}`;
+    const todayFormat = `${todayYear}-${todayMonth}-${todayDay}`;
+
+    const checkValidity = new Date(validityFormat);
+    const checkToday = new Date(todayFormat);
+
+    const timeStampValidity = checkValidity.getTime();
+    const timeStampToday = checkToday.getTime();
+
+    if (timeStampValidity < timeStampToday) {
+      // validity is before today (expired)
+      console.log("validity is before today");
+
+      // toast.error("Validity is expired");
+      return "Validity is expired";
+    } else if (timeStampValidity > timeStampToday) {
+      // validity is after today (available)
+      console.log("validity is after today");
+
+      const validity = validityFormat.split("-").reverse().join("-");
+      return validity;
+    } else {
+      console.log("validity and today are the same");
+      // toast.info("Validity will be expired tomorrow");
+      return "Validity will be expired tomorrow";
+    }
+  };
+
   //   create a object to transfer data into various components
   const userInfo = {
     updateUserInfoInLocalStorage,
@@ -286,6 +345,7 @@ const AuthProvider = ({ children }) => {
     alertToTransferDataIntoDepartment,
     getSubmitApplicationData,
     getAllDraftApplicationData,
+    checkLicenseExpirationOfLtp,
     handleLogOut,
   };
 

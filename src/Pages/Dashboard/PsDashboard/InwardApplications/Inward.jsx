@@ -25,7 +25,9 @@ const Inward = () => {
   const { data, refetch, isLoading, isError, isSuccess } = useQuery(
     ["allInwardApplications"],
     async () => {
-      const response = await fetch(`http://localhost:5000/submitApplications`);
+      const response = await fetch(
+        `https://residential-building.vercel.app/submitApplications`
+      );
       return await response.json();
     }
   );
@@ -123,8 +125,8 @@ const Inward = () => {
           </div>
         </form>
       )}
-      <div className="w-full overflow-x-auto">
-        <table className="table">
+      <div className="w-full overflow-x-auto my-10">
+        <table className="table dark:text-white">
           {/* head */}
           <thead>
             <tr className="bg-[#2d3436] text-xs md:text-sm text-white hover:bg-[#353b48]">
