@@ -20,6 +20,8 @@ const DocumentUpload = () => {
   const [PreviousDefaultDocumentData, setPreviousDefaultDocumentData] = useState([]);
   const [UpdatedDynamicDocumentData, setUpdatedDynamicDocumentData] = useState([]);
   const [sendingDocument, setSendingDocument] = useState([]);
+  const [DefaultData, setDefaultData] = useState([]);
+  const [DynamicData, setDynamicData] = useState([]);
   const {
     confirmAlert,
     sendUserDataIntoDB,
@@ -31,7 +33,7 @@ const DocumentUpload = () => {
   const role = userInfoFromLocalStorage().role;
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
-  const handleFileChange = (event, id, uploadedFiles, type, uploadId) => {
+  const handleFileChange = (event, id, uploadedFile, type, uploadId) => {
     // Destructure variables from the event object
     const { files, name } = event.target;
     const file = files[0];
@@ -40,17 +42,14 @@ const DocumentUpload = () => {
       toast.success(`${file.name.slice(0, 20)}... Uploaded Successfully`);
     }
 
-    // Create a copy of the uploadedFiles state
-    const updatedUploadedFiles = { ...uploadedFiles };
-    console.log(updatedUploadedFiles,"UploadedFiles")
-    if (type === "default") {
-      const data = { id, uploadId }
+    if (type === "dynamic") {
+      setDynamicData((prev) => [...prev, { id, uploadId, uploadedFile }])
+    } else {
+      setDefaultData((prev) => [...prev, { id, uploadedFile }])
     }
-
-
-    const finalFormat = { "default": [], "dynamic": [] }
+    console.log({ "default": DefaultData, "dynamic": DynamicData }, "console_logito")
     // Store the updatedUploadedFiles in state
-    setSendingDocument(updatedUploadedFiles);
+    setSendingDocument({ "default": DefaultData, "dynamic": DynamicData });
   };
 
 
