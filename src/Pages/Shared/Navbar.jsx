@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import UserImg from "../../assets/images//user.png";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-import Logo from "../../assets/images/logo.png";
 import { FiSun } from "react-icons/fi";
 import { MdOutlineDarkMode } from "react-icons/md";
 
