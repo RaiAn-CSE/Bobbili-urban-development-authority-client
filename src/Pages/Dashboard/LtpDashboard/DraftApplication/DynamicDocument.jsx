@@ -7,7 +7,7 @@ function DynamicDocument({ UpdatedDynamicDocumentData, role, handleFileChange, g
   const someEventHandler = (event, id, uploadId) => {
     const file = event?.target.files[0];
     selectedFiles[id] = file;
-    handleFileChange(event, id, file, "dynamic", uploadId);
+    handleFileChange(event, id, selectedFiles, "dynamic", uploadId);
   };
   
   return (
@@ -29,7 +29,7 @@ function DynamicDocument({ UpdatedDynamicDocumentData, role, handleFileChange, g
                       </div>
                       {role === "LTP" && (
                         <input
-                          name={uploadId}
+                          name={id}
                           type="file"
                           accept=".pdf, image/*"
                           onChange={(event) => someEventHandler(event, id, uploadId)}

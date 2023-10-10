@@ -42,21 +42,41 @@ const DocumentUpload = () => {
     }
 
     if (type === "dynamic") {
-      const alreadyIndexed = DynamicData.findIndex(data => data.id == id)
-      setSendingDocument({ default: DefaultData, dynamic: [...DynamicData, { id, uploadId, file }] });
-      setDynamicData((prev) => {
-        return [...prev, { id, uploadId, file }]
-      });
+      const alreadyIndexed = DynamicData.findIndex((data) => data.id == id);
 
+      if (alreadyIndexed !== -1) {
+        // If an item with the same id exists, update the file property
+        const updatedDynamicData = [...DynamicData];
+        updatedDynamicData[alreadyIndexed].file = file;
+
+        setSendingDocument({ default: DefaultData, dynamic: updatedDynamicData });
+        setDynamicData(updatedDynamicData);
+      } else {
+        // If no item with the same id exists, add a new item
+        setSendingDocument({ default: DefaultData, dynamic: [...DynamicData, { id, uploadId, file }] });
+        setDynamicData((prev) => [...prev, { id, uploadId, file }]);
+      }
     } else {
-      const alreadyIndexed = DynamicData.findIndex(data => data.id == id)
-      setSendingDocument({ default: [...DefaultData, { id, file }], dynamic: DynamicData });
-      setDefaultData((prev) => {
-        return [...prev, { id, file }];
-      });
+      const alreadyIndexed = DefaultData.findIndex((data) => data.id == id);
+
+      if (alreadyIndexed !== -1) {
+        // If an item with the same id exists, update the file property
+        const updatedDefaultData = [...DefaultData];
+        updatedDefaultData[alreadyIndexed].file = file;
+
+        setSendingDocument({ default: updatedDefaultData, dynamic: DynamicData });
+        setDefaultData(updatedDefaultData);
+      } else {
+        // If no item with the same id exists, add a new item
+        setSendingDocument({ default: [...DefaultData, { id, file }], dynamic: DynamicData });
+        setDefaultData((prev) => [...prev, { id, file }]);
+      }
     }
+    console.log(uploadedFile, "sending Document")
   };
-  console.log(sendingDocument, "sending Document")
+
+  
+  
 
   // Adding checklist Data to Document from server data && Updating Data from server Data
   useEffect(() => {
@@ -82,12 +102,15 @@ const DocumentUpload = () => {
       // if (PreviousDynamicDocument.length) {
       //   setUpdatedDynamicDocumentData([...PreviousDynamicDocument, ...updatedDynamicDocumentsToAdd]);
       // } else {
-        setUpdatedDynamicDocumentData(updatedDynamicDocumentsToAdd);
+      setUpdatedDynamicDocumentData(updatedDynamicDocumentsToAdd);
       // }
     };
     gettingData();
   }, []);
 
+  const handleFileUpload = () => {
+
+  }
 
   // send data to PS DB (Apu vai send PS data from here)
   const sentPsDecision = async (url) => {
@@ -105,8 +128,6 @@ const DocumentUpload = () => {
       psDocumentPageObservation: PSData,
     });
   };
-
-  
   return (
     <div>
       <form
@@ -150,7 +171,7 @@ const DocumentUpload = () => {
         steps={steps}
         stepperData={stepperData}
         confirmAlert={confirmAlert}
-      collectInputFieldData={role === "LTP" ? handleFileUpload : sentPsDecision}
+        collectInputFieldData={role === "LTP" ? handleFileUpload : sentPsDecision}
       />
     </div>
   );
