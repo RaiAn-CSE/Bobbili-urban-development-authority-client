@@ -22,6 +22,19 @@ const SiteInspection = () => {
   const [decision, setDecision] = useState("");
   const [recommendations, setRecommendations] = useState("");
 
+  // Selector field in site inspection page
+  const [approachRoadApp, setApproachRoadApp] = useState('');
+
+  const handleApproachRoadApp = (e) => {
+    setApproachRoadApp(e.target.value);
+  }
+
+  const [approachRoadObs, setApproachRoadObs] = useState('');
+
+  const handleApproachRoadObs = (e) => {
+    setApproachRoadObs(e.target.value);
+  }
+
 
   useEffect(() => {
     const getData = async () => {
@@ -538,10 +551,10 @@ const SiteInspection = () => {
                     /> */}
                     <div className="flex flex-col justify-center">
                       <select
-                        id="natureOfRoad"
+                        id="approachRoadApp"
                         className='input rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600'
-                      // value={natureOfRoadValue ? natureOfRoadValue : natureOfRoad}
-                      // onChange={handleNatureOfRoad}
+                        value={approachRoadApp ? approachRoadApp : accessRoad?.approachRoad?.[0]}
+                        onChange={handleApproachRoadApp}
                       >
                         <option value='Private'>Private</option>
                         <option selected value='Public'>Public</option>
@@ -558,12 +571,12 @@ const SiteInspection = () => {
                     /> */}
                     <div className="flex flex-col justify-center">
                       <select
-                        id="natureOfRoad"
+                        id="approachRoadObs"
                         className='input rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600'
-                      // value={natureOfRoadValue ? natureOfRoadValue : natureOfRoad}
-                      // onChange={handleNatureOfRoad}
+                        value={approachRoadObs ? approachRoadObs : accessRoad?.approachRoad?.[1]}
+                        onChange={handleApproachRoadObs}
                       >
-                        <option selected value='Private'>Select option</option>
+                        <option selected disabled value='Select option'>Select option</option>
                         <option value='Private'>Private</option>
                         <option value='Public'>Public</option>
                       </select>

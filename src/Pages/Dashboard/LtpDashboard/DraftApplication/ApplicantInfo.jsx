@@ -55,8 +55,8 @@ const ApplicantInfo = () => {
     const ltpPhoneNo = document.getElementById("ltpPhoneNo").value;
     const ltpEmail = document.getElementById("ltpEmail").value;
     // const ltpAddress = document.getElementById("ltpAddress").value;
-    const ltpRoadNo = document.getElementById("ltpRoadNo").value;
-    const ltpStreetNo = document.getElementById("ltpStreetNo").value;
+    const ltpDoorNo = document.getElementById("ltpDoorNo").value;
+    const ltpStreetName = document.getElementById("ltpStreetName").value;
 
     const ownerDetail = totalApplicant.map((applicant, index) => {
       return {
@@ -66,7 +66,7 @@ const ApplicantInfo = () => {
         email: document.getElementById(`applicantEmail${index}`).value,
         adharNo: document.getElementById(`applicantAadharNo${index}`).value,
         pinCode: document.getElementById(`applicantPinCode${index}`).value,
-        ownerRoadNo: document.getElementById(`ownerRoadNo${index}`).value,
+        ownerDoorNo: document.getElementById(`ownerDoorNo${index}`).value,
         ownerStreetNo: document.getElementById(`ownerStreetNo${index}`).value,
         // address: document.getElementById(`applicantAddress${index}`).value,
       };
@@ -80,8 +80,8 @@ const ApplicantInfo = () => {
       phoneNo: ltpPhoneNo,
       email: ltpEmail,
       // address: ltpAddress,
-      ltpRoadNo,
-      ltpStreetNo,
+      ltpDoorNo,
+      ltpStreetName,
     };
 
     const applicantInfo = {
@@ -101,7 +101,7 @@ const ApplicantInfo = () => {
   // console.log(ltpDetails, 'ltpDetails');
   // console.log(applicantDetails, 'applicantDetails');
 
-  const { type, name, ltpRoadNo, ltpStreetNo, email, licenseNo, phoneNo, validity } =
+  const { type, name, ltpDoorNo, ltpStreetName, email, licenseNo, phoneNo, validity } =
     ltpDetails;
   // const { identity, adharNo, pinCode, } = applicantDetails;
 
@@ -152,20 +152,20 @@ const ApplicantInfo = () => {
             ltpDetails={name}
           />
           <InputField
-            id="ltpRoadNo"
-            name="ltpRoadNo"
-            label="Road no"
-            placeholder="Road no"
+            id="ltpDoorNo"
+            name="ltpDoorNo"
+            label="Door no"
+            placeholder="Door no"
             type="text"
-            ltpDetails={ltpRoadNo}
+            ltpDetails={ltpDoorNo}
           />
           <InputField
-            id="ltpStreetNo"
-            name="ltpStreetNo"
-            label="Street no"
-            placeholder="Street no"
+            id="ltpStreetName"
+            name="ltpStreetName"
+            label="Street name"
+            placeholder="Street name"
             type="text"
-            ltpDetails={ltpStreetNo}
+            ltpDetails={ltpStreetName}
           />
           <InputField
             id="licenseNo"
