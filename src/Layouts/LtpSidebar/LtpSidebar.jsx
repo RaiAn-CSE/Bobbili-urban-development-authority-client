@@ -5,7 +5,6 @@ import { BiCheckDouble, BiSolidImageAdd } from "react-icons/bi";
 import { CgDanger } from "react-icons/cg";
 import { BsSendCheckFill } from "react-icons/bs";
 import { AiOutlineForm } from "react-icons/ai";
-import sidebarStyle from "../../Style/dashboardSidebar.module.css";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const LtpSidebar = () => {
@@ -48,8 +47,8 @@ const LtpSidebar = () => {
             path === "/dashboard/draftApplication/documents" ||
             path === "/dashboard/draftApplication/drawing" ||
             path === "/dashboard/draftApplication/payment") &&
-          decideActiveColor()
-        } flex items-center ps-4 ${decideHoverColor()}  mb-1`}
+          activeColor
+        } flex items-center ps-4 ${hoverColor}  mb-1`}
       >
         <span>
           <BiSolidImageAdd size={22} />
@@ -64,8 +63,8 @@ const LtpSidebar = () => {
 
       <li
         className={`${
-          path === "/dashboard/submitApplication" && decideActiveColor()
-        } flex items-center ps-4 ${decideHoverColor()}  mb-1`}
+          path === "/dashboard/submitApplication" && activeColor
+        } flex items-center ps-4 ${hoverColor}  mb-1`}
       >
         <span>
           <BsSendCheckFill size={19} />
@@ -80,8 +79,8 @@ const LtpSidebar = () => {
 
       <li
         className={`${
-          path === "/dashboard/approvedApplication" && decideActiveColor()
-        } flex items-center ps-4 ${decideHoverColor()}  mb-1`}
+          path === "/dashboard/approvedApplication" && activeColor
+        } flex items-center ps-4 ${hoverColor}  mb-1`}
       >
         <span>
           <BiCheckDouble size={23} />
@@ -96,8 +95,8 @@ const LtpSidebar = () => {
 
       <li
         className={`${
-          path === "/dashboard/shortfallApplication" && decideActiveColor()
-        } flex items-center ps-4 ${decideHoverColor()}  mb-1`}
+          path === "/dashboard/shortfallApplication" && activeColor
+        } flex items-center ps-4 ${hoverColor}  mb-1`}
       >
         <span>
           <AiOutlineForm size={20} />
@@ -110,7 +109,7 @@ const LtpSidebar = () => {
         </Link>
       </li>
 
-      <li className={`flex items-center ps-4 ${decideHoverColor()}  mb-1`}>
+      <li className={`flex items-center ps-4 ${hoverColor}  mb-1`}>
         <span>
           <CgDanger size={22} />
         </span>
@@ -119,7 +118,7 @@ const LtpSidebar = () => {
         </Link>
       </li>
 
-      <li className={`mt-5 flex items-center ps-4 ${decideHoverColor()}  mb-1`}>
+      <li className={`mt-5 flex items-center ps-4 ${hoverColor}  mb-1`}>
         <span>
           <MdOutlineLogout size={22} />
         </span>
