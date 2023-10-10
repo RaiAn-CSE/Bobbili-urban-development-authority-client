@@ -28,7 +28,7 @@ const ShowCharts = () => {
     ],
   });
   return (
-    <div className="flex justify-around items-center p-0">
+    <div className="flex justify-around items-center p-0 dark:text-white">
       <div className="w-[45%] overflow-hidden">
         <BarChart chartData={chartData} />
       </div>
