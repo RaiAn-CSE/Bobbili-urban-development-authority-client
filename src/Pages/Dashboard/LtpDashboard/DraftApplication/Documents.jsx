@@ -19,7 +19,7 @@ const DocumentUpload = () => {
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
   const [PreviousDefaultDocumentData, setPreviousDefaultDocumentData] = useState([]);
   const [UpdatedDynamicDocumentData, setUpdatedDynamicDocumentData] = useState([]);
-  const [sendingDocument, setSendingDocument] = useState([]);
+  const [sendingDocument, setSendingDocument] = useState({ dynamic: [], default: [] })
   const [DefaultData, setDefaultData] = useState([]);
   const [DynamicData, setDynamicData] = useState([]);
   const {
@@ -43,9 +43,25 @@ const DocumentUpload = () => {
     }
 
     if (type === "dynamic") {
-      setDynamicData((prev) => [...prev, { id, uploadId, uploadedFile }])
+      setDynamicData((prev) => {
+        const alredayIndexed = DynamicData.findIndex(data => data.id === id);
+        if (alredayIndexed) {
+          toast.success("alreadyIndexed")
+          return DynamicData[alredayIndexed] = { id, uploadId, uploadedFile }
+        } else {
+          return [...prev, { id, uploadId, uploadedFile }]
+        }
+      })
     } else {
-      setDefaultData((prev) => [...prev, { id, uploadedFile }])
+      setDefaultData((prev) => {
+        const alredayIndexed = DefaultData.findIndex(data => data.id === id);
+        if (alredayIndexed) {
+          toast.success("alreadyIndexed")
+          return DynamicData[alredayIndexed] = { id, uploadedFile }
+        } else {
+          return [...prev, { id, uploadedFile }]
+        }
+      })
     }
     console.log({ "default": DefaultData, "dynamic": DynamicData }, "console_logito")
     // Store the updatedUploadedFiles in state
