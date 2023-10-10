@@ -42,12 +42,14 @@ const DocumentUpload = () => {
     }
 
     if (type === "dynamic") {
+      const alreadyIndexed=DynamicData.findIndex(data=>data.id==id)
       setSendingDocument({ default: DefaultData, dynamic: [...DynamicData, { id, uploadId, file }] });
       setDynamicData((prev) => {
         return [...prev, { id, uploadId, file }]
       });
 
     } else {
+      const alreadyIndexed=DynamicData.findIndex(data=>data.id==id)
       setSendingDocument({ default: [...DefaultData, { id, file }], dynamic: DynamicData });
       setDefaultData((prev) => {
         return [...prev, { id, file }];
