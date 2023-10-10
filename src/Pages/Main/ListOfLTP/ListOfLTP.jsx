@@ -89,9 +89,9 @@ const ListOfLTP = () => {
       {/* Location details  */}
       <div className="divide-y-2 divide-gray-200 mt-5 font-roboto">
         <div className="overflow-x-auto">
-          <table className="table">
+          <table className="table text-center">
             {/* head */}
-            <thead className={`text-sm text-black bg-fuchsia-300`}>
+            <thead className={`text-base text-black bg-indigo-300`}>
               <tr>
                 <th>Name</th>
                 <th>User name</th>
