@@ -42,14 +42,14 @@ const DocumentUpload = () => {
     }
 
     if (type === "dynamic") {
-      const alreadyIndexed=DynamicData.findIndex(data=>data.id==id)
+      const alreadyIndexed = DynamicData.findIndex(data => data.id == id)
       setSendingDocument({ default: DefaultData, dynamic: [...DynamicData, { id, uploadId, file }] });
       setDynamicData((prev) => {
         return [...prev, { id, uploadId, file }]
       });
 
     } else {
-      const alreadyIndexed=DynamicData.findIndex(data=>data.id==id)
+      const alreadyIndexed = DynamicData.findIndex(data => data.id == id)
       setSendingDocument({ default: [...DefaultData, { id, file }], dynamic: DynamicData });
       setDefaultData((prev) => {
         return [...prev, { id, file }];
@@ -57,15 +57,15 @@ const DocumentUpload = () => {
     }
   };
   console.log(sendingDocument, "sending Document")
-  // console.log(DefaultDocumentSelectedFiles,DynamicDocumentSelectedFiles,"Default&Dynamic")
+
   // Adding checklist Data to Document from server data && Updating Data from server Data
   useEffect(() => {
     const gettingData = async () => {
       let updatedDynamicDocumentsToAdd = [];
       const applicationData = await getApplicationData(applicationNo);
       const applicationCheckList = applicationData.applicationCheckList;
-      // setPreviousDefaultDocumentData(applicationData.documents);
-      const PreviousDynamicDocuments = applicationData.documents;
+      // setPreviousDefaultDocumentData(applicationData.documents.default);
+      // const PreviousDynamicDocument = applicationData.documents.dynamic;
 
       // Checklist "yes" Data integrating to Document
       if (applicationCheckList.length) {
@@ -79,7 +79,11 @@ const DocumentUpload = () => {
           });
         });
       }
-      setUpdatedDynamicDocumentData(updatedDynamicDocumentsToAdd);
+      // if (PreviousDynamicDocument.length) {
+      //   setUpdatedDynamicDocumentData([...PreviousDynamicDocument, ...updatedDynamicDocumentsToAdd]);
+      // } else {
+        setUpdatedDynamicDocumentData(updatedDynamicDocumentsToAdd);
+      // }
     };
     gettingData();
   }, []);
