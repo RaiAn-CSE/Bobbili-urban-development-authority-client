@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { MdOutlineLogout, MdSpaceDashboard } from "react-icons/md";
 import { BiCheckDouble, BiSolidImageAdd } from "react-icons/bi";
@@ -11,40 +11,25 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 const LtpSidebar = () => {
   const path = useLocation().pathname;
 
-  const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
+  const { handleLogOut, decideActiveColor, decideHoverColor, isDark } =
+    useContext(AuthContext);
 
-  const darkActiveColor = "dark:bg-black";
+  const [activeColor, setActiveColor] = useState("");
+  const [hoverColor, setHoverColor] = useState("");
 
-  const theme = localStorage.getItem("theme");
+  useEffect(() => {
+    const getActiveColor = decideActiveColor();
+    const getHoverColor = decideHoverColor();
+    setActiveColor(getActiveColor);
+    setHoverColor(getHoverColor);
+  }, [isDark]);
 
-  const hoverGradientColor =
-    "hover:bg-gradient-to-r hover:from-violet-500 hover:to-fuchsia-500";
-
-  const { handleLogOut } = useContext(AuthContext);
-
-  const decideActiveColor = () => {
-    if (theme === "dark") {
-      return darkActiveColor;
-    } else {
-      return gradientColor;
-    }
-  };
-
-  const decideHoverColor = () => {
-    if (theme === "dark") {
-      return "dark:hover:bg-black";
-    } else {
-      return hoverGradientColor;
-    }
-  };
-
-  // console.log(location);
   return (
     <>
       <li
         className={`${
-          path === "/dashboard" && decideActiveColor()
-        } mt-24 lg:mt-0 flex items-center ps-4 ${decideHoverColor()} mb-1`}
+          path === "/dashboard" && activeColor
+        } mt-24 lg:mt-0 flex items-center ps-4 ${hoverColor} mb-1`}
       >
         <span>
           <MdSpaceDashboard size={20} />

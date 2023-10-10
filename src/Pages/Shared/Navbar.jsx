@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import UserImg from "../../assets/images//user.png";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { FiSun } from "react-icons/fi";
 import { MdOutlineDarkMode } from "react-icons/md";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const Navbar = () => {
   const navigate = useNavigate();
+
+  const { setIsDark } = useContext(AuthContext);
 
   const [theme, setTheme] = useState(localStorage.getItem("theme"));
 
@@ -88,9 +91,21 @@ const Navbar = () => {
 
       <div className="mx-4">
         {theme === "dark" ? (
-          <FiSun size={25} onClick={() => setTheme("light")} />
+          <FiSun
+            size={25}
+            onClick={() => {
+              setTheme("light");
+              setIsDark(0);
+            }}
+          />
         ) : (
-          <MdOutlineDarkMode size={25} onClick={() => setTheme("dark")} />
+          <MdOutlineDarkMode
+            size={25}
+            onClick={() => {
+              setTheme("dark");
+              setIsDark(1);
+            }}
+          />
         )}
       </div>
     </div>

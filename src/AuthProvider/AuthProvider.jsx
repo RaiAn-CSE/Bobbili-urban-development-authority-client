@@ -1,10 +1,12 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import Swal from "sweetalert2";
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
+
+  const [isDark, setIsDark] = useState(0);
 
   // get user information from the localStorage
   const userInfoFromLocalStorage = () => {
@@ -331,6 +333,32 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  // sidebar active & hover color changed on the basis of theme
+  const decideActiveColor = () => {
+    const theme = localStorage.getItem("theme");
+
+    const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
+
+    const darkActiveColor = "dark:bg-black";
+    if (theme === "dark") {
+      return darkActiveColor;
+    } else {
+      return gradientColor;
+    }
+  };
+
+  const decideHoverColor = () => {
+    const theme = localStorage.getItem("theme");
+    console.log(theme, "THEME");
+    const hoverGradientColor =
+      "hover:bg-gradient-to-r hover:from-violet-500 hover:to-fuchsia-500";
+    if (theme === "dark") {
+      return "dark:hover:bg-black";
+    } else {
+      return hoverGradientColor;
+    }
+  };
+
   //   create a object to transfer data into various components
   const userInfo = {
     updateUserInfoInLocalStorage,
@@ -344,6 +372,10 @@ const AuthProvider = ({ children }) => {
     getSubmitApplicationData,
     getAllDraftApplicationData,
     checkLicenseExpirationOfLtp,
+    decideActiveColor,
+    decideHoverColor,
+    setIsDark,
+    isDark,
     handleLogOut,
   };
 
