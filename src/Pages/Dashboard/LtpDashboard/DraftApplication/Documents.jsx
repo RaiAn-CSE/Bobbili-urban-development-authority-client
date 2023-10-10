@@ -34,7 +34,6 @@ const DocumentUpload = () => {
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
   const handleFileChange = (event, id, uploadedFile, type, uploadId) => {
-    // Destructure variables from the event object
     const { files, name } = event.target;
     const file = files[0];
 
@@ -44,32 +43,16 @@ const DocumentUpload = () => {
 
     if (type === "dynamic") {
       setDynamicData((prev) => {
-        const alredayIndexed = DynamicData.findIndex(data => data.id === id);
-        if (alredayIndexed) {
-          toast.success("alreadyIndexed")
-          return DynamicData[alredayIndexed] = { id, uploadId, uploadedFile }
-        } else {
-          return [...prev, { id, uploadId, uploadedFile }]
-        }
-      })
+        return [...prev, { id, uploadId, file }]
+      });
+      setSendingDocument({ default: DefaultData, dynamic: DynamicData });
     } else {
       setDefaultData((prev) => {
-        const alredayIndexed = DefaultData.findIndex(data => data.id === id);
-        if (alredayIndexed) {
-          toast.success("alreadyIndexed")
-          return DynamicData[alredayIndexed] = { id, uploadedFile }
-        } else {
-          return [...prev, { id, uploadedFile }]
-        }
-      })
+        return [...prev, { id, file }];
+      });
+      setSendingDocument({ default: DefaultData, dynamic: DynamicData });
     }
-    console.log({ "default": DefaultData, "dynamic": DynamicData }, "console_logito")
-    // Store the updatedUploadedFiles in state
-    setSendingDocument({ "default": DefaultData, "dynamic": DynamicData });
   };
-
-
-
   console.log(sendingDocument, "sending Document")
   // console.log(DefaultDocumentSelectedFiles,DynamicDocumentSelectedFiles,"Default&Dynamic")
   // Adding checklist Data to Document from server data && Updating Data from server Data

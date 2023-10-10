@@ -17,6 +17,7 @@ function DefaultDocument({ PreviousDefaultDocumentData, role, handleFileChange, 
 
     const someEventHandler = (event, id) => {
         const file = event?.target.files[0];
+        selectedFiles[id] = file;
         handleFileChange(event, id, file, "default");
     };
     return (
