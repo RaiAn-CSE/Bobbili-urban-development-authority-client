@@ -11,12 +11,15 @@ import UdaSidebar from "./UdaSidebar/UdaSidebar";
 const DashboardLayout = () => {
   const currentUser = JSON.parse(localStorage.getItem("loggedUser"));
 
+  const darkGradientColor =
+    "dark:bg-gradient-to-tl dark:from-violet-500 dark:to-fuchsia-500";
+
   return (
     <>
       <Navbar />
-      <div className="drawer lg:drawer-open min-h-[calc(100vh-80vh)] relative transition-all duration-700">
+      <div className="drawer dark:bg-grad lg:drawer-open min-h-[calc(100vh-69px)] relative transition-all duration-700">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle " />
-        <div className="drawer-content h-full lg:drawer-open dark:bg-[#000] ">
+        <div className="drawer-content  lg:drawer-open dark:bg-[#000] ">
           {/* <!-- Page content here --> */}
 
           <label
@@ -27,11 +30,11 @@ const DashboardLayout = () => {
           </label>
           <Outlet></Outlet>
         </div>
-        <div className="drawer-side shadow-md w-full md:min-w-[224px]  z-10 ">
+        <div className="drawer-side shadow-md w-full md:min-w-[240px] h-full z-10 ">
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
 
           <ul
-            className={`w-full md:w-56 min-h-screen bg-black font-roboto font-bold text-xl  md:text-lg text-white pt-10 lg:fixed`}
+            className={`w-full md:w-60 h-full bg-black font-roboto font-bold text-xl  md:text-lg text-white pt-10 lg:fixed ${darkGradientColor}`}
           >
             {/* <!-- Sidebar content here --> */}
             <li className="absolute right-2 top-20 lg:hidden">

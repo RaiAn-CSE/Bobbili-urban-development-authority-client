@@ -13,18 +13,38 @@ const LtpSidebar = () => {
 
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
+  const darkActiveColor = "dark:bg-black";
+
+  const theme = localStorage.getItem("theme");
+
   const hoverGradientColor =
     "hover:bg-gradient-to-r hover:from-violet-500 hover:to-fuchsia-500";
 
   const { handleLogOut } = useContext(AuthContext);
+
+  const decideActiveColor = () => {
+    if (theme === "dark") {
+      return darkActiveColor;
+    } else {
+      return gradientColor;
+    }
+  };
+
+  const decideHoverColor = () => {
+    if (theme === "dark") {
+      return "dark:hover:bg-black";
+    } else {
+      return hoverGradientColor;
+    }
+  };
 
   // console.log(location);
   return (
     <>
       <li
         className={`${
-          path === "/dashboard" && gradientColor
-        } mt-24 lg:mt-0 flex items-center ps-4 ${hoverGradientColor} mb-1`}
+          path === "/dashboard" && decideActiveColor()
+        } mt-24 lg:mt-0 flex items-center ps-4 ${decideHoverColor()} mb-1`}
       >
         <span>
           <MdSpaceDashboard size={20} />
@@ -43,8 +63,8 @@ const LtpSidebar = () => {
             path === "/dashboard/draftApplication/documents" ||
             path === "/dashboard/draftApplication/drawing" ||
             path === "/dashboard/draftApplication/payment") &&
-          gradientColor
-        } flex items-center ps-4 ${hoverGradientColor}  mb-1`}
+          decideActiveColor()
+        } flex items-center ps-4 ${decideHoverColor()}  mb-1`}
       >
         <span>
           <BiSolidImageAdd size={22} />
@@ -59,8 +79,8 @@ const LtpSidebar = () => {
 
       <li
         className={`${
-          path === "/dashboard/submitApplication" && gradientColor
-        } flex items-center ps-4 ${hoverGradientColor}  mb-1`}
+          path === "/dashboard/submitApplication" && decideActiveColor()
+        } flex items-center ps-4 ${decideHoverColor()}  mb-1`}
       >
         <span>
           <BsSendCheckFill size={19} />
@@ -75,8 +95,8 @@ const LtpSidebar = () => {
 
       <li
         className={`${
-          path === "/dashboard/approvedApplication" && gradientColor
-        } flex items-center ps-4 ${hoverGradientColor}  mb-1`}
+          path === "/dashboard/approvedApplication" && decideActiveColor()
+        } flex items-center ps-4 ${decideHoverColor()}  mb-1`}
       >
         <span>
           <BiCheckDouble size={23} />
@@ -91,8 +111,8 @@ const LtpSidebar = () => {
 
       <li
         className={`${
-          path === "/dashboard/shortfallApplication" && gradientColor
-        } flex items-center ps-4 ${hoverGradientColor}  mb-1`}
+          path === "/dashboard/shortfallApplication" && decideActiveColor()
+        } flex items-center ps-4 ${decideHoverColor()}  mb-1`}
       >
         <span>
           <AiOutlineForm size={20} />
@@ -105,7 +125,7 @@ const LtpSidebar = () => {
         </Link>
       </li>
 
-      <li className={`flex items-center ps-4 ${hoverGradientColor}  mb-1`}>
+      <li className={`flex items-center ps-4 ${decideHoverColor()}  mb-1`}>
         <span>
           <CgDanger size={22} />
         </span>
@@ -114,7 +134,7 @@ const LtpSidebar = () => {
         </Link>
       </li>
 
-      <li className={`mt-5 flex items-center ps-4 ${hoverGradientColor}  mb-1`}>
+      <li className={`mt-5 flex items-center ps-4 ${decideHoverColor()}  mb-1`}>
         <span>
           <MdOutlineLogout size={22} />
         </span>
