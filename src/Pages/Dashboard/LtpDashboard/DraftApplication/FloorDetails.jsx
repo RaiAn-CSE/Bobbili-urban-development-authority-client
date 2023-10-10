@@ -34,10 +34,10 @@ const FloorDetails = ({
           <option disabled selected value="Select Floor Name">
             Select Floor Name
           </option>
-          <option>Stilt / Parking Floor</option>
-          <option>Ground floor</option>
-          <option>First Floor</option>
-          <option>Second Floor</option>
+          <option value='Stilt / Parking Floor'>Stilt / Parking Floor</option>
+          <option value='Ground floor'>Ground floor</option>
+          <option value='First Floor'>First Floor</option>
+          <option value='Second Floor'>Second Floor</option>
         </select>
       </div>
 

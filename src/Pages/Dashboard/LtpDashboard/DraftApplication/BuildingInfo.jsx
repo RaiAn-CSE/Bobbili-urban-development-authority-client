@@ -1090,7 +1090,6 @@ const BuildingInfo = () => {
                 <select
                   id="natureOfRoad"
                   className={inputClass}
-                  // value={natureOfRoad}
                   value={natureOfRoadValue ? natureOfRoadValue : natureOfRoad}
                   onChange={handleNatureOfRoad}
                 >

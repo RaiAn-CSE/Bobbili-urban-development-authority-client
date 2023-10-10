@@ -3,6 +3,7 @@ import SaveData from "../../LtpDashboard/DraftApplication/SaveData";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import { useOutletContext } from "react-router-dom";
 import toast from "react-hot-toast";
+import ImageUploadInput from "./ImageUploadInput";
 
 const SiteInspection = () => {
   const { confirmAlert, sendUserDataIntoDB, getApplicationData } =
@@ -21,10 +22,6 @@ const SiteInspection = () => {
   const [decision, setDecision] = useState("");
   const [recommendations, setRecommendations] = useState("");
 
-  const tableDataClass =
-    "whitespace-nowrap border-r px-6 py-4 border-neutral-500";
-  const inputClass = "input rounded-none w-full max-w-xs focus:outline-none";
-  const inputTableDataClass = "whitespace-nowrap border-r border-neutral-500";
 
   useEffect(() => {
     const getData = async () => {
@@ -213,8 +210,14 @@ const SiteInspection = () => {
     return await response.json();
   };
 
+
+  const tableDataClass =
+    "whitespace-nowrap border-r px-6 py-4 border-neutral-500";
+  const inputClass = "input rounded-none w-full max-w-xs focus:outline-none dark:text-black";
+  const inputTableDataClass = "whitespace-nowrap border-r border-neutral-500";
+
   return (
-    <div className="flex flex-col sm:px-6 lg:px-8">
+    <div className="flex flex-col sm:px-6 lg:px-8 dark:text-gray-100">
       <div className="overflow-x-auto">
         <div className="inline-block min-w-full py-2">
           <div className="overflow-hidden">
@@ -359,86 +362,107 @@ const SiteInspection = () => {
                 </tr>
                 <tr className="border-b border-neutral-500">
                   <td className={tableDataClass}>North</td>
-                  <td className={inputTableDataClass}>
-                    <input
+                  <td className='whitespace-nowrap border-r border-neutral-500'>
+                    {/* <input
                       id="northApp"
                       type="text"
                       defaultValue={siteBoundaries?.north?.[0]}
                       placeholder="Yes/No"
-                      className={inputClass}
+                      className='input rounded-none w-full max-w-xs focus:outline-none'
+                    /> */}
+
+                    <ImageUploadInput
+                      id='northApp'
                     />
+
                   </td>
                   <td className={inputTableDataClass}>
-                    <input
+                    {/* <input
                       id="northObs"
                       type="text"
                       defaultValue={siteBoundaries?.north?.[1]}
                       placeholder="Yes/No"
                       className={inputClass}
+                    /> */}
+
+                    <ImageUploadInput
+                      id='northObs'
                     />
+
                   </td>
                 </tr>
                 <tr className="border-b border-neutral-500">
                   <td className={tableDataClass}>South</td>
                   <td className={inputTableDataClass}>
-                    <input
+                    {/* <input
                       id="southApp"
                       type="text"
                       defaultValue={siteBoundaries?.south?.[0]}
                       placeholder="Yes/No"
                       className={inputClass}
+                    /> */}
+                    <ImageUploadInput
+                      id='southApp'
                     />
+
                   </td>
                   <td className={inputTableDataClass}>
-                    <input
+                    {/* <input
                       id="southObs"
                       type="text"
                       defaultValue={siteBoundaries?.south?.[1]}
                       placeholder="Yes/No"
                       className={inputClass}
+                    /> */}
+                    <ImageUploadInput
+                      id='southObs'
                     />
                   </td>
                 </tr>
                 <tr className="border-b border-neutral-500">
                   <td className={tableDataClass}>East</td>
                   <td className={inputTableDataClass}>
-                    <input
+                    {/* <input
                       id="eastApp"
                       type="text"
                       defaultValue={siteBoundaries?.east?.[0]}
                       placeholder="Yes/No"
                       className={inputClass}
-                    />
+                    /> */}
+                    <ImageUploadInput id='eastApp' />
                   </td>
                   <td className={inputTableDataClass}>
-                    <input
+                    {/* <input
                       id="eastObs"
                       type="text"
                       defaultValue={siteBoundaries?.east?.[1]}
                       placeholder="Yes/No"
                       className={inputClass}
-                    />
+                    /> */}
+                    <ImageUploadInput id='eastObs' />
                   </td>
                 </tr>
                 <tr className="border-b border-neutral-500">
                   <td className={tableDataClass}>West</td>
                   <td className={inputTableDataClass}>
-                    <input
+                    {/* <input
                       id="westApp"
                       type="text"
                       defaultValue={siteBoundaries?.west?.[0]}
                       placeholder="Yes/No"
                       className={inputClass}
-                    />
+                    /> */}
+                    <ImageUploadInput id='westApp' />
                   </td>
                   <td className={inputTableDataClass}>
-                    <input
+                    {/* <input
                       id="westObs"
                       type="text"
                       defaultValue={siteBoundaries?.west?.[1]}
                       placeholder="Yes/No"
                       className={inputClass}
-                    />
+                    /> */}
+                    <ImageUploadInput id='westObs' />
                   </td>
                 </tr>
                 <tr className="border-b border-neutral-500">
@@ -505,22 +529,45 @@ const SiteInspection = () => {
                 <tr className="border-b border-neutral-500">
                   <td className={tableDataClass}>Status of Approach Road</td>
                   <td className={inputTableDataClass}>
-                    <input
+                    {/* <input
                       id="approachRoadApp"
                       type="text"
                       defaultValue={accessRoad?.approachRoad?.[0]}
                       placeholder="Public"
                       className={inputClass}
-                    />
+                    /> */}
+                    <div className="flex flex-col justify-center mx-3">
+                      <select
+                        id="natureOfRoad"
+                        className='w-full px-3 py-[10px] border border-violet-500 max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200'
+                      // value={natureOfRoadValue ? natureOfRoadValue : natureOfRoad}
+                      // onChange={handleNatureOfRoad}
+                      >
+                        <option value='Private'>Private</option>
+                        <option selected value='Public'>Public</option>
+                      </select>
+                    </div>
                   </td>
                   <td className={inputTableDataClass}>
-                    <input
+                    {/* <input
                       id="approachRoadObs"
                       type="text"
                       defaultValue={accessRoad?.approachRoad?.[1]}
                       placeholder="Public/Private"
                       className={inputClass}
-                    />
+                    /> */}
+                    <div className="flex flex-col justify-center mx-3">
+                      <select
+                        id="natureOfRoad"
+                        className='w-full px-3 py-[10px] border border-violet-500 max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200'
+                      // value={natureOfRoadValue ? natureOfRoadValue : natureOfRoad}
+                      // onChange={handleNatureOfRoad}
+                      >
+                        <option selected value='Private'>Select option</option>
+                        <option value='Private'>Private</option>
+                        <option value='Public'>Public</option>
+                      </select>
+                    </div>
                   </td>
                 </tr>
                 <tr className="border-b border-neutral-500">
