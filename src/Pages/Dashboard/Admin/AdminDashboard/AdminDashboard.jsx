@@ -1,13 +1,12 @@
 import React from "react";
-import { Outlet } from "react-router";
 import ShowCharts from "../../../Shared/ShowCharts";
 
-function PsDashboard() {
+const AdminDashboard = () => {
   return (
     <>
       <ShowCharts />
     </>
   );
-}
+};
 
-export default PsDashboard;
+export default AdminDashboard;
