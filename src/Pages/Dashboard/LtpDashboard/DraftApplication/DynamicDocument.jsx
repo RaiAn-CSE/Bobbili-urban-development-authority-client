@@ -11,7 +11,7 @@ function DynamicDocument({ UpdatedDynamicDocumentData, role, handleFileChange, g
   };
   
   return (
-    <div>
+    <div className="dark:text-white">
       {UpdatedDynamicDocumentData?.map((document, index) => {
         const { id, question, requirements } = document;
         return (

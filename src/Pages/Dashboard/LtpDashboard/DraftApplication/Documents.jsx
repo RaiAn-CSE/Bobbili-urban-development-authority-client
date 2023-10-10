@@ -102,7 +102,7 @@ const DocumentUpload = () => {
     });
   };
   return (
-    <div>
+    <div className="dark:text-white">
       <form
         onSubmit={(e) => {
           e.preventDefault();

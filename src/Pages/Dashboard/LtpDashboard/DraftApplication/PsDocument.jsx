@@ -2,7 +2,7 @@ import React from 'react'
 
 function PsDocument({ role }) {
     return (
-        <div>
+        <div className='dark:text-white'>
             <div className="flex items-center mt-6">
                 {/* Approved Button */}
                 {role === "PS" && (

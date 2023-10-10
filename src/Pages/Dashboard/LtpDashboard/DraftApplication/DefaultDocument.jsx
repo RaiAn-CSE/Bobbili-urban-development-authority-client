@@ -21,7 +21,7 @@ function DefaultDocument({ PreviousDefaultDocumentData, role, handleFileChange, 
         handleFileChange(event, id, selectedFiles, "default");
     };
     return (
-        <div>
+        <div className="dark:text-white">
             {UpdatedDefaultData?.map((data, index) => {
                 const { id, question, approved, upload } = data;
                 return (

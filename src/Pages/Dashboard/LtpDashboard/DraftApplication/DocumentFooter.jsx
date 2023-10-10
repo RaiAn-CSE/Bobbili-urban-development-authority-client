@@ -8,7 +8,7 @@ function DocumentFooter({ approvedConfirmation,setApprovedConfirmation, setRecom
     }
     const path="LTP"
     return (
-        <div>
+        <div className="dark:text-white">
             <div className="lg:ml-6">
                 {/* Approved Buttons */}
                 <div className="space-x-14 mb-7">
