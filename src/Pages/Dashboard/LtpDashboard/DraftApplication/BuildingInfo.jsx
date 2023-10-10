@@ -331,6 +331,12 @@ const BuildingInfo = () => {
     setRadio5(e.target.value);
   };
 
+  // const getValue = () => {
+  //   const runningMeterData = document.getElementById("runningMeter");
+  //   const runningMeter = runningMeterData ? runningMeterData.value : "";
+  //   console.log(runningMeter, "Running meter");
+  // };
+
   // get data from input field :
   const collectInputFieldData = async (url) => {
     // ==================================================<<<(General Information)>>>:
@@ -421,8 +427,10 @@ const BuildingInfo = () => {
     const compoundingWallProposed =
       document.querySelector('input[name="radio-4"]:checked')?.value || "";
     // runningMeter
-    // const runningMeterData = document.getElementById('runningMeter');
-    // const runningMeter = runningMeterData ? runningMeterData.value : '';
+    const runningMeterData = document.getElementById("runningMeter");
+    const runningMeter = runningMeterData ? runningMeterData.value : "";
+
+    console.log(runningMeter, "Running meter");
 
     const siteRegistered =
       document.querySelector('input[name="radio-5"]:checked')?.value || "";
@@ -1246,7 +1254,8 @@ const BuildingInfo = () => {
                     <span className="ml-2 text-base">No</span>
                   </label>
                 </div>
-                {/* {radio4 === "yes" || compoundingWallProposed === "yes" ? (
+
+                {radio4 === "yes" || compoundingWallProposed === "yes" ? (
                   <InputField
                     id="runningMeter"
                     name="runningMeter"
@@ -1254,7 +1263,7 @@ const BuildingInfo = () => {
                     placeholder="Running meter"
                     ltpDetails={runningMeter}
                   />
-                ) : null} */}
+                ) : null}
               </div>
 
               <div className="flex flex-col md:flex-row font-medium mb-4 text-lg mt-4">
