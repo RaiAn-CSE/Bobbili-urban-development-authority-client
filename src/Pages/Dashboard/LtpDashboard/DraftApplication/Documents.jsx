@@ -35,28 +35,26 @@ const DocumentUpload = () => {
     // Destructure variables from the event object
     const { files, name } = event.target;
     const file = files[0];
-  
+
     if (file) {
       toast.success(`${file.name.slice(0, 20)}... Uploaded Successfully`);
     }
-  
-    // Create arrays to store dynamic and default data
-    const dynamicData = [];
-    const defaultData = [];
-  
-    // Create the object based on the type
-    if (type === "dynamic") {
-      dynamicData.push({ id, uploadId, file });
-    } else {
-      defaultData.push({ id, file });
+
+    // Create a copy of the uploadedFiles state
+    const updatedUploadedFiles = { ...uploadedFiles };
+    console.log(updatedUploadedFiles,"UploadedFiles")
+    if (type === "default") {
+      const data = { id, uploadId }
     }
-  
-    console.log("Dynamic Data:", dynamicData);
-    console.log("Default Data:", defaultData);
-  
-    // Depending on your use case, you might want to store these arrays in state or take further actions.
+
+
+    const finalFormat = { "default": [], "dynamic": [] }
+    // Store the updatedUploadedFiles in state
+    setSendingDocument(updatedUploadedFiles);
   };
-  
+
+
+
   console.log(sendingDocument, "sending Document")
   // console.log(DefaultDocumentSelectedFiles,DynamicDocumentSelectedFiles,"Default&Dynamic")
   // Adding checklist Data to Document from server data && Updating Data from server Data
