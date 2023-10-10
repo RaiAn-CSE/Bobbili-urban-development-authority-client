@@ -402,6 +402,8 @@ const BuildingInfo = () => {
     const existingRoadMts = document.getElementById("existingRoadMts").value;
     const proposedRoadMts = document.getElementById("proposedRoadMts").value;
     const marketValueSqym = document.getElementById("marketValueSqym").value;
+    const vacantLand = document.getElementById("vacantLand").value;
+    const noOfUnits = document.getElementById("noOfUnits").value;
 
     // console.log(totalFloor, "totalFloor");
 
@@ -420,7 +422,6 @@ const BuildingInfo = () => {
 
     const totalBuiltUpArea = document.getElementById("totalBuiltUpArea").value;
     const totalParkingArea = document.getElementById("totalParkingArea").value;
-    const vacantLand = document.getElementById("vacantLand").value;
     const frontSetback = document.getElementById("frontSetback").value;
     const rareSetback = document.getElementById("rareSetback").value;
     const side1Setback = document.getElementById("side1Setback").value;
@@ -475,10 +476,11 @@ const BuildingInfo = () => {
       existingRoadMts,
       proposedRoadMts,
       marketValueSqym,
+      vacantLand,
+      noOfUnits,
       floorDetails,
       totalBuiltUpArea: totalBuiltUpArea === "" ? 0 : totalBuiltUpArea,
       totalParkingArea: totalParkingArea === "" ? 0 : totalParkingArea,
-      vacantLand,
       frontSetback,
       rareSetback,
       side1Setback,
@@ -546,9 +548,10 @@ const BuildingInfo = () => {
     compoundingWallProposed,
     existingRoad,
     existingRoadMts,
-    vacantLand,
     frontSetback,
     marketValueSqym,
+    vacantLand,
+    noOfUnits,
     natureOfRoad,
     proposedRoadMts,
     rareSetback,
@@ -1122,6 +1125,20 @@ const BuildingInfo = () => {
                 placeholder="per Sq.Yd."
                 ltpDetails={marketValueSqym}
               />
+              <InputField
+                id="vacantLand"
+                name="vacantLand"
+                label="Vacant land area"
+                placeholder="in Sq.Mts."
+                ltpDetails={vacantLand}
+              />
+              <InputField
+                id="noOfUnits"
+                name="noOfUnits"
+                label="No of units"
+                placeholder="No of units"
+                ltpDetails={noOfUnits}
+              />
             </div>
 
             <div className="grid grid-cols-2 lg:grid-cols-4">
@@ -1144,7 +1161,15 @@ const BuildingInfo = () => {
             </div>
 
             <div className="grid grid-cols-2 lg:grid-cols-4 mt-5">
-              <div className="my-4 mx-3">
+              {/* <InputField
+                id="noOfUnits"
+                name="noOfUnits"
+                label="No of units"
+                placeholder="No of units"
+              // ltpDetails={noOfUnits}
+              /> */}
+              <div className='hidden lg:grid'></div>
+              <div className="my-4 mx-3 grid">
                 <label htmlFor="disabled-input" className={labelClass}>
                   Total Built up area
                 </label>
@@ -1172,13 +1197,13 @@ const BuildingInfo = () => {
                   disabled
                 />
               </div>
-              <InputField
+              {/* <InputField
                 id="vacantLand"
                 name="vacantLand"
                 label="Vacant land area"
                 placeholder="in Sq.Mts."
                 ltpDetails={vacantLand}
-              />
+              /> */}
             </div>
 
             <div className="grid grid-cols-2 lg:grid-cols-4">
