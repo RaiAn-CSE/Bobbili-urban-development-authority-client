@@ -12,6 +12,9 @@ const MainLayout = () => {
   console.log(path);
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
+  const hoverGradientColor =
+    "hover:bg-gradient-to-r hover:from-violet-500 hover:to-fuchsia-500";
+
   const active = "font-bold bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
   const [theme, setTheme] = useState(localStorage.getItem("theme"));
@@ -45,7 +48,7 @@ const MainLayout = () => {
       <Link
         to="/"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm border-b border-gray-200 rounded-t-lg hover:${gradientColor} ${
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm border-b border-gray-200 rounded-t-lg ${hoverGradientColor} ${
           path.length === 1 && path.includes("/") ? active : ""
         }`}
       >
@@ -54,7 +57,7 @@ const MainLayout = () => {
       <Link
         to="/onlinePayment"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm border-b border-gray-200  hover:${gradientColor} ${
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm border-b border-gray-200  ${hoverGradientColor} ${
           path.includes("onlinePayment") ? active : ""
         }`}
       >
@@ -63,7 +66,7 @@ const MainLayout = () => {
       <Link
         to="/listOfLTP"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm  border-b border-gray-200 hover:${gradientColor} ${
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm  border-b border-gray-200 ${hoverGradientColor} ${
           path.includes("listOfLTP") ? active : ""
         }`}
       >
@@ -72,7 +75,7 @@ const MainLayout = () => {
       <Link
         to="/demoVideos"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm border-b hover:${gradientColor} ${
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm border-b ${hoverGradientColor} ${
           path.includes("demoVideos") ? active : ""
         }`}
       >
@@ -81,7 +84,7 @@ const MainLayout = () => {
       <Link
         to="/privacyPolicy"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm  border-b hover:${gradientColor} ${
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm  border-b ${hoverGradientColor} ${
           path.includes("privacyPolicy") ? active : ""
         }`}
       >
@@ -90,7 +93,7 @@ const MainLayout = () => {
       <Link
         to="/defaultDrawingFormat"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm border-b hover:${gradientColor} ${
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm border-b ${hoverGradientColor} ${
           path.includes("defaultDrawingFormat") ? active : ""
         }`}
       >
@@ -125,7 +128,7 @@ const MainLayout = () => {
             <AiOutlineHome className="text-2xl text-white" />
           </Link>
           <div
-            className={`w-12 h-12 cursor-pointer transition-all duration-700 border border-violetLight rounded-full flex justify-center items-center hover:text-white hover:shadow-md hover:shadow-violetDark  hover:${gradientColor}`}
+            className={`w-12 h-12 cursor-pointer transition-all duration-700 border border-violetLight rounded-full flex justify-center items-center hover:text-white hover:shadow-md hover:shadow-violetDark  ${hoverGradientColor}`}
           >
             <MdOutlineDashboard className="text-2xl dark:text-white" />
           </div>
