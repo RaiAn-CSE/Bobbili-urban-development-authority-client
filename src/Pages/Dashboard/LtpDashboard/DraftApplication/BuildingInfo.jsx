@@ -42,6 +42,7 @@ const BuildingInfo = () => {
   const [districtData, setDistrictData] = useState([]);
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [selectedMandal, setSelectedMandal] = useState("");
+  const [selectedGrama, setSelectedGrama] = useState("");
   const [selectedVillage, setSelectedVillage] = useState("");
 
   // HERE PLOT DETAIL SECTIONS VARIABLES ARE INITIALIZED
@@ -120,6 +121,7 @@ const BuildingInfo = () => {
       setSelectedNatureOfTheSite(generalInformation?.natureOfTheSite);
       setSelectedDistrict(generalInformation?.district);
       setSelectedMandal(generalInformation?.mandal);
+      setSelectedGrama(generalInformation?.gramaPanchayat);
       setSelectedVillage(generalInformation?.village);
 
       console.log(builtUpArea, "builtUp area");
@@ -272,12 +274,14 @@ const BuildingInfo = () => {
     setSelectedDistrict(event.target.value);
     // Reset selected mandal and village when district changes
     setSelectedMandal("");
+    setSelectedGrama("");
     setSelectedVillage("");
   };
 
   const handleMandalChange = (event) => {
     setSelectedMandal(event.target.value);
     // Reset selected village when mandal changes
+    setSelectedGrama("");
     setSelectedVillage("");
   };
   //==============================<<<<<(District, Mandal & Village End)>>>>> :
@@ -355,7 +359,7 @@ const BuildingInfo = () => {
     const surveyNo = document.getElementById("SurveyNo").value;
     const district = document.getElementById("district").value;
     const mandal = document.getElementById("mandal").value;
-    // const gramaPanchayat = document.getElementById("ramaPanchayat").value;
+    const gramaPanchayat = document.getElementById("gramaPanchayat").value;
     const village = document.getElementById("village").value;
 
     const bpsApprovedElement = document.getElementById("BpsApprovedNo");
@@ -453,7 +457,7 @@ const BuildingInfo = () => {
       surveyNo,
       district,
       mandal,
-      // gramaPanchayat,
+      gramaPanchayat,
       village,
       bpsApprovedNoServer: bpsApprovedNo,
       previewsApprovedFileNo,
@@ -506,6 +510,7 @@ const BuildingInfo = () => {
 
     const splitApplicationNo = applicationNo.split("/");
 
+    splitApplicationNo[2] = gramaPanchayat?.length ? gramaPanchayat : "XX";
     splitApplicationNo[2] = village?.length ? village : "XX";
     splitApplicationNo[3] = mandal?.length ? mandal : "XX";
 
@@ -536,6 +541,7 @@ const BuildingInfo = () => {
     plotNo2,
     previewsApprovedFileNo,
     surveyNo,
+    gramaPanchayat,
     village,
   } = generalInformation ?? {};
 
@@ -773,36 +779,32 @@ const BuildingInfo = () => {
               </select>
             </div>
 
-            <div className="my-4 mx-3">
-              <label htmlFor="nature" className={labelClass}>
+            <div className="flex flex-col justify-center my-4 mx-3">
+              <label className={labelClass}>
                 <span>Grama Panchayat</span>
               </label>
               <select
                 id="gramaPanchayat"
+                name="gramaPanchayat"
                 className={inputClass}
-              // value={
-              //   selectedNatureOfTheSite
-              //     ? selectedNatureOfTheSite
-              //     : natureOfTheSite
-              // }
-              // onChange={handleNatureChange}
+                value={selectedGrama}
+                onChange={(e) => setSelectedGrama(e.target.value)}
+                disabled={!selectedMandal}
               >
-                <option disabled selected value="">
+                <option value="" disabled>
                   Select Grama Panchayat
                 </option>
-                <option value="Approved Layout">
-                  Those Option Will Provided
-                </option>
+                {selectedMandal &&
+                  districtData
+                    .find((district) => district.name === selectedDistrict)
+                    ?.mandal.find((mandal) => mandal.name === selectedMandal)
+                    ?.village.map((village) => (
+                      <option key={village} value={village}>
+                        {village}
+                      </option>
+                    ))}
               </select>
             </div>
-
-            {/* <InputField
-              id="GramaPanchayat"
-              name="Grama Panchayat"
-              label="Grama Panchayat"
-              placeholder="Grama Panchayat"
-              ltpDetails={gramaPanchayat}
-            /> */}
 
             <div className="flex flex-col justify-center my-4 mx-3">
               <label className={labelClass}>
