@@ -135,18 +135,12 @@ function Application({ setOpenApplication }) {
 
   // //
   const Part02 = [
-    { "Plot No": plotNo },
-    { "Sanctioned Layout No. / LRS No": lrsNo },
     { "Survey No": surveyNo },
+    { "L.P Mo./LRS No.": lrsNo },
+    { "Plot No": plotNo },
     { "Village": village },
-    { "Premises / Door No": 12 },
-    { "Road/ Street": existingRoad },
-    { "Ward No": "" },
-    { "Block No": "" },
-    { "Locality": "" },
-    { "Circle/Division": gramaPanchayat },
-    { "Division": gramaPanchayat },
-    { "City/Town": district },
+    { "Grama Panchayat": gramaPanchayat },
+    { "Mandal": gramaPanchayat },
     { "District": district },
   ];
   
