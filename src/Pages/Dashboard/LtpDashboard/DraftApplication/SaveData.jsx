@@ -23,7 +23,7 @@ const SaveData = ({
 
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
   const location = useLocation();
-  console.log(location, "Saved Data");
+  // console.log(location, "Saved Data");
 
   const navigate = useNavigate();
   return (
@@ -64,9 +64,8 @@ const SaveData = ({
                   Save
                 </button>
                 <button
-                  className={`btn btn-md text-white rounded-lg shadow-md border-0 mt-6  transition-all duration-500 cursor-pointer ${
-                    sentData === 1 && gradientColor
-                  } ${sentData === 1 && "shadow-violetDark"}`}
+                  className={`btn btn-md text-white rounded-lg shadow-md border-0 mt-6  transition-all duration-500 cursor-pointer ${sentData === 1 && gradientColor
+                    } ${sentData === 1 && "shadow-violetDark"}`}
                   disabled={sentData === 0}
                   onClick={() =>
                     sentToPS(

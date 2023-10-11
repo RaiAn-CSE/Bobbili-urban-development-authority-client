@@ -48,54 +48,48 @@ const MainLayout = () => {
       <Link
         to="/"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm border-b border-gray-200 rounded-t-lg ${hoverGradientColor} ${
-          path.length === 1 && path.includes("/") ? active : ""
-        }`}
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm border-b border-gray-200 rounded-t-lg ${hoverGradientColor} ${path.length === 1 && path.includes("/") ? active : ""
+          }`}
       >
         Application Search
       </Link>
       <Link
         to="/onlinePayment"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm border-b border-gray-200  ${hoverGradientColor} ${
-          path.includes("onlinePayment") ? active : ""
-        }`}
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm border-b border-gray-200  ${hoverGradientColor} ${path.includes("onlinePayment") ? active : ""
+          }`}
       >
         Online Payment
       </Link>
       <Link
         to="/listOfLTP"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm  border-b border-gray-200 ${hoverGradientColor} ${
-          path.includes("listOfLTP") ? active : ""
-        }`}
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm  border-b border-gray-200 ${hoverGradientColor} ${path.includes("listOfLTP") ? active : ""
+          }`}
       >
         List of LTP's
       </Link>
       <Link
         to="/demoVideos"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm border-b ${hoverGradientColor} ${
-          path.includes("demoVideos") ? active : ""
-        }`}
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm border-b ${hoverGradientColor} ${path.includes("demoVideos") ? active : ""
+          }`}
       >
         Demo Videos
       </Link>
       <Link
         to="/privacyPolicy"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm  border-b ${hoverGradientColor} ${
-          path.includes("privacyPolicy") ? active : ""
-        }`}
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm  border-b ${hoverGradientColor} ${path.includes("privacyPolicy") ? active : ""
+          }`}
       >
         Privacy Policy
       </Link>
       <Link
         to="/defaultDrawingFormat"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm border-b ${hoverGradientColor} ${
-          path.includes("defaultDrawingFormat") ? active : ""
-        }`}
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm border-b ${hoverGradientColor} ${path.includes("defaultDrawingFormat") ? active : ""
+          }`}
       >
         Default Drawing Format
       </Link>
