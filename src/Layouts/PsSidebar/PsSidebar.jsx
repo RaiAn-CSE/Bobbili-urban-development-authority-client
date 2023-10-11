@@ -55,6 +55,18 @@ function PsSidebar() {
       </li>
       <li
         className={`${
+          path === "/dashboard/outWard" && activeColor
+        } mt-1 flex items-center  ps-3 ${hoverColor}`}
+      >
+        <span>
+          <MdSpaceDashboard size={20} />
+        </span>
+        <Link className={`p-[10px] font-medium `} to="/dashboard/outWard">
+          Outward Application
+        </Link>
+      </li>
+      <li
+        className={`${
           path === "/dashboard/searchApplication" && activeColor
         } mt-1 flex items-center  ps-3 ${hoverColor}`}
       >

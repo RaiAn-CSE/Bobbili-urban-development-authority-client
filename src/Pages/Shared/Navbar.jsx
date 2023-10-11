@@ -124,9 +124,6 @@ const Navbar = () => {
             </a>
           </li>
           <li>
-            <a className="dark:text-white">Settings</a>
-          </li>
-          <li>
             <a className="dark:text-white" onClick={handleLogOut}>
               Logout
             </a>

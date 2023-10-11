@@ -203,6 +203,14 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/dashboard/outWard",
+        element: (
+          <PrivateRoute>
+            <Outward />
+          </PrivateRoute>
+        ),
+      },
+      {
         path: "/dashboard/outwardApplication",
         element: (
           <PrivateRoute>
