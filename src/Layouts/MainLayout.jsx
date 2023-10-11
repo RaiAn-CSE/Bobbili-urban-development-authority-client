@@ -8,12 +8,13 @@ import { FiSun } from "react-icons/fi";
 const MainLayout = () => {
   const path = useLocation().pathname;
   console.log(path);
-  const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
+  const active =
+    "bg-gradient-to-r from-violet-500 to-fuchsia-500 shadow-md shadow-violetDark text-white border-none ";
 
-  const hoverGradientColor =
-    "hover:bg-gradient-to-r hover:from-violet-500 hover:to-fuchsia-500";
+  const notActive =
+    "hover:bg-gradient-to-r hover:from-violet-500 hover:to-fuchsia-500 hover:text-white border border-violetLight";
 
-  const active = "font-bold bg-gradient-to-r from-violet-500 to-fuchsia-500";
+  // const active = "font-bold bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
   const [theme, setTheme] = useState(localStorage.getItem("theme"));
 
@@ -57,15 +58,22 @@ const MainLayout = () => {
         <div className="basis-[20%] flex justify-end items-center space-x-6">
           <Link
             to="/"
-            className={`w-12 h-12 ${gradientColor} shadow-md shadow-violetDark rounded-full flex justify-center items-center`}
+            className={`w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center  ${
+              path.length === 1 && path.includes("/") ? active : ` ${notActive}`
+            }`}
           >
-            <AiOutlineHome className="text-2xl text-white" />
+            <AiOutlineHome size={25} className="text-2xl " />
           </Link>
           <Link
             to="/statistics"
-            className={`w-12 h-12 cursor-pointer transition-all duration-700 border border-violetLight rounded-full flex justify-center items-center hover:text-white hover:shadow-md hover:shadow-violetDark  ${hoverGradientColor}`}
+            className={`w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center ${
+              path.includes("/statistics") ? active : ` ${notActive}`
+            }`}
           >
-            <MdOutlineDashboard className="text-2xl dark:text-white" />
+            <MdOutlineDashboard
+              size={25}
+              className="text-2xl dark:text-white"
+            />
           </Link>
 
           <div className="cursor-pointer">

@@ -3,7 +3,7 @@ import ShowCharts from "../../Shared/ShowCharts";
 
 const Reports = () => {
   return (
-    <div>
+    <div className="mt-10">
       <ShowCharts />
     </div>
   );
