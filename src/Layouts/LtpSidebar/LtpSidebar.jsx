@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { MdOutlineLogout, MdSpaceDashboard } from "react-icons/md";
 import { BiCheckDouble, BiSolidImageAdd } from "react-icons/bi";
 import { CgDanger } from "react-icons/cg";
@@ -9,6 +9,8 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const LtpSidebar = () => {
   const path = useLocation().pathname;
+
+  const navigate = useNavigate();
 
   const { handleLogOut, decideActiveColor, decideHoverColor, isDark } =
     useContext(AuthContext);
@@ -122,7 +124,10 @@ const LtpSidebar = () => {
         <span>
           <MdOutlineLogout size={22} />
         </span>
-        <Link className="p-[10px]  font-medium" onClick={handleLogOut}>
+        <Link
+          className="p-[10px]  font-medium"
+          onClick={() => handleLogOut(navigate)}
+        >
           Logout
         </Link>
       </li>

@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
+import { useQueryClient } from "react-query";
 import Swal from "sweetalert2";
 export const AuthContext = createContext();
 
@@ -268,7 +269,7 @@ const AuthProvider = ({ children }) => {
   };
 
   // logout function
-  const handleLogOut = () => {
+  const handleLogOut = (navigate) => {
     localStorage.removeItem("loggedUser");
     toast.success("Logout successfully");
     setTimeout(() => {

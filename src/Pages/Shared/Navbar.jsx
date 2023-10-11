@@ -9,17 +9,21 @@ import { useForm } from "react-hook-form";
 import userAvatar from "../../assets/images/user1.png";
 import useGetUser from "../CustomHook/useGetUser";
 import toast from "react-hot-toast";
+import { useQueryClient } from "react-query";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
-  const { setIsDark, userInfoFromLocalStorage } = useContext(AuthContext);
+  const { setIsDark, userInfoFromLocalStorage, handleLogOut } =
+    useContext(AuthContext);
 
   const [theme, setTheme] = useState(localStorage.getItem("theme"));
+  // const data = undefined;
 
   const [data, refetch] = useGetUser();
 
-  console.log(data, "GET USER");
+  // console.log(data, "GET USER");
 
   const { register, reset, handleSubmit } = useForm({});
 
@@ -46,6 +50,7 @@ const Navbar = () => {
     return () => {
       document.documentElement.classList.remove("dark");
       localStorage.setItem("theme", "light");
+      queryClient.removeQueries();
     };
   }, [theme]);
 
@@ -59,11 +64,10 @@ const Navbar = () => {
       }
     )
       .then((res) => res.json())
-      .then((result) => {
+      .then(async (result) => {
         console.log(result);
         if (result.acknowledged) {
           refetch();
-
           setShowModal(false);
           toast.success("Update successfully");
         } else {
@@ -77,17 +81,9 @@ const Navbar = () => {
 
   useEffect(() => {
     setShowModal(true);
-    if (data?.userInfo) {
-      localStorage.setItem("loggedUser", JSON.stringify({ ...data?.userInfo }));
-    }
   }, [showModal]);
 
   const user = JSON.parse(localStorage.getItem("loggedUser"));
-
-  const handleLogOut = () => {
-    localStorage.removeItem("loggedUser");
-    navigate("/");
-  };
 
   return (
     <div className="navbar bg-base-100 sticky top-0 z-50 shadow-md dark:bg-gradient-to-r dark:from-violet-500 dark:to-fuchsia-500 dark:text-white">
@@ -130,7 +126,10 @@ const Navbar = () => {
             </a>
           </li>
           <li>
-            <a className="dark:text-white" onClick={handleLogOut}>
+            <a
+              className="dark:text-white"
+              onClick={() => handleLogOut(navigate)}
+            >
               Logout
             </a>
           </li>
