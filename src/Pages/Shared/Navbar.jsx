@@ -19,6 +19,8 @@ const Navbar = () => {
 
   const [data, refetch] = useGetUser();
 
+  console.log(data, "GET USER");
+
   const { register, reset, handleSubmit } = useForm({});
 
   const [showModal, setShowModal] = useState(true);
@@ -47,20 +49,21 @@ const Navbar = () => {
     };
   }, [theme]);
 
-  const onSubmit = (data) => {
+  const onSubmit = (formValue) => {
     fetch(
       `http://localhost:5000/updateUserInfo/${userInfoFromLocalStorage()._id}`,
       {
         method: "PATCH",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify(formValue),
       }
     )
       .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data.acknowledged) {
+      .then((result) => {
+        console.log(result);
+        if (result.acknowledged) {
           refetch();
+
           setShowModal(false);
           toast.success("Update successfully");
         } else {
@@ -74,6 +77,9 @@ const Navbar = () => {
 
   useEffect(() => {
     setShowModal(true);
+    if (data?.userInfo) {
+      localStorage.setItem("loggedUser", JSON.stringify({ ...data?.userInfo }));
+    }
   }, [showModal]);
 
   const user = JSON.parse(localStorage.getItem("loggedUser"));

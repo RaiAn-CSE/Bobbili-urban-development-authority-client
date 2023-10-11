@@ -33,7 +33,7 @@ function Outward() {
 
   console.log(allData, "Alldata");
   return (
-    <div className="w-full overflow-x-auto my-10">
+    <div className="w-full overflow-x-auto my-10 px-5">
       <table className="table dark:text-white">
         {/* head */}
         <thead>

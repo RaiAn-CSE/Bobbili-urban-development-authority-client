@@ -72,8 +72,11 @@ const Login = () => {
         if (userInfo.password === password) {
           console.log("1");
 
+          console.log(userInfo, "LOGIN");
           // set information to localstorage to stay logged in
           localStorage.setItem("loggedUser", JSON.stringify(userInfo));
+
+          console.log(localStorage.getItem("loggedUser"));
 
           // set information to cookie to implement remember me functionality
 

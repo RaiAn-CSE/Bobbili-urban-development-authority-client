@@ -1,9 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
-import { useQuery } from "react-query";
+import { QueryClient, useQuery, useQueryClient } from "react-query";
 
 const useGetUser = () => {
   const { userInfoFromLocalStorage } = useContext(AuthContext);
+
+  console.log(userInfoFromLocalStorage().userId);
+
+  const queryClient = useQueryClient();
+  queryClient.invalidateQueries("specificUserInfo");
 
   const { data, refetch, isLoading, isError, isSuccess } = useQuery(
     [`specificUserInfo`],
@@ -12,12 +17,10 @@ const useGetUser = () => {
         `http://localhost:5000/getUser?id=${userInfoFromLocalStorage().userId}`
       );
       return await response.json();
-    }
+    },
+    { staleTime: 0 }
   );
 
-  if (data?.userInfo) {
-    localStorage.setItem("loggedUser", JSON.stringify({ ...data?.userInfo }));
-  }
   console.log(data, "Data");
   return [data, refetch, isLoading, isError, isSuccess];
 };
