@@ -58,9 +58,18 @@ const Reports = () => {
     setSelectedPanchayat(e.target.value);
   };
 
-  console.log(selectedDistrict, selectedMandal, selectedPanchayat);
+  console.log(selectedDistrict, selectedMandal, selectedPanchayat, "All");
 
-  useEffect(() => {}, [selectedDistrict, selectedMandal, selectedPanchayat]);
+  useEffect(() => {
+    if (selectedDistrict.length) {
+    } else {
+      fetch("http://localhost:5000/totalApplications")
+        .then((res) => res.json())
+        .then((result) => {
+          console.log(result);
+        });
+    }
+  }, [selectedDistrict, selectedMandal, selectedPanchayat]);
   return (
     <div className="mt-10">
       <form className="flex justify-around items-center font-sans">
