@@ -42,6 +42,7 @@ const BuildingInfo = () => {
   const [districtData, setDistrictData] = useState([]);
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [selectedMandal, setSelectedMandal] = useState("");
+  const [selectedGrama, setSelectedGrama] = useState("");
   const [selectedVillage, setSelectedVillage] = useState("");
 
   // HERE PLOT DETAIL SECTIONS VARIABLES ARE INITIALIZED
@@ -120,6 +121,7 @@ const BuildingInfo = () => {
       setSelectedNatureOfTheSite(generalInformation?.natureOfTheSite);
       setSelectedDistrict(generalInformation?.district);
       setSelectedMandal(generalInformation?.mandal);
+      setSelectedGrama(generalInformation?.gramaPanchayat);
       setSelectedVillage(generalInformation?.village);
 
       console.log(builtUpArea, "builtUp area");
@@ -272,12 +274,14 @@ const BuildingInfo = () => {
     setSelectedDistrict(event.target.value);
     // Reset selected mandal and village when district changes
     setSelectedMandal("");
+    setSelectedGrama("");
     setSelectedVillage("");
   };
 
   const handleMandalChange = (event) => {
     setSelectedMandal(event.target.value);
     // Reset selected village when mandal changes
+    setSelectedGrama("");
     setSelectedVillage("");
   };
   //==============================<<<<<(District, Mandal & Village End)>>>>> :
@@ -325,7 +329,12 @@ const BuildingInfo = () => {
 
   const handleRadio4 = (e) => {
     setRadio4(e.target.value);
+
+    console.log(e.target.value, 'e.target.value');
   };
+
+  console.log(radio4, 'Radio4');
+
 
   const handleRadio5 = (e) => {
     setRadio5(e.target.value);
@@ -350,7 +359,7 @@ const BuildingInfo = () => {
     const surveyNo = document.getElementById("SurveyNo").value;
     const district = document.getElementById("district").value;
     const mandal = document.getElementById("mandal").value;
-    // const gramaPanchayat = document.getElementById("ramaPanchayat").value;
+    const gramaPanchayat = document.getElementById("gramaPanchayat").value;
     const village = document.getElementById("village").value;
 
     const bpsApprovedElement = document.getElementById("BpsApprovedNo");
@@ -397,6 +406,8 @@ const BuildingInfo = () => {
     const existingRoadMts = document.getElementById("existingRoadMts").value;
     const proposedRoadMts = document.getElementById("proposedRoadMts").value;
     const marketValueSqym = document.getElementById("marketValueSqym").value;
+    const vacantLand = document.getElementById("vacantLand").value;
+    const noOfUnits = document.getElementById("noOfUnits").value;
 
     // console.log(totalFloor, "totalFloor");
 
@@ -415,7 +426,6 @@ const BuildingInfo = () => {
 
     const totalBuiltUpArea = document.getElementById("totalBuiltUpArea").value;
     const totalParkingArea = document.getElementById("totalParkingArea").value;
-    const vacantLand = document.getElementById("vacantLand").value;
     const frontSetback = document.getElementById("frontSetback").value;
     const rareSetback = document.getElementById("rareSetback").value;
     const side1Setback = document.getElementById("side1Setback").value;
@@ -447,7 +457,7 @@ const BuildingInfo = () => {
       surveyNo,
       district,
       mandal,
-      // gramaPanchayat,
+      gramaPanchayat,
       village,
       bpsApprovedNoServer: bpsApprovedNo,
       previewsApprovedFileNo,
@@ -470,10 +480,11 @@ const BuildingInfo = () => {
       existingRoadMts,
       proposedRoadMts,
       marketValueSqym,
+      vacantLand,
+      noOfUnits,
       floorDetails,
       totalBuiltUpArea: totalBuiltUpArea === "" ? 0 : totalBuiltUpArea,
       totalParkingArea: totalParkingArea === "" ? 0 : totalParkingArea,
-      vacantLand,
       frontSetback,
       rareSetback,
       side1Setback,
@@ -499,6 +510,7 @@ const BuildingInfo = () => {
 
     const splitApplicationNo = applicationNo.split("/");
 
+    splitApplicationNo[2] = gramaPanchayat?.length ? gramaPanchayat : "XX";
     splitApplicationNo[2] = village?.length ? village : "XX";
     splitApplicationNo[3] = mandal?.length ? mandal : "XX";
 
@@ -529,6 +541,7 @@ const BuildingInfo = () => {
     plotNo2,
     previewsApprovedFileNo,
     surveyNo,
+    gramaPanchayat,
     village,
   } = generalInformation ?? {};
 
@@ -541,9 +554,10 @@ const BuildingInfo = () => {
     compoundingWallProposed,
     existingRoad,
     existingRoadMts,
-    vacantLand,
     frontSetback,
     marketValueSqym,
+    vacantLand,
+    noOfUnits,
     natureOfRoad,
     proposedRoadMts,
     rareSetback,
@@ -765,36 +779,32 @@ const BuildingInfo = () => {
               </select>
             </div>
 
-            <div className="my-4 mx-3">
-              <label htmlFor="nature" className={labelClass}>
+            <div className="flex flex-col justify-center my-4 mx-3">
+              <label className={labelClass}>
                 <span>Grama Panchayat</span>
               </label>
               <select
                 id="gramaPanchayat"
+                name="gramaPanchayat"
                 className={inputClass}
-                // value={
-                //   selectedNatureOfTheSite
-                //     ? selectedNatureOfTheSite
-                //     : natureOfTheSite
-                // }
-                // onChange={handleNatureChange}
+                value={selectedGrama}
+                onChange={(e) => setSelectedGrama(e.target.value)}
+                disabled={!selectedMandal}
               >
-                <option disabled selected value="">
+                <option value="" disabled>
                   Select Grama Panchayat
                 </option>
-                <option value="Approved Layout">
-                  Those Option Will Provided
-                </option>
+                {selectedMandal &&
+                  districtData
+                    .find((district) => district.name === selectedDistrict)
+                    ?.mandal.find((mandal) => mandal.name === selectedMandal)
+                    ?.village.map((village) => (
+                      <option key={village} value={village}>
+                        {village}
+                      </option>
+                    ))}
               </select>
             </div>
-
-            {/* <InputField
-              id="GramaPanchayat"
-              name="Grama Panchayat"
-              label="Grama Panchayat"
-              placeholder="Grama Panchayat"
-              ltpDetails={gramaPanchayat}
-            /> */}
 
             <div className="flex flex-col justify-center my-4 mx-3">
               <label className={labelClass}>
@@ -897,15 +907,15 @@ const BuildingInfo = () => {
 
             {selectedNatureOfTheSite ===
               "Plot port of RLP/IPLP but not regularised" && (
-              <InputField
-                id="IplpNo"
-                name=""
-                label="RLP/IPLP no."
-                placeholder="RLP/IPLP no."
-                type="number"
-                ltpDetails={iplpNo}
-              />
-            )}
+                <InputField
+                  id="IplpNo"
+                  name=""
+                  label="RLP/IPLP no."
+                  placeholder="RLP/IPLP no."
+                  type="number"
+                  ltpDetails={iplpNo}
+                />
+              )}
             {/*===================== Conditional Input Field End =====================*/}
           </div>
         </div>
@@ -1082,7 +1092,6 @@ const BuildingInfo = () => {
                 <select
                   id="natureOfRoad"
                   className={inputClass}
-                  // value={natureOfRoad}
                   value={natureOfRoadValue ? natureOfRoadValue : natureOfRoad}
                   onChange={handleNatureOfRoad}
                 >
@@ -1117,6 +1126,20 @@ const BuildingInfo = () => {
                 placeholder="per Sq.Yd."
                 ltpDetails={marketValueSqym}
               />
+              <InputField
+                id="vacantLand"
+                name="vacantLand"
+                label="Vacant land area"
+                placeholder="in Sq.Mts."
+                ltpDetails={vacantLand}
+              />
+              <InputField
+                id="noOfUnits"
+                name="noOfUnits"
+                label="No of units"
+                placeholder="No of units"
+                ltpDetails={noOfUnits}
+              />
             </div>
 
             <div className="grid grid-cols-2 lg:grid-cols-4">
@@ -1139,7 +1162,15 @@ const BuildingInfo = () => {
             </div>
 
             <div className="grid grid-cols-2 lg:grid-cols-4 mt-5">
-              <div className="my-4 mx-3">
+              {/* <InputField
+                id="noOfUnits"
+                name="noOfUnits"
+                label="No of units"
+                placeholder="No of units"
+              // ltpDetails={noOfUnits}
+              /> */}
+              <div className='hidden lg:grid'></div>
+              <div className="my-4 mx-3 grid">
                 <label htmlFor="disabled-input" className={labelClass}>
                   Total Built up area
                 </label>
@@ -1167,13 +1198,13 @@ const BuildingInfo = () => {
                   disabled
                 />
               </div>
-              <InputField
+              {/* <InputField
                 id="vacantLand"
                 name="vacantLand"
                 label="Vacant land area"
                 placeholder="in Sq.Mts."
                 ltpDetails={vacantLand}
-              />
+              /> */}
             </div>
 
             <div className="grid grid-cols-2 lg:grid-cols-4">
@@ -1261,7 +1292,7 @@ const BuildingInfo = () => {
                     name="runningMeter"
                     label="Running meter"
                     placeholder="Running meter"
-                    ltpDetails={runningMeter}
+                  // ltpDetails={runningMeter}
                   />
                 ) : null}
               </div>

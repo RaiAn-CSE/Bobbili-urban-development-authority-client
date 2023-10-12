@@ -48,7 +48,7 @@ const OnlinePayment = () => {
 
   console.log(filteredData, "FILTERED DATA");
   return (
-    <div className="h-full p-4 font-roboto">
+    <div className="h-full px-4 font-roboto">
       <form>
         <div className="relative">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -80,7 +80,7 @@ const OnlinePayment = () => {
       </form>
 
       {/* Location details  */}
-      <div className="divide-y-2 divide-gray-200 mt-5">
+      <div className="divide-y-2 divide-gray-200 mt-9">
         <div className="mb-1">
           <h3 className="basis-[50%] text-lg px-5 font-semibold">
             Application details
@@ -132,7 +132,7 @@ const OnlinePayment = () => {
       </div>
 
       {/* Owner details  */}
-      <div className="divide-y-2 divide-gray-200 mt-5">
+      <div className="divide-y-2 divide-gray-200 mt-9">
         <div className="flex mb-1">
           <h3 className="text-lg px-5 font-semibold">
             Fees details
@@ -173,7 +173,7 @@ const OnlinePayment = () => {
           For UDA charge you can pay only Rs. xxxxx/= fee online, remaining all fee DD/Challan can be attached in LTP login only.
         </h3>
       </div>
-      <div className="flex justify-end mt-2">
+      <div className="flex justify-end mt-2 pb-9">
         <button className="flex text-[#000] font-semibold bottom-2.5 bg-[#ffd66c] hover:bg-[#e1bc60] focus:ring-4 focus:outline-none focus:ring-[#ffd66c] rounded-lg text-sm px-4 py-2">
           <GiMoneyStack size={25} /> <span className="ml-1">pay now</span>
         </button>

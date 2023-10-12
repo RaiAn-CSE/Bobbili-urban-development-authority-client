@@ -3,6 +3,7 @@ import SaveData from "../../LtpDashboard/DraftApplication/SaveData";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import { useOutletContext } from "react-router-dom";
 import toast from "react-hot-toast";
+import ImageUploadInput from "./ImageUploadInput";
 
 const SiteInspection = () => {
   const { confirmAlert, sendUserDataIntoDB, getApplicationData } =
@@ -21,10 +22,19 @@ const SiteInspection = () => {
   const [decision, setDecision] = useState("");
   const [recommendations, setRecommendations] = useState("");
 
-  const tableDataClass =
-    "whitespace-nowrap border-r px-6 py-4 border-neutral-500";
-  const inputClass = "input rounded-none w-full max-w-xs focus:outline-none";
-  const inputTableDataClass = "whitespace-nowrap border-r border-neutral-500";
+  // Selector field in site inspection page
+  const [approachRoadApp, setApproachRoadApp] = useState('');
+
+  const handleApproachRoadApp = (e) => {
+    setApproachRoadApp(e.target.value);
+  }
+
+  const [approachRoadObs, setApproachRoadObs] = useState('');
+
+  const handleApproachRoadObs = (e) => {
+    setApproachRoadObs(e.target.value);
+  }
+
 
   useEffect(() => {
     const getData = async () => {
@@ -213,8 +223,14 @@ const SiteInspection = () => {
     return await response.json();
   };
 
+
+  const tableDataClass =
+    "whitespace-nowrap border-r px-6 py-4 border-neutral-500";
+  const inputClass = "input rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600";
+  const inputTableDataClass = "whitespace-nowrap border-r border-neutral-500";
+
   return (
-    <div className="flex flex-col sm:px-6 lg:px-8">
+    <div className="flex flex-col sm:px-6 lg:px-8 dark:text-gray-100">
       <div className="overflow-x-auto">
         <div className="inline-block min-w-full py-2">
           <div className="overflow-hidden">
@@ -253,7 +269,7 @@ const SiteInspection = () => {
                   </td>
                   <td
                     colSpan="3"
-                    className={`${tableDataClass} text-base font-semibold bg-gray-200`}
+                    className={`${tableDataClass} text-base font-semibold bg-gray-200 dark:text-black dark:bg-gradient-to-r dark:from-violet-300 dark:to-fuchsia-300`}
                   >
                     Ground Position
                   </td>
@@ -352,93 +368,114 @@ const SiteInspection = () => {
                   </td>
                   <td
                     colSpan="3"
-                    className={`${tableDataClass} text-base font-semibold bg-gray-200`}
+                    className={`${tableDataClass} text-base font-semibold bg-gray-200 dark:text-black dark:bg-gradient-to-r dark:from-violet-300 dark:to-fuchsia-300`}
                   >
                     Site Boundaries
                   </td>
                 </tr>
                 <tr className="border-b border-neutral-500">
                   <td className={tableDataClass}>North</td>
-                  <td className={inputTableDataClass}>
-                    <input
+                  <td className='whitespace-nowrap border-r border-neutral-500'>
+                    {/* <input
                       id="northApp"
                       type="text"
                       defaultValue={siteBoundaries?.north?.[0]}
                       placeholder="Yes/No"
-                      className={inputClass}
+                      className='input rounded-none w-full max-w-xs focus:outline-none'
+                    /> */}
+
+                    <ImageUploadInput
+                      id='northApp'
                     />
+
                   </td>
                   <td className={inputTableDataClass}>
-                    <input
+                    {/* <input
                       id="northObs"
                       type="text"
                       defaultValue={siteBoundaries?.north?.[1]}
                       placeholder="Yes/No"
                       className={inputClass}
+                    /> */}
+
+                    <ImageUploadInput
+                      id='northObs'
                     />
+
                   </td>
                 </tr>
                 <tr className="border-b border-neutral-500">
                   <td className={tableDataClass}>South</td>
                   <td className={inputTableDataClass}>
-                    <input
+                    {/* <input
                       id="southApp"
                       type="text"
                       defaultValue={siteBoundaries?.south?.[0]}
                       placeholder="Yes/No"
                       className={inputClass}
+                    /> */}
+                    <ImageUploadInput
+                      id='southApp'
                     />
+
                   </td>
                   <td className={inputTableDataClass}>
-                    <input
+                    {/* <input
                       id="southObs"
                       type="text"
                       defaultValue={siteBoundaries?.south?.[1]}
                       placeholder="Yes/No"
                       className={inputClass}
+                    /> */}
+                    <ImageUploadInput
+                      id='southObs'
                     />
                   </td>
                 </tr>
                 <tr className="border-b border-neutral-500">
                   <td className={tableDataClass}>East</td>
                   <td className={inputTableDataClass}>
-                    <input
+                    {/* <input
                       id="eastApp"
                       type="text"
                       defaultValue={siteBoundaries?.east?.[0]}
                       placeholder="Yes/No"
                       className={inputClass}
-                    />
+                    /> */}
+                    <ImageUploadInput id='eastApp' />
                   </td>
                   <td className={inputTableDataClass}>
-                    <input
+                    {/* <input
                       id="eastObs"
                       type="text"
                       defaultValue={siteBoundaries?.east?.[1]}
                       placeholder="Yes/No"
                       className={inputClass}
-                    />
+                    /> */}
+                    <ImageUploadInput id='eastObs' />
                   </td>
                 </tr>
                 <tr className="border-b border-neutral-500">
                   <td className={tableDataClass}>West</td>
                   <td className={inputTableDataClass}>
-                    <input
+                    {/* <input
                       id="westApp"
                       type="text"
                       defaultValue={siteBoundaries?.west?.[0]}
                       placeholder="Yes/No"
                       className={inputClass}
-                    />
+                    /> */}
+                    <ImageUploadInput id='westApp' />
                   </td>
                   <td className={inputTableDataClass}>
-                    <input
+                    {/* <input
                       id="westObs"
                       type="text"
                       defaultValue={siteBoundaries?.west?.[1]}
                       placeholder="Yes/No"
                       className={inputClass}
-                    />
+                    /> */}
+                    <ImageUploadInput id='westObs' />
                   </td>
                 </tr>
                 <tr className="border-b border-neutral-500">
@@ -455,7 +492,7 @@ const SiteInspection = () => {
                       type="text"
                       defaultValue={siteBoundaries?.scheduleOfTheDocuments?.[0]}
                       placeholder="Yes/No"
-                      className={inputClass}
+                      className='h-[88px] px-4 rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600'
                     />
                   </td>
                   <td className={inputTableDataClass}>
@@ -464,7 +501,7 @@ const SiteInspection = () => {
                       type="text"
                       defaultValue={siteBoundaries?.scheduleOfTheDocuments?.[1]}
                       placeholder="Yes/No"
-                      className={inputClass}
+                      className='h-[88px] px-4 rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600'
                     />
                   </td>
                 </tr>
@@ -476,7 +513,7 @@ const SiteInspection = () => {
                   </td>
                   <td
                     colSpan="3"
-                    className={`${tableDataClass} text-base font-semibold bg-gray-200`}
+                    className={`${tableDataClass} text-base font-semibold bg-gray-200 dark:text-black dark:bg-gradient-to-r dark:from-violet-300 dark:to-fuchsia-300`}
                   >
                     Access Road
                   </td>
@@ -505,22 +542,45 @@ const SiteInspection = () => {
                 <tr className="border-b border-neutral-500">
                   <td className={tableDataClass}>Status of Approach Road</td>
                   <td className={inputTableDataClass}>
-                    <input
+                    {/* <input
                       id="approachRoadApp"
                       type="text"
                       defaultValue={accessRoad?.approachRoad?.[0]}
                       placeholder="Public"
                       className={inputClass}
-                    />
+                    /> */}
+                    <div className="flex flex-col justify-center">
+                      <select
+                        id="approachRoadApp"
+                        className='input rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600'
+                        value={approachRoadApp ? approachRoadApp : accessRoad?.approachRoad?.[0]}
+                        onChange={handleApproachRoadApp}
+                      >
+                        <option value='Private'>Private</option>
+                        <option selected value='Public'>Public</option>
+                      </select>
+                    </div>
                   </td>
                   <td className={inputTableDataClass}>
-                    <input
+                    {/* <input
                       id="approachRoadObs"
                       type="text"
                       defaultValue={accessRoad?.approachRoad?.[1]}
                       placeholder="Public/Private"
                       className={inputClass}
-                    />
+                    /> */}
+                    <div className="flex flex-col justify-center">
+                      <select
+                        id="approachRoadObs"
+                        className='input rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600'
+                        value={approachRoadObs ? approachRoadObs : accessRoad?.approachRoad?.[1]}
+                        onChange={handleApproachRoadObs}
+                      >
+                        <option selected disabled value='Select option'>Select option</option>
+                        <option value='Private'>Private</option>
+                        <option value='Public'>Public</option>
+                      </select>
+                    </div>
                   </td>
                 </tr>
                 <tr className="border-b border-neutral-500">
@@ -575,7 +635,7 @@ const SiteInspection = () => {
                   </td>
                   <td
                     colSpan="3"
-                    className={`${tableDataClass} text-base font-semibold bg-gray-200`}
+                    className={`${tableDataClass} text-base font-semibold bg-gray-200 dark:text-black dark:bg-gradient-to-r dark:from-violet-300 dark:to-fuchsia-300`}
                   >
                     Land Use
                   </td>

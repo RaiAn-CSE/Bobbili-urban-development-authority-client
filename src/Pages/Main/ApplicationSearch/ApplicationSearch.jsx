@@ -53,7 +53,7 @@ const ApplicationSearch = () => {
   console.log(filteredData, 'filteredData');
 
   return (
-    <div className="h-full p-4 font-roboto">
+    <div className="h-full px-4 font-roboto">
       <form>
         <div className="relative">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -85,7 +85,7 @@ const ApplicationSearch = () => {
       </form>
 
       {/* Location details  */}
-      <div className="divide-y-2 divide-gray-200 mt-5">
+      <div className="divide-y-2 divide-gray-200 mt-9">
         <div className="flex mb-1">
           <h3 className="basis-[50%] text-lg px-5 font-semibold">
             Location details
@@ -128,8 +128,8 @@ const ApplicationSearch = () => {
 
           <div className="basis-[50%]">
             <MainPageInput
-              label="Site area"
-              id="siteArea"
+              label="Net plot area"
+              id="netPlotArea"
               type="text"
               placeholder="xxxxxxx"
             />
@@ -146,8 +146,8 @@ const ApplicationSearch = () => {
               placeholder="xxxxxxx"
             />
             <MainPageInput
-              label="Total Plinth Area"
-              id="totalPlinthArea"
+              label="Total Built up area"
+              id="totalBuiltUpArea"
               type="text"
               placeholder="xxxxxxx"
             />
@@ -156,7 +156,7 @@ const ApplicationSearch = () => {
       </div>
 
       {/* Owner details  */}
-      <div className="divide-y-2 divide-gray-200 mt-5">
+      <div className="divide-y-2 divide-gray-200 mt-9">
         <div className="flex mb-1">
           <h3 className="basis-[50%] text-lg px-5 font-semibold">
             Owner details
@@ -202,7 +202,7 @@ const ApplicationSearch = () => {
         </div>
       </div>
 
-      <div className="flex justify-center items-center mt-5">
+      <div className="flex justify-center items-center mt-5 pb-9">
         <div className="p-3">
           <span className="grid justify-center items-center">
             <AiOutlineFileDone size={25} />

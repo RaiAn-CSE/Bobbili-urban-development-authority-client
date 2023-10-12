@@ -44,12 +44,12 @@ const OwnerDetail = ({
           />
 
           <InputField
-            id={`ownerRoadNo${index}`}
-            name={`ownerRoadNo${index}`}
-            label="Road no"
-            placeholder="Road no"
+            id={`ownerDoorNo${index}`}
+            name={`ownerDoorNo${index}`}
+            label="Door no"
+            placeholder="Door no"
             type="text"
-            ltpDetails={applicantDetails?.ownerRoadNo}
+            ltpDetails={applicantDetails?.ownerDoorNo}
           />
           <InputField
             id={`ownerStreetNo${index}`}
