@@ -137,7 +137,7 @@ const Payment = () => {
       if (nature_of_site !== "Plot port of RLP/IPLP but not regularised") {
         return (penalizationCharges = 0);
       }
-
+ 
       if (net_Plot_Area <= 100) {
         penalizationCharges = net_Plot_Area * 200 * 0.33;
       } else if (net_Plot_Area <= 300) {
@@ -262,8 +262,6 @@ const Payment = () => {
       bettermentCharged,
       buildingPermitFees,
     });
-
-    console.log(calculatedData);
   };
 
   console.log(calculatedData, "Calculated data");
