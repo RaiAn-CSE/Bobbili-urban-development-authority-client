@@ -17,26 +17,6 @@ const ShowCharts = () => {
 
   // const role = userInfoFromLocalStorage().role;
 
-  const [chartData, setChartData] = useState({
-    labels: Data.map((data) => data.year),
-    datasets: [
-      {
-        label: "Users Gained ",
-        data: Data.map((data) => data.userGain),
-        backgroundColor: [
-          "rgba(75,192,192,1)",
-          "#ecf0f1",
-          "#50AF95",
-          "#f3ba2f",
-          "#2a71d0",
-        ],
-
-        borderColor: "black",
-        borderWidth: 2,
-      },
-    ],
-  });
-
   const [allDistricts, setAllDistricts] = useState([]);
   const [allMandal, setAllMandal] = useState([]);
   const [allPanchayat, setAllPanchayat] = useState([]);
@@ -44,6 +24,7 @@ const ShowCharts = () => {
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [selectedMandal, setSelectedMandal] = useState("");
   const [selectedPanchayat, setSelectedPanchayat] = useState("");
+  const [serverData, setServerData] = useState([]);
 
   const [selectedDate, setSelectedDate] = useState("");
 
@@ -52,12 +33,6 @@ const ShowCharts = () => {
   useEffect(() => {
     const districts = district.map((each) => each?.name);
     setAllDistricts(districts);
-
-    // const mandalNamesArray = district.map((each) => {
-    //   return each?.mandal?.map((mandalName) => mandalName?.name);
-    // });
-
-    // setAllMandal([].concat(...mandalNamesArray));
   }, []);
 
   const detectSelectOfDistrict = (e) => {
@@ -125,6 +100,7 @@ const ShowCharts = () => {
         .then((res) => res.json())
         .then((result) => {
           console.log(result);
+          setServerData(result);
         });
 
       console.log(data, "Data");
@@ -134,13 +110,84 @@ const ShowCharts = () => {
         .then((res) => res.json())
         .then((result) => {
           console.log(result);
+          setServerData(result);
         });
     }
   }, [selectedDistrict, selectedMandal, selectedPanchayat, selectedDate]);
 
+  const [chartData, setChartData] = useState({});
+
+  const canvas = document.createElement("canvas");
+
+  const getData = (canvas, labels, data) => {
+    const ctx = canvas.getContext("2d");
+    const gradient1 = ctx.createLinearGradient(0, 0, 300, 0);
+    gradient1.addColorStop(0, "#20f08b");
+    gradient1.addColorStop(0.5, "#20f08b");
+    gradient1.addColorStop(1, "#07dfb1");
+
+    const gradient2 = ctx.createLinearGradient(0, 0, 300, 0);
+    gradient2.addColorStop(0, "#20f08b");
+    gradient2.addColorStop(0.5, "#20f08b");
+    gradient2.addColorStop(1, "#07dfb1");
+    const gradient3 = ctx.createLinearGradient(0, 0, 300, 0);
+    gradient3.addColorStop(0, "#20f08b");
+    gradient3.addColorStop(0.5, "#20f08b");
+    gradient3.addColorStop(1, "#07dfb1");
+
+    return {
+      labels,
+      datasets: [
+        {
+          label: "Chart",
+          data,
+          backgroundColor: [gradient1, gradient2, gradient3],
+          borderColor: "#000",
+        },
+      ],
+    };
+  };
+
+  useEffect(() => {
+    console.log(serverData, "Server data");
+
+    const filterData = {};
+
+    for (const key in serverData) {
+      if (!Array.isArray(serverData[key])) {
+        filterData[key] = serverData[key];
+      }
+    }
+
+    delete filterData["total"];
+    const labels = Object.keys(filterData);
+    const data = Object.values(filterData);
+
+    const chartValue = getData(canvas, labels, data);
+    setChartData(chartValue);
+
+    // setChartData({
+    //   labels,
+    //   datasets: [
+    //     {
+    //       label: "Total",
+    //       data,
+    //       background: [
+    //         "rgb(198, 163, 238)",
+    //         "rgba(0, 255, 0, 0.5)",
+    //         "rgba(0, 0, 255, 0.5)",
+    //       ],
+
+    //       // borderColor: "black",
+    //       // borderWidth: 2,
+    //     },
+    //   ],
+    // });
+  }, [serverData]);
+
   return (
     <>
-      <form className="flex justify-around items-center font-sans">
+      <form className="flex justify-around items-center font-sans mb-16">
         {/* district  */}
         <div className="basis-1/5">
           <label
@@ -246,13 +293,13 @@ const ShowCharts = () => {
           </div>
         )}
       </form>
-      <div className="flex justify-around items-center p-0 dark:text-white">
+      <div className="flex justify-between items-center p-0 dark:text-white">
         <div className="w-[45%] overflow-hidden">
-          <BarChart chartData={chartData} />
+          {serverData?.length !== 0 && <BarChart chartData={chartData} />}
         </div>
 
         <div className="w-[45%] overflow-hidden">
-          <PieChart chartData={chartData} />
+          {serverData?.length !== 0 && <PieChart chartData={chartData} />}
         </div>
       </div>
     </>
