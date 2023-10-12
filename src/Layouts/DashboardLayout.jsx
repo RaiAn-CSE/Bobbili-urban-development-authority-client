@@ -12,7 +12,7 @@ const DashboardLayout = () => {
   const currentUser = JSON.parse(localStorage.getItem("loggedUser"));
 
   const darkGradientColor =
-    "dark:bg-gradient-to-tl dark:from-violet-500 dark:to-fuchsia-500";
+    "dark:bg-gradient-to-b dark:from-violet-500 dark:to-fuchsia-500";
 
   return (
     <>
