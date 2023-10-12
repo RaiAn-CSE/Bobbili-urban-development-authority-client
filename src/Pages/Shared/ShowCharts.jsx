@@ -119,21 +119,24 @@ const ShowCharts = () => {
 
   const canvas = document.createElement("canvas");
 
+  // background-image: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%);;;
+
   const getData = (canvas, labels, data) => {
     const ctx = canvas.getContext("2d");
     const gradient1 = ctx.createLinearGradient(0, 0, 300, 0);
-    gradient1.addColorStop(0, "#20f08b");
-    gradient1.addColorStop(0.5, "#20f08b");
-    gradient1.addColorStop(1, "#07dfb1");
+    gradient1.addColorStop(0, "#ffecd2");
+    gradient1.addColorStop(1, "#fcb69f");
+    // gradient1.addColorStop(1, "rgb(107, 33, 168)");
 
     const gradient2 = ctx.createLinearGradient(0, 0, 300, 0);
-    gradient2.addColorStop(0, "#20f08b");
-    gradient2.addColorStop(0.5, "#20f08b");
-    gradient2.addColorStop(1, "#07dfb1");
+    gradient2.addColorStop(0, "#d4fc79");
+    gradient2.addColorStop(1, "#96e6a1");
+    // gradient2.addColorStop(1, "rgb(34, 197, 94)");
     const gradient3 = ctx.createLinearGradient(0, 0, 300, 0);
-    gradient3.addColorStop(0, "#20f08b");
-    gradient3.addColorStop(0.5, "#20f08b");
-    gradient3.addColorStop(1, "#07dfb1");
+    gradient3.addColorStop(0, "#f78ca0");
+    gradient3.addColorStop(0.19, "#f9748f");
+    gradient3.addColorStop(0.5, "#fd868c");
+    gradient3.addColorStop(1, "#fe9a8b");
 
     return {
       labels,
@@ -143,6 +146,7 @@ const ShowCharts = () => {
           data,
           backgroundColor: [gradient1, gradient2, gradient3],
           borderColor: "#000",
+          borderWidth: 0.1,
         },
       ],
     };
