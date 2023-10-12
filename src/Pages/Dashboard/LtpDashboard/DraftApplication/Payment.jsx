@@ -107,16 +107,17 @@ const Payment = () => {
   const calculateFees = (generalInformation, ltpDetails, applicantDetailsData, plotDetails) => {
 
     // Plots Details
-    const { netPlotAreaCal, marketValueSqym, totalBuiltUpArea } = plotDetails;
+    const { netPlotAreaCal, marketValueSqym, totalBuiltUpArea,vacantLand } = plotDetails;
+    console.log(plotDetails,"plotDetails")
     // General Informatin
     const { natureOfTheSite } = generalInformation;
 
     const builtup_Area = Number(totalBuiltUpArea);
-    const vacant_area = 1;
+    const vacant_area = Number(vacantLand)
     const net_Plot_Area = Number(netPlotAreaCal);
     const market_value = Number(marketValueSqym);
     const nature_of_site = natureOfTheSite;
-    const BuiltUp_area_SquareFeet = builtup_Area * 10.7639;
+    const BuiltUp_area_SquareFeet = Number(builtup_Area * 10.7639);
 
     console.log(typeof builtup_Area, "builtup_Area");
 
@@ -135,7 +136,7 @@ const Payment = () => {
     const calculatePenalizationCharges = (net_Plot_Area, nature_of_site) => {
       let penalizationCharges = 0;
       if (nature_of_site !== "Plot port of RLP/IPLP but not regularised") {
-        return (penalizationCharges = 0);
+        return penalizationCharges = 0;
       }
  
       if (net_Plot_Area <= 100) {
@@ -174,37 +175,28 @@ const Payment = () => {
       if (BuiltUp_area_SquareFeet <= 10000) {
         labourCessComponentCharge2 = labourCessComponentUnitRate2 * BuiltUp_area_SquareFeet * 10.76;
       } else if (BuiltUp_area_SquareFeet > 10000) {
-        labourCessComponentCharge2 = labourCessComponentUnitRate2 * BuiltUp_area_SquareFeet * 10.76 * (0.01 * 0.02);
+        labourCessComponentCharge2 = labourCessComponentUnitRate2 * BuiltUp_area_SquareFeet * 10.76 * 0.01 * 0.02;
       }
       return labourCessComponentCharge2;
     };
     // ===== Total labour cess Compo 2 Charged====
-    const TotalLabourCessComp2Charged = laboutCessCompo2Calculation(BuiltUp_area_SquareFeet).toFixed(4);
+    const TotalLabourCessComp2Charged = laboutCessCompo2Calculation(BuiltUp_area_SquareFeet);
 
     // =====UDA Total=====
     const UDATotal = () => {
       // Calculate UDA Total Charged
-      const UDATotalCharged = (builtUpAreaDevelopmentCharged + vacantAreaDevelopmentCharged + TotalPenalizationCharged + TotalOpenSpaceCharged + TotalLabourCessComp2Charged);
-      console.log(UDATotalCharged, "UDATotalCharged")
-      return UDATotalCharged;
+      const UDATotalCharged = builtUpAreaDevelopmentCharged + vacantAreaDevelopmentCharged + TotalPenalizationCharged + TotalOpenSpaceCharged + TotalLabourCessComp2Charged;
+      return Math.round(UDATotalCharged);
     };
     // =====UDA Total Charged=====
     const UDATotalCharged = UDATotal();
-    console.log(UDATotalCharged, "UDATotalCharged")
+    console.log({builtUpAreaDevelopmentCharged,vacantAreaDevelopmentCharged , TotalPenalizationCharged , TotalOpenSpaceCharged , TotalLabourCessComp2Charged,UDATotalCharged}, "UDATotalCharged-in")
 
     // =======Grama Panchayet Segment=======
 
     // ====Grama Panchayet fees====
     const bettermentChargedUnitRate = 40; //per Sqm.
     const bettermentCharged = bettermentChargedUnitRate * net_Plot_Area;
-
-    // ====Building Permit====
-    // const buildingPermitUnitRate = 20; //per Sqm.
-    // const buildingPermitFees = buildingPermitUnitRate * builtup_Area;
-
-    // ====Site Approval Charged====
-    // const siteApprovalUnitRate = 10; //per Sqm.
-    // const siteApprovalCharged = siteApprovalUnitRate * net_Plot_Area;
 
     // ====Paper Publication Charged====
     const paperPublicationCharged = 1500; //Fixed
@@ -217,11 +209,9 @@ const Payment = () => {
     const gramaPanchayetTotal = () => {
       return (
         bettermentCharged +
-        buildingPermitFees +
-        siteApprovalCharged +
         paperPublicationCharged +
         processingFees
-      ).toFixed(4);
+      );
     };
     // =====Grama Panchayet Total Charged=====
     const GramaPanchayetTotalCharged = gramaPanchayetTotal();
@@ -255,12 +245,12 @@ const Payment = () => {
       vacantAreaDevelopmentCharged,
       builtup_Area,
       nature_of_site,
-      siteApprovalCharged,
       greenFeeCharged,
       TotalPenalizationCharged,
       TotalOpenSpaceCharged,
       bettermentCharged,
-      buildingPermitFees,
+      processingFees,
+      paperPublicationCharged
     });
   };
 
@@ -288,7 +278,7 @@ const Payment = () => {
     console.log(document.getElementById("UdaImpactFee"), "BY ID");
     console.log(document.getElementById("UDATotalCharged"), "BY ID");
     console.log(document.getElementById("gramaSiteApproval"), "BY ID");
-    console.log(document.getElementById("buildingPermitFees"), "BY ID");
+    // console.log(document.getElementById("buildingPermitFees"), "BY ID");
     console.log(document.getElementById("bettermentCharged"), "BY ID");
     console.log(document.getElementById("TotalOpenSpaceCharged"), "BY ID");
     console.log(document.getElementById("gramaImpactFee"), "BY ID");
@@ -359,12 +349,11 @@ const Payment = () => {
     const vacantArea = document.getElementById("vacantArea")?.value;
 
     const builtUpArea = document.getElementById("builtUpArea")?.value;
-    const UdaImpactFee = document.getElementById("UdaImpactFee")?.value;
+    // const UdaImpactFee = document.getElementById("UdaImpactFee")?.value;
     const UDATotalCharged = document.getElementById("UDATotalCharged")?.value;
     const gramaSiteApproval =
       document.getElementById("gramaSiteApproval")?.value;
-    const buildingPermitFees =
-      document.getElementById("buildingPermitFees")?.value;
+ 
     const bettermentCharged =
       document.getElementById("bettermentCharged")?.value;
     const TotalOpenSpaceCharged = document.getElementById(
@@ -418,7 +407,7 @@ const Payment = () => {
     };
     const gramaPanchayatFee = {
       gramaSiteApproval: gramaSiteApproval ?? "",
-      buildingPermitFees: buildingPermitFees ?? "",
+      // buildingPermitFees: buildingPermitFees ?? "",
       bettermentCharged: bettermentCharged ?? "",
       TotalOpenSpaceCharged: TotalOpenSpaceCharged ?? "",
       gramaImpactFee: gramaImpactFee ?? "",
@@ -562,7 +551,7 @@ const Payment = () => {
               label="Paper Publication Charges"
               placeholder="1000"
               type="number"
-              ltpDetails={calculatedData?.siteApprovalCharged}
+              ltpDetails={calculatedData?.paperPublicationCharged}
             />
             <InputField
               id="processingFee"
@@ -570,17 +559,8 @@ const Payment = () => {
               label="Processing Fee"
               placeholder="5000"
               type="number"
-              ltpDetails={0}
+              ltpDetails={calculatedData?.processingFees}
             />
-            {/* <InputField
-              id="buildingPermitFees"
-              name="buildingPermitFees"
-              label="Building permit fee"
-              placeholder="1000"
-              type="number"
-              ltpDetails={calculatedData?.buildingPermitFees}
-            /> */}
-
             {condition !== 1 && (
               <InputField
                 id="bettermentCharged"
