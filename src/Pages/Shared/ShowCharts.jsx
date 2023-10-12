@@ -191,7 +191,7 @@ const ShowCharts = () => {
 
   return (
     <>
-      <form className="flex justify-around items-center font-sans mb-16">
+      <form className="flex justify-around items-center font-sans my-16">
         {/* district  */}
         <div className="basis-1/5">
           <label
