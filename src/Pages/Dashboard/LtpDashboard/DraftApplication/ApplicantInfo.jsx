@@ -136,8 +136,8 @@ const ApplicantInfo = () => {
           <h3 className="font-bold text-xl">LTP’s Details</h3>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 mt-2">
-          <div className="grid grid-cols-2">
+        <div className="lg:flex mt-2">
+          <div className="grid grid-cols-2 lg:grid-cols-3 basis-[75%]">
             <InputField
               id="ltpType"
               name="ltpType"
@@ -215,22 +215,18 @@ const ApplicantInfo = () => {
               ltpDetails={email}
             />
           </div>
-          <div>
-            <div>
-              <div className="my-4 mx-3">
-                <label htmlFor="ltpAddress" className={labelClass}>
-                  Address
-                </label>
-                <textarea
-                  id="ltpAddress"
-                  name="ltpAddress"
-                  rows="4"
-                  className={inputClass}
-                  defaultValue={address}
-                  placeholder="Dr. no., Street, Village, Mandal, Dist."
-                ></textarea>
-              </div>
-            </div>
+          <div className="my-4 mx-3 basis-[25%]">
+            <label htmlFor="ltpAddress" className={labelClass}>
+              Address
+            </label>
+            <textarea
+              id="ltpAddress"
+              name="ltpAddress"
+              rows="4"
+              className={inputClass}
+              defaultValue={address}
+              placeholder="Dr. no., Street, Village, Mandal, Dist."
+            ></textarea>
           </div>
         </div>
       </div>
