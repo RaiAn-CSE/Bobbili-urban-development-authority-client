@@ -95,19 +95,28 @@ const ShowCharts = () => {
   };
 
   const detectChangeOfDate = (e) => {
+    console.log(e.target.value);
     setSelectedDate(e.target.value);
   };
 
-  console.log(selectedDistrict, selectedMandal, selectedPanchayat, "All");
+  console.log(
+    selectedDistrict,
+    selectedMandal,
+    selectedPanchayat,
+    selectedDate,
+    "All"
+  );
 
   useEffect(() => {
     if (selectedDistrict.length) {
-      const data = { district: "", mandal: "", panchayat: "" };
+      const data = { district: "", mandal: "", panchayat: "", date: "" };
 
       selectedDistrict?.length && (data["district"] = selectedDistrict);
       selectedMandal?.length && (data["mandal"] = selectedMandal);
       selectedPanchayat?.length && (data["panchayat"] = selectedPanchayat);
+      selectedDate?.length && (data["date"] = selectedDate);
 
+      console.log(data);
       fetch(
         `http://localhost:5000/filterApplications?search=${JSON.stringify(
           data
@@ -127,7 +136,7 @@ const ShowCharts = () => {
           console.log(result);
         });
     }
-  }, [selectedDistrict, selectedMandal, selectedPanchayat]);
+  }, [selectedDistrict, selectedMandal, selectedPanchayat, selectedDate]);
 
   return (
     <>
@@ -224,7 +233,7 @@ const ShowCharts = () => {
               id="date"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               defaultValue="select"
-              disabled={allPanchayat?.length === 0}
+              disabled={selectedPanchayat?.length === 0}
               onChange={(e) => detectChangeOfDate(e)}
             >
               <option value="select" disabled>
