@@ -42,67 +42,6 @@ const MainLayout = () => {
     };
   }, [theme]);
 
-<<<<<<< HEAD
-=======
-  const menu = (
-    <>
-      <Link
-        to="/"
-        type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm border-b border-gray-200 rounded-t-lg ${hoverGradientColor} ${path.length === 1 && path.includes("/") ? active : ""
-          }`}
-      >
-        Application Search
-      </Link>
-      <Link
-        to="/onlinePayment"
-        type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm border-b border-gray-200  ${hoverGradientColor} ${path.includes("onlinePayment") ? active : ""
-          }`}
-      >
-        Online Payment
-      </Link>
-      <Link
-        to="/listOfLTP"
-        type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm  border-b border-gray-200 ${hoverGradientColor} ${path.includes("listOfLTP") ? active : ""
-          }`}
-      >
-        List of LTP's
-      </Link>
-      <Link
-        to="/demoVideos"
-        type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm border-b ${hoverGradientColor} ${path.includes("demoVideos") ? active : ""
-          }`}
-      >
-        Demo Videos
-      </Link>
-      <Link
-        to="/privacyPolicy"
-        type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm  border-b ${hoverGradientColor} ${path.includes("privacyPolicy") ? active : ""
-          }`}
-      >
-        Privacy Policy
-      </Link>
-      <Link
-        to="/defaultDrawingFormat"
-        type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm border-b ${hoverGradientColor} ${path.includes("defaultDrawingFormat") ? active : ""
-          }`}
-      >
-        Default Drawing Format
-      </Link>
-      <Link
-        type="button"
-        className="relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium rounded-b-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white"
-      >
-        Menu Item
-      </Link>
-    </>
-  );
->>>>>>> raian
   return (
     <div className="px-10 min-h-screen dark:bg-black">
       {/* upper part  */}

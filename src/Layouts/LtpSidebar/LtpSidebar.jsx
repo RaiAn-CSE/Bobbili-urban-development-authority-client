@@ -28,14 +28,9 @@ const LtpSidebar = () => {
   return (
     <>
       <li
-<<<<<<< HEAD
         className={`${
           path === "/dashboard" && activeColor
         } mt-24 lg:mt-0 flex items-center ps-4 ${hoverColor} mb-1`}
-=======
-        className={`${path === "/dashboard" && gradientColor
-          } mt-10 flex items-center ps-4 ${hoverGradientColor} rounded-l-lg mb-1`}
->>>>>>> raian
       >
         <span>
           <MdSpaceDashboard size={20} />
@@ -46,20 +41,16 @@ const LtpSidebar = () => {
       </li>
 
       <li
-        className={`${(path === "/dashboard/draftApplication" ||
+        className={`${
+          (path === "/dashboard/draftApplication" ||
             path === "/dashboard/draftApplication/buildingInfo" ||
             path === "/dashboard/draftApplication/applicantInfo" ||
             path === "/dashboard/draftApplication/applicationChecklist" ||
             path === "/dashboard/draftApplication/documents" ||
             path === "/dashboard/draftApplication/drawing" ||
             path === "/dashboard/draftApplication/payment") &&
-<<<<<<< HEAD
           activeColor
         } flex items-center ps-4 ${hoverColor}  mb-1`}
-=======
-          gradientColor
-          } flex items-center ps-4 ${hoverGradientColor} rounded-l-lg mb-1`}
->>>>>>> raian
       >
         <span>
           <BiSolidImageAdd size={22} />
@@ -73,14 +64,9 @@ const LtpSidebar = () => {
       </li>
 
       <li
-<<<<<<< HEAD
         className={`${
           path === "/dashboard/submitApplication" && activeColor
         } flex items-center ps-4 ${hoverColor}  mb-1`}
-=======
-        className={`${path === "/dashboard/submitApplication" && gradientColor
-          } flex items-center ps-4 ${hoverGradientColor} rounded-l-lg mb-1`}
->>>>>>> raian
       >
         <span>
           <BsSendCheckFill size={19} />
@@ -94,14 +80,9 @@ const LtpSidebar = () => {
       </li>
 
       <li
-<<<<<<< HEAD
         className={`${
           path === "/dashboard/approvedApplication" && activeColor
         } flex items-center ps-4 ${hoverColor}  mb-1`}
-=======
-        className={`${path === "/dashboard/approvedApplication" && gradientColor
-          } flex items-center ps-4 ${hoverGradientColor} rounded-l-lg mb-1`}
->>>>>>> raian
       >
         <span>
           <BiCheckDouble size={23} />
@@ -115,14 +96,9 @@ const LtpSidebar = () => {
       </li>
 
       <li
-<<<<<<< HEAD
         className={`${
           path === "/dashboard/shortfallApplication" && activeColor
         } flex items-center ps-4 ${hoverColor}  mb-1`}
-=======
-        className={`${path === "/dashboard/shortfallApplication" && gradientColor
-          } flex items-center ps-4 ${hoverGradientColor} rounded-l-lg mb-1`}
->>>>>>> raian
       >
         <span>
           <AiOutlineForm size={20} />

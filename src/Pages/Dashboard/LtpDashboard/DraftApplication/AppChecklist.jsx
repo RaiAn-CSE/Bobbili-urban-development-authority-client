@@ -54,7 +54,7 @@ function AppChecklist() {
             className="lg:flex items-center justify-center shadow-sm shadow-gray-100 rounded p-3"
           >
             <p className="flex-1 text-black rounded mb-5 text-base md:text-lg lg:mb-0 lg:pr-4 dark:text-gray-100">
-              {no}. {question}
+              {id}. {question}
             </p>
             <div className="space-x-10 mt-2 lg:pr-2 text-base md:text-lg">
               <label

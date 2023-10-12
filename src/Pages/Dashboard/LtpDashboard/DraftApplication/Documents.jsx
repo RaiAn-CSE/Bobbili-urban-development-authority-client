@@ -17,9 +17,15 @@ const DocumentUpload = () => {
   const [recomendationMessage, setRecomendationMessage] = useState("");
   const stepperData = useOutletContext();
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
-  const [PreviousDefaultDocumentData, setPreviousDefaultDocumentData] = useState([]);
-  const [UpdatedDynamicDocumentData, setUpdatedDynamicDocumentData] = useState([]);
-  const [sendingDocument, setSendingDocument] = useState({ dynamic: [], default: [] })
+  const [PreviousDefaultDocumentData, setPreviousDefaultDocumentData] =
+    useState([]);
+  const [UpdatedDynamicDocumentData, setUpdatedDynamicDocumentData] = useState(
+    []
+  );
+  const [sendingDocument, setSendingDocument] = useState({
+    dynamic: [],
+    default: [],
+  });
   const [DefaultData, setDefaultData] = useState([]);
   const [DynamicData, setDynamicData] = useState([]);
   const {
@@ -53,7 +59,7 @@ const DocumentUpload = () => {
     setSendingDocument({ default: DefaultData, dynamic: DynamicData });
   }, [DefaultData, DynamicData]);
 
-  console.log(sendingDocument, "Sending Document")
+  console.log(sendingDocument, "Sending Document");
 
   // Adding checklist Data to Document from server data && Updating Data from server Data
   useEffect(() => {
@@ -81,9 +87,7 @@ const DocumentUpload = () => {
     gettingData();
   }, []);
 
-  const handleFileUpload = () => {
-
-  }
+  const handleFileUpload = () => {};
 
   // send data to PS DB (Apu vai send PS data from here)
   const sentPsDecision = async (url) => {
@@ -109,94 +113,22 @@ const DocumentUpload = () => {
         }}
         className="text-black p-4 font-roboto dark:text-gray-100"
       >
-<<<<<<< HEAD
-        {UpdatedDocuments?.map((document, index) => {
-          const { id, question, upload, approved } = document;
-          return (
-            <>
-              <div key={id} className="w-full px-2 mb-5 py-5 rounded">
-                <p className="text-[17px] font-bold text-lg md:text-xl">
-                  {id}. {question}
-                </p>
-
-                <div className="flex items-center mt-6">
-                  {/* Approved Button */}
-                  {role === "LTP" && (
-                    <input
-                      name={id}
-                      type="file"
-                      accept=".pdf, image/*"
-                      onChange={(event) => handleFileChange(event, index)}
-                      className="file-input file-input-bordered w-full max-w-xs dark:text-black dark:border-none"
-                    />
-                  )}
-
-                  {upload !== "" && (
-                    <Link
-                      to={`https://drive.google.com/file/d/${upload}/view?usp=sharing`}
-                      target="_blank"
-                      className={`${gradientColor} text-white hover:underline ms-5 py-2 px-5 rounded-full`}
-                    >
-                      View
-                    </Link>
-                  )}
-
-                  {role === "PS" && (
-                    <div className="space-x-10 mt-2 ms-4 lg:pr-2 ">
-                      <label
-                        className={`ml-2 inline-flex items-center space-x-1 text-black 
-                          ${approved === "approved" && "font-extrabold"}`}
-                      >
-                        <input
-                          type="radio"
-                          name={id}
-                          value="approved"
-                          className="radio radio-sm radio-success mr-3 lg:mr-0"
-                          // checked={approved === "approved"}
-                          onChange={(event) => handleAnswer(event, id)}
-                        />
-                        <span>Approve</span>
-                      </label>
-                      <label
-                        className={`ml-2 inline-flex items-center space-x-1 text-black 
-                          ${approved === "shortfall" && "font-extrabold"}`}
-                      >
-                        <input
-                          type="radio"
-                          name={id}
-                          value="shortfall"
-                          className="radio radio-sm radio-success mr-3 lg:mr-0"
-                          // checked={shortfall === "shortfall"}
-                          onChange={(event) => handleAnswer(event, id)}
-                        />
-                        <span>Shortfall</span>
-                      </label>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </>
-          );
-        })}
-=======
         <div className="w-full text-[17px] px-2 py-5 rounded">
           <DefaultDocument
             PreviousDefaultDocumentData={PreviousDefaultDocumentData}
             role={role}
             handleFileChange={handleFileChange}
             gradientColor={gradientColor}
-          // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
+            // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
           />
           <DynamicDocument
             role={role}
             UpdatedDynamicDocumentData={UpdatedDynamicDocumentData}
             handleFileChange={handleFileChange}
             gradientColor={gradientColor}
-          // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
-
+            // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
           />
         </div>
->>>>>>> Tanjimul
       </form>
 
       {role === "PS" ? (
@@ -215,7 +147,9 @@ const DocumentUpload = () => {
         steps={steps}
         stepperData={stepperData}
         confirmAlert={confirmAlert}
-        collectInputFieldData={role === "LTP" ? handleFileUpload : sentPsDecision}
+        collectInputFieldData={
+          role === "LTP" ? handleFileUpload : sentPsDecision
+        }
       />
     </div>
   );

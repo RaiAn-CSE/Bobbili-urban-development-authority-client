@@ -84,7 +84,7 @@ const Payment = () => {
         generalInformation?.natureOfTheSite === "Approved Layout" ||
         generalInformation?.natureOfTheSite === "Regularised under LRS" ||
         generalInformation?.natureOfTheSite ===
-        "Congested/ Gramakanta/ Old Built-up area" ||
+          "Congested/ Gramakanta/ Old Built-up area" ||
         generalInformation?.natureOfTheSite === "Newly Developed/ Built up area"
       ) {
         setCondition(1);
@@ -104,8 +104,12 @@ const Payment = () => {
     });
   }, []);
 
-  const calculateFees = (generalInformation, ltpDetails, applicantDetailsData, plotDetails) => {
-
+  const calculateFees = (
+    generalInformation,
+    ltpDetails,
+    applicantDetailsData,
+    plotDetails
+  ) => {
     // Plots Details
     const { netPlotAreaCal, marketValueSqym, totalBuiltUpArea } = plotDetails;
     // General Informatin
@@ -143,18 +147,26 @@ const Payment = () => {
       } else if (net_Plot_Area <= 300) {
         penalizationCharges = net_Plot_Area * 400 * 0.33;
       } else {
-        return penalizationCharges = 0;
+        return (penalizationCharges = 0);
       }
 
       return penalizationCharges;
     };
     // ====Total 33% Penalization Charged====
-    const TotalPenalizationCharged = calculatePenalizationCharges(net_Plot_Area, nature_of_site);
+    const TotalPenalizationCharged = calculatePenalizationCharges(
+      net_Plot_Area,
+      nature_of_site
+    );
 
     // ====Open Space====
-    function calculateOpenSpaceCharge(nature_of_site, net_Plot_Area, market_value) {
+    function calculateOpenSpaceCharge(
+      nature_of_site,
+      net_Plot_Area,
+      market_value
+    ) {
       const condition01 = nature_of_site === "Newly Developed/ Built up area";
-      const condition02 = nature_of_site === "Plot port of RLP/IPLP but not regularised";
+      const condition02 =
+        nature_of_site === "Plot port of RLP/IPLP but not regularised";
 
       if (condition01 || condition02) {
         return net_Plot_Area * 1.196 * market_value * 0.14;
@@ -164,7 +176,11 @@ const Payment = () => {
     }
 
     // ==== Total 14% Open Space Charged ====
-    const TotalOpenSpaceCharged = calculateOpenSpaceCharge(nature_of_site, net_Plot_Area, market_value);
+    const TotalOpenSpaceCharged = calculateOpenSpaceCharge(
+      nature_of_site,
+      net_Plot_Area,
+      market_value
+    );
 
     // ==== Labour Cess Component 2 ====
     const labourCessComponentUnitRate2 = 1400; // per Sq.Ft.
@@ -172,25 +188,37 @@ const Payment = () => {
     const laboutCessCompo2Calculation = (BuiltUp_area_SquareFeet) => {
       let labourCessComponentCharge2 = 0;
       if (BuiltUp_area_SquareFeet <= 10000) {
-        labourCessComponentCharge2 = labourCessComponentUnitRate2 * BuiltUp_area_SquareFeet * 10.76;
+        labourCessComponentCharge2 =
+          labourCessComponentUnitRate2 * BuiltUp_area_SquareFeet * 10.76;
       } else if (BuiltUp_area_SquareFeet > 10000) {
-        labourCessComponentCharge2 = labourCessComponentUnitRate2 * BuiltUp_area_SquareFeet * 10.76 * (0.01 * 0.02);
+        labourCessComponentCharge2 =
+          labourCessComponentUnitRate2 *
+          BuiltUp_area_SquareFeet *
+          10.76 *
+          (0.01 * 0.02);
       }
       return labourCessComponentCharge2;
     };
     // ===== Total labour cess Compo 2 Charged====
-    const TotalLabourCessComp2Charged = laboutCessCompo2Calculation(BuiltUp_area_SquareFeet).toFixed(4);
+    const TotalLabourCessComp2Charged = laboutCessCompo2Calculation(
+      BuiltUp_area_SquareFeet
+    ).toFixed(4);
 
     // =====UDA Total=====
     const UDATotal = () => {
       // Calculate UDA Total Charged
-      const UDATotalCharged = (builtUpAreaDevelopmentCharged + vacantAreaDevelopmentCharged + TotalPenalizationCharged + TotalOpenSpaceCharged + TotalLabourCessComp2Charged);
-      console.log(UDATotalCharged, "UDATotalCharged")
+      const UDATotalCharged =
+        builtUpAreaDevelopmentCharged +
+        vacantAreaDevelopmentCharged +
+        TotalPenalizationCharged +
+        TotalOpenSpaceCharged +
+        TotalLabourCessComp2Charged;
+      console.log(UDATotalCharged, "UDATotalCharged");
       return UDATotalCharged;
     };
     // =====UDA Total Charged=====
     const UDATotalCharged = UDATotal();
-    console.log(UDATotalCharged, "UDATotalCharged")
+    console.log(UDATotalCharged, "UDATotalCharged");
 
     // =======Grama Panchayet Segment=======
 
@@ -361,7 +389,7 @@ const Payment = () => {
     const vacantArea = document.getElementById("vacantArea")?.value;
 
     const builtUpArea = document.getElementById("builtUpArea")?.value;
-    const UdaImpactFee = document.getElementById("UdaImpactFee")?.value;
+
     const UDATotalCharged = document.getElementById("UDATotalCharged")?.value;
     const gramaSiteApproval =
       document.getElementById("gramaSiteApproval")?.value;
@@ -372,7 +400,7 @@ const Payment = () => {
     const TotalOpenSpaceCharged = document.getElementById(
       "TotalOpenSpaceCharged"
     )?.value;
-    const gramaImpactFee = document.getElementById("gramaImpactFee")?.value;
+
     const TotalPenalizationCharged = document.getElementById(
       "TotalPenalizationCharged"
     )?.value;
@@ -754,15 +782,15 @@ const Payment = () => {
 
             {applicationData?.payment?.labourCessCharge
               ?.labourCessBankReceipt && (
-                <Link
-                  to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
-                  target="_blank"
-                  className="flex justify-center items-center ms-10 px-6 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
-                >
-                  <MdReceiptLong className="me-1" />
-                  View Challan
-                </Link>
-              )}
+              <Link
+                to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
+                target="_blank"
+                className="flex justify-center items-center ms-10 px-6 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
+              >
+                <MdReceiptLong className="me-1" />
+                View Challan
+              </Link>
+            )}
           </div>
         </div>
 
