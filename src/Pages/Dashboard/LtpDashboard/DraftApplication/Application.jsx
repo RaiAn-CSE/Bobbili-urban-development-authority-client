@@ -122,28 +122,28 @@ function Application({ setOpenApplication }) {
   console.log("LtPName", name);
   // ====Applicant Info
   const Part01 = [
-    { NAME: ApplicantName },
-    { "DOOR No. / FLAT No.": adharNo },
-    { "ROAD/STREET": roadWideningAreaCal },
-    [{ VILLAGE: village }, { MANDAL: mandal }],
-    { "CITY/TOWN": ["PIN - ", pinCode] },
-    { DISTRICT: district },
-    { "E-MAIL": AppEmail },
-    [{ MOBILE: applicantPhone }, { ALTERNATE: "" }],
+    { "Name(in full)": ApplicantName },
+    { "Door No/Flat No.": adharNo },
+    { "Road/Street": roadWideningAreaCal },
+    { "Village": village },
+    { "Mandal": mandal },
+    { "District": district },
+    { "PIN Code": pinCode },
+    { "Phone No": applicantPhone },
+    { "E-mail": AppEmail }
   ];
 
   // //
   const Part02 = [
-    { "PLOT NOs": plotNo },
-    { "SANCTIONED LAYOUT NO. / LRS NO": lrsNo },
-    [{ "SURVEY NO.": surveyNo }, { VILLAGE: village }],
-    { "PREMISES / DOOR No.": 12 },
-    { "ROAD/ STREET": existingRoad },
-    [{ "WARD NO.": "" }, { "BLOCK No": "" }],
-    { LOCALITY: "" },
-    [{ "CIRCLE/DIVISION": gramaPanchayat }, { DIVISION: gramaPanchayat }],
-    [{ "CITY/TOWN": district }, { DISTRICT: district }],
+    { "Survey No": surveyNo },
+    { "L.P Mo./LRS No.": lrsNo },
+    { "Plot No": plotNo },
+    { "Village": village },
+    { "Grama Panchayat": gramaPanchayat },
+    { "Mandal": gramaPanchayat },
+    { "District": district },
   ];
+  
 
   // Part03
   const Part03 = [

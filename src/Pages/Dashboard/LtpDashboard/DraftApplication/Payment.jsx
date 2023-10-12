@@ -80,23 +80,13 @@ const Payment = () => {
         greenFeeBankReceipt: greenFeeImgId,
       });
 
-      console.log(imageId, "IMAGE ID");
-      console.log(
-        generalInformation,
-        ltpDetails,
-        applicantDetailsData,
-        plotDetails,
-        "INFORMATION"
-      );
-
       if (
         generalInformation?.natureOfTheSite === "Approved Layout" ||
         generalInformation?.natureOfTheSite === "Regularised under LRS" ||
         generalInformation?.natureOfTheSite ===
-          "Congested/ Gramakanta/ Old Built-up area" ||
-        generalInformation.natureOfTheSite === "Newly Developed/ Built up area"
+        "Congested/ Gramakanta/ Old Built-up area" ||
+        generalInformation?.natureOfTheSite === "Newly Developed/ Built up area"
       ) {
-        console.log("aschi");
         setCondition(1);
       }
       if (
@@ -114,55 +104,12 @@ const Payment = () => {
     });
   }, []);
 
-  const calculateFees = (
-    generalInformation,
-    ltpDetails,
-    applicantDetailsData,
-    plotDetails
-  ) => {
-    console.log("INSIDE CALCULATE FEES");
+  const calculateFees = (generalInformation, ltpDetails, applicantDetailsData, plotDetails) => {
+
     // Plots Details
-    const {
-      proposedPlotAreaCal,
-      roadWideningAreaCal,
-      netPlotAreaCal,
-      buildingExcludeStilt,
-      compoundingWallProposed,
-      existingRoad,
-      existingRoadMts,
-      frontSetback,
-      marketValueSqym,
-      natureOfRoad,
-      proposedRoadMts,
-      rareSetback,
-      side1Setback,
-      side2Setback,
-      siteRegistered,
-      statusOfRoad,
-      totalBuiltUpArea,
-      totalParkingArea,
-      totalPlotDocument,
-      totalPlotGround,
-    } = plotDetails;
+    const { netPlotAreaCal, marketValueSqym, totalBuiltUpArea } = plotDetails;
     // General Informatin
-    const {
-      applicationType,
-      bpsApprovedNoServer,
-      caseType,
-      district,
-      gramaPanchayat,
-      iplpNo,
-      lpNo,
-      lrsNo,
-      mandal,
-      natureOfPermission,
-      natureOfTheSite,
-      plotNo,
-      plotNo2,
-      previewsApprovedFileNo,
-      surveyNo,
-      village,
-    } = generalInformation;
+    const { natureOfTheSite } = generalInformation;
 
     const builtup_Area = Number(totalBuiltUpArea);
     const vacant_area = 1;
@@ -196,25 +143,18 @@ const Payment = () => {
       } else if (net_Plot_Area <= 300) {
         penalizationCharges = net_Plot_Area * 400 * 0.33;
       } else {
-        return (penalizationCharges = 0);
+        return penalizationCharges = 0;
       }
 
       return penalizationCharges;
     };
     // ====Total 33% Penalization Charged====
-    const TotalPenalizationCharged = calculatePenalizationCharges(
-      net_Plot_Area,
-      nature_of_site
-    );
+    const TotalPenalizationCharged = calculatePenalizationCharges(net_Plot_Area, nature_of_site);
 
-    function calculateOpenSpaceCharge(
-      nature_of_site,
-      net_Plot_Area,
-      market_value
-    ) {
+    // ====Open Space====
+    function calculateOpenSpaceCharge(nature_of_site, net_Plot_Area, market_value) {
       const condition01 = nature_of_site === "Newly Developed/ Built up area";
-      const condition02 =
-        nature_of_site === "Plot port of RLP/IPLP but not regularised";
+      const condition02 = nature_of_site === "Plot port of RLP/IPLP but not regularised";
 
       if (condition01 || condition02) {
         return net_Plot_Area * 1.196 * market_value * 0.14;
@@ -223,48 +163,34 @@ const Payment = () => {
       }
     }
 
-    // ==== Total 14% Open Space Charged====
-    const TotalOpenSpaceCharged = calculateOpenSpaceCharge(
-      nature_of_site,
-      net_Plot_Area,
-      market_value
-    );
+    // ==== Total 14% Open Space Charged ====
+    const TotalOpenSpaceCharged = calculateOpenSpaceCharge(nature_of_site, net_Plot_Area, market_value);
 
     // ==== Labour Cess Component 2 ====
     const labourCessComponentUnitRate2 = 1400; // per Sq.Ft.
 
     const laboutCessCompo2Calculation = (BuiltUp_area_SquareFeet) => {
       let labourCessComponentCharge2 = 0;
-      if (BuiltUp_area_SquareFeet < 10000) {
-        labourCessComponentCharge2 =
-          labourCessComponentUnitRate2 * BuiltUp_area_SquareFeet * 10.76;
+      if (BuiltUp_area_SquareFeet <= 10000) {
+        labourCessComponentCharge2 = labourCessComponentUnitRate2 * BuiltUp_area_SquareFeet * 10.76;
       } else if (BuiltUp_area_SquareFeet > 10000) {
-        labourCessComponentCharge2 =
-          labourCessComponentUnitRate2 *
-          BuiltUp_area_SquareFeet *
-          10.76 *
-          (0.01 * 0.02);
+        labourCessComponentCharge2 = labourCessComponentUnitRate2 * BuiltUp_area_SquareFeet * 10.76 * (0.01 * 0.02);
       }
       return labourCessComponentCharge2;
     };
     // ===== Total labour cess Compo 2 Charged====
-    const TotalLabourCessComp2Charged = laboutCessCompo2Calculation(
-      BuiltUp_area_SquareFeet
-    ).toFixed(4);
+    const TotalLabourCessComp2Charged = laboutCessCompo2Calculation(BuiltUp_area_SquareFeet).toFixed(4);
 
     // =====UDA Total=====
     const UDATotal = () => {
       // Calculate UDA Total Charged
-      const UDATotalCharged =
-        builtUpAreaDevelopmentCharged +
-        vacantAreaDevelopmentCharged +
-        TotalPenalizationCharged +
-        TotalOpenSpaceCharged +
-        TotalLabourCessComp2Charged;
+      const UDATotalCharged = (builtUpAreaDevelopmentCharged + vacantAreaDevelopmentCharged + TotalPenalizationCharged + TotalOpenSpaceCharged + TotalLabourCessComp2Charged);
+      console.log(UDATotalCharged, "UDATotalCharged")
       return UDATotalCharged;
     };
     // =====UDA Total Charged=====
     const UDATotalCharged = UDATotal();
+    console.log(UDATotalCharged, "UDATotalCharged")
 
     // =======Grama Panchayet Segment=======
 
@@ -273,12 +199,12 @@ const Payment = () => {
     const bettermentCharged = bettermentChargedUnitRate * net_Plot_Area;
 
     // ====Building Permit====
-    const buildingPermitUnitRate = 20; //per Sqm.
-    const buildingPermitFees = buildingPermitUnitRate * builtup_Area;
+    // const buildingPermitUnitRate = 20; //per Sqm.
+    // const buildingPermitFees = buildingPermitUnitRate * builtup_Area;
 
     // ====Site Approval Charged====
-    const siteApprovalUnitRate = 10; //per Sqm.
-    const siteApprovalCharged = siteApprovalUnitRate * net_Plot_Area;
+    // const siteApprovalUnitRate = 10; //per Sqm.
+    // const siteApprovalCharged = siteApprovalUnitRate * net_Plot_Area;
 
     // ====Paper Publication Charged====
     const paperPublicationCharged = 1500; //Fixed
@@ -490,7 +416,6 @@ const Payment = () => {
     const udaCharge = {
       vacantArea: vacantArea ?? "",
       builtUpArea: builtUpArea ?? "",
-      UdaImpactFee: UdaImpactFee ?? "",
       UDATotalCharged: UDATotalCharged ?? "",
     };
     const gramaPanchayatFee = {
@@ -539,12 +464,6 @@ const Payment = () => {
     });
   };
 
-  console.log(selectedFiles, "SELECTED FILES");
-  console.log(imageId, "IMAGE ID");
-
-  console.log(condition, "CONSOLE");
-  console.log(applicationData, "APPDATA");
-
   return (
     <>
       <form
@@ -579,13 +498,33 @@ const Payment = () => {
               type="number"
               ltpDetails={calculatedData?.builtUpAreaDevelopmentCharged}
             />
+            {condition !== 1 && (
+              <InputField
+                id="TotalOpenSpaceCharged"
+                name="TotalOpenSpaceCharged"
+                label="14% open space charges"
+                placeholder="5000"
+                type="number"
+                ltpDetails={calculatedData?.TotalOpenSpaceCharged}
+              />
+            )}
+            {condition !== 1 && condition !== 2 && (
+              <InputField
+                id="TotalPenalizationCharged"
+                name="TotalPenalizationCharged"
+                label="33% penalization charges"
+                placeholder="0"
+                type="number"
+                ltpDetails={calculatedData?.TotalPenalizationCharged}
+              />
+            )}
             <InputField
-              id="UdaImpactFee"
-              name="UdaImpactFee"
-              label="Impact fee (50% to UDA)"
-              placeholder="5000"
+              id="labourCess02"
+              name="labourCess02"
+              label="Labour Cess Component 2"
+              placeholder="0"
               type="number"
-              ltpdetails={0}
+              ltpDetails={calculatedData?.TotalPenalizationCharged}
             />
             <InputField
               id="UDATotalCharged"
@@ -620,21 +559,29 @@ const Payment = () => {
 
           <div className="grid grid-cols-2 lg:grid-cols-4 mt-3">
             <InputField
-              id="gramaSiteApproval"
-              name="gramaSiteApproval"
-              label="Site approval charges"
+              id="paperPublication"
+              name="paperPublication"
+              label="Paper Publication Charges"
               placeholder="1000"
               type="number"
               ltpDetails={calculatedData?.siteApprovalCharged}
             />
             <InputField
+              id="processingFee"
+              name="processingFee"
+              label="Processing Fee"
+              placeholder="5000"
+              type="number"
+              ltpDetails={0}
+            />
+            {/* <InputField
               id="buildingPermitFees"
               name="buildingPermitFees"
               label="Building permit fee"
               placeholder="1000"
               type="number"
               ltpDetails={calculatedData?.buildingPermitFees}
-            />
+            /> */}
 
             {condition !== 1 && (
               <InputField
@@ -646,34 +593,7 @@ const Payment = () => {
                 ltpDetails={calculatedData?.bettermentCharged}
               />
             )}
-            {condition !== 1 && (
-              <InputField
-                id="TotalOpenSpaceCharged"
-                name="TotalOpenSpaceCharged"
-                label="14% open space charges"
-                placeholder="5000"
-                type="number"
-                ltpDetails={calculatedData?.TotalOpenSpaceCharged}
-              />
-            )}
-            <InputField
-              id="gramaImpactFee"
-              name="gramaImpactFee"
-              label="Impact fee (50% to G.P.)"
-              placeholder="5000"
-              type="number"
-              ltpDetails={0}
-            />
-            {condition !== 1 && condition !== 2 && (
-              <InputField
-                id="TotalPenalizationCharged"
-                name="TotalPenalizationCharged"
-                label="33% penalization charges"
-                placeholder="0"
-                type="number"
-                ltpDetails={calculatedData?.TotalPenalizationCharged}
-              />
-            )}
+
             <InputField
               id="GramaPanchayetTotalCharged"
               name="GramaPanchayetTotalCharged"
@@ -766,12 +686,12 @@ const Payment = () => {
 
           <div className="grid lg:grid-cols-4 mt-3">
             <InputField
-              id="labourCessSiteApproval"
-              name="labourCessSiteApproval"
-              label="Site approval charges"
+              id="labourCess01"
+              name="labourCess01"
+              label="Labour Cess Component 1"
               placeholder="3000"
               type="number"
-              ltpDetails={calculatedData?.siteApprovalCharged}
+              ltpDetails={calculatedData?.labourCessCompo1Charged}
             />
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-4 mb-8">
@@ -834,15 +754,15 @@ const Payment = () => {
 
             {applicationData?.payment?.labourCessCharge
               ?.labourCessBankReceipt && (
-              <Link
-                to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
-                target="_blank"
-                className="flex justify-center items-center ms-10 px-6 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
-              >
-                <MdReceiptLong className="me-1" />
-                View Challan
-              </Link>
-            )}
+                <Link
+                  to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
+                  target="_blank"
+                  className="flex justify-center items-center ms-10 px-6 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
+                >
+                  <MdReceiptLong className="me-1" />
+                  View Challan
+                </Link>
+              )}
           </div>
         </div>
 
@@ -860,9 +780,9 @@ const Payment = () => {
 
           <div className="grid lg:grid-cols-4 mt-3">
             <InputField
-              id="greenFeeSiteApproval"
-              name="greenFeeSiteApproval"
-              label="Site approval charges"
+              id="GreenFeeCharge"
+              name="GreenFeeCharge"
+              label="Green fee charge"
               placeholder="2000"
               type="number"
               ltpDetails={calculatedData?.greenFeeCharged}

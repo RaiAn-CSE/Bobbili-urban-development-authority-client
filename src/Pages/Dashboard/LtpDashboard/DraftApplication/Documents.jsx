@@ -1,23 +1,27 @@
 import React, { useContext, useEffect, useState } from "react";
-import Documents from "../../../../assets/Documents.json";
-import { Link, useLocation, useOutletContext } from "react-router-dom";
+import DynamicDocuments from "../../../../assets/DynamicDocument.json";
+import { Link, useOutletContext } from "react-router-dom";
 import toast from "react-hot-toast";
 import SaveData from "./SaveData";
 import axios from "axios";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
-import Application from "./Application";
-import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 import DocumentFooter from "./DocumentFooter";
+import DefaultDocument from "./DefaultDocument";
+import DynamicDocument from "./DynamicDocument";
+import PsDocument from "./PsDocument";
 
 const DocumentUpload = () => {
-  const [openApplication, setOpenApplication] = useState(false);
-  const [selectedFiles, setSelectedFiles] = useState([]);
-  const [UpdatedDocuments, setUpdatedDocuments] = useState([...Documents.Data]);
+  const [updatedDefaultDocument, setUpdatedDefaultDocument] = useState([]);
   const [imageId, setImageId] = useState([]);
   const [approvedConfirmation, setApprovedConfirmation] = useState("");
   const [recomendationMessage, setRecomendationMessage] = useState("");
   const stepperData = useOutletContext();
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
+  const [PreviousDefaultDocumentData, setPreviousDefaultDocumentData] = useState([]);
+  const [UpdatedDynamicDocumentData, setUpdatedDynamicDocumentData] = useState([]);
+  const [sendingDocument, setSendingDocument] = useState({ dynamic: [], default: [] })
+  const [DefaultData, setDefaultData] = useState([]);
+  const [DynamicData, setDynamicData] = useState([]);
   const {
     confirmAlert,
     sendUserDataIntoDB,
@@ -29,142 +33,63 @@ const DocumentUpload = () => {
   const role = userInfoFromLocalStorage().role;
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
-  const handleFileChange = (event, index) => {
-    const file = event?.target?.files[0];
-    file &&
-      toast.success(`${file?.name.slice(0, 20)}... uploaded successfully!`);
-    selectedFiles[index] = file;
-  };
+  const handleFileChange = (event, id, uploadedFile, type, uploadId) => {
+    const { files, name } = event.target;
+    const file = files[0];
 
-  // Updating documnets when Approved btn clicked (PS)
-  const handleAnswer = (event, index) => {
-    toast.success(`${event?.target?.value}`);
-    selectedFiles[index] = event?.target?.value;
-    const updatedApproved = UpdatedDocuments.map((file) => ({
-      ...file,
-      approved: file.id === index ? event.target.value : file.approved,
-    }));
-    setUpdatedDocuments(updatedApproved);
+    if (file) {
+      toast.success(`${file.name.slice(0, 20)}... Uploaded Successfully`);
+    }
+
+    if (type === "dynamic") {
+      const data = { id, uploadId, file };
+      setDynamicData((prev) => [...prev, data]);
+    } else {
+      const data = { id, file };
+      setDefaultData((prev) => [...prev, data]);
+    }
   };
+  useEffect(() => {
+    setSendingDocument({ default: DefaultData, dynamic: DynamicData });
+  }, [DefaultData, DynamicData]);
+
+  console.log(sendingDocument, "Sending Document")
 
   // Adding checklist Data to Document from server data && Updating Data from server Data
   useEffect(() => {
     const gettingData = async () => {
-      let updatedDocumentsToAdd = [];
-      let updateNewSelectDocument = [];
+      let updatedDynamicDocumentsToAdd = [];
       const applicationData = await getApplicationData(applicationNo);
       const applicationCheckList = applicationData.applicationCheckList;
-      const documents = applicationData.documents;
+      setPreviousDefaultDocumentData(applicationData.documents?.default);
+      const PreviousDynamicDocument = applicationData.documents?.dynamic;
 
-      let increaseDocument = UpdatedDocuments.length;
-
-      // Adding checklist Data to Document from server data
+      // Checklist "yes" Data integrating to Document
       if (applicationCheckList.length) {
-        // Declare the array here
-        applicationCheckList?.forEach((data, index) => {
-          const already = UpdatedDocuments.find(
-            (document) => document.question === data.question
-          );
-          if (already) {
-            return null;
-          }
-          if (index >= 8 && data.answer === "yes") {
-            increaseDocument++;
-            const newDocument = {
-              id: increaseDocument.toString(),
-              question: data.question,
-              upload: "",
-              approved: "",
-            };
-            updatedDocumentsToAdd.push(newDocument);
-          }
-        });
-      }
-
-      setUpdatedDocuments([...UpdatedDocuments, ...updatedDocumentsToAdd]);
-
-      // Updating Data from server Data
-      // RECEIVED DOCUMENT DATA FROM THE DB & STORE THEM IN THE UPDATED DOCUMENT STATE
-      if (Object.keys(documents).length) {
-        setUpdatedDocuments((prev) => {
-          prev.forEach((document, index) => {
-            prev[index].upload = documents[index];
+        DynamicDocuments?.forEach((data, index) => {
+          applicationCheckList.forEach((document) => {
+            const condition01 = data.question === document.question;
+            const condition02 = document.answer === "yes";
+            if (condition01 && condition02) {
+              updatedDynamicDocumentsToAdd.push(data);
+            }
           });
-          return prev;
         });
-        setApprovedConfirmation(documents.approved);
-        setRecomendationMessage(documents.message);
       }
+      setUpdatedDynamicDocumentData(updatedDynamicDocumentsToAdd);
     };
     gettingData();
   }, []);
 
-  useEffect(() => {
-    const emptyArray = Array.from({ length: UpdatedDocuments.length });
-    setSelectedFiles(emptyArray);
-    setImageId(emptyArray);
-  }, [UpdatedDocuments]);
+  const handleFileUpload = () => {
 
-  // handle file upload
-  const handleFileUpload = async (url) => {
-    // append data to formData so that the file data can be sent into the database
-    let fileCheckToUpload = 0;
+  }
 
-    for (let i = 0; i < selectedFiles.length; i++) {
-      const formData = new FormData();
-
-      if (selectedFiles[i]) {
-        formData.append("file", selectedFiles[i]);
-        try {
-          const response = await axios.post(
-            "http://localhost:5000/upload?page=document",
-            formData,
-            {
-              headers: {
-                "Content-Type": "multipart/form-data", // Important for file uploads
-              },
-            }
-          );
-          // Handle success or display a success message to the user
-          if (response?.data.msg === "Successfully uploaded") {
-            const documentImageId = response?.data?.fileId;
-
-            imageId[i] = documentImageId;
-          }
-        } catch (error) {
-          console.log(error, "ERROR");
-          // Handle errors, e.g., show an error message to the user
-          toast.error("Error to upload documents");
-        }
-      } else {
-        console.log("ELSE OF FILE");
-        imageId[i] = UpdatedDocuments[i]?.upload?.length
-          ? UpdatedDocuments[i]?.upload
-          : "";
-
-        console.log(imageId[i]);
-      }
-      fileCheckToUpload++;
-    }
-
-    if (fileCheckToUpload === selectedFiles.length) {
-      return await sendUserDataIntoDB(url, "PATCH", {
-        applicationNo,
-        documents: imageId,
-        approved: approvedConfirmation,
-        message: recomendationMessage,
-      });
-    }
-  };
-
-  //  send data to ps db (Apu vai send ps data from here)
-
-  // ps data get
-
+  // send data to PS DB (Apu vai send PS data from here)
   const sentPsDecision = async (url) => {
-    // PS data select and Send data
+    // PS data select and send data
     const PSKeys = ["id", "approved"];
-    const PSArray = UpdatedDocuments.map(({ ...obj }) =>
+    const PSArray = updatedDefaultDocument?.map(({ ...obj }) =>
       PSKeys.reduce((acc, key) => ((acc[key] = obj[key]), acc), {})
     );
     const PSData = {
@@ -172,23 +97,19 @@ const DocumentUpload = () => {
       approved: approvedConfirmation ?? "",
       message: recomendationMessage ?? "",
     };
-
-    console.log(PSData, "PSDATA");
-
     return await sendUserDataIntoDB(url, "PATCH", {
-      applicationNo,
       psDocumentPageObservation: PSData,
     });
   };
-
   return (
-    <div>
+    <div className="dark:text-white">
       <form
         onSubmit={(e) => {
           e.preventDefault();
         }}
         className="text-black p-4 font-roboto dark:text-gray-100"
       >
+<<<<<<< HEAD
         {UpdatedDocuments?.map((document, index) => {
           const { id, question, upload, approved } = document;
           return (
@@ -257,7 +178,27 @@ const DocumentUpload = () => {
             </>
           );
         })}
+=======
+        <div className="w-full text-[17px] px-2 py-5 rounded">
+          <DefaultDocument
+            PreviousDefaultDocumentData={PreviousDefaultDocumentData}
+            role={role}
+            handleFileChange={handleFileChange}
+            gradientColor={gradientColor}
+          // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
+          />
+          <DynamicDocument
+            role={role}
+            UpdatedDynamicDocumentData={UpdatedDynamicDocumentData}
+            handleFileChange={handleFileChange}
+            gradientColor={gradientColor}
+          // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
+
+          />
+        </div>
+>>>>>>> Tanjimul
       </form>
+
       {role === "PS" ? (
         <DocumentFooter
           approvedConfirmation={approvedConfirmation}
@@ -274,9 +215,7 @@ const DocumentUpload = () => {
         steps={steps}
         stepperData={stepperData}
         confirmAlert={confirmAlert}
-        collectInputFieldData={
-          role === "LTP" ? handleFileUpload : sentPsDecision
-        }
+        collectInputFieldData={role === "LTP" ? handleFileUpload : sentPsDecision}
       />
     </div>
   );
