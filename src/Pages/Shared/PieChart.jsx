@@ -4,7 +4,7 @@ import { Pie } from "react-chartjs-2";
 const PieChart = ({ chartData }) => {
   return (
     <div className="chart-container w-full h-full">
-      <h2 style={{ textAlign: "center" }}>Pie Chart</h2>
+      {/* <h2 style={{ textAlign: "center" }}>Pie Chart</h2> */}
       <Pie
         data={chartData}
         options={{

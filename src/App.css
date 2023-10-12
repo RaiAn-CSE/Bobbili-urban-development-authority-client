@@ -33,3 +33,9 @@ body {
 .swal2-title {
   font-family: "Roboto Condensed", "sans-serif";
 }
+
+.neuromorphism {
+  border-radius: 32px;
+  background: #e0e0e0;
+  box-shadow: 18px 18px 38px #bebebe, -18px -18px 38px #ffffff;
+}

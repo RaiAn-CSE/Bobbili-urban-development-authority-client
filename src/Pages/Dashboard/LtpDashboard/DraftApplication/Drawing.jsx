@@ -106,7 +106,7 @@ const Drawing = () => {
         formData.append("file", selectedFiles[file]);
         try {
           const response = await axios.post(
-            "https://residential-building.vercel.app/upload?page=drawing",
+            "http://localhost:5000/upload?page=drawing",
             formData,
             {
               headers: {
@@ -155,7 +155,7 @@ const Drawing = () => {
   };
 
   return (
-    <>
+    <div className="dark:text-white">
       <form
         onSubmit={(e) => e.preventDefault()}
         className="text-black p-5 mt-3"
@@ -213,6 +213,7 @@ const Drawing = () => {
               </Link>
             )}
           </div>
+          <p className="text-red-500 mt-2 text-sm">Note: Upload A3 file</p>
         </div>
       </form>
 
@@ -237,7 +238,7 @@ const Drawing = () => {
           role === "LTP" ? handleFileUpload : sentPsDecision
         }
       />
-    </>
+    </div>
   );
 };
 

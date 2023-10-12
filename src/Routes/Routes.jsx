@@ -15,7 +15,6 @@ import AddUser from "../Pages/Dashboard/Admin/Admin2/AddUser";
 import AllUsers from "../Pages/Dashboard/Admin/Admin2/AllUsers";
 import Error from "../Pages/Shared/Error";
 import MainLayout from "../Layouts/MainLayout";
-import Carousel from "../Pages/Main/Carousel/Carousel";
 import ApplicationSearch from "../Pages/Main/ApplicationSearch/ApplicationSearch";
 import OnlinePayment from "../Pages/Main/OnlinePayment/OnlinePayment";
 import ListOfLTP from "../Pages/Main/ListOfLTP/ListOfLTP";
@@ -29,6 +28,8 @@ import Shortfall from "../Pages/Dashboard/LtpDashboard/Shortfall/Shortfall";
 import DefaultDrawingFormat from "../Pages/Main/DefaultDrawingFormat/DefaultDrawingFormat";
 import PrivacyPolicy from "../Pages/Main/PrivacyPolicy/PrivacyPolicy";
 import DemoVideos from "../Pages/Main/DemoVideos/DemoVideos";
+import Home from "../Pages/Main/Home/Home";
+import Reports from "../Pages/Main/Reports/Reports";
 
 const router = createBrowserRouter([
   {
@@ -38,27 +39,37 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <ApplicationSearch />,
+        element: <Home />,
+        children: [
+          {
+            path: "/",
+            element: <ApplicationSearch />,
+          },
+          {
+            path: "/onlinePayment",
+            element: <OnlinePayment />,
+          },
+          {
+            path: "/listOfLTP",
+            element: <ListOfLTP />,
+          },
+          {
+            path: "/demoVideos",
+            element: <DemoVideos />,
+          },
+          {
+            path: "/privacyPolicy",
+            element: <PrivacyPolicy />,
+          },
+          {
+            path: "/defaultDrawingFormat",
+            element: <DefaultDrawingFormat />,
+          },
+        ],
       },
       {
-        path: "/onlinePayment",
-        element: <OnlinePayment />,
-      },
-      {
-        path: "/listOfLTP",
-        element: <ListOfLTP />,
-      },
-      {
-        path: "/demoVideos",
-        element: <DemoVideos />,
-      },
-      {
-        path: "/privacyPolicy",
-        element: <PrivacyPolicy />,
-      },
-      {
-        path: "/defaultDrawingFormat",
-        element: <DefaultDrawingFormat />,
+        path: "/statistics",
+        element: <Reports />,
       },
     ],
   },
@@ -200,6 +211,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Inward />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/outWard",
+        element: (
+          <PrivateRoute>
+            <Outward />
           </PrivateRoute>
         ),
       },

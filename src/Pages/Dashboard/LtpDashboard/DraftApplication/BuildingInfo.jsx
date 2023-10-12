@@ -981,7 +981,7 @@ const BuildingInfo = () => {
                   defaultValue={roadWideningArea}
                   onChange={handleRoadWideningAreaChange}
                 />
-                {console.log(roadWideningArea, "Inside roadwidening")}
+                { console.log(roadWideningArea, "Inside roadwidening")}
                 <p className="text-xs text-red-500 mt-2">
                   {roadWideningArea > 300 && roadWideningArea !== ""
                     ? "Value must be less than 300"

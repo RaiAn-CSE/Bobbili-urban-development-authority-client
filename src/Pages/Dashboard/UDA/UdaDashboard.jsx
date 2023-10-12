@@ -13,7 +13,7 @@ const UdaDashboard = () => {
 
   useEffect(() => {
     axios
-      .get("https://residential-building.vercel.app/totalApplications")
+      .get("http://localhost:5000/totalApplications")
       .then((response) => {
         // handle success
         console.log(response);

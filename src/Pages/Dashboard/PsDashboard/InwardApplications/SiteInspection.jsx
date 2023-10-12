@@ -188,7 +188,7 @@ const SiteInspection = () => {
 
     console.log(siteInspection, "SITE INSPECTION");
 
-    // fetch(`https://residential-building.vercel.app/recommendDataOfPs?appNo=${applicationNo}`, {
+    // fetch(`http://localhost:5000/recommendDataOfPs?appNo=${applicationNo}`, {
     //     method: "PATCH",
     //     headers: {
     //         "content-type": "application/json",
@@ -212,7 +212,7 @@ const SiteInspection = () => {
   };
 
   const sentPsDecision = async (url) => {
-    url = `https://residential-building.vercel.app/decisionOfPs?appNo=${applicationNo}`;
+    url = `http://localhost:5000/decisionOfPs?appNo=${applicationNo}`;
     console.log(url);
 
     const config = {

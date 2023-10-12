@@ -4,18 +4,18 @@ import { Link } from 'react-router-dom'
 
 function DrawingTable({ setApprovedConfirmation, setRecomendationMessage }) {
   const TrData = [
-    { "Proposed Site Area": ["Tanjimul", "Islam", "Sabbir"] },
-    { "Access Road Width": ["Tanjimul", "Islam", "Sabbir"] },
-    { "Scope of Road Windering": ["Tanjimul", "Islam", "Sabbir"] },
-    { "Setbacks": ["Tanjimul", "Islam", "Sabbir"] },
-    { "North": ["Tanjimul", "Islam", "Sabbir"] },
-    { "South": ["Tanjimul", "Islam", "Hello"] },
-    { "East": ["Tanjimul", "Islam", "Sabbir"] },
-    { "West": ["Tanjimul", "Islam", "Sabbir"] },
-    { "Number of floors": ["Tanjimul", "Islam", "Sabbir"] },
-    { "No. of Units": ["Tanjimul", "Islam", "Sabbir"] },
+    { "Proposed Site Area": ["","",""] },
+    { "Access Road Width": ["","",""] },
+    { "Scope of Road Windering": ["","",""] },
+    { "Setbacks": ["","",""] },
+    { "North": ["","",""] },
+    { "South": ["", "", "Hello"] },
+    { "East": ["","",""] },
+    { "West": ["","",""] },
+    { "Number of floors": ["","",""] },
+    { "No. of Units": ["","",""] },
     { "Green Strip": ["Yes", "Yes", "Yes/No"] },
-    { "Staircase Width": ["Tanjimul", "Islam", "Sabbir"] }
+    { "Staircase Width": ["","",""] }
   ]
   const skipNumber = [5, 6, 7, 8]
   return (

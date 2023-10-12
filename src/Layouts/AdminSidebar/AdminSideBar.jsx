@@ -1,20 +1,29 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { MdSpaceDashboard } from "react-icons/md";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const AdminSideBar = () => {
   const path = useLocation().pathname;
 
-  const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
+  const { handleLogOut, decideActiveColor, decideHoverColor, isDark } =
+    useContext(AuthContext);
 
-  const hoverGradientColor =
-    "hover:bg-gradient-to-r hover:from-violet-500 hover:to-fuchsia-500";
+  const [activeColor, setActiveColor] = useState("");
+  const [hoverColor, setHoverColor] = useState("");
+
+  useEffect(() => {
+    const getActiveColor = decideActiveColor();
+    const getHoverColor = decideHoverColor();
+    setActiveColor(getActiveColor);
+    setHoverColor(getHoverColor);
+  }, [isDark]);
   return (
     <>
       <li
         className={`${
-          path === "/dashboard" && gradientColor
-        } mt-10 mb-1 ps-4 rounded-l-lg flex items-center ${hoverGradientColor}`}
+          path === "/dashboard" && activeColor
+        } mt-24 lg:mt-0 mb-1 ps-4  flex items-center ${hoverColor}`}
       >
         <span>
           <MdSpaceDashboard size={20} />
@@ -25,8 +34,8 @@ const AdminSideBar = () => {
       </li>
       <li
         className={`${
-          path === "/dashboard/addUser" && gradientColor
-        }  ps-4 mb-1 flex items-center rounded-l-lg ${hoverGradientColor}`}
+          path === "/dashboard/addUser" && activeColor
+        }  ps-4 mb-1 flex items-center  ${hoverColor}`}
       >
         <span>
           <MdSpaceDashboard size={20} />
@@ -37,8 +46,8 @@ const AdminSideBar = () => {
       </li>
       <li
         className={`${
-          path === "/dashboard/allUser" && gradientColor
-        }  ps-4 mb-1 flex items-center rounded-l-lg ${hoverGradientColor}`}
+          path === "/dashboard/allUser" && activeColor
+        }  ps-4 mb-1 flex items-center  ${hoverColor}`}
       >
         <span>
           <MdSpaceDashboard size={20} />

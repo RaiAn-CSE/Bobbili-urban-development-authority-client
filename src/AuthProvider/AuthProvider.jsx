@@ -1,10 +1,13 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
+import { useQueryClient } from "react-query";
 import Swal from "sweetalert2";
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
+
+  const [isDark, setIsDark] = useState(0);
 
   // get user information from the localStorage
   const userInfoFromLocalStorage = () => {
@@ -13,7 +16,7 @@ const AuthProvider = ({ children }) => {
 
   // update user info
   const updateUserInfoInLocalStorage = (id) => {
-    fetch(`https://residential-building.vercel.app/getUser?id=${id}`)
+    fetch(`http://localhost:5000/getUser?id=${id}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -53,9 +56,7 @@ const AuthProvider = ({ children }) => {
   const getUserData = async (id) => {
     console.log(id, "AUTH ID");
 
-    const response = await fetch(
-      `https://residential-building.vercel.app/getUser?id=${id}`
-    );
+    const response = await fetch(`http://localhost:5000/getUser?id=${id}`);
     const data = await response.json();
     return data;
   };
@@ -67,7 +68,7 @@ const AuthProvider = ({ children }) => {
 
     const data = { userId: userInfoFromLocalStorage()._id, applicationNo };
 
-    const url = `https://residential-building.vercel.app/deleteApplication?data=${JSON.stringify(
+    const url = `http://localhost:5000/deleteApplication?data=${JSON.stringify(
       data
     )}`;
     Swal.fire({
@@ -133,10 +134,10 @@ const AuthProvider = ({ children }) => {
     });
 
     role === "LTP" &&
-      (url = `https://residential-building.vercel.app/updateDraftApplicationData?filterData=${filterDataForLtp}`);
+      (url = `http://localhost:5000/updateDraftApplicationData?filterData=${filterDataForLtp}`);
 
     role === "PS" &&
-      (url = `https://residential-building.vercel.app/recommendDataOfPs?appNo=${applicationNo}`);
+      (url = `http://localhost:5000/recommendDataOfPs?appNo=${applicationNo}`);
 
     console.log(url, "url");
 
@@ -226,7 +227,7 @@ const AuthProvider = ({ children }) => {
       console.log(query, "query");
 
       const response = await fetch(
-        `https://residential-building.vercel.app/getApplicationData?data=${query}`
+        `http://localhost:5000/getApplicationData?data=${query}`
       );
 
       return await response.json();
@@ -245,7 +246,7 @@ const AuthProvider = ({ children }) => {
       console.log(query, "query");
 
       const response = await fetch(
-        `https://residential-building.vercel.app/getSubmitDataOfPs?appNo=${query}`
+        `http://localhost:5000/getSubmitDataOfPs?appNo=${query}`
       );
 
       return await response.json();
@@ -258,7 +259,7 @@ const AuthProvider = ({ children }) => {
   const getAllDraftApplicationData = async () => {
     try {
       const response = await fetch(
-        `https://residential-building.vercel.app/allDraftApplicationData`
+        `http://localhost:5000/allDraftApplicationData`
       );
 
       return await response.json();
@@ -268,7 +269,7 @@ const AuthProvider = ({ children }) => {
   };
 
   // logout function
-  const handleLogOut = () => {
+  const handleLogOut = (navigate) => {
     localStorage.removeItem("loggedUser");
     toast.success("Logout successfully");
     setTimeout(() => {
@@ -333,6 +334,32 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  // sidebar active & hover color changed on the basis of theme
+  const decideActiveColor = () => {
+    const theme = localStorage.getItem("theme");
+
+    const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
+
+    const darkActiveColor = "dark:bg-black";
+    if (theme === "dark") {
+      return darkActiveColor;
+    } else {
+      return gradientColor;
+    }
+  };
+
+  const decideHoverColor = () => {
+    const theme = localStorage.getItem("theme");
+    console.log(theme, "THEME");
+    const hoverGradientColor =
+      "hover:bg-gradient-to-r hover:from-violet-500 hover:to-fuchsia-500";
+    if (theme === "dark") {
+      return "dark:hover:bg-black";
+    } else {
+      return hoverGradientColor;
+    }
+  };
+
   //   create a object to transfer data into various components
   const userInfo = {
     updateUserInfoInLocalStorage,
@@ -346,6 +373,10 @@ const AuthProvider = ({ children }) => {
     getSubmitApplicationData,
     getAllDraftApplicationData,
     checkLicenseExpirationOfLtp,
+    decideActiveColor,
+    decideHoverColor,
+    setIsDark,
+    isDark,
     handleLogOut,
   };
 
