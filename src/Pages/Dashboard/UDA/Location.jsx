@@ -6,6 +6,7 @@ import { TfiExport } from "react-icons/tfi";
 import { district } from "../../../assets/buildingInfo.json";
 import { AuthContext } from "../../../AuthProvider/AuthProvider";
 import { useLocation } from "react-router";
+import Table from "./tableStyle.module.css";
 
 const Location = () => {
   const path = useLocation().pathname;
@@ -246,26 +247,36 @@ const Location = () => {
         )}
       </form>
 
-      <div className="flex flex-col font-roboto w-[95%] mx-auto my-10 overflow-x-auto sm:rounded-lg ">
+      <div className="flex flex-col font-roboto w-[98%] mx-auto my-10 overflow-x-auto sm:rounded-lg ">
         <button
           onClick={onDownload}
           className={`${gradientColor} transition-all duration-700 mb-8 font-roboto text-base text-white p-2 rounded-lg self-end flex items-center justify-center hover:shadow-lg hover:shadow-violetLight hover:bg-gradient-to-l`}
         >
           Export <TfiExport size={18} className="ms-2" />
         </button>
-        <table
-          className={`w-full border border-black table-auto text-sm text-left `}
+        {/* <table
+          className={`w-full border border-black table-auto text-sm text-left`}
           ref={tableRef}
         >
           <thead
-            className={`text-sm border border-black text-center uppercase `}
+            className={`text-sm border border-black text-center uppercase`}
           >
-            <tr rowSpan={2}>
-              <th className="border border-black">Sl. no.</th>
-              <th className="px-6 py-3 border border-black">Village</th>
-              <th className="px-6 py-3 border border-black">Mandal</th>
-              <th className="px-6 py-3  border border-black">District</th>
-              <th className="border border-black">Date</th>
+            <tr>
+              <th rowSpan={2} className="border border-black">
+                Sl. no.
+              </th>
+              <th rowSpan={2} className="px-6 py-3 border border-black">
+                Village
+              </th>
+              <th rowSpan={2} className="px-6 py-3 border border-black">
+                Mandal
+              </th>
+              <th rowSpan={2} className="px-6 py-3  border border-black">
+                District
+              </th>
+              <th rowSpan={2} className="border border-black">
+                Date
+              </th>
               <th className="px-6 py-3 border border-black">Prices</th>
             </tr>
           </thead>
@@ -286,6 +297,38 @@ const Location = () => {
               <td className="px-6 py-4 border border-black">
                 {applicationNumbers?.total}
               </td>
+            </tr>
+          </tbody>
+        </table> */}
+
+        <table border="1px" className={`${Table}`}>
+          <thead>
+            <tr>
+              <th rowSpan={2}>Sl. no.</th>
+              <th rowSpan={2}>Village</th>
+              <th rowSpan={2}>Mandal</th>
+              <th rowSpan={2}>District</th>
+              <th rowSpan={2}>Date</th>
+              <th colSpan={4}>Prices</th>
+            </tr>
+            <tr>
+              <th>UDA Charges</th>
+              <th>Grama Panchayat Fee</th>
+              <th>Labour Cess Charge</th>
+              <th>Green Fee Charge</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="w-[35px]">1</td>
+              <td>{selectedPanchayat}</td>
+              <td>{selectedMandal}</td>
+              <td>{selectedDistrict}</td>
+              <td>{selectedDate}</td>
+              <td>6</td>
+              <td>7</td>
+              <td>8</td>
+              <td>9</td>
             </tr>
           </tbody>
         </table>
