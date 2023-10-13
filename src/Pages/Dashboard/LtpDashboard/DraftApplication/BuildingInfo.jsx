@@ -123,8 +123,9 @@ const BuildingInfo = () => {
       setSelectedMandal(generalInformation?.mandal);
       setSelectedGrama(generalInformation?.gramaPanchayat);
       setSelectedVillage(generalInformation?.village);
-      console.log(plotDetails?.compoundingWallProposed, 'plotDetails plotDetails');
+      console.log(plotDetails?.siteRegistered, 'plotDetails plotDetails');
       setRadio4(plotDetails?.compoundingWallProposed);
+      setRadio5(plotDetails?.siteRegistered);
 
       console.log(builtUpArea, "builtUp area");
       // update floor details as well as builtup area and parking area
@@ -1308,8 +1309,6 @@ const BuildingInfo = () => {
                     value="yes"
                     checked={
                       radio5 == "yes"
-                        ? radio5 == "yes"
-                        : siteRegistered === "yes"
                     }
                     onChange={handleRadio5}
                   />
@@ -1322,7 +1321,7 @@ const BuildingInfo = () => {
                     className="radio border border-violet-500 h-4 w-4"
                     value="no"
                     checked={
-                      radio5 == "no" ? radio5 == "no" : siteRegistered === "no"
+                      radio5 == "no"
                     }
                     onChange={handleRadio5}
                   />
