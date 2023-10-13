@@ -344,54 +344,49 @@ const Payment = () => {
     console.log(selectedFiles, "SELECTED FILES");
 
     // UPLOAD IMAGE FILE INTO THE CLOUD STORAGE AT FIRST
-    for (const file in selectedFiles) {
-      const formData = new FormData();
-      console.log(file);
+    // for (const file in selectedFiles) {
+    //   const formData = new FormData();
+    //   console.log(file);
 
-      if (selectedFiles[file]) {
-        formData.append("file", selectedFiles[file]);
+    //   if (selectedFiles[file]) {
+    //     formData.append("file", selectedFiles[file]);
 
-        console.log(...formData);
-        try {
-          const response = await axios.post(
-            "http://localhost:5000/upload?page=payment",
-            formData,
-            {
-              headers: {
-                "Content-Type": "multipart/form-data", // Important for file uploads
-              },
-            }
-          );
-          // Handle success or display a success message to the user
+    //     console.log(...formData);
+    //     try {
+    //       const response = await axios.post(
+    //         "http://localhost:5000/upload?page=payment",
+    //         formData,
+    //         {
+    //           headers: {
+    //             "Content-Type": "multipart/form-data", // Important for file uploads
+    //           },
+    //         }
+    //       );
+    //       // Handle success or display a success message to the user
 
-          console.log(response, "response");
+    //       console.log(response, "response");
 
-          if (response?.data.msg === "Successfully uploaded") {
-            const fileId = response.data.fileId;
-            console.log(fileId, "fileId");
-            // fileUploadSuccess = 1;
-            imageId[file] = fileId;
+    //       if (response?.data.msg === "Successfully uploaded") {
+    //         const fileId = response.data.fileId;
+    //         console.log(fileId, "fileId");
+    //         // fileUploadSuccess = 1;
+    //         imageId[file] = fileId;
 
-            console.log(imageId, "IMAGE ID");
-          }
-        } catch (error) {
-          console.log(error, "ERROR");
-          // Handle errors, e.g., show an error message to the user
-          toast.error("Error to upload documents");
-        }
-      }
-    }
+    //         console.log(imageId, "IMAGE ID");
+    //       }
+    //     } catch (error) {
+    //       console.log(error, "ERROR");
+    //       // Handle errors, e.g., show an error message to the user
+    //       toast.error("Error to upload documents");
+    //     }
+    //   }
+    // }
 
+    // uda section data
     const vacantArea = document.getElementById("vacantArea")?.value;
 
     const builtUpArea = document.getElementById("builtUpArea")?.value;
-    // const UdaImpactFee = document.getElementById("UdaImpactFee")?.value;
-    const UDATotalCharged = document.getElementById("UDATotalCharged")?.value;
-    const gramaSiteApproval =
-      document.getElementById("gramaSiteApproval")?.value;
 
-    const bettermentCharged =
-      document.getElementById("bettermentCharged")?.value;
     const TotalOpenSpaceCharged = document.getElementById(
       "TotalOpenSpaceCharged"
     )?.value;
@@ -399,6 +394,33 @@ const Payment = () => {
     const TotalPenalizationCharged = document.getElementById(
       "TotalPenalizationCharged"
     )?.value;
+
+    const labourCessTwo = document.getElementById("labourCess02")?.value;
+
+    const UDATotalCharged = document.getElementById("UDATotalCharged")?.value;
+
+    const udaCharge = {
+      vacantArea: vacantArea ?? "",
+      builtUpArea: builtUpArea ?? "",
+      openSpaceCharge: TotalOpenSpaceCharged ?? "",
+      penalizationCharge: TotalPenalizationCharged ?? "",
+      labourCessTwo: labourCessTwo ?? "",
+      UDATotalCharged: UDATotalCharged ?? "",
+    };
+
+    // Grama Panchayat fee
+
+    const paperPublicationCharge =
+      document.getElementById("paperPublication")?.value;
+
+    const processingFee = document.getElementById("processingFee")?.value;
+
+    const buildingPermitFees =
+      document.getElementById("buildingPermitFees")?.value;
+
+    const bettermentCharged =
+      document.getElementById("bettermentCharged")?.value;
+
     const GramaPanchayetTotalCharged = document.getElementById(
       "GramaPanchayetTotalCharged"
     )?.value;
@@ -406,9 +428,23 @@ const Payment = () => {
     const gramaChallanDate = document.getElementById("gramaChallanDate")?.value;
     const gramaBankName = document.getElementById("gramaBankName")?.value;
     const gramaBankBranch = document.getElementById("gramaBankBranch")?.value;
-    const labourCessSiteApproval = document.getElementById(
-      "labourCessSiteApproval"
-    )?.value;
+
+    const gramaPanchayatFee = {
+      paperPublicationCharge: paperPublicationCharge ?? "",
+      processingFee: processingFee ?? "",
+      buildingPermitFees: buildingPermitFees ?? "",
+      bettermentCharged: bettermentCharged ?? "",
+      GramaPanchayetTotalCharged: GramaPanchayetTotalCharged ?? "",
+      gramaChallanNo: gramaChallanNo ?? "",
+      gramaChallanDate: gramaChallanDate ?? "",
+      gramaBankName: gramaBankName ?? "",
+      gramaBankBranch: gramaBankBranch ?? "",
+      gramaBankReceipt: imageId["gramaBankReceipt"],
+    };
+
+    // Labour cess charge
+
+    const labourCessOne = document.getElementById("labourCess01")?.value;
     const labourCessChallanNo = document.getElementById(
       "labourCessChallanNo"
     )?.value;
@@ -420,9 +456,20 @@ const Payment = () => {
     const labourCessBankBranch = document.getElementById(
       "labourCessBankBranch"
     )?.value;
-    const greenFeeSiteApproval = document.getElementById(
-      "greenFeeSiteApproval"
-    )?.value;
+
+    const labourCessCharge = {
+      labourCessOne: labourCessOne ?? "",
+      labourCessBankBranch: labourCessBankBranch ?? "",
+      labourCessBankName: labourCessBankName ?? "",
+      labourCessChallanDate: labourCessChallanDate ?? "",
+      labourCessChallanNo: labourCessChallanNo ?? "",
+      labourCessBankReceipt: imageId["labourCessBankReceipt"],
+    };
+
+    // green fee charge
+    const greenFeeChargeAmount =
+      document.getElementById("GreenFeeCharge")?.value;
+
     const greenFeeChargeChallanNo = document.getElementById(
       "greenFeeChargeChallanNo"
     )?.value;
@@ -436,39 +483,12 @@ const Payment = () => {
       "greenFeeChargeBankBranch"
     )?.value;
 
-    const udaCharge = {
-      vacantArea: vacantArea ?? "",
-      builtUpArea: builtUpArea ?? "",
-      UDATotalCharged: UDATotalCharged ?? "",
-    };
-    const gramaPanchayatFee = {
-      gramaSiteApproval: gramaSiteApproval ?? "",
-      // buildingPermitFees: buildingPermitFees ?? "",
-      bettermentCharged: bettermentCharged ?? "",
-      TotalOpenSpaceCharged: TotalOpenSpaceCharged ?? "",
-      gramaImpactFee: gramaImpactFee ?? "",
-      TotalPenalizationCharged: TotalPenalizationCharged ?? "",
-      GramaPanchayetTotalCharged: GramaPanchayetTotalCharged ?? "",
-      gramaChallanNo: gramaChallanNo ?? "",
-      gramaChallanDate: gramaChallanDate ?? "",
-      gramaBankName: gramaBankName ?? "",
-      gramaBankBranch: gramaBankBranch ?? "",
-      gramaBankReceipt: imageId["gramaBankReceipt"],
-    };
-    const labourCessCharge = {
-      labourCessBankBranch: labourCessBankBranch ?? "",
-      labourCessBankName: labourCessBankName ?? "",
-      labourCessChallanDate: labourCessChallanDate ?? "",
-      labourCessChallanNo: labourCessChallanNo ?? "",
-      labourCessSiteApproval: labourCessSiteApproval ?? "",
-      labourCessBankReceipt: imageId["labourCessBankReceipt"],
-    };
     const greenFeeCharge = {
+      greenFeeChargeAmount: greenFeeChargeAmount ?? "",
       greenFeeChargeBankBranch: greenFeeChargeBankBranch ?? "",
       greenFeeChargeBankName: greenFeeChargeBankName ?? "",
       greenFeeChargeChallanDate: greenFeeChargeChallanDate ?? "",
       greenFeeChargeChallanNo: greenFeeChargeChallanNo ?? "",
-      greenFeeSiteApproval: greenFeeSiteApproval ?? "",
       greenFeeBankReceipt: imageId["greenFeeBankReceipt"],
     };
 
@@ -476,15 +496,15 @@ const Payment = () => {
 
     console.log(udaCharge, gramaPanchayatFee, labourCessCharge, greenFeeCharge);
 
-    return await sendUserDataIntoDB(url, "PATCH", {
-      applicationNo: JSON.parse(localStorage.getItem("CurrentAppNo")),
-      payment: {
-        udaCharge,
-        greenFeeCharge,
-        labourCessCharge,
-        gramaPanchayatFee,
-      },
-    });
+    // return await sendUserDataIntoDB(url, "PATCH", {
+    //   applicationNo: JSON.parse(localStorage.getItem("CurrentAppNo")),
+    //   payment: {
+    //     udaCharge,
+    //     greenFeeCharge,
+    //     labourCessCharge,
+    //     gramaPanchayatFee,
+    //   },
+    // });
   };
 
   return (
@@ -493,6 +513,7 @@ const Payment = () => {
         onSubmit={(e) => e.preventDefault()}
         className="grid my-5 mx-7 font-roboto text-xl lg:my-0 lg:p-2 dark:text-gray-100"
       >
+        <input type="submit" value="Get" onClick={sendPaymentData} />
         <div>
           <div className="flex items-center">
             <img
@@ -580,7 +601,7 @@ const Payment = () => {
           </div>
           <div className="divider m-0"></div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 mt-3">
+          <div className="grid grid-cols-2 lg:grid-cols-3 mt-3">
             <InputField
               id="paperPublication"
               name="paperPublication"
@@ -593,6 +614,14 @@ const Payment = () => {
               id="processingFee"
               name="processingFee"
               label="Processing Fee"
+              placeholder="5000"
+              type="number"
+              ltpDetails={calculatedData?.processingFees}
+            />
+            <InputField
+              id="buildingPermitFees"
+              name="buildingPermitFees"
+              label="Building Permit Fee"
               placeholder="5000"
               type="number"
               ltpDetails={calculatedData?.processingFees}
