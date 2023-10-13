@@ -123,6 +123,9 @@ const BuildingInfo = () => {
       setSelectedMandal(generalInformation?.mandal);
       setSelectedGrama(generalInformation?.gramaPanchayat);
       setSelectedVillage(generalInformation?.village);
+      console.log(plotDetails?.siteRegistered, 'plotDetails plotDetails');
+      setRadio4(plotDetails?.compoundingWallProposed);
+      setRadio5(plotDetails?.siteRegistered);
 
       console.log(builtUpArea, "builtUp area");
       // update floor details as well as builtup area and parking area
@@ -329,8 +332,6 @@ const BuildingInfo = () => {
 
   const handleRadio4 = (e) => {
     setRadio4(e.target.value);
-
-    console.log(e.target.value, 'e.target.value');
   };
 
   console.log(radio4, 'Radio4');
@@ -340,11 +341,11 @@ const BuildingInfo = () => {
     setRadio5(e.target.value);
   };
 
-  const getValue = () => {
-    const runningMeterData = document.getElementById("runningMeter");
-    const runningMeter = runningMeterData ? runningMeterData.value : "";
-    console.log(runningMeter, "Running meter");
-  };
+  // const getValue = () => {
+  //   const runningMeterData = document.getElementById("runningMeter");
+  //   const runningMeter = runningMeterData ? runningMeterData.value : "";
+  //   console.log(runningMeter, "Running meter");
+  // };
 
   // get data from input field :
   const collectInputFieldData = async (url) => {
@@ -571,6 +572,7 @@ const BuildingInfo = () => {
     totalPlotGround,
     runningMeter,
   } = plotDetails ?? {};
+
 
   // console.log(scheduleBoundaries, 'scheduleBoundaries');
   const { east, west, north, south } = scheduleBoundaries ?? {};
@@ -981,7 +983,7 @@ const BuildingInfo = () => {
                   defaultValue={roadWideningArea}
                   onChange={handleRoadWideningAreaChange}
                 />
-                { console.log(roadWideningArea, "Inside roadwidening")}
+                {console.log(roadWideningArea, "Inside roadwidening")}
                 <p className="text-xs text-red-500 mt-2">
                   {roadWideningArea > 300 && roadWideningArea !== ""
                     ? "Value must be less than 300"
@@ -1245,11 +1247,12 @@ const BuildingInfo = () => {
               />
             </div>
 
-            <div className="grid grid-cols-1 mx-5 md:mx-10 lg:mx-14 mb-5 mt-10">
-              <div className="grid grid-cols-1 lg:grid-cols-2">
-                <div className="flex flex-col md:flex-row font-medium text-lg">
+            <div className="grid grid-cols-1 mx-5 md:mx-10 lg:mx-14 mb-5">
+
+              <div className="lg:flex">
+                <div className="flex flex-col md:flex-row basis-[70%] font-medium text-lg my-10">
                   <div className="flex items-center mb-3 md:mb-0">
-                    <FaHandPointRight className="me-3 w-5 lg:w-auto text-violetLight" />
+                    <FaHandPointRight className="me-3 w-7 lg:w-auto text-violetLight" />
                     <p className="font-bold text-lg">
                       Compounding wall proposed?
                     </p>
@@ -1260,11 +1263,7 @@ const BuildingInfo = () => {
                       name="radio-4"
                       className="radio border border-violet-500 h-4 w-4"
                       value="yes"
-                      checked={
-                        radio4 == "yes"
-                          ? radio4 == "yes"
-                          : compoundingWallProposed === "yes"
-                      }
+                      checked={radio4 == "yes"}
                       onChange={handleRadio4}
                     />
                     <span className="ml-2 text-base">Yes</span>
@@ -1275,34 +1274,31 @@ const BuildingInfo = () => {
                       name="radio-4"
                       className="radio border border-violet-500 h-4 w-4"
                       value="no"
-                      checked={
-                        radio4 == "no"
-                          ? radio4 == "no"
-                          : compoundingWallProposed === "no"
-                      }
+                      checked={radio4 == "no"}
                       onChange={handleRadio4}
                     />
                     <span className="ml-2 text-base">No</span>
                   </label>
                 </div>
-
-                {radio4 === "yes" || compoundingWallProposed === "yes" ? (
-                  <InputField
-                    id="runningMeter"
-                    name="runningMeter"
-                    label="Running meter"
-                    placeholder="Running meter"
-                  // ltpDetails={runningMeter}
-                  />
-                ) : null}
+                <div className="basis-[30%]">
+                  {radio4 === "yes" ? (
+                    <InputField
+                      id="runningMeter"
+                      name="runningMeter"
+                      label="Running meter"
+                      placeholder="Running meter"
+                      ltpDetails={runningMeter}
+                    />
+                  ) : null}
+                </div>
               </div>
 
-              <div className="flex flex-col md:flex-row font-medium mb-4 text-lg mt-4">
+
+              <div className="flex flex-col md:flex-row font-medium mb-4 text-lg">
                 <div className="flex items-center mb-3 md:mb-0">
                   <FaHandPointRight className="me-3 w-7 lg:w-auto text-violetLight" />
                   <p className="font-bold text-lg">
-                    Whether site Registered as house plot/ Building prior to
-                    18-01-2006?
+                    Whether site Registered as house plot/ Building prior to 18-01-2006?
                   </p>
                 </div>
                 <label className="inline-flex items-center ml-3">
@@ -1313,8 +1309,6 @@ const BuildingInfo = () => {
                     value="yes"
                     checked={
                       radio5 == "yes"
-                        ? radio5 == "yes"
-                        : siteRegistered === "yes"
                     }
                     onChange={handleRadio5}
                   />
@@ -1327,13 +1321,14 @@ const BuildingInfo = () => {
                     className="radio border border-violet-500 h-4 w-4"
                     value="no"
                     checked={
-                      radio5 == "no" ? radio5 == "no" : siteRegistered === "no"
+                      radio5 == "no"
                     }
                     onChange={handleRadio5}
                   />
                   <span className="ml-2 text-base">No</span>
                 </label>
               </div>
+
             </div>
           </div>
         </div>
@@ -1428,7 +1423,7 @@ const BuildingInfo = () => {
           </div>
         </div>
 
-        <input type="submit" value="get" onClick={getValue} />
+        {/* <input type="submit" value="get" onClick={getValue} /> */}
 
         {/* save & continue  */}
         <SaveData

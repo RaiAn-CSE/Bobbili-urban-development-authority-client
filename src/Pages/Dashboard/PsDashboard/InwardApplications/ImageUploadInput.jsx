@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const ImageUploadInput = ({ id }) => {
+const ImageUploadInput = ({ id, siteInspectionValue }) => {
     const [selectedFile, setSelectedFile] = useState(null);
 
     // Function to handle file selection
@@ -28,6 +28,7 @@ const ImageUploadInput = ({ id }) => {
                     type="file"
                     className="hidden"
                     onChange={handleFileChange}
+                    value={siteInspectionValue}
                 />
             </label>
         </div>

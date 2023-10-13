@@ -23,13 +23,15 @@ const SiteInspection = () => {
   const [recommendations, setRecommendations] = useState("");
 
   // Selector field in site inspection page
-  const [approachRoadApp, setApproachRoadApp] = useState('');
+  const [approachRoadApp, setApproachRoadApp] = useState('Public');
 
   const handleApproachRoadApp = (e) => {
     setApproachRoadApp(e.target.value);
   }
 
-  const [approachRoadObs, setApproachRoadObs] = useState('');
+  const [approachRoadObs, setApproachRoadObs] = useState('Select option');
+
+  console.log(approachRoadObs, 'approachRoadObs');
 
   const handleApproachRoadObs = (e) => {
     setApproachRoadObs(e.target.value);
@@ -46,6 +48,8 @@ const SiteInspection = () => {
 
       const siteBoundaries = applicationData?.siteInspection?.siteBoundaries;
       setSiteBoundaries(siteBoundaries);
+      setApproachRoadApp(siteBoundaries?.accessRoad?.approachRoad?.[0])
+      setApproachRoadObs(siteBoundaries?.accessRoad?.approachRoad?.[1])
 
       const accessRoad = applicationData?.siteInspection?.accessRoad;
       setAccessRoad(accessRoad);
@@ -161,6 +165,9 @@ const SiteInspection = () => {
         scheduleOfTheDocumentsObs,
       ],
     };
+
+
+    console.log(siteBoundaries, 'siteBoundaries');
 
     const accessRoad = {
       natureOfRoad: [natureOfRoadApp, natureOfRoadObs],
@@ -386,6 +393,7 @@ const SiteInspection = () => {
 
                     <ImageUploadInput
                       id='northApp'
+                    // siteInspectionValue={siteBoundaries?.north?.[0]}
                     />
 
                   </td>
@@ -557,7 +565,7 @@ const SiteInspection = () => {
                         onChange={handleApproachRoadApp}
                       >
                         <option value='Private'>Private</option>
-                        <option selected value='Public'>Public</option>
+                        <option value='Public'>Public</option>
                       </select>
                     </div>
                   </td>
@@ -576,7 +584,7 @@ const SiteInspection = () => {
                         value={approachRoadObs ? approachRoadObs : accessRoad?.approachRoad?.[1]}
                         onChange={handleApproachRoadObs}
                       >
-                        <option selected disabled value='Select option'>Select option</option>
+                        <option value='Select option' disabled>Select option</option>
                         <option value='Private'>Private</option>
                         <option value='Public'>Public</option>
                       </select>

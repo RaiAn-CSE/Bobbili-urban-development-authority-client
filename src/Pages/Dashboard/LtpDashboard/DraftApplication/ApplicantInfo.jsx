@@ -98,12 +98,7 @@ const ApplicantInfo = () => {
   const [ltpDetails, setLtpDetails] = useState("");
   const [applicantDetails, setApplicantDetails] = useState("");
 
-  // console.log(ltpDetails, 'ltpDetails');
-  // console.log(applicantDetails, 'applicantDetails');
-
-  const { type, name, ltpDoorNo, ltpStreetName, email, licenseNo, phoneNo, validity, address } =
-    ltpDetails;
-  // const { identity, adharNo, pinCode, } = applicantDetails;
+  const { type, name, ltpDoorNo, ltpStreetName, email, licenseNo, phoneNo, validity, address } = ltpDetails;
 
   useEffect(() => {
     const getData = async () => {
