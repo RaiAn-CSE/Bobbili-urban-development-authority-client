@@ -7,21 +7,21 @@ const OwnerDetail = ({
   applicantNo,
   setPhoneNoLimit,
   increaseApplicantNo,
+  decreaseApplicationNo,
   applicantDetails,
 }) => {
   const ownerSerial = ["First", "Second", "Third", "Fourth", "Fifth"];
 
   const handleInputPhone = (e) => {
     // Remove non-numeric characters
-    const inputValue = e.target.value.replace(/[^0-9]/g, '');
+    const inputValue = e.target.value.replace(/[^0-9]/g, "");
     // Limit the input to 10 characters
     const truncatedValue = inputValue.slice(0, 10);
     // Update the input field with the sanitized value
     e.target.value = truncatedValue;
   };
 
-  console.log(applicantDetails, 'applicantDetails');
-
+  console.log(applicantDetails, "applicantDetails");
 
   return (
     <div>
@@ -129,6 +129,12 @@ const OwnerDetail = ({
               <button
                 className="text-xl rounded-full w-[30px] h-[30px] bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white cursor-pointer shadow-lg shadow-violetDark transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold"
                 onClick={increaseApplicantNo}
+              >
+                +
+              </button>
+              <button
+                className="text-xl rounded-full w-[30px] h-[30px] bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white cursor-pointer shadow-lg shadow-violetDark transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold"
+                onClick={decreaseApplicationNo}
               >
                 +
               </button>
