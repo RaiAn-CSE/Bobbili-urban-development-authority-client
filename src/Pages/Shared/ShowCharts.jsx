@@ -36,11 +36,22 @@ const ShowCharts = () => {
   }, []);
 
   const detectSelectOfDistrict = (e) => {
+    setAllMandal([]);
+    setAllPanchayat([]);
+    setSelectedMandal("");
+    setSelectedPanchayat("");
     const chooseDistrict = e.target.value;
     console.log(chooseDistrict);
     setSelectedDistrict(chooseDistrict);
 
-    if (chooseDistrict === "Vijayanagaram") {
+    // Reset the selected value of the Mandal dropdown to "select"
+    const mandalSelect = document.getElementById("mandal");
+    mandalSelect.value = "";
+
+    const panchayatSelect = document.getElementById("panchayat");
+    panchayatSelect.value = "";
+
+    if (chooseDistrict === "Vizianagaram") {
       console.log(district[0]?.mandal);
       setAllMandal(district[0]?.mandal);
     }
@@ -50,6 +61,10 @@ const ShowCharts = () => {
   };
 
   const detectChangeOfMandals = (e) => {
+    setAllPanchayat([]);
+    setSelectedPanchayat("");
+    const panchayatSelect = document.getElementById("panchayat");
+    panchayatSelect.value = "";
     const value = e.target.value;
     setSelectedMandal(value);
 
@@ -73,7 +88,6 @@ const ShowCharts = () => {
     console.log(e.target.value);
     setSelectedDate(e.target.value);
   };
-
   console.log(
     selectedDistrict,
     selectedMandal,
@@ -81,6 +95,8 @@ const ShowCharts = () => {
     selectedDate,
     "All"
   );
+
+  console.log(allMandal, allPanchayat, "ALL");
 
   useEffect(() => {
     if (selectedDistrict.length) {
@@ -100,7 +116,7 @@ const ShowCharts = () => {
         .then((res) => res.json())
         .then((result) => {
           console.log(result);
-          setServerData(result);
+          setServerData(result?.totalApplication);
         });
 
       console.log(data, "Data");
@@ -110,7 +126,7 @@ const ShowCharts = () => {
         .then((res) => res.json())
         .then((result) => {
           console.log(result);
-          setServerData(result);
+          setServerData(result?.totalApplication);
         });
     }
   }, [selectedDistrict, selectedMandal, selectedPanchayat, selectedDate]);
@@ -203,10 +219,10 @@ const ShowCharts = () => {
           <select
             id="district"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            defaultValue="select"
+            defaultValue={selectedDistrict}
             onChange={(e) => detectSelectOfDistrict(e)}
           >
-            <option value="select" disabled>
+            <option value="" disabled>
               Select an option
             </option>
             {allDistricts.map((eachDistrict) => {
@@ -231,11 +247,11 @@ const ShowCharts = () => {
           <select
             id="mandal"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            defaultValue="select"
+            defaultValue={selectedMandal}
             onChange={(e) => detectChangeOfMandals(e)}
             disabled={allMandal?.length === 0}
           >
-            <option value="select" disabled>
+            <option value="" disabled>
               Select an option
             </option>
             {allMandal?.map((eachMandal, index) => {
@@ -258,11 +274,11 @@ const ShowCharts = () => {
           <select
             id="panchayat"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            defaultValue="select"
+            defaultValue={selectedPanchayat}
             disabled={allPanchayat?.length === 0}
             onChange={(e) => detectChangeOfPanchayat(e)}
           >
-            <option value="select" disabled>
+            <option value="" disabled>
               Select an option
             </option>
             {allPanchayat?.map((eachPanchayt, index) => {
