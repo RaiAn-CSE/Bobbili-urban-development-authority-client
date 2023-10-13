@@ -37,11 +37,27 @@ const Location = () => {
   }, []);
 
   const detectSelectOfDistrict = (e) => {
+    setAllMandal([]);
+    setAllPanchayat([]);
+    setSelectedMandal("");
+    setSelectedPanchayat("");
+    setSelectedDate("");
+
     const chooseDistrict = e.target.value;
     console.log(chooseDistrict);
     setSelectedDistrict(chooseDistrict);
 
-    if (chooseDistrict === "Vijayanagaram") {
+    // Reset the selected value of the Mandal dropdown to "select"
+    const mandalSelect = document.getElementById("mandal");
+    mandalSelect.value = "";
+
+    const panchayatSelect = document.getElementById("panchayat");
+    panchayatSelect.value = "";
+
+    const dateSelected = document.getElementById("date");
+    dateSelected.value = "";
+
+    if (chooseDistrict === "Vizianagaram") {
       console.log(district[0]?.mandal);
       setAllMandal(district[0]?.mandal);
     }
@@ -51,6 +67,13 @@ const Location = () => {
   };
 
   const detectChangeOfMandals = (e) => {
+    setAllPanchayat([]);
+    setSelectedPanchayat("");
+    setSelectedDate("");
+    const panchayatSelect = document.getElementById("panchayat");
+    panchayatSelect.value = "";
+    const dateSelected = document.getElementById("date");
+    dateSelected.value = "";
     const value = e.target.value;
     setSelectedMandal(value);
 
@@ -101,7 +124,7 @@ const Location = () => {
         .then((res) => res.json())
         .then((result) => {
           console.log(result);
-          setServerData(result);
+          setServerData(result?.charges);
         });
 
       console.log(data, "Data");
@@ -111,27 +134,12 @@ const Location = () => {
         .then((res) => res.json())
         .then((result) => {
           console.log(result);
-          setServerData(result);
+          setServerData(result?.charges);
         });
     }
   }, [selectedDistrict, selectedMandal, selectedPanchayat, selectedDate]);
 
-  //   useEffect(() => {
-  //     axios
-  //       .get("http://localhost:5000/totalApplications")
-  //       .then((response) => {
-  //         // handle success
-  //         console.log(response);
-
-  //         const { data } = response;
-
-  //         setApplicationNumbers(data);
-  //       })
-  //       .catch((error) => {
-  //         // handle error
-  //         toast.error("Server error");
-  //       });
-  //   }, []);
+  console.log(serverData, "Server Data");
 
   const { onDownload } = useDownloadExcel({
     currentTableRef: tableRef.current,
@@ -152,10 +160,10 @@ const Location = () => {
           <select
             id="district"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            defaultValue="select"
+            defaultValue={selectedDistrict}
             onChange={(e) => detectSelectOfDistrict(e)}
           >
-            <option value="select" disabled>
+            <option value="" disabled>
               Select an option
             </option>
             {allDistricts.map((eachDistrict) => {
@@ -180,11 +188,11 @@ const Location = () => {
           <select
             id="mandal"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            defaultValue="select"
+            defaultValue={selectedMandal}
             onChange={(e) => detectChangeOfMandals(e)}
             disabled={allMandal?.length === 0}
           >
-            <option value="select" disabled>
+            <option value="" disabled>
               Select an option
             </option>
             {allMandal?.map((eachMandal, index) => {
@@ -207,11 +215,11 @@ const Location = () => {
           <select
             id="panchayat"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            defaultValue="select"
+            defaultValue={selectedPanchayat}
             disabled={allPanchayat?.length === 0}
             onChange={(e) => detectChangeOfPanchayat(e)}
           >
-            <option value="select" disabled>
+            <option value="" disabled>
               Select an option
             </option>
             {allPanchayat?.map((eachPanchayt, index) => {
@@ -232,11 +240,11 @@ const Location = () => {
             <select
               id="date"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              defaultValue="select"
+              defaultValue={selectedDate}
               disabled={selectedPanchayat?.length === 0}
               onChange={(e) => detectChangeOfDate(e)}
             >
-              <option value="select" disabled>
+              <option value="" disabled>
                 Select an option
               </option>
               <option value="7 days">1 week</option>
@@ -254,60 +262,14 @@ const Location = () => {
         >
           Export <TfiExport size={18} className="ms-2" />
         </button>
-        {/* <table
-          className={`w-full border border-black table-auto text-sm text-left`}
-          ref={tableRef}
-        >
-          <thead
-            className={`text-sm border border-black text-center uppercase`}
-          >
-            <tr>
-              <th rowSpan={2} className="border border-black">
-                Sl. no.
-              </th>
-              <th rowSpan={2} className="px-6 py-3 border border-black">
-                Village
-              </th>
-              <th rowSpan={2} className="px-6 py-3 border border-black">
-                Mandal
-              </th>
-              <th rowSpan={2} className="px-6 py-3  border border-black">
-                District
-              </th>
-              <th rowSpan={2} className="border border-black">
-                Date
-              </th>
-              <th className="px-6 py-3 border border-black">Prices</th>
-            </tr>
-          </thead>
-          <tbody className="text-center text-base">
-            <tr className="border border-black">
-              <td className="px-6 py-4 border border-black">
-                {applicationNumbers?.submitted}
-              </td>
-              <td className="px-6 py-4 border border-black">
-                {applicationNumbers?.approved}
-              </td>
-              <td className="px-6 py-4 border border-black">
-                {applicationNumbers?.shortfall}
-              </td>
-              <td className="px-6 py-4 border border-black">
-                {applicationNumbers?.total}
-              </td>
-              <td className="px-6 py-4 border border-black">
-                {applicationNumbers?.total}
-              </td>
-            </tr>
-          </tbody>
-        </table> */}
 
-        <table border="1px" className={`${Table}`}>
+        <table ref={tableRef} border="1px" className={`${Table}`}>
           <thead>
             <tr>
               <th rowSpan={2}>Sl. no.</th>
-              <th rowSpan={2}>Village</th>
-              <th rowSpan={2}>Mandal</th>
               <th rowSpan={2}>District</th>
+              <th rowSpan={2}>Mandal</th>
+              <th rowSpan={2}>Village</th>
               <th rowSpan={2}>Date</th>
               <th colSpan={4}>Prices</th>
             </tr>
@@ -321,14 +283,18 @@ const Location = () => {
           <tbody>
             <tr>
               <td className="w-[35px]">1</td>
-              <td>{selectedPanchayat}</td>
-              <td>{selectedMandal}</td>
-              <td>{selectedDistrict}</td>
-              <td>{selectedDate}</td>
-              <td>6</td>
-              <td>7</td>
-              <td>8</td>
-              <td>9</td>
+              <td>
+                {selectedDistrict?.length === 0 ? "All" : selectedDistrict}
+              </td>
+              <td>{selectedMandal?.length === 0 ? "All" : selectedMandal}</td>
+              <td>
+                {selectedPanchayat?.length === 0 ? "All" : selectedPanchayat}
+              </td>
+              <td>{selectedDate?.length === 0 ? "All" : selectedDate}</td>
+              <td>{serverData?.totalUdaCharge}</td>
+              <td>{serverData?.totalPanchayatCharge}</td>
+              <td>{serverData?.totalLabourCharge}</td>
+              <td>{serverData?.totalGreenFee}</td>
             </tr>
           </tbody>
         </table>
