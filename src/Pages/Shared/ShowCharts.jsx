@@ -40,6 +40,8 @@ const ShowCharts = () => {
     setAllPanchayat([]);
     setSelectedMandal("");
     setSelectedPanchayat("");
+    setSelectedDate("");
+
     const chooseDistrict = e.target.value;
     console.log(chooseDistrict);
     setSelectedDistrict(chooseDistrict);
@@ -50,6 +52,9 @@ const ShowCharts = () => {
 
     const panchayatSelect = document.getElementById("panchayat");
     panchayatSelect.value = "";
+
+    const dateSelected = document.getElementById("date");
+    dateSelected.value = "";
 
     if (chooseDistrict === "Vizianagaram") {
       console.log(district[0]?.mandal);
@@ -63,8 +68,11 @@ const ShowCharts = () => {
   const detectChangeOfMandals = (e) => {
     setAllPanchayat([]);
     setSelectedPanchayat("");
+    setSelectedDate("");
     const panchayatSelect = document.getElementById("panchayat");
     panchayatSelect.value = "";
+    const dateSelected = document.getElementById("date");
+    dateSelected.value = "";
     const value = e.target.value;
     setSelectedMandal(value);
 
@@ -299,11 +307,11 @@ const ShowCharts = () => {
             <select
               id="date"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              defaultValue="select"
+              defaultValue={selectedDate}
               disabled={selectedPanchayat?.length === 0}
               onChange={(e) => detectChangeOfDate(e)}
             >
-              <option value="select" disabled>
+              <option value="" disabled>
                 Select an option
               </option>
               <option value="7 days">1 week</option>
