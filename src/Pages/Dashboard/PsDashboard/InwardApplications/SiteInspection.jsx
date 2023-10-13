@@ -23,20 +23,19 @@ const SiteInspection = () => {
   const [recommendations, setRecommendations] = useState("");
 
   // Selector field in site inspection page
-  const [approachRoadApp, setApproachRoadApp] = useState('Public');
+  const [approachRoadApp, setApproachRoadApp] = useState("Public");
 
   const handleApproachRoadApp = (e) => {
     setApproachRoadApp(e.target.value);
-  }
+  };
 
-  const [approachRoadObs, setApproachRoadObs] = useState('Select option');
+  const [approachRoadObs, setApproachRoadObs] = useState("Select option");
 
-  console.log(approachRoadObs, 'approachRoadObs');
+  console.log(approachRoadObs, "approachRoadObs");
 
   const handleApproachRoadObs = (e) => {
     setApproachRoadObs(e.target.value);
-  }
-
+  };
 
   useEffect(() => {
     const getData = async () => {
@@ -48,8 +47,8 @@ const SiteInspection = () => {
 
       const siteBoundaries = applicationData?.siteInspection?.siteBoundaries;
       setSiteBoundaries(siteBoundaries);
-      setApproachRoadApp(siteBoundaries?.accessRoad?.approachRoad?.[0])
-      setApproachRoadObs(siteBoundaries?.accessRoad?.approachRoad?.[1])
+      setApproachRoadApp(siteBoundaries?.accessRoad?.approachRoad?.[0]);
+      setApproachRoadObs(siteBoundaries?.accessRoad?.approachRoad?.[1]);
 
       const accessRoad = applicationData?.siteInspection?.accessRoad;
       setAccessRoad(accessRoad);
@@ -90,6 +89,61 @@ const SiteInspection = () => {
     setRadioPs(e.target.value);
   };
 
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [siteBoundariesImageFiles, setSiteBoundariesImageFiles] = useState({
+    northApp: "",
+    northObs: "",
+    southApp: "",
+    southObs: "",
+    eastApp: "",
+    eastObs: "",
+    westApp: "",
+    westObs: "",
+  });
+
+  const [siteBoundariesImageId, setBoundariesImageId] = useState({
+    northApp: "",
+    northObs: "",
+    southApp: "",
+    southObs: "",
+    eastApp: "",
+    eastObs: "",
+    westApp: "",
+    westObs: "",
+  });
+
+  const get = () => {
+    const northApp = document.getElementById("northApp").files[0];
+    const northObs = document.getElementById("northObs").files[0];
+    const southApp = document.getElementById("southApp").files[0];
+    const southObs = document.getElementById("southObs").files[0];
+    const eastApp = document.getElementById("eastApp").files[0];
+    const eastObs = document.getElementById("eastObs").files[0];
+    const westApp = document.getElementById("westApp").files[0];
+    const westObs = document.getElementById("westObs").files[0];
+
+    console.log(
+      northApp,
+      northObs,
+      southApp,
+      southObs,
+      eastApp,
+      eastObs,
+      westApp,
+      westObs
+    );
+  };
+
+  // Function to handle file selection
+  const handleFileChange = (e, id) => {
+    const file = e.target.files[0];
+    console.log(file, id);
+    siteBoundariesImageFiles[id] = file;
+    setSelectedFile(file);
+
+    console.log(siteBoundariesImageFiles);
+  };
+
   const collectInputFieldData = async (url) => {
     // Ground Position :
     const natureOfSiteApp = document.getElementById("natureOfSiteApp").value;
@@ -105,14 +159,14 @@ const SiteInspection = () => {
     const workCommentedApp = document.getElementById("workCommentedApp").value;
     const workCommentedObs = document.getElementById("workCommentedObs").value;
     // Site Boundaries :
-    const northApp = document.getElementById("northApp").value;
-    const northObs = document.getElementById("northObs").value;
-    const southApp = document.getElementById("southApp").value;
-    const southObs = document.getElementById("southObs").value;
-    const eastApp = document.getElementById("eastApp").value;
-    const eastObs = document.getElementById("eastObs").value;
-    const westApp = document.getElementById("westApp").value;
-    const westObs = document.getElementById("westObs").value;
+    const northApp = document.getElementById("northApp").files[0];
+    const northObs = document.getElementById("northObs").files[0];
+    const southApp = document.getElementById("southApp").files[0];
+    const southObs = document.getElementById("southObs").files[0];
+    const eastApp = document.getElementById("eastApp").files[0];
+    const eastObs = document.getElementById("eastObs").files[0];
+    const westApp = document.getElementById("westApp").files[0];
+    const westObs = document.getElementById("westObs").files[0];
     const scheduleOfTheDocumentsApp = document.getElementById(
       "scheduleOfTheDocumentsApp"
     ).value;
@@ -166,8 +220,7 @@ const SiteInspection = () => {
       ],
     };
 
-
-    console.log(siteBoundaries, 'siteBoundaries');
+    console.log(siteBoundaries, "siteBoundaries");
 
     const accessRoad = {
       natureOfRoad: [natureOfRoadApp, natureOfRoadObs],
@@ -212,10 +265,10 @@ const SiteInspection = () => {
     //         }
     //     });
 
-    return await sendUserDataIntoDB(url, "PATCH", {
-      applicationNo,
-      siteInspection,
-    });
+    // return await sendUserDataIntoDB(url, "PATCH", {
+    //   applicationNo,
+    //   siteInspection,
+    // });
   };
 
   const sentPsDecision = async (url) => {
@@ -230,14 +283,15 @@ const SiteInspection = () => {
     return await response.json();
   };
 
-
   const tableDataClass =
     "whitespace-nowrap border-r px-6 py-4 border-neutral-500";
-  const inputClass = "input rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600";
+  const inputClass =
+    "input rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600";
   const inputTableDataClass = "whitespace-nowrap border-r border-neutral-500";
 
   return (
     <div className="flex flex-col sm:px-6 lg:px-8 dark:text-gray-100">
+      <input type="submit" value="get" onClick={get} />
       <div className="overflow-x-auto">
         <div className="inline-block min-w-full py-2">
           <div className="overflow-hidden">
@@ -382,7 +436,7 @@ const SiteInspection = () => {
                 </tr>
                 <tr className="border-b border-neutral-500">
                   <td className={tableDataClass}>North</td>
-                  <td className='whitespace-nowrap border-r border-neutral-500'>
+                  <td className="whitespace-nowrap border-r border-neutral-500">
                     {/* <input
                       id="northApp"
                       type="text"
@@ -392,10 +446,11 @@ const SiteInspection = () => {
                     /> */}
 
                     <ImageUploadInput
-                      id='northApp'
-                    // siteInspectionValue={siteBoundaries?.north?.[0]}
+                      id="northApp"
+                      handleFileChange={handleFileChange}
+                      selectedFile={selectedFile}
+                      // siteInspectionValue={siteBoundaries?.north?.[0]}
                     />
-
                   </td>
                   <td className={inputTableDataClass}>
                     {/* <input
@@ -406,10 +461,7 @@ const SiteInspection = () => {
                       className={inputClass}
                     /> */}
 
-                    <ImageUploadInput
-                      id='northObs'
-                    />
-
+                    <ImageUploadInput id="northObs" />
                   </td>
                 </tr>
                 <tr className="border-b border-neutral-500">
@@ -422,10 +474,7 @@ const SiteInspection = () => {
                       placeholder="Yes/No"
                       className={inputClass}
                     /> */}
-                    <ImageUploadInput
-                      id='southApp'
-                    />
-
+                    <ImageUploadInput id="southApp" />
                   </td>
                   <td className={inputTableDataClass}>
                     {/* <input
@@ -435,9 +484,7 @@ const SiteInspection = () => {
                       placeholder="Yes/No"
                       className={inputClass}
                     /> */}
-                    <ImageUploadInput
-                      id='southObs'
-                    />
+                    <ImageUploadInput id="southObs" />
                   </td>
                 </tr>
                 <tr className="border-b border-neutral-500">
@@ -450,7 +497,7 @@ const SiteInspection = () => {
                       placeholder="Yes/No"
                       className={inputClass}
                     /> */}
-                    <ImageUploadInput id='eastApp' />
+                    <ImageUploadInput id="eastApp" />
                   </td>
                   <td className={inputTableDataClass}>
                     {/* <input
@@ -460,7 +507,7 @@ const SiteInspection = () => {
                       placeholder="Yes/No"
                       className={inputClass}
                     /> */}
-                    <ImageUploadInput id='eastObs' />
+                    <ImageUploadInput id="eastObs" />
                   </td>
                 </tr>
                 <tr className="border-b border-neutral-500">
@@ -473,7 +520,7 @@ const SiteInspection = () => {
                       placeholder="Yes/No"
                       className={inputClass}
                     /> */}
-                    <ImageUploadInput id='westApp' />
+                    <ImageUploadInput id="westApp" />
                   </td>
                   <td className={inputTableDataClass}>
                     {/* <input
@@ -483,7 +530,7 @@ const SiteInspection = () => {
                       placeholder="Yes/No"
                       className={inputClass}
                     /> */}
-                    <ImageUploadInput id='westObs' />
+                    <ImageUploadInput id="westObs" />
                   </td>
                 </tr>
                 <tr className="border-b border-neutral-500">
@@ -500,7 +547,7 @@ const SiteInspection = () => {
                       type="text"
                       defaultValue={siteBoundaries?.scheduleOfTheDocuments?.[0]}
                       placeholder="Yes/No"
-                      className='h-[88px] px-4 rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600'
+                      className="h-[88px] px-4 rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600"
                     />
                   </td>
                   <td className={inputTableDataClass}>
@@ -509,7 +556,7 @@ const SiteInspection = () => {
                       type="text"
                       defaultValue={siteBoundaries?.scheduleOfTheDocuments?.[1]}
                       placeholder="Yes/No"
-                      className='h-[88px] px-4 rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600'
+                      className="h-[88px] px-4 rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600"
                     />
                   </td>
                 </tr>
@@ -560,12 +607,16 @@ const SiteInspection = () => {
                     <div className="flex flex-col justify-center">
                       <select
                         id="approachRoadApp"
-                        className='input rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600'
-                        value={approachRoadApp ? approachRoadApp : accessRoad?.approachRoad?.[0]}
+                        className="input rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600"
+                        value={
+                          approachRoadApp
+                            ? approachRoadApp
+                            : accessRoad?.approachRoad?.[0]
+                        }
                         onChange={handleApproachRoadApp}
                       >
-                        <option value='Private'>Private</option>
-                        <option value='Public'>Public</option>
+                        <option value="Private">Private</option>
+                        <option value="Public">Public</option>
                       </select>
                     </div>
                   </td>
@@ -580,13 +631,19 @@ const SiteInspection = () => {
                     <div className="flex flex-col justify-center">
                       <select
                         id="approachRoadObs"
-                        className='input rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600'
-                        value={approachRoadObs ? approachRoadObs : accessRoad?.approachRoad?.[1]}
+                        className="input rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600"
+                        value={
+                          approachRoadObs
+                            ? approachRoadObs
+                            : accessRoad?.approachRoad?.[1]
+                        }
                         onChange={handleApproachRoadObs}
                       >
-                        <option value='Select option' disabled>Select option</option>
-                        <option value='Private'>Private</option>
-                        <option value='Public'>Public</option>
+                        <option value="Select option" disabled>
+                          Select option
+                        </option>
+                        <option value="Private">Private</option>
+                        <option value="Public">Public</option>
                       </select>
                     </div>
                   </td>
