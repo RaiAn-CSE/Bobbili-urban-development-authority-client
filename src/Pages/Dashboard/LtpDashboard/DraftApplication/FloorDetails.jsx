@@ -13,7 +13,6 @@ const FloorDetails = ({
 }) => {
   const [floorChange, setFloorChange] = useState("");
 
-  console.log(plotDetailsFloor, "PLOTDETAILS floor");
   const handleFloorChange = (e) => {
     setFloorChange(e.target.value);
   };
