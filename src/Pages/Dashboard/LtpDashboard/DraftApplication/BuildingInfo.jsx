@@ -626,7 +626,9 @@ const BuildingInfo = () => {
               <select
                 id="caseType"
                 className={inputClass}
-                value={selectedOptionCase ? selectedOptionCase : caseType}
+                defaultValue={
+                  selectedOptionCase ? selectedOptionCase : caseType
+                }
                 onChange={handleCaseTypeChange}
               >
                 <option disabled selected value="">
@@ -928,15 +930,15 @@ const BuildingInfo = () => {
 
             {selectedNatureOfTheSite ===
               "Plot port of RLP/IPLP but not regularised" && (
-                <InputField
-                  id="IplpNo"
-                  name=""
-                  label="RLP/IPLP no."
-                  placeholder="RLP/IPLP no."
-                  type="number"
-                  ltpDetails={iplpNo}
-                />
-              )}
+              <InputField
+                id="IplpNo"
+                name=""
+                label="RLP/IPLP no."
+                placeholder="RLP/IPLP no."
+                type="number"
+                ltpDetails={iplpNo}
+              />
+            )}
             {/*===================== Conditional Input Field End =====================*/}
           </div>
         </div>
