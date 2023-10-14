@@ -48,7 +48,7 @@ const AllDraftApplication = ({
       <td>{createdDate ?? "N/A"}</td>
       <td>
         <button
-          className={`btn btn-sm text-white bg-red-500 hover:bg-red-500`}
+          className={`btn btn-sm text-white bg-red-500 hover:bg-red-600`}
           onClick={() =>
             alertToConfirmDelete(applicationNo, removeDraftApplication)
           }
