@@ -46,9 +46,6 @@ const Payment = () => {
   useEffect(() => {
     getApplicationData(applicationNo).then((applicationData) => {
       setApplicationData(applicationData);
-      console.log(applicationData, "LJADJFKJAKSLDJKL:ASJKLFJA");
-      console.log(applicationData?.buildingInfo?.generalInformation);
-
       const generalInformation =
         applicationData?.buildingInfo?.generalInformation;
 
@@ -107,8 +104,8 @@ const Payment = () => {
   const calculateFees = (generalInformation, ltpDetails, applicantDetailsData, plotDetails) => {
 
     // Plots Details
-    const { netPlotAreaCal, marketValueSqym, totalBuiltUpArea,vacantLand } = plotDetails;
-    console.log(plotDetails,"plotDetails")
+    const { netPlotAreaCal, marketValueSqym, totalBuiltUpArea, vacantLand } = plotDetails;
+    console.log(plotDetails, "plotDetails")
     // General Informatin
     const { natureOfTheSite } = generalInformation;
 
@@ -138,7 +135,7 @@ const Payment = () => {
       if (nature_of_site !== "Plot port of RLP/IPLP but not regularised") {
         return penalizationCharges = 0;
       }
- 
+
       if (net_Plot_Area <= 100) {
         penalizationCharges = net_Plot_Area * 200 * 0.33;
       } else if (net_Plot_Area <= 300) {
@@ -190,7 +187,7 @@ const Payment = () => {
     };
     // =====UDA Total Charged=====
     const UDATotalCharged = UDATotal();
-    console.log({builtUpAreaDevelopmentCharged,vacantAreaDevelopmentCharged , TotalPenalizationCharged , TotalOpenSpaceCharged , TotalLabourCessComp2Charged,UDATotalCharged}, "UDATotalCharged-in")
+    console.log({ builtUpAreaDevelopmentCharged, vacantAreaDevelopmentCharged, TotalPenalizationCharged, TotalOpenSpaceCharged, TotalLabourCessComp2Charged, UDATotalCharged }, "UDATotalCharged-in")
 
     // =======Grama Panchayet Segment=======
 
@@ -205,12 +202,16 @@ const Payment = () => {
     const processingUnitRate = 7; //per Sqm.
     const processingFees = processingUnitRate * builtup_Area;
 
+    // ====Building Permit====
+    const buildingPermitUnitRate = 20; //per Sqm.
+    const buildingPermitFees = buildingPermitUnitRate * builtup_Area;
+
     // =====Grama Panchayet Total=====
     const gramaPanchayetTotal = () => {
       return (
         bettermentCharged +
         paperPublicationCharged +
-        processingFees
+        processingFees + buildingPermitFees
       );
     };
     // =====Grama Panchayet Total Charged=====
@@ -220,21 +221,21 @@ const Payment = () => {
     let greenFeeCharged = 0;
     const greenFeeChargesUnitRate = 3; //per Sq.ft
     if (BuiltUp_area_SquareFeet > 5000) {
-      greenFeeCharged = (
+      greenFeeCharged = Math.round(
         greenFeeChargesUnitRate *
         BuiltUp_area_SquareFeet *
         10.76
-      ).toFixed(4);
+      );
     }
 
     // ====Labour Cess Component 1 Charged====
     const labourCessComponentUnitRate1 = 1400; // per Sq.ft.
-    const labourCessCompo1Charged = (
+    const labourCessCompo1Charged = Math.round(
       labourCessComponentUnitRate1 *
       BuiltUp_area_SquareFeet *
       10.76 *
       (0.01 * 0.98)
-    ).toFixed(4);
+    );
 
     setCalculatedData({
       UDATotalCharged,
@@ -250,11 +251,10 @@ const Payment = () => {
       TotalOpenSpaceCharged,
       bettermentCharged,
       processingFees,
-      paperPublicationCharged
+      paperPublicationCharged,
+      buildingPermitFees
     });
   };
-
-  console.log(calculatedData, "Calculated data");
 
   // THIS FUNCTION USED FOR GETTING SELECTED FILE
   const handleFileChange = (e, fileName) => {
@@ -268,8 +268,6 @@ const Payment = () => {
       console.log(prev, fileName, "AFTER");
       return prev;
     });
-    console.log(file, fileName, "GG");
-    console.log(selectedFiles, "HH");
   };
 
   const getData = () => {
@@ -278,7 +276,7 @@ const Payment = () => {
     console.log(document.getElementById("UdaImpactFee"), "BY ID");
     console.log(document.getElementById("UDATotalCharged"), "BY ID");
     console.log(document.getElementById("gramaSiteApproval"), "BY ID");
-    // console.log(document.getElementById("buildingPermitFees"), "BY ID");
+    console.log(document.getElementById("buildingPermitFees"), "BY ID");
     console.log(document.getElementById("bettermentCharged"), "BY ID");
     console.log(document.getElementById("TotalOpenSpaceCharged"), "BY ID");
     console.log(document.getElementById("gramaImpactFee"), "BY ID");
@@ -301,11 +299,7 @@ const Payment = () => {
 
   // send data into database
   const sendPaymentData = async (url) => {
-    console.log("object");
-
     // let totalFileChecked = 1;
-
-    console.log(selectedFiles, "SELECTED FILES");
 
     // UPLOAD IMAGE FILE INTO THE CLOUD STORAGE AT FIRST
     for (const file in selectedFiles) {
@@ -327,19 +321,13 @@ const Payment = () => {
             }
           );
           // Handle success or display a success message to the user
-
-          console.log(response, "response");
-
           if (response?.data.msg === "Successfully uploaded") {
             const fileId = response.data.fileId;
             console.log(fileId, "fileId");
             // fileUploadSuccess = 1;
             imageId[file] = fileId;
-
-            console.log(imageId, "IMAGE ID");
           }
         } catch (error) {
-          console.log(error, "ERROR");
           // Handle errors, e.g., show an error message to the user
           toast.error("Error to upload documents");
         }
@@ -353,7 +341,7 @@ const Payment = () => {
     const UDATotalCharged = document.getElementById("UDATotalCharged")?.value;
     const gramaSiteApproval =
       document.getElementById("gramaSiteApproval")?.value;
- 
+
     const bettermentCharged =
       document.getElementById("bettermentCharged")?.value;
     const TotalOpenSpaceCharged = document.getElementById(
@@ -407,7 +395,7 @@ const Payment = () => {
     };
     const gramaPanchayatFee = {
       gramaSiteApproval: gramaSiteApproval ?? "",
-      // buildingPermitFees: buildingPermitFees ?? "",
+      buildingPermitFees: buildingPermitFees ?? "",
       bettermentCharged: bettermentCharged ?? "",
       TotalOpenSpaceCharged: TotalOpenSpaceCharged ?? "",
       gramaImpactFee: gramaImpactFee ?? "",
@@ -436,7 +424,6 @@ const Payment = () => {
       greenFeeBankReceipt: imageId["greenFeeBankReceipt"],
     };
 
-    console.log("PRINT ALL GETTED DATA");
 
     console.log(udaCharge, gramaPanchayatFee, labourCessCharge, greenFeeCharge);
 
@@ -571,6 +558,15 @@ const Payment = () => {
                 ltpDetails={calculatedData?.bettermentCharged}
               />
             )}
+            <InputField
+              id="buildingPermitFees"
+              name="buildingPermitFees"
+              label="Building Permit Fee"
+              placeholder="5000"
+              type="number"
+              ltpDetails={calculatedData?.buildingPermitFees}
+              readonly
+            />
 
             <InputField
               id="GramaPanchayetTotalCharged"

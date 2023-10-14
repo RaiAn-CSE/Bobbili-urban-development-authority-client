@@ -52,8 +52,6 @@ function Application({ setOpenApplication }) {
     gettingData();
   }, []);
 
-  console.log(generalInformation, "GENERAL INFORMATION");
-
   // General Information
   const {
     applicationType,
@@ -79,23 +77,6 @@ function Application({ setOpenApplication }) {
     proposedPlotAreaCal,
     roadWideningAreaCal,
     netPlotAreaCal,
-    buildingExcludeStilt,
-    compoundingWallProposed,
-    existingRoad,
-    existingRoadMts,
-    frontSetback,
-    marketValueSqym,
-    natureOfRoad,
-    proposedRoadMts,
-    rareSetback,
-    side1Setback,
-    side2Setback,
-    siteRegistered,
-    statusOfRoad,
-    totalBuiltUpArea,
-    totalParkingArea,
-    totalPlotDocument,
-    totalPlotGround,
   } = plotDetails;
 
   // LTP Details
@@ -143,7 +124,7 @@ function Application({ setOpenApplication }) {
     { "Mandal": gramaPanchayat },
     { "District": district },
   ];
-  
+
 
   // Part03
   const Part03 = [
@@ -214,7 +195,7 @@ function Application({ setOpenApplication }) {
       return (
         <td className={`bg-white border border-black ${type == "keys" && "w-1/3"} p-0`}>
           <div className="flex">
-            {data.map((e, i) => (
+            {data?.map((e, i) => (
               <p
                 key={i}
                 className={`flex items-center p-2 border-l border-black h-12 ${i === 0 && "w-1/2 border-l-0"
@@ -237,47 +218,8 @@ function Application({ setOpenApplication }) {
     }
   };
 
-  // Part03
-  const ColDataShow03 = (data, index) => {
-    let colData;
-    if (index === 0) {
-      colData = row1;
-    } else if (index === 1) {
-      colData = row2;
-    } else if (index == 4) {
-      colData = row5;
-    } else {
-      colData = [];
-    }
-    return (
-      <td className="w-full bg-white border border-black p-0 ">
-        {part03SubArray.includes(index) ? (
-          <p key={index} className="flex ">
-            {colData.map((d, i) => (
-              <p
-                key={i}
-                className={`w-full border-black py-4 border-l ${i == 0 && "border-l-0"
-                  }`}
-              >
-                <p className="px-2">{Object.keys(colData[i])[0]}</p>
-                {/* {Object.values(colData[i])[0]} */}
-                <p
-                  className={`${index !== 4
-                    ? "border-t "
-                    : "font-bold inline-block border-b-2 border-dotted border-black underline-offset-4 mt-2 ml-2"
-                    } border-black px-2 pt-2`}
-                >
-                  {i + 1}
-                </p>
-              </p>
-            ))}
-          </p>
-        ) : (
-          <p className="py-4 px-2"></p>
-        )}
-      </td>
-    );
-  };
+
+
   // Part04
   const ColDataShow04 = (data, numb) => {
     return (
@@ -404,71 +346,97 @@ function Application({ setOpenApplication }) {
                   <th className="bg-blue-200 border-l border-t border-black fontbold text-black">
                     DETAILS OF THE PROPOSED CONSTRUCTION
                   </th>
-                  <th className="bg-blue-200 border-r border-t border-black fontbold text-black"></th>
+                  <th className="bg-blue-200 border-t border-black fontbold text-black">
+                  </th>
+                  <th className="bg-blue-200 border-y border-r border-black fontbold text-black">
+                  </th>
                 </tr>
               </thead>
-              <tbody>
-                {/* row 1 */}
-                {Part03.map((data, index) => (
-                  <tr key={index} className="bg-white">
-                    <th className="bg-white border border-black">
-                      {index + 1}
-                    </th>
-                    <td className="bg-white border border-black p-4">
-                      {data}
-                    </td>
-                    {/* <td className='bg-white border border-black'></td> */}
-                    {ColDataShow03(data, index)}
-                  </tr>
-                ))}
+              <tbody className="">
+                <tr className="border border-black">
+                  <td className="border border-black w-[5%]">1</td>
+                  <td className="border border-black w-[30%]">Site Area (Sq.mtr.)</td>
+                  <td className="p-0 border-t border-black w-[30%]">
+                    <tr className=" border-black">
+                      <td className="border-r border-black">As per Document</td>
+                      <td className="border-r border-black">a</td>
+                    </tr>
+                    <tr className=" border-black">
+                      <td className="border-r border-black"> As on Ground</td>
+                      <td className="border-r border-black">b</td>
+                    </tr>
+                    <tr className=" border-black">
+                      <td className="border-r border-black">As on Proposed</td>
+                      <td className="border-r border-black">c</td>
+                    </tr>
+                  </td>
+                </tr>
+                <tr className="border border-black">
+                  <td className="border border-black">02</td>
+                  <td className="border border-black">Total Number of floors</td>
+                  <td className="border border-black"></td>
+                </tr>
+                <tr className="border border-black">
+                  <td className="border border-black"></td>
+                  <td className="border border-black">Floor name</td>
+                  <td className="border-r border-black">Built up area</td>
+                  <td className="">Parking Area</td>
+                </tr>
+                <tr className="border border-black">
+                  <td className="border border-black">a</td>
+                  <td className="border border-black">Site floor (sq. mtr.)</td>
+                  <td className="border border-black"></td>
+                </tr>
+                <tr className="border border-black">
+                  <td className="border border-black">b</td>
+                  <td className="border border-black">Ground floor (sq.mtr.)</td>
+                  <td className="border border-black"></td>
+                </tr>
+                <tr className="border border-black">
+                  <td className="border border-black">c</td>
+                  <td className="border border-black">First floor (sq.mtr.)</td>
+                  <td className="border border-black"></td>
+                </tr>
+                <tr className="border border-black">
+                  <td className="border border-black">d</td>
+                  <td className="border border-black">Second floor (sq.mtr.)</td>
+                  <td className="border border-black"></td>
+                </tr>
+                <tr className="border border-black">
+                  <td className="border border-black">03</td>
+                  <td className="border border-black">Total Built-up area and parking area (sq.mtr.)</td>
+                  <td className="border border-black"></td>
+                  <td className="border border-black"></td>
+                </tr>
+                <tr className="border border-black">
+                  <td className="border border-black">04</td>
+                  <td className="border border-black">Numbers Of Units</td>
+                  <td></td>
+                </tr>
+                <tr className="border border-black">
+                  <td className="border border-black">05</td>
+                  <td className="border border-black">Vacant site area</td>
+                  <td></td>
+                </tr>
               </tbody>
             </table>
           </div>
+         <div className="mt-7">
+         <p className="font-bold">Primary</p>
+          <p>I hereby declare that I am the owner/ PAH in possession of the plot on which the work is proposed and that the statement made in this form is true and correct to the best of my knowledge.
+          </p>
+         </div>
           {/* Part04 */}
           <div className="overflow-x-auto mt-10">
             <table className="table bg-white table-sm">
               {/*Part04 head */}
               <thead>
-                <tr>
-                  <th className="bg-blue-200 border border-black fontbold text-black">
-                    D
-                  </th>
 
-                  <th className="bg-blue-200 border-l border-t border-black fontbold text-black">
-                    DETAILS OF THE LICENSED TECHNICAL PERSONNEL:
-                  </th>
-                  <th className="bg-blue-200 border-t border-black fontbold text-black"></th>
-                  <th className="bg-blue-200 border-r border-t border-black fontbold text-black"></th>
-                </tr>
-                <tr>
-                  <th className="bg-white border border-black fontbold text-black">
-                    SL.NO
-                  </th>
-                  <th className="bg-white border border-black fontbold text-black">
-                    NAME
-                  </th>
-                  <th className="bg-white border border-black fontbold text-black">
-                    ADDRESS
-                  </th>
-                  <th className="bg-white border border-black fontbold text-black">
-                    LICENSE NO.
-                  </th>
-                </tr>
               </thead>
               <tbody>
-                {/* row 1 */}
-                <td className="bg-white border border-black p-0 w-10 font-bold">
-                  {ColDataShow04([1, 2, 3, 4, 5, 6], 1)}
-                </td>
-                <td className="bg-white border border-black p-0">
-                  {ColDataShow04(NameCol, 2)}
-                </td>
-                <td className="bg-white border border-black p-0">
-                  {ColDataShow04(AddressCol, 3)}
-                </td>
-                <td className="bg-white border border-black p-0">
-                  {ColDataShow04(LicenceNo, 4)}
-                </td>
+                <tr></tr>
+                <tr></tr>
+
               </tbody>
             </table>
           </div>
