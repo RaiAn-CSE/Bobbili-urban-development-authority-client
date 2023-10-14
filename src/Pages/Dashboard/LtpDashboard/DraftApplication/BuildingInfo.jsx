@@ -278,6 +278,11 @@ const BuildingInfo = () => {
     setTotalFloor((prev) => [...prev, newFloor]);
   };
 
+  const decreaseFloorNo = () => {
+    totalFloor.pop();
+    setTotalFloor([...totalFloor]);
+  };
+
   const handleParkingArea = (value, index) => {
     const newParkingArea = parseFloat(value) || 0;
     const updateArea = [...parkingArea];
@@ -923,15 +928,15 @@ const BuildingInfo = () => {
 
             {selectedNatureOfTheSite ===
               "Plot port of RLP/IPLP but not regularised" && (
-              <InputField
-                id="IplpNo"
-                name=""
-                label="RLP/IPLP no."
-                placeholder="RLP/IPLP no."
-                type="number"
-                ltpDetails={iplpNo}
-              />
-            )}
+                <InputField
+                  id="IplpNo"
+                  name=""
+                  label="RLP/IPLP no."
+                  placeholder="RLP/IPLP no."
+                  type="number"
+                  ltpDetails={iplpNo}
+                />
+              )}
             {/*===================== Conditional Input Field End =====================*/}
           </div>
         </div>
@@ -1166,6 +1171,7 @@ const BuildingInfo = () => {
                   index={index}
                   length={totalFloor.length}
                   increaseFloorNo={increaseFloorNo}
+                  decreaseFloorNo={decreaseFloorNo}
                   handleBuiltUpArea={handleBuiltUpArea}
                   handleParkingArea={handleParkingArea}
                   parkingAreaValue={parkingArea[index]}
