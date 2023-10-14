@@ -138,7 +138,7 @@ const OwnerDetail = ({
           {index === length - 1 && index > 0 && index <= 4 && (
             <div className="flex justify-center items-center">
               <button
-                className="text-xl mx-2 rounded-full w-[30px] h-[30px] bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white cursor-pointer shadow-lg shadow-violetDark transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold"
+                className="text-xl mx-2 rounded-full w-[30px] h-[30px] bg-gradient-to-r from-fuchsia-500 to-red-500 text-white cursor-pointer shadow-lg shadow-violetDark transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold"
                 onClick={decreaseApplicationNo}
               >
                 -
