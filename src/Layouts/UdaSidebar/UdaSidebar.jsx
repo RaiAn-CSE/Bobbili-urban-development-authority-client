@@ -13,13 +13,25 @@ const UdaSidebar = () => {
       <li
         className={`${
           path === "/dashboard" && gradientColor
-        } mt-10 mb-1 ps-4 rounded-l-lg flex items-center ${hoverGradientColor}`}
+        } mb-1 flex ps-3 items-center ${hoverGradientColor}`}
       >
         <span>
           <MdSpaceDashboard size={20} />
         </span>
         <Link className={`p-[10px] font-medium `} to="/dashboard">
           Dashboard
+        </Link>
+      </li>
+      <li
+        className={`${
+          path === "/dashboard/location" && gradientColor
+        } mb-1 ps-3 flex items-center ${hoverGradientColor}`}
+      >
+        <span>
+          <MdSpaceDashboard size={20} />
+        </span>
+        <Link className={`p-[10px] font-medium `} to="/dashboard/location">
+          Location
         </Link>
       </li>
     </>

@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import IndividualUser from "./IndividualUser";
-import tableStyle from "../../../../Style/tableStyle.module.css";
 import { useQuery } from "react-query";
 import Loading from "../../../Shared/Loading";
 import toast from "react-hot-toast";

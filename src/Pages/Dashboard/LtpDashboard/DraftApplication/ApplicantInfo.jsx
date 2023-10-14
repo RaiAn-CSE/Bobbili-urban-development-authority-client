@@ -32,6 +32,19 @@ const ApplicantInfo = () => {
     const newOwner = `Owner${totalApplicant.length + 1}`;
     setTotalApplicant((prev) => [...prev, newOwner]);
   };
+  const decreaseApplicationNo = () => {
+    // const newOwner = `Owner${totalApplicant.length + 1}`;
+    console.log("AOBC");
+
+    totalApplicant.pop();
+
+    console.log(totalApplicant, "TOTAL APPLICANT");
+    setTotalApplicant([...totalApplicant]);
+  };
+
+  // useEffect(() => {
+  //   console.log(totalApplicant);
+  // }, [totalApplicant]);
 
   const setPhoneNoLimit = (e, setPhoneNo) => {
     const value = e.target.value;
@@ -98,13 +111,24 @@ const ApplicantInfo = () => {
   const [ltpDetails, setLtpDetails] = useState("");
   const [applicantDetails, setApplicantDetails] = useState("");
 
-  const { type, name, ltpDoorNo, ltpStreetName, email, licenseNo, phoneNo, validity, address } = ltpDetails;
+  const {
+    type,
+    name,
+    ltpDoorNo,
+    ltpStreetName,
+    email,
+    licenseNo,
+    phoneNo,
+    validity,
+    address,
+  } = ltpDetails;
 
   useEffect(() => {
     const getData = async () => {
       const applicationData = await getApplicationData(applicationNo);
       const ltpDetailsData = applicationData.applicantInfo.ltpDetails;
-      const applicantDetailsData = applicationData.applicantInfo.applicantDetails;
+      const applicantDetailsData =
+        applicationData.applicantInfo.applicantDetails;
       setLtpDetails(ltpDetailsData);
       setApplicantDetails(applicantDetailsData);
       setLtpPhone(ltpDetailsData?.phoneNo);
@@ -246,6 +270,7 @@ const ApplicantInfo = () => {
               length={totalApplicant.length}
               applicantNo={applicantNo}
               increaseApplicantNo={increaseApplicantNo}
+              decreaseApplicationNo={decreaseApplicationNo}
               setPhoneNoLimit={setPhoneNoLimit}
               applicantDetails={applicantDetails[index]}
             />

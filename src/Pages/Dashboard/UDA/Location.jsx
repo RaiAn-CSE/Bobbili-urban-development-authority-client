@@ -1,21 +1,22 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import Chart from "chart.js/auto";
-import { CategoryScale } from "chart.js";
-import Data from "../../assets/Data.json";
-import BarChart from "./BarChart";
-import PieChart from "./PieChart";
-import { district } from "../../assets/buildingInfo.json";
-import { AuthContext } from "../../AuthProvider/AuthProvider";
+import React, { useEffect, useState, useRef, useContext } from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useDownloadExcel } from "react-export-table-to-excel";
+import { TfiExport } from "react-icons/tfi";
+import { district } from "../../../assets/buildingInfo.json";
+import { AuthContext } from "../../../AuthProvider/AuthProvider";
+import { useLocation } from "react-router";
+import Table from "./tableStyle.module.css";
 
-Chart.register(CategoryScale);
-
-const ShowCharts = () => {
+const Location = () => {
   const path = useLocation().pathname;
 
   const { userInfoFromLocalStorage } = useContext(AuthContext);
+  const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
-  // const role = userInfoFromLocalStorage().role;
+  const [applicationNumbers, setApplicationNumbers] = useState(null);
+
+  const tableRef = useRef(null);
 
   const [allDistricts, setAllDistricts] = useState([]);
   const [allMandal, setAllMandal] = useState([]);
@@ -96,6 +97,7 @@ const ShowCharts = () => {
     console.log(e.target.value);
     setSelectedDate(e.target.value);
   };
+
   console.log(
     selectedDistrict,
     selectedMandal,
@@ -103,8 +105,6 @@ const ShowCharts = () => {
     selectedDate,
     "All"
   );
-
-  console.log(allMandal, allPanchayat, "ALL");
 
   useEffect(() => {
     if (selectedDistrict.length) {
@@ -124,7 +124,7 @@ const ShowCharts = () => {
         .then((res) => res.json())
         .then((result) => {
           console.log(result);
-          setServerData(result?.totalApplication);
+          setServerData(result?.charges);
         });
 
       console.log(data, "Data");
@@ -134,85 +134,18 @@ const ShowCharts = () => {
         .then((res) => res.json())
         .then((result) => {
           console.log(result);
-          setServerData(result?.totalApplication);
+          setServerData(result?.charges);
         });
     }
   }, [selectedDistrict, selectedMandal, selectedPanchayat, selectedDate]);
 
-  const [chartData, setChartData] = useState({});
+  console.log(serverData, "Server Data");
 
-  const canvas = document.createElement("canvas");
-
-  // background-image: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%);;;
-
-  const getData = (canvas, labels, data) => {
-    const ctx = canvas.getContext("2d");
-    const gradient1 = ctx.createLinearGradient(0, 0, 300, 0);
-    gradient1.addColorStop(0, "#ffecd2");
-    gradient1.addColorStop(1, "#fcb69f");
-    // gradient1.addColorStop(1, "rgb(107, 33, 168)");
-
-    const gradient2 = ctx.createLinearGradient(0, 0, 300, 0);
-    gradient2.addColorStop(0, "#d4fc79");
-    gradient2.addColorStop(1, "#96e6a1");
-    // gradient2.addColorStop(1, "rgb(34, 197, 94)");
-    const gradient3 = ctx.createLinearGradient(0, 0, 300, 0);
-    gradient3.addColorStop(0, "#f78ca0");
-    gradient3.addColorStop(0.19, "#f9748f");
-    gradient3.addColorStop(0.5, "#fd868c");
-    gradient3.addColorStop(1, "#fe9a8b");
-
-    return {
-      labels,
-      datasets: [
-        {
-          label: "Chart",
-          data,
-          backgroundColor: [gradient1, gradient2, gradient3],
-          borderColor: "#000",
-          borderWidth: 0.1,
-        },
-      ],
-    };
-  };
-
-  useEffect(() => {
-    console.log(serverData, "Server data");
-
-    const filterData = {};
-
-    for (const key in serverData) {
-      if (!Array.isArray(serverData[key])) {
-        filterData[key] = serverData[key];
-      }
-    }
-
-    delete filterData["total"];
-    const labels = Object.keys(filterData);
-    const data = Object.values(filterData);
-
-    const chartValue = getData(canvas, labels, data);
-    setChartData(chartValue);
-
-    // setChartData({
-    //   labels,
-    //   datasets: [
-    //     {
-    //       label: "Total",
-    //       data,
-    //       background: [
-    //         "rgb(198, 163, 238)",
-    //         "rgba(0, 255, 0, 0.5)",
-    //         "rgba(0, 0, 255, 0.5)",
-    //       ],
-
-    //       // borderColor: "black",
-    //       // borderWidth: 2,
-    //     },
-    //   ],
-    // });
-  }, [serverData]);
-
+  const { onDownload } = useDownloadExcel({
+    currentTableRef: tableRef.current,
+    filename: "TotalApplication table",
+    sheet: "TotalApplications",
+  });
   return (
     <>
       <form className="flex justify-around items-center font-sans my-16">
@@ -321,17 +254,53 @@ const ShowCharts = () => {
           </div>
         )}
       </form>
-      <div className="flex justify-between items-center p-0 dark:text-white">
-        <div className="w-[45%] overflow-hidden">
-          {serverData?.length !== 0 && <BarChart chartData={chartData} />}
-        </div>
 
-        <div className="w-[45%] overflow-hidden">
-          {serverData?.length !== 0 && <PieChart chartData={chartData} />}
-        </div>
+      <div className="flex flex-col font-roboto w-[98%] mx-auto my-10 overflow-x-auto sm:rounded-lg ">
+        <button
+          onClick={onDownload}
+          className={`${gradientColor} transition-all duration-700 mb-8 font-roboto text-base text-white p-2 rounded-lg self-end flex items-center justify-center hover:shadow-lg hover:shadow-violetLight hover:bg-gradient-to-l`}
+        >
+          Export <TfiExport size={18} className="ms-2" />
+        </button>
+
+        <table ref={tableRef} border="1px" className={`${Table}`}>
+          <thead>
+            <tr>
+              <th rowSpan={2}>Sl. no.</th>
+              <th rowSpan={2}>District</th>
+              <th rowSpan={2}>Mandal</th>
+              <th rowSpan={2}>Village</th>
+              <th rowSpan={2}>Date</th>
+              <th colSpan={4}>Prices</th>
+            </tr>
+            <tr>
+              <th>UDA Charges</th>
+              <th>Grama Panchayat Fee</th>
+              <th>Labour Cess Charge</th>
+              <th>Green Fee Charge</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="w-[35px]">1</td>
+              <td>
+                {selectedDistrict?.length === 0 ? "All" : selectedDistrict}
+              </td>
+              <td>{selectedMandal?.length === 0 ? "All" : selectedMandal}</td>
+              <td>
+                {selectedPanchayat?.length === 0 ? "All" : selectedPanchayat}
+              </td>
+              <td>{selectedDate?.length === 0 ? "All" : selectedDate}</td>
+              <td>{serverData?.totalUdaCharge}</td>
+              <td>{serverData?.totalPanchayatCharge}</td>
+              <td>{serverData?.totalLabourCharge}</td>
+              <td>{serverData?.totalGreenFee}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </>
   );
 };
 
-export default ShowCharts;
+export default Location;

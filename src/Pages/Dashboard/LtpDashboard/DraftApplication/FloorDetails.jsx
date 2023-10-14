@@ -10,11 +10,43 @@ const FloorDetails = ({
   plotDetailsFloor,
   parkingAreaValue,
   builtUpAreaValue,
+  floorOptions,
+  // handleFloorChange,
+  // setFloorTrack,
+  // floorTrack,
 }) => {
   const [floorChange, setFloorChange] = useState("");
+  const [floorTrack, setFloorTrack] = useState([
+    { value: "Stilt / Parking Floor", checked: "" },
+    { value: "Ground Floor", checked: "" },
+    { value: "First Floor", checked: "" },
+    { value: "Second Floor", checked: "" },
+  ]);
 
-  const handleFloorChange = (e) => {
+  console.log(floorTrack, "Floor track");
+
+  const handleFloorChange = (e, index) => {
     setFloorChange(e.target.value);
+
+    const floorValue = e.target.value;
+    const floorNameIndex = index;
+
+    setFloorTrack((prev) => {
+      prev.forEach((item, index) => {
+        if (item.value === floorValue) {
+          prev[index].checked = floorNameIndex;
+
+          prev.forEach((itm, j) => {
+            if (j !== index && prev[j].checked === floorNameIndex) {
+              prev[j].checked = "";
+            }
+          });
+        }
+      });
+      return prev;
+    });
+
+    console.log(floorTrack);
   };
 
   return (
@@ -28,15 +60,19 @@ const FloorDetails = ({
           name={`floorName${index}`}
           className="w-full px-3 py-[10px] border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200"
           value={floorChange ? floorChange : plotDetailsFloor?.name}
-          onChange={handleFloorChange}
+          onChange={(e) => handleFloorChange(e, index)}
         >
           <option disabled selected value="Select Floor Name">
             Select Floor Name
           </option>
-          <option value='Stilt / Parking Floor'>Stilt / Parking Floor</option>
-          <option value='Ground floor'>Ground floor</option>
-          <option value='First Floor'>First Floor</option>
-          <option value='Second Floor'>Second Floor</option>
+          {floorOptions?.length &&
+            floorOptions?.map((eachFloor, index) => {
+              return (
+                <option key={index} value={eachFloor}>
+                  {eachFloor}
+                </option>
+              );
+            })}
         </select>
       </div>
 

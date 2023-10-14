@@ -30,6 +30,7 @@ import PrivacyPolicy from "../Pages/Main/PrivacyPolicy/PrivacyPolicy";
 import DemoVideos from "../Pages/Main/DemoVideos/DemoVideos";
 import Home from "../Pages/Main/Home/Home";
 import Reports from "../Pages/Main/Reports/Reports";
+import Location from "../Pages/Dashboard/UDA/Location";
 
 const router = createBrowserRouter([
   {
@@ -245,6 +246,10 @@ const router = createBrowserRouter([
             <ReValidation />
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/dashboard/location",
+        element: <Location />,
       },
     ],
   },

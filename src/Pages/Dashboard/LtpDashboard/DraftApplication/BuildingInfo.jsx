@@ -70,6 +70,22 @@ const BuildingInfo = () => {
   const [eastValue, setEastValue] = useState("");
   const [westValue, setWestValue] = useState("");
 
+  // options
+
+  const [floorOptions, setFloorOptions] = useState([
+    "Stilt / Parking Floor",
+    "Ground Floor",
+    "First Floor",
+    "Second Floor",
+  ]);
+
+  const [floorTrack, setFloorTrack] = useState([
+    { value: "Stilt / Parking Floor", checked: "" },
+    { value: "Ground Floor", checked: "" },
+    { value: "First Floor", checked: "" },
+    { value: "Second Floor", checked: "" },
+  ]);
+
   // SIDE EFFECT HANDLED
 
   // HERE TOTAL BUILTUP AREA AND TOTAL PARKING AREA IS CALCULATED
@@ -123,7 +139,7 @@ const BuildingInfo = () => {
       setSelectedMandal(generalInformation?.mandal);
       setSelectedGrama(generalInformation?.gramaPanchayat);
       setSelectedVillage(generalInformation?.village);
-      console.log(plotDetails?.siteRegistered, 'plotDetails plotDetails');
+      console.log(plotDetails?.siteRegistered, "plotDetails plotDetails");
       setRadio4(plotDetails?.compoundingWallProposed);
       setRadio5(plotDetails?.siteRegistered);
 
@@ -334,8 +350,7 @@ const BuildingInfo = () => {
     setRadio4(e.target.value);
   };
 
-  console.log(radio4, 'Radio4');
-
+  console.log(radio4, "Radio4");
 
   const handleRadio5 = (e) => {
     setRadio5(e.target.value);
@@ -572,7 +587,6 @@ const BuildingInfo = () => {
     totalPlotGround,
     runningMeter,
   } = plotDetails ?? {};
-
 
   // console.log(scheduleBoundaries, 'scheduleBoundaries');
   const { east, west, north, south } = scheduleBoundaries ?? {};
@@ -909,15 +923,15 @@ const BuildingInfo = () => {
 
             {selectedNatureOfTheSite ===
               "Plot port of RLP/IPLP but not regularised" && (
-                <InputField
-                  id="IplpNo"
-                  name=""
-                  label="RLP/IPLP no."
-                  placeholder="RLP/IPLP no."
-                  type="number"
-                  ltpDetails={iplpNo}
-                />
-              )}
+              <InputField
+                id="IplpNo"
+                name=""
+                label="RLP/IPLP no."
+                placeholder="RLP/IPLP no."
+                type="number"
+                ltpDetails={iplpNo}
+              />
+            )}
             {/*===================== Conditional Input Field End =====================*/}
           </div>
         </div>
@@ -1159,6 +1173,9 @@ const BuildingInfo = () => {
                   plotDetailsFloor={
                     plotDetailsFloor ? plotDetailsFloor[index] : undefined
                   }
+                  floorOptions={floorOptions}
+                  setFloorTrack={setFloorTrack}
+                  floorTrack={floorTrack}
                 />
               ))}
             </div>
@@ -1171,7 +1188,7 @@ const BuildingInfo = () => {
                 placeholder="No of units"
               // ltpDetails={noOfUnits}
               /> */}
-              <div className='hidden lg:grid'></div>
+              <div className="hidden lg:grid"></div>
               <div className="my-4 mx-3 grid">
                 <label htmlFor="disabled-input" className={labelClass}>
                   Total Built up area
@@ -1248,7 +1265,6 @@ const BuildingInfo = () => {
             </div>
 
             <div className="grid grid-cols-1 mx-5 md:mx-10 lg:mx-14 mb-5">
-
               <div className="lg:flex">
                 <div className="flex flex-col md:flex-row basis-[70%] font-medium text-lg my-10">
                   <div className="flex items-center mb-3 md:mb-0">
@@ -1293,12 +1309,12 @@ const BuildingInfo = () => {
                 </div>
               </div>
 
-
               <div className="flex flex-col md:flex-row font-medium mb-4 text-lg">
                 <div className="flex items-center mb-3 md:mb-0">
                   <FaHandPointRight className="me-3 w-7 lg:w-auto text-violetLight" />
                   <p className="font-bold text-lg">
-                    Whether site Registered as house plot/ Building prior to 18-01-2006?
+                    Whether site Registered as house plot/ Building prior to
+                    18-01-2006?
                   </p>
                 </div>
                 <label className="inline-flex items-center ml-3">
@@ -1307,9 +1323,7 @@ const BuildingInfo = () => {
                     name="radio-5"
                     className="radio border border-violet-500 h-4 w-4"
                     value="yes"
-                    checked={
-                      radio5 == "yes"
-                    }
+                    checked={radio5 == "yes"}
                     onChange={handleRadio5}
                   />
                   <span className="ml-2 text-base">Yes</span>
@@ -1320,15 +1334,12 @@ const BuildingInfo = () => {
                     name="radio-5"
                     className="radio border border-violet-500 h-4 w-4"
                     value="no"
-                    checked={
-                      radio5 == "no"
-                    }
+                    checked={radio5 == "no"}
                     onChange={handleRadio5}
                   />
                   <span className="ml-2 text-base">No</span>
                 </label>
               </div>
-
             </div>
           </div>
         </div>
