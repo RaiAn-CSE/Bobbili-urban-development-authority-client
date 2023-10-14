@@ -231,6 +231,31 @@ const SiteInspection = () => {
   };
 
 
+
+  const [imageData, setImageData] = useState({
+    northApp: null,
+    northObs: null,
+    southApp: null,
+  });
+
+  const handleImageChange = (id, file) => {
+    setImageData((prevData) => ({
+      ...prevData,
+      [id]: file,
+    }));
+  };
+
+  const submitImageData = () => {
+    for (const [id, file] of Object.entries(imageData)) {
+      if (file) {
+        postDataToServer(id, file);
+      }
+    }
+  };
+
+  console.log(imageData, "imageData");
+
+
   const tableDataClass =
     "whitespace-nowrap border-r px-6 py-4 border-neutral-500";
   const inputClass = "input rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600";
@@ -393,7 +418,7 @@ const SiteInspection = () => {
 
                     <ImageUploadInput
                       id='northApp'
-                    // siteInspectionValue={siteBoundaries?.north?.[0]}
+                      onImageChange={handleImageChange}
                     />
 
                   </td>
@@ -408,6 +433,8 @@ const SiteInspection = () => {
 
                     <ImageUploadInput
                       id='northObs'
+                      onImageChange={handleImageChange}
+
                     />
 
                   </td>
@@ -415,26 +442,13 @@ const SiteInspection = () => {
                 <tr className="border-b border-neutral-500">
                   <td className={tableDataClass}>South</td>
                   <td className={inputTableDataClass}>
-                    {/* <input
-                      id="southApp"
-                      type="text"
-                      defaultValue={siteBoundaries?.south?.[0]}
-                      placeholder="Yes/No"
-                      className={inputClass}
-                    /> */}
                     <ImageUploadInput
                       id='southApp'
+                      onImageChange={handleImageChange}
                     />
 
                   </td>
                   <td className={inputTableDataClass}>
-                    {/* <input
-                      id="southObs"
-                      type="text"
-                      defaultValue={siteBoundaries?.south?.[1]}
-                      placeholder="Yes/No"
-                      className={inputClass}
-                    /> */}
                     <ImageUploadInput
                       id='southObs'
                     />
@@ -795,6 +809,9 @@ const SiteInspection = () => {
           ></textarea>
         </div>
       </div>
+
+
+      <button type="submit" className="btn btn-sm" onClick={submitImageData}>Submit</button>
 
       {/* save & continue  */}
       <SaveData

@@ -9,6 +9,8 @@ const ImageUploadInput = ({ id, siteInspectionValue }) => {
         setSelectedFile(file);
     };
 
+    console.log(selectedFile, 'selectedFile');
+
     return (
         <div className="flex items-center justify-center w-full">
             <label htmlFor={id} className="flex flex-col items-center justify-center w-full cursor-pointer bg-gray-50 hover:bg-gray-100  dark:bg-gray-700  dark:hover:bg-gray-600">
@@ -28,7 +30,7 @@ const ImageUploadInput = ({ id, siteInspectionValue }) => {
                     type="file"
                     className="hidden"
                     onChange={handleFileChange}
-                    value={siteInspectionValue}
+                // value={siteInspectionValue}
                 />
             </label>
         </div>
