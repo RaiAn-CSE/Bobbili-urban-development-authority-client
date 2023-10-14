@@ -46,9 +46,6 @@ const Payment = () => {
   useEffect(() => {
     getApplicationData(applicationNo).then((applicationData) => {
       setApplicationData(applicationData);
-      console.log(applicationData, "LJADJFKJAKSLDJKL:ASJKLFJA");
-      console.log(applicationData?.buildingInfo?.generalInformation);
-
       const generalInformation =
         applicationData?.buildingInfo?.generalInformation;
 
@@ -84,7 +81,7 @@ const Payment = () => {
         generalInformation?.natureOfTheSite === "Approved Layout" ||
         generalInformation?.natureOfTheSite === "Regularised under LRS" ||
         generalInformation?.natureOfTheSite ===
-          "Congested/ Gramakanta/ Old Built-up area" ||
+        "Congested/ Gramakanta/ Old Built-up area" ||
         generalInformation?.natureOfTheSite === "Newly Developed/ Built up area"
       ) {
         setCondition(1);
@@ -104,21 +101,16 @@ const Payment = () => {
     });
   }, []);
 
-  const calculateFees = (
-    generalInformation,
-    ltpDetails,
-    applicantDetailsData,
-    plotDetails
-  ) => {
+  const calculateFees = (generalInformation, ltpDetails, applicantDetailsData, plotDetails) => {
+
     // Plots Details
-    const { netPlotAreaCal, marketValueSqym, totalBuiltUpArea, vacantLand } =
-      plotDetails;
-    console.log(plotDetails, "plotDetails");
+    const { netPlotAreaCal, marketValueSqym, totalBuiltUpArea, vacantLand } = plotDetails;
+    console.log(plotDetails, "plotDetails")
     // General Informatin
     const { natureOfTheSite } = generalInformation;
 
     const builtup_Area = Number(totalBuiltUpArea);
-    const vacant_area = Number(vacantLand);
+    const vacant_area = Number(vacantLand)
     const net_Plot_Area = Number(netPlotAreaCal);
     const market_value = Number(marketValueSqym);
     const nature_of_site = natureOfTheSite;
@@ -141,7 +133,7 @@ const Payment = () => {
     const calculatePenalizationCharges = (net_Plot_Area, nature_of_site) => {
       let penalizationCharges = 0;
       if (nature_of_site !== "Plot port of RLP/IPLP but not regularised") {
-        return (penalizationCharges = 0);
+        return penalizationCharges = 0;
       }
 
       if (net_Plot_Area <= 100) {
@@ -149,26 +141,18 @@ const Payment = () => {
       } else if (net_Plot_Area <= 300) {
         penalizationCharges = net_Plot_Area * 400 * 0.33;
       } else {
-        return (penalizationCharges = 0);
+        return penalizationCharges = 0;
       }
 
       return penalizationCharges;
     };
     // ====Total 33% Penalization Charged====
-    const TotalPenalizationCharged = calculatePenalizationCharges(
-      net_Plot_Area,
-      nature_of_site
-    );
+    const TotalPenalizationCharged = calculatePenalizationCharges(net_Plot_Area, nature_of_site);
 
     // ====Open Space====
-    function calculateOpenSpaceCharge(
-      nature_of_site,
-      net_Plot_Area,
-      market_value
-    ) {
+    function calculateOpenSpaceCharge(nature_of_site, net_Plot_Area, market_value) {
       const condition01 = nature_of_site === "Newly Developed/ Built up area";
-      const condition02 =
-        nature_of_site === "Plot port of RLP/IPLP but not regularised";
+      const condition02 = nature_of_site === "Plot port of RLP/IPLP but not regularised";
 
       if (condition01 || condition02) {
         return net_Plot_Area * 1.196 * market_value * 0.14;
@@ -178,11 +162,7 @@ const Payment = () => {
     }
 
     // ==== Total 14% Open Space Charged ====
-    const TotalOpenSpaceCharged = calculateOpenSpaceCharge(
-      nature_of_site,
-      net_Plot_Area,
-      market_value
-    );
+    const TotalOpenSpaceCharged = calculateOpenSpaceCharge(nature_of_site, net_Plot_Area, market_value);
 
     // ==== Labour Cess Component 2 ====
     const labourCessComponentUnitRate2 = 1400; // per Sq.Ft.
@@ -190,47 +170,24 @@ const Payment = () => {
     const laboutCessCompo2Calculation = (BuiltUp_area_SquareFeet) => {
       let labourCessComponentCharge2 = 0;
       if (BuiltUp_area_SquareFeet <= 10000) {
-        labourCessComponentCharge2 =
-          labourCessComponentUnitRate2 * BuiltUp_area_SquareFeet * 10.76;
+        labourCessComponentCharge2 = labourCessComponentUnitRate2 * BuiltUp_area_SquareFeet * 10.76;
       } else if (BuiltUp_area_SquareFeet > 10000) {
-        labourCessComponentCharge2 =
-          labourCessComponentUnitRate2 *
-          BuiltUp_area_SquareFeet *
-          10.76 *
-          0.01 *
-          0.02;
+        labourCessComponentCharge2 = labourCessComponentUnitRate2 * BuiltUp_area_SquareFeet * 10.76 * 0.01 * 0.02;
       }
       return labourCessComponentCharge2;
     };
     // ===== Total labour cess Compo 2 Charged====
-    const TotalLabourCessComp2Charged = laboutCessCompo2Calculation(
-      BuiltUp_area_SquareFeet
-    );
+    const TotalLabourCessComp2Charged = laboutCessCompo2Calculation(BuiltUp_area_SquareFeet);
 
     // =====UDA Total=====
     const UDATotal = () => {
       // Calculate UDA Total Charged
-      const UDATotalCharged =
-        builtUpAreaDevelopmentCharged +
-        vacantAreaDevelopmentCharged +
-        TotalPenalizationCharged +
-        TotalOpenSpaceCharged +
-        TotalLabourCessComp2Charged;
+      const UDATotalCharged = builtUpAreaDevelopmentCharged + vacantAreaDevelopmentCharged + TotalPenalizationCharged + TotalOpenSpaceCharged + TotalLabourCessComp2Charged;
       return Math.round(UDATotalCharged);
     };
     // =====UDA Total Charged=====
     const UDATotalCharged = UDATotal();
-    console.log(
-      {
-        builtUpAreaDevelopmentCharged,
-        vacantAreaDevelopmentCharged,
-        TotalPenalizationCharged,
-        TotalOpenSpaceCharged,
-        TotalLabourCessComp2Charged,
-        UDATotalCharged,
-      },
-      "UDATotalCharged-in"
-    );
+    console.log({ builtUpAreaDevelopmentCharged, vacantAreaDevelopmentCharged, TotalPenalizationCharged, TotalOpenSpaceCharged, TotalLabourCessComp2Charged, UDATotalCharged }, "UDATotalCharged-in")
 
     // =======Grama Panchayet Segment=======
 
@@ -245,9 +202,17 @@ const Payment = () => {
     const processingUnitRate = 7; //per Sqm.
     const processingFees = processingUnitRate * builtup_Area;
 
+    // ====Building Permit====
+    const buildingPermitUnitRate = 20; //per Sqm.
+    const buildingPermitFees = buildingPermitUnitRate * builtup_Area;
+
     // =====Grama Panchayet Total=====
     const gramaPanchayetTotal = () => {
-      return bettermentCharged + paperPublicationCharged + processingFees;
+      return (
+        bettermentCharged +
+        paperPublicationCharged +
+        processingFees + buildingPermitFees
+      );
     };
     // =====Grama Panchayet Total Charged=====
     const GramaPanchayetTotalCharged = gramaPanchayetTotal();
@@ -256,21 +221,21 @@ const Payment = () => {
     let greenFeeCharged = 0;
     const greenFeeChargesUnitRate = 3; //per Sq.ft
     if (BuiltUp_area_SquareFeet > 5000) {
-      greenFeeCharged = (
+      greenFeeCharged = Math.round(
         greenFeeChargesUnitRate *
         BuiltUp_area_SquareFeet *
         10.76
-      ).toFixed(4);
+      );
     }
 
     // ====Labour Cess Component 1 Charged====
     const labourCessComponentUnitRate1 = 1400; // per Sq.ft.
-    const labourCessCompo1Charged = (
+    const labourCessCompo1Charged = Math.round(
       labourCessComponentUnitRate1 *
       BuiltUp_area_SquareFeet *
       10.76 *
       (0.01 * 0.98)
-    ).toFixed(4);
+    );
 
     setCalculatedData({
       UDATotalCharged,
@@ -287,10 +252,9 @@ const Payment = () => {
       bettermentCharged,
       processingFees,
       paperPublicationCharged,
+      buildingPermitFees
     });
   };
-
-  console.log(calculatedData, "Calculated data");
 
   // THIS FUNCTION USED FOR GETTING SELECTED FILE
   const handleFileChange = (e, fileName) => {
@@ -304,8 +268,6 @@ const Payment = () => {
       console.log(prev, fileName, "AFTER");
       return prev;
     });
-    console.log(file, fileName, "GG");
-    console.log(selectedFiles, "HH");
   };
 
   const getData = () => {
@@ -314,7 +276,7 @@ const Payment = () => {
     console.log(document.getElementById("UdaImpactFee"), "BY ID");
     console.log(document.getElementById("UDATotalCharged"), "BY ID");
     console.log(document.getElementById("gramaSiteApproval"), "BY ID");
-    // console.log(document.getElementById("buildingPermitFees"), "BY ID");
+    console.log(document.getElementById("buildingPermitFees"), "BY ID");
     console.log(document.getElementById("bettermentCharged"), "BY ID");
     console.log(document.getElementById("TotalOpenSpaceCharged"), "BY ID");
     console.log(document.getElementById("gramaImpactFee"), "BY ID");
@@ -337,90 +299,58 @@ const Payment = () => {
 
   // send data into database
   const sendPaymentData = async (url) => {
-    console.log("object");
-
     // let totalFileChecked = 1;
 
-    console.log(selectedFiles, "SELECTED FILES");
-
     // UPLOAD IMAGE FILE INTO THE CLOUD STORAGE AT FIRST
-    // for (const file in selectedFiles) {
-    //   const formData = new FormData();
-    //   console.log(file);
+    for (const file in selectedFiles) {
+      const formData = new FormData();
+      console.log(file);
 
-    //   if (selectedFiles[file]) {
-    //     formData.append("file", selectedFiles[file]);
+      if (selectedFiles[file]) {
+        formData.append("file", selectedFiles[file]);
 
-    //     console.log(...formData);
-    //     try {
-    //       const response = await axios.post(
-    //         "http://localhost:5000/upload?page=payment",
-    //         formData,
-    //         {
-    //           headers: {
-    //             "Content-Type": "multipart/form-data", // Important for file uploads
-    //           },
-    //         }
-    //       );
-    //       // Handle success or display a success message to the user
+        console.log(...formData);
+        try {
+          const response = await axios.post(
+            "http://localhost:5000/upload?page=payment",
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data", // Important for file uploads
+              },
+            }
+          );
+          // Handle success or display a success message to the user
+          if (response?.data.msg === "Successfully uploaded") {
+            const fileId = response.data.fileId;
+            console.log(fileId, "fileId");
+            // fileUploadSuccess = 1;
+            imageId[file] = fileId;
+          }
+        } catch (error) {
+          // Handle errors, e.g., show an error message to the user
+          toast.error("Error to upload documents");
+        }
+      }
+    }
 
-    //       console.log(response, "response");
-
-    //       if (response?.data.msg === "Successfully uploaded") {
-    //         const fileId = response.data.fileId;
-    //         console.log(fileId, "fileId");
-    //         // fileUploadSuccess = 1;
-    //         imageId[file] = fileId;
-
-    //         console.log(imageId, "IMAGE ID");
-    //       }
-    //     } catch (error) {
-    //       console.log(error, "ERROR");
-    //       // Handle errors, e.g., show an error message to the user
-    //       toast.error("Error to upload documents");
-    //     }
-    //   }
-    // }
-
-    // uda section data
     const vacantArea = document.getElementById("vacantArea")?.value;
 
     const builtUpArea = document.getElementById("builtUpArea")?.value;
-
-    const TotalOpenSpaceCharged = document.getElementById(
-      "TotalOpenSpaceCharged"
-    )?.value;
-
-    const TotalPenalizationCharged = document.getElementById(
-      "TotalPenalizationCharged"
-    )?.value;
-
-    const labourCessTwo = document.getElementById("labourCess02")?.value;
-
+    // const UdaImpactFee = document.getElementById("UdaImpactFee")?.value;
     const UDATotalCharged = document.getElementById("UDATotalCharged")?.value;
-
-    const udaCharge = {
-      vacantArea: vacantArea ?? "",
-      builtUpArea: builtUpArea ?? "",
-      openSpaceCharge: TotalOpenSpaceCharged ?? "",
-      penalizationCharge: TotalPenalizationCharged ?? "",
-      labourCessTwo: labourCessTwo ?? "",
-      UDATotalCharged: UDATotalCharged ?? "",
-    };
-
-    // Grama Panchayat fee
-
-    const paperPublicationCharge =
-      document.getElementById("paperPublication")?.value;
-
-    const processingFee = document.getElementById("processingFee")?.value;
-
-    const buildingPermitFees =
-      document.getElementById("buildingPermitFees")?.value;
+    const gramaSiteApproval =
+      document.getElementById("gramaSiteApproval")?.value;
 
     const bettermentCharged =
       document.getElementById("bettermentCharged")?.value;
-
+    const TotalOpenSpaceCharged = document.getElementById(
+      "TotalOpenSpaceCharged"
+    )?.value;
+    const gramaImpactFee = document.getElementById("gramaImpactFee")?.value;
+    const TotalPenalizationCharged = document.getElementById(
+      "TotalPenalizationCharged"
+    )?.value;
     const GramaPanchayetTotalCharged = document.getElementById(
       "GramaPanchayetTotalCharged"
     )?.value;
@@ -428,23 +358,9 @@ const Payment = () => {
     const gramaChallanDate = document.getElementById("gramaChallanDate")?.value;
     const gramaBankName = document.getElementById("gramaBankName")?.value;
     const gramaBankBranch = document.getElementById("gramaBankBranch")?.value;
-
-    const gramaPanchayatFee = {
-      paperPublicationCharge: paperPublicationCharge ?? "",
-      processingFee: processingFee ?? "",
-      buildingPermitFees: buildingPermitFees ?? "",
-      bettermentCharged: bettermentCharged ?? "",
-      GramaPanchayetTotalCharged: GramaPanchayetTotalCharged ?? "",
-      gramaChallanNo: gramaChallanNo ?? "",
-      gramaChallanDate: gramaChallanDate ?? "",
-      gramaBankName: gramaBankName ?? "",
-      gramaBankBranch: gramaBankBranch ?? "",
-      gramaBankReceipt: imageId["gramaBankReceipt"],
-    };
-
-    // Labour cess charge
-
-    const labourCessOne = document.getElementById("labourCess01")?.value;
+    const labourCessSiteApproval = document.getElementById(
+      "labourCessSiteApproval"
+    )?.value;
     const labourCessChallanNo = document.getElementById(
       "labourCessChallanNo"
     )?.value;
@@ -456,20 +372,9 @@ const Payment = () => {
     const labourCessBankBranch = document.getElementById(
       "labourCessBankBranch"
     )?.value;
-
-    const labourCessCharge = {
-      labourCessOne: labourCessOne ?? "",
-      labourCessBankBranch: labourCessBankBranch ?? "",
-      labourCessBankName: labourCessBankName ?? "",
-      labourCessChallanDate: labourCessChallanDate ?? "",
-      labourCessChallanNo: labourCessChallanNo ?? "",
-      labourCessBankReceipt: imageId["labourCessBankReceipt"],
-    };
-
-    // green fee charge
-    const greenFeeChargeAmount =
-      document.getElementById("GreenFeeCharge")?.value;
-
+    const greenFeeSiteApproval = document.getElementById(
+      "greenFeeSiteApproval"
+    )?.value;
     const greenFeeChargeChallanNo = document.getElementById(
       "greenFeeChargeChallanNo"
     )?.value;
@@ -483,39 +388,62 @@ const Payment = () => {
       "greenFeeChargeBankBranch"
     )?.value;
 
+    const udaCharge = {
+      vacantArea: vacantArea ?? "",
+      builtUpArea: builtUpArea ?? "",
+      UDATotalCharged: UDATotalCharged ?? "",
+    };
+    const gramaPanchayatFee = {
+      gramaSiteApproval: gramaSiteApproval ?? "",
+      buildingPermitFees: buildingPermitFees ?? "",
+      bettermentCharged: bettermentCharged ?? "",
+      TotalOpenSpaceCharged: TotalOpenSpaceCharged ?? "",
+      gramaImpactFee: gramaImpactFee ?? "",
+      TotalPenalizationCharged: TotalPenalizationCharged ?? "",
+      GramaPanchayetTotalCharged: GramaPanchayetTotalCharged ?? "",
+      gramaChallanNo: gramaChallanNo ?? "",
+      gramaChallanDate: gramaChallanDate ?? "",
+      gramaBankName: gramaBankName ?? "",
+      gramaBankBranch: gramaBankBranch ?? "",
+      gramaBankReceipt: imageId["gramaBankReceipt"],
+    };
+    const labourCessCharge = {
+      labourCessBankBranch: labourCessBankBranch ?? "",
+      labourCessBankName: labourCessBankName ?? "",
+      labourCessChallanDate: labourCessChallanDate ?? "",
+      labourCessChallanNo: labourCessChallanNo ?? "",
+      labourCessSiteApproval: labourCessSiteApproval ?? "",
+      labourCessBankReceipt: imageId["labourCessBankReceipt"],
+    };
     const greenFeeCharge = {
-      greenFeeChargeAmount: greenFeeChargeAmount ?? "",
       greenFeeChargeBankBranch: greenFeeChargeBankBranch ?? "",
       greenFeeChargeBankName: greenFeeChargeBankName ?? "",
       greenFeeChargeChallanDate: greenFeeChargeChallanDate ?? "",
       greenFeeChargeChallanNo: greenFeeChargeChallanNo ?? "",
+      greenFeeSiteApproval: greenFeeSiteApproval ?? "",
       greenFeeBankReceipt: imageId["greenFeeBankReceipt"],
     };
 
-    console.log("PRINT ALL GETTED DATA");
 
     console.log(udaCharge, gramaPanchayatFee, labourCessCharge, greenFeeCharge);
 
-    // return await sendUserDataIntoDB(url, "PATCH", {
-    //   applicationNo: JSON.parse(localStorage.getItem("CurrentAppNo")),
-    //   payment: {
-    //     udaCharge,
-    //     greenFeeCharge,
-    //     labourCessCharge,
-    //     gramaPanchayatFee,
-    //   },
-    // });
+    return await sendUserDataIntoDB(url, "PATCH", {
+      applicationNo: JSON.parse(localStorage.getItem("CurrentAppNo")),
+      payment: {
+        udaCharge,
+        greenFeeCharge,
+        labourCessCharge,
+        gramaPanchayatFee,
+      },
+    });
   };
 
   return (
     <>
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="grid my-5 mx-7 font-roboto text-xl lg:my-0 lg:p-2 dark:text-gray-100"
+        className="grid my-5 mx-7 font-roboto text-xl lg:my-0 lg:p-2"
       >
-        <input type="submit" value="Get" onClick={sendPaymentData} />
-
-        {/* uda charge  */}
         <div>
           <div className="flex items-center">
             <img
@@ -532,7 +460,7 @@ const Payment = () => {
               id="vacantArea"
               name="vacantArea"
               label="Development charges(on Vacant land)"
-              placeholder="1000"
+              placeholder="000"
               type="number"
               ltpDetails={calculatedData?.vacantAreaDevelopmentCharged}
             />
@@ -540,7 +468,7 @@ const Payment = () => {
               id="builtUpArea"
               name="builtUpArea"
               label="Development charges(on Built-up area)"
-              placeholder="1000"
+              placeholder="000"
               type="number"
               ltpDetails={calculatedData?.builtUpAreaDevelopmentCharged}
             />
@@ -549,7 +477,7 @@ const Payment = () => {
                 id="TotalOpenSpaceCharged"
                 name="TotalOpenSpaceCharged"
                 label="14% open space charges"
-                placeholder="5000"
+                placeholder="000"
                 type="number"
                 ltpDetails={calculatedData?.TotalOpenSpaceCharged}
               />
@@ -559,7 +487,7 @@ const Payment = () => {
                 id="TotalPenalizationCharged"
                 name="TotalPenalizationCharged"
                 label="33% penalization charges"
-                placeholder="0"
+                placeholder="000"
                 type="number"
                 ltpDetails={calculatedData?.TotalPenalizationCharged}
               />
@@ -568,7 +496,7 @@ const Payment = () => {
               id="labourCess02"
               name="labourCess02"
               label="Labour Cess Component 2"
-              placeholder="0"
+              placeholder="000"
               type="number"
               ltpDetails={calculatedData?.TotalPenalizationCharged}
             />
@@ -576,7 +504,7 @@ const Payment = () => {
               id="UDATotalCharged"
               name="UDATotalCharged"
               label="Total"
-              placeholder="7000"
+              placeholder="000"
               type="number"
               ltpDetails={calculatedData?.UDATotalCharged}
             />
@@ -588,115 +516,6 @@ const Payment = () => {
                   <GiMoneyStack size={25} /> pay now
                 </button>
               </div>
-            )}
-            {role === "PS" && (
-              <>
-                <div>
-                  <button
-                    className={`btn btn-md text-sm px-3 mt-10 ml-3 border-none text-white shadow-md transition-all duration-500 ${gradientColor} hover:shadow-lg hover:shadow-violetDark hover:bg-gradient-to-bl`}
-                    onClick={() =>
-                      document.getElementById("my_modal_4").showModal()
-                    }
-                  >
-                    <GiMoneyStack size={25} /> View Payment Receipt
-                  </button>
-                </div>
-
-                {/* modal box */}
-
-                <dialog id="my_modal_4" className="modal">
-                  <div className="modal-box w-11/12 max-w-5xl">
-                    <div className="modal-action">
-                      <form method="dialog">
-                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-                          ✕
-                        </button>
-                      </form>
-                    </div>
-
-                    {/* payment receipt content start  */}
-                    <div>
-                      <p className="font-bold text-center text-3xl">
-                        Bobbili Urban Development Authority
-                      </p>
-                      <p className="py-4 text-center text-lg uppercase">
-                        Town Planning Department
-                      </p>
-
-                      <p className="mt-5 mb-14 w-4/5 mx-auto text-center font-bold border border-black">
-                        PAYMENT RECEIPT
-                      </p>
-
-                      {/* receipt identification no  */}
-                      <div className="grid grid-cols-1 md:grid-cols-2 mb-6">
-                        <div className="grid grid-cols-2">
-                          {/* 1st row  */}
-                          <p className="mb-6">Receipt No.</p>
-                          <p>: RC/0106/2023</p>
-
-                          {/* 2nd row  */}
-                          <p>Demand Note No</p>
-                          <p>: 1177/CH/0114/2023</p>
-                        </div>
-                        <div className="grid grid-cols-2">
-                          {/* 1st row  */}
-                          <p className="mb-6">Receipt Date</p>
-                          <p>: 24 July, 2023</p>
-                          {/* 2nd row  */}
-                          <p>BA No</p>
-                          <p>: 1177/0023/B/BOB/PII/2023</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <hr className="h-[2px] bg-black" />
-
-                    {/* applicant information  */}
-                    <div className="grid grid-cols-2 my-7">
-                      <p className="mb-5">Applicant Name</p>
-                      <p>:</p>
-                      <p>Communication Address</p>
-                      <p>:</p>
-                    </div>
-
-                    {/* body  */}
-                    <div className="border border-black p-6 grid grid-cols-3">
-                      {/* amount  */}
-                      {/* 1st row  */}
-                      <p>Amount (INR)</p>
-                      <p className="col-span-2">:</p>
-
-                      {/* 2nd row  */}
-                      <p className="my-6">Amount (In Words)</p>
-                      <p className="col-span-2 my-6">:</p>
-
-                      {/* 3rd row  */}
-                      <p className="mb-2">
-                        Transaction Type
-                        <span className="text-black font-bold">
-                          {" "}
-                          :: Online
-                        </span>{" "}
-                      </p>
-
-                      {/* 4th row  */}
-                      <p className="col-span-3 p-2 mb-5 text-center bg-gray-200 font-bold">
-                        Payment Details
-                      </p>
-
-                      {/* 5th row  */}
-                      <p>Transaction ID</p>
-                      <p>:</p>
-                      <p>Date:</p>
-                    </div>
-
-                    <p className="italic text-center mt-5">
-                      ** This is system generated report and does not require
-                      any signature. **
-                    </p>
-                  </div>
-                </dialog>
-              </>
             )}
           </div>
         </div>
@@ -712,12 +531,12 @@ const Payment = () => {
           </div>
           <div className="divider m-0"></div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-3 mt-3">
+          <div className="grid grid-cols-2 lg:grid-cols-4 mt-3">
             <InputField
               id="paperPublication"
               name="paperPublication"
               label="Paper Publication Charges"
-              placeholder="1000"
+              placeholder="000"
               type="number"
               ltpDetails={calculatedData?.paperPublicationCharged}
             />
@@ -725,15 +544,7 @@ const Payment = () => {
               id="processingFee"
               name="processingFee"
               label="Processing Fee"
-              placeholder="5000"
-              type="number"
-              ltpDetails={calculatedData?.processingFees}
-            />
-            <InputField
-              id="buildingPermitFees"
-              name="buildingPermitFees"
-              label="Building Permit Fee"
-              placeholder="5000"
+              placeholder="000"
               type="number"
               ltpDetails={calculatedData?.processingFees}
             />
@@ -742,17 +553,26 @@ const Payment = () => {
                 id="bettermentCharged"
                 name="bettermentCharged"
                 label="Betterment charge"
-                placeholder="1000"
+                placeholder="000"
                 type="number"
                 ltpDetails={calculatedData?.bettermentCharged}
               />
             )}
+            <InputField
+              id="buildingPermitFees"
+              name="buildingPermitFees"
+              label="Building Permit Fee"
+              placeholder="000"
+              type="number"
+              ltpDetails={calculatedData?.buildingPermitFees}
+              readonly
+            />
 
             <InputField
               id="GramaPanchayetTotalCharged"
               name="GramaPanchayetTotalCharged"
               label="Total"
-              placeholder="13000"
+              placeholder="000"
               type="number"
               ltpDetails={calculatedData?.GramaPanchayetTotalCharged}
             />
@@ -763,7 +583,7 @@ const Payment = () => {
               id="gramaChallanNo"
               name="gramaChallanNo"
               label="DD/Challan no."
-              placeholder="1234"
+              placeholder="xxxx"
               type="text"
               ltpDetails={
                 applicationData?.payment?.gramaPanchayatFee?.gramaChallanNo ??
@@ -808,7 +628,7 @@ const Payment = () => {
               {role === "LTP" && (
                 <input
                   type="file"
-                  className="file-input file-input-bordered w-full max-w-xs dark:text-black dark:border-none"
+                  className="file-input file-input-bordered w-full max-w-xs"
                   id="gramaBankReceipt"
                   onChange={(e) => handleFileChange(e, "gramaBankReceipt")}
                 />
@@ -843,7 +663,7 @@ const Payment = () => {
               id="labourCess01"
               name="labourCess01"
               label="Labour Cess Component 1"
-              placeholder="3000"
+              placeholder="000"
               type="number"
               ltpDetails={calculatedData?.labourCessCompo1Charged}
             />
@@ -853,7 +673,7 @@ const Payment = () => {
               id="labourCessChallanNo"
               name="labourCessChallanNo"
               label="DD/Challan no."
-              placeholder="1234"
+              placeholder="xxxx"
               type="text"
               ltpDetails={
                 applicationData?.payment?.labourCessCharge
@@ -899,7 +719,7 @@ const Payment = () => {
               {role === "LTP" && (
                 <input
                   type="file"
-                  className="file-input file-input-bordered w-full max-w-xs dark:text-black dark:border-none"
+                  className="file-input file-input-bordered w-full max-w-xs"
                   id="labourCessBankReceipt"
                   onChange={(e) => handleFileChange(e, "labourCessBankReceipt")}
                 />
@@ -908,15 +728,15 @@ const Payment = () => {
 
             {applicationData?.payment?.labourCessCharge
               ?.labourCessBankReceipt && (
-              <Link
-                to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
-                target="_blank"
-                className="flex justify-center items-center ms-10 px-6 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
-              >
-                <MdReceiptLong className="me-1" />
-                View Challan
-              </Link>
-            )}
+                <Link
+                  to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
+                  target="_blank"
+                  className="flex justify-center items-center ms-10 px-6 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
+                >
+                  <MdReceiptLong className="me-1" />
+                  View Challan
+                </Link>
+              )}
           </div>
         </div>
 
@@ -937,7 +757,7 @@ const Payment = () => {
               id="GreenFeeCharge"
               name="GreenFeeCharge"
               label="Green fee charge"
-              placeholder="2000"
+              placeholder="000"
               type="number"
               ltpDetails={calculatedData?.greenFeeCharged}
             />
@@ -947,7 +767,7 @@ const Payment = () => {
               id="greenFeeChargeChallanNo"
               name="greenFeeChargeChallanNo"
               label="DD/Challan no."
-              placeholder="1234"
+              placeholder="xxxx"
               type="text"
               ltpDetails={
                 applicationData?.payment?.greenFeeCharge
@@ -995,7 +815,7 @@ const Payment = () => {
             {role === "LTP" && (
               <input
                 type="file"
-                className="file-input file-input-bordered w-full max-w-xs dark:text-black dark:border-none"
+                className="file-input file-input-bordered w-full max-w-xs"
                 id="greenFeeBankReceipt"
                 onChange={(e) => handleFileChange(e, "greenFeeBankReceipt")}
               />

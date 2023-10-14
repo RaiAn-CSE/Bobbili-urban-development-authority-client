@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import ApplicationHeader from "./ApplicationHeader";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
-import { RxCross1 } from "react-icons/rx"
 
 function Application({ setOpenApplication }) {
   const { getApplicationData } = useContext(AuthContext);
@@ -10,14 +9,6 @@ function Application({ setOpenApplication }) {
   const [plotDetails, setPlotDetails] = useState({});
   const [ltpDetailsData, setLtpDetailsData] = useState({});
   const [applicantDetailsData, setApplicantDetailsData] = useState({});
-
-  // useEffect(() => {
-  //   // Opening the modal when the component mounts
-  //   const modal = document.getElementById("my_modal_5");
-  //   if (modal) {
-  //     modal.showModal();
-  //   }
-  // }, []);
 
   useEffect(() => {
     // Opening the modal when the component mounts
@@ -52,8 +43,6 @@ function Application({ setOpenApplication }) {
     gettingData();
   }, []);
 
-  console.log(generalInformation, "GENERAL INFORMATION");
-
   // General Information
   const {
     applicationType,
@@ -72,31 +61,14 @@ function Application({ setOpenApplication }) {
     previewsApprovedFileNo,
     surveyNo,
     village,
-  } = generalInformation;
-  // console.log({generalInformation})
+  } = generalInformation || {};
+
   // Plot Details
   const {
     proposedPlotAreaCal,
     roadWideningAreaCal,
     netPlotAreaCal,
-    buildingExcludeStilt,
-    compoundingWallProposed,
-    existingRoad,
-    existingRoadMts,
-    frontSetback,
-    marketValueSqym,
-    natureOfRoad,
-    proposedRoadMts,
-    rareSetback,
-    side1Setback,
-    side2Setback,
-    siteRegistered,
-    statusOfRoad,
-    totalBuiltUpArea,
-    totalParkingArea,
-    totalPlotDocument,
-    totalPlotGround,
-  } = plotDetails;
+  } = plotDetails || {};
 
   // LTP Details
   const {
@@ -107,7 +79,8 @@ function Application({ setOpenApplication }) {
     licenseNo,
     phoneNo: ltpPhone,
     validity,
-  } = ltpDetailsData;
+  } = ltpDetailsData || {};
+
   // Applicant Details
   const {
     name: ApplicantName,
@@ -119,7 +92,6 @@ function Application({ setOpenApplication }) {
     address: applicantAddress,
   } = applicantDetailsData || {};
 
-  console.log("LtPName", name);
   // ====Applicant Info
   const Part01 = [
     { "Name(in full)": ApplicantName },
@@ -133,7 +105,6 @@ function Application({ setOpenApplication }) {
     { "E-mail": AppEmail }
   ];
 
-  // //
   const Part02 = [
     { "Survey No": surveyNo },
     { "L.P Mo./LRS No.": lrsNo },
@@ -143,68 +114,6 @@ function Application({ setOpenApplication }) {
     { "Mandal": gramaPanchayat },
     { "District": district },
   ];
-  
-
-  // Part03
-  const Part03 = [
-    "SITE AREA (IN SQ.M)",
-    "NO. OF FLOORS",
-    "FLOOR AREA (IN SQ.M)",
-    "PARKING FLOOR AREA (IN SQ.M)",
-    "USE OF THE BUILDING",
-  ];
-  // index0 for part03
-  const row1 = [
-    { "(a) AS PER DOCUMENTS": "" },
-    { "(b) AS PER SUBMITTED PLAN": "" },
-    { "(c) ROAD WIDENING AREA": roadWideningAreaCal },
-    { "(d)   NET AREA": netPlotAreaCal },
-  ];
-
-  const row2 = [
-    { CELLAR: "" },
-    { STILT: "" },
-    { GROUND: "" },
-    { UPPER: "" },
-    { FLOOR: "" },
-    { TOTAL: "" },
-  ];
-
-  // Part-4
-  // index4
-  const row5 = [
-    {
-      "INDIVIDUAL RESIDENTIAL/GROUP HOUSING/ COMMERCIAL/INSTITUTIONAL/ROW HOUSING/OTHERS (SPECIFY)":
-        "Hello",
-    },
-  ];
-
-  const NameCol = [
-    { "BUILDER / DEVELOPER/ CONSTRUCTION FIRM": "" },
-    { ARCHITECT: "" },
-    { ENGINEER: "" },
-    { "STRUCTURAL ENGINEER": "" },
-    { "SUPERVISOR/SURVEYOR": "" },
-    { "TOWN PLANNER": "" },
-  ];
-  const AddressCol = [
-    { address: village },
-    { address: village },
-    { address: village },
-    { address: village },
-    { address: village },
-    { address: village },
-  ];
-  const LicenceNo = [
-    { licenceNo: adharNo },
-    { licenceNo: adharNo },
-    { licenceNo: adharNo },
-    { licenceNo: adharNo },
-    { licenceNo: adharNo },
-    { licenceNo: adharNo },
-  ];
-
-  const part03SubArray = [0, 1, 4];
 
   // Part01 && Part02 Keys and Values
   const renderCol = (data, index, type) => {
@@ -212,9 +121,9 @@ function Application({ setOpenApplication }) {
     const isArray = Array.isArray(data);
     if (isArray) {
       return (
-        <td className={`bg-white border border-black ${type == "keys" && "w-1/3"} p-0`}>
+        <td className={`bg-white border border-black ${type === "keys" && "w-1/3"} p-0`}>
           <div className="flex">
-            {data.map((e, i) => (
+            {data?.map((e, i) => (
               <p
                 key={i}
                 className={`flex items-center p-2 border-l border-black h-12 ${i === 0 && "w-1/2 border-l-0"
@@ -228,7 +137,7 @@ function Application({ setOpenApplication }) {
       );
     } else {
       return (
-        <td className={`bg-white border border-black ${type == "keys" && "w-1/3"} p-0`}>
+        <td className={`bg-white border border-black ${type === "keys" && "w-1/3"} p-0`}>
           <p className="h-12 p-2 flex items-center">
             {keys ? Object.keys(data) : Object.values(data)}
           </p>
@@ -237,82 +146,6 @@ function Application({ setOpenApplication }) {
     }
   };
 
-  // Part03
-  const ColDataShow03 = (data, index) => {
-    let colData;
-    if (index === 0) {
-      colData = row1;
-    } else if (index === 1) {
-      colData = row2;
-    } else if (index == 4) {
-      colData = row5;
-    } else {
-      colData = [];
-    }
-    return (
-      <td className="w-full bg-white border border-black p-0 ">
-        {part03SubArray.includes(index) ? (
-          <p key={index} className="flex ">
-            {colData.map((d, i) => (
-              <p
-                key={i}
-                className={`w-full border-black py-4 border-l ${i == 0 && "border-l-0"
-                  }`}
-              >
-                <p className="px-2">{Object.keys(colData[i])[0]}</p>
-                {/* {Object.values(colData[i])[0]} */}
-                <p
-                  className={`${index !== 4
-                    ? "border-t "
-                    : "font-bold inline-block border-b-2 border-dotted border-black underline-offset-4 mt-2 ml-2"
-                    } border-black px-2 pt-2`}
-                >
-                  {i + 1}
-                </p>
-              </p>
-            ))}
-          </p>
-        ) : (
-          <p className="py-4 px-2"></p>
-        )}
-      </td>
-    );
-  };
-  // Part04
-  const ColDataShow04 = (data, numb) => {
-    return (
-      <div key={numb}>
-        {" "}
-        {data.map((d, i) => {
-          return (
-            <>
-              <p
-                key={i}
-                className={`${i == 0 ? "border-t-0" : "border-t"
-                  } border-black h-20 py-4 px-2 ${numb == 2 ? "block" : "hidden"
-                  }`}
-              >
-                <p
-                  className={
-                    "font-semibold inline-block border-b-2 border-dotted border-black underline-offset-4 mb-2"
-                  }
-                >
-                  Signature
-                </p>
-                <p>{Object.keys(data[i])[0]}</p>
-              </p>
-              <p
-                className={`border-black px-2 h-20 flex items-center ${i == 0 ? "border-t-0" : "border-t"
-                  } ${numb == 2 ? "hidden" : "block"}`}
-              >
-                {numb == 1 ? i + 1 : Object.values(data[i])[0]}
-              </p>
-            </>
-          );
-        })}
-      </div>
-    );
-  };
   return (
     <div className="w-full h-full text-black">
       <dialog id="my_modal_5" className="modal">
@@ -323,16 +156,12 @@ function Application({ setOpenApplication }) {
             {/* Part01 */}
             <div className="overflow-x-auto">
               <table className="table bg-white table-sm cursor-default">
-                {/*Part01 head */}
-                <thead>
+                {/* Part01 head */}
+                <thead className="bg-gray-400 text-black dark:text-white">
                   <tr>
-                    <th className="bg-blue-200 border border-black fontbold text-black">
-                      A
-                    </th>
-                    <th className="bg-blue-200 border-l border-t border-black fontbold text-black">
-                      ADDRESS OF THE APPLICANT
-                    </th>
-                    <th className="bg-blue-200 border-r border-t border-black fontbold text-black"></th>
+                    <th className="border-l border-black">A</th>
+                    <th className="border-0 text-end">ADDRESS OF THE APPLICANT</th>
+                    <th className="border-0"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -341,12 +170,11 @@ function Application({ setOpenApplication }) {
                     return (
                       <tr key={index + 1} className="bg-white">
                         {/* col-01 */}
-                        <th className="bg-white border border-black w-6">
+                        <th className="bg-white border border-black w-[10%]">
                           {index + 1}
                         </th>
                         {/* col-02 */}
                         {renderCol(item, index, "keys")}
-
                         {/* col-03 */}
                         {renderCol(item, index, "values")}
                       </tr>
@@ -358,16 +186,12 @@ function Application({ setOpenApplication }) {
             {/* Part02 */}
             <div className="overflow-x-auto mt-10 text-black">
               <table className="table bg-white table-sm">
-                {/*Part02 head */}
-                <thead>
+                {/* Part02 head */}
+                <thead className="bg-gray-400 text-black uppercase">
                   <tr>
-                    <th className="bg-blue-200 border border-black fontbold text-black">
-                      B
-                    </th>
-                    <th className="bg-blue-200 border-l border-t border-black text-black">
-                      LOCATION OF THE PROPOSED SITE
-                    </th>
-                    <th className="bg-blue-200 border-r border-t border-black"></th>
+                    <th>B</th>
+                    <th>LOCATION OF THE PROPOSED SITE</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -376,13 +200,11 @@ function Application({ setOpenApplication }) {
                     return (
                       <tr key={index} className="bg-white">
                         {/* col-01 */}
-                        <th className="bg-white border border-black w-6">
+                        <th className="bg-white border border-black w-[10%]">
                           {index + 1}
                         </th>
                         {/* col-02 */}
-
                         {renderCol(item, index, "keys")}
-
                         {/* col-03 */}
                         {renderCol(item, index, "values")}
                       </tr>
@@ -395,80 +217,106 @@ function Application({ setOpenApplication }) {
           {/* Part 03 */}
           <div className="overflow-x-auto mt-10">
             <table className="table bg-white table-sm">
-              {/*Part03 head */}
-              <thead>
+              {/* Part 03 head */}
+              <thead className="bg-gray-400n text-black dark:text-white">
                 <tr>
-                  <th className="bg-blue-200 border border-black fontbold text-black">
-                    C
-                  </th>
-                  <th className="bg-blue-200 border-l border-t border-black fontbold text-black">
-                    DETAILS OF THE PROPOSED CONSTRUCTION
-                  </th>
-                  <th className="bg-blue-200 border-r border-t border-black fontbold text-black"></th>
+                  <th className="w-[10%]">D</th>
+                  <th className="uppercase">DETAILS OF THE PROPOSED CONSTRUCTION</th>
+                  <th></th>
+                  <th></th>
                 </tr>
               </thead>
-              <tbody>
-                {/* row 1 */}
-                {Part03.map((data, index) => (
-                  <tr key={index} className="bg-white">
-                    <th className="bg-white border border-black">
-                      {index + 1}
-                    </th>
-                    <td className="bg-white border border-black p-4">
-                      {data}
-                    </td>
-                    {/* <td className='bg-white border border-black'></td> */}
-                    {ColDataShow03(data, index)}
-                  </tr>
-                ))}
+              <tbody className="text-start">
+                <tr>
+                  <td className="border border-black w-[10%]">01</td>
+                  <td className="border border-black w-[30%]">Site Area (Sq.mtr.)</td>
+                  <td className="p-0 border-0 border-r">
+                    <td className="border-0 border-b border-black w-full block">As per Document</td>
+                    <td className="border-0 border-b border-black w-full block">As on Ground</td>
+                    <td className="border-0 w-full block">As on Proposed</td>
+                  </td>
+                  <td className="p-0 border-0 border-y">
+                    <td className="border-0 border-b border-black w-full block">As per Document</td>
+                    <td className="border-0 border-b border-black w-full block">As on Ground</td>
+                    <td className="border-0 w-full block">As on Proposed</td>
+                  </td>
+                </tr>
+                <tr className="border border-black">
+                  <td className="border border-black">02</td>
+                  <td className="border border-black">Total Number of floors</td>
+                  <td className="border border-black"></td>
+                </tr>
+                <tr className="border border-black">
+                  <td className="border border-black"></td>
+                  <td className="border border-black">Floor name</td>
+                  <td className="border-r border-black">Built up area</td>
+                  <td className="">Parking Area</td>
+                </tr>
+                <tr className="border border-black">
+                  <td className="border border-black">a</td>
+                  <td className="border border-black">Site floor (sq. mtr.)</td>
+                  <td className="border border-black"></td>
+                </tr>
+                <tr className="border border-black">
+                  <td className="border border-black">b</td>
+                  <td className="border border-black">Ground floor (sq.mtr.)</td>
+                  <td className="border border-black"></td>
+                </tr>
+                <tr className="border border-black">
+                  <td className="border border-black">c</td>
+                  <td className="border border-black">First floor (sq.mtr.)</td>
+                  <td className="border border-black"></td>
+                </tr>
+                <tr className="border border-black">
+                  <td className="border border-black">d</td>
+                  <td className="border border-black">Second floor (sq.mtr.)</td>
+                  <td className="border border-black"></td>
+                </tr>
+                <tr className="border border-black">
+                  <td className="border border-black">03</td>
+                  <td className="border border-black">Total Built-up area and parking area (sq.mtr.)</td>
+                  <td className="border border-black"></td>
+                  <td className="border border-black"></td>
+                </tr>
+                <tr className="border border-black">
+                  <td className="border border-black">04</td>
+                  <td className="border border-black">Numbers Of Units</td>
+                  <td></td>
+                </tr>
+                <tr className="border border-black">
+                  <td className="border border-black">05</td>
+                  <td className="border border-black">Vacant site area</td>
+                  <td></td>
+                </tr>
               </tbody>
             </table>
           </div>
-          {/* Part04 */}
-          <div className="overflow-x-auto mt-10">
-            <table className="table bg-white table-sm">
-              {/*Part04 head */}
+          <div className="mt-7">
+            <p className="font-bold">Primary</p>
+            <p>
+              I hereby declare that I am the owner/ PAH in possession of the plot on which the work is proposed and that the statement made in this form is true and correct to the best of my knowledge.
+            </p>
+          </div>
+          <div>
+            <table className="mt-7 w-full">
               <thead>
                 <tr>
-                  <th className="bg-blue-200 border border-black fontbold text-black">
-                    D
-                  </th>
-
-                  <th className="bg-blue-200 border-l border-t border-black fontbold text-black">
-                    DETAILS OF THE LICENSED TECHNICAL PERSONNEL:
-                  </th>
-                  <th className="bg-blue-200 border-t border-black fontbold text-black"></th>
-                  <th className="bg-blue-200 border-r border-t border-black fontbold text-black"></th>
-                </tr>
-                <tr>
-                  <th className="bg-white border border-black fontbold text-black">
-                    SL.NO
-                  </th>
-                  <th className="bg-white border border-black fontbold text-black">
-                    NAME
-                  </th>
-                  <th className="bg-white border border-black fontbold text-black">
-                    ADDRESS
-                  </th>
-                  <th className="bg-white border border-black fontbold text-black">
-                    LICENSE NO.
-                  </th>
+                  <th className="border border-black"></th>
+                  <th className="border-0 border-black text-end">Signature</th>
+                  <th className="border-0 border-black"></th>
                 </tr>
               </thead>
               <tbody>
-                {/* row 1 */}
-                <td className="bg-white border border-black p-0 w-10 font-bold">
-                  {ColDataShow04([1, 2, 3, 4, 5, 6], 1)}
-                </td>
-                <td className="bg-white border border-black p-0">
-                  {ColDataShow04(NameCol, 2)}
-                </td>
-                <td className="bg-white border border-black p-0">
-                  {ColDataShow04(AddressCol, 3)}
-                </td>
-                <td className="bg-white border border-black p-0">
-                  {ColDataShow04(LicenceNo, 4)}
-                </td>
+                <tr className="border border-black">
+                  <td className="border border-black" style={{ width: '10%' }}>01</td>
+                  <td className="border border-black" style={{ width: '40%' }}>Signature of owner</td>
+                  <td className="border border-black" style={{ width: '50%' }}></td>
+                </tr>
+                <tr className="border border-black">
+                  <td className="border border-black" style={{ width: '10%' }}>02</td>
+                  <td className="border border-black" style={{ width: '40%' }}>Signature of the LTP</td>
+                  <td className="border border-black" style={{ width: '50%' }}></td>
+                </tr>
               </tbody>
             </table>
           </div>
