@@ -65,24 +65,6 @@ const SiteInspection = () => {
     getData();
   }, []);
 
-  // let [formObject, setFormObject] = useState({ natureOfSite: "", siteLevel: "" })
-
-  // const inputOnChange = (property, value) => {
-
-  //     setFormObject(property => ({
-  //         ...property,
-  //         [property]: value
-  //     }))
-  // }
-
-  // const formSubmit = (e) => {
-  //     e.preventDefault();
-  //     console.log(formObject);
-
-  // }
-
-  // Get SiteInspection Data :
-
   // Decision :
   const [radioPs, setRadioPs] = useState("");
   const handleRadioPs = (e) => {
@@ -90,16 +72,18 @@ const SiteInspection = () => {
   };
 
 
-  const [siteBoundariesImageFiles, setSiteBoundariesImageFiles] = useState({
-    northApp: "",
-    northObs: "",
-    southApp: "",
-    southObs: "",
-    eastApp: "",
-    eastObs: "",
-    westApp: "",
-    westObs: "",
-  });
+  // const [siteBoundariesImageFiles, setSiteBoundariesImageFiles] = useState({
+  //   northApp: "",
+  //   northObs: "",
+  //   southApp: "",
+  //   southObs: "",
+  //   eastApp: "",
+  //   eastObs: "",
+  //   westApp: "",
+  //   westObs: "",
+  // });
+
+  // console.log(siteBoundariesImageFiles, 'siteBoundariesImageFiles');
 
   // const get = () => {
   //   const northApp = document.getElementById("northApp").files[0];
@@ -124,11 +108,12 @@ const SiteInspection = () => {
   // };
 
 
+  const [siteBoundariesImageFiles, setSiteBoundariesImageFiles] = useState({});
+
   const handleFileChange = (id, file) => {
-    // Update the siteBoundariesImageFiles object
     setSiteBoundariesImageFiles((prevFiles) => ({
       ...prevFiles,
-      [id]: file, // Update the specific property with the provided ID
+      [id]: file,
     }));
   };
 
@@ -431,14 +416,14 @@ const SiteInspection = () => {
                   <td className="whitespace-nowrap border-r border-neutral-500">
                     <ImageUploadInput
                       id="northApp"
-                      handleFileChange={(file) => handleFileChange("northApp", file)}
+                      onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
                     />
                   </td>
                   <td className={inputTableDataClass}>
                     <ImageUploadInput
                       id="northObs"
-                      handleFileChange={(file) => handleFileChange("northObs", file)}
+                      onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
                     />
                   </td>
@@ -448,14 +433,14 @@ const SiteInspection = () => {
                   <td className={inputTableDataClass}>
                     <ImageUploadInput
                       id="southApp"
-                      handleFileChange={(file) => handleFileChange("southApp", file)}
+                      onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
                     />
                   </td>
                   <td className={inputTableDataClass}>
                     <ImageUploadInput
                       id="southObs"
-                      handleFileChange={(file) => handleFileChange("southObs", file)}
+                      onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
                     />
                   </td>
@@ -465,14 +450,14 @@ const SiteInspection = () => {
                   <td className={inputTableDataClass}>
                     <ImageUploadInput
                       id="eastApp"
-                      handleFileChange={(file) => handleFileChange("eastApp", file)}
+                      onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
                     />
                   </td>
                   <td className={inputTableDataClass}>
                     <ImageUploadInput
                       id="eastObs"
-                      handleFileChange={(file) => handleFileChange("eastObs", file)}
+                      onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
                     />
                   </td>
@@ -482,14 +467,14 @@ const SiteInspection = () => {
                   <td className={inputTableDataClass}>
                     <ImageUploadInput
                       id="westApp"
-                      handleFileChange={(file) => handleFileChange("westApp", file)}
+                      onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
                     />
                   </td>
                   <td className={inputTableDataClass}>
                     <ImageUploadInput
                       id="westObs"
-                      handleFileChange={(file) => handleFileChange("westObs", file)}
+                      onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
                     />
                   </td>
