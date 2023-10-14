@@ -101,17 +101,6 @@ const SiteInspection = () => {
     westObs: "",
   });
 
-  const [siteBoundariesImageId, setBoundariesImageId] = useState({
-    northApp: "",
-    northObs: "",
-    southApp: "",
-    southObs: "",
-    eastApp: "",
-    eastObs: "",
-    westApp: "",
-    westObs: "",
-  });
-
   const get = () => {
     const northApp = document.getElementById("northApp").files[0];
     const northObs = document.getElementById("northObs").files[0];
@@ -135,13 +124,15 @@ const SiteInspection = () => {
   };
 
   // Function to handle file selection
-  const handleFileChange = (e, id) => {
-    const file = e.target.files[0];
-    console.log(file, id);
-    siteBoundariesImageFiles[id] = file;
+  const handleFileChange = (id, file) => {
+    // Update the selected file state
     setSelectedFile(file);
 
-    console.log(siteBoundariesImageFiles);
+    // Update the siteBoundariesImageFiles object
+    setSiteBoundariesImageFiles((prevFiles) => ({
+      ...prevFiles,
+      [id]: file, // Update the specific property with the provided ID
+    }));
   };
 
   const collectInputFieldData = async (url) => {
@@ -210,10 +201,14 @@ const SiteInspection = () => {
     };
 
     const siteBoundaries = {
-      north: [northApp, northObs],
-      south: [southApp, southObs],
-      east: [eastApp, eastObs],
-      west: [westApp, westObs],
+      northApp,
+      northObs,
+      southApp,
+      southObs,
+      eastApp,
+      eastObs,
+      westApp,
+      westObs,
       scheduleOfTheDocuments: [
         scheduleOfTheDocumentsApp,
         scheduleOfTheDocumentsObs,
@@ -265,10 +260,10 @@ const SiteInspection = () => {
     //         }
     //     });
 
-    // return await sendUserDataIntoDB(url, "PATCH", {
-    //   applicationNo,
-    //   siteInspection,
-    // });
+    return await sendUserDataIntoDB(url, "PATCH", {
+      applicationNo,
+      siteInspection,
+    });
   };
 
   const sentPsDecision = async (url) => {
@@ -437,100 +432,63 @@ const SiteInspection = () => {
                 <tr className="border-b border-neutral-500">
                   <td className={tableDataClass}>North</td>
                   <td className="whitespace-nowrap border-r border-neutral-500">
-                    {/* <input
-                      id="northApp"
-                      type="text"
-                      defaultValue={siteBoundaries?.north?.[0]}
-                      placeholder="Yes/No"
-                      className='input rounded-none w-full max-w-xs focus:outline-none'
-                    /> */}
-
                     <ImageUploadInput
                       id="northApp"
-                      handleFileChange={handleFileChange}
-                      selectedFile={selectedFile}
-                      // siteInspectionValue={siteBoundaries?.north?.[0]}
+                      handleFileChange={(file) => handleFileChange("northApp", file)}
+                      selectedFile={siteBoundariesImageFiles}
                     />
                   </td>
                   <td className={inputTableDataClass}>
-                    {/* <input
+                    <ImageUploadInput
                       id="northObs"
-                      type="text"
-                      defaultValue={siteBoundaries?.north?.[1]}
-                      placeholder="Yes/No"
-                      className={inputClass}
-                    /> */}
-
-                    <ImageUploadInput id="northObs" />
+                      handleFileChange={(file) => handleFileChange("northObs", file)}
+                      selectedFile={siteBoundariesImageFiles}
+                    />
                   </td>
                 </tr>
                 <tr className="border-b border-neutral-500">
                   <td className={tableDataClass}>South</td>
                   <td className={inputTableDataClass}>
-                    {/* <input
+                    <ImageUploadInput
                       id="southApp"
-                      type="text"
-                      defaultValue={siteBoundaries?.south?.[0]}
-                      placeholder="Yes/No"
-                      className={inputClass}
-                    /> */}
-                    <ImageUploadInput id="southApp" />
+                      handleFileChange={(file) => handleFileChange("southApp", file)}
+                    />
                   </td>
                   <td className={inputTableDataClass}>
-                    {/* <input
+                    <ImageUploadInput
                       id="southObs"
-                      type="text"
-                      defaultValue={siteBoundaries?.south?.[1]}
-                      placeholder="Yes/No"
-                      className={inputClass}
-                    /> */}
-                    <ImageUploadInput id="southObs" />
+                      handleFileChange={(file) => handleFileChange("southObs", file)}
+                    />
                   </td>
                 </tr>
                 <tr className="border-b border-neutral-500">
                   <td className={tableDataClass}>East</td>
                   <td className={inputTableDataClass}>
-                    {/* <input
+                    <ImageUploadInput
                       id="eastApp"
-                      type="text"
-                      defaultValue={siteBoundaries?.east?.[0]}
-                      placeholder="Yes/No"
-                      className={inputClass}
-                    /> */}
-                    <ImageUploadInput id="eastApp" />
+                      handleFileChange={(file) => handleFileChange("eastApp", file)}
+                    />
                   </td>
                   <td className={inputTableDataClass}>
-                    {/* <input
+                    <ImageUploadInput
                       id="eastObs"
-                      type="text"
-                      defaultValue={siteBoundaries?.east?.[1]}
-                      placeholder="Yes/No"
-                      className={inputClass}
-                    /> */}
-                    <ImageUploadInput id="eastObs" />
+                      handleFileChange={(file) => handleFileChange("eastObs", file)}
+                    />
                   </td>
                 </tr>
                 <tr className="border-b border-neutral-500">
                   <td className={tableDataClass}>West</td>
                   <td className={inputTableDataClass}>
-                    {/* <input
+                    <ImageUploadInput
                       id="westApp"
-                      type="text"
-                      defaultValue={siteBoundaries?.west?.[0]}
-                      placeholder="Yes/No"
-                      className={inputClass}
-                    /> */}
-                    <ImageUploadInput id="westApp" />
+                      handleFileChange={(file) => handleFileChange("westApp", file)}
+                    />
                   </td>
                   <td className={inputTableDataClass}>
-                    {/* <input
+                    <ImageUploadInput
                       id="westObs"
-                      type="text"
-                      defaultValue={siteBoundaries?.west?.[1]}
-                      placeholder="Yes/No"
-                      className={inputClass}
-                    /> */}
-                    <ImageUploadInput id="westObs" />
+                      handleFileChange={(file) => handleFileChange("westObs", file)}
+                    />
                   </td>
                 </tr>
                 <tr className="border-b border-neutral-500">
@@ -854,7 +812,7 @@ const SiteInspection = () => {
       </div>
 
 
-      <button type="submit" className="btn btn-sm" onClick={submitImageData}>Submit</button>
+      {/* <button type="submit" className="btn btn-sm" onClick={submitImageData}>Submit</button> */}
 
       {/* save & continue  */}
       <SaveData
