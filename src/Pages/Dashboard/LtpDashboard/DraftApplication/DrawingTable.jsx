@@ -1,23 +1,169 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DocumentFooter from "./DocumentFooter";
 import { Link } from "react-router-dom";
 
-function DrawingTable({ setApprovedConfirmation, setRecomendationMessage }) {
-  const TrData = [
-    { "Proposed Site Area": ["", "", ""] },
-    { "Access Road Width": ["", "", ""] },
-    { "Scope of Road Windering": ["", "", ""] },
-    { Setbacks: ["", "", ""] },
-    { North: ["", "", ""] },
-    { South: ["", "", "Hello"] },
-    { East: ["", "", ""] },
-    { West: ["", "", ""] },
-    { "Number of floors": ["", "", ""] },
-    { "No. of Units": ["", "", ""] },
-    { "Green Strip": ["Yes", "Yes", "Yes/No"] },
-    { "Staircase Width": ["", "", ""] },
-  ];
-  const skipNumber = [5, 6, 7, 8];
+function DrawingTable({
+  setApprovedConfirmation,
+  setRecomendationMessage,
+  applicationData,
+  submitData,
+}) {
+  console.log(applicationData, "Application data");
+
+  const plotDetails = applicationData?.plotDetails;
+
+  const numberOfFloors = plotDetails?.floorDetails?.length ?? 0;
+
+  console.log(plotDetails, "Plot details");
+
+  const [preDeterminedValue, setPreDeterminedValue] = useState({
+    front: "",
+    rare: "",
+    side1: "",
+    side2: "",
+  });
+
+  // const netPlotAreaCal = 201;
+  // const buildingExcludeStilt = 6;
+  // const proposedRoadMts = 31;
+
+  // const netPlotAreaValue = netPlotAreaCal;
+  // const buildingHeight = buildingExcludeStilt;
+  // const proposedRoadValue = proposedRoadMts;
+
+  const netPlotAreaValue = plotDetails?.netPlotAreaCal;
+  const buildingHeight = plotDetails?.buildingExcludeStilt;
+  const proposedRoadValue = plotDetails?.proposedRoadMts;
+
+  const decideSetBackValue = (roadValue, serial) => {
+    const setBackValue = [
+      [1.5, 1.5, 3, 3, 3, "-"],
+      [1.5, 1.5, 3, 3, 3, "-"],
+      [1.5, 1.5, 3, 3, 3, 0.5],
+      [1.5, 1.5, 3, 3, 3, 1.0],
+      [2, 3, 3, 4, 5, 1.0],
+      [2, 3, 3, 5, 6, 1.5],
+    ];
+
+    const setBackValueIndex = serial;
+
+    console.log(
+      setBackValue,
+      setBackValueIndex,
+      setBackValue[setBackValueIndex],
+      "ddsfsdfds"
+    );
+
+    const matchArrLength = setBackValue[setBackValueIndex].length;
+
+    console.log(matchArrLength);
+
+    if (roadValue <= 12) {
+      console.log(setBackValue[setBackValueIndex], "VALUE", serial);
+      setPreDeterminedValue((prev) => {
+        prev["front"] = setBackValue[setBackValueIndex][0];
+        prev["rare"] = setBackValue[setBackValueIndex][matchArrLength - 1];
+        prev["side1"] = setBackValue[setBackValueIndex][matchArrLength - 1];
+        prev["side2"] = setBackValue[setBackValueIndex][matchArrLength - 1];
+        return prev;
+      });
+    }
+
+    if (roadValue > 12 && roadValue <= 18) {
+      console.log(setBackValue[setBackValueIndex][1]);
+      setPreDeterminedValue((prev) => {
+        prev["front"] = setBackValue[setBackValueIndex][1];
+        prev["rare"] = setBackValue[setBackValueIndex][matchArrLength - 1];
+        prev["side1"] = setBackValue[setBackValueIndex][matchArrLength - 1];
+        prev["side2"] = setBackValue[setBackValueIndex][matchArrLength - 1];
+        return prev;
+      });
+    }
+
+    if (roadValue > 18 && roadValue <= 24) {
+      setPreDeterminedValue((prev) => {
+        prev["front"] = setBackValue[setBackValueIndex][2];
+        prev["rare"] = setBackValue[setBackValueIndex][matchArrLength - 1];
+        prev["side1"] = setBackValue[setBackValueIndex][matchArrLength - 1];
+        prev["side2"] = setBackValue[setBackValueIndex][matchArrLength - 1];
+        return prev;
+      });
+    }
+
+    if (roadValue > 24 && roadValue <= 30) {
+      setPreDeterminedValue((prev) => {
+        prev["front"] = setBackValue[setBackValueIndex][3];
+        prev["rare"] = setBackValue[setBackValueIndex][matchArrLength - 1];
+        prev["side1"] = setBackValue[setBackValueIndex][matchArrLength - 1];
+        prev["side2"] = setBackValue[setBackValueIndex][matchArrLength - 1];
+        return prev;
+      });
+    }
+    if (roadValue > 30) {
+      setPreDeterminedValue((prev) => {
+        prev["front"] = setBackValue[setBackValueIndex][4];
+        prev["rare"] = setBackValue[setBackValueIndex][matchArrLength - 1];
+        prev["side1"] = setBackValue[setBackValueIndex][matchArrLength - 1];
+        prev["side2"] = setBackValue[setBackValueIndex][matchArrLength - 1];
+        return prev;
+      });
+    }
+  };
+
+  useEffect(() => {
+    // table first condition
+    if (netPlotAreaValue <= 50 && buildingHeight <= 7) {
+      decideSetBackValue(proposedRoadValue, 0);
+    }
+
+    // table 2nd condition
+    if (netPlotAreaValue > 50 && netPlotAreaValue <= 100) {
+      if (buildingHeight <= 7) {
+        decideSetBackValue(proposedRoadValue, 1);
+      }
+      if (buildingHeight > 7 && buildingHeight <= 10) {
+        decideSetBackValue(proposedRoadValue, 2);
+      }
+    }
+
+    // table 3rd condition
+    if (
+      netPlotAreaValue > 100 &&
+      netPlotAreaValue <= 200 &&
+      buildingHeight <= 10
+    ) {
+      decideSetBackValue(proposedRoadValue, 3);
+    }
+
+    // table 4th conditin
+    if (netPlotAreaValue > 200 && netPlotAreaValue <= 300) {
+      if (buildingHeight <= 7) {
+        decideSetBackValue(proposedRoadValue, 4);
+      }
+      if (buildingHeight > 7 && buildingHeight <= 10) {
+        decideSetBackValue(proposedRoadValue, 5);
+      }
+    }
+  }, []);
+
+  // const TrData = [
+  //   { "Proposed Site Area": ["", "", ""] },
+  //   { "Access Road Width": ["", "", ""] },
+  //   { "Scope of Road Windering": ["", "", ""] },
+  //   { Setbacks: ["", "", ""] },
+  //   { North: ["", "", ""] },
+  //   { South: ["", "", "Hello"] },
+  //   { East: ["", "", ""] },
+  //   { West: ["", "", ""] },
+  //   { "Number of floors": ["", "", ""] },
+  //   { "No. of Units": ["", "", ""] },
+  //   { "Green Strip": ["Yes", "Yes", "Yes/No"] },
+  //   { "Staircase Width": ["", "", ""] },
+  // ];
+  // const skipNumber = [5, 6, 7, 8];
+
+  console.log(submitData?.drawingTableObs?.proposedSitObs, "ADK");
+
   return (
     <div>
       <div className="overflow-x-auto mb-16 w-full px-4">
@@ -64,13 +210,13 @@ function DrawingTable({ setApprovedConfirmation, setRecomendationMessage }) {
               <td>1</td>
               <td>Proposed Site / Plot area</td>
               <td></td>
-              <td></td>
+              <td>{plotDetails?.proposedPlotAreaCal ?? ""}</td>
               <td>
                 <input
-                  id="proposedRoadObs"
+                  id="proposedSiteObs"
                   type="text"
                   className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none"
-                  // defaultValue={roadWideningArea}
+                  defaultValue={submitData?.drawingTableObs?.proposedSiteObs}
                   // onChange={handleRoadWideningAreaChange}
                 />
               </td>
@@ -80,13 +226,13 @@ function DrawingTable({ setApprovedConfirmation, setRecomendationMessage }) {
               <td>2</td>
               <td>Access Road Width</td>
               <td></td>
-              <td></td>
+              <td>{plotDetails?.roadWideningAreaCal ?? ""}</td>
               <td>
                 <input
                   id="accessRoadWidthObs"
                   type="text"
                   className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none"
-                  // defaultValue={roadWideningArea}
+                  defaultValue={submitData?.drawingTableObs?.accessRoadWidthObs}
                   // onChange={handleRoadWideningAreaChange}
                 />
               </td>
@@ -95,13 +241,15 @@ function DrawingTable({ setApprovedConfirmation, setRecomendationMessage }) {
               <td>3</td>
               <td>Scope of Road windening</td>
               <td></td>
-              <td></td>
+              <td>{plotDetails?.roadWideningAreaCal ?? ""}</td>
               <td>
                 <input
                   id="scopeRoadWideObs"
                   type="text"
                   className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none"
-                  // defaultValue={roadWideningArea}
+                  defaultValue={
+                    submitData?.drawingTableObs?.scopeOfRoadWideningObs
+                  }
                   // onChange={handleRoadWideningAreaChange}
                 />
               </td>
@@ -110,13 +258,13 @@ function DrawingTable({ setApprovedConfirmation, setRecomendationMessage }) {
               <td>4</td>
               <td>Net Site / Plot area</td>
               <td></td>
-              <td></td>
+              <td>{plotDetails?.netPlotAreaCal ?? ""}</td>
               <td>
                 <input
                   id="netSiteObs"
                   type="text"
                   className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none"
-                  // defaultValue={roadWideningArea}
+                  defaultValue={submitData?.drawingTableObs?.netPlotAreaObs}
                   // onChange={handleRoadWideningAreaChange}
                 />
               </td>
@@ -125,13 +273,13 @@ function DrawingTable({ setApprovedConfirmation, setRecomendationMessage }) {
               <td>5</td>
               <td>Building Hight</td>
               <td></td>
-              <td></td>
+              <td>{plotDetails?.buildingExcludeStilt ?? ""}</td>
               <td>
                 <input
                   id="buildingHeightObs"
                   type="text"
                   className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none"
-                  // defaultValue={roadWideningArea}
+                  defaultValue={submitData?.drawingTableObs?.buildingHeightObs}
                   // onChange={handleRoadWideningAreaChange}
                 />
               </td>
@@ -146,7 +294,7 @@ function DrawingTable({ setApprovedConfirmation, setRecomendationMessage }) {
                   id="setBacksObs"
                   type="text"
                   className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none"
-                  // defaultValue={roadWideningArea}
+                  defaultValue={submitData?.drawingTableObs?.setBacksObs}
                   // onChange={handleRoadWideningAreaChange}
                 />
               </td>
@@ -154,14 +302,14 @@ function DrawingTable({ setApprovedConfirmation, setRecomendationMessage }) {
             <tr>
               <td></td>
               <td>Front</td>
-              <td></td>
-              <td></td>
+              <td>{preDeterminedValue?.front}</td>
+              <td>{plotDetails?.frontSetback ?? ""}</td>
               <td>
                 <input
                   id="frontObs"
                   type="text"
                   className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none"
-                  // defaultValue={roadWideningArea}
+                  defaultValue={submitData?.drawingTableObs?.fontObs}
                   // onChange={handleRoadWideningAreaChange}
                 />
               </td>
@@ -169,14 +317,14 @@ function DrawingTable({ setApprovedConfirmation, setRecomendationMessage }) {
             <tr>
               <td></td>
               <td>Rare</td>
-              <td></td>
-              <td></td>
+              <td>{preDeterminedValue?.rare}</td>
+              <td>{plotDetails?.rareSetback ?? ""}</td>
               <td>
                 <input
                   id="rareObs"
                   type="text"
                   className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none"
-                  // defaultValue={roadWideningArea}
+                  defaultValue={submitData?.drawingTableObs?.rareObs}
                   // onChange={handleRoadWideningAreaChange}
                 />
               </td>
@@ -184,14 +332,14 @@ function DrawingTable({ setApprovedConfirmation, setRecomendationMessage }) {
             <tr>
               <td></td>
               <td>Side 1</td>
-              <td></td>
-              <td></td>
+              <td>{preDeterminedValue?.side1}</td>
+              <td>{plotDetails?.side1Setback ?? ""}</td>
               <td>
                 <input
                   id="sideOneObs"
                   type="text"
                   className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none"
-                  // defaultValue={roadWideningArea}
+                  defaultValue={submitData?.drawingTableObs?.sideOneObs}
                   // onChange={handleRoadWideningAreaChange}
                 />
               </td>
@@ -199,14 +347,14 @@ function DrawingTable({ setApprovedConfirmation, setRecomendationMessage }) {
             <tr>
               <td></td>
               <td>Side 2</td>
-              <td></td>
-              <td></td>
+              <td>{preDeterminedValue?.side2}</td>
+              <td>{plotDetails?.side2Setback}</td>
               <td>
                 <input
                   id="sideTwoObs"
                   type="text"
                   className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none"
-                  // defaultValue={roadWideningArea}
+                  defaultValue={submitData?.drawingTableObs?.sideTwoObs}
                   // onChange={handleRoadWideningAreaChange}
                 />
               </td>
@@ -215,13 +363,13 @@ function DrawingTable({ setApprovedConfirmation, setRecomendationMessage }) {
               <td>7</td>
               <td>Number of floors</td>
               <td></td>
-              <td></td>
+              <td>{numberOfFloors ?? 0}</td>
               <td>
                 <input
                   id="numberOfFloorsObs"
                   type="text"
                   className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none"
-                  // defaultValue={roadWideningArea}
+                  defaultValue={submitData?.drawingTableObs?.floorObs}
                   // onChange={handleRoadWideningAreaChange}
                 />
               </td>
@@ -236,7 +384,7 @@ function DrawingTable({ setApprovedConfirmation, setRecomendationMessage }) {
                   id="stiltFloorObs"
                   type="text"
                   className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none"
-                  // defaultValue={roadWideningArea}
+                  defaultValue={submitData?.drawingTableObs?.stiltFloorObs}
                   // onChange={handleRoadWideningAreaChange}
                 />
               </td>
@@ -251,7 +399,7 @@ function DrawingTable({ setApprovedConfirmation, setRecomendationMessage }) {
                   id="groundFloorObs"
                   type="text"
                   className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none"
-                  // defaultValue={roadWideningArea}
+                  defaultValue={submitData?.drawingTableObs?.groundFloorObs}
                   // onChange={handleRoadWideningAreaChange}
                 />
               </td>
@@ -266,7 +414,7 @@ function DrawingTable({ setApprovedConfirmation, setRecomendationMessage }) {
                   id="firstFloorObs"
                   type="text"
                   className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none"
-                  // defaultValue={roadWideningArea}
+                  defaultValue={submitData?.drawingTableObs?.firstFloorObs}
                   // onChange={handleRoadWideningAreaChange}
                 />
               </td>
@@ -281,7 +429,7 @@ function DrawingTable({ setApprovedConfirmation, setRecomendationMessage }) {
                   id="secondFloorObs"
                   type="text"
                   className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none"
-                  // defaultValue={roadWideningArea}
+                  defaultValue={submitData?.drawingTableObs?.secondFloorObs}
                   // onChange={handleRoadWideningAreaChange}
                 />
               </td>
@@ -292,8 +440,14 @@ function DrawingTable({ setApprovedConfirmation, setRecomendationMessage }) {
               <td>1mtr wide required</td>
               <td>Yes</td>
               <td>
-                <select id="greenStripObs" className=" outline-none">
-                  <option>Yes</option>
+                <select
+                  id="greenStripObs"
+                  className=" w-1/6 outline-none"
+                  defaultValue={
+                    submitData?.drawingTableObs?.greenStripObs ?? ""
+                  }
+                >
+                  <option value="">Yes</option>
                   <option>No</option>
                 </select>
               </td>
@@ -308,7 +462,7 @@ function DrawingTable({ setApprovedConfirmation, setRecomendationMessage }) {
                   id="stairCaseWidthObs"
                   type="text"
                   className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none"
-                  // defaultValue={roadWideningArea}
+                  defaultValue={submitData?.drawingTableObs?.stairCaseWidthObs}
                   // onChange={handleRoadWideningAreaChange}
                 />
               </td>
@@ -317,13 +471,13 @@ function DrawingTable({ setApprovedConfirmation, setRecomendationMessage }) {
               <td>10</td>
               <td>No. of Units</td>
               <td>Maximum 4 no.</td>
-              <td></td>
+              <td>{plotDetails?.noOfUnits ?? ""}</td>
               <td>
                 <input
                   id="unitObs"
                   type="text"
                   className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none"
-                  // defaultValue={roadWideningArea}
+                  defaultValue={submitData?.drawingTableObs?.unitsObs}
                   // onChange={handleRoadWideningAreaChange}
                 />
               </td>
@@ -334,6 +488,7 @@ function DrawingTable({ setApprovedConfirmation, setRecomendationMessage }) {
       <DocumentFooter
         setApprovedConfirmation={setApprovedConfirmation}
         setRecomendationMessage={setRecomendationMessage}
+        submitData={submitData}
       />
     </div>
   );

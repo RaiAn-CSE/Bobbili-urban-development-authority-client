@@ -139,7 +139,7 @@ const AuthProvider = ({ children }) => {
     role === "PS" &&
       (url = `http://localhost:5000/recommendDataOfPs?appNo=${applicationNo}`);
 
-    console.log(url, "url");
+    console.log(url, "url here");
 
     Swal.fire({
       title: "Do you want to save your information?",
