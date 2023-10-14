@@ -460,7 +460,7 @@ const Payment = () => {
               id="vacantArea"
               name="vacantArea"
               label="Development charges(on Vacant land)"
-              placeholder="1000"
+              placeholder="000"
               type="number"
               ltpDetails={calculatedData?.vacantAreaDevelopmentCharged}
             />
@@ -468,7 +468,7 @@ const Payment = () => {
               id="builtUpArea"
               name="builtUpArea"
               label="Development charges(on Built-up area)"
-              placeholder="1000"
+              placeholder="000"
               type="number"
               ltpDetails={calculatedData?.builtUpAreaDevelopmentCharged}
             />
@@ -477,7 +477,7 @@ const Payment = () => {
                 id="TotalOpenSpaceCharged"
                 name="TotalOpenSpaceCharged"
                 label="14% open space charges"
-                placeholder="5000"
+                placeholder="000"
                 type="number"
                 ltpDetails={calculatedData?.TotalOpenSpaceCharged}
               />
@@ -487,7 +487,7 @@ const Payment = () => {
                 id="TotalPenalizationCharged"
                 name="TotalPenalizationCharged"
                 label="33% penalization charges"
-                placeholder="0"
+                placeholder="000"
                 type="number"
                 ltpDetails={calculatedData?.TotalPenalizationCharged}
               />
@@ -496,7 +496,7 @@ const Payment = () => {
               id="labourCess02"
               name="labourCess02"
               label="Labour Cess Component 2"
-              placeholder="0"
+              placeholder="000"
               type="number"
               ltpDetails={calculatedData?.TotalPenalizationCharged}
             />
@@ -504,7 +504,7 @@ const Payment = () => {
               id="UDATotalCharged"
               name="UDATotalCharged"
               label="Total"
-              placeholder="7000"
+              placeholder="000"
               type="number"
               ltpDetails={calculatedData?.UDATotalCharged}
             />
@@ -536,7 +536,7 @@ const Payment = () => {
               id="paperPublication"
               name="paperPublication"
               label="Paper Publication Charges"
-              placeholder="1000"
+              placeholder="000"
               type="number"
               ltpDetails={calculatedData?.paperPublicationCharged}
             />
@@ -544,7 +544,7 @@ const Payment = () => {
               id="processingFee"
               name="processingFee"
               label="Processing Fee"
-              placeholder="5000"
+              placeholder="000"
               type="number"
               ltpDetails={calculatedData?.processingFees}
             />
@@ -553,7 +553,7 @@ const Payment = () => {
                 id="bettermentCharged"
                 name="bettermentCharged"
                 label="Betterment charge"
-                placeholder="1000"
+                placeholder="000"
                 type="number"
                 ltpDetails={calculatedData?.bettermentCharged}
               />
@@ -562,7 +562,7 @@ const Payment = () => {
               id="buildingPermitFees"
               name="buildingPermitFees"
               label="Building Permit Fee"
-              placeholder="5000"
+              placeholder="000"
               type="number"
               ltpDetails={calculatedData?.buildingPermitFees}
               readonly
@@ -572,7 +572,7 @@ const Payment = () => {
               id="GramaPanchayetTotalCharged"
               name="GramaPanchayetTotalCharged"
               label="Total"
-              placeholder="13000"
+              placeholder="000"
               type="number"
               ltpDetails={calculatedData?.GramaPanchayetTotalCharged}
             />
@@ -583,7 +583,7 @@ const Payment = () => {
               id="gramaChallanNo"
               name="gramaChallanNo"
               label="DD/Challan no."
-              placeholder="1234"
+              placeholder="xxxx"
               type="text"
               ltpDetails={
                 applicationData?.payment?.gramaPanchayatFee?.gramaChallanNo ??
@@ -663,7 +663,7 @@ const Payment = () => {
               id="labourCess01"
               name="labourCess01"
               label="Labour Cess Component 1"
-              placeholder="3000"
+              placeholder="000"
               type="number"
               ltpDetails={calculatedData?.labourCessCompo1Charged}
             />
@@ -673,7 +673,7 @@ const Payment = () => {
               id="labourCessChallanNo"
               name="labourCessChallanNo"
               label="DD/Challan no."
-              placeholder="1234"
+              placeholder="xxxx"
               type="text"
               ltpDetails={
                 applicationData?.payment?.labourCessCharge
@@ -757,7 +757,7 @@ const Payment = () => {
               id="GreenFeeCharge"
               name="GreenFeeCharge"
               label="Green fee charge"
-              placeholder="2000"
+              placeholder="000"
               type="number"
               ltpDetails={calculatedData?.greenFeeCharged}
             />
@@ -767,7 +767,7 @@ const Payment = () => {
               id="greenFeeChargeChallanNo"
               name="greenFeeChargeChallanNo"
               label="DD/Challan no."
-              placeholder="1234"
+              placeholder="xxxx"
               type="text"
               ltpDetails={
                 applicationData?.payment?.greenFeeCharge
