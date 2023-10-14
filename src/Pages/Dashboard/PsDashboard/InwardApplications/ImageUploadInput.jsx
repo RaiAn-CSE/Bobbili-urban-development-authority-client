@@ -4,7 +4,7 @@ const ImageUploadInput = ({
     id,
     siteInspectionValue,
     handleFileChange,
-    selectedFile,
+    siteBoundariesImageFiles,
 }) => {
     // const [selectedFile, setSelectedFile] = useState(null);
 
@@ -20,10 +20,10 @@ const ImageUploadInput = ({
                 className="flex flex-col items-center justify-center w-full cursor-pointer bg-gray-50 hover:bg-gray-100  dark:bg-gray-700  dark:hover:bg-gray-600"
             >
                 <div className="flex flex-col items-center justify-center p-[10px]">
-                    {selectedFile ? (
+                    {siteBoundariesImageFiles ? (
                         <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
                             <span className="font-semibold">Uploaded file: </span>
-                            {selectedFile.name}
+                            {siteBoundariesImageFiles.name}
                         </p>
                     ) : (
                         <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">

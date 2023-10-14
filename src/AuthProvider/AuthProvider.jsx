@@ -38,8 +38,8 @@ const AuthProvider = ({ children }) => {
 
   // send user data into the database
   const sendUserDataIntoDB = async (url, method = "PATCH", data) => {
-    console.log(data, "DATA");
-    console.log(url, "URL");
+    // console.log(data, "DATA");
+    // console.log(url, "URL");
     const config = {
       method,
       headers: {

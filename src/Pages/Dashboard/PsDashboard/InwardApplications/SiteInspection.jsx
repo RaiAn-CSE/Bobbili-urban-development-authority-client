@@ -89,7 +89,7 @@ const SiteInspection = () => {
     setRadioPs(e.target.value);
   };
 
-  const [selectedFile, setSelectedFile] = useState(null);
+
   const [siteBoundariesImageFiles, setSiteBoundariesImageFiles] = useState({
     northApp: "",
     northObs: "",
@@ -101,33 +101,30 @@ const SiteInspection = () => {
     westObs: "",
   });
 
-  const get = () => {
-    const northApp = document.getElementById("northApp").files[0];
-    const northObs = document.getElementById("northObs").files[0];
-    const southApp = document.getElementById("southApp").files[0];
-    const southObs = document.getElementById("southObs").files[0];
-    const eastApp = document.getElementById("eastApp").files[0];
-    const eastObs = document.getElementById("eastObs").files[0];
-    const westApp = document.getElementById("westApp").files[0];
-    const westObs = document.getElementById("westObs").files[0];
+  // const get = () => {
+  //   const northApp = document.getElementById("northApp").files[0];
+  //   const northObs = document.getElementById("northObs").files[0];
+  //   const southApp = document.getElementById("southApp").files[0];
+  //   const southObs = document.getElementById("southObs").files[0];
+  //   const eastApp = document.getElementById("eastApp").files[0];
+  //   const eastObs = document.getElementById("eastObs").files[0];
+  //   const westApp = document.getElementById("westApp").files[0];
+  //   const westObs = document.getElementById("westObs").files[0];
 
-    console.log(
-      northApp,
-      northObs,
-      southApp,
-      southObs,
-      eastApp,
-      eastObs,
-      westApp,
-      westObs
-    );
-  };
+  //   console.log(
+  //     northApp,
+  //     northObs,
+  //     southApp,
+  //     southObs,
+  //     eastApp,
+  //     eastObs,
+  //     westApp,
+  //     westObs
+  //   );
+  // };
 
-  // Function to handle file selection
+
   const handleFileChange = (id, file) => {
-    // Update the selected file state
-    setSelectedFile(file);
-
     // Update the siteBoundariesImageFiles object
     setSiteBoundariesImageFiles((prevFiles) => ({
       ...prevFiles,
@@ -286,7 +283,7 @@ const SiteInspection = () => {
 
   return (
     <div className="flex flex-col sm:px-6 lg:px-8 dark:text-gray-100">
-      <input type="submit" value="get" onClick={get} />
+      {/* <input type="submit" value="get" onClick={get} /> */}
       <div className="overflow-x-auto">
         <div className="inline-block min-w-full py-2">
           <div className="overflow-hidden">
@@ -435,14 +432,14 @@ const SiteInspection = () => {
                     <ImageUploadInput
                       id="northApp"
                       handleFileChange={(file) => handleFileChange("northApp", file)}
-                      selectedFile={siteBoundariesImageFiles}
+                      siteBoundariesImageFiles={siteBoundariesImageFiles}
                     />
                   </td>
                   <td className={inputTableDataClass}>
                     <ImageUploadInput
                       id="northObs"
                       handleFileChange={(file) => handleFileChange("northObs", file)}
-                      selectedFile={siteBoundariesImageFiles}
+                      siteBoundariesImageFiles={siteBoundariesImageFiles}
                     />
                   </td>
                 </tr>
@@ -452,12 +449,14 @@ const SiteInspection = () => {
                     <ImageUploadInput
                       id="southApp"
                       handleFileChange={(file) => handleFileChange("southApp", file)}
+                      siteBoundariesImageFiles={siteBoundariesImageFiles}
                     />
                   </td>
                   <td className={inputTableDataClass}>
                     <ImageUploadInput
                       id="southObs"
                       handleFileChange={(file) => handleFileChange("southObs", file)}
+                      siteBoundariesImageFiles={siteBoundariesImageFiles}
                     />
                   </td>
                 </tr>
@@ -467,12 +466,14 @@ const SiteInspection = () => {
                     <ImageUploadInput
                       id="eastApp"
                       handleFileChange={(file) => handleFileChange("eastApp", file)}
+                      siteBoundariesImageFiles={siteBoundariesImageFiles}
                     />
                   </td>
                   <td className={inputTableDataClass}>
                     <ImageUploadInput
                       id="eastObs"
                       handleFileChange={(file) => handleFileChange("eastObs", file)}
+                      siteBoundariesImageFiles={siteBoundariesImageFiles}
                     />
                   </td>
                 </tr>
@@ -482,12 +483,14 @@ const SiteInspection = () => {
                     <ImageUploadInput
                       id="westApp"
                       handleFileChange={(file) => handleFileChange("westApp", file)}
+                      siteBoundariesImageFiles={siteBoundariesImageFiles}
                     />
                   </td>
                   <td className={inputTableDataClass}>
                     <ImageUploadInput
                       id="westObs"
                       handleFileChange={(file) => handleFileChange("westObs", file)}
+                      siteBoundariesImageFiles={siteBoundariesImageFiles}
                     />
                   </td>
                 </tr>
