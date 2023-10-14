@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import ApplicationHeader from "./ApplicationHeader";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
-import { RxCross1 } from "react-icons/rx"
 
 function Application({ setOpenApplication }) {
   const { getApplicationData } = useContext(AuthContext);
@@ -10,14 +9,6 @@ function Application({ setOpenApplication }) {
   const [plotDetails, setPlotDetails] = useState({});
   const [ltpDetailsData, setLtpDetailsData] = useState({});
   const [applicantDetailsData, setApplicantDetailsData] = useState({});
-
-  // useEffect(() => {
-  //   // Opening the modal when the component mounts
-  //   const modal = document.getElementById("my_modal_5");
-  //   if (modal) {
-  //     modal.showModal();
-  //   }
-  // }, []);
 
   useEffect(() => {
     // Opening the modal when the component mounts
@@ -70,14 +61,14 @@ function Application({ setOpenApplication }) {
     previewsApprovedFileNo,
     surveyNo,
     village,
-  } = generalInformation;
-  // console.log({generalInformation})
+  } = generalInformation || {};
+
   // Plot Details
   const {
     proposedPlotAreaCal,
     roadWideningAreaCal,
     netPlotAreaCal,
-  } = plotDetails;
+  } = plotDetails || {};
 
   // LTP Details
   const {
@@ -88,7 +79,8 @@ function Application({ setOpenApplication }) {
     licenseNo,
     phoneNo: ltpPhone,
     validity,
-  } = ltpDetailsData;
+  } = ltpDetailsData || {};
+
   // Applicant Details
   const {
     name: ApplicantName,
@@ -100,7 +92,6 @@ function Application({ setOpenApplication }) {
     address: applicantAddress,
   } = applicantDetailsData || {};
 
-  console.log("LtPName", name);
   // ====Applicant Info
   const Part01 = [
     { "Name(in full)": ApplicantName },
@@ -114,7 +105,6 @@ function Application({ setOpenApplication }) {
     { "E-mail": AppEmail }
   ];
 
-  // //
   const Part02 = [
     { "Survey No": surveyNo },
     { "L.P Mo./LRS No.": lrsNo },
@@ -125,75 +115,13 @@ function Application({ setOpenApplication }) {
     { "District": district },
   ];
 
-
-  // Part03
-  const Part03 = [
-    "SITE AREA (IN SQ.M)",
-    "NO. OF FLOORS",
-    "FLOOR AREA (IN SQ.M)",
-    "PARKING FLOOR AREA (IN SQ.M)",
-    "USE OF THE BUILDING",
-  ];
-  // index0 for part03
-  const row1 = [
-    { "(a) AS PER DOCUMENTS": "" },
-    { "(b) AS PER SUBMITTED PLAN": "" },
-    { "(c) ROAD WIDENING AREA": roadWideningAreaCal },
-    { "(d)   NET AREA": netPlotAreaCal },
-  ];
-
-  const row2 = [
-    { CELLAR: "" },
-    { STILT: "" },
-    { GROUND: "" },
-    { UPPER: "" },
-    { FLOOR: "" },
-    { TOTAL: "" },
-  ];
-
-  // Part-4
-  // index4
-  const row5 = [
-    {
-      "INDIVIDUAL RESIDENTIAL/GROUP HOUSING/ COMMERCIAL/INSTITUTIONAL/ROW HOUSING/OTHERS (SPECIFY)":
-        "Hello",
-    },
-  ];
-
-  const NameCol = [
-    { "BUILDER / DEVELOPER/ CONSTRUCTION FIRM": "" },
-    { ARCHITECT: "" },
-    { ENGINEER: "" },
-    { "STRUCTURAL ENGINEER": "" },
-    { "SUPERVISOR/SURVEYOR": "" },
-    { "TOWN PLANNER": "" },
-  ];
-  const AddressCol = [
-    { address: village },
-    { address: village },
-    { address: village },
-    { address: village },
-    { address: village },
-    { address: village },
-  ];
-  const LicenceNo = [
-    { licenceNo: adharNo },
-    { licenceNo: adharNo },
-    { licenceNo: adharNo },
-    { licenceNo: adharNo },
-    { licenceNo: adharNo },
-    { licenceNo: adharNo },
-  ];
-
-  const part03SubArray = [0, 1, 4];
-
   // Part01 && Part02 Keys and Values
   const renderCol = (data, index, type) => {
     const keys = type === "keys";
     const isArray = Array.isArray(data);
     if (isArray) {
       return (
-        <td className={`bg-white border border-black ${type == "keys" && "w-1/3"} p-0`}>
+        <td className={`bg-white border border-black ${type === "keys" && "w-1/3"} p-0`}>
           <div className="flex">
             {data?.map((e, i) => (
               <p
@@ -209,7 +137,7 @@ function Application({ setOpenApplication }) {
       );
     } else {
       return (
-        <td className={`bg-white border border-black ${type == "keys" && "w-1/3"} p-0`}>
+        <td className={`bg-white border border-black ${type === "keys" && "w-1/3"} p-0`}>
           <p className="h-12 p-2 flex items-center">
             {keys ? Object.keys(data) : Object.values(data)}
           </p>
@@ -218,43 +146,6 @@ function Application({ setOpenApplication }) {
     }
   };
 
-
-
-  // Part04
-  const ColDataShow04 = (data, numb) => {
-    return (
-      <div key={numb}>
-        {" "}
-        {data.map((d, i) => {
-          return (
-            <>
-              <p
-                key={i}
-                className={`${i == 0 ? "border-t-0" : "border-t"
-                  } border-black h-20 py-4 px-2 ${numb == 2 ? "block" : "hidden"
-                  }`}
-              >
-                <p
-                  className={
-                    "font-semibold inline-block border-b-2 border-dotted border-black underline-offset-4 mb-2"
-                  }
-                >
-                  Signature
-                </p>
-                <p>{Object.keys(data[i])[0]}</p>
-              </p>
-              <p
-                className={`border-black px-2 h-20 flex items-center ${i == 0 ? "border-t-0" : "border-t"
-                  } ${numb == 2 ? "hidden" : "block"}`}
-              >
-                {numb == 1 ? i + 1 : Object.values(data[i])[0]}
-              </p>
-            </>
-          );
-        })}
-      </div>
-    );
-  };
   return (
     <div className="w-full h-full text-black">
       <dialog id="my_modal_5" className="modal">
@@ -265,16 +156,12 @@ function Application({ setOpenApplication }) {
             {/* Part01 */}
             <div className="overflow-x-auto">
               <table className="table bg-white table-sm cursor-default">
-                {/*Part01 head */}
-                <thead>
+                {/* Part01 head */}
+                <thead className="bg-gray-400 text-black dark:text-white">
                   <tr>
-                    <th className="bg-blue-200 border border-black fontbold text-black">
-                      A
-                    </th>
-                    <th className="bg-blue-200 border-l border-t border-black fontbold text-black">
-                      ADDRESS OF THE APPLICANT
-                    </th>
-                    <th className="bg-blue-200 border-r border-t border-black fontbold text-black"></th>
+                    <th className="border-l border-black">A</th>
+                    <th className="border-0 text-end">ADDRESS OF THE APPLICANT</th>
+                    <th className="border-0"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -283,12 +170,11 @@ function Application({ setOpenApplication }) {
                     return (
                       <tr key={index + 1} className="bg-white">
                         {/* col-01 */}
-                        <th className="bg-white border border-black w-6">
+                        <th className="bg-white border border-black w-[10%]">
                           {index + 1}
                         </th>
                         {/* col-02 */}
                         {renderCol(item, index, "keys")}
-
                         {/* col-03 */}
                         {renderCol(item, index, "values")}
                       </tr>
@@ -300,16 +186,12 @@ function Application({ setOpenApplication }) {
             {/* Part02 */}
             <div className="overflow-x-auto mt-10 text-black">
               <table className="table bg-white table-sm">
-                {/*Part02 head */}
-                <thead>
+                {/* Part02 head */}
+                <thead className="bg-gray-400 text-black uppercase">
                   <tr>
-                    <th className="bg-blue-200 border border-black fontbold text-black">
-                      B
-                    </th>
-                    <th className="bg-blue-200 border-l border-t border-black text-black">
-                      LOCATION OF THE PROPOSED SITE
-                    </th>
-                    <th className="bg-blue-200 border-r border-t border-black"></th>
+                    <th>B</th>
+                    <th>LOCATION OF THE PROPOSED SITE</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -318,13 +200,11 @@ function Application({ setOpenApplication }) {
                     return (
                       <tr key={index} className="bg-white">
                         {/* col-01 */}
-                        <th className="bg-white border border-black w-6">
+                        <th className="bg-white border border-black w-[10%]">
                           {index + 1}
                         </th>
                         {/* col-02 */}
-
                         {renderCol(item, index, "keys")}
-
                         {/* col-03 */}
                         {renderCol(item, index, "values")}
                       </tr>
@@ -337,38 +217,28 @@ function Application({ setOpenApplication }) {
           {/* Part 03 */}
           <div className="overflow-x-auto mt-10">
             <table className="table bg-white table-sm">
-              {/*Part03 head */}
-              <thead>
+              {/* Part 03 head */}
+              <thead className="bg-gray-400n text-black dark:text-white">
                 <tr>
-                  <th className="bg-blue-200 border border-black fontbold text-black">
-                    C
-                  </th>
-                  <th className="bg-blue-200 border-l border-t border-black fontbold text-black">
-                    DETAILS OF THE PROPOSED CONSTRUCTION
-                  </th>
-                  <th className="bg-blue-200 border-t border-black fontbold text-black">
-                  </th>
-                  <th className="bg-blue-200 border-y border-r border-black fontbold text-black">
-                  </th>
+                  <th className="w-[10%]">D</th>
+                  <th className="uppercase">DETAILS OF THE PROPOSED CONSTRUCTION</th>
+                  <th></th>
+                  <th></th>
                 </tr>
               </thead>
-              <tbody className="">
-                <tr className="border border-black">
-                  <td className="border border-black w-[5%]">1</td>
+              <tbody className="text-start">
+                <tr>
+                  <td className="border border-black w-[10%]">01</td>
                   <td className="border border-black w-[30%]">Site Area (Sq.mtr.)</td>
-                  <td className="p-0 border-t border-black w-[30%]">
-                    <tr className=" border-black">
-                      <td className="border-r border-black">As per Document</td>
-                      <td className="border-r border-black">a</td>
-                    </tr>
-                    <tr className=" border-black">
-                      <td className="border-r border-black"> As on Ground</td>
-                      <td className="border-r border-black">b</td>
-                    </tr>
-                    <tr className=" border-black">
-                      <td className="border-r border-black">As on Proposed</td>
-                      <td className="border-r border-black">c</td>
-                    </tr>
+                  <td className="p-0 border-0 border-r">
+                    <td className="border-0 border-b border-black w-full block">As per Document</td>
+                    <td className="border-0 border-b border-black w-full block">As on Ground</td>
+                    <td className="border-0 w-full block">As on Proposed</td>
+                  </td>
+                  <td className="p-0 border-0 border-y">
+                    <td className="border-0 border-b border-black w-full block">As per Document</td>
+                    <td className="border-0 border-b border-black w-full block">As on Ground</td>
+                    <td className="border-0 w-full block">As on Proposed</td>
                   </td>
                 </tr>
                 <tr className="border border-black">
@@ -423,27 +293,31 @@ function Application({ setOpenApplication }) {
           </div>
           <div className="mt-7">
             <p className="font-bold">Primary</p>
-            <p>I hereby declare that I am the owner/ PAH in possession of the plot on which the work is proposed and that the statement made in this form is true and correct to the best of my knowledge.
+            <p>
+              I hereby declare that I am the owner/ PAH in possession of the plot on which the work is proposed and that the statement made in this form is true and correct to the best of my knowledge.
             </p>
           </div>
           <div>
             <table className="mt-7 w-full">
-              <th className="border border-black"></th>
-              <th className="border border-black">Signature</th>
-              <th className="border border-black"></th>
-              <tbody>
-                <tr className="border border-black w-1/2">
-                  <td className="border border-black">01</td>
-                  <td className="border border-black">Signature of owner</td>
-                  <td className="border border-black"></td>
+              <thead>
+                <tr>
+                  <th className="border border-black"></th>
+                  <th className="border-0 border-black text-end">Signature</th>
+                  <th className="border-0 border-black"></th>
                 </tr>
-                <tr className="border border-black w-1/2">
-                  <td className="border border-black">02</td>
-                  <td className="border border-black">Signature of the LTP</td>
-                  <td className="border border-black"></td>
+              </thead>
+              <tbody>
+                <tr className="border border-black">
+                  <td className="border border-black" style={{ width: '10%' }}>01</td>
+                  <td className="border border-black" style={{ width: '40%' }}>Signature of owner</td>
+                  <td className="border border-black" style={{ width: '50%' }}></td>
+                </tr>
+                <tr className="border border-black">
+                  <td className="border border-black" style={{ width: '10%' }}>02</td>
+                  <td className="border border-black" style={{ width: '40%' }}>Signature of the LTP</td>
+                  <td className="border border-black" style={{ width: '50%' }}></td>
                 </tr>
               </tbody>
-
             </table>
           </div>
           <form method="dialog" className="mt-5">

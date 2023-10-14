@@ -2,22 +2,14 @@ import React, { useContext, useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import ShowSubmittedApplication from "./ShowSubmittedApplication";
+import useGetPageWiseApplication from "../../../CustomHook/useGetPageWiseApplication";
 
 const SubmitApplication = () => {
   const { userInfoFromLocalStorage } = useContext(AuthContext);
   const [error, setError] = useState("");
 
-  // get all applications which are submitted already
-  const { data, refetch, isLoading, isError } = useQuery(
-    ["allSubmitApplication"],
-    async () => {
-      const response = await fetch(
-        `http://localhost:5000/allSubmitApplications?id=${
-          userInfoFromLocalStorage()._id
-        }`
-      );
-      return await response.json();
-    }
+  const [data, refetch, isError, isLoading] = useGetPageWiseApplication(
+    "Submit Applications"
   );
 
   useEffect(() => {
@@ -31,8 +23,8 @@ const SubmitApplication = () => {
 
   console.log(data);
   return (
-    <div className="w-full overflow-x-auto mt-6">
-      <table className="table table-zebra">
+    <div className="w-full  overflow-x-auto mt-6 ">
+      <table className="table dark:text-white">
         {/* head */}
         <thead>
           <tr className="bg-[#2d3436] text-xs md:text-sm text-white hover:bg-[#353b48]">

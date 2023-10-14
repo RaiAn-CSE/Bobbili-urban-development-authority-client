@@ -5,6 +5,7 @@ import { BsPlusLg } from "react-icons/bs";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import toast from "react-hot-toast";
 import AllDraftApplication from "./AllDraftApplication";
+import Swal from "sweetalert2";
 
 const NewApplication = () => {
   const { userInfoFromLocalStorage, sendUserDataIntoDB, alertToConfirmDelete } =
@@ -67,29 +68,39 @@ const NewApplication = () => {
       });
   };
   // Function to generate a unique number
-  const generateApplicationNumber = () => {
-    const date = new Date();
-    const milisecond = date.getMilliseconds();
-    const second = date.getSeconds();
-    const hour = date.getHours();
-    const year = date.getFullYear();
+  // const generateApplicationNumber = () => {
+  //   const date = new Date();
+  //   const milisecond = date.getMilliseconds();
+  //   const second = date.getSeconds();
+  //   const hour = date.getHours();
+  //   const year = date.getFullYear();
 
-    console.log(hour, milisecond, second);
-    const applicationNo = `1177/${milisecond}/${hour}/${second}/BUDA/${year}`;
+  //   console.log(hour, milisecond, second);
+  //   const applicationNo = `1177/${milisecond}/${hour}/${second}/BUDA/${year}`;
 
-    return applicationNo;
+  //   return applicationNo;
+  // };
+
+  // navigate after clicking on the draft application no
+  const showDraftApplication = (applicationNo) => {
+    console.log(applicationNo);
+    localStorage.setItem("CurrentAppNo", JSON.stringify(applicationNo));
+    navigate("/dashboard/draftApplication/buildingInfo");
   };
 
   // store new application information into the database
-  const storeApplicationData = () => {
+  const storeApplicationData = (serialNo) => {
     const url = `http://localhost:5000/addApplication`;
 
     const day = date.getDate().toString().padStart(2, "0");
     const month = (date.getMonth() + 1).toString().padStart(2, "0");
     const year = date.getFullYear();
+
+    const applicationNo = `1177/${serialNo}/XX/XX/BUDA/${year}`;
+
     const data = {
       userId: userID,
-      applicationNo: generateApplicationNumber(),
+      applicationNo,
       buildingInfo: {
         generalInformation: {},
         plotDetails: {},
@@ -134,19 +145,33 @@ const NewApplication = () => {
       });
   };
 
-  // navigate after clicking on the draft application no
-  const showDraftApplication = (applicationNo) => {
-    console.log(applicationNo);
-    localStorage.setItem("CurrentAppNo", JSON.stringify(applicationNo));
-    navigate("/dashboard/draftApplication/buildingInfo");
+  const showConfirmModal = () => {
+    Swal.fire({
+      title: "Do you want to create a new application?",
+      icon: "question",
+      showConfirmButton: true,
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      confirmButtonColor: "#a36ee0",
+      cancelButtonColor: "#1f1132",
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        fetch("http://localhost:5000/getSerialNumber")
+          .then((res) => res.json())
+          .then((data) => {
+            storeApplicationData(data?.serialNo);
+          });
+      }
+    });
   };
 
   return (
-    <div className="grid grid-cols-1 my-3">
+    <div className="grid grid-cols-1 my-3  dark:text-gray-100 ">
       <div className="flex justify-end my-5 mr-3">
         <button
           className={`btn flex font-roboto ${gradientColor} transition-all duration-700 text-[#fff]`}
-          onClick={storeApplicationData}
+          onClick={showConfirmModal}
         >
           <span className="text-sm">Create a new application</span>
           <BsPlusLg size={20} />
@@ -166,7 +191,7 @@ const NewApplication = () => {
               <th>Village</th>
               <th>Mandal</th>
               <th>Created date</th>
-              <th>Button</th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody>

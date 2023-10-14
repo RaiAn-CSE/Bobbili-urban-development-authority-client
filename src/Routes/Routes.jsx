@@ -15,7 +15,6 @@ import AddUser from "../Pages/Dashboard/Admin/Admin2/AddUser";
 import AllUsers from "../Pages/Dashboard/Admin/Admin2/AllUsers";
 import Error from "../Pages/Shared/Error";
 import MainLayout from "../Layouts/MainLayout";
-import Carousel from "../Pages/Main/Carousel/Carousel";
 import ApplicationSearch from "../Pages/Main/ApplicationSearch/ApplicationSearch";
 import OnlinePayment from "../Pages/Main/OnlinePayment/OnlinePayment";
 import ListOfLTP from "../Pages/Main/ListOfLTP/ListOfLTP";
@@ -24,6 +23,14 @@ import SiteInspection from "./../Pages/Dashboard/PsDashboard/InwardApplications/
 import SearchApplications from "../Pages/Dashboard/PsDashboard/SearchApplications/SearchApplications";
 import Outward from "../Pages/Dashboard/PsDashboard/OutwardApplications/Outward";
 import ReValidation from "../Pages/Dashboard/PsDashboard/ReValidation/ReValidation";
+import Approved from "../Pages/Dashboard/LtpDashboard/Approved/Approved";
+import Shortfall from "../Pages/Dashboard/LtpDashboard/Shortfall/Shortfall";
+import DefaultDrawingFormat from "../Pages/Main/DefaultDrawingFormat/DefaultDrawingFormat";
+import PrivacyPolicy from "../Pages/Main/PrivacyPolicy/PrivacyPolicy";
+import DemoVideos from "../Pages/Main/DemoVideos/DemoVideos";
+import Home from "../Pages/Main/Home/Home";
+import Reports from "../Pages/Main/Reports/Reports";
+import Location from "../Pages/Dashboard/UDA/Location";
 
 const router = createBrowserRouter([
   {
@@ -33,19 +40,37 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Carousel />,
+        element: <Home />,
+        children: [
+          {
+            path: "/",
+            element: <ApplicationSearch />,
+          },
+          {
+            path: "/onlinePayment",
+            element: <OnlinePayment />,
+          },
+          {
+            path: "/listOfLTP",
+            element: <ListOfLTP />,
+          },
+          {
+            path: "/demoVideos",
+            element: <DemoVideos />,
+          },
+          {
+            path: "/privacyPolicy",
+            element: <PrivacyPolicy />,
+          },
+          {
+            path: "/defaultDrawingFormat",
+            element: <DefaultDrawingFormat />,
+          },
+        ],
       },
       {
-        path: "/applicationSearch",
-        element: <ApplicationSearch />,
-      },
-      {
-        path: "/onlinePayment",
-        element: <OnlinePayment />,
-      },
-      {
-        path: "/listOfLTP",
-        element: <ListOfLTP />,
+        path: "/statistics",
+        element: <Reports />,
       },
     ],
   },
@@ -167,10 +192,34 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/dashboard/approvedApplication",
+        element: (
+          <PrivateRoute>
+            <Approved />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/shortfallApplication",
+        element: (
+          <PrivateRoute>
+            <Shortfall />
+          </PrivateRoute>
+        ),
+      },
+      {
         path: "/dashboard/inWard",
         element: (
           <PrivateRoute>
             <Inward />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/outWard",
+        element: (
+          <PrivateRoute>
+            <Outward />
           </PrivateRoute>
         ),
       },
@@ -197,6 +246,10 @@ const router = createBrowserRouter([
             <ReValidation />
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/dashboard/location",
+        element: <Location />,
       },
     ],
   },

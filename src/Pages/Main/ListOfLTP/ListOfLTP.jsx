@@ -2,17 +2,46 @@ import React, { useEffect, useState } from "react";
 
 const ListOfLTP = () => {
   const [filteredData, setFilteredData] = useState([]);
+  const [allData, setAllData] = useState([]);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
+    setLoading(true);
     fetch("http://localhost:5000/allUser")
       .then((res) => res.json())
       .then((data) => {
-        setFilteredData(data.filter((user) => user?.role === "LTP"));
+        setLoading(false);
+
+        const ltpData = data.filter((user) => user?.role === "LTP");
+
+        setAllData(ltpData);
+        setFilteredData(ltpData);
       });
   }, []);
+
+  const handleSearchLtp = (e) => {
+    const searchValue = e.target.value;
+
+    if (searchValue.length) {
+      setFilteredData((prev) => {
+        const newSearchValue = allData.filter(
+          (user) => user?.name.toLowerCase() === searchValue.toLowerCase()
+        );
+
+        console.log(newSearchValue, "new search value");
+        return newSearchValue;
+      });
+    } else {
+      setFilteredData(allData);
+    }
+  };
 
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
   console.log(filteredData, "FILTERED DATA");
+
+  if (loading) {
+    return <p className="text-center">Loading...</p>;
+  }
   return (
     <div className="w-full h-full p-4">
       <form>
@@ -43,8 +72,9 @@ const ListOfLTP = () => {
           <input
             type="search"
             id="default-search"
+            onChange={(e) => handleSearchLtp(e)}
             className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-            placeholder="Application no. or owner name"
+            placeholder="Search LTP by name"
             required
           />
           {/* <button
@@ -57,46 +87,38 @@ const ListOfLTP = () => {
       </form>
 
       {/* Location details  */}
-      <div className="divide-y-2 divide-gray-200 mt-5">
+      <div className="divide-y-2 divide-gray-200 mt-5 font-roboto">
         <div className="overflow-x-auto">
-          <table className="table">
+          <table className="table text-center">
             {/* head */}
-            <thead>
+            <thead className={`text-base text-black bg-indigo-300`}>
               <tr>
                 <th>Name</th>
                 <th>User name</th>
                 <th>Email</th>
                 <th>Contact no.</th>
-                <th>Licence validity</th>
+                <th>License validity</th>
               </tr>
             </thead>
             <tbody>
-              {/* row 1 */}
-              <tr>
-                <td>Cy Ganderton</td>
-                <td>Quality Control</td>
-                <td>Blue</td>
-                <td>Blue</td>
-                <td>Blue</td>
-              </tr>
-              {/* row 2 */}
-              <tr className="hover">
-                <td>Hart Hagerty</td>
-                <td>Desktop Support</td>
-                <td>Purple</td>
-                <td>Purple</td>
-                <td>Purple</td>
-              </tr>
-              {/* row 3 */}
-              <tr>
-                <td>Brice Swyre</td>
-                <td>Tax Accountant</td>
-                <td>Red</td>
-                <td>Red</td>
-                <td>Red</td>
-              </tr>
+              {filteredData?.map((ltp) => {
+                return (
+                  <tr key={ltp?._id}>
+                    <td>{ltp?.name}</td>
+                    <td>{ltp?.userId}</td>
+                    <td>{ltp?.email ?? "N/A"}</td>
+                    <td>{ltp?.phone ?? "N/A"}</td>
+                    <td>{ltp?.validity ?? "N/A"}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
+          {filteredData?.length === 0 && (
+            <p className="text-center my-5 text-base text-red-500">
+              No data found
+            </p>
+          )}
         </div>
       </div>
     </div>

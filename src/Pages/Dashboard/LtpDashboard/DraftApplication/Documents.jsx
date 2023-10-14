@@ -17,9 +17,15 @@ const DocumentUpload = () => {
   const [recomendationMessage, setRecomendationMessage] = useState("");
   const stepperData = useOutletContext();
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
-  const [PreviousDefaultDocumentData, setPreviousDefaultDocumentData] = useState([]);
-  const [UpdatedDynamicDocumentData, setUpdatedDynamicDocumentData] = useState([]);
-  const [sendingDocument, setSendingDocument] = useState({ dynamic: [], default: [] })
+  const [PreviousDefaultDocumentData, setPreviousDefaultDocumentData] =
+    useState([]);
+  const [UpdatedDynamicDocumentData, setUpdatedDynamicDocumentData] = useState(
+    []
+  );
+  const [sendingDocument, setSendingDocument] = useState({
+    dynamic: [],
+    default: [],
+  });
   const [DefaultData, setDefaultData] = useState([]);
   const [DynamicData, setDynamicData] = useState([]);
   const {
@@ -53,7 +59,7 @@ const DocumentUpload = () => {
     setSendingDocument({ default: DefaultData, dynamic: DynamicData });
   }, [DefaultData, DynamicData]);
 
-  console.log(sendingDocument, "Sending Document")
+  console.log(sendingDocument, "Sending Document");
 
   // Adding checklist Data to Document from server data && Updating Data from server Data
   useEffect(() => {
@@ -81,9 +87,7 @@ const DocumentUpload = () => {
     gettingData();
   }, []);
 
-  const handleFileUpload = () => {
-
-  }
+  const handleFileUpload = () => {};
 
   // send data to PS DB (Apu vai send PS data from here)
   const sentPsDecision = async (url) => {
@@ -107,7 +111,7 @@ const DocumentUpload = () => {
         onSubmit={(e) => {
           e.preventDefault();
         }}
-        className="text-black p-4"
+        className="text-black p-4 font-roboto dark:text-gray-100"
       >
         <div className="w-full text-[17px] px-2 py-5 rounded">
           <DefaultDocument
@@ -115,15 +119,14 @@ const DocumentUpload = () => {
             role={role}
             handleFileChange={handleFileChange}
             gradientColor={gradientColor}
-          // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
+            // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
           />
           <DynamicDocument
             role={role}
             UpdatedDynamicDocumentData={UpdatedDynamicDocumentData}
             handleFileChange={handleFileChange}
             gradientColor={gradientColor}
-          // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
-
+            // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
           />
         </div>
       </form>
@@ -144,7 +147,9 @@ const DocumentUpload = () => {
         steps={steps}
         stepperData={stepperData}
         confirmAlert={confirmAlert}
-        collectInputFieldData={role === "LTP" ? handleFileUpload : sentPsDecision}
+        collectInputFieldData={
+          role === "LTP" ? handleFileUpload : sentPsDecision
+        }
       />
     </div>
   );

@@ -23,12 +23,16 @@ const Inward = () => {
 
   // get all applications which are submitted already
   const { data, refetch, isLoading, isError, isSuccess } = useQuery(
-    ["allSubmitApplication"],
+    ["allInwardApplications"],
     async () => {
       const response = await fetch(`http://localhost:5000/submitApplications`);
       return await response.json();
     }
   );
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   useEffect(() => {
     if (isError) {
@@ -38,10 +42,8 @@ const Inward = () => {
       setError("");
     }
 
-    if (isSuccess) {
-      setAllData(data);
-    }
-  }, [isError, isSuccess]);
+    setAllData(data);
+  }, [isError, data]);
 
   console.log(allData);
   // console.log(data);
@@ -121,8 +123,8 @@ const Inward = () => {
           </div>
         </form>
       )}
-      <div className="w-full overflow-x-auto">
-        <table className="table">
+      <div className="w-full overflow-x-auto my-10">
+        <table className="table dark:text-white">
           {/* head */}
           <thead>
             <tr className="bg-[#2d3436] text-xs md:text-sm text-white hover:bg-[#353b48]">
@@ -151,7 +153,7 @@ const Inward = () => {
           </tbody>
         </table>
 
-        {allData.length === 0 && (
+        {allData?.length === 0 && (
           <p className="text-center mt-8 font-bold text-xl">
             No application Found
           </p>

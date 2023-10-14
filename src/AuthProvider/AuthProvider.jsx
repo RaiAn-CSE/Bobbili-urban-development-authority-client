@@ -1,10 +1,13 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
+import { useQueryClient } from "react-query";
 import Swal from "sweetalert2";
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
+
+  const [isDark, setIsDark] = useState(0);
 
   // get user information from the localStorage
   const userInfoFromLocalStorage = () => {
@@ -35,8 +38,8 @@ const AuthProvider = ({ children }) => {
 
   // send user data into the database
   const sendUserDataIntoDB = async (url, method = "PATCH", data) => {
-    console.log(data, "DATA");
-    console.log(url, "URL");
+    // console.log(data, "DATA");
+    // console.log(url, "URL");
     const config = {
       method,
       headers: {
@@ -125,15 +128,18 @@ const AuthProvider = ({ children }) => {
 
     let url;
 
+    const filterDataForLtp = JSON.stringify({
+      userId: userInfoFromLocalStorage()._id,
+      oldApplicationNo: applicationNo,
+    });
+
     role === "LTP" &&
-      (url = `http://localhost:5000/updateDraftApplicationData/${
-        userInfoFromLocalStorage()._id
-      }`);
+      (url = `http://localhost:5000/updateDraftApplicationData?filterData=${filterDataForLtp}`);
 
     role === "PS" &&
       (url = `http://localhost:5000/recommendDataOfPs?appNo=${applicationNo}`);
 
-    console.log(url, "url");
+    console.log(url, "url here");
 
     Swal.fire({
       title: "Do you want to save your information?",
@@ -263,12 +269,95 @@ const AuthProvider = ({ children }) => {
   };
 
   // logout function
-  const handleLogOut = () => {
+  const handleLogOut = (navigate) => {
     localStorage.removeItem("loggedUser");
     toast.success("Logout successfully");
     setTimeout(() => {
       navigate("/");
     }, 1000);
+  };
+
+  // check license expiration of ltp
+  const checkLicenseExpirationOfLtp = (validity) => {
+    console.log(validity);
+    const validityDate = new Date(validity);
+
+    console.log(validityDate);
+
+    if (validityDate.toString().includes("Invalid Date")) {
+      return "Invalid Date";
+    }
+
+    const validityDay = validityDate.getUTCDate().toString().padStart(2, "0");
+    const validityMonth = (validityDate.getUTCMonth() + 1)
+      .toString()
+      .padStart(2, "0");
+    const validityYear = validityDate.getUTCFullYear();
+
+    console.log(validityDay, validityMonth, validityYear, "VALIDITY");
+
+    const todayDate = new Date();
+
+    const todayDay = todayDate.getUTCDate().toString().padStart(2, "0");
+    const todayMonth = (todayDate.getUTCMonth() + 1)
+      .toString()
+      .padStart(2, "0");
+    const todayYear = todayDate.getUTCFullYear();
+
+    console.log(todayDay, todayMonth, todayYear, "TODAY YEAR");
+
+    const validityFormat = `${validityYear}-${validityMonth}-${validityDay}`;
+    const todayFormat = `${todayYear}-${todayMonth}-${todayDay}`;
+
+    const checkValidity = new Date(validityFormat);
+    const checkToday = new Date(todayFormat);
+
+    const timeStampValidity = checkValidity.getTime();
+    const timeStampToday = checkToday.getTime();
+
+    if (timeStampValidity < timeStampToday) {
+      // validity is before today (expired)
+      console.log("validity is before today");
+
+      // toast.error("Validity is expired");
+      return "Validity is expired";
+    } else if (timeStampValidity > timeStampToday) {
+      // validity is after today (available)
+      console.log("validity is after today");
+
+      const validity = validityFormat.split("-").reverse().join("-");
+      return validity;
+    } else {
+      console.log("validity and today are the same");
+      // toast.info("Validity will be expired tomorrow");
+      return "Validity will be expired tomorrow";
+    }
+  };
+
+  // sidebar active & hover color changed on the basis of theme
+  const decideActiveColor = () => {
+    const theme = localStorage.getItem("theme");
+
+    const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
+
+    const darkActiveColor = "dark:bg-black";
+    if (theme === "dark") {
+      return darkActiveColor;
+    } else {
+      return gradientColor;
+    }
+  };
+
+  const decideHoverColor = () => {
+    const theme = localStorage.getItem("theme");
+    console.log(theme, "THEME");
+    const hoverGradientColor =
+      "hover:bg-gradient-to-r hover:from-violet-500 hover:to-fuchsia-500";
+    if (theme === "dark") {
+      return "dark:hover:bg-black";
+    } else {
+      return hoverGradientColor;
+    }
   };
 
   //   create a object to transfer data into various components
@@ -283,6 +372,11 @@ const AuthProvider = ({ children }) => {
     alertToTransferDataIntoDepartment,
     getSubmitApplicationData,
     getAllDraftApplicationData,
+    checkLicenseExpirationOfLtp,
+    decideActiveColor,
+    decideHoverColor,
+    setIsDark,
+    isDark,
     handleLogOut,
   };
 

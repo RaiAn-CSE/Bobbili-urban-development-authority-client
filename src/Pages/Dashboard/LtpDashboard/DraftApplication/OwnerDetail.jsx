@@ -7,25 +7,27 @@ const OwnerDetail = ({
   applicantNo,
   setPhoneNoLimit,
   increaseApplicantNo,
+  decreaseApplicationNo,
   applicantDetails,
 }) => {
   const ownerSerial = ["First", "Second", "Third", "Fourth", "Fifth"];
 
   const handleInputPhone = (e) => {
     // Remove non-numeric characters
-    const inputValue = e.target.value.replace(/[^0-9]/g, '');
+    const inputValue = e.target.value.replace(/[^0-9]/g, "");
     // Limit the input to 10 characters
     const truncatedValue = inputValue.slice(0, 10);
     // Update the input field with the sanitized value
     e.target.value = truncatedValue;
   };
 
+  console.log(applicantDetails, "applicantDetails");
 
   return (
     <div>
       <p className="text-xl font-bold mt-5">{`${ownerSerial[index]} Owner Details :`}</p>
-      <div className="grid grid-cols-1 lg:grid-cols-2">
-        <div className="grid grid-cols-2 items-center">
+      <div className="lg:flex">
+        <div className="basis-[75%] grid grid-cols-2 lg:grid-cols-3">
           <InputField
             id={`applicantName${index}`}
             name={`applicantName${index}`}
@@ -41,6 +43,23 @@ const OwnerDetail = ({
             ltpDetails={applicantDetails?.identity}
           />
 
+          <InputField
+            id={`ownerDoorNo${index}`}
+            name={`ownerDoorNo${index}`}
+            label="Door no"
+            placeholder="Door no"
+            type="text"
+            ltpDetails={applicantDetails?.ownerDoorNo}
+          />
+          <InputField
+            id={`ownerStreetNo${index}`}
+            name={`ownerStreetNo${index}`}
+            label="Street no"
+            placeholder="Street no"
+            type="text"
+            ltpDetails={applicantDetails?.ownerStreetNo}
+          />
+
           <div className="my-4 mx-3">
             <label
               htmlFor="ltpPhoneNo"
@@ -54,7 +73,7 @@ const OwnerDetail = ({
               type="text"
               placeholder="xxxxxxxxxx"
               defaultValue={applicantDetails?.phone}
-              className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
+              className="w-full px-3 py-2 border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200"
               maxLength={10}
               onInput={handleInputPhone}
               required
@@ -87,8 +106,8 @@ const OwnerDetail = ({
           />
         </div>
 
-        <div className="flex">
-          <div className="my-4 mx-3 basis-3/4">
+        <div className="flex basis-[25%] justify-center my-5 lg:my-5">
+          {/* <div className="my-4 mx-3 basis-3/4">
             <label
               htmlFor="message"
               className="block text-gray-600 mb-1 font-semibold dark:text-gray-100"
@@ -103,12 +122,18 @@ const OwnerDetail = ({
               placeholder="Dr. no., Street, Village, Mandal, Dist."
               required
             ></textarea>
-          </div>
+          </div> */}
 
           {index === length - 1 && index < 4 && (
             <div className="flex justify-center items-center">
               <button
-                className="text-xl rounded-full w-[30px] h-[30px] bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white cursor-pointer shadow-lg shadow-violetDark transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold"
+                className="text-xl mx-2 rounded-full w-[30px] h-[30px] bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white cursor-pointer shadow-lg shadow-violetDark transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold"
+                onClick={decreaseApplicationNo}
+              >
+                -
+              </button>
+              <button
+                className="text-xl mx-2 rounded-full w-[30px] h-[30px] bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white cursor-pointer shadow-lg shadow-violetDark transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold"
                 onClick={increaseApplicantNo}
               >
                 +

@@ -32,6 +32,19 @@ const ApplicantInfo = () => {
     const newOwner = `Owner${totalApplicant.length + 1}`;
     setTotalApplicant((prev) => [...prev, newOwner]);
   };
+  const decreaseApplicationNo = () => {
+    // const newOwner = `Owner${totalApplicant.length + 1}`;
+    console.log("AOBC");
+
+    totalApplicant.pop();
+
+    console.log(totalApplicant, "TOTAL APPLICANT");
+    setTotalApplicant([...totalApplicant]);
+  };
+
+  // useEffect(() => {
+  //   console.log(totalApplicant);
+  // }, [totalApplicant]);
 
   const setPhoneNoLimit = (e, setPhoneNo) => {
     const value = e.target.value;
@@ -55,6 +68,8 @@ const ApplicantInfo = () => {
     const ltpPhoneNo = document.getElementById("ltpPhoneNo").value;
     const ltpEmail = document.getElementById("ltpEmail").value;
     const ltpAddress = document.getElementById("ltpAddress").value;
+    // const ltpDoorNo = document.getElementById("ltpDoorNo").value;
+    // const ltpStreetName = document.getElementById("ltpStreetName").value;
 
     const ownerDetail = totalApplicant.map((applicant, index) => {
       return {
@@ -64,7 +79,9 @@ const ApplicantInfo = () => {
         email: document.getElementById(`applicantEmail${index}`).value,
         adharNo: document.getElementById(`applicantAadharNo${index}`).value,
         pinCode: document.getElementById(`applicantPinCode${index}`).value,
-        address: document.getElementById(`applicantAddress${index}`).value,
+        // address: document.getElementById(`applicantAddress${index}`).value,
+        ownerDoorNo: document.getElementById(`ownerDoorNo${index}`).value,
+        ownerStreetNo: document.getElementById(`ownerStreetNo${index}`).value,
       };
     });
 
@@ -76,6 +93,8 @@ const ApplicantInfo = () => {
       phoneNo: ltpPhoneNo,
       email: ltpEmail,
       address: ltpAddress,
+      // ltpDoorNo,
+      // ltpStreetName,
     };
 
     const applicantInfo = {
@@ -92,18 +111,24 @@ const ApplicantInfo = () => {
   const [ltpDetails, setLtpDetails] = useState("");
   const [applicantDetails, setApplicantDetails] = useState("");
 
-  // console.log(ltpDetails, 'ltpDetails');
-  // console.log(applicantDetails, 'applicantDetails');
-
-  const { type, name, address, email, licenseNo, phoneNo, validity } =
-    ltpDetails;
-  // const { identity, adharNo, pinCode, } = applicantDetails;
+  const {
+    type,
+    name,
+    ltpDoorNo,
+    ltpStreetName,
+    email,
+    licenseNo,
+    phoneNo,
+    validity,
+    address,
+  } = ltpDetails;
 
   useEffect(() => {
     const getData = async () => {
       const applicationData = await getApplicationData(applicationNo);
       const ltpDetailsData = applicationData.applicantInfo.ltpDetails;
-      const applicantDetailsData = applicationData.applicantInfo.applicantDetails;
+      const applicantDetailsData =
+        applicationData.applicantInfo.applicantDetails;
       setLtpDetails(ltpDetailsData);
       setApplicantDetails(applicantDetailsData);
       setLtpPhone(ltpDetailsData?.phoneNo);
@@ -115,10 +140,10 @@ const ApplicantInfo = () => {
   const labelClass =
     "block text-gray-600 mb-1 font-semibold dark:text-gray-100";
   const inputClass =
-    "w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black";
+    "w-full px-3 py-2 border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200";
 
   return (
-    <div className="grid my-5 lg:my-0 lg:p-2 dark:bg-black dark:text-gray-100">
+    <div className="grid my-5 mx-5 lg:my-0 lg:p-2 dark:text-gray-100">
       {/* LTP’s Details  */}
       <div className="divide-y-2 divide-gray-200 mb-[60px]">
         <div className="flex items-center">
@@ -130,8 +155,8 @@ const ApplicantInfo = () => {
           <h3 className="font-bold text-xl">LTP’s Details</h3>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 mt-2">
-          <div className="grid grid-cols-2">
+        <div className="lg:flex mt-2">
+          <div className="grid grid-cols-2 lg:grid-cols-3 basis-[75%]">
             <InputField
               id="ltpType"
               name="ltpType"
@@ -146,6 +171,22 @@ const ApplicantInfo = () => {
               placeholder="xxxxxxxxxxxxxxxxx"
               ltpDetails={name}
             />
+            {/* <InputField
+            id="ltpDoorNo"
+            name="ltpDoorNo"
+            label="Door no"
+            placeholder="Door no"
+            type="text"
+            ltpDetails={ltpDoorNo}
+          />
+          <InputField
+            id="ltpStreetName"
+            name="ltpStreetName"
+            label="Street name"
+            placeholder="Street name"
+            type="text"
+            ltpDetails={ltpStreetName}
+          /> */}
             <InputField
               id="licenseNo"
               name="licenseNo"
@@ -193,25 +234,23 @@ const ApplicantInfo = () => {
               ltpDetails={email}
             />
           </div>
-          <div>
-            <div className="my-4 mx-3">
-              <label htmlFor="ltpAddress" className={labelClass}>
-                Address
-              </label>
-              <textarea
-                id="ltpAddress"
-                name="ltpAddress"
-                rows="4"
-                className={inputClass}
-                defaultValue={address}
-                placeholder="Dr. no., Street, Village, Mandal, Dist."
-              ></textarea>
-            </div>
+          <div className="my-4 mx-3 basis-[25%]">
+            <label htmlFor="ltpAddress" className={labelClass}>
+              Address
+            </label>
+            <textarea
+              id="ltpAddress"
+              name="ltpAddress"
+              rows="4"
+              className={inputClass}
+              defaultValue={address}
+              placeholder="Dr. no., Street, Village, Mandal, Dist."
+            ></textarea>
           </div>
         </div>
       </div>
 
-      {/* Applicant’s Details  */}
+      {/* Owner’s Details  */}
       <div className="divide-y-2 divide-gray-200">
         <div className="flex items-center">
           <img
@@ -219,7 +258,7 @@ const ApplicantInfo = () => {
             alt="An icon of the applicant section"
             className="h-10 me-3"
           />
-          <h3 className="font-bold text-xl">Applicant’s Details</h3>
+          <h3 className="font-bold text-xl">Owner’s Details</h3>
         </div>
         {/* <div className="divider m-0"></div> */}
 
@@ -231,6 +270,7 @@ const ApplicantInfo = () => {
               length={totalApplicant.length}
               applicantNo={applicantNo}
               increaseApplicantNo={increaseApplicantNo}
+              decreaseApplicationNo={decreaseApplicationNo}
               setPhoneNoLimit={setPhoneNoLimit}
               applicantDetails={applicantDetails[index]}
             />

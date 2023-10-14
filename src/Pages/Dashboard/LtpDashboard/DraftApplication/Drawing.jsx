@@ -24,11 +24,14 @@ const Drawing = () => {
     Drawing: "",
   });
   const [savedData, setSavedData] = useState([]);
+
+  const [buildingInfoData, setBuildingInfoData] = useState([]);
   const {
     confirmAlert,
     sendUserDataIntoDB,
     getApplicationData,
     userInfoFromLocalStorage,
+    getSubmitApplicationData,
   } = useContext(AuthContext);
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
@@ -39,6 +42,7 @@ const Drawing = () => {
     getApplicationData(applicationNo).then((res) => {
       console.log(res);
       setSavedData(res);
+      setBuildingInfoData(res?.buildingInfo);
       if (Object.keys(res?.drawing).length) {
         const drawingDataFromDB = res?.drawing;
         setImageId(drawingDataFromDB);
@@ -54,12 +58,7 @@ const Drawing = () => {
     JSON.parse(localStorage.getItem("selectedFiles"))
   );
 
-  useEffect(() => {
-    // setLocalFile(JSON.parse(localStorage.getItem("selectedFiles")));
-    return () => {
-      localStorage.removeItem("selectedFiles");
-    };
-  }, []);
+  const [getSubmitData, setGetSubmitData] = useState([]);
 
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
 
@@ -142,9 +141,52 @@ const Drawing = () => {
   // Apu vai send ps data from here
 
   const sentPsDecision = async (url) => {
+    const proposedSiteObs = document.getElementById("proposedSiteObs")?.value;
+    const accessRoadWidthObs =
+      document.getElementById("accessRoadWidthObs")?.value;
+    const scopeOfRoadWideningObs =
+      document.getElementById("scopeRoadWideObs")?.value;
+    const netPlotAreaObs = document.getElementById("netSiteObs")?.value;
+    const buildingHeightObs =
+      document.getElementById("buildingHeightObs")?.value;
+    const setBacksObs = document.getElementById("setBacksObs")?.value;
+    const fontObs = document.getElementById("frontObs")?.value;
+    const rareObs = document.getElementById("rareObs")?.value;
+    const sideOneObs = document.getElementById("sideOneObs")?.value;
+    const sideTwoObs = document.getElementById("sideTwoObs")?.value;
+    const floorObs = document.getElementById("numberOfFloorsObs")?.value;
+    const stiltFloorObs = document.getElementById("stiltFloorObs")?.value;
+    const groundFloorObs = document.getElementById("groundFloorObs")?.value;
+    const firstFloorObs = document.getElementById("firstFloorObs")?.value;
+    const secondFloorObs = document.getElementById("secondFloorObs")?.value;
+    const greenStripObs = document.getElementById("greenStripObs")?.value;
+    const stairCaseWidthObs =
+      document.getElementById("stairCaseWidthObs")?.value;
+    const unitsObs = document.getElementById("unitObs")?.value;
+
     const psData = {
       approved: approvedConfirmation,
       message: recomendationMessage,
+      drawingTableObs: {
+        proposedSiteObs,
+        accessRoadWidthObs,
+        scopeOfRoadWideningObs,
+        netPlotAreaObs,
+        buildingHeightObs,
+        setBacksObs,
+        fontObs,
+        rareObs,
+        sideOneObs,
+        sideTwoObs,
+        floorObs,
+        stiltFloorObs,
+        groundFloorObs,
+        firstFloorObs,
+        secondFloorObs,
+        greenStripObs,
+        stairCaseWidthObs,
+        unitsObs,
+      },
     };
 
     console.log(psData, "PSDATA");
@@ -154,6 +196,22 @@ const Drawing = () => {
     });
   };
 
+  useEffect(() => {
+    // setLocalFile(JSON.parse(localStorage.getItem("selectedFiles")));
+
+    const getSubmitAppData = async () => {
+      const data = await getSubmitApplicationData(applicationNo);
+      console.log(data, "SAD");
+      setGetSubmitData(data);
+    };
+
+    getSubmitAppData();
+
+    return () => {
+      localStorage.removeItem("selectedFiles");
+    };
+  }, []);
+
   return (
     <div className="dark:text-white">
       <form
@@ -161,8 +219,10 @@ const Drawing = () => {
         className="text-black p-5 mt-3"
       >
         {/* AutoCAD Drawing */}
-        <div className="text-base px-2 mb-16 ">
-          <p className="pr-3 font-bold">1. AutoCAD Drawing</p>
+        <div className="text-base px-2 mb-16">
+          <p className="pr-3 font-bold dark:text-gray-100">
+            1. AutoCAD Drawing
+          </p>
           <div className="flex items-center mt-5">
             {role === "LTP" && (
               <label className="relative cursor-pointer mr-6">
@@ -170,7 +230,7 @@ const Drawing = () => {
                   type="file"
                   accept=".dwg, .zip, .pdf, .png, .jpg"
                   onChange={(event) => handleFileChange(event, "AutoCAD")}
-                  className="file-input file-input-bordered file-input-md w-full max-w-xs"
+                  className="file-input file-input-bordered file-input-md w-full max-w-xs dark:text-black dark:border-none"
                 />
               </label>
             )}
@@ -188,7 +248,7 @@ const Drawing = () => {
 
         {/* Drawing PDF */}
         <div className="text-base px-2 mb-10">
-          <p className="pr-3 font-bold">2. Drawing PDF</p>
+          <p className="pr-3 font-bold dark:text-gray-100">2. Drawing PDF</p>
           <div className="flex items-center mt-5">
             {role === "LTP" && (
               <label className="relative cursor-pointer mr-6">
@@ -196,7 +256,7 @@ const Drawing = () => {
                   type="file"
                   accept=".dwg, .zip, .pdf,.png,.jpg"
                   onChange={(event) => handleFileChange(event, "Drawing")}
-                  className="file-input file-input-bordered file-input-md w-full max-w-xs"
+                  className="file-input file-input-bordered file-input-md w-full max-w-xs dark:text-black dark:border-none"
                 />
               </label>
             )}
@@ -211,16 +271,24 @@ const Drawing = () => {
               </Link>
             )}
           </div>
-          <p className="text-red-500 mt-2 text-sm">Note: Upload A3 file</p>
+          {role === "LTP" && (
+            <p className="text-red-500 mt-2 text-sm">Note: Upload A3 file</p>
+          )}
         </div>
       </form>
 
-      {role == "PS" && (
-        <DrawingTable
-          setApprovedConfirmation={setApprovedConfirmation}
-          setRecomendationMessage={setRecomendationMessage}
-        />
-      )}
+      {role == "PS" &&
+        buildingInfoData?.length !== 0 &&
+        getSubmitData?.length !== 0 && (
+          <DrawingTable
+            setApprovedConfirmation={setApprovedConfirmation}
+            setRecomendationMessage={setRecomendationMessage}
+            recomendationMessage={recomendationMessage}
+            approvedConfirmation={approvedConfirmation}
+            applicationData={buildingInfoData}
+            submitData={getSubmitData?.psDrawingPageObservation}
+          />
+        )}
       {openApplication && (
         <Application setOpenApplication={setOpenApplication} />
       )}

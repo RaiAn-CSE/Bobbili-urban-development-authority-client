@@ -1,11 +1,12 @@
 import React from "react";
 import { Outlet } from "react-router";
+import ShowCharts from "../../../Shared/ShowCharts";
 
 function PsDashboard() {
   return (
-    <div>
-      <p>This is PS Dashboard</p>
-    </div>
+    <>
+      <ShowCharts />
+    </>
   );
 }
 

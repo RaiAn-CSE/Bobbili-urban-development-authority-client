@@ -1,17 +1,21 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import IndividualUser from "./IndividualUser";
-import tableStyle from "../../../../Style/tableStyle.module.css";
 import { useQuery } from "react-query";
 import Loading from "../../../Shared/Loading";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
+import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 
 const AllUsers = () => {
   const [records, setRecords] = useState([]);
   const [userInfo, setUserInfo] = useState([]);
   const [showModal, setShowModal] = useState(true);
+  const [error, setError] = useState("");
 
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
+
+  const { userInfoFromLocalStorage, checkLicenseExpirationOfLtp } =
+    useContext(AuthContext);
 
   const { data, refetch, isLoading, isSuccess } = useQuery({
     queryKey: ["allUser"],
@@ -82,31 +86,62 @@ const AllUsers = () => {
   const onSubmit = (data) => {
     console.log(data);
 
-    const { _id } = data;
+    const { _id, validity } = data;
 
-    fetch(`http://localhost:5000/updateUserInfo/${_id}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        if (result.acknowledged) {
-          toast.success("Updated successfully");
-          refetch();
-        } else {
-          toast.error("Failed to update");
+    if (validity.length) {
+      const validitySplit = validity.split("-");
+
+      // HANDLING ERRORS OF USERS TYPING
+      validitySplit.forEach((each, index) => {
+        if (each.length < 2) {
+          validitySplit[index] = validitySplit[index].padStart(2, "0");
         }
-        setShowModal(false);
-      })
-      .catch(() => {
-        toast.error("Server error");
+
+        if (validitySplit.length - 1 === index) {
+          validitySplit[index] = validitySplit[index].padStart(4, "0");
+        }
       });
+
+      const validityInDateFormat = validitySplit.reverse().join("-");
+      const isValidate = checkLicenseExpirationOfLtp(validityInDateFormat);
+      console.log(isValidate, "IS VALIDATE");
+
+      if (isValidate.length === 10) {
+        const newUpdatedData = { ...data, validity: isValidate };
+
+        delete newUpdatedData._id;
+
+        console.log(newUpdatedData, "New updated data");
+        fetch(`http://localhost:5000/updateUserInfo/${_id}`, {
+          method: "PATCH",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(newUpdatedData),
+        })
+          .then((res) => res.json())
+          .then((result) => {
+            if (result.acknowledged) {
+              toast.success("Updated successfully");
+              refetch();
+            } else {
+              toast.error("Failed to update");
+            }
+            setShowModal(false);
+          })
+          .catch(() => {
+            toast.error("Server error");
+          });
+      } else {
+        setError(isValidate);
+      }
+    } else {
+      toast.error("Please fill up empty fields");
+    }
   };
 
   const updateUser = (user) => {
+    setError("");
     console.log(user);
     setUserInfo(user);
     setShowModal(true);
@@ -142,12 +177,14 @@ const AllUsers = () => {
       </div>
 
       {/* display users  */}
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto transition-all duration-700">
         <table
-          className={`table table-zebra w-full font-roboto md:w-[70%] mx-auto mt-10`}
+          className={`table w-full font-roboto md:w-[70%] mx-auto mt-10 dark:text-white`}
         >
           {/* head */}
-          <thead className={`bg-black font-bold text-white text-center`}>
+          <thead
+            className={`bg-black font-bold text-white text-base text-center dark:bg-gradient-to-r dark:from-violet-500 dark:to-fuchsia-500`}
+          >
             <tr>
               <th>Name</th>
               <th>Actions</th>
@@ -178,18 +215,24 @@ const AllUsers = () => {
       {showModal && (
         <dialog
           id="update_user"
-          className="modal modal-bottom sm:modal-middle transition-all duration-500"
+          className="modal modal-top h-full font-roboto transition-all duration-500"
         >
-          <div className="modal-box">
-            <h3 className="font-bold text-2xl">Profile</h3>
+          <div className="modal-box dark:bg-black ">
+            <h3 className="font-bold text-center my-10 text-2xl dark:text-white">
+              Update Profile
+            </h3>
             {/* close the modal  */}
             <form method="dialog">
               <button
-                className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                className="btn btn-sm btn-circle btn-ghost fixed right-2 top-2 dark:text-white"
                 htmlFor="update_user"
               >
                 ✕
               </button>
+
+              {/* <button className="absolute bottom-6 right-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Close
+              </button> */}
             </form>
 
             {/* user information  */}
@@ -199,7 +242,7 @@ const AllUsers = () => {
 
                 {/* form input boxes  */}
 
-                <div className="grid gap-6 mb-6 md:grid-cols-2">
+                <div className="grid gap-6 mb-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                   <div>
                     <label
                       htmlFor="name"
@@ -266,12 +309,124 @@ const AllUsers = () => {
                   </div>
                 </div>
 
-                <button
-                  type="submit"
-                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                >
-                  Submit
-                </button>
+                <div className="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div>
+                    <label
+                      htmlFor="email"
+                      className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
+                    >
+                      Email
+                    </label>
+                    <input
+                      type="text"
+                      {...register("email", { required: true })}
+                      id="email"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="test@gmail.com"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="phone"
+                      className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
+                    >
+                      Phone no
+                    </label>
+                    <input
+                      type="text"
+                      {...register("phone", { required: true })}
+                      id="phone"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="Enter phone no"
+                      maxLength={10}
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="address"
+                      className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
+                    >
+                      Address
+                    </label>
+                    <textarea
+                      id="address"
+                      rows="2"
+                      {...register("address", { required: true })}
+                      className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="Enter address..."
+                    ></textarea>
+                  </div>
+                </div>
+
+                {userInfo?.role === "LTP" && (
+                  <div className="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div>
+                      <label
+                        htmlFor="licenseNo"
+                        className="block mb-2 text-base font-bold text-gray-900 dark:text-white"
+                      >
+                        License No
+                      </label>
+                      <input
+                        type="text"
+                        {...register("licenseNo", { required: true })}
+                        id="licenseNo"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Enter license no"
+                        required
+                      />
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="adharNo"
+                        className="block mb-2 text-base font-bold '' text-gray-900 dark:text-white"
+                      >
+                        Adhar no
+                      </label>
+                      <input
+                        type="text"
+                        {...register("adharNo", { required: true })}
+                        id="adharNo"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Enter phone no"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="validity"
+                        className="block mb-2 text-base font-bold '' text-gray-900 dark:text-white"
+                      >
+                        Validity
+                      </label>
+                      <input
+                        type="text"
+                        {...register("validity", { required: true })}
+                        id="validity"
+                        placeholder="DD-MM-YYYY"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {error.length !== 0 && (
+                  <p className="text-red-500 text-center my-6">{error}</p>
+                )}
+
+                <div className="flex justify-center">
+                  <button
+                    type="submit"
+                    className="text-white transition-all duration-700 shadow-md hover:shadow-violetDark bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:bg-gradient-to-l font-bold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  >
+                    Submit
+                  </button>
+                </div>
               </form>
             </div>
           </div>
