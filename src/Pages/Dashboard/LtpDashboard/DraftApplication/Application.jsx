@@ -421,23 +421,29 @@ function Application({ setOpenApplication }) {
               </tbody>
             </table>
           </div>
-         <div className="mt-7">
-         <p className="font-bold">Primary</p>
-          <p>I hereby declare that I am the owner/ PAH in possession of the plot on which the work is proposed and that the statement made in this form is true and correct to the best of my knowledge.
-          </p>
-         </div>
-          {/* Part04 */}
-          <div className="overflow-x-auto mt-10">
-            <table className="table bg-white table-sm">
-              {/*Part04 head */}
-              <thead>
-
-              </thead>
+          <div className="mt-7">
+            <p className="font-bold">Primary</p>
+            <p>I hereby declare that I am the owner/ PAH in possession of the plot on which the work is proposed and that the statement made in this form is true and correct to the best of my knowledge.
+            </p>
+          </div>
+          <div>
+            <table className="mt-7 w-full">
+              <th className="border border-black"></th>
+              <th className="border border-black">Signature</th>
+              <th className="border border-black"></th>
               <tbody>
-                <tr></tr>
-                <tr></tr>
-
+                <tr className="border border-black w-1/2">
+                  <td className="border border-black">01</td>
+                  <td className="border border-black">Signature of owner</td>
+                  <td className="border border-black"></td>
+                </tr>
+                <tr className="border border-black w-1/2">
+                  <td className="border border-black">02</td>
+                  <td className="border border-black">Signature of the LTP</td>
+                  <td className="border border-black"></td>
+                </tr>
               </tbody>
+
             </table>
           </div>
           <form method="dialog" className="mt-5">
