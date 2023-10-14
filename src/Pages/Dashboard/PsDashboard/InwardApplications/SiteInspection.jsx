@@ -107,8 +107,9 @@ const SiteInspection = () => {
   //   );
   // };
 
-
   const [siteBoundariesImageFiles, setSiteBoundariesImageFiles] = useState({});
+
+  console.log(siteBoundariesImageFiles, 'siteBoundariesImageFiles');
 
   const handleFileChange = (id, file) => {
     setSiteBoundariesImageFiles((prevFiles) => ({
@@ -183,14 +184,7 @@ const SiteInspection = () => {
     };
 
     const siteBoundaries = {
-      northApp,
-      northObs,
-      southApp,
-      southObs,
-      eastApp,
-      eastObs,
-      westApp,
-      westObs,
+      siteBoundariesImageFiles,
       scheduleOfTheDocuments: [
         scheduleOfTheDocumentsApp,
         scheduleOfTheDocumentsObs,
