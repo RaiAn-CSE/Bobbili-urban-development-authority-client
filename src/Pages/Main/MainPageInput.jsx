@@ -9,7 +9,7 @@ const MainPageInput = ({ label, id, text, placeholder, ltpDetails }) => {
             <input
                 id={id}
                 type={text}
-                className='basis-[60%] w-full px-3 py-[7px] border rounded-lg max-w-xs'
+                className='basis-[60%] w-full px-3 py-[7px] border rounded-lg max-w-xs dark:bg-gray-50'
                 placeholder={placeholder}
                 defaultValue={ltpDetails}
                 disabled

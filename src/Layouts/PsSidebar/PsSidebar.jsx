@@ -22,9 +22,8 @@ function PsSidebar() {
   return (
     <>
       <li
-        className={`${
-          path === "/dashboard" && activeColor
-        } mt-24 lg:mt-0 flex items-center  ps-3 ${hoverColor}`}
+        className={`${path === "/dashboard" && activeColor
+          } mt-24 lg:mt-0 flex items-center  ps-3 ${hoverColor}`}
       >
         <span>
           <MdSpaceDashboard size={20} />
@@ -35,8 +34,7 @@ function PsSidebar() {
       </li>
 
       <li
-        className={`${
-          (path === "/dashboard/inward" ||
+        className={`${(path === "/dashboard/inward" ||
             path === "/dashboard/draftApplication/buildingInfo" ||
             path === "/dashboard/draftApplication/applicantInfo" ||
             path === "/dashboard/draftApplication/applicationChecklist" ||
@@ -44,7 +42,7 @@ function PsSidebar() {
             path === "/dashboard/draftApplication/drawing" ||
             path === "/dashboard/draftApplication/payment") &&
           activeColor
-        } mt-1  flex items-center  ps-3 ${hoverColor}`}
+          } mt-1  flex items-center  ps-3 ${hoverColor}`}
       >
         <span>
           <MdSpaceDashboard size={20} />
@@ -54,9 +52,8 @@ function PsSidebar() {
         </Link>
       </li>
       <li
-        className={`${
-          path === "/dashboard/outWard" && activeColor
-        } mt-1 flex items-center  ps-3 ${hoverColor}`}
+        className={`${path === "/dashboard/outWard" && activeColor
+          } mt-1 flex items-center  ps-3 ${hoverColor}`}
       >
         <span>
           <MdSpaceDashboard size={20} />
@@ -66,9 +63,8 @@ function PsSidebar() {
         </Link>
       </li>
       <li
-        className={`${
-          path === "/dashboard/searchApplication" && activeColor
-        } mt-1 flex items-center  ps-3 ${hoverColor}`}
+        className={`${path === "/dashboard/searchApplication" && activeColor
+          } mt-1 flex items-center  ps-3 ${hoverColor}`}
       >
         <span>
           <MdSpaceDashboard size={20} />
@@ -81,9 +77,8 @@ function PsSidebar() {
         </Link>
       </li>
       <li
-        className={`${
-          path === "/dashboard/reValidation" && activeColor
-        } mt-1 flex items-center  ps-3 ${hoverColor}`}
+        className={`${path === "/dashboard/reValidation" && activeColor
+          } mt-1 flex items-center  ps-3 ${hoverColor}`}
       >
         <span>
           <MdSpaceDashboard size={20} />

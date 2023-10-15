@@ -31,6 +31,7 @@ import DemoVideos from "../Pages/Main/DemoVideos/DemoVideos";
 import Home from "../Pages/Main/Home/Home";
 import Reports from "../Pages/Main/Reports/Reports";
 import Location from "../Pages/Dashboard/UDA/Location";
+import UpdateProfile from "../Pages/Shared/UpdateProfile";
 
 const router = createBrowserRouter([
   {
@@ -250,6 +251,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/location",
         element: <Location />,
+      },
+      {
+        path: "/dashboard/profile",
+        element: <UpdateProfile />,
       },
     ],
   },

@@ -6,7 +6,7 @@ import { TfiExport } from "react-icons/tfi";
 import { district } from "../../../assets/buildingInfo.json";
 import { AuthContext } from "../../../AuthProvider/AuthProvider";
 import { useLocation } from "react-router";
-import Table from "./tableStyle.module.css";
+import styles from "./tableStyle.module.css";
 
 const Location = () => {
   const path = useLocation().pathname;
@@ -255,7 +255,9 @@ const Location = () => {
         )}
       </form>
 
-      <div className="flex flex-col font-roboto w-[98%] mx-auto my-10 overflow-x-auto sm:rounded-lg ">
+      <div
+        className={`flex flex-col font-roboto w-[98%] mx-auto my-10 overflow-x-auto sm:rounded-lg `}
+      >
         <button
           onClick={onDownload}
           className={`${gradientColor} transition-all duration-700 mb-8 font-roboto text-base text-white p-2 rounded-lg self-end flex items-center justify-center hover:shadow-lg hover:shadow-violetLight hover:bg-gradient-to-l`}
@@ -263,7 +265,7 @@ const Location = () => {
           Export <TfiExport size={18} className="ms-2" />
         </button>
 
-        <table ref={tableRef} border="1px" className={`${Table}`}>
+        <table ref={tableRef} border="1px" className={`${styles.table}`}>
           <thead>
             <tr>
               <th rowSpan={2}>Sl. no.</th>

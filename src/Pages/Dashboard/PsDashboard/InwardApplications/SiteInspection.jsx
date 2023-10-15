@@ -4,6 +4,7 @@ import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import { useOutletContext } from "react-router-dom";
 import toast from "react-hot-toast";
 import ImageUploadInput from "./ImageUploadInput";
+import axios from "axios";
 
 const SiteInspection = () => {
   const { confirmAlert, sendUserDataIntoDB, getApplicationData } =
@@ -65,32 +66,13 @@ const SiteInspection = () => {
     getData();
   }, []);
 
-  // let [formObject, setFormObject] = useState({ natureOfSite: "", siteLevel: "" })
-
-  // const inputOnChange = (property, value) => {
-
-  //     setFormObject(property => ({
-  //         ...property,
-  //         [property]: value
-  //     }))
-  // }
-
-  // const formSubmit = (e) => {
-  //     e.preventDefault();
-  //     console.log(formObject);
-
-  // }
-
-  // Get SiteInspection Data :
-
   // Decision :
   const [radioPs, setRadioPs] = useState("");
   const handleRadioPs = (e) => {
     setRadioPs(e.target.value);
   };
 
-
-  const [siteBoundariesImageFiles, setSiteBoundariesImageFiles] = useState({
+  const [siteBoundariesImageFilesId, setSiteBoundariesImageFilesId] = useState({
     northApp: "",
     northObs: "",
     southApp: "",
@@ -100,6 +82,8 @@ const SiteInspection = () => {
     westApp: "",
     westObs: "",
   });
+
+  // console.log(siteBoundariesImageFiles, 'siteBoundariesImageFiles');
 
   // const get = () => {
   //   const northApp = document.getElementById("northApp").files[0];
@@ -123,144 +107,183 @@ const SiteInspection = () => {
   //   );
   // };
 
+  const [siteBoundariesImageFiles, setSiteBoundariesImageFiles] = useState({});
+
+  console.log(siteBoundariesImageFiles, "siteBoundariesImageFiles");
 
   const handleFileChange = (id, file) => {
-    // Update the siteBoundariesImageFiles object
     setSiteBoundariesImageFiles((prevFiles) => ({
       ...prevFiles,
-      [id]: file, // Update the specific property with the provided ID
+      [id]: file,
     }));
   };
 
   const collectInputFieldData = async (url) => {
-    // Ground Position :
-    const natureOfSiteApp = document.getElementById("natureOfSiteApp").value;
-    const natureOfSiteObs = document.getElementById("natureOfSiteObs").value;
-    const siteLevelApp = document.getElementById("siteLevelApp").value;
-    const siteLevelObs = document.getElementById("siteLevelObs").value;
-    const totalAreaAsOnGroundApp = document.getElementById(
-      "totalAreaAsOnGroundApp"
-    ).value;
-    const totalAreaAsOnGroundObs = document.getElementById(
-      "totalAreaAsOnGroundObs"
-    ).value;
-    const workCommentedApp = document.getElementById("workCommentedApp").value;
-    const workCommentedObs = document.getElementById("workCommentedObs").value;
-    // Site Boundaries :
-    const northApp = document.getElementById("northApp").files[0];
-    const northObs = document.getElementById("northObs").files[0];
-    const southApp = document.getElementById("southApp").files[0];
-    const southObs = document.getElementById("southObs").files[0];
-    const eastApp = document.getElementById("eastApp").files[0];
-    const eastObs = document.getElementById("eastObs").files[0];
-    const westApp = document.getElementById("westApp").files[0];
-    const westObs = document.getElementById("westObs").files[0];
-    const scheduleOfTheDocumentsApp = document.getElementById(
-      "scheduleOfTheDocumentsApp"
-    ).value;
-    const scheduleOfTheDocumentsObs = document.getElementById(
-      "scheduleOfTheDocumentsObs"
-    ).value;
-    // Access Road :
-    const natureOfRoadApp = document.getElementById("natureOfRoadApp").value;
-    const natureOfRoadObs = document.getElementById("natureOfRoadObs").value;
-    const approachRoadApp = document.getElementById("approachRoadApp").value;
-    const approachRoadObs = document.getElementById("approachRoadObs").value;
-    const roadWidthApp = document.getElementById("roadWidthApp").value;
-    const roadWidthObs = document.getElementById("roadWidthObs").value;
-    const scopeOfRoadApp = document.getElementById("scopeOfRoadApp").value;
-    const scopeOfRoadObs = document.getElementById("scopeOfRoadObs").value;
-    // Land Use :
-    const landUseApp = document.getElementById("landUseApp").value;
-    const landUseObs = document.getElementById("landUseObs").value;
-    const proposedActivityApp = document.getElementById(
-      "proposedActivityApp"
-    ).value;
-    const proposedActivityObs = document.getElementById(
-      "proposedActivityObs"
-    ).value;
-    const landRoadWidthApp = document.getElementById("landRoadWidthApp").value;
-    const landRoadWidthObs = document.getElementById("landRoadWidthApp").value;
-    const whetherPermissionApp = document.getElementById(
-      "whetherPermissionApp"
-    ).value;
-    const whetherPermissionObs = document.getElementById(
-      "whetherPermissionObs"
-    ).value;
-    // Comments
-    const recommendations = document.getElementById("recommendations").value;
+    let fileUploadSuccess = 0;
 
-    const groundPosition = {
-      natureOfSite: [natureOfSiteApp, natureOfSiteObs],
-      siteLevel: [siteLevelApp, siteLevelObs],
-      totalAreaAsOnGround: [totalAreaAsOnGroundApp, totalAreaAsOnGroundObs],
-      workCommented: [workCommentedApp, workCommentedObs],
-    };
+    // uploadFileInCloudStorage(formData);
+    for (const file in siteBoundariesImageFiles) {
+      console.log(file, "File");
+      const formData = new FormData();
+      if (siteBoundariesImageFiles[file]) {
+        console.log(siteBoundariesImageFiles[file], "INSIDE");
+        formData.append("file", siteBoundariesImageFiles[file]);
 
-    const siteBoundaries = {
-      northApp,
-      northObs,
-      southApp,
-      southObs,
-      eastApp,
-      eastObs,
-      westApp,
-      westObs,
-      scheduleOfTheDocuments: [
-        scheduleOfTheDocumentsApp,
-        scheduleOfTheDocumentsObs,
-      ],
-    };
+        console.log(...formData, "FORM DATA");
+        try {
+          const response = await axios.post(
+            "http://localhost:5000/upload?page=siteInspection",
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data", // Important for file uploads
+              },
+            }
+          );
 
-    console.log(siteBoundaries, "siteBoundaries");
+          console.log(response, "RESPONSE");
+          if (response?.data.msg === "Successfully uploaded") {
+            const fileId = response.data.fileId;
+            siteBoundariesImageFilesId[file] = fileId;
+            fileUploadSuccess = 1;
+          }
+        } catch (error) {
+          // Handle errors, e.g., show an error message to the user
+          toast.error("Error to upload documents");
+          fileUploadSuccess = 0;
+        }
+      }
+    }
 
-    const accessRoad = {
-      natureOfRoad: [natureOfRoadApp, natureOfRoadObs],
-      approachRoad: [approachRoadApp, approachRoadObs],
-      accessRoadWidth: [roadWidthApp, roadWidthObs],
-      scopeOfRoad: [scopeOfRoadApp, scopeOfRoadObs],
-    };
+    console.log(fileUploadSuccess, "FILEUPLOAD SUCCESS");
 
-    const landUse = {
-      landUse: [landUseApp, landUseObs],
-      proposedActivity: [proposedActivityApp, proposedActivityObs],
-      landRoadWidth: [landRoadWidthApp, landRoadWidthObs],
-      whetherPermission: [whetherPermissionApp, whetherPermissionObs],
-    };
+    if (fileUploadSuccess) {
+      // Ground Position :
+      const natureOfSiteApp = document.getElementById("natureOfSiteApp").value;
+      const natureOfSiteObs = document.getElementById("natureOfSiteObs").value;
+      const siteLevelApp = document.getElementById("siteLevelApp").value;
+      const siteLevelObs = document.getElementById("siteLevelObs").value;
+      const totalAreaAsOnGroundApp = document.getElementById(
+        "totalAreaAsOnGroundApp"
+      ).value;
+      const totalAreaAsOnGroundObs = document.getElementById(
+        "totalAreaAsOnGroundObs"
+      ).value;
+      const workCommentedApp =
+        document.getElementById("workCommentedApp").value;
+      const workCommentedObs =
+        document.getElementById("workCommentedObs").value;
+      // Site Boundaries :
+      const northApp = document.getElementById("northApp").files[0];
+      const northObs = document.getElementById("northObs").files[0];
+      const southApp = document.getElementById("southApp").files[0];
+      const southObs = document.getElementById("southObs").files[0];
+      const eastApp = document.getElementById("eastApp").files[0];
+      const eastObs = document.getElementById("eastObs").files[0];
+      const westApp = document.getElementById("westApp").files[0];
+      const westObs = document.getElementById("westObs").files[0];
+      const scheduleOfTheDocumentsApp = document.getElementById(
+        "scheduleOfTheDocumentsApp"
+      ).value;
+      const scheduleOfTheDocumentsObs = document.getElementById(
+        "scheduleOfTheDocumentsObs"
+      ).value;
+      // Access Road :
+      const natureOfRoadApp = document.getElementById("natureOfRoadApp").value;
+      const natureOfRoadObs = document.getElementById("natureOfRoadObs").value;
+      const approachRoadApp = document.getElementById("approachRoadApp").value;
+      const approachRoadObs = document.getElementById("approachRoadObs").value;
+      const roadWidthApp = document.getElementById("roadWidthApp").value;
+      const roadWidthObs = document.getElementById("roadWidthObs").value;
+      const scopeOfRoadApp = document.getElementById("scopeOfRoadApp").value;
+      const scopeOfRoadObs = document.getElementById("scopeOfRoadObs").value;
+      // Land Use :
+      const landUseApp = document.getElementById("landUseApp").value;
+      const landUseObs = document.getElementById("landUseObs").value;
+      const proposedActivityApp = document.getElementById(
+        "proposedActivityApp"
+      ).value;
+      const proposedActivityObs = document.getElementById(
+        "proposedActivityObs"
+      ).value;
+      const landRoadWidthApp =
+        document.getElementById("landRoadWidthApp").value;
+      const landRoadWidthObs =
+        document.getElementById("landRoadWidthApp").value;
+      const whetherPermissionApp = document.getElementById(
+        "whetherPermissionApp"
+      ).value;
+      const whetherPermissionObs = document.getElementById(
+        "whetherPermissionObs"
+      ).value;
+      // Comments
+      const recommendations = document.getElementById("recommendations").value;
 
-    // All Information :
-    const siteInspection = {
-      groundPosition,
-      siteBoundaries,
-      accessRoad,
-      landUse,
-      decision: radioPs,
-      recommendations,
-    };
+      const groundPosition = {
+        natureOfSite: [natureOfSiteApp, natureOfSiteObs],
+        siteLevel: [siteLevelApp, siteLevelObs],
+        totalAreaAsOnGround: [totalAreaAsOnGroundApp, totalAreaAsOnGroundObs],
+        workCommented: [workCommentedApp, workCommentedObs],
+      };
 
-    console.log(siteInspection, "SITE INSPECTION");
+      const siteBoundaries = {
+        siteBoundariesImageFilesId,
+        scheduleOfTheDocuments: [
+          scheduleOfTheDocumentsApp,
+          scheduleOfTheDocumentsObs,
+        ],
+      };
 
-    // fetch(`http://localhost:5000/recommendDataOfPs?appNo=${applicationNo}`, {
-    //     method: "PATCH",
-    //     headers: {
-    //         "content-type": "application/json",
-    //     },
-    //     body: JSON.stringify({ siteInspection }),
-    // })
-    //     .then((res) => res.json())
-    //     .then((result) => {
-    //         console.log(result);
-    //         if (result.acknowledged) {
-    //             toast.success("Saved data successfully");
-    //         } else {
-    //             toast.error("Server Error");
-    //         }
-    //     });
+      console.log(siteBoundaries, "siteBoundaries");
 
-    return await sendUserDataIntoDB(url, "PATCH", {
-      applicationNo,
-      siteInspection,
-    });
+      const accessRoad = {
+        natureOfRoad: [natureOfRoadApp, natureOfRoadObs],
+        approachRoad: [approachRoadApp, approachRoadObs],
+        accessRoadWidth: [roadWidthApp, roadWidthObs],
+        scopeOfRoad: [scopeOfRoadApp, scopeOfRoadObs],
+      };
+
+      const landUse = {
+        landUse: [landUseApp, landUseObs],
+        proposedActivity: [proposedActivityApp, proposedActivityObs],
+        landRoadWidth: [landRoadWidthApp, landRoadWidthObs],
+        whetherPermission: [whetherPermissionApp, whetherPermissionObs],
+      };
+
+      // All Information :
+      const siteInspection = {
+        groundPosition,
+        siteBoundaries,
+        accessRoad,
+        landUse,
+        decision: radioPs,
+        recommendations,
+      };
+
+      console.log(siteInspection, "SITE INSPECTION");
+
+      // fetch(`http://localhost:5000/recommendDataOfPs?appNo=${applicationNo}`, {
+      //     method: "PATCH",
+      //     headers: {
+      //         "content-type": "application/json",
+      //     },
+      //     body: JSON.stringify({ siteInspection }),
+      // })
+      //     .then((res) => res.json())
+      //     .then((result) => {
+      //         console.log(result);
+      //         if (result.acknowledged) {
+      //             toast.success("Saved data successfully");
+      //         } else {
+      //             toast.error("Server Error");
+      //         }
+      //     });
+
+      return await sendUserDataIntoDB(url, "PATCH", {
+        applicationNo,
+        siteInspection,
+      });
+    }
   };
 
   const sentPsDecision = async (url) => {
@@ -431,14 +454,14 @@ const SiteInspection = () => {
                   <td className="whitespace-nowrap border-r border-neutral-500">
                     <ImageUploadInput
                       id="northApp"
-                      handleFileChange={(file) => handleFileChange("northApp", file)}
+                      onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
                     />
                   </td>
                   <td className={inputTableDataClass}>
                     <ImageUploadInput
                       id="northObs"
-                      handleFileChange={(file) => handleFileChange("northObs", file)}
+                      onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
                     />
                   </td>
@@ -448,14 +471,14 @@ const SiteInspection = () => {
                   <td className={inputTableDataClass}>
                     <ImageUploadInput
                       id="southApp"
-                      handleFileChange={(file) => handleFileChange("southApp", file)}
+                      onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
                     />
                   </td>
                   <td className={inputTableDataClass}>
                     <ImageUploadInput
                       id="southObs"
-                      handleFileChange={(file) => handleFileChange("southObs", file)}
+                      onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
                     />
                   </td>
@@ -465,14 +488,14 @@ const SiteInspection = () => {
                   <td className={inputTableDataClass}>
                     <ImageUploadInput
                       id="eastApp"
-                      handleFileChange={(file) => handleFileChange("eastApp", file)}
+                      onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
                     />
                   </td>
                   <td className={inputTableDataClass}>
                     <ImageUploadInput
                       id="eastObs"
-                      handleFileChange={(file) => handleFileChange("eastObs", file)}
+                      onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
                     />
                   </td>
@@ -482,14 +505,14 @@ const SiteInspection = () => {
                   <td className={inputTableDataClass}>
                     <ImageUploadInput
                       id="westApp"
-                      handleFileChange={(file) => handleFileChange("westApp", file)}
+                      onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
                     />
                   </td>
                   <td className={inputTableDataClass}>
                     <ImageUploadInput
                       id="westObs"
-                      handleFileChange={(file) => handleFileChange("westObs", file)}
+                      onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
                     />
                   </td>
@@ -813,7 +836,6 @@ const SiteInspection = () => {
           ></textarea>
         </div>
       </div>
-
 
       {/* <button type="submit" className="btn btn-sm" onClick={submitImageData}>Submit</button> */}
 

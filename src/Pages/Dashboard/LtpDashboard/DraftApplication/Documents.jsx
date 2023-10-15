@@ -144,9 +144,8 @@ const DocumentUpload = () => {
     const LtpData = {
       data: setLtpSendingDocument
     }
-    return await sendUserDataIntoDB(url, "PATCH", { DocumentData: { psSendingDocument: PSData, ltpSendingDocument: LtpData } });
+    return await sendUserDataIntoDB(url, "PATCH", { DocumentData: { psSendingDocument: PSData, ltpSendingDocument: LtpData&& LtpData } });
   };
-
 
   return (
     <div className="dark:text-white">

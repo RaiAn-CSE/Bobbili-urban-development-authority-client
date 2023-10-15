@@ -24,21 +24,27 @@ function Outward() {
 
     if (isSuccess) {
       console.log(data, "DATA");
+
+      const approved = data?.approvedApplications;
+      const shortfall = data?.shortfallApplications;
+
+      console.log(approved);
+      console.log(shortfall);
       setAllData([
-        ...data?.approvedApplications,
-        ...data?.shortfallApplications,
+        ...data?.applications?.approvedApplications,
+        ...data?.applications?.shortfallApplications,
       ]);
     }
   }, [isError, isSuccess]);
 
   console.log(allData, "Alldata");
   return (
-    <div className="w-full overflow-x-auto my-10 px-5">
+    <div className="w-full overflow-x-auto my-10 px-1">
       <table className="table dark:text-white">
         {/* head */}
         <thead>
           <tr className="bg-[#2d3436] text-xs md:text-sm text-white hover:bg-[#353b48]">
-            <th>Sl.no.</th>
+            <th>Sl. no.</th>
             <th>Application no.</th>
             <th>Owner name</th>
             <th>Phone no.</th>
@@ -52,7 +58,7 @@ function Outward() {
         <tbody>
           {/* show draft applications  */}
 
-          {allData?.length &&
+          {allData?.length !== 0 &&
             allData?.map((applicationData, index) => {
               return (
                 <tr key={applicationData?.applicationNo}>

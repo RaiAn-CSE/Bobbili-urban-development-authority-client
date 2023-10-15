@@ -111,14 +111,14 @@ const LtpSidebar = () => {
         </Link>
       </li>
 
-      <li className={`flex items-center ps-4 ${hoverColor}  mb-1`}>
+      {/* <li className={`flex items-center ps-4 ${hoverColor}  mb-1`}>
         <span>
           <CgDanger size={22} />
         </span>
         <Link className="p-[10px]  font-medium " to="/#">
           Rejected
         </Link>
-      </li>
+      </li> */}
 
       <li className={`mt-5 flex items-center ps-4 ${hoverColor}  mb-1`}>
         <span>

@@ -15,11 +15,17 @@ const DraftApplication = () => {
   const [openApplication, setOpenApplication] = useState(false);
 
   // const { applicationNo } = location.state;
-  console.log(
-    JSON.parse(localStorage.getItem("CurrentAppNo")),
-    "APPLICATION NO"
-  );
+  // console.log(
+  //   JSON.parse(localStorage.getItem("CurrentAppNo")),
+  //   "APPLICATION NO"
+  // );
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
+
+  const getIndex = JSON.parse(localStorage.getItem("stepIndex"));
+
+  useEffect(() => {
+    setCurrentStep(getIndex);
+  }, []);
 
   // console.log(applicationNo);
 
@@ -52,8 +58,6 @@ const DraftApplication = () => {
     stepsContent.push("Site Inspection");
   }
 
-  console.log(stepsContent, steps);
-
   // Use localStorage to store and retrieve the current step
   useEffect(() => {
     const savedStep = localStorage.getItem("currentStep");
@@ -69,11 +73,10 @@ const DraftApplication = () => {
     };
   }, [location.pathname]);
 
-  // console.log(currentStep);
-
   const handleStepClick = (index) => {
+    console.log("ASLCAM");
     setCurrentStep(index);
-    localStorage.setItem("currentStep", index.toString()); // Store the current step in localStorage
+    localStorage.setItem("stepIndex", JSON.stringify(index)); // Store the current step in localStorage
     navigate(`/dashboard/draftApplication${steps[index]}`);
   };
 
@@ -89,11 +92,7 @@ const DraftApplication = () => {
     "/dashboard/draftApplication/siteInspection",
   ];
 
-  console.log("DRAFT APPLICATION");
-
   const allSteps = [...steps, ...additionalSteps];
-
-  console.log(location.pathname);
 
   const isStepperVisible = allSteps.includes(location.pathname); // Check if current route is in the list of routes with the stepper
 

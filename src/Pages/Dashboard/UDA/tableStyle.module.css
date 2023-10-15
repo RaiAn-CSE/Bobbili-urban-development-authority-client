@@ -1,7 +1,11 @@
-table,
-tr,
-th,
-td {
+table {
+  border: 1px solid black;
+  text-align: center;
+}
+
+table tr,
+table th,
+table td {
   border: 1px solid black;
   text-align: center;
 }

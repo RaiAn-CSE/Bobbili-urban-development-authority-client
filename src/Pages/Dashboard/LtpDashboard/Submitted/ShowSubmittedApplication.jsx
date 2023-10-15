@@ -17,30 +17,34 @@ const ShowSubmittedApplication = ({
   const { applicantDetails } = applicantInfo;
   return (
     <tr>
-      <th>{serialNo + 1}</th>
+      <td className="p-2">{serialNo + 1}</td>
       <td
-        className="hover:underline cursor-pointer"
+        className="hover:underline cursor-pointer p-2"
         onClick={() => showDraftApplication(applicationNo)}
       >
         {applicationNo}
       </td>
-      <td>{applicantDetails.length ? applicantDetails[0].name : "N/A"}</td>
-      <td>{applicantDetails.length ? applicantDetails[0].phone : "N/A"}</td>
-      <td>
+      <td className="p-2">
+        {applicantDetails.length ? applicantDetails[0].name : "N/A"}
+      </td>
+      <td className="p-2">
+        {applicantDetails.length ? applicantDetails[0].phone : "N/A"}
+      </td>
+      <td className="p-2">
         {generalInformation.caseType !== ""
           ? generalInformation.caseType
           : "N/A"}
       </td>
-      <td>
+      <td className="p-2">
         {" "}
         {generalInformation.village !== "" ? generalInformation.village : "N/A"}
       </td>
-      <td>
+      <td className="p-2">
         {" "}
         {generalInformation.mandal !== "" ? generalInformation.mandal : "N/A"}
       </td>
-      <td>{submitDate ?? "N/A"}</td>
-      <td>{status ?? "N/A"}</td>
+      <td className="p-2">{submitDate ?? "N/A"}</td>
+      <td className="p-2">{status ?? "N/A"}</td>
     </tr>
   );
 };

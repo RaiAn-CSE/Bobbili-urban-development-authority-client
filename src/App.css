@@ -1,3 +1,5 @@
+
+
 body {
   font-family: "Roboto", sans-serif;
 }
@@ -32,22 +34,4 @@ body {
 
 .swal2-title {
   font-family: "Roboto Condensed", "sans-serif";
-}
-
-.neuromorphism {
-  border-radius: 32px;
-  background: #e0e0e0;
-  box-shadow: 18px 18px 38px #bebebe, -18px -18px 38px #ffffff;
-}
-
-.chart-container .gradient-blue {
-  background: linear-gradient(to right, #20f08b, #07dfb1);
-}
-
-.chart-container .gradient-red {
-  background: linear-gradient(to right, #e55039, #eb2f06);
-}
-
-.chart-container .gradient-green {
-  background: linear-gradient(to right, #00b894, #00a896);
 }

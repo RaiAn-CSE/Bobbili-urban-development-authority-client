@@ -5,6 +5,7 @@ const FloorDetails = ({
   floor,
   length,
   increaseFloorNo,
+  decreaseFloorNo,
   handleBuiltUpArea,
   handleParkingArea,
   plotDetailsFloor,
@@ -15,7 +16,7 @@ const FloorDetails = ({
   // setFloorTrack,
   // floorTrack,
 }) => {
-  const [floorChange, setFloorChange] = useState("");
+  const [floorChange, setFloorChange] = useState("select");
   const [floorTrack, setFloorTrack] = useState([
     { value: "Stilt / Parking Floor", checked: "" },
     { value: "Ground Floor", checked: "" },
@@ -23,30 +24,28 @@ const FloorDetails = ({
     { value: "Second Floor", checked: "" },
   ]);
 
-  console.log(floorTrack, "Floor track");
-
   const handleFloorChange = (e, index) => {
     setFloorChange(e.target.value);
 
     const floorValue = e.target.value;
     const floorNameIndex = index;
 
-    setFloorTrack((prev) => {
-      prev.forEach((item, index) => {
-        if (item.value === floorValue) {
-          prev[index].checked = floorNameIndex;
+    console.log(floorValue, "FV");
 
-          prev.forEach((itm, j) => {
-            if (j !== index && prev[j].checked === floorNameIndex) {
-              prev[j].checked = "";
-            }
-          });
-        }
-      });
-      return prev;
-    });
+    // setFloorTrack((prev) => {
+    //   prev.forEach((item, index) => {
+    //     if (item.value === floorValue) {
+    //       prev[index].checked = floorNameIndex;
 
-    console.log(floorTrack);
+    //       prev.forEach((itm, j) => {
+    //         if (j !== index && prev[j].checked === floorNameIndex) {
+    //           prev[j].checked = "";
+    //         }
+    //       });
+    //     }
+    //   });
+    //   return prev;
+    // });
   };
 
   return (
@@ -59,10 +58,10 @@ const FloorDetails = ({
           id={`floorName${index}`}
           name={`floorName${index}`}
           className="w-full px-3 py-[10px] border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200"
-          value={floorChange ? floorChange : plotDetailsFloor?.name}
+          value={plotDetailsFloor?.name ? plotDetailsFloor?.name : floorChange}
           onChange={(e) => handleFloorChange(e, index)}
         >
-          <option disabled selected value="Select Floor Name">
+          <option disabled value="select">
             Select Floor Name
           </option>
           {floorOptions?.length &&
@@ -124,6 +123,17 @@ const FloorDetails = ({
               onClick={increaseFloorNo}
             >
               +
+            </button>
+          </div>
+        )}
+
+        {index === length - 1 && index > 0 && index <= 3 && (
+          <div className="flex justify-center items-center">
+            <button
+              className="text-xl mx-2 rounded-full w-[30px] h-[30px] bg-gradient-to-r from-fuchsia-500 to-red-500 text-white cursor-pointer shadow-lg shadow-violetDark transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold"
+              onClick={decreaseFloorNo}
+            >
+              -
             </button>
           </div>
         )}

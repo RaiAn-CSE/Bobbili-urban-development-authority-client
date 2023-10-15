@@ -19,7 +19,7 @@ const DashboardLayout = () => {
       <Navbar />
       <div className="drawer dark:bg-grad lg:drawer-open min-h-[calc(100vh-69px)] relative transition-all duration-700">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle " />
-        <div className="drawer-content  lg:drawer-open dark:bg-[#000] ">
+        <div className="drawer-content w-full overflow-hidden  lg:drawer-open dark:bg-[#000] ">
           {/* <!-- Page content here --> */}
 
           <label
@@ -28,13 +28,13 @@ const DashboardLayout = () => {
           >
             <MdOutlineMenuOpen size={24} />
           </label>
-          <Outlet></Outlet>
+          <Outlet />
         </div>
-        <div className="drawer-side shadow-md w-full md:min-w-[240px] h-full z-10 ">
+        <div className="drawer-side shadow-md w-full md:min-w-[208px] h-full z-10 ">
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
 
           <ul
-            className={`w-full md:w-60 h-full bg-black font-roboto font-bold text-xl  md:text-lg text-white pt-10 lg:fixed ${darkGradientColor}`}
+            className={`w-full md:w-52 h-full bg-black font-roboto font-bold text-xl md:text-lg text-white pt-10 lg:fixed ${darkGradientColor}`}
           >
             {/* <!-- Sidebar content here --> */}
             <li className="absolute right-2 top-20 lg:hidden">

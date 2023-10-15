@@ -11,17 +11,16 @@ const useGetUser = () => {
     [`specificUserInfo`],
     async () => {
       const response = await fetch(
-        `http://localhost:5000/getUser?id=${userInfoFromLocalStorage()?.userId}`
+        `http://localhost:5000/userInformation?id=${
+          userInfoFromLocalStorage()?.userId
+        }`
       );
       return await response.json();
     }
   );
 
-  if (isSuccess) {
-    localStorage.setItem("loggedUser", JSON.stringify({ ...data?.userInfo }));
-  }
-
   console.log(data, "Data");
+
   return [data, refetch, isLoading, isError, isSuccess];
 };
 

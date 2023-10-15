@@ -85,6 +85,7 @@ const NewApplication = () => {
   const showDraftApplication = (applicationNo) => {
     console.log(applicationNo);
     localStorage.setItem("CurrentAppNo", JSON.stringify(applicationNo));
+    localStorage.setItem("stepIndex", JSON.stringify(0));
     navigate("/dashboard/draftApplication/buildingInfo");
   };
 
@@ -108,7 +109,10 @@ const NewApplication = () => {
       },
       applicantInfo: { ltpDetails: {}, applicantDetails: {} },
       applicationCheckList: [],
-      documents: {},
+      documents: {
+        default: [],
+        dynamic: [],
+      },
       drawing: { AutoCAD: "", Drawing: "" },
       payment: {
         udaCharge: {},
@@ -137,6 +141,7 @@ const NewApplication = () => {
             "CurrentAppNo",
             JSON.stringify(data.applicationNo)
           );
+          localStorage.setItem("stepIndex", JSON.stringify(0));
           navigate("/dashboard/draftApplication/buildingInfo");
         }
       })
@@ -167,7 +172,7 @@ const NewApplication = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 my-3  dark:text-gray-100 ">
+    <div className=" my-3  dark:text-gray-100 ">
       <div className="flex justify-end my-5 mr-3">
         <button
           className={`btn flex font-roboto ${gradientColor} transition-all duration-700 text-[#fff]`}
@@ -178,23 +183,23 @@ const NewApplication = () => {
         </button>
       </div>
 
-      <div className="w-full overflow-x-auto">
-        <table className="table">
+      <div className=" w-full overflow-auto">
+        <table className="w-full font-roboto ">
           {/* head */}
           <thead>
-            <tr className="bg-[#2d3436] text-xs md:text-sm text-white hover:bg-[#353b48]">
-              <th>Sl.no.</th>
-              <th>Application no.</th>
-              <th>Owner name</th>
-              <th>Phone no.</th>
-              <th>Case type</th>
-              <th>Village</th>
-              <th>Mandal</th>
-              <th>Created date</th>
-              <th>Delete</th>
+            <tr className="bg-[#2d3436] text-sm md:text-base text-white hover:bg-[#353b48]">
+              <th className="p-2">Sl.no.</th>
+              <th className="p-2">Application no.</th>
+              <th className="p-2">Owner name</th>
+              <th className="p-2">Phone no.</th>
+              <th className="p-2">Case type</th>
+              <th className="p-2">Village</th>
+              <th className="p-2">Mandal</th>
+              <th className="p-2">Created date</th>
+              <th className="p-2">Delete</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="text-sm">
             {/* show draft applications  */}
 
             {data?.map((applicationData, index) => (
