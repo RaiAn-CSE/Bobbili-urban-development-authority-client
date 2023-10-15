@@ -531,7 +531,7 @@ const SiteInspection = () => {
                       type="text"
                       defaultValue={siteBoundaries?.scheduleOfTheDocuments?.[0]}
                       placeholder="Yes/No"
-                      className="h-[88px] px-4 rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600"
+                      className="h-[88px] px-4 rounded-none w-full max-w-xs focus:outline-none bg-gray-100 hover:bg-gray-200"
                     />
                   </td>
                   <td className={inputTableDataClass}>
@@ -540,7 +540,7 @@ const SiteInspection = () => {
                       type="text"
                       defaultValue={siteBoundaries?.scheduleOfTheDocuments?.[1]}
                       placeholder="Yes/No"
-                      className="h-[88px] px-4 rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600"
+                      className="h-[88px] px-4 rounded-none w-full max-w-xs focus:outline-none bg-gray-100 hover:bg-gray-200"
                     />
                   </td>
                 </tr>
@@ -581,17 +581,10 @@ const SiteInspection = () => {
                 <tr className="border-b border-neutral-500">
                   <td className={tableDataClass}>Status of Approach Road</td>
                   <td className={inputTableDataClass}>
-                    {/* <input
-                      id="approachRoadApp"
-                      type="text"
-                      defaultValue={accessRoad?.approachRoad?.[0]}
-                      placeholder="Public"
-                      className={inputClass}
-                    /> */}
                     <div className="flex flex-col justify-center">
                       <select
                         id="approachRoadApp"
-                        className="input rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600"
+                        className="input rounded-none w-full max-w-xs focus:outline-none bg-gray-100 hover:bg-gray-200"
                         value={
                           approachRoadApp
                             ? approachRoadApp
@@ -615,7 +608,7 @@ const SiteInspection = () => {
                     <div className="flex flex-col justify-center">
                       <select
                         id="approachRoadObs"
-                        className="input rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600"
+                        className="input rounded-none w-full max-w-xs focus:outline-none bg-gray-100 hover:bg-gray-200"
                         value={
                           approachRoadObs
                             ? approachRoadObs
