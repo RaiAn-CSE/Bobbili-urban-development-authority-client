@@ -54,8 +54,8 @@ const OwnerDetail = ({
           <InputField
             id={`ownerStreetNo${index}`}
             name={`ownerStreetNo${index}`}
-            label="Street no"
-            placeholder="Street no"
+            label="Street name"
+            placeholder="Street name"
             type="text"
             ltpDetails={applicantDetails?.ownerStreetNo}
           />
@@ -145,7 +145,6 @@ const OwnerDetail = ({
               </button>
             </div>
           )}
-
         </div>
       </div>
     </div>
