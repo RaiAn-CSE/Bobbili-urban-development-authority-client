@@ -25,15 +25,15 @@ function Outward() {
     if (isSuccess) {
       console.log(data, "DATA");
 
-      const approved = data?.approvedApplications;
-      const shortfall = data?.shortfallApplications;
+      const approved = data?.applications?.approvedApplications;
+      const shortfall = data?.applications?.shortfallApplications;
 
       console.log(approved);
       console.log(shortfall);
-      setAllData([
-        ...data?.applications?.approvedApplications,
-        ...data?.applications?.shortfallApplications,
-      ]);
+      setAllData((prev) => {
+        const newValue = [...approved, ...shortfall];
+        return newValue;
+      });
     }
   }, [isError, isSuccess]);
 

@@ -360,6 +360,14 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  const showPageBasedOnApplicationType = (applicationNo, navigate) => {
+    localStorage.setItem("CurrentAppNo", JSON.stringify(applicationNo));
+    localStorage.setItem("stepIndex", JSON.stringify(0));
+
+    navigate("/dashboard/draftApplication/buildingInfo", {
+      state: { page: "draft" },
+    });
+  };
   //   create a object to transfer data into various components
   const userInfo = {
     updateUserInfoInLocalStorage,
@@ -377,6 +385,7 @@ const AuthProvider = ({ children }) => {
     decideHoverColor,
     setIsDark,
     isDark,
+    showPageBasedOnApplicationType,
     handleLogOut,
   };
 

@@ -4,7 +4,7 @@ import { FaHandPointRight } from "react-icons/fa";
 import generalInfoImage from "../../../../assets/images/general-information.png";
 import plotImage from "../../../../assets/images/land.png";
 import wallImage from "../../../../assets/images/gate.png";
-import { useOutletContext } from "react-router";
+import { useOutletContext, useLocation } from "react-router";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import allDistrictData from "../../../../assets/buildingInfo.json";
 import SaveData from "./SaveData";
@@ -12,6 +12,10 @@ import FloorDetails from "./FloorDetails";
 
 const BuildingInfo = () => {
   const stepperData = useOutletContext();
+
+  const location = useLocation();
+
+  console.log(location, "LOC");
 
   const [isStepperVisible, currentStep, steps] = stepperData;
 

@@ -127,7 +127,13 @@ const DraftApplication = () => {
     <RiSecurePaymentLine size={19} />,
   ];
 
-  const path = useLocation().pathname;
+  const path = useLocation()?.pathname;
+
+  let cameFrom;
+  if (location?.state) {
+    const { page } = location?.state;
+    cameFrom = page;
+  }
 
   const applicationModalShow =
     path.includes("applicationChecklist") ||
@@ -143,9 +149,7 @@ const DraftApplication = () => {
             <p
               className={`my-8 font-roboto font-semibold text-xl ${gradientColor} text-transparent bg-clip-text`}
             >
-              <span className="text-black">
-                Application No:
-              </span>{" "}
+              <span className="text-black">Application No:</span>{" "}
               {applicationNo}
             </p>
             {applicationModalShow && (
@@ -156,6 +160,41 @@ const DraftApplication = () => {
                 <HiOutlineClipboardDocumentList className="text-lg" />{" "}
                 <span>Application</span>
               </button>
+            )}
+
+            {cameFrom === "approved" && (
+              <>
+                <button
+                  className={`btn btn-sm text-xs ${gradientColor} transition-all duration-700 text-white dark:border-none`}
+                >
+                  <HiOutlineClipboardDocumentList className="text-lg" />{" "}
+                  <span>Application</span>
+                </button>
+
+                <button
+                  className={`btn btn-sm text-xs ${gradientColor} transition-all duration-700 text-white dark:border-none`}
+                >
+                  <HiOutlineClipboardDocumentList className="text-lg" />{" "}
+                  <span>Application</span>
+                </button>
+              </>
+            )}
+
+            {cameFrom === "shortfall" && (
+              <>
+                <button
+                  className={`btn btn-sm text-xs ${gradientColor} transition-all duration-700 text-white dark:border-none`}
+                >
+                  <HiOutlineClipboardDocumentList className="text-lg" />{" "}
+                  <span>Application</span>
+                </button>
+                <button
+                  className={`btn btn-sm text-xs ${gradientColor} transition-all duration-700 text-white dark:border-none`}
+                >
+                  <HiOutlineClipboardDocumentList className="text-lg" />{" "}
+                  <span>Application</span>
+                </button>
+              </>
             )}
 
             {/* Application Modal */}

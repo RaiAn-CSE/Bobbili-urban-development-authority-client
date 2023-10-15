@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 
@@ -8,6 +8,7 @@ const AllDraftApplication = ({
   applicationData,
   showDraftApplication,
   removeDraftApplication,
+  navigate,
 }) => {
   const { alertToConfirmDelete } = useContext(AuthContext);
   console.log(applicationData);
@@ -23,12 +24,12 @@ const AllDraftApplication = ({
     <tr className="dark:text-black">
       <td>{serialNo + 1}</td>
       <td className="px-2">
-        <Link
+        <button
           className="hover:underline"
-          onClick={() => showDraftApplication(applicationNo)}
+          onClick={() => showDraftApplication(applicationNo, navigate)}
         >
           {applicationNo}
-        </Link>
+        </button>
       </td>
       <td className="px-2">
         {applicantDetails.length ? applicantDetails[0].name : "N/A"}

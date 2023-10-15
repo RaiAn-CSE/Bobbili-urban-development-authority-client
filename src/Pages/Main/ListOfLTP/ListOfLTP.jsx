@@ -89,15 +89,16 @@ const ListOfLTP = () => {
       {/* Location details  */}
       <div className="divide-y-2 divide-gray-200 mt-5 font-roboto">
         <div className="overflow-x-auto">
-          <table className="table text-center">
+          <table className="table table-footer-group text-center text-wrap">
             {/* head */}
             <thead className={`text-base text-black bg-indigo-300`}>
               <tr>
                 <th>Name</th>
-                <th>User name</th>
-                <th>Email</th>
                 <th>Contact no.</th>
-                <th>License validity</th>
+                <th c>Email</th>
+                <th>Address</th>
+                <th>License no.</th>
+                <th>Validity</th>
               </tr>
             </thead>
             <tbody>
@@ -105,9 +106,10 @@ const ListOfLTP = () => {
                 return (
                   <tr key={ltp?._id}>
                     <td>{ltp?.name}</td>
-                    <td>{ltp?.userId}</td>
-                    <td>{ltp?.email ?? "N/A"}</td>
                     <td>{ltp?.phone ?? "N/A"}</td>
+                    <td>{ltp?.email ?? "N/A"}</td>
+                    <td>{ltp?.address ?? "N/A"}</td>
+                    <td>{ltp?.licenseNo ?? "N/A"}</td>
                     <td>{ltp?.validity ?? "N/A"}</td>
                   </tr>
                 );
