@@ -1,204 +1,268 @@
 import React, { useContext, useEffect, useState } from "react";
-import DynamicDocuments from "../../../../assets/DynamicDocument.json";
-import { Link, useOutletContext } from "react-router-dom";
+import Documents from "../../../../assets/Documents.json";
+import { Link, useLocation, useOutletContext } from "react-router-dom";
 import toast from "react-hot-toast";
 import SaveData from "./SaveData";
 import axios from "axios";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
+import Application from "./Application";
+import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 import DocumentFooter from "./DocumentFooter";
-import DefaultDocument from "./DefaultDocument";
-import DynamicDocument from "./DynamicDocument";
-import PsDocument from "./PsDocument";
 
 const DocumentUpload = () => {
-  const [updatedDefaultDocument, setUpdatedDefaultDocument] = useState([]);
+  const [openApplication, setOpenApplication] = useState(false);
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [UpdatedDocuments, setUpdatedDocuments] = useState([...Documents.Data]);
   const [imageId, setImageId] = useState([]);
   const [approvedConfirmation, setApprovedConfirmation] = useState("");
   const [recomendationMessage, setRecomendationMessage] = useState("");
   const stepperData = useOutletContext();
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
-  const [PreviousDefaultDocumentData, setPreviousDefaultDocumentData] = useState([]);
-  const [PreviousDynamicDocumentData, setPreviousDynamicDocumentData] = useState([]);
-  const [UpdatedDynamicDocumentData, setUpdatedDynamicDocumentData] = useState([]);
-  const [ltpSendingDocument, setLtpSendingDocument] = useState({ dynamic: [], default: [] });
-  const [psSendingDocument, setPsSendingDocument] = useState({ dynamic: [], default: [] });
-  const [DefaultData, setDefaultData] = useState([]);
-  const [DynamicData, setDynamicData] = useState([]);
-  const [statusDefaultData, setStatusDefaultData] = useState([]);
-  const [statusDynamicData, setStatusDynamicData] = useState([]);
-  const { confirmAlert, sendUserDataIntoDB, getApplicationData, userInfoFromLocalStorage } = useContext(AuthContext);
-
+  const {
+    confirmAlert,
+    sendUserDataIntoDB,
+    getApplicationData,
+    userInfoFromLocalStorage,
+  } = useContext(AuthContext);
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
   const role = userInfoFromLocalStorage().role;
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
-  // Ltp File uploading Data handeling
-  const handleFileChange = (event, id, uploadedFile, type, uploadId) => {
-    const { files, name } = event.target;
-    const file = files[0];
-
-    if (file) {
-      toast.success(`${file.name.slice(0, 20)}... Uploaded Successfully`);
-    }
-
-    if (type === "dynamic") {
-      const data = { id, uploadId, file };
-      setDynamicData((prev) => [...prev, data]);
-    } else {
-      const data = { id, file };
-      setDefaultData((prev) => [...prev, data]);
-    }
+  const handleFileChange = (event, index) => {
+    const file = event?.target?.files[0];
+    file &&
+      toast.success(`${file?.name.slice(0, 20)}... uploaded successfully!`);
+    selectedFiles[index] = file;
   };
 
-  // LTP Sending Document Updating when handleChange
-  useEffect(() => {
-    setLtpSendingDocument({ default: DefaultData, dynamic: DynamicData });
-  }, [DefaultData, DynamicData]);
-
-  // PS Approved and Shortfall Data handeling
-  const handleStatus = (event, id, uploadId, type) => {
-    if (type === "dynamic") {
-      const dynamicMatchedIndex = statusDynamicData.findIndex((data) => data.id == id);
-
-      if (dynamicMatchedIndex !== -1) {
-        // If a matching ID is found in dynamic data, updated it
-        const updatedData = { ...statusDynamicData[dynamicMatchedIndex], event };
-        statusDynamicData[dynamicMatchedIndex] = updatedData;
-        setStatusDynamicData([...statusDynamicData]);
-      } else {
-        // If no match is found in dynamic data, added a new entry
-        const data = { id, uploadId, event };
-        setStatusDynamicData((prev) => [...prev, data]);
-      }
-    } else {
-      const defaultMatchedIndex = statusDefaultData.findIndex((data) => data.id == id);
-
-      if (defaultMatchedIndex !== -1) {
-        // If a matching ID is found in default data, updated it
-        const updatedData = { ...statusDefaultData[defaultMatchedIndex], event };
-        statusDefaultData[defaultMatchedIndex] = updatedData;
-        setStatusDefaultData([...statusDefaultData]);
-      } else {
-        // If no match is found in default data, added a new entry
-        const data = { id, event };
-        setStatusDefaultData((prev) => [...prev, data]);
-      }
-    }
-    console.log({ id, event, uploadId });
-  };
-  // PS Sending Document Updating when handleChange
-  useEffect(() => {
-    setPsSendingDocument({ default: statusDefaultData, dynamic: statusDynamicData });
-  }, [statusDefaultData, statusDynamicData]);
-
-  // PS Page Recomendation Message and Approved 
-  const handleRecomendationMessage = (e) => {
-    const RecomdMessage = e.target.value;
-    setRecomendationMessage(RecomdMessage);
-  };
-  const handleConfirmation = (data) => {
-    setApprovedConfirmation(data);
+  // Updating documnets when Approved btn clicked (PS)
+  const handleAnswer = (event, index) => {
+    toast.success(`${event?.target?.value}`);
+    selectedFiles[index] = event?.target?.value;
+    const updatedApproved = UpdatedDocuments.map((file) => ({
+      ...file,
+      approved: file.id === index ? event.target.value : file.approved,
+    }));
+    setUpdatedDocuments(updatedApproved);
   };
 
   // Adding checklist Data to Document from server data && Updating Data from server Data
   useEffect(() => {
     const gettingData = async () => {
-      let updatedDynamicDocumentsToAdd = [];
+      let updatedDocumentsToAdd = [];
+      let updateNewSelectDocument = [];
       const applicationData = await getApplicationData(applicationNo);
       const applicationCheckList = applicationData.applicationCheckList;
-      setPreviousDefaultDocumentData(applicationData?.documents?.psData?.data?.default);
-      setPreviousDynamicDocumentData(applicationData?.documents?.psData?.data?.dynamic);
-      setApprovedConfirmation(applicationData?.documents?.psData?.approved)
-      setRecomendationMessage(applicationData?.documents?.psData?.message)
-      // setPreviousDefaultDocumentData(applicationData.documents?.default);
-      // const PreviousDynamicDocument = applicationData.documents?.dynamic;
-      setPreviousDefaultDocumentData(
-        applicationData?.documents?.psData?.data?.default
-      );
-      setPreviousDynamicDocumentData(
-        applicationData?.documents?.psData?.data?.dynamic
-      );
-      setApprovedConfirmation(applicationData?.documents?.psData?.approved);
-      setRecomendationMessage(applicationData?.documents?.psData?.message);
+      const documents = applicationData.documents;
 
-      // Checklist "yes" Data integrating to Document
+      let increaseDocument = UpdatedDocuments.length;
+
+      // Adding checklist Data to Document from server data
       if (applicationCheckList.length) {
-        DynamicDocuments?.forEach((data, index) => {
-          applicationCheckList.forEach((document) => {
-            const condition01 = data.question === document.question;
-            const condition02 = document.answer === "yes";
-            if (condition01 && condition02) {
-              updatedDynamicDocumentsToAdd.push(data);
-            }
-          });
+        // Declare the array here
+        applicationCheckList?.forEach((data, index) => {
+          const already = UpdatedDocuments.find(
+            (document) => document.question === data.question
+          );
+          if (already) {
+            return null;
+          }
+          if (index >= 8 && data.answer === "yes") {
+            increaseDocument++;
+            const newDocument = {
+              id: increaseDocument.toString(),
+              question: data.question,
+              upload: "",
+              approved: "",
+            };
+            updatedDocumentsToAdd.push(newDocument);
+          }
         });
       }
-      setUpdatedDynamicDocumentData(updatedDynamicDocumentsToAdd);
-      console.log(applicationData, updatedDynamicDocumentsToAdd, "UpdatedDynamicData")
+
+      setUpdatedDocuments([...UpdatedDocuments, ...updatedDocumentsToAdd]);
+
+      // Updating Data from server Data
+      // RECEIVED DOCUMENT DATA FROM THE DB & STORE THEM IN THE UPDATED DOCUMENT STATE
+      if (Object.keys(documents).length) {
+        setUpdatedDocuments((prev) => {
+          prev.forEach((document, index) => {
+            prev[index].upload = documents[index];
+          });
+          return prev;
+        });
+        setApprovedConfirmation(documents.approved);
+        setRecomendationMessage(documents.message);
+      }
     };
     gettingData();
   }, []);
 
+  useEffect(() => {
+    const emptyArray = Array.from({ length: UpdatedDocuments.length });
+    setSelectedFiles(emptyArray);
+    setImageId(emptyArray);
+  }, [UpdatedDocuments]);
 
-  const handleFileUpload = () => { };
-  // send data to PS DB
-  const selectedData = role == "PS" ? psSendingDocument : ltpSendingDocument;
+  // handle file upload
+  const handleFileUpload = async (url) => {
+    // append data to formData so that the file data can be sent into the database
+    let fileCheckToUpload = 0;
+
+    for (let i = 0; i < selectedFiles.length; i++) {
+      const formData = new FormData();
+
+      if (selectedFiles[i]) {
+        formData.append("file", selectedFiles[i]);
+        try {
+          const response = await axios.post(
+            "https://residential-building.vercel.app/upload?page=document",
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data", // Important for file uploads
+              },
+            }
+          );
+          // Handle success or display a success message to the user
+          if (response?.data.msg === "Successfully uploaded") {
+            const documentImageId = response?.data?.fileId;
+
+            imageId[i] = documentImageId;
+          }
+        } catch (error) {
+          console.log(error, "ERROR");
+          // Handle errors, e.g., show an error message to the user
+          toast.error("Error to upload documents");
+        }
+      } else {
+        console.log("ELSE OF FILE");
+        imageId[i] = UpdatedDocuments[i]?.upload?.length
+          ? UpdatedDocuments[i]?.upload
+          : "";
+
+        console.log(imageId[i]);
+      }
+      fileCheckToUpload++;
+    }
+
+    if (fileCheckToUpload === selectedFiles.length) {
+      return await sendUserDataIntoDB(url, "PATCH", {
+        applicationNo,
+        documents: imageId,
+        approved: approvedConfirmation,
+        message: recomendationMessage,
+      });
+    }
+  };
+
+  //  send data to ps db (Apu vai send ps data from here)
+
+  // ps data get
 
   const sentPsDecision = async (url) => {
+    // PS data select and Send data
+    const PSKeys = ["id", "approved"];
+    const PSArray = UpdatedDocuments.map(({ ...obj }) =>
+      PSKeys.reduce((acc, key) => ((acc[key] = obj[key]), acc), {})
+    );
     const PSData = {
-      data: selectedData,
+      documentsObservation: { ...PSArray },
       approved: approvedConfirmation ?? "",
       message: recomendationMessage ?? "",
     };
-    const LtpData = {
-      data: setLtpSendingDocument
-    }
-    return await sendUserDataIntoDB(url, "PATCH", { DocumentData: { psSendingDocument: PSData, ltpSendingDocument: LtpData&& LtpData } });
+
+    console.log(PSData, "PSDATA");
+
+    return await sendUserDataIntoDB(url, "PATCH", {
+      applicationNo,
+      psDocumentPageObservation: PSData,
+    });
   };
 
   return (
-    <div className="text-black">
+    <div>
       <form
         onSubmit={(e) => {
           e.preventDefault();
         }}
-        className="text-black p-4 font-roboto dark:text-black"
+        className="text-black p-4 font-roboto dark:text-gray-100"
       >
-        <div className="w-full text-[17px] px-2 py-5 rounded">
-          <DefaultDocument
-            role={role}
-            PreviousDefaultDocumentData={PreviousDefaultDocumentData}
-            handleFileChange={handleFileChange}
-            gradientColor={gradientColor}
-            setApprovedConfirmation={setApprovedConfirmation}
-            handleStatus={handleStatus}
-          // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
-          />
-          <DynamicDocument
-            role={role}
-            PreviousDynamicDocumentData={PreviousDynamicDocumentData}
-            UpdatedDynamicDocumentData={UpdatedDynamicDocumentData}
-            handleFileChange={handleFileChange}
-            gradientColor={gradientColor}
-            dynamicImageFromDB={imageIdFromDB?.dynamic}
-            // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
-            setApprovedConfirmation={setApprovedConfirmation}
-            handleStatus={handleStatus}
-          // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
-            // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
-          />
-        </div>
-      </form>
+        {UpdatedDocuments?.map((document, index) => {
+          const { id, question, upload, approved } = document;
+          return (
+            <>
+              <div key={id} className="w-full px-2 mb-5 py-5 rounded">
+                <p className="text-[17px] font-bold text-lg md:text-xl">
+                  {id}. {question}
+                </p>
 
+                <div className="flex items-center mt-6">
+                  {/* Approved Button */}
+                  {role === "LTP" && (
+                    <input
+                      name={id}
+                      type="file"
+                      accept=".pdf, image/*"
+                      onChange={(event) => handleFileChange(event, index)}
+                      className="file-input file-input-bordered w-full max-w-xs dark:text-black dark:border-none"
+                    />
+                  )}
+
+                  {upload !== "" && (
+                    <Link
+                      to={`https://drive.google.com/file/d/${upload}/view?usp=sharing`}
+                      target="_blank"
+                      className={`${gradientColor} text-white hover:underline ms-5 py-2 px-5 rounded-full`}
+                    >
+                      View
+                    </Link>
+                  )}
+
+                  {role === "PS" && (
+                    <div className="space-x-10 mt-2 ms-4 lg:pr-2 ">
+                      <label
+                        className={`ml-2 inline-flex items-center space-x-1 text-black 
+                          ${approved === "approved" && "font-extrabold"}`}
+                      >
+                        <input
+                          type="radio"
+                          name={id}
+                          value="approved"
+                          className="radio radio-sm radio-success mr-3 lg:mr-0"
+                          // checked={approved === "approved"}
+                          onChange={(event) => handleAnswer(event, id)}
+                        />
+                        <span>Approve</span>
+                      </label>
+                      <label
+                        className={`ml-2 inline-flex items-center space-x-1 text-black 
+                          ${approved === "shortfall" && "font-extrabold"}`}
+                      >
+                        <input
+                          type="radio"
+                          name={id}
+                          value="shortfall"
+                          className="radio radio-sm radio-success mr-3 lg:mr-0"
+                          // checked={shortfall === "shortfall"}
+                          onChange={(event) => handleAnswer(event, id)}
+                        />
+                        <span>Shortfall</span>
+                      </label>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </>
+          );
+        })}
+      </form>
       {role === "PS" ? (
         <DocumentFooter
           approvedConfirmation={approvedConfirmation}
-          recomendationMessage={recomendationMessage}
           setApprovedConfirmation={setApprovedConfirmation}
           setRecomendationMessage={setRecomendationMessage}
-          handleRecomendationMessage={handleRecomendationMessage}
-          handleConfirmation={handleConfirmation}
         />
       ) : (
         ""
