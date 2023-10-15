@@ -58,20 +58,26 @@ const MainLayout = () => {
         <div className="basis-[20%] flex justify-end items-center space-x-6">
           <Link
             to="/"
-            className={`w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center  ${path.length === 1 && path.includes("/") ? active : ` ${notActive}`
-              }`}
+            className={`w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center  ${
+              path === "/" ||
+              path === "/onlinePayment" ||
+              path === "/listOfLTP" ||
+              path === "/demoVideos" ||
+              path === "/privacyPolicy" ||
+              path === "/defaultDrawingFormat"
+                ? active
+                : ` ${notActive}`
+            }`}
           >
             <AiOutlineHome size={25} className="text-2xl " />
           </Link>
           <Link
             to="/statistics"
-            className={`w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center ${path.includes("/statistics") ? active : ` ${notActive}`
-              }`}
+            className={`w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center ${
+              path.includes("/statistics") ? active : ` ${notActive}`
+            }`}
           >
-            <MdOutlineDashboard
-              size={25}
-              className="text-2xl"
-            />
+            <MdOutlineDashboard size={25} className="text-2xl" />
           </Link>
 
           <div className="cursor-pointer">

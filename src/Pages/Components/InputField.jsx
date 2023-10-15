@@ -4,7 +4,6 @@ const InputField = ({ id, name, placeholder, type, label, ltpDetails }) => {
   // Define default values for type and placeholder if not provided
   const inputType = type || "text";
 
-
   // Define the gradient border style
   const gradientBorderStyle = {
     borderImage: "linear-gradient(90deg, red, yellow)",
@@ -12,7 +11,7 @@ const InputField = ({ id, name, placeholder, type, label, ltpDetails }) => {
   };
 
   return (
-    <div className="my-4 mx-3">
+    <div className="my-4 mx-3 flex flex-col justify-between">
       <label
         htmlFor={id}
         className="block text-gray-600 dark:text-gray-100 mb-1 font-semibold"
