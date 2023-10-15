@@ -215,14 +215,14 @@ const Drawing = () => {
   }, []);
 
   return (
-    <div className="dark:text-white">
+    <div className="text-black">
       <form
         onSubmit={(e) => e.preventDefault()}
         className="text-black p-5 mt-3"
       >
         {/* AutoCAD Drawing */}
         <div className="text-base px-2 mb-16">
-          <p className="pr-3 font-bold dark:text-gray-100">
+          <p className="pr-3 font-bold text-black">
             1. AutoCAD Drawing
           </p>
           <div className="flex items-center mt-5">
@@ -232,7 +232,7 @@ const Drawing = () => {
                   type="file"
                   accept=".dwg, .zip, .pdf, .png, .jpg"
                   onChange={(event) => handleFileChange(event, "AutoCAD")}
-                  className="file-input file-input-bordered file-input-md w-full max-w-xs dark:text-black dark:border-none"
+                  className="file-input file-input-bordered file-input-md w-full max-w-xs text-white  dark:border-none"
                 />
               </label>
             )}
@@ -250,7 +250,7 @@ const Drawing = () => {
 
         {/* Drawing PDF */}
         <div className="text-base px-2 mb-10">
-          <p className="pr-3 font-bold dark:text-gray-100">2. Drawing PDF</p>
+          <p className="pr-3 font-bold text-black">2. Drawing PDF</p>
           <div className="flex items-center mt-5">
             {role === "LTP" && (
               <label className="relative cursor-pointer mr-6">
@@ -258,7 +258,7 @@ const Drawing = () => {
                   type="file"
                   accept=".dwg, .zip, .pdf,.png,.jpg"
                   onChange={(event) => handleFileChange(event, "Drawing")}
-                  className="file-input file-input-bordered file-input-md w-full max-w-xs dark:text-black dark:border-none"
+                  className="file-input file-input-bordered file-input-md w-full max-w-xs text-white dark:border-none"
                 />
               </label>
             )}
