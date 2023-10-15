@@ -558,7 +558,7 @@ const Payment = () => {
             {role === "LTP" && (
               <div>
                 <button
-                  className={`btn btn-md text-sm px-3 mt-10 ml-3  text-white shadow-md transition-all duration-500 ${gradientColor}`}
+                  className={`btn btn-md text-sm px-3 mt-10 ml-3 border-none text-white shadow-md transition-all duration-500 ${gradientColor}`}
                 >
                   <GiMoneyStack size={25} /> pay now
                 </button>

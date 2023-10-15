@@ -230,7 +230,7 @@ const Drawing = () => {
                   type="file"
                   accept=".dwg, .zip, .pdf, .png, .jpg"
                   onChange={(event) => handleFileChange(event, "AutoCAD")}
-                  className="file-input file-input-bordered file-input-md w-full max-w-xs text-white  dark:border-none"
+                  className="file-input file-input-bordered file-input-md w-full max-w-xs text-gray-400"
                 />
               </label>
             )}
@@ -256,7 +256,7 @@ const Drawing = () => {
                   type="file"
                   accept=".dwg, .zip, .pdf,.png,.jpg"
                   onChange={(event) => handleFileChange(event, "Drawing")}
-                  className="file-input file-input-bordered file-input-md w-full max-w-xs text-white dark:border-none"
+                  className="file-input file-input-bordered file-input-md w-full max-w-xs text-gray-400"
                 />
               </label>
             )}
