@@ -351,7 +351,7 @@ const Payment = () => {
         console.log(...formData);
         try {
           const response = await axios.post(
-            "https://residential-building.vercel.app/upload?page=payment",
+            "http://localhost:5000/upload?page=payment",
             formData,
             {
               headers: {
@@ -563,6 +563,115 @@ const Payment = () => {
                   <GiMoneyStack size={25} /> pay now
                 </button>
               </div>
+            )}
+            {role === "PS" && (
+              <>
+                <div>
+                  <button
+                    className={`btn btn-md text-sm px-3 mt-10 ml-3 border-none text-white shadow-md transition-all duration-500 ${gradientColor} hover:shadow-lg hover:shadow-violetDark hover:bg-gradient-to-bl`}
+                    onClick={() =>
+                      document.getElementById("my_modal_4").showModal()
+                    }
+                  >
+                    <GiMoneyStack size={25} /> View Payment Receipt
+                  </button>
+                </div>
+
+                {/* modal box */}
+
+                <dialog id="my_modal_4" className="modal">
+                  <div className="modal-box w-11/12 max-w-5xl">
+                    <div className="modal-action">
+                      <form method="dialog">
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                          ✕
+                        </button>
+                      </form>
+                    </div>
+
+                    {/* payment receipt content start  */}
+                    <div>
+                      <p className="font-bold text-center text-3xl">
+                        Bobbili Urban Development Authority
+                      </p>
+                      <p className="py-4 text-center text-lg uppercase">
+                        Town Planning Department
+                      </p>
+
+                      <p className="mt-5 mb-14 w-4/5 mx-auto text-center font-bold border border-black">
+                        PAYMENT RECEIPT
+                      </p>
+
+                      {/* receipt identification no  */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 mb-6">
+                        <div className="grid grid-cols-2">
+                          {/* 1st row  */}
+                          <p className="mb-6">Receipt No.</p>
+                          <p>: RC/0106/2023</p>
+
+                          {/* 2nd row  */}
+                          <p>Demand Note No</p>
+                          <p>: 1177/CH/0114/2023</p>
+                        </div>
+                        <div className="grid grid-cols-2">
+                          {/* 1st row  */}
+                          <p className="mb-6">Receipt Date</p>
+                          <p>: 24 July, 2023</p>
+                          {/* 2nd row  */}
+                          <p>BA No</p>
+                          <p>: 1177/0023/B/BOB/PII/2023</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <hr className="h-[2px] bg-black" />
+
+                    {/* applicant information  */}
+                    <div className="grid grid-cols-2 my-7">
+                      <p className="mb-5">Applicant Name</p>
+                      <p>:</p>
+                      <p>Communication Address</p>
+                      <p>:</p>
+                    </div>
+
+                    {/* body  */}
+                    <div className="border border-black p-6 grid grid-cols-3">
+                      {/* amount  */}
+                      {/* 1st row  */}
+                      <p>Amount (INR)</p>
+                      <p className="col-span-2">:</p>
+
+                      {/* 2nd row  */}
+                      <p className="my-6">Amount (In Words)</p>
+                      <p className="col-span-2 my-6">:</p>
+
+                      {/* 3rd row  */}
+                      <p className="mb-2">
+                        Transaction Type
+                        <span className="text-black font-bold">
+                          {" "}
+                          :: Online
+                        </span>{" "}
+                      </p>
+
+                      {/* 4th row  */}
+                      <p className="col-span-3 p-2 mb-5 text-center bg-gray-200 font-bold">
+                        Payment Details
+                      </p>
+
+                      {/* 5th row  */}
+                      <p>Transaction ID</p>
+                      <p>:</p>
+                      <p>Date:</p>
+                    </div>
+
+                    <p className="italic text-center mt-5">
+                      ** This is system generated report and does not require
+                      any signature. **
+                    </p>
+                  </div>
+                </dialog>
+              </>
             )}
           </div>
         </div>

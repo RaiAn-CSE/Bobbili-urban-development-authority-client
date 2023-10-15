@@ -13,11 +13,35 @@ const FloorDetails = ({
   builtUpAreaValue,
   floorOptions,
   setFloorOptions,
+  individualFloorSelected,
+  setIndividualFloorSelected,
   // handleFloorChange,
   // setFloorTrack,
   // floorTrack,
 }) => {
   const [floorChange, setFloorChange] = useState("select");
+
+  // useEffect(() => {
+  //   setFloorOptions((prev) => {
+  //     const newFloorOptions = prev.filter((oldFloorValue, prevIndx) => {
+  //       const searchInIndividualFloorSelected =
+  //         individualFloorSelected.findIndex(
+  //           (floorSelected) => floorSelected === oldFloorValue
+  //         );
+
+  //       if (searchInIndividualFloorSelected === -1) {
+  //         return oldFloorValue;
+  //       }
+  //     });
+  //   });
+  // }, []);
+
+  // const [s, setFloorOptions] = useState([
+  //   "Stilt / Parking Floor",
+  //   "Ground Floor",
+  //   "First Floor",
+  //   "Second Floor",
+  // ]);
   // const [floorTrack, setFloorTrack] = useState([
   //   { value: "Stilt / Parking Floor", checked: "" },
   //   { value: "Ground Floor", checked: "" },
@@ -28,7 +52,7 @@ const FloorDetails = ({
   const [selectedFloor, setSelectedFloor] = useState("");
 
   useEffect(() => {
-    setSelectedFloor(plotDetailsFloor?.name);
+    setSelectedFloor(plotDetailsFloor?.name ?? "");
   }, [plotDetailsFloor]);
 
   const findOldSelectedValue = () => {
@@ -36,16 +60,12 @@ const FloorDetails = ({
   };
 
   const handleFloorChange = (e, index) => {
-    console.log(selectedFloor, "OLD FLOOR");
-
     setFloorChange(e.target.value);
 
     setSelectedFloor(e.target.value);
-    const floorValue = e.target.value;
+    // const floorValue = e.target.value;
 
-    const floorNameIndex = index;
-
-    setFloorChange;
+    // const floorNameIndex = index;
 
     console.log(floorValue, "FV");
 

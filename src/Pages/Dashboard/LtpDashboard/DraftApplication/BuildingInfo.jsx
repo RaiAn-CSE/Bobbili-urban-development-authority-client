@@ -72,6 +72,13 @@ const BuildingInfo = () => {
 
   // options
 
+  const [individualFloorSelected, setIndividualFloorSelected] = useState([
+    "",
+    "",
+    "",
+    "",
+  ]);
+
   const [floorOptions, setFloorOptions] = useState([
     "Stilt / Parking Floor",
     "Ground Floor",
@@ -620,7 +627,7 @@ const BuildingInfo = () => {
                   <input
                     type="radio"
                     name="radio-1"
-                    className="radio border border-violet-500 h-4 w-4"
+                    className="radio border border-violet-500  h-4 w-4"
                     value="Private"
                     checked={
                       radio1 === "Private"
@@ -1138,6 +1145,8 @@ const BuildingInfo = () => {
                   }
                   floorOptions={floorOptions}
                   setFloorOptions={setFloorOptions}
+                  setIndividualFloorSelected={setIndividualFloorSelected}
+                  individualFloorSelected={individualFloorSelected}
                 />
               ))}
             </div>
