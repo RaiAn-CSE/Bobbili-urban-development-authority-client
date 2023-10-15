@@ -44,23 +44,19 @@ const SiteInspection = () => {
       console.log(applicationData, "applicationData");
 
       const groundPosition = applicationData?.siteInspection?.groundPosition;
-      setGroundPosition(groundPosition);
-
       const siteBoundaries = applicationData?.siteInspection?.siteBoundaries;
+      const accessRoad = applicationData?.siteInspection?.accessRoad;
+      const landUse = applicationData?.siteInspection?.landUse;
+      const decision = applicationData?.siteInspection?.decision;
+      const recommendations = applicationData?.siteInspection?.recommendations;
+
+      setGroundPosition(groundPosition);
       setSiteBoundaries(siteBoundaries);
       setApproachRoadApp(siteBoundaries?.accessRoad?.approachRoad?.[0]);
       setApproachRoadObs(siteBoundaries?.accessRoad?.approachRoad?.[1]);
-
-      const accessRoad = applicationData?.siteInspection?.accessRoad;
       setAccessRoad(accessRoad);
-
-      const landUse = applicationData?.siteInspection?.landUse;
       setLandUse(landUse);
-
-      const decision = applicationData?.siteInspection?.decision;
       setDecision(decision);
-
-      const recommendations = applicationData?.siteInspection?.recommendations;
       setRecommendations(recommendations);
     };
     getData();
