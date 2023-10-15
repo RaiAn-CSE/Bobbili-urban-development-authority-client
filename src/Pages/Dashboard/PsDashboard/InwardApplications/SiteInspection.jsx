@@ -119,7 +119,7 @@ const SiteInspection = () => {
   };
 
   const collectInputFieldData = async (url) => {
-    let fileUploadSuccess = 0;
+    let fileUploadSuccess = 1;
 
     // uploadFileInCloudStorage(formData);
     for (const file in siteBoundariesImageFiles) {

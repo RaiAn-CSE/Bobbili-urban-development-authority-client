@@ -159,7 +159,7 @@ const AuthProvider = ({ children }) => {
             console.log(response, "response");
 
             if (!response?.acknowledged) {
-              throw new Error(response?.statusText);
+              throw new Error(response.statusText);
             }
             return response;
           })
