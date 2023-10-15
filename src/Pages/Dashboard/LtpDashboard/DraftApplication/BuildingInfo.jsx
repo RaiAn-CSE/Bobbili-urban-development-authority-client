@@ -576,7 +576,7 @@ const BuildingInfo = () => {
 
   return (
     <>
-      <div className="grid my-5 mx-5 lg:my-0 lg:p-2 dark:text-black">
+      <div className="grid my-5 mx-5 lg:my-0 lg:p-2 text-gray-900">
         {/* general information */}
         <div className="divide-y-2 divide-gray-200 mb-10">
           {/* heading  */}
@@ -977,9 +977,9 @@ const BuildingInfo = () => {
                   id="netPlotArea"
                   name="netPlotArea"
                   placeholder="Automatically calculated"
-                  className="w-full px-3 py-2 border rounded-lg max-w-xs"
+                  className="w-full px-3 py-2 border rounded-lg max-w-xs border-gray-300 text-gray-900 bg-gray-200 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200"
                   value={netPlotArea ?? ""}
-                  disabled
+                  readOnly
                 />
               </div>
             </div>
@@ -1104,20 +1104,6 @@ const BuildingInfo = () => {
                 placeholder="per Sq.Yd."
                 ltpDetails={marketValueSqym}
               />
-              <InputField
-                id="vacantLand"
-                name="vacantLand"
-                label="Vacant land area"
-                placeholder="in Sq.Mts."
-                ltpDetails={vacantLand}
-              />
-              <InputField
-                id="noOfUnits"
-                name="noOfUnits"
-                label="No of units"
-                placeholder="No of units"
-                ltpDetails={noOfUnits}
-              />
             </div>
 
             <div className="grid grid-cols-2 lg:grid-cols-4">
@@ -1160,9 +1146,9 @@ const BuildingInfo = () => {
                   id="totalBuiltUpArea"
                   name="name1"
                   placeholder="Automatically calculated"
-                  className="w-full px-3 py-2 border rounded-lg max-w-xs"
+                  className="w-full px-3 py-2 border rounded-lg max-w-xs border-gray-300 text-gray-900 bg-gray-200 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200"
                   value={builtUpAreaSum}
-                  disabled
+                  readOnly
                 />
               </div>
 
@@ -1174,9 +1160,9 @@ const BuildingInfo = () => {
                   id="totalParkingArea"
                   name="name1"
                   placeholder="Automatically calculated"
-                  className="w-full px-3 py-2 border rounded-lg max-w-xs"
+                  className="w-full px-3 py-2 border rounded-lg max-w-xs border-gray-300 text-gray-900 bg-gray-200 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200"
                   value={parkingAreaSum}
-                  disabled
+                  readOnly
                 />
               </div>
               {/* <InputField
@@ -1223,6 +1209,20 @@ const BuildingInfo = () => {
                 label="Total Height of The Building Exclude Stilt (in Mts.)"
                 placeholder="in Mts."
                 ltpDetails={buildingExcludeStilt}
+              />
+              <InputField
+                id="vacantLand"
+                name="vacantLand"
+                label="Vacant land area"
+                placeholder="in Sq.Mts."
+                ltpDetails={vacantLand}
+              />
+              <InputField
+                id="noOfUnits"
+                name="noOfUnits"
+                label="No of units"
+                placeholder="No of units"
+                ltpDetails={noOfUnits}
               />
             </div>
 
