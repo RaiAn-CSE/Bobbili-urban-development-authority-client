@@ -5,7 +5,7 @@ function PsDocument({ role, id, approved, uploadId, handleStatus, type, Previous
     const [valueData, setValueData] = useState("");
 
     useEffect(() => {
-        if (PreviousDocumentData.length) {
+        if (PreviousDocumentData?.length) {
             const dynamicMatch = PreviousDocumentData.find(data => data.id === id && data.uploadId === uploadId);
             const defaultMatch = PreviousDocumentData.find(data => data.id == id);
             if (type === "dynamic") {

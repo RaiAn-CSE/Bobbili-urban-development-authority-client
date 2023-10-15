@@ -107,10 +107,10 @@ const DocumentUpload = () => {
       let updatedDynamicDocumentsToAdd = [];
       const applicationData = await getApplicationData(applicationNo);
       const applicationCheckList = applicationData.applicationCheckList;
-      // setPreviousDefaultDocumentData(applicationData?.documents?.psData?.data?.default);
-      // setPreviousDynamicDocumentData(applicationData?.documents?.psData?.data?.dynamic);
-      // setApprovedConfirmation(applicationData?.documents?.psData?.approved)
-      // setRecomendationMessage(applicationData?.documents?.psData?.message)
+      setPreviousDefaultDocumentData(applicationData?.documents?.psData?.data?.default);
+      setPreviousDynamicDocumentData(applicationData?.documents?.psData?.data?.dynamic);
+      setApprovedConfirmation(applicationData?.documents?.psData?.approved)
+      setRecomendationMessage(applicationData?.documents?.psData?.message)
 
       // Checklist "yes" Data integrating to Document
       if (applicationCheckList.length) {
@@ -125,7 +125,7 @@ const DocumentUpload = () => {
         });
       }
       setUpdatedDynamicDocumentData(updatedDynamicDocumentsToAdd);
-      console.log(applicationData,updatedDynamicDocumentsToAdd,"UpdatedDynamicData")
+      console.log(applicationData, updatedDynamicDocumentsToAdd, "UpdatedDynamicData")
     };
     gettingData();
   }, []);
@@ -141,16 +141,12 @@ const DocumentUpload = () => {
       approved: approvedConfirmation ?? "",
       message: recomendationMessage ?? "",
     };
-    console.log(PSData, "PSData")
-    return await sendUserDataIntoDB(url, "PATCH", PSData);
+    const LtpData = {
+      data: setLtpSendingDocument
+    }
+    return await sendUserDataIntoDB(url, "PATCH", { DocumentData: { psSendingDocument: PSData, ltpSendingDocument: LtpData } });
   };
 
-  const PSData = {
-    data: selectedData,
-    approved: approvedConfirmation ?? "",
-    message: recomendationMessage ?? "",
-  };
-  console.log(PSData, "PSData")
 
   return (
     <div className="dark:text-white">
