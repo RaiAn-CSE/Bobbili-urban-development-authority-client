@@ -175,7 +175,7 @@ const NewApplication = () => {
     <div className=" my-3">
       <div className="flex justify-end my-5 mr-3">
         <button
-          className={`btn flex font-roboto ${gradientColor} transition-all duration-700 text-[#fff]`}
+          className={`btn flex font-roboto dark:border-none transition-all duration-700 bg-gradient-to-r from-violet-500 to-fuchsia-500 text-[#fff] hover:bg-gradient-to-l`}
           onClick={showConfirmModal}
         >
           <span className="text-sm">Create a new application</span>
