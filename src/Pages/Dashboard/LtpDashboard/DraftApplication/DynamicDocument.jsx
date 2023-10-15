@@ -3,11 +3,13 @@ import PsDocument from "./PsDocument";
 import { Link } from "react-router-dom";
 
 function DynamicDocument({
+  PreviousDynamicDocumentData,
   UpdatedDynamicDocumentData,
   role,
   handleFileChange,
   gradientColor,
   dynamicImageFromDB,
+  handleStatus,
 }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
 
@@ -59,6 +61,7 @@ function DynamicDocument({
                     "m",
                     "n",
                   ];
+
                   return (
                     <div key={ind + 1} className="mb-8">
                       <div className="mb-3">
@@ -87,7 +90,15 @@ function DynamicDocument({
                           View
                         </Link>
                       )}
-                      <PsDocument role={role} />
+                      <PsDocument
+                        role={role}
+                        id={id}
+                        approved={approved}
+                        uploadId={uploadId}
+                        handleStatus={handleStatus}
+                        PreviousDocumentData={PreviousDynamicDocumentData}
+                        type="dynamic"
+                      />
                     </div>
                   );
                 })}

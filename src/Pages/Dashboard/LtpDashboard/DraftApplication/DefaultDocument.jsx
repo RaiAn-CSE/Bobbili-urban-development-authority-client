@@ -9,6 +9,7 @@ function DefaultDocument({
   handleFileChange,
   gradientColor,
   defaultImageFromDB,
+  handleStatus,
 }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [UpdatedDefaultData, setUpdatedDefaultData] = useState([]);
@@ -61,7 +62,14 @@ function DefaultDocument({
                 View
               </Link>
             )}
-            <PsDocument role={role} />
+            <PsDocument
+              role={role}
+              id={id}
+              approved={approved}
+              handleStatus={handleStatus}
+              PreviousDocumentData={PreviousDefaultDocumentData}
+              type="default"
+            />
           </div>
         );
       })}

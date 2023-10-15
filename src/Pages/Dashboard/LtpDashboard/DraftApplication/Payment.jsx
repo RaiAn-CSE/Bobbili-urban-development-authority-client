@@ -373,23 +373,29 @@ const Payment = () => {
       }
     }
 
+    // uda charge
     const vacantArea = document.getElementById("vacantArea")?.value;
-
-    const builtUpArea = document.getElementById("builtUpArea")?.value;
-    // const UdaImpactFee = document.getElementById("UdaImpactFee")?.value;
-    const UDATotalCharged = document.getElementById("UDATotalCharged")?.value;
-    const gramaSiteApproval =
-      document.getElementById("gramaSiteApproval")?.value;
-
-    const bettermentCharged =
-      document.getElementById("bettermentCharged")?.value;
-    const TotalOpenSpaceCharged = document.getElementById(
-      "TotalOpenSpaceCharged"
-    )?.value;
-    const gramaImpactFee = document.getElementById("gramaImpactFee")?.value;
     const TotalPenalizationCharged = document.getElementById(
       "TotalPenalizationCharged"
     )?.value;
+    const TotalOpenSpaceCharged = document.getElementById(
+      "TotalOpenSpaceCharged"
+    )?.value;
+    const builtUpArea = document.getElementById("builtUpArea")?.value;
+    const labourCessTwo = document.getElementById("labourCess02")?.value;
+    const UDATotalCharged = document.getElementById("UDATotalCharged")?.value;
+
+    // grama panchayat fee
+
+    const paperPublicationFee =
+      document.getElementById("paperPublication")?.value;
+
+    const bettermentCharged =
+      document.getElementById("bettermentCharged")?.value;
+
+    const buildingPermitFee =
+      document.getElementById("buildingPermitFees")?.value;
+
     const GramaPanchayetTotalCharged = document.getElementById(
       "GramaPanchayetTotalCharged"
     )?.value;
@@ -397,9 +403,9 @@ const Payment = () => {
     const gramaChallanDate = document.getElementById("gramaChallanDate")?.value;
     const gramaBankName = document.getElementById("gramaBankName")?.value;
     const gramaBankBranch = document.getElementById("gramaBankBranch")?.value;
-    const labourCessSiteApproval = document.getElementById(
-      "labourCessSiteApproval"
-    )?.value;
+
+    const labourCessOne = document.getElementById("labourCess01")?.value;
+
     const labourCessChallanNo = document.getElementById(
       "labourCessChallanNo"
     )?.value;
@@ -411,9 +417,8 @@ const Payment = () => {
     const labourCessBankBranch = document.getElementById(
       "labourCessBankBranch"
     )?.value;
-    const greenFeeSiteApproval = document.getElementById(
-      "greenFeeSiteApproval"
-    )?.value;
+
+    const greenFee = document.getElementById("greenFeeCharge")?.value;
     const greenFeeChargeChallanNo = document.getElementById(
       "greenFeeChargeChallanNo"
     )?.value;
@@ -603,7 +608,6 @@ const Payment = () => {
               placeholder="000"
               type="number"
               ltpDetails={calculatedData?.buildingPermitFees}
-              readonly
             />
 
             <InputField
@@ -792,8 +796,8 @@ const Payment = () => {
 
           <div className="grid lg:grid-cols-4 mt-3">
             <InputField
-              id="GreenFeeCharge"
-              name="GreenFeeCharge"
+              id="greenFeeCharge"
+              name="greenFeeCharge"
               label="Green fee charge"
               placeholder="000"
               type="number"
