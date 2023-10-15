@@ -85,6 +85,7 @@ const NewApplication = () => {
   const showDraftApplication = (applicationNo) => {
     console.log(applicationNo);
     localStorage.setItem("CurrentAppNo", JSON.stringify(applicationNo));
+    localStorage.setItem("stepIndex", JSON.stringify(0));
     navigate("/dashboard/draftApplication/buildingInfo");
   };
 
@@ -140,6 +141,7 @@ const NewApplication = () => {
             "CurrentAppNo",
             JSON.stringify(data.applicationNo)
           );
+          localStorage.setItem("stepIndex", JSON.stringify(0));
           navigate("/dashboard/draftApplication/buildingInfo");
         }
       })

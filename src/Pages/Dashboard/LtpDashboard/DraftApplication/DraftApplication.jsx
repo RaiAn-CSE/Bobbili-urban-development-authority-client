@@ -21,6 +21,12 @@ const DraftApplication = () => {
   );
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
 
+  const getIndex = JSON.parse(localStorage.getItem("stepIndex"));
+
+  useEffect(() => {
+    setCurrentStep(getIndex);
+  }, []);
+
   // console.log(applicationNo);
 
   const { userInfoFromLocalStorage } = useContext(AuthContext);
@@ -72,8 +78,9 @@ const DraftApplication = () => {
   // console.log(currentStep);
 
   const handleStepClick = (index) => {
+    console.log("ASLCAM");
     setCurrentStep(index);
-    localStorage.setItem("currentStep", index.toString()); // Store the current step in localStorage
+    localStorage.setItem("stepIndex", JSON.stringify(index)); // Store the current step in localStorage
     navigate(`/dashboard/draftApplication${steps[index]}`);
   };
 
