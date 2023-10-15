@@ -23,8 +23,8 @@ const SubmitApplication = () => {
 
   console.log(data);
   return (
-    <div className="w-full  mt-6 ">
-      <table className="w-full font-roboto dark:text-white">
+    <div className="w-full mt-6">
+      <table className="w-full font-roboto text-gray-900">
         {/* head */}
         <thead>
           <tr className="bg-[#2d3436] text-sm md:text-base text-white hover:bg-[#353b48]">

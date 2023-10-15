@@ -24,7 +24,7 @@ const Approved = () => {
   }, [isError]);
   return (
     <div className="w-full overflow-x-auto mt-6">
-      <table className="table dark:text-white">
+      <table className="table text-gray-900">
         {/* head */}
         <thead>
           <tr className="bg-[#2d3436] text-xs md:text-sm text-white hover:bg-[#353b48]">
