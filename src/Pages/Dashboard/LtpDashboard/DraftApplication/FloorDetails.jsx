@@ -16,7 +16,7 @@ const FloorDetails = ({
   // setFloorTrack,
   // floorTrack,
 }) => {
-  const [floorChange, setFloorChange] = useState("");
+  const [floorChange, setFloorChange] = useState("select");
   const [floorTrack, setFloorTrack] = useState([
     { value: "Stilt / Parking Floor", checked: "" },
     { value: "Ground Floor", checked: "" },
@@ -30,20 +30,22 @@ const FloorDetails = ({
     const floorValue = e.target.value;
     const floorNameIndex = index;
 
-    setFloorTrack((prev) => {
-      prev.forEach((item, index) => {
-        if (item.value === floorValue) {
-          prev[index].checked = floorNameIndex;
+    console.log(floorValue, "FV");
 
-          prev.forEach((itm, j) => {
-            if (j !== index && prev[j].checked === floorNameIndex) {
-              prev[j].checked = "";
-            }
-          });
-        }
-      });
-      return prev;
-    });
+    // setFloorTrack((prev) => {
+    //   prev.forEach((item, index) => {
+    //     if (item.value === floorValue) {
+    //       prev[index].checked = floorNameIndex;
+
+    //       prev.forEach((itm, j) => {
+    //         if (j !== index && prev[j].checked === floorNameIndex) {
+    //           prev[j].checked = "";
+    //         }
+    //       });
+    //     }
+    //   });
+    //   return prev;
+    // });
   };
 
   return (
@@ -56,10 +58,10 @@ const FloorDetails = ({
           id={`floorName${index}`}
           name={`floorName${index}`}
           className="w-full px-3 py-[10px] border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200"
-          value={floorChange ? floorChange : plotDetailsFloor?.name}
+          value={plotDetailsFloor?.name ? plotDetailsFloor?.name : floorChange}
           onChange={(e) => handleFloorChange(e, index)}
         >
-          <option disabled value=''>
+          <option disabled value="select">
             Select Floor Name
           </option>
           {floorOptions?.length &&

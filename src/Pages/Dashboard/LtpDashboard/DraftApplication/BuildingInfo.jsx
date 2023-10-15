@@ -30,6 +30,8 @@ const BuildingInfo = () => {
 
   // general information sections all variable initialization
 
+  const [dataFromDB, setDataFromDB] = useState({});
+
   const [generalInformation, setGeneralInformation] = useState("");
   // Case Type
   const [selectedOptionCase, setSelectedOptionCase] = useState("");
@@ -114,59 +116,9 @@ const BuildingInfo = () => {
     const getData = async () => {
       const applicationData = await getApplicationData(applicationNo);
       console.log(applicationData, "All info ApplicationData");
-
-      const generalInformation =
-        applicationData?.buildingInfo?.generalInformation;
-
-      const plotDetails = applicationData?.buildingInfo?.plotDetails;
-
-      const plotDetailsFloor =
-        applicationData?.buildingInfo?.plotDetails?.floorDetails;
-
-      const scheduleBoundaries =
-        applicationData?.buildingInfo?.scheduleBoundaries;
-
-      setSelectedOptionCase(generalInformation?.caseType);
-      setSelectedOptionPermission(generalInformation?.natureOfPermission);
-      setSelectedNatureOfTheSite(generalInformation?.natureOfTheSite);
-      setSelectedDistrict(generalInformation?.district);
-      setSelectedMandal(generalInformation?.mandal);
-      setSelectedGrama(generalInformation?.gramaPanchayat);
-      setSelectedVillage(generalInformation?.village);
-      setRadio4(plotDetails?.compoundingWallProposed);
-      setRadio5(plotDetails?.siteRegistered);
-      setWestValue(scheduleBoundaries?.west);
-      setEastValue(scheduleBoundaries?.east);
-      setSouthValue(scheduleBoundaries?.south);
-      setNorthValue(scheduleBoundaries?.north);
-      setNatureOfRoadValue(plotDetails?.natureOfRoad);
-
-      // update floor details as well as builtup area and parking area
-      plotDetails?.floorDetails?.map((floor, index) => {
-        setBuiltUpArea((prev) => {
-          const oldData = [...prev];
-          oldData[index] = parseFloat(floor?.builtUpArea);
-
-          return oldData;
-        });
-        setParkingArea((prev) => {
-          const oldData = [...prev];
-          oldData[index] = parseFloat(floor?.parkingArea);
-
-          return oldData;
-        });
-      });
-
-      setProposedPlotArea(plotDetails?.proposedPlotAreaCal);
-      setRoadWideningArea(plotDetails?.roadWideningAreaCal);
-      setNetPlotArea(plotDetails?.netPlotAreaCal);
-      setBuiltUpAreaSum(plotDetails?.totalBuiltUpArea);
-      setParkingAreaSum(plotDetails?.totalParkingArea);
-
-      setGeneralInformation(generalInformation);
-      setPlotDetails(plotDetails);
-      setPlotDetailsFloor(plotDetailsFloor);
-      setScheduleBoundaries(scheduleBoundaries);
+      if (Object.keys(applicationData).length) {
+        setDataFromDB(applicationData);
+      }
     };
     getData();
 
@@ -182,6 +134,81 @@ const BuildingInfo = () => {
 
     setDistrictData(allDistrictData.district);
   }, []);
+
+  useEffect(() => {
+    console.log(dataFromDB);
+
+    if (Object.keys(dataFromDB).length) {
+      const generalInformation = dataFromDB?.buildingInfo?.generalInformation;
+
+      const plotDetails = dataFromDB?.buildingInfo?.plotDetails;
+
+      const scheduleBoundaries = dataFromDB?.buildingInfo?.scheduleBoundaries;
+
+      console.log(
+        generalInformation,
+        plotDetails,
+
+        scheduleBoundaries,
+        "GPDA"
+      );
+
+      if (Object.keys(generalInformation).length) {
+        console.log("Aschi general information");
+        setGeneralInformation(generalInformation);
+        setSelectedOptionCase(generalInformation?.caseType);
+        setSelectedOptionPermission(generalInformation?.natureOfPermission);
+        setSelectedNatureOfTheSite(generalInformation?.natureOfTheSite);
+        setSelectedDistrict(generalInformation?.district);
+        setSelectedMandal(generalInformation?.mandal);
+        setSelectedGrama(generalInformation?.gramaPanchayat);
+        setSelectedVillage(generalInformation?.village);
+      }
+
+      if (Object.keys(plotDetails).length) {
+        console.log("Aschi plot details");
+        const plotDetailsFloor =
+          dataFromDB?.buildingInfo?.plotDetails?.floorDetails;
+        setRadio4(plotDetails?.compoundingWallProposed);
+        setRadio5(plotDetails?.siteRegistered);
+        // update floor details as well as builtup area and parking area
+        plotDetails?.floorDetails?.map((floor, index) => {
+          setBuiltUpArea((prev) => {
+            const oldData = [...prev];
+            oldData[index] = parseFloat(floor?.builtUpArea);
+
+            return oldData;
+          });
+          setParkingArea((prev) => {
+            const oldData = [...prev];
+            oldData[index] = parseFloat(floor?.parkingArea);
+
+            return oldData;
+          });
+        });
+        setPlotDetails(plotDetails);
+        setPlotDetailsFloor(plotDetailsFloor);
+        setProposedPlotArea(plotDetails?.proposedPlotAreaCal);
+        setRoadWideningArea(plotDetails?.roadWideningAreaCal);
+        setNetPlotArea(plotDetails?.netPlotAreaCal);
+        setBuiltUpAreaSum(plotDetails?.totalBuiltUpArea);
+        setParkingAreaSum(plotDetails?.totalParkingArea);
+        setNatureOfRoadValue(plotDetails?.natureOfRoad);
+      }
+
+      if (Object.keys(scheduleBoundaries).length) {
+        console.log("Aschi schedule boundaries");
+        setWestValue(scheduleBoundaries?.west);
+        setEastValue(scheduleBoundaries?.east);
+        setSouthValue(scheduleBoundaries?.south);
+        setNorthValue(scheduleBoundaries?.north);
+
+        setScheduleBoundaries(scheduleBoundaries);
+      }
+    }
+  }, [dataFromDB]);
+
+  console.log(proposedPlotArea, roadWideningArea, netPlotArea, "ALL AREA");
 
   // Case Type
   const handleCaseTypeChange = (e) => {
@@ -926,11 +953,13 @@ const BuildingInfo = () => {
                   defaultValue={proposedPlotArea ?? ""}
                   onChange={handleProposedPlotAreaChange}
                 />
-                <p className="text-xs text-red-500 mt-2">
-                  {proposedPlotArea > 300 && proposedPlotArea !== ""
-                    ? "Value must be less than 300"
-                    : ""}
-                </p>
+                {proposedPlotArea && (
+                  <p className="text-xs text-red-500 mt-2">
+                    {proposedPlotArea > 300 && proposedPlotArea !== ""
+                      ? "Value must be less than 300"
+                      : ""}
+                  </p>
+                )}
               </div>
 
               <div className="my-4 mx-3">
@@ -945,11 +974,13 @@ const BuildingInfo = () => {
                   defaultValue={roadWideningArea ?? ""}
                   onChange={handleRoadWideningAreaChange}
                 />
-                <p className="text-xs text-red-500 mt-2">
-                  {roadWideningArea > 300 && roadWideningArea !== ""
-                    ? "Value must be less than 300"
-                    : ""}
-                </p>
+                {roadWideningArea && (
+                  <p className="text-xs text-red-500 mt-2">
+                    {roadWideningArea > 300 && roadWideningArea !== ""
+                      ? "Value must be less than 300"
+                      : ""}
+                  </p>
+                )}
               </div>
 
               {/* Automatically calculated Plot Details  */}
