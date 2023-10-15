@@ -613,20 +613,15 @@ const Payment = () => {
               type="number"
               ltpDetails={calculatedData?.buildingPermitFees}
             />
-          </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 my-2">
-            <div className="flex justify-end items-center font-semibold">Total :</div>
             <InputField
               id="GramaPanchayetTotalCharged"
               name="GramaPanchayetTotalCharged"
-              // label="Total"
+              label="Total"
               placeholder="000"
               type="number"
               ltpDetails={calculatedData?.GramaPanchayetTotalCharged}
             />
-            <div></div>
-            <div></div>
           </div>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 mb-4">
@@ -679,7 +674,7 @@ const Payment = () => {
               {role === "LTP" && (
                 <input
                   type="file"
-                  className="file-input file-input-bordered w-full max-w-xs"
+                  className="file-input file-input-bordered w-full max-w-xs text-gray-400"
                   id="gramaBankReceipt"
                   onChange={(e) => handleFileChange(e, "gramaBankReceipt")}
                 />
@@ -770,7 +765,7 @@ const Payment = () => {
               {role === "LTP" && (
                 <input
                   type="file"
-                  className="file-input file-input-bordered w-full max-w-xs"
+                  className="file-input file-input-bordered w-full max-w-xs text-gray-400"
                   id="labourCessBankReceipt"
                   onChange={(e) => handleFileChange(e, "labourCessBankReceipt")}
                 />
@@ -866,7 +861,7 @@ const Payment = () => {
             {role === "LTP" && (
               <input
                 type="file"
-                className="file-input file-input-bordered w-full max-w-xs"
+                className="file-input file-input-bordered w-full max-w-xs text-gray-400"
                 id="greenFeeBankReceipt"
                 onChange={(e) => handleFileChange(e, "greenFeeBankReceipt")}
               />
@@ -899,8 +894,8 @@ const Payment = () => {
           setSentData={setSentData}
           sentData={sentData}
         />
-      </form >
-    </div >
+      </form>
+    </div>
   );
 };
 
