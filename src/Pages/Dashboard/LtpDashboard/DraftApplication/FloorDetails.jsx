@@ -68,13 +68,13 @@ const FloorDetails = ({
   return (
     <>
       <div className="flex flex-col justify-center mx-3">
-        <label className="block mb-1 font-semibold text-black">
+        <label className="block mb-1 font-semibold text-gray-600">
           <span>Floor Name</span>
         </label>
         <select
           id={`floorName${index}`}
           name={`floorName${index}`}
-          className="w-full px-3 py-[10px] border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200"
+          className="w-full px-3 py-[10px] border rounded-lg max-w-xs border-gray-300 text-gray-900 bg-gray-50 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200"
           value={selectedFloor?.length ? selectedFloor : floorChange}
           onChange={(e) => {
             // findOldSelectedValue(index);
@@ -98,7 +98,7 @@ const FloorDetails = ({
       <div className="my-4 mx-3">
         <label
           htmlFor="ProposedPlotArea"
-          className="block text-black mb-1 font-semibold"
+          className="block mb-1 font-semibold text-gray-600"
         >
           Built up area (in Sq.Mts.)
         </label>
@@ -107,7 +107,7 @@ const FloorDetails = ({
           id={`builtUpArea${index}`}
           name={`builtUpArea${index}`}
           placeholder="in Sq.Mts."
-          className="w-full px-3 py-2 border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200 bg-gray-100"
+          className="w-full px-3 py-2 border rounded-lg max-w-xs border-gray-300 text-gray-900 bg-gray-50 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200"
           defaultValue={
             builtUpAreaValue ? builtUpAreaValue : plotDetailsFloor?.builtUpArea
           }
@@ -118,7 +118,7 @@ const FloorDetails = ({
       <div className="my-4 mx-3">
         <label
           htmlFor="ProposedPlotArea"
-          className="block text-black mb-1 font-semibold"
+          className="block mb-1 font-semibold text-gray-600"
         >
           Parking Area (in Sq.Mts.)
         </label>
@@ -127,7 +127,7 @@ const FloorDetails = ({
           id={`parkingArea${index}`}
           name={`parkingArea${index}`}
           placeholder="in Sq.Mts."
-          className="w-full px-3 py-2 border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200 bg-gray-100"
+          className="w-full px-3 py-2 border rounded-lg max-w-xs border-gray-300 text-gray-900 bg-gray-50 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200"
           defaultValue={
             parkingAreaValue ? parkingAreaValue : plotDetailsFloor?.parkingArea
           }

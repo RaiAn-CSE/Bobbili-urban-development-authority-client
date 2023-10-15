@@ -184,7 +184,7 @@ const NewApplication = () => {
       </div>
 
       <div className=" w-full overflow-auto">
-        <table className="w-full font-roboto ">
+        <table className="w-full font-roboto table ">
           {/* head */}
           <thead>
             <tr className="bg-[#2d3436] text-sm md:text-base text-white hover:bg-[#353b48]">

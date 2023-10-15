@@ -14,7 +14,7 @@ const InputField = ({ id, name, placeholder, type, label, ltpDetails }) => {
     <div className="my-4 mx-3 flex flex-col justify-between">
       <label
         htmlFor={id}
-        className="block text-gray-600 dark:text-black mb-1 font-semibold"
+        className="block mb-1 font-semibold text-gray-600"
       >
         {label}
       </label>
@@ -24,7 +24,7 @@ const InputField = ({ id, name, placeholder, type, label, ltpDetails }) => {
         name={name}
         placeholder={placeholder} // Use the labelPlaceholder variable as the placeholder attribute
         defaultValue={ltpDetails}
-        className="w-full px-3 py-2 border border-violet-500 rounded-lg max-w-xs dark:text-black bg-gray-100 focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200"
+        className="w-full px-3 py-2 border rounded-lg max-w-xs border-gray-300 text-gray-900 bg-gray-50 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200"
       />
     </div>
   );

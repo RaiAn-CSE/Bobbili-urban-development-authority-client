@@ -570,9 +570,9 @@ const BuildingInfo = () => {
   const { east, west, north, south } = scheduleBoundaries ?? {};
 
   // classes for this component:
-  const labelClass = "block text-gray-600 mb-1 font-semibold dark:text-black";
+  const labelClass = "block mb-1 font-semibold text-gray-600";
   const inputClass =
-    "w-full px-3 py-[10px] border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200 bg-gray-100";
+    "w-full px-3 py-[10px] border rounded-lg max-w-xs  border-gray-300 text-gray-900 bg-gray-50 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200";
 
   return (
     <>
@@ -612,7 +612,7 @@ const BuildingInfo = () => {
 
             {/* General Information radio button  */}
             <div className="grid grid-cols-1 font-medium  lg:justify-items-center my-4 mx-3">
-              <p className="flex items-center font-semibold text-black">
+              <p className="flex items-center font-semibold text-gray-600">
                 Application Type?
               </p>
               <div className="grid-cols-1 lg:grid-cols-2 items-center">
@@ -629,7 +629,7 @@ const BuildingInfo = () => {
                     }
                     onChange={handleRadio1}
                   />
-                  <span className="ml-2 text-base">Private</span>
+                  <span className="ml-2 text-base text-gray-600">Private</span>
                 </label>
                 <label className="inline-flex items-center md:ml-3">
                   <input
@@ -644,13 +644,13 @@ const BuildingInfo = () => {
                     }
                     onChange={handleRadio1}
                   />
-                  <span className="ml-2 text-base">Govt. Land</span>
+                  <span className="ml-2 text-base text-gray-600">Govt. Land</span>
                 </label>
               </div>
             </div>
 
             <div className="flex flex-col justify-center my-4 mx-3">
-              <label className="block text-gray-600 dark:text-black mb-1 font-semibold">
+              <label className="block text-gray-600 mb-1 font-semibold">
                 <span>Nature of permission</span>
               </label>
               <select
@@ -885,15 +885,15 @@ const BuildingInfo = () => {
 
             {selectedNatureOfTheSite ===
               "Plot port of RLP/IPLP but not regularised" && (
-              <InputField
-                id="IplpNo"
-                name="IplpNo"
-                label="RLP/IPLP no."
-                placeholder="RLP/IPLP no."
-                type="number"
-                ltpDetails={iplpNo}
-              />
-            )}
+                <InputField
+                  id="IplpNo"
+                  name="IplpNo"
+                  label="RLP/IPLP no."
+                  placeholder="RLP/IPLP no."
+                  type="number"
+                  ltpDetails={iplpNo}
+                />
+              )}
             {/*===================== Conditional Input Field End =====================*/}
           </div>
         </div>
@@ -933,17 +933,17 @@ const BuildingInfo = () => {
                   id="proposedPlotArea"
                   name="proposedPlotArea"
                   placeholder="in Sq.Mts."
-                  className="w-full px-3 py-2 border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200 bg-gray-100"
+                  className="w-full px-3 py-2 border rounded-lg max-w-xs border-gray-300 text-gray-900 bg-gray-50 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200"
                   defaultValue={proposedPlotArea ?? ""}
                   onChange={handleProposedPlotAreaChange}
                 />
-                {proposedPlotArea && (
+                {/* {proposedPlotArea && (
                   <p className="text-xs text-red-500 mt-2">
                     {proposedPlotArea > 300 && proposedPlotArea !== ""
                       ? "Value must be less than 300"
                       : ""}
                   </p>
-                )}
+                )} */}
               </div>
 
               <div className="my-4 mx-3">
@@ -954,17 +954,17 @@ const BuildingInfo = () => {
                   id="roadWideningArea"
                   type="roadWideningArea"
                   placeholder="in Sq.Mts."
-                  className="w-full px-3 py-2 border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200 bg-gray-100"
+                  className="w-full px-3 py-2 border rounded-lg max-w-xs border-gray-300 text-gray-900 bg-gray-50 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200"
                   defaultValue={roadWideningArea ?? ""}
                   onChange={handleRoadWideningAreaChange}
                 />
-                {roadWideningArea && (
+                {/* {roadWideningArea && (
                   <p className="text-xs text-red-500 mt-2">
                     {roadWideningArea > 300 && roadWideningArea !== ""
                       ? "Value must be less than 300"
                       : ""}
                   </p>
-                )}
+                )} */}
               </div>
 
               {/* Automatically calculated Plot Details  */}
