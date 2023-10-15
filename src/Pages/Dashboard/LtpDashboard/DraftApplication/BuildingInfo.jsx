@@ -620,7 +620,7 @@ const BuildingInfo = () => {
                   <input
                     type="radio"
                     name="radio-1"
-                    className="radio border border-violet-500 h-4 w-4"
+                    className="radio border border-gray-500 h-4 w-4"
                     value="Private"
                     checked={
                       radio1 === "Private"
@@ -635,7 +635,7 @@ const BuildingInfo = () => {
                   <input
                     type="radio"
                     name="radio-1"
-                    className="radio border border-violet-500 h-4 w-4"
+                    className="radio border border-gray-500 h-4 w-4"
                     value="Govt. Land"
                     checked={
                       radio1 === "Govt. Land"
@@ -997,7 +997,7 @@ const BuildingInfo = () => {
                     <input
                       type="radio"
                       name="radio-2"
-                      className="radio border border-violet-500 h-4 w-4"
+                      className="radio border border-gray-500 h-4 w-4"
                       value="yes"
                       checked={
                         radio2 == "yes"
@@ -1012,7 +1012,7 @@ const BuildingInfo = () => {
                     <input
                       type="radio"
                       name="radio-2"
-                      className="radio border border-violet-500 h-4 w-4"
+                      className="radio border border-gray-500 h-4 w-4"
                       value="no"
                       checked={
                         radio2 == "no" ? radio2 == "no" : existingRoad === "no"
@@ -1033,7 +1033,7 @@ const BuildingInfo = () => {
                   <input
                     type="radio"
                     name="radio-3"
-                    className="radio border border-violet-500 h-4 w-4"
+                    className="radio border border-gray-500 h-4 w-4"
                     value="Public"
                     checked={
                       radio3 == "Public"
@@ -1048,7 +1048,7 @@ const BuildingInfo = () => {
                   <input
                     type="radio"
                     name="radio-3"
-                    className="radio border border-violet-500 h-4 w-4"
+                    className="radio border border-gray-500 h-4 w-4"
                     value="Private"
                     checked={
                       radio3 == "Private"
@@ -1239,7 +1239,7 @@ const BuildingInfo = () => {
                     <input
                       type="radio"
                       name="radio-4"
-                      className="radio border border-violet-500 h-4 w-4"
+                      className="radio border border-gray-500 h-4 w-4"
                       value="yes"
                       checked={radio4 == "yes"}
                       onChange={handleRadio4}
@@ -1250,7 +1250,7 @@ const BuildingInfo = () => {
                     <input
                       type="radio"
                       name="radio-4"
-                      className="radio border border-violet-500 h-4 w-4"
+                      className="radio border border-gray-500 h-4 w-4"
                       value="no"
                       checked={radio4 == "no"}
                       onChange={handleRadio4}
@@ -1283,7 +1283,7 @@ const BuildingInfo = () => {
                   <input
                     type="radio"
                     name="radio-5"
-                    className="radio border border-violet-500 h-4 w-4"
+                    className="radio border border-gray-500 h-4 w-4"
                     value="yes"
                     checked={radio5 == "yes"}
                     onChange={handleRadio5}
@@ -1294,7 +1294,7 @@ const BuildingInfo = () => {
                   <input
                     type="radio"
                     name="radio-5"
-                    className="radio border border-violet-500 h-4 w-4"
+                    className="radio border border-gray-500 h-4 w-4"
                     value="no"
                     checked={radio5 == "no"}
                     onChange={handleRadio5}
