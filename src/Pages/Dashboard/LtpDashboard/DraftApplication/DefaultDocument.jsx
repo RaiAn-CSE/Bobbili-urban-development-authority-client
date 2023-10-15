@@ -50,7 +50,7 @@ function DefaultDocument({
                 type="file"
                 accept=".pdf, image/*"
                 onChange={(event) => someEventHandler(event, id)}
-                className="file-input file-input-bordered w-full max-w-xs"
+                className="file-input file-input-bordered w-full max-w-xs bg-white border border-gray-300"
               />
             )}
             {isMatch && (
