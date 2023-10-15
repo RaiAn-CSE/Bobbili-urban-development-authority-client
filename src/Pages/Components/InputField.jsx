@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const InputField = ({ id, name, placeholder, type, label, ltpDetails }) => {
   // Define default values for type and placeholder if not provided
   const inputType = type || "text";
+
+  const { userInfoFromLocalStorage } = useContext(AuthContext);
+
+  const role = userInfoFromLocalStorage().role;
 
   // Define the gradient border style
   const gradientBorderStyle = {
     borderImage: "linear-gradient(90deg, red, yellow)",
     borderImageSlice: "1",
   };
+
+  const isReadOnly = role === 'PS';
 
   return (
     <div className="my-4 mx-3 flex flex-col justify-between">
@@ -25,6 +32,7 @@ const InputField = ({ id, name, placeholder, type, label, ltpDetails }) => {
         placeholder={placeholder} // Use the labelPlaceholder variable as the placeholder attribute
         defaultValue={ltpDetails}
         className="w-full px-3 py-2 border rounded-lg max-w-xs border-gray-300 text-gray-900 bg-gray-50 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200"
+        readOnly={isReadOnly}
       />
     </div>
   );

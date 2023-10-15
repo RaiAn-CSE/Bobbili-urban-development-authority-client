@@ -15,6 +15,7 @@ const FloorDetails = ({
   setFloorOptions,
   individualFloorSelected,
   setIndividualFloorSelected,
+  isReadOnly,
 }) => {
   const [floorChange, setFloorChange] = useState("select");
 
@@ -80,6 +81,7 @@ const FloorDetails = ({
           onChange={(e) => {
             handleFloorChange(e, index);
           }}
+          disabled={isReadOnly}
         >
           <option disabled value="select">
             Select Floor Name
@@ -90,9 +92,8 @@ const FloorDetails = ({
                 <option
                   key={index}
                   value={eachFloor}
-                  className={`${
-                    findOldSelectedValue(eachFloor) ? "hidden" : ""
-                  }`}
+                  className={`${findOldSelectedValue(eachFloor) ? "hidden" : ""
+                    }`}
                 >
                   {eachFloor}
                 </option>
@@ -118,6 +119,7 @@ const FloorDetails = ({
             builtUpAreaValue ? builtUpAreaValue : plotDetailsFloor?.builtUpArea
           }
           onChange={(e) => handleBuiltUpArea(e.target.value, index)}
+          readOnly={isReadOnly}
         />
       </div>
 
@@ -138,6 +140,7 @@ const FloorDetails = ({
             parkingAreaValue ? parkingAreaValue : plotDetailsFloor?.parkingArea
           }
           onChange={(e) => handleParkingArea(e.target.value, index)}
+          readOnly={isReadOnly}
         />
       </div>
 

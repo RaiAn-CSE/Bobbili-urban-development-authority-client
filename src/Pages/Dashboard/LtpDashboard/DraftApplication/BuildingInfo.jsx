@@ -26,6 +26,10 @@ const BuildingInfo = () => {
 
   const { _id: id } = userInfoFromLocalStorage();
 
+  const role = userInfoFromLocalStorage().role;
+
+  const isReadOnly = role === 'PS';
+
   // Here declared all variables initial value in the use state
 
   // general information sections all variable initialization
@@ -536,10 +540,10 @@ const BuildingInfo = () => {
 
     localStorage.setItem("CurrentAppNo", JSON.stringify(newApplicationNo));
 
-    // return await sendUserDataIntoDB(url, "PATCH", {
-    //   applicationNo: newApplicationNo,
-    //   buildingInfo,
-    // });
+    return await sendUserDataIntoDB(url, "PATCH", {
+      applicationNo: newApplicationNo,
+      buildingInfo,
+    });
   };
 
   const {
@@ -616,6 +620,7 @@ const BuildingInfo = () => {
                 className={inputClass}
                 value={selectedOptionCase}
                 onChange={handleCaseTypeChange}
+                disabled={isReadOnly}
               >
                 <option disabled value="">
                   Select Case type
@@ -649,6 +654,7 @@ const BuildingInfo = () => {
                         : applicationType === "Private"
                     }
                     onChange={handleRadio1}
+                    disabled={isReadOnly}
                   />
                   <span className="ml-2 text-base text-gray-600">Private</span>
                 </label>
@@ -664,6 +670,7 @@ const BuildingInfo = () => {
                         : applicationType === "Govt. Land"
                     }
                     onChange={handleRadio1}
+                    disabled={isReadOnly}
                   />
                   <span className="ml-2 text-base text-gray-600">Govt. Land</span>
                 </label>
@@ -679,6 +686,7 @@ const BuildingInfo = () => {
                 className={inputClass}
                 value={selectedOptionPermission}
                 onChange={handlePermissionChange}
+                disabled={isReadOnly}
               >
                 <option value="General">General</option>
                 <option value="Regularised under BPS">
@@ -697,6 +705,7 @@ const BuildingInfo = () => {
                 className={inputClass}
                 value={selectedNatureOfTheSite}
                 onChange={handleNatureChange}
+                disabled={isReadOnly}
               >
                 <option disabled value="">
                   Select Nature of the site
@@ -740,6 +749,7 @@ const BuildingInfo = () => {
                 className={inputClass}
                 onChange={handleDistrictChange}
                 value={selectedDistrict}
+                disabled={isReadOnly}
               >
                 <option value="" disabled>
                   Select District
@@ -762,7 +772,7 @@ const BuildingInfo = () => {
                 className={inputClass}
                 onChange={handleMandalChange}
                 value={selectedMandal}
-                disabled={!selectedDistrict}
+                disabled={!selectedDistrict || isReadOnly}
               >
                 <option value="" disabled>
                   Select Mandal
@@ -788,7 +798,7 @@ const BuildingInfo = () => {
                 className={inputClass}
                 value={selectedGrama}
                 onChange={(e) => setSelectedGrama(e.target.value)}
-                disabled={!selectedMandal}
+                disabled={!selectedMandal || isReadOnly}
               >
                 <option value="" disabled>
                   Select Grama Panchayat
@@ -815,7 +825,7 @@ const BuildingInfo = () => {
                 className={inputClass}
                 value={selectedVillage}
                 onChange={(e) => setSelectedVillage(e.target.value)}
-                disabled={!selectedMandal}
+                disabled={!selectedMandal || isReadOnly}
               >
                 <option value="" disabled>
                   Select Village
@@ -957,6 +967,7 @@ const BuildingInfo = () => {
                   className="w-full px-3 py-2 border rounded-lg max-w-xs border-gray-300 text-gray-900 bg-gray-50 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200"
                   defaultValue={proposedPlotArea ?? ""}
                   onChange={handleProposedPlotAreaChange}
+                  readOnly={isReadOnly}
                 />
                 {/* {proposedPlotArea && (
                   <p className="text-xs text-red-500 mt-2">
@@ -978,6 +989,7 @@ const BuildingInfo = () => {
                   className="w-full px-3 py-2 border rounded-lg max-w-xs border-gray-300 text-gray-900 bg-gray-50 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200"
                   defaultValue={roadWideningArea ?? ""}
                   onChange={handleRoadWideningAreaChange}
+                  disabled={isReadOnly}
                 />
                 {/* {roadWideningArea && (
                   <p className="text-xs text-red-500 mt-2">
@@ -1000,7 +1012,7 @@ const BuildingInfo = () => {
                   placeholder="Automatically calculated"
                   className="w-full px-3 py-2 border rounded-lg max-w-xs border-gray-300 text-gray-900 bg-gray-200 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200"
                   value={netPlotArea ?? ""}
-                  readOnly
+                  readOnly={isReadOnly}
                 />
               </div>
             </div>
@@ -1026,6 +1038,7 @@ const BuildingInfo = () => {
                           : existingRoad === "yes"
                       }
                       onChange={handleRadio2}
+                      disabled={isReadOnly}
                     />
                     <span className="ml-2 text-base">Yes</span>
                   </label>
@@ -1039,6 +1052,7 @@ const BuildingInfo = () => {
                         radio2 == "no" ? radio2 == "no" : existingRoad === "no"
                       }
                       onChange={handleRadio2}
+                      disabled={isReadOnly}
                     />
                     <span className="ml-2 text-base">No</span>
                   </label>
@@ -1062,6 +1076,7 @@ const BuildingInfo = () => {
                         : statusOfRoad === "Public"
                     }
                     onChange={handleRadio3}
+                    disabled={isReadOnly}
                   />
                   <span className="ml-2 text-base">Public</span>
                 </label>
@@ -1077,6 +1092,7 @@ const BuildingInfo = () => {
                         : statusOfRoad === "Private"
                     }
                     onChange={handleRadio3}
+                    disabled={isReadOnly}
                   />
                   <span className="ml-2 text-base">Private</span>
                 </label>
@@ -1093,6 +1109,7 @@ const BuildingInfo = () => {
                   className={inputClass}
                   value={natureOfRoadValue}
                   onChange={handleNatureOfRoad}
+                  disabled={isReadOnly}
                 >
                   <option disabled value="">
                     Select Nature of Road
@@ -1147,6 +1164,7 @@ const BuildingInfo = () => {
                   setFloorOptions={setFloorOptions}
                   setIndividualFloorSelected={setIndividualFloorSelected}
                   individualFloorSelected={individualFloorSelected}
+                  isReadOnly={isReadOnly}
                 />
               ))}
             </div>
@@ -1266,6 +1284,7 @@ const BuildingInfo = () => {
                       value="yes"
                       checked={radio4 == "yes"}
                       onChange={handleRadio4}
+                      disabled={isReadOnly}
                     />
                     <span className="ml-2 text-base">Yes</span>
                   </label>
@@ -1277,6 +1296,7 @@ const BuildingInfo = () => {
                       value="no"
                       checked={radio4 == "no"}
                       onChange={handleRadio4}
+                      disabled={isReadOnly}
                     />
                     <span className="ml-2 text-base">No</span>
                   </label>
@@ -1310,6 +1330,7 @@ const BuildingInfo = () => {
                     value="yes"
                     checked={radio5 == "yes"}
                     onChange={handleRadio5}
+                    disabled={isReadOnly}
                   />
                   <span className="ml-2 text-base">Yes</span>
                 </label>
@@ -1321,6 +1342,7 @@ const BuildingInfo = () => {
                     value="no"
                     checked={radio5 == "no"}
                     onChange={handleRadio5}
+                    disabled={isReadOnly}
                   />
                   <span className="ml-2 text-base">No</span>
                 </label>
@@ -1346,6 +1368,7 @@ const BuildingInfo = () => {
                 className={inputClass}
                 value={northValue}
                 onChange={handleNorthChange}
+                disabled={isReadOnly}
               >
                 <option disabled value="">
                   Select North
@@ -1367,6 +1390,7 @@ const BuildingInfo = () => {
                 className={inputClass}
                 value={southValue}
                 onChange={handleSouthChange}
+                disabled={isReadOnly}
               >
                 <option disabled value="">
                   Select South
@@ -1388,6 +1412,7 @@ const BuildingInfo = () => {
                 className={inputClass}
                 value={eastValue}
                 onChange={handleEastChange}
+                disabled={isReadOnly}
               >
                 <option disabled value="">
                   Select East
@@ -1409,6 +1434,7 @@ const BuildingInfo = () => {
                 className={inputClass}
                 value={westValue}
                 onChange={handleWestChange}
+                disabled={isReadOnly}
               >
                 <option disabled value="">
                   Select West
