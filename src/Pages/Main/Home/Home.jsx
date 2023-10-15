@@ -77,7 +77,7 @@ const Home = () => {
     </>
   );
   return (
-    <div className="grid grid-cols-[200px_minmax(700px,_1fr)_1fr] pt-10">
+    <div className="grid grid-cols-[200px_minmax(700px,_1fr)_284px] pt-10">
       {/* sidebar menus  */}
       <div className="w-full h-full text-base flex flex-col justify-between  bg-black text-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white shadow-lg">
         {menu}
