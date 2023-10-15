@@ -12,7 +12,7 @@ import PsDocument from "./PsDocument";
 
 const DocumentUpload = () => {
   const [updatedDefaultDocument, setUpdatedDefaultDocument] = useState([]);
-  const [imageId, setImageId] = useState([]);
+  const [imageId, setImageId] = useState({});
   const [approvedConfirmation, setApprovedConfirmation] = useState("");
   const [recomendationMessage, setRecomendationMessage] = useState("");
   const stepperData = useOutletContext();
@@ -26,8 +26,8 @@ const DocumentUpload = () => {
     dynamic: [],
     default: [],
   });
-  const [DefaultData, setDefaultData] = useState([]);
-  const [DynamicData, setDynamicData] = useState([]);
+  const [defaultData, setDefaultData] = useState([]);
+  const [dynamicData, setDynamicData] = useState([]);
   const {
     confirmAlert,
     sendUserDataIntoDB,
@@ -38,6 +38,13 @@ const DocumentUpload = () => {
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
   const role = userInfoFromLocalStorage().role;
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
+
+  const [defaultImageData, setDefaultImageData] = useState([]);
+  const [dynamicImageData, setDynamicImageData] = useState([]);
+  const [sendingImageId, setSendingImageId] = useState({
+    dynamic: [],
+    default: [],
+  });
 
   const handleFileChange = (event, id, uploadedFile, type, uploadId) => {
     const { files, name } = event.target;
@@ -50,16 +57,22 @@ const DocumentUpload = () => {
     if (type === "dynamic") {
       const data = { id, uploadId, file };
       setDynamicData((prev) => [...prev, data]);
+      const dynamicImage = { id, uploadId, imageId: "" };
+      setDynamicImageData((prev) => [...prev, dynamicImage]);
     } else {
       const data = { id, file };
       setDefaultData((prev) => [...prev, data]);
+      const defaultImage = { id, imageId: "" };
+      setDefaultImageData((prev) => [...prev, defaultImage]);
     }
   };
   useEffect(() => {
-    setSendingDocument({ default: DefaultData, dynamic: DynamicData });
-  }, [DefaultData, DynamicData]);
+    setSendingDocument({ default: defaultData, dynamic: dynamicData });
+    setSendingImageId({ default: defaultImageData, dynamic: dynamicImageData });
+  }, [defaultData, dynamicData, defaultImageData, dynamicImageData]);
 
   console.log(sendingDocument, "Sending Document");
+  console.log(sendingImageId, "Sending  image Document");
 
   // Adding checklist Data to Document from server data && Updating Data from server Data
   useEffect(() => {
@@ -87,7 +100,73 @@ const DocumentUpload = () => {
     gettingData();
   }, []);
 
-  const handleFileUpload = () => {};
+  console.log(sendingDocument, "sending document");
+
+  const handleFileUpload = async (url) => {
+    // append data to formData so that the file data can be sent into the database
+    let fileCheckToUpload = 0;
+
+    const defaultImages = sendingDocument?.default;
+    const dynamicImages = sendingDocument?.dynamic;
+
+    const loopTimes = [defaultImages, dynamicImages];
+
+    console.log(loopTimes, "LOOP TIMES");
+
+    console.log(defaultImages, dynamicImages, "ALL files");
+
+    for (let lt = 0; lt < loopTimes.length; lt++) {
+      // another loop
+      console.log(loopTimes[lt].length, "LOOP LENGTH");
+      for (let i = 0; i < loopTimes[lt].length; i++) {
+        console.log(loopTimes[lt][i].file, "File CHECK");
+
+        const formData = new FormData();
+
+        formData.append("file", loopTimes[lt][i].file);
+        try {
+          const response = await axios.post(
+            "http://localhost:5000/upload?page=document",
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data", // Important for file uploads
+              },
+            }
+          );
+          // Handle success or display a success message to the user
+          if (response?.data.msg === "Successfully uploaded") {
+            const documentImageId = response?.data?.fileId;
+
+            if (lt === 0) {
+              // console.log(sendingImageId.default[i].imageId, "File");
+              sendingImageId.default[i].imageId = documentImageId;
+            } else if (lt === 1) {
+              // console.log(sendingImageId.dynamic[i].imageId, "File");
+              sendingImageId.dynamic[i].imageId = documentImageId;
+            }
+          }
+        } catch (error) {
+          console.log(error, "ERROR");
+          // Handle errors, e.g., show an error message to the user
+          toast.error("Error to upload documents");
+        }
+      }
+
+      fileCheckToUpload++;
+    }
+
+    console.log(sendingImageId, "Sending Image id");
+
+    if (fileCheckToUpload === loopTimes.length) {
+      return await sendUserDataIntoDB(url, "PATCH", {
+        applicationNo,
+        documents: sendingImageId,
+        approved: approvedConfirmation,
+        message: recomendationMessage,
+      });
+    }
+  };
 
   // send data to PS DB (Apu vai send PS data from here)
   const sentPsDecision = async (url) => {
