@@ -55,14 +55,25 @@ const DocumentUpload = () => {
 
   const handleStatus = (event, id, uploadId, type) => {
     if (type === "dynamic") {
-      const data = { id, uploadId, event };
-      setStatusDynamicData((prev) => [...prev, data]);
+      const matchedIndex = statusDynamicData.findIndex((data) => data.id === id);
+  
+      if (matchedIndex !== -1) {
+        // If a matching ID is found, update it
+        const updatedData = { ...statusDynamicData[matchedIndex], event };
+        statusDynamicData[matchedIndex] = updatedData;
+        setStatusDynamicData([...statusDynamicData]);
+      } else {
+        // If no match is found, add a new entry
+        const data = { id, uploadId, event };
+        setStatusDynamicData((prev) => [...prev, data]);
+      }
     } else {
       const data = { id, event };
       setStatusDefaultData((prev) => [...prev, data]);
     }
-    console.log({ id, event, uploadId })
-  }
+    console.log({ id, event, uploadId });
+  };
+  
 
   console.log({ default: statusDefaultData, dynamic: statusDynamicData }, "Approved Data")
 
