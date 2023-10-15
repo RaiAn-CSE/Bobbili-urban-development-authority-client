@@ -247,6 +247,7 @@ const DocumentUpload = () => {
       psDocumentPageObservation: PSData,
     });
   };
+
   return (
     <div className="dark:text-white">
       <form

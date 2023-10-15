@@ -79,12 +79,12 @@ const BuildingInfo = () => {
     "Second Floor",
   ]);
 
-  const [floorTrack, setFloorTrack] = useState([
-    { value: "Stilt / Parking Floor", checked: "" },
-    { value: "Ground Floor", checked: "" },
-    { value: "First Floor", checked: "" },
-    { value: "Second Floor", checked: "" },
-  ]);
+  // const [floorTrack, setFloorTrack] = useState([
+  //   "Stilt / Parking Floor",
+  //   "Ground Floor",
+  //   "First Floor",
+  //   "Second Floor",
+  // ]);
 
   // SIDE EFFECT HANDLED
 
@@ -1153,8 +1153,7 @@ const BuildingInfo = () => {
                     plotDetailsFloor ? plotDetailsFloor[index] : undefined
                   }
                   floorOptions={floorOptions}
-                  setFloorTrack={setFloorTrack}
-                  floorTrack={floorTrack}
+                  setFloorOptions={setFloorOptions}
                 />
               ))}
             </div>
