@@ -848,7 +848,7 @@ const BuildingInfo = () => {
                   name="LpNo"
                   label="L.P. no."
                   placeholder="L.P. no."
-                  type="number"
+                  type="Test"
                   ltpDetails={lpNo}
                 />
                 <InputField
@@ -869,7 +869,7 @@ const BuildingInfo = () => {
                   name=""
                   label="LRS no"
                   placeholder="LRS no."
-                  type="number"
+                  type="text"
                   ltpDetails={lrsNo}
                 />
                 <InputField
