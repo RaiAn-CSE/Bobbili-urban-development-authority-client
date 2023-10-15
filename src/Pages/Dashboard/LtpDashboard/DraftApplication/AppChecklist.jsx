@@ -53,35 +53,33 @@ function AppChecklist() {
             key={id}
             className="lg:flex items-center justify-center shadow-sm shadow-gray-100 rounded p-3"
           >
-            <p className="flex-1 text-black rounded mb-5 text-base md:text-lg lg:mb-0 lg:pr-4 dark:text-gray-100">
+            <p className="flex-1 text-black rounded mb-5 text-base md:text-lg lg:mb-0 lg:pr-4">
               {id}. {question}
             </p>
             <div className="space-x-10 mt-2 lg:pr-2 text-base md:text-lg">
               <label
-                className={`ml-2 inline-flex items-center space-x-1 text-black ${
-                  answer === "yes" && "font-extrabold text-violetDark"
-                } dark:text-white`}
+                className={`ml-2 inline-flex items-center space-x-1 text-black ${answer === "yes" && "font-extrabold text-violetDark"
+                  }`}
               >
                 <input
                   type="radio"
                   name={id}
                   value="yes"
-                  className="radio radio-sm checked:bg-violetDark border-violetLight mr-3 lg:mr-0 dark:text-white"
+                  className="radio radio-sm checked:bg-violetDark border-violetLight mr-3 lg:mr-0"
                   checked={answer === "yes"}
                   onChange={(event) => handleAnswer(event, id)}
                 />
                 <span>Yes</span>
               </label>
               <label
-                className={`ml-2 inline-flex items-center space-x-1 text-black ${
-                  answer === "no" && "font-extrabold text-violetDark"
-                } dark:text-white`}
+                className={`ml-2 inline-flex items-center space-x-1 text-black ${answer === "no" && "font-extrabold text-violetDark"
+                  }`}
               >
                 <input
                   type="radio"
                   name={id}
                   value="no"
-                  className="radio radio-sm border checked:bg-violetDark border-violetLight mr-3 lg:mr-0 dark:text-white"
+                  className="radio radio-sm border checked:bg-violetDark border-violetLight mr-3 lg:mr-0"
                   checked={answer === "no"}
                   onChange={(event) => handleAnswer(event, id)}
                 />

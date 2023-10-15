@@ -573,7 +573,7 @@ const BuildingInfo = () => {
   const labelClass =
     "block text-gray-600 mb-1 font-semibold dark:text-black";
   const inputClass =
-    "w-full px-3 py-[10px] border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200 dark:bg-gray-100";
+    "w-full px-3 py-[10px] border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200 bg-gray-100";
 
   return (
     <>
