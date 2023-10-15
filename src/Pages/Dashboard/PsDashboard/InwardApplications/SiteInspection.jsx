@@ -301,11 +301,11 @@ const SiteInspection = () => {
   const tableDataClass =
     "whitespace-nowrap border-r px-6 py-4 border-neutral-500";
   const inputClass =
-    "input rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600";
+    "input rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-100 dark:bg-gray-200 dark:hover:bg-gray-600";
   const inputTableDataClass = "whitespace-nowrap border-r border-neutral-500";
 
   return (
-    <div className="flex flex-col sm:px-6 lg:px-8 dark:text-gray-100">
+    <div className="flex flex-col sm:px-6 lg:px-8 text-black">
       {/* <input type="submit" value="get" onClick={get} /> */}
       <div className="overflow-x-auto">
         <div className="inline-block min-w-full py-2">
