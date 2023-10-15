@@ -105,7 +105,7 @@ const Drawing = () => {
         formData.append("file", selectedFiles[file]);
         try {
           const response = await axios.post(
-            "http://localhost:5000/upload?page=drawing",
+            "https://residential-building.vercel.app/upload?page=drawing",
             formData,
             {
               headers: {
@@ -222,9 +222,7 @@ const Drawing = () => {
       >
         {/* AutoCAD Drawing */}
         <div className="text-base px-2 mb-16">
-          <p className="pr-3 font-bold text-black">
-            1. AutoCAD Drawing
-          </p>
+          <p className="pr-3 font-bold text-black">1. AutoCAD Drawing</p>
           <div className="flex items-center mt-5">
             {role === "LTP" && (
               <label className="relative cursor-pointer mr-6">
