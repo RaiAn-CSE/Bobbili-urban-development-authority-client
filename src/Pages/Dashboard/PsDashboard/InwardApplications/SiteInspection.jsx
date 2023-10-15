@@ -345,7 +345,7 @@ const SiteInspection = () => {
                   </td>
                   <td
                     colSpan="3"
-                    className={`${tableDataClass} text-base font-semibold bg-gray-200 dark:text-black dark:bg-gradient-to-r dark:from-violet-300 dark:to-fuchsia-300`}
+                    className={`${tableDataClass} text-base font-semibold bg-gray-200`}
                   >
                     Ground Position
                   </td>
@@ -444,7 +444,7 @@ const SiteInspection = () => {
                   </td>
                   <td
                     colSpan="3"
-                    className={`${tableDataClass} text-base font-semibold bg-gray-200 dark:text-black dark:bg-gradient-to-r dark:from-violet-300 dark:to-fuchsia-300`}
+                    className={`${tableDataClass} text-base font-semibold bg-gray-200`}
                   >
                     Site Boundaries
                   </td>
@@ -552,7 +552,7 @@ const SiteInspection = () => {
                   </td>
                   <td
                     colSpan="3"
-                    className={`${tableDataClass} text-base font-semibold bg-gray-200 dark:text-black dark:bg-gradient-to-r dark:from-violet-300 dark:to-fuchsia-300`}
+                    className={`${tableDataClass} text-base font-semibold bg-gray-200`}
                   >
                     Access Road
                   </td>
@@ -677,7 +677,7 @@ const SiteInspection = () => {
                   </td>
                   <td
                     colSpan="3"
-                    className={`${tableDataClass} text-base font-semibold bg-gray-200 dark:text-black dark:bg-gradient-to-r dark:from-violet-300 dark:to-fuchsia-300`}
+                    className={`${tableDataClass} text-base font-semibold bg-gray-200`}
                   >
                     Land Use
                   </td>
