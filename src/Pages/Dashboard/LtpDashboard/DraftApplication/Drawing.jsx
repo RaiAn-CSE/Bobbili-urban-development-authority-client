@@ -37,6 +37,8 @@ const Drawing = () => {
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
   const role = userInfoFromLocalStorage().role;
 
+  const [imageFromDB, setImageFromDB] = useState({});
+
   useEffect(() => {
     localStorage.setItem("selectedFiles", JSON.stringify(["", ""]));
     getApplicationData(applicationNo).then((res) => {
@@ -49,6 +51,8 @@ const Drawing = () => {
       }
     });
   }, []);
+
+  console.log(imageId, "DATA FROM DB");
 
   const stepperData = useOutletContext();
 
@@ -99,30 +103,37 @@ const Drawing = () => {
   const handleFileUpload = async (url) => {
     let fileUploadSuccess = 0;
     // uploadFileInCloudStorage(formData);
+    console.log(selectedFiles, "Selected files");
     for (const file in selectedFiles) {
-      const formData = new FormData();
-      if (selectedFiles[file]) {
-        formData.append("file", selectedFiles[file]);
-        try {
-          const response = await axios.post(
-            "https://residential-building.vercel.app/upload?page=drawing",
-            formData,
-            {
-              headers: {
-                "Content-Type": "multipart/form-data", // Important for file uploads
-              },
+      console.log(selectedFiles[file]);
+
+      if (selectedFiles[file] instanceof File) {
+        const formData = new FormData();
+        if (selectedFiles[file]) {
+          formData.append("file", selectedFiles[file]);
+          try {
+            const response = await axios.post(
+              "https://residential-building.vercel.app/upload?page=drawing",
+              formData,
+              {
+                headers: {
+                  "Content-Type": "multipart/form-data", // Important for file uploads
+                },
+              }
+            );
+            if (response?.data.msg === "Successfully uploaded") {
+              const fileId = response.data.fileId;
+              imageId[file] = fileId;
+              fileUploadSuccess = 1;
             }
-          );
-          if (response?.data.msg === "Successfully uploaded") {
-            const fileId = response.data.fileId;
-            imageId[file] = fileId;
-            fileUploadSuccess = 1;
+          } catch (error) {
+            // Handle errors, e.g., show an error message to the user
+            toast.error("Error to upload documents");
+            fileUploadSuccess = 0;
           }
-        } catch (error) {
-          // Handle errors, e.g., show an error message to the user
-          toast.error("Error to upload documents");
-          fileUploadSuccess = 0;
         }
+      } else {
+        fileUploadSuccess = 1;
       }
     }
 
