@@ -107,10 +107,10 @@ const DocumentUpload = () => {
       let updatedDynamicDocumentsToAdd = [];
       const applicationData = await getApplicationData(applicationNo);
       const applicationCheckList = applicationData.applicationCheckList;
-      setPreviousDefaultDocumentData(applicationData?.documents?.psData.data.default);
-      setPreviousDynamicDocumentData(applicationData?.documents?.psData.data.dynamic);
-      setApprovedConfirmation(applicationData?.documents?.psData.approved)
-      setRecomendationMessage(applicationData?.documents?.psData.message)
+      // setPreviousDefaultDocumentData(applicationData?.documents?.psData?.data?.default);
+      // setPreviousDynamicDocumentData(applicationData?.documents?.psData?.data?.dynamic);
+      // setApprovedConfirmation(applicationData?.documents?.psData?.approved)
+      // setRecomendationMessage(applicationData?.documents?.psData?.message)
 
       // Checklist "yes" Data integrating to Document
       if (applicationCheckList.length) {
@@ -125,15 +125,15 @@ const DocumentUpload = () => {
         });
       }
       setUpdatedDynamicDocumentData(updatedDynamicDocumentsToAdd);
+      console.log(applicationData,updatedDynamicDocumentsToAdd,"UpdatedDynamicData")
     };
     gettingData();
   }, []);
 
-  const handleFileUpload = () => { };
 
-  // send data to PS DB (Apu vai send PS data from here)
+  const handleFileUpload = () => { };
+  // send data to PS DB
   const selectedData = role == "PS" ? psSendingDocument : ltpSendingDocument;
-  console.log(selectedData, "selectedData")
 
   const sentPsDecision = async (url) => {
     const PSData = {
