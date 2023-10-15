@@ -17,23 +17,15 @@ const DocumentUpload = () => {
   const [recomendationMessage, setRecomendationMessage] = useState("");
   const stepperData = useOutletContext();
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
-  const [PreviousDefaultDocumentData, setPreviousDefaultDocumentData] =
-    useState([]);
-  const [UpdatedDynamicDocumentData, setUpdatedDynamicDocumentData] = useState(
-    []
-  );
-  const [sendingDocument, setSendingDocument] = useState({
-    dynamic: [],
-    default: [],
-  });
+  const [PreviousDefaultDocumentData, setPreviousDefaultDocumentData] = useState([]);
+  const [UpdatedDynamicDocumentData, setUpdatedDynamicDocumentData] = useState([]);
+  const [sendingDocument, setSendingDocument] = useState({ dynamic: [], default: [] });
   const [DefaultData, setDefaultData] = useState([]);
   const [DynamicData, setDynamicData] = useState([]);
-  const {
-    confirmAlert,
-    sendUserDataIntoDB,
-    getApplicationData,
-    userInfoFromLocalStorage,
-  } = useContext(AuthContext);
+  const [statusDefaultData, setStatusDefaultData] = useState([]);
+  const [statusDynamicData, setStatusDynamicData] = useState([]);
+  const { confirmAlert, sendUserDataIntoDB, getApplicationData, userInfoFromLocalStorage } = useContext(AuthContext);
+
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
   const role = userInfoFromLocalStorage().role;
@@ -60,11 +52,18 @@ const DocumentUpload = () => {
     setSendingDocument({ default: DefaultData, dynamic: DynamicData });
   }, [DefaultData, DynamicData]);
 
-  const handleStatus = (event, id,uploadId) => {
-    toast.success(id)
-    console.log({ id, event,uploadId })
+  const handleStatus = (event, id, uploadId, type) => {
+    if (type === "dynamic") {
+      const data = { id, uploadId, event };
+      setStatusDynamicData((prev) => [...prev, data]);
+    } else {
+      const data = { id, event };
+      setStatusDefaultData((prev) => [...prev, data]);
+    }
+    console.log({ id, event, uploadId })
   }
 
+  console.log({ default: statusDefaultData, dynamic: statusDynamicData },"Approved Data")
   const handleRecomendationMessage = (e) => {
     const RecomdMessage = e.target.value;
     setRecomendationMessage(RecomdMessage);

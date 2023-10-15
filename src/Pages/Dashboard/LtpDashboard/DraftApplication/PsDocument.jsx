@@ -1,12 +1,13 @@
 import toast from "react-hot-toast";
 
 
-function PsDocument({ role, id, approved,uploadId,handleStatus }) {
-const handleDocumentStatus=(event,id,uploadId)=>{
-    const data=event?.target?.value;
-    handleStatus(data,id,uploadId)
-    toast.success(data)
-}
+function PsDocument({ role, id, approved, uploadId, handleStatus, type }) {
+
+    const handleDocumentStatus = (event, id, uploadId, type) => {
+        const data = event?.target?.value;
+        handleStatus(data, id, uploadId, type)
+        toast.success(data)
+    }
     return (
         <div className='dark:text-white'>
             <div className="flex items-center mt-6">
@@ -23,7 +24,7 @@ const handleDocumentStatus=(event,id,uploadId)=>{
                                 name={id}
                                 value="approved"
                                 className="radio radio-sm radio-success mr-3 lg:mr-0"
-                                onChange={(event) => handleDocumentStatus(event,id,uploadId)}
+                                onChange={(event) => handleDocumentStatus(event, id, uploadId,type)}
                             />
                             <span>Approve</span>
                         </label>
@@ -37,7 +38,7 @@ const handleDocumentStatus=(event,id,uploadId)=>{
                                 name={id}
                                 value="shortfall"
                                 className="radio radio-sm radio-success mr-3 lg:mr-0"
-                                onChange={(event) => handleDocumentStatus(event,id,uploadId)}
+                                onChange={(event) => handleDocumentStatus(event, id, uploadId,type)}
                             />
                             <span>Shortfall</span>
                         </label>

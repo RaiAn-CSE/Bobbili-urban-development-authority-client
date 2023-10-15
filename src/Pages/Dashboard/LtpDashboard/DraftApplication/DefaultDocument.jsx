@@ -45,7 +45,7 @@ function DefaultDocument({ PreviousDefaultDocumentData, role, handleFileChange, 
                                 View
                             </Link>
                         )}
-                        <PsDocument role={role} id={id} approved={approved} handleStatus={handleStatus}/>
+                        <PsDocument role={role} id={id} approved={approved} handleStatus={handleStatus} type="default"/>
                     </div>
                 )
             })}

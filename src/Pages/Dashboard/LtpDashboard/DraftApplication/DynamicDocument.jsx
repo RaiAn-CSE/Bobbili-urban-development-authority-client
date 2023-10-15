@@ -47,7 +47,7 @@ function DynamicDocument({ UpdatedDynamicDocumentData, role, handleFileChange, g
                           View
                         </a>
                       )}
-                      <PsDocument role={role} id={id} approved={approved} uploadId={uploadId} handleStatus={handleStatus}/>
+                      <PsDocument role={role} id={id} approved={approved} uploadId={uploadId} handleStatus={handleStatus} type="dynamic"/>
                     </div>
                   );
                 })}
