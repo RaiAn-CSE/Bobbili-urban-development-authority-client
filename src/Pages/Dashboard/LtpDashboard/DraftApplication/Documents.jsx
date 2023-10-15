@@ -339,7 +339,7 @@ const DocumentUpload = () => {
         onSubmit={(e) => {
           e.preventDefault();
         }}
-        className="text-black p-4 font-roboto"
+        className="text-black p-4 font-roboto dark:text-black"
       >
         <div className="w-full text-[17px] px-2 py-5 rounded">
           <DefaultDocument
@@ -348,14 +348,10 @@ const DocumentUpload = () => {
             handleFileChange={handleFileChange}
             gradientColor={gradientColor}
             defaultImageFromDB={imageIdFromDB?.default}
-<<<<<<< HEAD
             // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
             setApprovedConfirmation={setApprovedConfirmation}
             handleStatus={handleStatus}
             // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
-=======
-          // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
->>>>>>> raian
           />
           <DynamicDocument
             role={role}
@@ -364,14 +360,10 @@ const DocumentUpload = () => {
             handleFileChange={handleFileChange}
             gradientColor={gradientColor}
             dynamicImageFromDB={imageIdFromDB?.dynamic}
-<<<<<<< HEAD
             // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
             setApprovedConfirmation={setApprovedConfirmation}
             handleStatus={handleStatus}
             // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
-=======
-          // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
->>>>>>> raian
           />
         </div>
       </form>

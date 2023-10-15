@@ -22,7 +22,7 @@ function DynamicDocument({
   console.log(dynamicImageFromDB, "Dynamic Image from DB");
 
   return (
-    <div className="dark:text-white">
+    <div className="dark:text-black">
       {UpdatedDynamicDocumentData?.map((document, index) => {
         const { id, question, requirements } = document;
 
@@ -63,7 +63,7 @@ function DynamicDocument({
                   ];
 
                   return (
-                    <div key={ind + 1} className="mb-8">
+                    <div key={ind + 1} className="mb-8 ">
                       <div className="mb-3">
                         <span className="font-bold">{letters[ind]}. </span>
                         {requirement}
@@ -76,7 +76,7 @@ function DynamicDocument({
                           onChange={(event) =>
                             someEventHandler(event, index + 9, uploadId)
                           }
-                          className="file-input file-input-bordered w-full max-w-xs"
+                          className="file-input file-input-bordered w-full max-w-xs dark:text-white"
                         />
                       )}
 

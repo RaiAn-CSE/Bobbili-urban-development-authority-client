@@ -30,7 +30,7 @@ function DefaultDocument({
 
   console.log(defaultImageFromDB, "DEFAULT IMAGE FROM DB");
   return (
-    <div className="dark:text-white">
+    <div className="dark:text-black">
       {UpdatedDefaultData?.map((data, index) => {
         const { id, question, approved, upload } = data;
 

@@ -81,7 +81,7 @@ const Payment = () => {
         generalInformation?.natureOfTheSite === "Approved Layout" ||
         generalInformation?.natureOfTheSite === "Regularised under LRS" ||
         generalInformation?.natureOfTheSite ===
-        "Congested/ Gramakanta/ Old Built-up area" ||
+          "Congested/ Gramakanta/ Old Built-up area" ||
         generalInformation?.natureOfTheSite === "Newly Developed/ Built up area"
       ) {
         setCondition(1);
@@ -271,9 +271,9 @@ const Payment = () => {
     const labourCessComponentUnitRate1 = 1400; // per Sq.ft.
     const labourCessCompo1Charged = Math.round(
       labourCessComponentUnitRate1 *
-      BuiltUp_area_SquareFeet *
-      10.76 *
-      (0.01 * 0.98)
+        BuiltUp_area_SquareFeet *
+        10.76 *
+        (0.01 * 0.98)
     );
 
     setCalculatedData({
@@ -390,6 +390,8 @@ const Payment = () => {
     const paperPublicationFee =
       document.getElementById("paperPublication")?.value;
 
+    const processingFee = document.getElementById("processingFee")?.value;
+
     const bettermentCharged =
       document.getElementById("bettermentCharged")?.value;
 
@@ -434,16 +436,18 @@ const Payment = () => {
 
     const udaCharge = {
       vacantArea: vacantArea ?? "",
+      TotalPenalizationCharged: TotalPenalizationCharged ?? "",
+      TotalOpenSpaceCharged: TotalOpenSpaceCharged ?? "",
+      labourCessTwo: labourCessTwo ?? "",
       builtUpArea: builtUpArea ?? "",
       UDATotalCharged: UDATotalCharged ?? "",
     };
+
     const gramaPanchayatFee = {
-      gramaSiteApproval: gramaSiteApproval ?? "",
-      buildingPermitFees: buildingPermitFees ?? "",
+      paperPublicationFee: paperPublicationFee ?? "",
+      processingFee: processingFee ?? "",
+      buildingPermitFees: buildingPermitFee ?? "",
       bettermentCharged: bettermentCharged ?? "",
-      TotalOpenSpaceCharged: TotalOpenSpaceCharged ?? "",
-      gramaImpactFee: gramaImpactFee ?? "",
-      TotalPenalizationCharged: TotalPenalizationCharged ?? "",
       GramaPanchayetTotalCharged: GramaPanchayetTotalCharged ?? "",
       gramaChallanNo: gramaChallanNo ?? "",
       gramaChallanDate: gramaChallanDate ?? "",
@@ -452,11 +456,11 @@ const Payment = () => {
       gramaBankReceipt: imageId["gramaBankReceipt"],
     };
     const labourCessCharge = {
+      labourCessOne: labourCessOne ?? "",
       labourCessBankBranch: labourCessBankBranch ?? "",
       labourCessBankName: labourCessBankName ?? "",
       labourCessChallanDate: labourCessChallanDate ?? "",
       labourCessChallanNo: labourCessChallanNo ?? "",
-      labourCessSiteApproval: labourCessSiteApproval ?? "",
       labourCessBankReceipt: imageId["labourCessBankReceipt"],
     };
     const greenFeeCharge = {
@@ -464,7 +468,7 @@ const Payment = () => {
       greenFeeChargeBankName: greenFeeChargeBankName ?? "",
       greenFeeChargeChallanDate: greenFeeChargeChallanDate ?? "",
       greenFeeChargeChallanNo: greenFeeChargeChallanNo ?? "",
-      greenFeeSiteApproval: greenFeeSiteApproval ?? "",
+      greenFee: greenFee ?? "",
       greenFeeBankReceipt: imageId["greenFeeBankReceipt"],
     };
 
@@ -482,7 +486,7 @@ const Payment = () => {
   };
 
   return (
-    <div className="text-black">
+    <>
       <form
         onSubmit={(e) => e.preventDefault()}
         className="grid my-5 mx-7 font-roboto text-xl lg:my-0 lg:p-2"
@@ -670,7 +674,7 @@ const Payment = () => {
               {role === "LTP" && (
                 <input
                   type="file"
-                  className="file-input file-input-bordered w-full max-w-xs text-gray-300"
+                  className="file-input file-input-bordered w-full max-w-xs"
                   id="gramaBankReceipt"
                   onChange={(e) => handleFileChange(e, "gramaBankReceipt")}
                 />
@@ -761,7 +765,7 @@ const Payment = () => {
               {role === "LTP" && (
                 <input
                   type="file"
-                  className="file-input file-input-bordered w-full max-w-xs text-gray-300"
+                  className="file-input file-input-bordered w-full max-w-xs"
                   id="labourCessBankReceipt"
                   onChange={(e) => handleFileChange(e, "labourCessBankReceipt")}
                 />
@@ -770,15 +774,15 @@ const Payment = () => {
 
             {applicationData?.payment?.labourCessCharge
               ?.labourCessBankReceipt && (
-                <Link
-                  to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
-                  target="_blank"
-                  className="flex justify-center items-center ms-10 px-6 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
-                >
-                  <MdReceiptLong className="me-1" />
-                  View Challan
-                </Link>
-              )}
+              <Link
+                to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
+                target="_blank"
+                className="flex justify-center items-center ms-10 px-6 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
+              >
+                <MdReceiptLong className="me-1" />
+                View Challan
+              </Link>
+            )}
           </div>
         </div>
 
@@ -857,7 +861,7 @@ const Payment = () => {
             {role === "LTP" && (
               <input
                 type="file"
-                className="file-input file-input-bordered w-full max-w-xs text-gray-300"
+                className="file-input file-input-bordered w-full max-w-xs"
                 id="greenFeeBankReceipt"
                 onChange={(e) => handleFileChange(e, "greenFeeBankReceipt")}
               />
@@ -891,7 +895,7 @@ const Payment = () => {
           sentData={sentData}
         />
       </form>
-    </div>
+    </>
   );
 };
 
