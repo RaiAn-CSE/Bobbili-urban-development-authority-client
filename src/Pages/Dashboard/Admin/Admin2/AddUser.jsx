@@ -79,7 +79,7 @@ const AddUser = () => {
     setUserType(e.target.value);
   };
   return (
-    <div className="mt-10">
+    <div className="mt-10 text-black">
       <h1 className="text-xl lg:text-3xl text-center font-roboto roboto-bold text-black">
         Add a New User
       </h1>
@@ -92,7 +92,7 @@ const AddUser = () => {
           <div>
             <label
               htmlFor="name"
-              className="block mb-2 text-base font-bold text-gray-900 dark:text-white"
+              className="block mb-2 text-base font-bold text-gray-900"
             >
               Name
             </label>
@@ -109,7 +109,7 @@ const AddUser = () => {
           <div>
             <label
               htmlFor="id"
-              className="block mb-2 text-base '' font-bold text-gray-900 dark:text-white"
+              className="block mb-2 text-base '' font-bold text-gray-900"
             >
               User ID
             </label>
@@ -126,7 +126,7 @@ const AddUser = () => {
           <div>
             <label
               htmlFor="password"
-              className="block mb-2 text-base font-bold '' text-gray-900 dark:text-white"
+              className="block mb-2 text-base font-bold '' text-gray-900"
             >
               Password
             </label>
@@ -171,7 +171,7 @@ const AddUser = () => {
           <div>
             <label
               htmlFor="email"
-              className="block mb-2 text-base font-bold text-gray-900 dark:text-white"
+              className="block mb-2 text-base font-bold text-gray-900"
             >
               Email
             </label>
@@ -188,7 +188,7 @@ const AddUser = () => {
           <div>
             <label
               htmlFor="phone"
-              className="block mb-2 text-base font-bold text-gray-900 dark:text-white"
+              className="block mb-2 text-base font-bold text-gray-900"
             >
               Phone no
             </label>
@@ -206,7 +206,7 @@ const AddUser = () => {
           <div>
             <label
               htmlFor="address"
-              className="block mb-2 text-base font-bold text-gray-900 dark:text-white"
+              className="block mb-2 text-base font-bold text-gray-900"
             >
               Address
             </label>

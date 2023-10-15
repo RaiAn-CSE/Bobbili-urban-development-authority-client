@@ -147,19 +147,19 @@ const Location = () => {
     sheet: "TotalApplications",
   });
   return (
-    <>
+    <div className="text-black">
       <form className="flex justify-around items-center font-sans my-16">
         {/* district  */}
         <div className="basis-1/5">
           <label
             htmlFor="district"
-            className="block mb-2 text-base font-bold text-gray-900 dark:text-white"
+            className="block mb-2 text-base font-bold text-gray-900"
           >
             District
           </label>
           <select
             id="district"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             defaultValue={selectedDistrict}
             onChange={(e) => detectSelectOfDistrict(e)}
           >
@@ -181,13 +181,13 @@ const Location = () => {
         <div className="basis-1/5">
           <label
             htmlFor="mandal"
-            className="block mb-2 text-base font-bold text-gray-900 dark:text-white"
+            className="block mb-2 text-base font-bold text-gray-900"
           >
             Mandal
           </label>
           <select
             id="mandal"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             defaultValue={selectedMandal}
             onChange={(e) => detectChangeOfMandals(e)}
             disabled={allMandal?.length === 0}
@@ -208,13 +208,13 @@ const Location = () => {
         <div className="basis-1/5">
           <label
             htmlFor="panchayat"
-            className="block mb-2 text-base font-bold text-gray-900 dark:text-white"
+            className="block mb-2 text-base font-bold text-gray-900"
           >
             Grama Panchayat
           </label>
           <select
             id="panchayat"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             defaultValue={selectedPanchayat}
             disabled={allPanchayat?.length === 0}
             onChange={(e) => detectChangeOfPanchayat(e)}
@@ -233,13 +233,13 @@ const Location = () => {
           <div className="basis-1/5">
             <label
               htmlFor="date"
-              className="block mb-2 text-base font-bold text-gray-900 dark:text-white"
+              className="block mb-2 text-base font-bold text-gray-900"
             >
               Date
             </label>
             <select
               id="date"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               defaultValue={selectedDate}
               disabled={selectedPanchayat?.length === 0}
               onChange={(e) => detectChangeOfDate(e)}
@@ -301,7 +301,7 @@ const Location = () => {
           </tbody>
         </table>
       </div>
-    </>
+    </div>
   );
 };
 
