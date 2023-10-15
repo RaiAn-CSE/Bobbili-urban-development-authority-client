@@ -21,8 +21,8 @@ const AllDraftApplication = ({
 
   return (
     <tr>
-      <th>{serialNo + 1}</th>
-      <td>
+      <td>{serialNo + 1}</td>
+      <td className="px-2">
         <Link
           className="hover:underline"
           onClick={() => showDraftApplication(applicationNo)}
@@ -30,23 +30,27 @@ const AllDraftApplication = ({
           {applicationNo}
         </Link>
       </td>
-      <td>{applicantDetails.length ? applicantDetails[0].name : "N/A"}</td>
-      <td>{applicantDetails.length ? applicantDetails[0].phone : "N/A"}</td>
-      <td>
+      <td className="px-2">
+        {applicantDetails.length ? applicantDetails[0].name : "N/A"}
+      </td>
+      <td className="px-2">
+        {applicantDetails.length ? applicantDetails[0].phone : "N/A"}
+      </td>
+      <td className="px-1">
         {generalInformation.caseType !== ""
           ? generalInformation.caseType
           : "N/A"}
       </td>
-      <td>
+      <td className="px-2">
         {" "}
         {generalInformation.village !== "" ? generalInformation.village : "N/A"}
       </td>
-      <td>
+      <td className="px-2">
         {" "}
         {generalInformation.mandal !== "" ? generalInformation.mandal : "N/A"}
       </td>
-      <td>{createdDate ?? "N/A"}</td>
-      <td>
+      <td className="px-2">{createdDate ?? "N/A"}</td>
+      <td className="p-5">
         <button
           className={`btn btn-sm text-white bg-red-500 hover:bg-red-600`}
           onClick={() =>
