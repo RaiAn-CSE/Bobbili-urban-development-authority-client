@@ -52,28 +52,38 @@ const DocumentUpload = () => {
   useEffect(() => {
     setLtpSendingDocument({ default: DefaultData, dynamic: DynamicData });
   }, [DefaultData, DynamicData]);
-
   const handleStatus = (event, id, uploadId, type) => {
     if (type === "dynamic") {
-      const matchedIndex = statusDynamicData.findIndex((data) => data.id === id);
-  
-      if (matchedIndex !== -1) {
-        // If a matching ID is found, update it
-        const updatedData = { ...statusDynamicData[matchedIndex], event };
-        statusDynamicData[matchedIndex] = updatedData;
+      const dynamicMatchedIndex = statusDynamicData.findIndex((data) => data.id === id);
+
+      if (dynamicMatchedIndex !== -1) {
+        // If a matching ID is found in dynamic data, updated it
+        const updatedData = { ...statusDynamicData[dynamicMatchedIndex], event };
+        statusDynamicData[dynamicMatchedIndex] = updatedData;
         setStatusDynamicData([...statusDynamicData]);
       } else {
-        // If no match is found, add a new entry
+        // If no match is found in dynamic data, added a new entry
         const data = { id, uploadId, event };
         setStatusDynamicData((prev) => [...prev, data]);
       }
     } else {
-      const data = { id, event };
-      setStatusDefaultData((prev) => [...prev, data]);
+      const defaultMatchedIndex = statusDefaultData.findIndex((data) => data.id === id);
+
+      if (defaultMatchedIndex !== -1) {
+        // If a matching ID is found in default data, updated it
+        const updatedData = { ...statusDefaultData[defaultMatchedIndex], event };
+        statusDefaultData[defaultMatchedIndex] = updatedData;
+        setStatusDefaultData([...statusDefaultData]);
+      } else {
+        // If no match is found in default data, added a new entry
+        const data = { id, event };
+        setStatusDefaultData((prev) => [...prev, data]);
+      }
     }
     console.log({ id, event, uploadId });
   };
-  
+
+
 
   console.log({ default: statusDefaultData, dynamic: statusDynamicData }, "Approved Data")
 
