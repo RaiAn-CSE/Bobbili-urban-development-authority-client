@@ -1,19 +1,18 @@
 function DocumentFooter({
   submitData,
-  setApprovedConfirmation,
-  setRecomendationMessage,
   approvedConfirmation,
   recomendationMessage,
+  handleRecomendationMessage,
+  handleConfirmation
 }) {
-  const handleRecomendationMessage = (e) => {
-    const RecomdMessage = e.target.value;
-    setRecomendationMessage(RecomdMessage);
+  const handleMessage = (e) => {
+    handleRecomendationMessage(e)
   };
-  const handleConfirmation = (data) => {
-    setApprovedConfirmation(data);
+  const handleConfirm = (data) => {
+    handleConfirmation(data)
   };
 
-  console.log(submitData?.approved);
+  console.log(submitData, "submitData");
   //   const path = "LTP";
   return (
     <div className="dark:text-white">
@@ -32,7 +31,7 @@ function DocumentFooter({
                 approvedConfirmation === "true" ||
                 submitData?.approved === "true"
               }
-              onClick={() => handleConfirmation("true")}
+              onClick={() => handleConfirm("true")}
             />
             <span>Approve</span>
           </label>
@@ -48,7 +47,7 @@ function DocumentFooter({
                 approvedConfirmation === "false" ||
                 submitData?.approved === "false"
               }
-              onClick={() => handleConfirmation("false")}
+              onClick={() => handleConfirm("false")}
             />
             <span>Shortfall</span>
           </label>
@@ -57,7 +56,7 @@ function DocumentFooter({
         <div>
           <p className="mb-4 font-bold">Recomendation</p>
           <textarea
-            onChange={(e) => handleRecomendationMessage(e)}
+            onChange={(e) => handleMessage(e)}
             className="textarea textarea-bordered border-black"
             cols={80}
             rows={5}

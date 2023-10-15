@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PsDocument from "./PsDocument";
 
-function DynamicDocument({ UpdatedDynamicDocumentData, role, handleFileChange, gradientColor }) {
+function DynamicDocument({ UpdatedDynamicDocumentData, role, handleFileChange, gradientColor,setApprovedConfirmation,handleStatus }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
 
   const someEventHandler = (event, id, uploadId) => {
@@ -20,7 +20,7 @@ function DynamicDocument({ UpdatedDynamicDocumentData, role, handleFileChange, g
               <p className="pb-4 font-bold">{index + 9}. {question}</p>
               <div className="ml-6">
                 {requirements?.map((RequireData, ind) => {
-                  const { uploadId, requirement, upload, approved, } = RequireData;
+                  const { uploadId, requirement, upload, approved } = RequireData;
                   const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n'];
                   return (
                     <div key={ind + 1} className="mb-8">
@@ -47,7 +47,7 @@ function DynamicDocument({ UpdatedDynamicDocumentData, role, handleFileChange, g
                           View
                         </a>
                       )}
-                      <PsDocument role={role} />
+                      <PsDocument role={role} id={id} approved={approved} uploadId={uploadId} handleStatus={handleStatus}/>
                     </div>
                   );
                 })}

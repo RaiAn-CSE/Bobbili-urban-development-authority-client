@@ -55,9 +55,23 @@ const DocumentUpload = () => {
       setDefaultData((prev) => [...prev, data]);
     }
   };
+
   useEffect(() => {
     setSendingDocument({ default: DefaultData, dynamic: DynamicData });
   }, [DefaultData, DynamicData]);
+
+  const handleStatus = (event, id,uploadId) => {
+    toast.success(id)
+    console.log({ id, event,uploadId })
+  }
+
+  const handleRecomendationMessage = (e) => {
+    const RecomdMessage = e.target.value;
+    setRecomendationMessage(RecomdMessage);
+  };
+  const handleConfirmation = (data) => {
+    setApprovedConfirmation(data);
+  };
 
   console.log(sendingDocument, "Sending Document");
 
@@ -87,20 +101,21 @@ const DocumentUpload = () => {
     gettingData();
   }, []);
 
-  const handleFileUpload = () => {};
+  const handleFileUpload = () => { };
 
   // send data to PS DB (Apu vai send PS data from here)
   const sentPsDecision = async (url) => {
     // PS data select and send data
-    const PSKeys = ["id", "approved"];
-    const PSArray = updatedDefaultDocument?.map(({ ...obj }) =>
-      PSKeys.reduce((acc, key) => ((acc[key] = obj[key]), acc), {})
-    );
+    // const PSKeys = ["id", "approved"];
+    // const PSArray = updatedDefaultDocument?.map(({ ...obj }) =>
+    //   PSKeys.reduce((acc, key) => ((acc[key] = obj[key]), acc), {})
+    // );
     const PSData = {
-      documentsObservation: { ...PSArray },
+      psData: sendingDocument,
       approved: approvedConfirmation ?? "",
       message: recomendationMessage ?? "",
     };
+    console.log(PSData, "PSData")
     return await sendUserDataIntoDB(url, "PATCH", {
       psDocumentPageObservation: PSData,
     });
@@ -119,14 +134,18 @@ const DocumentUpload = () => {
             role={role}
             handleFileChange={handleFileChange}
             gradientColor={gradientColor}
-            // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
+            setApprovedConfirmation={setApprovedConfirmation}
+            handleStatus={handleStatus}
+          // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
           />
           <DynamicDocument
             role={role}
             UpdatedDynamicDocumentData={UpdatedDynamicDocumentData}
             handleFileChange={handleFileChange}
             gradientColor={gradientColor}
-            // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
+            setApprovedConfirmation={setApprovedConfirmation}
+            handleStatus={handleStatus}
+          // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
           />
         </div>
       </form>
@@ -136,6 +155,8 @@ const DocumentUpload = () => {
           approvedConfirmation={approvedConfirmation}
           setApprovedConfirmation={setApprovedConfirmation}
           setRecomendationMessage={setRecomendationMessage}
+          handleRecomendationMessage={handleRecomendationMessage}
+          handleConfirmation={handleConfirmation}
         />
       ) : (
         ""

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import DefaultDocumentData from "../../../../assets/DefaultDocument.json"
 import PsDocument from "./PsDocument";
 
-function DefaultDocument({ PreviousDefaultDocumentData, role, handleFileChange, gradientColor }) {
+function DefaultDocument({ PreviousDefaultDocumentData, role, handleFileChange, gradientColor,handleStatus }) {
 
     const [selectedFiles, setSelectedFiles] = useState([]);
     const [UpdatedDefaultData, setUpdatedDefaultData] = useState([]);
@@ -45,7 +45,7 @@ function DefaultDocument({ PreviousDefaultDocumentData, role, handleFileChange, 
                                 View
                             </Link>
                         )}
-                        <PsDocument role={role} />
+                        <PsDocument role={role} id={id} approved={approved} handleStatus={handleStatus}/>
                     </div>
                 )
             })}
