@@ -2,7 +2,15 @@ import { useState } from "react";
 import PsDocument from "./PsDocument";
 import { Link } from "react-router-dom";
 
-function DynamicDocument({PreviousDynamicDocumentData, UpdatedDynamicDocumentData, role, handleFileChange, gradientColor,handleStatus,dynamicImageFromDB, }) {
+function DynamicDocument({
+  PreviousDynamicDocumentData,
+  UpdatedDynamicDocumentData,
+  role,
+  handleFileChange,
+  gradientColor,
+  dynamicImageFromDB,
+  handleStatus,
+}) {
   const [selectedFiles, setSelectedFiles] = useState([]);
 
   const someEventHandler = (event, id, uploadId) => {
@@ -14,7 +22,7 @@ function DynamicDocument({PreviousDynamicDocumentData, UpdatedDynamicDocumentDat
   console.log(dynamicImageFromDB, "Dynamic Image from DB");
 
   return (
-    <div className="dark:text-white">
+    <div className="dark:text-black">
       {UpdatedDynamicDocumentData?.map((document, index) => {
         const { id, question, requirements } = document;
 
@@ -40,7 +48,7 @@ function DynamicDocument({PreviousDynamicDocumentData, UpdatedDynamicDocumentDat
                   const letters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n",
                   ];
                   return (
-                    <div key={ind + 1} className="mb-8">
+                    <div key={ind + 1} className="mb-8 ">
                       <div className="mb-3">
                         <span className="font-bold">{letters[ind]}. </span>
                         {requirement}
@@ -53,7 +61,7 @@ function DynamicDocument({PreviousDynamicDocumentData, UpdatedDynamicDocumentDat
                           onChange={(event) =>
                             someEventHandler(event, index + 9, uploadId)
                           }
-                          className="file-input file-input-bordered w-full max-w-xs"
+                          className="file-input file-input-bordered w-full max-w-xs dark:text-white"
                         />
                       )}
 
@@ -67,7 +75,15 @@ function DynamicDocument({PreviousDynamicDocumentData, UpdatedDynamicDocumentDat
                           View
                         </Link>
                       )}
-                      <PsDocument role={role} id={id} approved={approved} uploadId={uploadId} handleStatus={handleStatus} PreviousDocumentData={PreviousDynamicDocumentData} type="dynamic"/>
+                      <PsDocument
+                        role={role}
+                        id={id}
+                        approved={approved}
+                        uploadId={uploadId}
+                        handleStatus={handleStatus}
+                        PreviousDocumentData={PreviousDynamicDocumentData}
+                        type="dynamic"
+                      />
                     </div>
                   );
                 })}

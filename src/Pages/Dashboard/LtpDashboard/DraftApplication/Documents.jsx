@@ -111,6 +111,16 @@ const DocumentUpload = () => {
       setPreviousDynamicDocumentData(applicationData?.documents?.psData?.data?.dynamic);
       setApprovedConfirmation(applicationData?.documents?.psData?.approved)
       setRecomendationMessage(applicationData?.documents?.psData?.message)
+      // setPreviousDefaultDocumentData(applicationData.documents?.default);
+      // const PreviousDynamicDocument = applicationData.documents?.dynamic;
+      setPreviousDefaultDocumentData(
+        applicationData?.documents?.psData?.data?.default
+      );
+      setPreviousDynamicDocumentData(
+        applicationData?.documents?.psData?.data?.dynamic
+      );
+      setApprovedConfirmation(applicationData?.documents?.psData?.approved);
+      setRecomendationMessage(applicationData?.documents?.psData?.message);
 
       // Checklist "yes" Data integrating to Document
       if (applicationCheckList.length) {
@@ -148,12 +158,12 @@ const DocumentUpload = () => {
   };
 
   return (
-    <div className="dark:text-white">
+    <div className="text-black">
       <form
         onSubmit={(e) => {
           e.preventDefault();
         }}
-        className="text-black p-4 font-roboto dark:text-gray-100"
+        className="text-black p-4 font-roboto dark:text-black"
       >
         <div className="w-full text-[17px] px-2 py-5 rounded">
           <DefaultDocument
@@ -171,9 +181,12 @@ const DocumentUpload = () => {
             UpdatedDynamicDocumentData={UpdatedDynamicDocumentData}
             handleFileChange={handleFileChange}
             gradientColor={gradientColor}
+            dynamicImageFromDB={imageIdFromDB?.dynamic}
+            // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
             setApprovedConfirmation={setApprovedConfirmation}
             handleStatus={handleStatus}
           // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
+            // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
           />
         </div>
       </form>

@@ -63,7 +63,7 @@ const OwnerDetail = ({
           <div className="my-4 mx-3">
             <label
               htmlFor="ltpPhoneNo"
-              className="block text-gray-600 mb-1 font-semibold dark:text-gray-100"
+              className="block mb-1 font-semibold text-black"
             >
               Phone no.
             </label>
@@ -73,7 +73,7 @@ const OwnerDetail = ({
               type="text"
               placeholder="xxxxxxxxxx"
               defaultValue={applicantDetails?.phone}
-              className="w-full px-3 py-2 border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200"
+              className="w-full px-3 py-2 border border-violet-500 rounded-lg max-w-xs bg-gray-100 focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200"
               maxLength={10}
               onInput={handleInputPhone}
               required

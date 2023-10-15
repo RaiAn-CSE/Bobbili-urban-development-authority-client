@@ -16,7 +16,7 @@ const AuthProvider = ({ children }) => {
 
   // update user info
   const updateUserInfoInLocalStorage = (id) => {
-    fetch(`http://localhost:5000/getUser?id=${id}`)
+    fetch(`https://residential-building.vercel.app/getUser?id=${id}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -56,7 +56,9 @@ const AuthProvider = ({ children }) => {
   const getUserData = async (id) => {
     console.log(id, "AUTH ID");
 
-    const response = await fetch(`http://localhost:5000/getUser?id=${id}`);
+    const response = await fetch(
+      `https://residential-building.vercel.app/getUser?id=${id}`
+    );
     const data = await response.json();
     return data;
   };
@@ -68,7 +70,7 @@ const AuthProvider = ({ children }) => {
 
     const data = { userId: userInfoFromLocalStorage()._id, applicationNo };
 
-    const url = `http://localhost:5000/deleteApplication?data=${JSON.stringify(
+    const url = `https://residential-building.vercel.app/deleteApplication?data=${JSON.stringify(
       data
     )}`;
     Swal.fire({
@@ -134,10 +136,10 @@ const AuthProvider = ({ children }) => {
     });
 
     role === "LTP" &&
-      (url = `http://localhost:5000/updateDraftApplicationData?filterData=${filterDataForLtp}`);
+      (url = `https://residential-building.vercel.app/updateDraftApplicationData?filterData=${filterDataForLtp}`);
 
     role === "PS" &&
-      (url = `http://localhost:5000/recommendDataOfPs?appNo=${applicationNo}`);
+      (url = `https://residential-building.vercel.app/recommendDataOfPs?appNo=${applicationNo}`);
 
     console.log(url, "url here");
 
@@ -227,7 +229,7 @@ const AuthProvider = ({ children }) => {
       console.log(query, "query");
 
       const response = await fetch(
-        `http://localhost:5000/getApplicationData?data=${query}`
+        `https://residential-building.vercel.app/getApplicationData?data=${query}`
       );
 
       return await response.json();
@@ -246,7 +248,7 @@ const AuthProvider = ({ children }) => {
       console.log(query, "query");
 
       const response = await fetch(
-        `http://localhost:5000/getSubmitDataOfPs?appNo=${query}`
+        `https://residential-building.vercel.app/getSubmitDataOfPs?appNo=${query}`
       );
 
       return await response.json();
@@ -259,7 +261,7 @@ const AuthProvider = ({ children }) => {
   const getAllDraftApplicationData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/allDraftApplicationData`
+        `https://residential-building.vercel.app/allDraftApplicationData`
       );
 
       return await response.json();
@@ -340,7 +342,7 @@ const AuthProvider = ({ children }) => {
 
     const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
-    const darkActiveColor = "dark:bg-black";
+    const darkActiveColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
     if (theme === "dark") {
       return darkActiveColor;
     } else {

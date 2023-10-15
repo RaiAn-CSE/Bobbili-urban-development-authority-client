@@ -20,7 +20,9 @@ const AllUsers = () => {
   const { data, refetch, isLoading, isSuccess } = useQuery({
     queryKey: ["allUser"],
     queryFn: async () => {
-      const response = await fetch("http://localhost:5000/allUser");
+      const response = await fetch(
+        "https://residential-building.vercel.app/allUser"
+      );
       const data = await response.json();
       return data;
     },
@@ -47,7 +49,7 @@ const AllUsers = () => {
   const deleteUser = (id) => {
     console.log(id);
 
-    fetch(`http://localhost:5000/deleteUser/${id}`, {
+    fetch(`https://residential-building.vercel.app/deleteUser/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -112,7 +114,7 @@ const AllUsers = () => {
         delete newUpdatedData._id;
 
         console.log(newUpdatedData, "New updated data");
-        fetch(`http://localhost:5000/updateUserInfo/${_id}`, {
+        fetch(`https://residential-building.vercel.app/updateUserInfo/${_id}`, {
           method: "PATCH",
           headers: {
             "content-type": "application/json",
@@ -153,7 +155,7 @@ const AllUsers = () => {
   }
 
   return (
-    <>
+    <div className="text-black">
       {/* <h1 className="mt-10 text-center text-3xl font-bold Roboto">All Users</h1> */}
 
       {/* input box for search users  */}
@@ -161,7 +163,7 @@ const AllUsers = () => {
         <div>
           <label
             htmlFor="search"
-            className="block mb-2 text-base font-roboto font-bold text-gray-900 dark:text-white"
+            className="block mb-2 text-base font-roboto font-bold text-gray-900 "
           >
             Search User
           </label>
@@ -432,7 +434,7 @@ const AllUsers = () => {
           </div>
         </dialog>
       )}
-    </>
+    </div>
   );
 };
 
