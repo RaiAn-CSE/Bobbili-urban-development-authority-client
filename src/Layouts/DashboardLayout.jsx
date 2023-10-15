@@ -28,7 +28,7 @@ const DashboardLayout = () => {
           >
             <MdOutlineMenuOpen size={24} />
           </label>
-          <Outlet></Outlet>
+          <Outlet />
         </div>
         <div className="drawer-side shadow-md w-full md:min-w-[208px] h-full z-10 ">
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>

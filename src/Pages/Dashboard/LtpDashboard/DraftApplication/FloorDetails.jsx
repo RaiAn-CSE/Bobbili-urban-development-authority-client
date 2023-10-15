@@ -24,8 +24,6 @@ const FloorDetails = ({
     { value: "Second Floor", checked: "" },
   ]);
 
-  console.log(floorTrack, "Floor track");
-
   const handleFloorChange = (e, index) => {
     setFloorChange(e.target.value);
 
@@ -46,8 +44,6 @@ const FloorDetails = ({
       });
       return prev;
     });
-
-    console.log(floorTrack);
   };
 
   return (
@@ -63,7 +59,7 @@ const FloorDetails = ({
           value={floorChange ? floorChange : plotDetailsFloor?.name}
           onChange={(e) => handleFloorChange(e, index)}
         >
-          <option disabled selected value="Select Floor Name">
+          <option disabled value=''>
             Select Floor Name
           </option>
           {floorOptions?.length &&

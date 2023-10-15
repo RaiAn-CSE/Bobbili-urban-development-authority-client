@@ -53,12 +53,12 @@ const ApplicationSearch = () => {
   console.log(filteredData, 'filteredData');
 
   return (
-    <div className="h-full px-4 font-roboto">
+    <div className="h-full px-4 font-roboto dark:bg-white">
       <form>
         <div className="relative">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
             <svg
-              className="w-4 h-4 text-gray-500 dark:text-gray-400"
+              className="w-4 h-4 text-gray-500"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -76,7 +76,7 @@ const ApplicationSearch = () => {
           <input
             type="search"
             id="default-search"
-            className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+            className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50"
             placeholder="Application no. or owner name"
             onChange={(e) => searchApplicationData(e)}
             required
@@ -85,7 +85,7 @@ const ApplicationSearch = () => {
       </form>
 
       {/* Location details  */}
-      <div className="divide-y-2 divide-gray-200 mt-9">
+      <div className="divide-y-2 divide-gray-200 mt-9 dark:bg-white">
         <div className="flex mb-1">
           <h3 className="basis-[50%] text-lg px-5 font-semibold">
             Location details
@@ -132,12 +132,14 @@ const ApplicationSearch = () => {
               id="netPlotArea"
               type="text"
               placeholder="xxxxxxx"
+              ltpDetails={filteredData?.buildingInfo?.plotDetails?.netPlotAreaCal}
             />
             <MainPageInput
               label="No. of floors"
               id="noOfFloors"
               type="text"
               placeholder="xxxxxxx"
+              ltpDetails={filteredData?.buildingInfo?.plotDetails?.floorDetails?.length}
             />
             <MainPageInput
               label="N0. of units"
@@ -146,17 +148,18 @@ const ApplicationSearch = () => {
               placeholder="xxxxxxx"
             />
             <MainPageInput
-              label="Total Built up area"
+              label="Total built up area"
               id="totalBuiltUpArea"
               type="text"
               placeholder="xxxxxxx"
+              ltpDetails={filteredData?.buildingInfo?.plotDetails?.totalBuiltUpArea}
             />
           </div>
         </div>
       </div>
 
       {/* Owner details  */}
-      <div className="divide-y-2 divide-gray-200 mt-9">
+      <div className="divide-y-2 divide-gray-200 mt-9 dark:bg-white">
         <div className="flex mb-1">
           <h3 className="basis-[50%] text-lg px-5 font-semibold">
             Owner details
@@ -175,11 +178,18 @@ const ApplicationSearch = () => {
               ltpDetails={filteredData?.applicantInfo.applicantDetails?.[0].name}
             />
             <MainPageInput
-              label="Address"
-              id="address1"
+              label="Owner door no"
+              id="ownerDoorNo"
               type="text"
               placeholder="xxxxxxx"
-              ltpDetails={filteredData?.applicantInfo.applicantDetails?.[0].address}
+              ltpDetails={filteredData?.applicantInfo.applicantDetails?.[0].ownerDoorNo}
+            />
+            <MainPageInput
+              label="Owner street no"
+              id="ownerStreetNo"
+              type="text"
+              placeholder="xxxxxxx"
+              ltpDetails={filteredData?.applicantInfo.applicantDetails?.[0].ownerStreetNo}
             />
           </div>
 
@@ -202,7 +212,7 @@ const ApplicationSearch = () => {
         </div>
       </div>
 
-      <div className="flex justify-center items-center mt-5 pb-9">
+      <div className="flex justify-center items-center pt-5 pb-9 dark:bg-white">
         <div className="p-3">
           <span className="grid justify-center items-center">
             <AiOutlineFileDone size={25} />
