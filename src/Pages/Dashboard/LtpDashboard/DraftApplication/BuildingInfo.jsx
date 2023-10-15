@@ -32,11 +32,8 @@ const BuildingInfo = () => {
 
   const [generalInformation, setGeneralInformation] = useState("");
   // Case Type
-  const [selectedOptionCase, setSelectedOptionCase] = useState("");
-
-  const [selectedOptionPermission, setSelectedOptionPermission] = useState("");
-
-  // NATURE OF THE SITE
+  const [selectedOptionCase, setSelectedOptionCase] = useState('');
+  const [selectedOptionPermission, setSelectedOptionPermission] = useState("General");
   const [selectedNatureOfTheSite, setSelectedNatureOfTheSite] = useState("");
 
   const [districtData, setDistrictData] = useState([]);
@@ -90,15 +87,12 @@ const BuildingInfo = () => {
 
   // HERE TOTAL BUILTUP AREA AND TOTAL PARKING AREA IS CALCULATED
   useEffect(() => {
-    console.log("TOTAL BUILT AND PARKING CALC");
-    console.log(builtUpArea, "BUILTUPAREA");
     const totalBuiltUpArea = builtUpArea.reduce((accumulator, currentValue) => {
       return accumulator + currentValue;
     });
 
     setBuiltUpAreaSum(totalBuiltUpArea === 0 ? "" : totalBuiltUpArea);
 
-    console.log(parkingArea, "Parking area");
     const totalParkingArea = parkingArea.reduce(
       (acc, currentValue) => acc + currentValue,
       0
@@ -118,7 +112,7 @@ const BuildingInfo = () => {
   useEffect(() => {
     const getData = async () => {
       const applicationData = await getApplicationData(applicationNo);
-      console.log(applicationData);
+      console.log(applicationData, 'All info ApplicationData');
 
       const generalInformation =
         applicationData?.buildingInfo?.generalInformation;
@@ -127,7 +121,6 @@ const BuildingInfo = () => {
 
       const plotDetailsFloor =
         applicationData?.buildingInfo?.plotDetails?.floorDetails;
-      console.log(generalInformation, "generalinformation");
 
       const scheduleBoundaries =
         applicationData?.buildingInfo?.scheduleBoundaries;
@@ -139,30 +132,30 @@ const BuildingInfo = () => {
       setSelectedMandal(generalInformation?.mandal);
       setSelectedGrama(generalInformation?.gramaPanchayat);
       setSelectedVillage(generalInformation?.village);
-      console.log(plotDetails?.siteRegistered, "plotDetails plotDetails");
       setRadio4(plotDetails?.compoundingWallProposed);
       setRadio5(plotDetails?.siteRegistered);
+      setWestValue(scheduleBoundaries?.west);
+      setEastValue(scheduleBoundaries?.east);
+      setSouthValue(scheduleBoundaries?.south);
+      setNorthValue(scheduleBoundaries?.north);
+      setNatureOfRoadValue(plotDetails?.natureOfRoad);
 
-      console.log(builtUpArea, "builtUp area");
+
       // update floor details as well as builtup area and parking area
       plotDetails?.floorDetails?.map((floor, index) => {
         setBuiltUpArea((prev) => {
           const oldData = [...prev];
           oldData[index] = parseFloat(floor?.builtUpArea);
 
-          console.log(oldData, "oldData");
           return oldData;
         });
         setParkingArea((prev) => {
           const oldData = [...prev];
           oldData[index] = parseFloat(floor?.parkingArea);
 
-          console.log(oldData, "oldData");
           return oldData;
         });
       });
-
-      console.log(builtUpArea, "Builtuparea adjacent");
 
       setProposedPlotArea(plotDetails?.proposedPlotAreaCal);
       setRoadWideningArea(plotDetails?.roadWideningAreaCal);
@@ -190,10 +183,6 @@ const BuildingInfo = () => {
     setDistrictData(allDistrictData.district);
   }, []);
 
-  console.log(plotDetails, "plotDetails");
-
-  console.log(builtUpArea, "BUILT area");
-
   // Case Type
   const handleCaseTypeChange = (e) => {
     setSelectedOptionCase(e.target.value);
@@ -207,17 +196,12 @@ const BuildingInfo = () => {
     setSelectedNatureOfTheSite(e.target.value);
   };
 
-  // Net Plot Area(in Sq.Mts.) Calculation :
-
   // ========================(Calculation part start)
   const handleProposedPlotAreaChange = (e) => {
     let newValue = e.target.value;
-    console.log("New proposed value", newValue);
     // Check if the entered value is a valid number and less than or equal to 300
 
-    console.log(roadWideningArea, "ROADWA");
     const roadWideValue = roadWideningArea !== "" ? roadWideningArea : 0;
-    console.log(roadWideValue, "ROADWV");
     if (newValue > 300) {
       e.target.value = 300;
       newValue = 300;
@@ -227,16 +211,11 @@ const BuildingInfo = () => {
       newValue = 0;
     }
     setProposedPlotArea(newValue);
-    // calculateNetPlotArea(newValue, roadWideValue);
   };
 
   const handleRoadWideningAreaChange = (e) => {
     let newValue = e.target.value;
-    console.log(newValue, "NEW VAL:UE");
     // Check if the entered value is a valid number and less than or equal to 300
-
-    console.log(proposedPlotArea, "PRPA");
-    // const plotValue = proposedPlotArea !== "" ? proposedPlotArea : 0;
     if (newValue > 300) {
       e.target.value = 300;
       newValue = 300;
@@ -245,9 +224,7 @@ const BuildingInfo = () => {
       e.target.value = 0;
       newValue = 0;
     }
-
     setRoadWideningArea(newValue);
-    // calculateNetPlotArea(plotValue, newValue);
   };
 
   const calculateNetPlotArea = (proposed, widening) => {
@@ -256,12 +233,12 @@ const BuildingInfo = () => {
 
     if (!isNaN(proposedArea) && !isNaN(wideningArea)) {
       const netArea = proposedArea - wideningArea;
-      console.log(netArea, "netArea");
       setNetPlotArea(netArea.toFixed(2)); // Format to 2 decimal places
     } else {
       setNetPlotArea("");
     }
-  }; // ========================<<<(Calculation part End)>>>...
+  };
+  // ========================<<<(Calculation part End)>>>...
 
   // handleBuiltUpArea
   const handleBuiltUpArea = (value, index) => {
@@ -270,8 +247,6 @@ const BuildingInfo = () => {
     updateArea[index] = newBuiltUpArea;
     setBuiltUpArea(updateArea);
   };
-
-  // console.log(builtUpArea, "BuiltupArea");
 
   const increaseFloorNo = () => {
     const newFloor = `Floor${totalFloor.length + 1}`;
@@ -289,11 +264,9 @@ const BuildingInfo = () => {
     updateArea[index] = newParkingArea;
     setParkingArea(updateArea);
   };
-
   // ======================================================<<<(Built Up Area Calculation End)>>>>...
 
-  //==============================<<<<<(District, Mandal & Village Start)>>>>> :
-
+  //=============================================<<<<<(District, Mandal & Village Start)>>>>> :
   const handleDistrictChange = (event) => {
     setSelectedDistrict(event.target.value);
     // Reset selected mandal and village when district changes
@@ -310,12 +283,12 @@ const BuildingInfo = () => {
   };
   //==============================<<<<<(District, Mandal & Village End)>>>>> :
 
-  const handleNorthChange = (event) => {
-    setNorthValue(event.target.value);
-  };
-
   const handleNatureOfRoad = (event) => {
     setNatureOfRoadValue(event.target.value);
+  };
+
+  const handleNorthChange = (event) => {
+    setNorthValue(event.target.value);
   };
 
   const handleSouthChange = (event) => {
@@ -330,14 +303,22 @@ const BuildingInfo = () => {
     setWestValue(event.target.value);
   };
 
+
+
+  // const [scheduleBoundariesValue, setScheduleBoundariesValue] = useState({})
+  // const handleScheduleBoundaries = (e, id) => {
+  //   setScheduleBoundariesValue((pre) => ({
+  //     ...pre,
+  //     [id]: e.target.value,
+  //   }))
+  // }
+
   // Radio Button Get Data from server:
   const [radio1, setRadio1] = useState("");
   const [radio2, setRadio2] = useState("");
   const [radio3, setRadio3] = useState("");
   const [radio4, setRadio4] = useState("");
   const [radio5, setRadio5] = useState("");
-
-  console.log(radio4, "radio4");
 
   const handleRadio1 = (e) => {
     setRadio1(e.target.value);
@@ -355,17 +336,9 @@ const BuildingInfo = () => {
     setRadio4(e.target.value);
   };
 
-  console.log(radio4, "Radio4");
-
   const handleRadio5 = (e) => {
     setRadio5(e.target.value);
   };
-
-  // const getValue = () => {
-  //   const runningMeterData = document.getElementById("runningMeter");
-  //   const runningMeter = runningMeterData ? runningMeterData.value : "";
-  //   console.log(runningMeter, "Running meter");
-  // };
 
   // get data from input field :
   const collectInputFieldData = async (url) => {
@@ -430,10 +403,7 @@ const BuildingInfo = () => {
     const vacantLand = document.getElementById("vacantLand").value;
     const noOfUnits = document.getElementById("noOfUnits").value;
 
-    // console.log(totalFloor, "totalFloor");
-
     const floorDetails = totalFloor.map((floor, index) => {
-      // console.log(floor);
       const builtUpArea = document.getElementById(`builtUpArea${index}`).value;
       const parkingArea = document.getElementById(`parkingArea${index}`).value;
       return {
@@ -442,8 +412,6 @@ const BuildingInfo = () => {
         parkingArea: parkingArea === "" ? 0 : parkingArea,
       };
     });
-
-    console.log(floorDetails, "FloorDetails");
 
     const totalBuiltUpArea = document.getElementById("totalBuiltUpArea").value;
     const totalParkingArea = document.getElementById("totalParkingArea").value;
@@ -460,8 +428,6 @@ const BuildingInfo = () => {
     // runningMeter
     const runningMeterData = document.getElementById("runningMeter");
     const runningMeter = runningMeterData ? runningMeterData.value : "";
-
-    console.log(runningMeter, "Running meter");
 
     const siteRegistered =
       document.querySelector('input[name="radio-5"]:checked')?.value || "";
@@ -492,9 +458,9 @@ const BuildingInfo = () => {
     const plotDetails = {
       totalPlotDocument,
       totalPlotGround,
-      proposedPlotAreaCal: proposedPlotArea === "" ? 0 : proposedPlotArea,
-      roadWideningAreaCal: roadWideningArea === "" ? 0 : roadWideningArea,
-      netPlotAreaCal: netPlotArea === "" ? 0 : netPlotArea,
+      proposedPlotAreaCal: proposedPlotAreaValue,
+      roadWideningAreaCal: roadWideningAreaValue,
+      netPlotAreaCal: netPlotAreaValue,
       statusOfRoad,
       existingRoad,
       natureOfRoad,
@@ -545,7 +511,6 @@ const BuildingInfo = () => {
     });
   };
 
-  // console.log(generalInformation, "generalInformation");
   const {
     applicationType,
     bpsApprovedNoServer,
@@ -566,7 +531,6 @@ const BuildingInfo = () => {
     village,
   } = generalInformation ?? {};
 
-  // console.log(plotDetails, "plotDetails");
   const {
     proposedPlotAreaCal,
     roadWideningAreaCal,
@@ -593,13 +557,7 @@ const BuildingInfo = () => {
     runningMeter,
   } = plotDetails ?? {};
 
-  // console.log(scheduleBoundaries, 'scheduleBoundaries');
   const { east, west, north, south } = scheduleBoundaries ?? {};
-
-  console.log(generalInformation, "GENERAL INFORMATION");
-
-  console.log(selectedOptionCase, "selectedOptionCase");
-  console.log("hi there");
 
   // classes for this component:
   const labelClass =
@@ -626,10 +584,10 @@ const BuildingInfo = () => {
               <select
                 id="caseType"
                 className={inputClass}
-                value={selectedOptionCase ? selectedOptionCase : caseType}
+                value={selectedOptionCase}
                 onChange={handleCaseTypeChange}
               >
-                <option disabled selected value="">
+                <option disabled value=''>
                   Select Case type
                 </option>
                 <option value="New">New</option>
@@ -689,16 +647,10 @@ const BuildingInfo = () => {
               <select
                 id="natureOfPermission"
                 className={inputClass}
-                value={
-                  selectedOptionPermission
-                    ? selectedOptionPermission
-                    : natureOfPermission
-                }
+                value={selectedOptionPermission}
                 onChange={handlePermissionChange}
               >
-                <option selected value="General">
-                  General
-                </option>
+                <option value='General'>General</option>
                 <option value="Regularised under BPS">
                   Regularised under BPS
                 </option>
@@ -713,14 +665,10 @@ const BuildingInfo = () => {
               <select
                 id="natureOfTheSite"
                 className={inputClass}
-                value={
-                  selectedNatureOfTheSite
-                    ? selectedNatureOfTheSite
-                    : natureOfTheSite
-                }
+                value={selectedNatureOfTheSite}
                 onChange={handleNatureChange}
               >
-                <option disabled selected value="">
+                <option disabled value="">
                   Select Nature of the site
                 </option>
                 <option value="Approved Layout">Approved Layout</option>
@@ -763,7 +711,7 @@ const BuildingInfo = () => {
                 onChange={handleDistrictChange}
                 value={selectedDistrict}
               >
-                <option selected value="" disabled>
+                <option value="" disabled>
                   Select District
                 </option>
                 {districtData.map((district) => (
@@ -930,7 +878,7 @@ const BuildingInfo = () => {
               "Plot port of RLP/IPLP but not regularised" && (
                 <InputField
                   id="IplpNo"
-                  name=""
+                  name="IplpNo"
                   label="RLP/IPLP no."
                   placeholder="RLP/IPLP no."
                   type="number"
@@ -953,7 +901,7 @@ const BuildingInfo = () => {
               <InputField
                 type="number"
                 id="TotalPlotDocument"
-                name=""
+                name="TotalPlotDocument"
                 label="Total Plot are as per document"
                 placeholder="in Sq.Mts."
                 ltpDetails={totalPlotDocument}
@@ -961,7 +909,7 @@ const BuildingInfo = () => {
               <InputField
                 type="number"
                 id="TotalPlotGround"
-                name=""
+                name="TotalPlotGround"
                 label="Total Plot are as on ground"
                 placeholder="in Sq.Mts."
                 ltpDetails={totalPlotGround}
@@ -977,13 +925,10 @@ const BuildingInfo = () => {
                   name="proposedPlotArea"
                   placeholder="in Sq.Mts."
                   className="w-full px-3 py-2 border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200"
-                  defaultValue={
-                    proposedPlotArea ? proposedPlotArea : proposedPlotAreaCal
-                  }
+                  defaultValue={proposedPlotArea ?? ''}
                   onChange={handleProposedPlotAreaChange}
                 />
                 <p className="text-xs text-red-500 mt-2">
-                  {console.log(proposedPlotArea, proposedPlotAreaCal, "INSIDE")}
                   {proposedPlotArea > 300 && proposedPlotArea !== ""
                     ? "Value must be less than 300"
                     : ""}
@@ -996,13 +941,12 @@ const BuildingInfo = () => {
                 </label>
                 <input
                   id="roadWideningArea"
-                  type="number"
+                  type="roadWideningArea"
                   placeholder="in Sq.Mts."
                   className="w-full px-3 py-2 border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200"
-                  defaultValue={roadWideningArea}
+                  defaultValue={roadWideningArea ?? ''}
                   onChange={handleRoadWideningAreaChange}
                 />
-                {console.log(roadWideningArea, "Inside roadwidening")}
                 <p className="text-xs text-red-500 mt-2">
                   {roadWideningArea > 300 && roadWideningArea !== ""
                     ? "Value must be less than 300"
@@ -1021,7 +965,7 @@ const BuildingInfo = () => {
                   name="netPlotArea"
                   placeholder="Automatically calculated"
                   className="w-full px-3 py-2 border rounded-lg max-w-xs"
-                  value={netPlotArea}
+                  value={netPlotArea ?? ''}
                   disabled
                 />
               </div>
@@ -1113,10 +1057,10 @@ const BuildingInfo = () => {
                 <select
                   id="natureOfRoad"
                   className={inputClass}
-                  value={natureOfRoadValue ? natureOfRoadValue : natureOfRoad}
+                  value={natureOfRoadValue}
                   onChange={handleNatureOfRoad}
                 >
-                  <option disabled selected>
+                  <option disabled value=''>
                     Select Nature of Road
                   </option>
                   <option>BT Road</option>
@@ -1365,16 +1309,17 @@ const BuildingInfo = () => {
               <select
                 id="north"
                 className={inputClass}
-                value={northValue ? northValue : north}
+                value={northValue}
                 onChange={handleNorthChange}
               >
-                <option disabled selected value="">
+                <option disabled value=''>
                   Select North
                 </option>
                 <option value="Road">Road</option>
                 <option value="Plot">Plot</option>
                 <option value="Vacant land">Vacant land</option>
                 <option value="Water body">Water body</option>
+                <option value="Existing building">Existing building</option>
               </select>
             </div>
 
@@ -1385,16 +1330,17 @@ const BuildingInfo = () => {
               <select
                 id="south"
                 className={inputClass}
-                value={southValue ? southValue : south}
+                value={southValue}
                 onChange={handleSouthChange}
               >
-                <option disabled selected value="">
+                <option disabled value=''>
                   Select South
                 </option>
                 <option value="Road">Road</option>
                 <option value="Plot">Plot</option>
                 <option value="Vacant land">Vacant land</option>
                 <option value="Water body">Water body</option>
+                <option value="Existing building">Existing building</option>
               </select>
             </div>
 
@@ -1405,16 +1351,17 @@ const BuildingInfo = () => {
               <select
                 id="east"
                 className={inputClass}
-                value={eastValue ? eastValue : east}
+                value={eastValue}
                 onChange={handleEastChange}
               >
-                <option disabled selected value="">
+                <option disabled value=''>
                   Select East
                 </option>
                 <option value="Road">Road</option>
                 <option value="Plot">Plot</option>
                 <option value="Vacant land">Vacant land</option>
                 <option value="Water body">Water body</option>
+                <option value="Existing building">Existing building</option>
               </select>
             </div>
 
@@ -1425,16 +1372,17 @@ const BuildingInfo = () => {
               <select
                 id="west"
                 className={inputClass}
-                value={westValue ? westValue : west}
+                value={westValue}
                 onChange={handleWestChange}
               >
-                <option disabled selected value="">
+                <option disabled value=''>
                   Select West
                 </option>
                 <option value="Road">Road</option>
                 <option value="Plot">Plot</option>
                 <option value="Vacant land">Vacant land</option>
                 <option value="Water body">Water body</option>
+                <option value="Existing building">Existing building</option>
               </select>
             </div>
           </div>
