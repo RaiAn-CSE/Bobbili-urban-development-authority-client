@@ -21,7 +21,7 @@ const FloorDetails = ({
   const [selectedFloor, setSelectedFloor] = useState("");
 
   useEffect(() => {
-    setSelectedFloor(plotDetailsFloor?.name ?? "");
+    setSelectedFloor(plotDetailsFloor?.name ?? "select");
   }, [plotDetailsFloor]);
 
   // a function to find old selected value holding by others floor select boxes and if any option existing return 1 else return 0
@@ -33,6 +33,8 @@ const FloorDetails = ({
         flag = 1;
       }
     });
+
+    console.log(selectedFloor, "SELELELE");
 
     if (flag === 1) {
       const searchInIndividualFloorSelected = individualFloorSelected.findIndex(
@@ -62,6 +64,8 @@ const FloorDetails = ({
     });
   };
 
+  console.log(selectedFloor?.length ? selectedFloor : floorChange, "SELECTED");
+
   return (
     <>
       <div className="flex flex-col justify-center mx-3">
@@ -72,7 +76,7 @@ const FloorDetails = ({
           id={`floorName${index}`}
           name={`floorName${index}`}
           className="w-full px-3 py-[10px] border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200"
-          defaultValue={selectedFloor?.length ? selectedFloor : floorChange}
+          value={selectedFloor?.length ? selectedFloor : floorChange}
           onChange={(e) => {
             handleFloorChange(e, index);
           }}
