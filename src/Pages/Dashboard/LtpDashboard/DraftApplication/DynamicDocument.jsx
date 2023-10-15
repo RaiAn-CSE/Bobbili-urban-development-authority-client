@@ -1,11 +1,13 @@
 import { useState } from "react";
 import PsDocument from "./PsDocument";
+import { Link } from "react-router-dom";
 
 function DynamicDocument({
   UpdatedDynamicDocumentData,
   role,
   handleFileChange,
   gradientColor,
+  dynamicImageFromDB,
 }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
 
@@ -15,10 +17,13 @@ function DynamicDocument({
     handleFileChange(event, id, selectedFiles, "dynamic", uploadId);
   };
 
+  console.log(dynamicImageFromDB, "Dynamic Image from DB");
+
   return (
     <div className="dark:text-white">
       {UpdatedDynamicDocumentData?.map((document, index) => {
         const { id, question, requirements } = document;
+
         return (
           <div key={id} className="w-full px-2 py-5 rounded">
             <div className="text-[17px]">
@@ -29,6 +34,15 @@ function DynamicDocument({
                 {requirements?.map((RequireData, ind) => {
                   const { uploadId, requirement, upload, approved } =
                     RequireData;
+
+                  const isMatch = dynamicImageFromDB?.find(
+                    (eachFile, i) =>
+                      eachFile.id === index + 9 &&
+                      eachFile.uploadId === uploadId
+                  );
+
+                  console.log(isMatch, "IS MATCH");
+
                   const letters = [
                     "a",
                     "b",
@@ -63,15 +77,15 @@ function DynamicDocument({
                         />
                       )}
 
-                      {RequireData.upload !== "" && (
-                        <a
-                          href={`https://drive.google.com/file/d/${RequireData.upload}/view?usp=sharing`}
+                      {isMatch && (
+                        <Link
+                          to={`https://drive.google.com/file/d/${isMatch.imageId}/view?usp=sharing`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className={`${gradientColor} text-white hover:underline ms-5 py-2 px-5 rounded-full`}
                         >
                           View
-                        </a>
+                        </Link>
                       )}
                       <PsDocument role={role} />
                     </div>

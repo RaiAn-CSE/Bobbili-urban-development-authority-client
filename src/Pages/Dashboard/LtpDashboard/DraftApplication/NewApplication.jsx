@@ -108,7 +108,10 @@ const NewApplication = () => {
       },
       applicantInfo: { ltpDetails: {}, applicantDetails: {} },
       applicationCheckList: [],
-      documents: {},
+      documents: {
+        default: [],
+        dynamic: [],
+      },
       drawing: { AutoCAD: "", Drawing: "" },
       payment: {
         udaCharge: {},

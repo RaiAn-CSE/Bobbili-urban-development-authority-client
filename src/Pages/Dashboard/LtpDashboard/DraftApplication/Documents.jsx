@@ -46,6 +46,11 @@ const DocumentUpload = () => {
     default: [],
   });
 
+  const [imageIdFromDB, setImageIdFromDB] = useState({
+    default: [],
+    dynamic: [],
+  });
+
   const handleFileChange = (event, id, uploadedFile, type, uploadId) => {
     const { files, name } = event.target;
     const file = files[0];
@@ -79,12 +84,17 @@ const DocumentUpload = () => {
     const gettingData = async () => {
       let updatedDynamicDocumentsToAdd = [];
       const applicationData = await getApplicationData(applicationNo);
+
+      console.log(applicationData, "Application Data");
       const applicationCheckList = applicationData.applicationCheckList;
-      setPreviousDefaultDocumentData(applicationData.documents?.default);
-      const PreviousDynamicDocument = applicationData.documents?.dynamic;
+      // setPreviousDefaultDocumentData(applicationData.documents?.default);
+      // const PreviousDynamicDocument = applicationData.documents?.dynamic;
 
       // Checklist "yes" Data integrating to Document
       if (applicationCheckList.length) {
+        const documents = applicationData?.documents;
+        console.log(documents, "Documents");
+        setImageIdFromDB({ ...documents });
         DynamicDocuments?.forEach((data, index) => {
           applicationCheckList.forEach((document) => {
             const condition01 = data.question === document.question;
@@ -102,6 +112,7 @@ const DocumentUpload = () => {
 
   console.log(sendingDocument, "sending document");
 
+  // file send into the database
   const handleFileUpload = async (url) => {
     // append data to formData so that the file data can be sent into the database
     let fileCheckToUpload = 0;
@@ -159,14 +170,66 @@ const DocumentUpload = () => {
     console.log(sendingImageId, "Sending Image id");
 
     if (fileCheckToUpload === loopTimes.length) {
+      console.log({
+        default: [...imageIdFromDB?.default, ...sendingImageId?.default],
+        dynamic: [...imageIdFromDB?.dynamic, ...sendingImageId?.dynamic],
+      });
+
+      const documents = {
+        default: [],
+        dynamic: [],
+      };
+
+      const sendingDefault = sendingImageId?.default;
+      const dbDefault = imageIdFromDB?.default;
+
+      if (sendingDefault?.length) {
+        sendingDefault?.forEach((sendImg, sendIndx) => {
+          dbDefault?.forEach((dbImg, dbIndx) => {
+            if (dbImg.id === sendImg.id) {
+              // delete dbDefault[dbIndx];
+              dbDefault.splice(dbIndx, 1);
+            }
+          });
+        });
+
+        documents.default = [...dbDefault, ...sendingDefault];
+      } else {
+        documents.default = [...dbDefault];
+      }
+
+      const sendingDynamic = sendingImageId?.dynamic;
+      const dbDynamic = imageIdFromDB?.dynamic;
+      if (sendingDynamic?.length) {
+        sendingDynamic?.forEach((sendImg, sendIndx) => {
+          dbDynamic?.forEach((dbImg, dbIndx) => {
+            if (
+              dbImg.id === sendImg.id &&
+              dbImg.uploadId === sendImg.uploadId
+            ) {
+              // delete dbDynamic[dbIndx];
+              dbDynamic.splice(dbIndx, 1);
+            }
+          });
+        });
+
+        documents.dynamic = [...dbDynamic, ...sendingDynamic];
+      } else {
+        documents.dynamic = [...dbDynamic];
+      }
+
+      console.log(documents, "Documents");
+
       return await sendUserDataIntoDB(url, "PATCH", {
         applicationNo,
-        documents: sendingImageId,
+        documents,
         approved: approvedConfirmation,
         message: recomendationMessage,
       });
     }
   };
+
+  console.log(imageIdFromDB, "IMAGE ID FROM DB");
 
   // send data to PS DB (Apu vai send PS data from here)
   const sentPsDecision = async (url) => {
@@ -198,6 +261,7 @@ const DocumentUpload = () => {
             role={role}
             handleFileChange={handleFileChange}
             gradientColor={gradientColor}
+            defaultImageFromDB={imageIdFromDB?.default}
             // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
           />
           <DynamicDocument
@@ -205,6 +269,7 @@ const DocumentUpload = () => {
             UpdatedDynamicDocumentData={UpdatedDynamicDocumentData}
             handleFileChange={handleFileChange}
             gradientColor={gradientColor}
+            dynamicImageFromDB={imageIdFromDB?.dynamic}
             // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
           />
         </div>
