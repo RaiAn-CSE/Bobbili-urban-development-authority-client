@@ -14,8 +14,13 @@ const ApplicantInfo = () => {
 
   // console.log(stepperData);
 
-  const { confirmAlert, sendUserDataIntoDB, getApplicationData } =
+  const { userInfoFromLocalStorage } = useContext(AuthContext);
+  const { confirmAlert, sendUserDataIntoDB, getApplicationData, } =
     useContext(AuthContext);
+
+  const role = userInfoFromLocalStorage().role;
+
+  const isReadOnly = role === 'PS';
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
 
@@ -206,6 +211,7 @@ const ApplicantInfo = () => {
                 name="validity"
                 className={inputClass}
                 defaultValue={validity}
+                disabled={isReadOnly}
               />
             </div>
 
@@ -222,6 +228,7 @@ const ApplicantInfo = () => {
                 onChange={(e) => setPhoneNoLimit(e, setLtpPhone)}
                 className={inputClass}
                 maxLength={10}
+                readOnly={isReadOnly}
               />
             </div>
 
@@ -232,6 +239,7 @@ const ApplicantInfo = () => {
               placeholder="xxxx@gmail.com"
               type="email"
               ltpDetails={email}
+              readOnly={isReadOnly}
             />
           </div>
           <div className="my-4 mx-3 basis-[25%]">
@@ -245,6 +253,7 @@ const ApplicantInfo = () => {
               className={inputClass}
               defaultValue={address}
               placeholder="Dr. no., Street, Village, Mandal, Dist."
+              disabled={isReadOnly}
             ></textarea>
           </div>
         </div>
@@ -273,6 +282,7 @@ const ApplicantInfo = () => {
               decreaseApplicationNo={decreaseApplicationNo}
               setPhoneNoLimit={setPhoneNoLimit}
               applicantDetails={applicantDetails[index]}
+              isReadOnly={isReadOnly}
             />
           ))}
         </div>

@@ -9,6 +9,7 @@ const OwnerDetail = ({
   increaseApplicantNo,
   decreaseApplicationNo,
   applicantDetails,
+  isReadOnly,
 }) => {
   const ownerSerial = ["First", "Second", "Third", "Fourth", "Fifth"];
 
@@ -76,7 +77,7 @@ const OwnerDetail = ({
               className="w-full px-3 py-2 border rounded-lg max-w-xs border-gray-300 text-gray-900 bg-gray-50 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200"
               maxLength={10}
               onInput={handleInputPhone}
-              required
+              disabled={isReadOnly}
             />
           </div>
 
