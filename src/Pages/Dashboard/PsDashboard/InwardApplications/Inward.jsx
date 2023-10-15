@@ -84,7 +84,7 @@ const Inward = () => {
   return (
     <div>
       {path.includes("searchApplication") && (
-        <form className="max-w-lg my-3" onSubmit={handleSubmit(onSubmit)}>
+        <form className="max-w-lg my-3 px-3" onSubmit={handleSubmit(onSubmit)}>
           <label
             htmlFor="default-search"
             className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
@@ -113,14 +113,14 @@ const Inward = () => {
               type="search"
               id="default-search"
               {...register("search")}
-              className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+              className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50"
               placeholder="Application no. or owner name"
               required
             />
             <input
               type="submit"
               value="Search"
-              className="text-[#000] font-semibold absolute right-2.5 bottom-2.5 bg-[#ffd66c] hover:bg-[#e1bc60] focus:ring-4 focus:outline-none focus:ring-[#ffd66c] rounded-lg text-sm px-4 py-2"
+              className="text-[#fff] font-semibold absolute right-2.5 bottom-2.5 focus:ring-2 focus:outline-none focus:ring-fuchsia-200 rounded-lg text-sm px-4 py-2 bg-gradient-to-r from-violet-500 to-fuchsia-500"
             />
           </div>
         </form>
