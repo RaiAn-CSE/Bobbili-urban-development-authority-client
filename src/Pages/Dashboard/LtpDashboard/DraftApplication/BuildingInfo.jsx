@@ -32,8 +32,9 @@ const BuildingInfo = () => {
 
   const [generalInformation, setGeneralInformation] = useState("");
   // Case Type
-  const [selectedOptionCase, setSelectedOptionCase] = useState('');
-  const [selectedOptionPermission, setSelectedOptionPermission] = useState("General");
+  const [selectedOptionCase, setSelectedOptionCase] = useState("");
+  const [selectedOptionPermission, setSelectedOptionPermission] =
+    useState("General");
   const [selectedNatureOfTheSite, setSelectedNatureOfTheSite] = useState("");
 
   const [districtData, setDistrictData] = useState([]);
@@ -112,7 +113,7 @@ const BuildingInfo = () => {
   useEffect(() => {
     const getData = async () => {
       const applicationData = await getApplicationData(applicationNo);
-      console.log(applicationData, 'All info ApplicationData');
+      console.log(applicationData, "All info ApplicationData");
 
       const generalInformation =
         applicationData?.buildingInfo?.generalInformation;
@@ -139,7 +140,6 @@ const BuildingInfo = () => {
       setSouthValue(scheduleBoundaries?.south);
       setNorthValue(scheduleBoundaries?.north);
       setNatureOfRoadValue(plotDetails?.natureOfRoad);
-
 
       // update floor details as well as builtup area and parking area
       plotDetails?.floorDetails?.map((floor, index) => {
@@ -302,8 +302,6 @@ const BuildingInfo = () => {
   const handleWestChange = (event) => {
     setWestValue(event.target.value);
   };
-
-
 
   // const [scheduleBoundariesValue, setScheduleBoundariesValue] = useState({})
   // const handleScheduleBoundaries = (e, id) => {
@@ -584,16 +582,10 @@ const BuildingInfo = () => {
               <select
                 id="caseType"
                 className={inputClass}
-<<<<<<< HEAD
-                defaultValue={
-                  selectedOptionCase ? selectedOptionCase : caseType
-                }
-=======
                 value={selectedOptionCase}
->>>>>>> raian
                 onChange={handleCaseTypeChange}
               >
-                <option disabled value=''>
+                <option disabled value="">
                   Select Case type
                 </option>
                 <option value="New">New</option>
@@ -656,7 +648,7 @@ const BuildingInfo = () => {
                 value={selectedOptionPermission}
                 onChange={handlePermissionChange}
               >
-                <option value='General'>General</option>
+                <option value="General">General</option>
                 <option value="Regularised under BPS">
                   Regularised under BPS
                 </option>
@@ -882,27 +874,15 @@ const BuildingInfo = () => {
 
             {selectedNatureOfTheSite ===
               "Plot port of RLP/IPLP but not regularised" && (
-<<<<<<< HEAD
               <InputField
                 id="IplpNo"
-                name=""
+                name="IplpNo"
                 label="RLP/IPLP no."
                 placeholder="RLP/IPLP no."
                 type="number"
                 ltpDetails={iplpNo}
               />
             )}
-=======
-                <InputField
-                  id="IplpNo"
-                  name="IplpNo"
-                  label="RLP/IPLP no."
-                  placeholder="RLP/IPLP no."
-                  type="number"
-                  ltpDetails={iplpNo}
-                />
-              )}
->>>>>>> raian
             {/*===================== Conditional Input Field End =====================*/}
           </div>
         </div>
@@ -943,7 +923,7 @@ const BuildingInfo = () => {
                   name="proposedPlotArea"
                   placeholder="in Sq.Mts."
                   className="w-full px-3 py-2 border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200"
-                  defaultValue={proposedPlotArea ?? ''}
+                  defaultValue={proposedPlotArea ?? ""}
                   onChange={handleProposedPlotAreaChange}
                 />
                 <p className="text-xs text-red-500 mt-2">
@@ -962,7 +942,7 @@ const BuildingInfo = () => {
                   type="roadWideningArea"
                   placeholder="in Sq.Mts."
                   className="w-full px-3 py-2 border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200"
-                  defaultValue={roadWideningArea ?? ''}
+                  defaultValue={roadWideningArea ?? ""}
                   onChange={handleRoadWideningAreaChange}
                 />
                 <p className="text-xs text-red-500 mt-2">
@@ -983,7 +963,7 @@ const BuildingInfo = () => {
                   name="netPlotArea"
                   placeholder="Automatically calculated"
                   className="w-full px-3 py-2 border rounded-lg max-w-xs"
-                  value={netPlotArea ?? ''}
+                  value={netPlotArea ?? ""}
                   disabled
                 />
               </div>
@@ -1078,7 +1058,7 @@ const BuildingInfo = () => {
                   value={natureOfRoadValue}
                   onChange={handleNatureOfRoad}
                 >
-                  <option disabled value=''>
+                  <option disabled value="">
                     Select Nature of Road
                   </option>
                   <option>BT Road</option>
@@ -1330,7 +1310,7 @@ const BuildingInfo = () => {
                 value={northValue}
                 onChange={handleNorthChange}
               >
-                <option disabled value=''>
+                <option disabled value="">
                   Select North
                 </option>
                 <option value="Road">Road</option>
@@ -1351,7 +1331,7 @@ const BuildingInfo = () => {
                 value={southValue}
                 onChange={handleSouthChange}
               >
-                <option disabled value=''>
+                <option disabled value="">
                   Select South
                 </option>
                 <option value="Road">Road</option>
@@ -1372,7 +1352,7 @@ const BuildingInfo = () => {
                 value={eastValue}
                 onChange={handleEastChange}
               >
-                <option disabled value=''>
+                <option disabled value="">
                   Select East
                 </option>
                 <option value="Road">Road</option>
@@ -1393,7 +1373,7 @@ const BuildingInfo = () => {
                 value={westValue}
                 onChange={handleWestChange}
               >
-                <option disabled value=''>
+                <option disabled value="">
                   Select West
                 </option>
                 <option value="Road">Road</option>
