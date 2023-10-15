@@ -23,20 +23,20 @@ const SubmitApplication = () => {
 
   console.log(data);
   return (
-    <div className="w-full  overflow-x-auto mt-6 ">
-      <table className="table dark:text-white">
+    <div className="w-full  mt-6 ">
+      <table className="w-full font-roboto dark:text-white">
         {/* head */}
         <thead>
-          <tr className="bg-[#2d3436] text-xs md:text-sm text-white hover:bg-[#353b48]">
-            <th>Sl.no.</th>
-            <th>Application no.</th>
-            <th>Owner name</th>
-            <th>Phone no.</th>
-            <th>Case type</th>
-            <th>Village</th>
-            <th>Mandal</th>
-            <th>Submitted date</th>
-            <th>Status</th>
+          <tr className="bg-[#2d3436] text-sm md:text-base text-white hover:bg-[#353b48]">
+            <th className="p-2">Sl.no.</th>
+            <th className="p-2">Application no.</th>
+            <th className="p-2">Owner name</th>
+            <th className="p-2">Phone no.</th>
+            <th className="p-2">Case type</th>
+            <th className="p-2">Village</th>
+            <th className="p-2">Mandal</th>
+            <th className="p-2">Submitted date</th>
+            <th className="p-2">Status</th>
           </tr>
         </thead>
         <tbody>
