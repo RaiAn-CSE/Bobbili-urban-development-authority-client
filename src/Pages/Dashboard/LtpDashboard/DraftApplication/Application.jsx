@@ -218,7 +218,7 @@ function Application({ setOpenApplication }) {
           <div className="overflow-x-auto mt-10">
             <table className="table bg-white table-sm">
               {/* Part 03 head */}
-              <thead className="bg-gray-400n text-black dark:text-white">
+              <thead className="bg-gray-400 text-black dark:text-white">
                 <tr>
                   <th className="w-[10%]">D</th>
                   <th className="uppercase">DETAILS OF THE PROPOSED CONSTRUCTION</th>
@@ -281,12 +281,12 @@ function Application({ setOpenApplication }) {
                 <tr className="border border-black">
                   <td className="border border-black">04</td>
                   <td className="border border-black">Numbers Of Units</td>
-                  <td></td>
+                  <td className="border-0"></td>
                 </tr>
                 <tr className="border border-black">
                   <td className="border border-black">05</td>
                   <td className="border border-black">Vacant site area</td>
-                  <td></td>
+                  <td className="border-0"></td>
                 </tr>
               </tbody>
             </table>

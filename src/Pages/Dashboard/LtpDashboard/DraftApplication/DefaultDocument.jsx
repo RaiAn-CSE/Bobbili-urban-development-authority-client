@@ -9,6 +9,7 @@ function DefaultDocument({
   handleFileChange,
   gradientColor,
   defaultImageFromDB,
+  handleStatus,
 }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [UpdatedDefaultData, setUpdatedDefaultData] = useState([]);
@@ -29,7 +30,7 @@ function DefaultDocument({
 
   console.log(defaultImageFromDB, "DEFAULT IMAGE FROM DB");
   return (
-    <div className="dark:text-white">
+    <div className="dark:text-black">
       {UpdatedDefaultData?.map((data, index) => {
         const { id, question, approved, upload } = data;
 
@@ -61,7 +62,14 @@ function DefaultDocument({
                 View
               </Link>
             )}
-            <PsDocument role={role} />
+            <PsDocument
+              role={role}
+              id={id}
+              approved={approved}
+              handleStatus={handleStatus}
+              PreviousDocumentData={PreviousDefaultDocumentData}
+              type="default"
+            />
           </div>
         );
       })}

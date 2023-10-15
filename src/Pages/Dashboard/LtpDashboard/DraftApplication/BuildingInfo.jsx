@@ -79,12 +79,12 @@ const BuildingInfo = () => {
     "Second Floor",
   ]);
 
-  const [floorTrack, setFloorTrack] = useState([
-    { value: "Stilt / Parking Floor", checked: "" },
-    { value: "Ground Floor", checked: "" },
-    { value: "First Floor", checked: "" },
-    { value: "Second Floor", checked: "" },
-  ]);
+  // const [floorTrack, setFloorTrack] = useState([
+  //   "Stilt / Parking Floor",
+  //   "Ground Floor",
+  //   "First Floor",
+  //   "Second Floor",
+  // ]);
 
   // SIDE EFFECT HANDLED
 
@@ -570,8 +570,7 @@ const BuildingInfo = () => {
   const { east, west, north, south } = scheduleBoundaries ?? {};
 
   // classes for this component:
-  const labelClass =
-    "block text-gray-600 mb-1 font-semibold dark:text-black";
+  const labelClass = "block text-gray-600 mb-1 font-semibold dark:text-black";
   const inputClass =
     "w-full px-3 py-[10px] border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200 bg-gray-100";
 
@@ -886,15 +885,15 @@ const BuildingInfo = () => {
 
             {selectedNatureOfTheSite ===
               "Plot port of RLP/IPLP but not regularised" && (
-                <InputField
-                  id="IplpNo"
-                  name="IplpNo"
-                  label="RLP/IPLP no."
-                  placeholder="RLP/IPLP no."
-                  type="number"
-                  ltpDetails={iplpNo}
-                />
-              )}
+              <InputField
+                id="IplpNo"
+                name="IplpNo"
+                label="RLP/IPLP no."
+                placeholder="RLP/IPLP no."
+                type="number"
+                ltpDetails={iplpNo}
+              />
+            )}
             {/*===================== Conditional Input Field End =====================*/}
           </div>
         </div>
@@ -1138,8 +1137,7 @@ const BuildingInfo = () => {
                     plotDetailsFloor ? plotDetailsFloor[index] : undefined
                   }
                   floorOptions={floorOptions}
-                  setFloorTrack={setFloorTrack}
-                  floorTrack={floorTrack}
+                  setFloorOptions={setFloorOptions}
                 />
               ))}
             </div>

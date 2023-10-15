@@ -19,9 +19,22 @@ const DocumentUpload = () => {
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
   const [PreviousDefaultDocumentData, setPreviousDefaultDocumentData] =
     useState([]);
+  const [PreviousDynamicDocumentData, setPreviousDynamicDocumentData] =
+    useState([]);
   const [UpdatedDynamicDocumentData, setUpdatedDynamicDocumentData] = useState(
     []
   );
+  const [ltpSendingDocument, setLtpSendingDocument] = useState({
+    dynamic: [],
+    default: [],
+  });
+  const [psSendingDocument, setPsSendingDocument] = useState({
+    dynamic: [],
+    default: [],
+  });
+
+  const [statusDefaultData, setStatusDefaultData] = useState([]);
+  const [statusDynamicData, setStatusDynamicData] = useState([]);
   const [sendingDocument, setSendingDocument] = useState({
     dynamic: [],
     default: [],
@@ -51,6 +64,7 @@ const DocumentUpload = () => {
     dynamic: [],
   });
 
+  // Ltp File uploading Data handeling
   const handleFileChange = (event, id, uploadedFile, type, uploadId) => {
     const { files, name } = event.target;
     const file = files[0];
@@ -71,13 +85,73 @@ const DocumentUpload = () => {
       setDefaultImageData((prev) => [...prev, defaultImage]);
     }
   };
+
+  // LTP Sending Document Updating when handleChange
   useEffect(() => {
     setSendingDocument({ default: defaultData, dynamic: dynamicData });
     setSendingImageId({ default: defaultImageData, dynamic: dynamicImageData });
+    console.log(sendingDocument, "Sending Document");
+    console.log(sendingImageId, "Sending  image Document");
+    // setLtpSendingDocument({ default: defaultData, dynamic: de });
   }, [defaultData, dynamicData, defaultImageData, dynamicImageData]);
 
-  console.log(sendingDocument, "Sending Document");
-  console.log(sendingImageId, "Sending  image Document");
+  // PS Approved and Shortfall Data handeling
+  const handleStatus = (event, id, uploadId, type) => {
+    if (type === "dynamic") {
+      const dynamicMatchedIndex = statusDynamicData.findIndex(
+        (data) => data.id == id
+      );
+
+      if (dynamicMatchedIndex !== -1) {
+        // If a matching ID is found in dynamic data, updated it
+        const updatedData = {
+          ...statusDynamicData[dynamicMatchedIndex],
+          event,
+        };
+        statusDynamicData[dynamicMatchedIndex] = updatedData;
+        setStatusDynamicData([...statusDynamicData]);
+      } else {
+        // If no match is found in dynamic data, added a new entry
+        const data = { id, uploadId, event };
+        setStatusDynamicData((prev) => [...prev, data]);
+      }
+    } else {
+      const defaultMatchedIndex = statusDefaultData.findIndex(
+        (data) => data.id == id
+      );
+
+      if (defaultMatchedIndex !== -1) {
+        // If a matching ID is found in default data, updated it
+        const updatedData = {
+          ...statusDefaultData[defaultMatchedIndex],
+          event,
+        };
+        statusDefaultData[defaultMatchedIndex] = updatedData;
+        setStatusDefaultData([...statusDefaultData]);
+      } else {
+        // If no match is found in default data, added a new entry
+        const data = { id, event };
+        setStatusDefaultData((prev) => [...prev, data]);
+      }
+    }
+    console.log({ id, event, uploadId });
+  };
+  // PS Sending Document Updating when handleChange
+  useEffect(() => {
+    setPsSendingDocument({
+      default: statusDefaultData,
+      dynamic: statusDynamicData,
+    });
+  }, [statusDefaultData, statusDynamicData]);
+
+  // PS Page Recomendation Message and Approved
+  const handleRecomendationMessage = (e) => {
+    const RecomdMessage = e.target.value;
+    setRecomendationMessage(RecomdMessage);
+  };
+  const handleConfirmation = (data) => {
+    setApprovedConfirmation(data);
+  };
 
   // Adding checklist Data to Document from server data && Updating Data from server Data
   useEffect(() => {
@@ -89,6 +163,14 @@ const DocumentUpload = () => {
       const applicationCheckList = applicationData.applicationCheckList;
       // setPreviousDefaultDocumentData(applicationData.documents?.default);
       // const PreviousDynamicDocument = applicationData.documents?.dynamic;
+      setPreviousDefaultDocumentData(
+        applicationData?.documents?.psData?.data?.default
+      );
+      setPreviousDynamicDocumentData(
+        applicationData?.documents?.psData?.data?.dynamic
+      );
+      setApprovedConfirmation(applicationData?.documents?.psData?.approved);
+      setRecomendationMessage(applicationData?.documents?.psData?.message);
 
       // Checklist "yes" Data integrating to Document
       if (applicationCheckList.length) {
@@ -106,6 +188,11 @@ const DocumentUpload = () => {
         });
       }
       setUpdatedDynamicDocumentData(updatedDynamicDocumentsToAdd);
+      console.log(
+        applicationData,
+        updatedDynamicDocumentsToAdd,
+        "UpdatedDynamicData"
+      );
     };
     gettingData();
   }, []);
@@ -137,7 +224,7 @@ const DocumentUpload = () => {
         formData.append("file", loopTimes[lt][i].file);
         try {
           const response = await axios.post(
-            "http://localhost:5000/upload?page=document",
+            "https://residential-building.vercel.app/upload?page=document",
             formData,
             {
               headers: {
@@ -231,46 +318,52 @@ const DocumentUpload = () => {
 
   console.log(imageIdFromDB, "IMAGE ID FROM DB");
 
-  // send data to PS DB (Apu vai send PS data from here)
+  // send data to PS DB
+  const selectedData = role == "PS" ? psSendingDocument : ltpSendingDocument;
+
   const sentPsDecision = async (url) => {
-    // PS data select and send data
-    const PSKeys = ["id", "approved"];
-    const PSArray = updatedDefaultDocument?.map(({ ...obj }) =>
-      PSKeys.reduce((acc, key) => ((acc[key] = obj[key]), acc), {})
-    );
     const PSData = {
-      documentsObservation: { ...PSArray },
+      data: selectedData,
       approved: approvedConfirmation ?? "",
       message: recomendationMessage ?? "",
     };
+
     return await sendUserDataIntoDB(url, "PATCH", {
       psDocumentPageObservation: PSData,
     });
   };
+
   return (
     <div className="text-black">
       <form
         onSubmit={(e) => {
           e.preventDefault();
         }}
-        className="text-black p-4 font-roboto"
+        className="text-black p-4 font-roboto dark:text-black"
       >
         <div className="w-full text-[17px] px-2 py-5 rounded">
           <DefaultDocument
-            PreviousDefaultDocumentData={PreviousDefaultDocumentData}
             role={role}
+            PreviousDefaultDocumentData={PreviousDefaultDocumentData}
             handleFileChange={handleFileChange}
             gradientColor={gradientColor}
             defaultImageFromDB={imageIdFromDB?.default}
-          // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
+            // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
+            setApprovedConfirmation={setApprovedConfirmation}
+            handleStatus={handleStatus}
+            // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
           />
           <DynamicDocument
             role={role}
+            PreviousDynamicDocumentData={PreviousDynamicDocumentData}
             UpdatedDynamicDocumentData={UpdatedDynamicDocumentData}
             handleFileChange={handleFileChange}
             gradientColor={gradientColor}
             dynamicImageFromDB={imageIdFromDB?.dynamic}
-          // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
+            // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
+            setApprovedConfirmation={setApprovedConfirmation}
+            handleStatus={handleStatus}
+            // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
           />
         </div>
       </form>
@@ -278,8 +371,11 @@ const DocumentUpload = () => {
       {role === "PS" ? (
         <DocumentFooter
           approvedConfirmation={approvedConfirmation}
+          recomendationMessage={recomendationMessage}
           setApprovedConfirmation={setApprovedConfirmation}
           setRecomendationMessage={setRecomendationMessage}
+          handleRecomendationMessage={handleRecomendationMessage}
+          handleConfirmation={handleConfirmation}
         />
       ) : (
         ""

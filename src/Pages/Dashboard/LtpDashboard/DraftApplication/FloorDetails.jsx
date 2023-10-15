@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const FloorDetails = ({
   index,
@@ -12,23 +12,40 @@ const FloorDetails = ({
   parkingAreaValue,
   builtUpAreaValue,
   floorOptions,
+  setFloorOptions,
   // handleFloorChange,
   // setFloorTrack,
   // floorTrack,
 }) => {
   const [floorChange, setFloorChange] = useState("select");
-  const [floorTrack, setFloorTrack] = useState([
-    { value: "Stilt / Parking Floor", checked: "" },
-    { value: "Ground Floor", checked: "" },
-    { value: "First Floor", checked: "" },
-    { value: "Second Floor", checked: "" },
-  ]);
+  // const [floorTrack, setFloorTrack] = useState([
+  //   { value: "Stilt / Parking Floor", checked: "" },
+  //   { value: "Ground Floor", checked: "" },
+  //   { value: "First Floor", checked: "" },
+  //   { value: "Second Floor", checked: "" },
+  // ]);
+
+  const [selectedFloor, setSelectedFloor] = useState("");
+
+  useEffect(() => {
+    setSelectedFloor(plotDetailsFloor?.name);
+  }, [plotDetailsFloor]);
+
+  const findOldSelectedValue = () => {
+    console.log(selectedFloor, "Old value");
+  };
 
   const handleFloorChange = (e, index) => {
+    console.log(selectedFloor, "OLD FLOOR");
+
     setFloorChange(e.target.value);
 
+    setSelectedFloor(e.target.value);
     const floorValue = e.target.value;
+
     const floorNameIndex = index;
+
+    setFloorChange;
 
     console.log(floorValue, "FV");
 
@@ -57,9 +74,12 @@ const FloorDetails = ({
         <select
           id={`floorName${index}`}
           name={`floorName${index}`}
-          className="w-full px-3 py-[10px] border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200 bg-gray-100"
-          value={plotDetailsFloor?.name ? plotDetailsFloor?.name : floorChange}
-          onChange={(e) => handleFloorChange(e, index)}
+          className="w-full px-3 py-[10px] border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200"
+          value={selectedFloor?.length ? selectedFloor : floorChange}
+          onChange={(e) => {
+            // findOldSelectedValue(index);
+            handleFloorChange(e, index);
+          }}
         >
           <option disabled value="select">
             Select Floor Name
