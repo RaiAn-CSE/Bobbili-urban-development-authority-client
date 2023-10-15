@@ -43,14 +43,14 @@ const MainLayout = () => {
   }, [theme]);
 
   return (
-    <div className="px-10 min-h-screen dark:bg-black">
+    <div className="px-10 min-h-screen dark:bg-white">
       {/* upper part  */}
       <div className="py-3 flex justify-between items-center">
         <div className="basis-3/4">
           <p className="text-2xl text-gray-400 font-bold font-sofadi">
             Bobbili Urban Development Authority
           </p>
-          <p className="text-4xl mt-2 text-black font-notSerif font-bold dark:text-white">
+          <p className="text-4xl mt-2 text-black font-notSerif font-bold">
             Residential Building Plan Approval
           </p>
         </div>
@@ -58,21 +58,19 @@ const MainLayout = () => {
         <div className="basis-[20%] flex justify-end items-center space-x-6">
           <Link
             to="/"
-            className={`w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center  ${
-              path.length === 1 && path.includes("/") ? active : ` ${notActive}`
-            }`}
+            className={`w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center  ${path.length === 1 && path.includes("/") ? active : ` ${notActive}`
+              }`}
           >
             <AiOutlineHome size={25} className="text-2xl " />
           </Link>
           <Link
             to="/statistics"
-            className={`w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center ${
-              path.includes("/statistics") ? active : ` ${notActive}`
-            }`}
+            className={`w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center ${path.includes("/statistics") ? active : ` ${notActive}`
+              }`}
           >
             <MdOutlineDashboard
               size={25}
-              className="text-2xl dark:text-white"
+              className="text-2xl"
             />
           </Link>
 
@@ -87,7 +85,7 @@ const MainLayout = () => {
               <MdOutlineDarkMode
                 size={25}
                 onClick={() => setTheme("dark")}
-                className="dark:text-white"
+                className=""
               />
             )}
           </div>

@@ -122,20 +122,20 @@ const Login = () => {
 
   return (
     <>
-      <div className="relative font-roboto dark:bg-gray-700">
+      <div className="relative font-roboto dark:bg-white">
         {/* support icon  */}
 
         {/* login form  */}
 
-        <div className="rounded-lg border p-4 sm:p-6 md:p-8 shadow-lg dark:text-white">
+        <div className="rounded-lg border p-4 sm:p-6 md:p-8 shadow-lg">
           <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-            <h1 className="text-3xl text-center font-bold text-gray-900 dark:text-white">
+            <h1 className="text-3xl text-center font-bold text-gray-900">
               Sign in
             </h1>
             <div>
               <label
                 htmlFor="userId"
-                className="block mb-2 text-base font-bold  text-gray-900 dark:text-white"
+                className="block mb-2 text-base font-bold  text-gray-900"
               >
                 Your ID
               </label>
@@ -152,7 +152,7 @@ const Login = () => {
             <div className="relative">
               <label
                 htmlFor="password"
-                className="block mb-2 text-base font-bold  text-gray-900 dark:text-white"
+                className="block mb-2 text-base font-bold  text-gray-900"
               >
                 Your password
               </label>
@@ -186,7 +186,7 @@ const Login = () => {
               </div>
               <label
                 htmlFor="remember"
-                className="ml-2 text-base font-medium  text-gray-900 dark:text-gray-300"
+                className="ml-2 text-base font-medium  text-gray-900"
               >
                 Remember me
               </label>
