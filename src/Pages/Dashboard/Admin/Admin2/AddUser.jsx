@@ -46,7 +46,7 @@ const AddUser = () => {
 
       if (userInfo) {
         // store users data in the database
-        fetch("https://residential-building.vercel.app/addUser", {
+        fetch("http://localhost:5000/addUser", {
           method: "POST",
           headers: {
             "Content-type": "application/json",

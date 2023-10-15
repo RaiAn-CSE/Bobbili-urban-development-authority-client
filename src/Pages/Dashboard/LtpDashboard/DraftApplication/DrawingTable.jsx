@@ -271,7 +271,7 @@ function DrawingTable({
             </tr>
             <tr>
               <td>5</td>
-              <td>Building Hight</td>
+              <td>Building Height</td>
               <td></td>
               <td>{plotDetails?.buildingExcludeStilt ?? ""}</td>
               <td>

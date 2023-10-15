@@ -44,23 +44,19 @@ const SiteInspection = () => {
       console.log(applicationData, "applicationData");
 
       const groundPosition = applicationData?.siteInspection?.groundPosition;
-      setGroundPosition(groundPosition);
-
       const siteBoundaries = applicationData?.siteInspection?.siteBoundaries;
+      const accessRoad = applicationData?.siteInspection?.accessRoad;
+      const landUse = applicationData?.siteInspection?.landUse;
+      const decision = applicationData?.siteInspection?.decision;
+      const recommendations = applicationData?.siteInspection?.recommendations;
+
+      setGroundPosition(groundPosition);
       setSiteBoundaries(siteBoundaries);
       setApproachRoadApp(siteBoundaries?.accessRoad?.approachRoad?.[0]);
       setApproachRoadObs(siteBoundaries?.accessRoad?.approachRoad?.[1]);
-
-      const accessRoad = applicationData?.siteInspection?.accessRoad;
       setAccessRoad(accessRoad);
-
-      const landUse = applicationData?.siteInspection?.landUse;
       setLandUse(landUse);
-
-      const decision = applicationData?.siteInspection?.decision;
       setDecision(decision);
-
-      const recommendations = applicationData?.siteInspection?.recommendations;
       setRecommendations(recommendations);
     };
     getData();
@@ -119,7 +115,7 @@ const SiteInspection = () => {
   };
 
   const collectInputFieldData = async (url) => {
-    let fileUploadSuccess = 0;
+    let fileUploadSuccess = 1;
 
     // uploadFileInCloudStorage(formData);
     for (const file in siteBoundariesImageFiles) {
@@ -132,7 +128,7 @@ const SiteInspection = () => {
         console.log(...formData, "FORM DATA");
         try {
           const response = await axios.post(
-            "https://residential-building.vercel.app/upload?page=siteInspection",
+            "http://localhost:5000/upload?page=siteInspection",
             formData,
             {
               headers: {
@@ -262,7 +258,7 @@ const SiteInspection = () => {
 
       console.log(siteInspection, "SITE INSPECTION");
 
-      // fetch(`https://residential-building.vercel.app/recommendDataOfPs?appNo=${applicationNo}`, {
+      // fetch(`http://localhost:5000/recommendDataOfPs?appNo=${applicationNo}`, {
       //     method: "PATCH",
       //     headers: {
       //         "content-type": "application/json",
@@ -287,7 +283,7 @@ const SiteInspection = () => {
   };
 
   const sentPsDecision = async (url) => {
-    url = `https://residential-building.vercel.app/decisionOfPs?appNo=${applicationNo}`;
+    url = `http://localhost:5000/decisionOfPs?appNo=${applicationNo}`;
     console.log(url);
 
     const config = {

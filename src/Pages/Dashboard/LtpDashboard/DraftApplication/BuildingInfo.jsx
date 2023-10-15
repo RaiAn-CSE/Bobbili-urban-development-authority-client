@@ -72,6 +72,13 @@ const BuildingInfo = () => {
 
   // options
 
+  const [individualFloorSelected, setIndividualFloorSelected] = useState([
+    "",
+    "",
+    "",
+    "",
+  ]);
+
   const [floorOptions, setFloorOptions] = useState([
     "Stilt / Parking Floor",
     "Ground Floor",
@@ -174,6 +181,15 @@ const BuildingInfo = () => {
             return oldData;
           });
         });
+
+        plotDetailsFloor?.forEach((eachFloor, floorPosition) => {
+          setIndividualFloorSelected((prev) => {
+            const oldValue = [...prev];
+            oldValue[floorPosition] = eachFloor?.name;
+            return oldValue;
+          });
+        });
+
         setPlotDetails(plotDetails);
         setPlotDetailsFloor(plotDetailsFloor);
         setProposedPlotArea(plotDetails?.proposedPlotAreaCal);
@@ -194,6 +210,10 @@ const BuildingInfo = () => {
       }
     }
   }, [dataFromDB]);
+
+  // useEffect(() => {
+
+  // }, [plotDetails]);
 
   // Case Type
   const handleCaseTypeChange = (e) => {
@@ -416,6 +436,7 @@ const BuildingInfo = () => {
     const floorDetails = totalFloor.map((floor, index) => {
       const builtUpArea = document.getElementById(`builtUpArea${index}`).value;
       const parkingArea = document.getElementById(`parkingArea${index}`).value;
+
       return {
         name: document.getElementById(`floorName${index}`).value,
         builtUpArea: builtUpArea === "" ? 0 : builtUpArea,
@@ -515,10 +536,10 @@ const BuildingInfo = () => {
 
     localStorage.setItem("CurrentAppNo", JSON.stringify(newApplicationNo));
 
-    return await sendUserDataIntoDB(url, "PATCH", {
-      applicationNo: newApplicationNo,
-      buildingInfo,
-    });
+    // return await sendUserDataIntoDB(url, "PATCH", {
+    //   applicationNo: newApplicationNo,
+    //   buildingInfo,
+    // });
   };
 
   const {
@@ -1124,6 +1145,8 @@ const BuildingInfo = () => {
                   }
                   floorOptions={floorOptions}
                   setFloorOptions={setFloorOptions}
+                  setIndividualFloorSelected={setIndividualFloorSelected}
+                  individualFloorSelected={individualFloorSelected}
                 />
               ))}
             </div>
