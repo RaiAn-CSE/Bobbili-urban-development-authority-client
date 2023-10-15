@@ -186,7 +186,7 @@ const Login = () => {
               </div>
               <label
                 htmlFor="remember"
-                className="ml-2 text-base font-medium  text-gray-900"
+                className="ml-2 text-base font-medium text-gray-900 dark:bg-white bg-white"
               >
                 Remember me
               </label>

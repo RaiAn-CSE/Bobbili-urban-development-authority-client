@@ -86,7 +86,7 @@ const Navbar = () => {
   const user = JSON.parse(localStorage.getItem("loggedUser"));
 
   return (
-    <div className="navbar bg-base-100 sticky top-0 z-50 shadow-md dark:bg-gradient-to-r dark:from-violet-500 dark:to-fuchsia-500 dark:text-white">
+    <div className="navbar bg-base-100 sticky top-0 z-50 shadow-md">
       <div className="flex-1">
         <Link to="/dashboard" className="btn btn-ghost normal-case text-xl">
           {/* <img className="h-full" src={Logo} alt="The logo of the website" /> */}

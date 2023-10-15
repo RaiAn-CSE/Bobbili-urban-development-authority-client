@@ -340,7 +340,7 @@ const AuthProvider = ({ children }) => {
 
     const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
-    const darkActiveColor = "dark:bg-black";
+    const darkActiveColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
     if (theme === "dark") {
       return darkActiveColor;
     } else {

@@ -136,8 +136,6 @@ const BuildingInfo = () => {
   }, []);
 
   useEffect(() => {
-    console.log(dataFromDB);
-
     if (Object.keys(dataFromDB).length) {
       const generalInformation = dataFromDB?.buildingInfo?.generalInformation;
 
@@ -145,16 +143,7 @@ const BuildingInfo = () => {
 
       const scheduleBoundaries = dataFromDB?.buildingInfo?.scheduleBoundaries;
 
-      console.log(
-        generalInformation,
-        plotDetails,
-
-        scheduleBoundaries,
-        "GPDA"
-      );
-
       if (Object.keys(generalInformation).length) {
-        console.log("Aschi general information");
         setGeneralInformation(generalInformation);
         setSelectedOptionCase(generalInformation?.caseType);
         setSelectedOptionPermission(generalInformation?.natureOfPermission);
@@ -166,7 +155,6 @@ const BuildingInfo = () => {
       }
 
       if (Object.keys(plotDetails).length) {
-        console.log("Aschi plot details");
         const plotDetailsFloor =
           dataFromDB?.buildingInfo?.plotDetails?.floorDetails;
         setRadio4(plotDetails?.compoundingWallProposed);
@@ -197,7 +185,6 @@ const BuildingInfo = () => {
       }
 
       if (Object.keys(scheduleBoundaries).length) {
-        console.log("Aschi schedule boundaries");
         setWestValue(scheduleBoundaries?.west);
         setEastValue(scheduleBoundaries?.east);
         setSouthValue(scheduleBoundaries?.south);
@@ -207,8 +194,6 @@ const BuildingInfo = () => {
       }
     }
   }, [dataFromDB]);
-
-  console.log(proposedPlotArea, roadWideningArea, netPlotArea, "ALL AREA");
 
   // Case Type
   const handleCaseTypeChange = (e) => {
@@ -901,15 +886,15 @@ const BuildingInfo = () => {
 
             {selectedNatureOfTheSite ===
               "Plot port of RLP/IPLP but not regularised" && (
-              <InputField
-                id="IplpNo"
-                name="IplpNo"
-                label="RLP/IPLP no."
-                placeholder="RLP/IPLP no."
-                type="number"
-                ltpDetails={iplpNo}
-              />
-            )}
+                <InputField
+                  id="IplpNo"
+                  name="IplpNo"
+                  label="RLP/IPLP no."
+                  placeholder="RLP/IPLP no."
+                  type="number"
+                  ltpDetails={iplpNo}
+                />
+              )}
             {/*===================== Conditional Input Field End =====================*/}
           </div>
         </div>
