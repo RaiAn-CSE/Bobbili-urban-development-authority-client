@@ -86,11 +86,11 @@ const Navbar = () => {
   const user = JSON.parse(localStorage.getItem("loggedUser"));
 
   return (
-    <div className="navbar bg-base-100 sticky top-0 z-50 shadow-md">
+    <div className="navbar bg-base-100 sticky top-0 z-50 shadow-md dark:bg-white">
       <div className="flex-1">
         <Link to="/dashboard" className="btn btn-ghost normal-case text-xl">
           {/* <img className="h-full" src={Logo} alt="The logo of the website" /> */}
-          <p className="hidden lg:block font-sofadi">
+          <p className="hidden lg:block font-sofadi dark:text-black">
             Bobbili Urban Development Authority
           </p>
         </Link>
