@@ -148,7 +148,7 @@ const ApplicationSearch = () => {
               placeholder="xxxxxxx"
             />
             <MainPageInput
-              label="Total Built up area"
+              label="Total built up area"
               id="totalBuiltUpArea"
               type="text"
               placeholder="xxxxxxx"
@@ -178,11 +178,18 @@ const ApplicationSearch = () => {
               ltpDetails={filteredData?.applicantInfo.applicantDetails?.[0].name}
             />
             <MainPageInput
-              label="Address"
-              id="address1"
+              label="Owner door no"
+              id="ownerDoorNo"
               type="text"
               placeholder="xxxxxxx"
-              ltpDetails={filteredData?.applicantInfo.applicantDetails?.[0].address}
+              ltpDetails={filteredData?.applicantInfo.applicantDetails?.[0].ownerDoorNo}
+            />
+            <MainPageInput
+              label="Owner street no"
+              id="ownerStreetNo"
+              type="text"
+              placeholder="xxxxxxx"
+              ltpDetails={filteredData?.applicantInfo.applicantDetails?.[0].ownerStreetNo}
             />
           </div>
 
