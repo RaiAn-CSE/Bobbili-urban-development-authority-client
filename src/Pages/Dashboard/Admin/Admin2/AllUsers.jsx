@@ -153,7 +153,7 @@ const AllUsers = () => {
   }
 
   return (
-    <>
+    <div className="text-black">
       {/* <h1 className="mt-10 text-center text-3xl font-bold Roboto">All Users</h1> */}
 
       {/* input box for search users  */}
@@ -161,7 +161,7 @@ const AllUsers = () => {
         <div>
           <label
             htmlFor="search"
-            className="block mb-2 text-base font-roboto font-bold text-gray-900 dark:text-white"
+            className="block mb-2 text-base font-roboto font-bold text-gray-900 "
           >
             Search User
           </label>
@@ -432,7 +432,7 @@ const AllUsers = () => {
           </div>
         </dialog>
       )}
-    </>
+    </div>
   );
 };
 
