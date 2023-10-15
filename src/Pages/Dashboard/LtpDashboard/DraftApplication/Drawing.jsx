@@ -205,7 +205,9 @@ const Drawing = () => {
       setGetSubmitData(data);
     };
 
-    getSubmitAppData();
+    if (role === "PS") {
+      getSubmitAppData();
+    }
 
     return () => {
       localStorage.removeItem("selectedFiles");

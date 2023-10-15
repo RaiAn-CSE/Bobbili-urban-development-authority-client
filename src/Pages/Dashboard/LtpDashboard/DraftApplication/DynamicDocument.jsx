@@ -37,8 +37,8 @@ function DynamicDocument({
 
                   const isMatch = dynamicImageFromDB?.find(
                     (eachFile, i) =>
-                      eachFile.id === index + 9 &&
-                      eachFile.uploadId === uploadId
+                      eachFile?.id === index + 9 &&
+                      eachFile?.uploadId === uploadId
                   );
 
                   console.log(isMatch, "IS MATCH");
