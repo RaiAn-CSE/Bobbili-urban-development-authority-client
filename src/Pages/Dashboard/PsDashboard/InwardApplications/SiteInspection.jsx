@@ -301,7 +301,7 @@ const SiteInspection = () => {
   const tableDataClass =
     "whitespace-nowrap border-r px-6 py-4 border-neutral-500";
   const inputClass =
-    "input rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-100 dark:bg-gray-200 dark:hover:bg-gray-600";
+    "input rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-200 bg-gray-100";
   const inputTableDataClass = "whitespace-nowrap border-r border-neutral-500";
 
   return (
@@ -822,7 +822,7 @@ const SiteInspection = () => {
         <div className="my-4 basis-[80%]">
           <label
             htmlFor="ltpAddress"
-            className="block text-gray-600 mb-1 font-semibold dark:text-gray-100"
+            className="block mb-1 font-semibold text-black"
           >
             Recommendations
           </label>
@@ -831,7 +831,7 @@ const SiteInspection = () => {
             name="Recommendations"
             rows="5"
             defaultValue={recommendations}
-            className="w-full px-3 py-2 border border-green-600 rounded-lg  dark:text-black"
+            className="w-full px-3 py-2 border border-green-600 rounded-lg dark:text-black bg-gray-100"
             placeholder="Comments"
           ></textarea>
         </div>
