@@ -97,7 +97,7 @@ const Navbar = () => {
       </div>
 
       <div className="me-3 flex flex-col font-roboto">
-        <p className="font-semibold md:text-lg">{user?.name}</p>
+        <p className="font-semibold md:text-lg text-black">{user?.name}</p>
         <small className="font-medium md:text-base">({user?.role})</small>
       </div>
       <div className="dropdown dropdown-end me-5 ">
