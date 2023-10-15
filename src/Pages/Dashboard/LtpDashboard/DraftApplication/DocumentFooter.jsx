@@ -27,10 +27,7 @@ function DocumentFooter({
               value="approved"
               name="finalApproved"
               className="radio radio-sm radio-success mr-3 lg:mr-0"
-              defaultChecked={
-                approvedConfirmation === "true" ||
-                submitData?.approved === "true"
-              }
+              defaultChecked={approvedConfirmation === "true"}
               onClick={() => handleConfirm("true")}
             />
             <span>Approve</span>
@@ -43,10 +40,7 @@ function DocumentFooter({
               value="shortfall"
               name="finalApproved"
               className="radio radio-sm radio-success mr-3 lg:mr-0"
-              defaultChecked={
-                approvedConfirmation === "false" ||
-                submitData?.approved === "false"
-              }
+              defaultChecked={approvedConfirmation === "false"}
               onClick={() => handleConfirm("false")}
             />
             <span>Shortfall</span>
@@ -60,11 +54,7 @@ function DocumentFooter({
             className="textarea textarea-bordered border-black"
             cols={80}
             rows={5}
-            defaultValue={
-              submitData?.message?.length !== 0
-                ? submitData?.message
-                : recomendationMessage
-            }
+            defaultValue={recomendationMessage && recomendationMessage}
             name="recomendation"
           ></textarea>
         </div>

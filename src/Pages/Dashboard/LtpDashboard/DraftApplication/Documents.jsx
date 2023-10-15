@@ -18,6 +18,7 @@ const DocumentUpload = () => {
   const stepperData = useOutletContext();
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
   const [PreviousDefaultDocumentData, setPreviousDefaultDocumentData] = useState([]);
+  const [PreviousDynamicDocumentData, setPreviousDynamicDocumentData] = useState([]);
   const [UpdatedDynamicDocumentData, setUpdatedDynamicDocumentData] = useState([]);
   const [ltpSendingDocument, setLtpSendingDocument] = useState({ dynamic: [], default: [] });
   const [psSendingDocument, setPsSendingDocument] = useState({ dynamic: [], default: [] });
@@ -32,6 +33,7 @@ const DocumentUpload = () => {
   const role = userInfoFromLocalStorage().role;
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
+  // Ltp File uploading Data handeling
   const handleFileChange = (event, id, uploadedFile, type, uploadId) => {
     const { files, name } = event.target;
     const file = files[0];
@@ -49,12 +51,15 @@ const DocumentUpload = () => {
     }
   };
 
+  // LTP Sending Document Updating when handleChange
   useEffect(() => {
     setLtpSendingDocument({ default: DefaultData, dynamic: DynamicData });
   }, [DefaultData, DynamicData]);
+
+  // PS Approved and Shortfall Data handeling
   const handleStatus = (event, id, uploadId, type) => {
     if (type === "dynamic") {
-      const dynamicMatchedIndex = statusDynamicData.findIndex((data) => data.id === id);
+      const dynamicMatchedIndex = statusDynamicData.findIndex((data) => data.id == id);
 
       if (dynamicMatchedIndex !== -1) {
         // If a matching ID is found in dynamic data, updated it
@@ -67,7 +72,7 @@ const DocumentUpload = () => {
         setStatusDynamicData((prev) => [...prev, data]);
       }
     } else {
-      const defaultMatchedIndex = statusDefaultData.findIndex((data) => data.id === id);
+      const defaultMatchedIndex = statusDefaultData.findIndex((data) => data.id == id);
 
       if (defaultMatchedIndex !== -1) {
         // If a matching ID is found in default data, updated it
@@ -82,11 +87,12 @@ const DocumentUpload = () => {
     }
     console.log({ id, event, uploadId });
   };
+  // PS Sending Document Updating when handleChange
+  useEffect(() => {
+    setPsSendingDocument({ default: statusDefaultData, dynamic: statusDynamicData });
+  }, [statusDefaultData, statusDynamicData]);
 
-
-
-  console.log({ default: statusDefaultData, dynamic: statusDynamicData }, "Approved Data")
-
+  // PS Page Recomendation Message and Approved 
   const handleRecomendationMessage = (e) => {
     const RecomdMessage = e.target.value;
     setRecomendationMessage(RecomdMessage);
@@ -95,19 +101,16 @@ const DocumentUpload = () => {
     setApprovedConfirmation(data);
   };
 
-  useEffect(() => {
-    setPsSendingDocument({ default: statusDefaultData, dynamic: statusDynamicData });
-  }, [statusDefaultData, statusDynamicData]);
-
-
   // Adding checklist Data to Document from server data && Updating Data from server Data
   useEffect(() => {
     const gettingData = async () => {
       let updatedDynamicDocumentsToAdd = [];
       const applicationData = await getApplicationData(applicationNo);
       const applicationCheckList = applicationData.applicationCheckList;
-      setPreviousDefaultDocumentData(applicationData.documents?.default);
-      const PreviousDynamicDocument = applicationData.documents?.dynamic;
+      setPreviousDefaultDocumentData(applicationData?.documents?.psData.data.default);
+      setPreviousDynamicDocumentData(applicationData?.documents?.psData.data.dynamic);
+      setApprovedConfirmation(applicationData?.documents?.psData.approved)
+      setRecomendationMessage(applicationData?.documents?.psData.message)
 
       // Checklist "yes" Data integrating to Document
       if (applicationCheckList.length) {
@@ -131,6 +134,7 @@ const DocumentUpload = () => {
   // send data to PS DB (Apu vai send PS data from here)
   const selectedData = role == "PS" ? psSendingDocument : ltpSendingDocument;
   console.log(selectedData, "selectedData")
+
   const sentPsDecision = async (url) => {
     const PSData = {
       data: selectedData,
@@ -138,8 +142,15 @@ const DocumentUpload = () => {
       message: recomendationMessage ?? "",
     };
     console.log(PSData, "PSData")
-    return await sendUserDataIntoDB(url, "PATCH", { PSData });
+    return await sendUserDataIntoDB(url, "PATCH", PSData);
   };
+
+  const PSData = {
+    data: selectedData,
+    approved: approvedConfirmation ?? "",
+    message: recomendationMessage ?? "",
+  };
+  console.log(PSData, "PSData")
 
   return (
     <div className="dark:text-white">
@@ -151,8 +162,8 @@ const DocumentUpload = () => {
       >
         <div className="w-full text-[17px] px-2 py-5 rounded">
           <DefaultDocument
-            PreviousDefaultDocumentData={PreviousDefaultDocumentData}
             role={role}
+            PreviousDefaultDocumentData={PreviousDefaultDocumentData}
             handleFileChange={handleFileChange}
             gradientColor={gradientColor}
             setApprovedConfirmation={setApprovedConfirmation}
@@ -161,6 +172,7 @@ const DocumentUpload = () => {
           />
           <DynamicDocument
             role={role}
+            PreviousDynamicDocumentData={PreviousDynamicDocumentData}
             UpdatedDynamicDocumentData={UpdatedDynamicDocumentData}
             handleFileChange={handleFileChange}
             gradientColor={gradientColor}
@@ -174,6 +186,7 @@ const DocumentUpload = () => {
       {role === "PS" ? (
         <DocumentFooter
           approvedConfirmation={approvedConfirmation}
+          recomendationMessage={recomendationMessage}
           setApprovedConfirmation={setApprovedConfirmation}
           setRecomendationMessage={setRecomendationMessage}
           handleRecomendationMessage={handleRecomendationMessage}
