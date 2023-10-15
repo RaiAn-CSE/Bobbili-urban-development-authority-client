@@ -19,7 +19,8 @@ const DocumentUpload = () => {
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
   const [PreviousDefaultDocumentData, setPreviousDefaultDocumentData] = useState([]);
   const [UpdatedDynamicDocumentData, setUpdatedDynamicDocumentData] = useState([]);
-  const [sendingDocument, setSendingDocument] = useState({ dynamic: [], default: [] });
+  const [ltpSendingDocument, setLtpSendingDocument] = useState({ dynamic: [], default: [] });
+  const [psSendingDocument, setPsSendingDocument] = useState({ dynamic: [], default: [] });
   const [DefaultData, setDefaultData] = useState([]);
   const [DynamicData, setDynamicData] = useState([]);
   const [statusDefaultData, setStatusDefaultData] = useState([]);
@@ -49,7 +50,7 @@ const DocumentUpload = () => {
   };
 
   useEffect(() => {
-    setSendingDocument({ default: DefaultData, dynamic: DynamicData });
+    setLtpSendingDocument({ default: DefaultData, dynamic: DynamicData });
   }, [DefaultData, DynamicData]);
 
   const handleStatus = (event, id, uploadId, type) => {
@@ -63,7 +64,8 @@ const DocumentUpload = () => {
     console.log({ id, event, uploadId })
   }
 
-  console.log({ default: statusDefaultData, dynamic: statusDynamicData },"Approved Data")
+  console.log({ default: statusDefaultData, dynamic: statusDynamicData }, "Approved Data")
+
   const handleRecomendationMessage = (e) => {
     const RecomdMessage = e.target.value;
     setRecomendationMessage(RecomdMessage);
@@ -72,7 +74,10 @@ const DocumentUpload = () => {
     setApprovedConfirmation(data);
   };
 
-  console.log(sendingDocument, "Sending Document");
+  useEffect(() => {
+    setPsSendingDocument({ default: statusDefaultData, dynamic: statusDynamicData });
+  }, [statusDefaultData, statusDynamicData]);
+
 
   // Adding checklist Data to Document from server data && Updating Data from server Data
   useEffect(() => {
@@ -103,22 +108,18 @@ const DocumentUpload = () => {
   const handleFileUpload = () => { };
 
   // send data to PS DB (Apu vai send PS data from here)
+  const selectedData = role == "PS" ? psSendingDocument : ltpSendingDocument;
+  console.log(selectedData, "selectedData")
   const sentPsDecision = async (url) => {
-    // PS data select and send data
-    // const PSKeys = ["id", "approved"];
-    // const PSArray = updatedDefaultDocument?.map(({ ...obj }) =>
-    //   PSKeys.reduce((acc, key) => ((acc[key] = obj[key]), acc), {})
-    // );
     const PSData = {
-      psData: sendingDocument,
+      data: selectedData,
       approved: approvedConfirmation ?? "",
       message: recomendationMessage ?? "",
     };
     console.log(PSData, "PSData")
-    return await sendUserDataIntoDB(url, "PATCH", {
-      psDocumentPageObservation: PSData,
-    });
+    return await sendUserDataIntoDB(url, "PATCH", { PSData });
   };
+
   return (
     <div className="dark:text-white">
       <form
