@@ -102,7 +102,6 @@ const Payment = () => {
   }, []);
 
   const calculateFees = (generalInformation, ltpDetails, applicantDetailsData, plotDetails) => {
-
     // Plots Details
     const { netPlotAreaCal, marketValueSqym, totalBuiltUpArea, vacantLand } = plotDetails;
     console.log(plotDetails, "plotDetails")
@@ -565,7 +564,6 @@ const Payment = () => {
               placeholder="000"
               type="number"
               ltpDetails={calculatedData?.buildingPermitFees}
-              readonly
             />
 
             <InputField
