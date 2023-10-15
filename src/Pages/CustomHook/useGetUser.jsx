@@ -11,7 +11,7 @@ const useGetUser = () => {
     [`specificUserInfo`],
     async () => {
       const response = await fetch(
-        `https://residential-building.vercel.app/userInformation?id=${
+        `http://localhost:5000/userInformation?id=${
           userInfoFromLocalStorage()?.userId
         }`
       );

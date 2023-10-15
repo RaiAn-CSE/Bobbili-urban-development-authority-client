@@ -224,14 +224,14 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      {
-        path: "/dashboard/outwardApplication",
-        element: (
-          <PrivateRoute>
-            <Outward />
-          </PrivateRoute>
-        ),
-      },
+      // {
+      //   path: "/dashboard/outwardApplication",
+      //   element: (
+      //     <PrivateRoute>
+      //       <Outward />
+      //     </PrivateRoute>
+      //   ),
+      // },
       {
         path: "/dashboard/searchApplication",
         element: (

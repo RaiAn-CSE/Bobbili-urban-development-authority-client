@@ -117,7 +117,7 @@ const ShowCharts = () => {
 
       console.log(data);
       fetch(
-        `https://residential-building.vercel.app/filterApplications?search=${JSON.stringify(
+        `http://localhost:5000/filterApplications?search=${JSON.stringify(
           data
         )}`
       )
@@ -130,7 +130,7 @@ const ShowCharts = () => {
       console.log(data, "Data");
     } else {
       console.log("all");
-      fetch("https://residential-building.vercel.app/totalApplications")
+      fetch("http://localhost:5000/totalApplications")
         .then((res) => res.json())
         .then((result) => {
           console.log(result);

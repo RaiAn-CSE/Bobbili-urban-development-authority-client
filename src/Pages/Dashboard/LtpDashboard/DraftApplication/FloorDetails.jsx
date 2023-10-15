@@ -13,56 +13,53 @@ const FloorDetails = ({
   builtUpAreaValue,
   floorOptions,
   setFloorOptions,
-  // handleFloorChange,
-  // setFloorTrack,
-  // floorTrack,
+  individualFloorSelected,
+  setIndividualFloorSelected,
 }) => {
   const [floorChange, setFloorChange] = useState("select");
-  // const [floorTrack, setFloorTrack] = useState([
-  //   { value: "Stilt / Parking Floor", checked: "" },
-  //   { value: "Ground Floor", checked: "" },
-  //   { value: "First Floor", checked: "" },
-  //   { value: "Second Floor", checked: "" },
-  // ]);
 
   const [selectedFloor, setSelectedFloor] = useState("");
 
   useEffect(() => {
-    setSelectedFloor(plotDetailsFloor?.name);
+    setSelectedFloor(plotDetailsFloor?.name ?? "");
   }, [plotDetailsFloor]);
 
-  const findOldSelectedValue = () => {
-    console.log(selectedFloor, "Old value");
+  // a function to find old selected value holding by others floor select boxes and if any option existing return 1 else return 0
+  const findOldSelectedValue = (value) => {
+    let flag = 0;
+
+    individualFloorSelected.forEach((value) => {
+      if (value?.length) {
+        flag = 1;
+      }
+    });
+
+    if (flag === 1) {
+      const searchInIndividualFloorSelected = individualFloorSelected.findIndex(
+        (floorSelected) => floorSelected === value
+      );
+
+      console.log(searchInIndividualFloorSelected);
+      if (searchInIndividualFloorSelected === -1) {
+        return 0;
+      } else {
+        return 1;
+      }
+    }
   };
 
   const handleFloorChange = (e, index) => {
-    console.log(selectedFloor, "OLD FLOOR");
-
     setFloorChange(e.target.value);
 
     setSelectedFloor(e.target.value);
-    const floorValue = e.target.value;
 
-    const floorNameIndex = index;
+    setIndividualFloorSelected((prev) => {
+      const oldValue = [...prev];
 
-    setFloorChange;
+      oldValue[index] = e.target.value;
 
-    console.log(floorValue, "FV");
-
-    // setFloorTrack((prev) => {
-    //   prev.forEach((item, index) => {
-    //     if (item.value === floorValue) {
-    //       prev[index].checked = floorNameIndex;
-
-    //       prev.forEach((itm, j) => {
-    //         if (j !== index && prev[j].checked === floorNameIndex) {
-    //           prev[j].checked = "";
-    //         }
-    //       });
-    //     }
-    //   });
-    //   return prev;
-    // });
+      return oldValue;
+    });
   };
 
   return (
@@ -75,9 +72,8 @@ const FloorDetails = ({
           id={`floorName${index}`}
           name={`floorName${index}`}
           className="w-full px-3 py-[10px] border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200"
-          value={selectedFloor?.length ? selectedFloor : floorChange}
+          defaultValue={selectedFloor?.length ? selectedFloor : floorChange}
           onChange={(e) => {
-            // findOldSelectedValue(index);
             handleFloorChange(e, index);
           }}
         >
@@ -87,7 +83,13 @@ const FloorDetails = ({
           {floorOptions?.length &&
             floorOptions?.map((eachFloor, index) => {
               return (
-                <option key={index} value={eachFloor}>
+                <option
+                  key={index}
+                  value={eachFloor}
+                  className={`${
+                    findOldSelectedValue(eachFloor) ? "hidden" : ""
+                  }`}
+                >
                   {eachFloor}
                 </option>
               );
