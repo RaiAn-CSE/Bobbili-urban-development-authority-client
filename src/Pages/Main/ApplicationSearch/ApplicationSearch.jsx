@@ -132,12 +132,14 @@ const ApplicationSearch = () => {
               id="netPlotArea"
               type="text"
               placeholder="xxxxxxx"
+              ltpDetails={filteredData?.buildingInfo?.plotDetails?.netPlotAreaCal}
             />
             <MainPageInput
               label="No. of floors"
               id="noOfFloors"
               type="text"
               placeholder="xxxxxxx"
+              ltpDetails={filteredData?.buildingInfo?.plotDetails?.floorDetails?.length}
             />
             <MainPageInput
               label="N0. of units"
@@ -150,6 +152,7 @@ const ApplicationSearch = () => {
               id="totalBuiltUpArea"
               type="text"
               placeholder="xxxxxxx"
+              ltpDetails={filteredData?.buildingInfo?.plotDetails?.totalBuiltUpArea}
             />
           </div>
         </div>
