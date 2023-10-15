@@ -143,7 +143,7 @@ const DraftApplication = () => {
             <p
               className={`my-8 font-roboto font-semibold text-xl ${gradientColor} text-transparent bg-clip-text`}
             >
-              <span className="text-black dark:text-white">
+              <span className="text-black">
                 Application No:
               </span>{" "}
               {applicationNo}
@@ -151,7 +151,7 @@ const DraftApplication = () => {
             {applicationModalShow && (
               <button
                 onClick={() => setOpenApplication(true)}
-                className={`btn btn-sm text-xs ${gradientColor} transition-all duration-700  text-white dark:border-none`}
+                className={`btn btn-sm text-xs ${gradientColor} transition-all duration-700 text-white dark:border-none`}
               >
                 <HiOutlineClipboardDocumentList className="text-lg" />{" "}
                 <span>Application</span>

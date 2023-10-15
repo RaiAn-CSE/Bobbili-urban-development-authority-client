@@ -301,11 +301,11 @@ const SiteInspection = () => {
   const tableDataClass =
     "whitespace-nowrap border-r px-6 py-4 border-neutral-500";
   const inputClass =
-    "input rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600";
+    "input rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-200 bg-gray-100";
   const inputTableDataClass = "whitespace-nowrap border-r border-neutral-500";
 
   return (
-    <div className="flex flex-col sm:px-6 lg:px-8 dark:text-gray-100">
+    <div className="flex flex-col sm:px-6 lg:px-8 text-black">
       {/* <input type="submit" value="get" onClick={get} /> */}
       <div className="overflow-x-auto">
         <div className="inline-block min-w-full py-2">
@@ -531,7 +531,7 @@ const SiteInspection = () => {
                       type="text"
                       defaultValue={siteBoundaries?.scheduleOfTheDocuments?.[0]}
                       placeholder="Yes/No"
-                      className="h-[88px] px-4 rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600"
+                      className="h-[88px] px-4 rounded-none w-full max-w-xs focus:outline-none bg-gray-100 hover:bg-gray-200"
                     />
                   </td>
                   <td className={inputTableDataClass}>
@@ -540,7 +540,7 @@ const SiteInspection = () => {
                       type="text"
                       defaultValue={siteBoundaries?.scheduleOfTheDocuments?.[1]}
                       placeholder="Yes/No"
-                      className="h-[88px] px-4 rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600"
+                      className="h-[88px] px-4 rounded-none w-full max-w-xs focus:outline-none bg-gray-100 hover:bg-gray-200"
                     />
                   </td>
                 </tr>
@@ -581,17 +581,10 @@ const SiteInspection = () => {
                 <tr className="border-b border-neutral-500">
                   <td className={tableDataClass}>Status of Approach Road</td>
                   <td className={inputTableDataClass}>
-                    {/* <input
-                      id="approachRoadApp"
-                      type="text"
-                      defaultValue={accessRoad?.approachRoad?.[0]}
-                      placeholder="Public"
-                      className={inputClass}
-                    /> */}
                     <div className="flex flex-col justify-center">
                       <select
                         id="approachRoadApp"
-                        className="input rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600"
+                        className="input rounded-none w-full max-w-xs focus:outline-none bg-gray-100 hover:bg-gray-200"
                         value={
                           approachRoadApp
                             ? approachRoadApp
@@ -615,7 +608,7 @@ const SiteInspection = () => {
                     <div className="flex flex-col justify-center">
                       <select
                         id="approachRoadObs"
-                        className="input rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600"
+                        className="input rounded-none w-full max-w-xs focus:outline-none bg-gray-100 hover:bg-gray-200"
                         value={
                           approachRoadObs
                             ? approachRoadObs
@@ -822,7 +815,7 @@ const SiteInspection = () => {
         <div className="my-4 basis-[80%]">
           <label
             htmlFor="ltpAddress"
-            className="block text-gray-600 mb-1 font-semibold dark:text-gray-100"
+            className="block mb-1 font-semibold text-black"
           >
             Recommendations
           </label>
@@ -831,7 +824,7 @@ const SiteInspection = () => {
             name="Recommendations"
             rows="5"
             defaultValue={recommendations}
-            className="w-full px-3 py-2 border border-green-600 rounded-lg  dark:text-black"
+            className="w-full px-3 py-2 border border-green-600 rounded-lg dark:text-black bg-gray-100"
             placeholder="Comments"
           ></textarea>
         </div>

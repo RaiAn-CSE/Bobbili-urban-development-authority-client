@@ -79,8 +79,8 @@ const AddUser = () => {
     setUserType(e.target.value);
   };
   return (
-    <div className="mt-10">
-      <h1 className="text-xl lg:text-3xl text-center font-roboto roboto-bold dark:text-white">
+    <div className="mt-10 text-black">
+      <h1 className="text-xl lg:text-3xl text-center font-roboto roboto-bold text-black">
         Add a New User
       </h1>
 
@@ -92,7 +92,7 @@ const AddUser = () => {
           <div>
             <label
               htmlFor="name"
-              className="block mb-2 text-base font-bold text-gray-900 dark:text-white"
+              className="block mb-2 text-base font-bold text-gray-900"
             >
               Name
             </label>
@@ -109,7 +109,7 @@ const AddUser = () => {
           <div>
             <label
               htmlFor="id"
-              className="block mb-2 text-base '' font-bold text-gray-900 dark:text-white"
+              className="block mb-2 text-base '' font-bold text-gray-900"
             >
               User ID
             </label>
@@ -126,7 +126,7 @@ const AddUser = () => {
           <div>
             <label
               htmlFor="password"
-              className="block mb-2 text-base font-bold '' text-gray-900 dark:text-white"
+              className="block mb-2 text-base font-bold '' text-gray-900"
             >
               Password
             </label>
@@ -134,7 +134,7 @@ const AddUser = () => {
               type="text"
               {...register("password", { required: true })}
               id="password"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-violet-500 focus:border-blue-500 block w-full p-2.5"
               placeholder="•••••••••"
               required
             />
@@ -150,7 +150,7 @@ const AddUser = () => {
             <select
               id="role"
               {...register("role", { required: true })}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-violet-500 focus:border-blue-500 block w-full p-2.5 "
               onChange={(e) => handleChangeRole(e)}
             >
               <option value="Select an option">Select an option</option>
@@ -171,7 +171,7 @@ const AddUser = () => {
           <div>
             <label
               htmlFor="email"
-              className="block mb-2 text-base font-bold text-gray-900 dark:text-white"
+              className="block mb-2 text-base font-bold text-gray-900"
             >
               Email
             </label>
@@ -179,7 +179,7 @@ const AddUser = () => {
               type="text"
               {...register("email", { required: true })}
               id="email"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               placeholder="test@gmail.com"
               required
             />
@@ -188,7 +188,7 @@ const AddUser = () => {
           <div>
             <label
               htmlFor="phone"
-              className="block mb-2 text-base font-bold text-gray-900 dark:text-white"
+              className="block mb-2 text-base font-bold text-gray-900"
             >
               Phone no
             </label>
@@ -196,7 +196,7 @@ const AddUser = () => {
               type="text"
               {...register("phone", { required: true })}
               id="phone"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
               placeholder="Enter phone no"
               maxLength={10}
               required
@@ -206,7 +206,7 @@ const AddUser = () => {
           <div>
             <label
               htmlFor="address"
-              className="block mb-2 text-base font-bold text-gray-900 dark:text-white"
+              className="block mb-2 text-base font-bold text-gray-900"
             >
               Address
             </label>
@@ -214,7 +214,7 @@ const AddUser = () => {
               id="address"
               rows="2"
               {...register("address", { required: true })}
-              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 "
               placeholder="Enter address..."
             ></textarea>
           </div>

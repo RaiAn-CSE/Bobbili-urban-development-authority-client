@@ -20,7 +20,7 @@ const AllDraftApplication = ({
   console.log(applicantInfo, "applicantInfo");
 
   return (
-    <tr>
+    <tr className="dark:text-black">
       <td>{serialNo + 1}</td>
       <td className="px-2">
         <Link
