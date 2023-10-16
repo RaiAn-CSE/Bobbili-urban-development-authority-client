@@ -32,6 +32,7 @@ import Home from "../Pages/Main/Home/Home";
 import Reports from "../Pages/Main/Reports/Reports";
 import Location from "../Pages/Dashboard/UDA/Location";
 import UpdateProfile from "../Pages/Shared/UpdateProfile";
+import RejectedApplications from "../Pages/Dashboard/LtpDashboard/DraftApplication/RejectedApplication/RejectedApplications";
 
 const router = createBrowserRouter([
   {
@@ -209,6 +210,14 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/dashboard/rejectedApplications",
+        element: (
+          <PrivateRoute>
+            <RejectedApplications />
+          </PrivateRoute>
+        ),
+      },
+      {
         path: "/dashboard/inWard",
         element: (
           <PrivateRoute>
@@ -224,14 +233,6 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      // {
-      //   path: "/dashboard/outwardApplication",
-      //   element: (
-      //     <PrivateRoute>
-      //       <Outward />
-      //     </PrivateRoute>
-      //   ),
-      // },
       {
         path: "/dashboard/searchApplication",
         element: (

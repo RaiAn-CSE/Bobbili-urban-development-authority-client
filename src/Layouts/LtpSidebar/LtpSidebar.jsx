@@ -25,13 +25,15 @@ const LtpSidebar = () => {
     setHoverColor(getHoverColor);
   }, [isDark]);
 
-  const sidebarHoverClass = 'flex items-center ps-4 hover:bg-gradient-to-r hover:from-violet-500 hover:to-fuchsia-500 mb-1'
+  const sidebarHoverClass =
+    "flex items-center ps-4 hover:bg-gradient-to-r hover:from-violet-500 hover:to-fuchsia-500 mb-1";
 
   return (
     <>
       <li
-        className={`${path === "/dashboard" && activeColor
-          } mt-24 lg:mt-0 ${sidebarHoverClass}`}
+        className={`${
+          path === "/dashboard" && activeColor
+        } mt-24 lg:mt-0 ${sidebarHoverClass}`}
       >
         <span>
           <MdSpaceDashboard size={20} />
@@ -42,15 +44,16 @@ const LtpSidebar = () => {
       </li>
 
       <li
-        className={`${(path === "/dashboard/draftApplication" ||
-          path === "/dashboard/draftApplication/buildingInfo" ||
-          path === "/dashboard/draftApplication/applicantInfo" ||
-          path === "/dashboard/draftApplication/applicationChecklist" ||
-          path === "/dashboard/draftApplication/documents" ||
-          path === "/dashboard/draftApplication/drawing" ||
-          path === "/dashboard/draftApplication/payment") &&
+        className={`${
+          (path === "/dashboard/draftApplication" ||
+            path === "/dashboard/draftApplication/buildingInfo" ||
+            path === "/dashboard/draftApplication/applicantInfo" ||
+            path === "/dashboard/draftApplication/applicationChecklist" ||
+            path === "/dashboard/draftApplication/documents" ||
+            path === "/dashboard/draftApplication/drawing" ||
+            path === "/dashboard/draftApplication/payment") &&
           activeColor
-          } ${sidebarHoverClass}`}
+        } ${sidebarHoverClass}`}
       >
         <span>
           <BiSolidImageAdd size={22} />
@@ -64,8 +67,9 @@ const LtpSidebar = () => {
       </li>
 
       <li
-        className={`${path === "/dashboard/submitApplication" && activeColor
-          } ${sidebarHoverClass}`}
+        className={`${
+          path === "/dashboard/submitApplication" && activeColor
+        } ${sidebarHoverClass}`}
       >
         <span>
           <BsSendCheckFill size={19} />
@@ -79,8 +83,9 @@ const LtpSidebar = () => {
       </li>
 
       <li
-        className={`${path === "/dashboard/approvedApplication" && activeColor
-          } ${sidebarHoverClass}`}
+        className={`${
+          path === "/dashboard/approvedApplication" && activeColor
+        } ${sidebarHoverClass}`}
       >
         <span>
           <BiCheckDouble size={23} />
@@ -94,8 +99,9 @@ const LtpSidebar = () => {
       </li>
 
       <li
-        className={`${path === "/dashboard/shortfallApplication" && activeColor
-          } ${sidebarHoverClass}`}
+        className={`${
+          path === "/dashboard/shortfallApplication" && activeColor
+        } ${sidebarHoverClass}`}
       >
         <span>
           <AiOutlineForm size={20} />
@@ -108,14 +114,17 @@ const LtpSidebar = () => {
         </Link>
       </li>
 
-      {/* <li className={`flex items-center ps-4 ${hoverColor}  mb-1`}>
+      <li className={`flex items-center ps-4 ${hoverColor}  mb-1`}>
         <span>
           <CgDanger size={22} />
         </span>
-        <Link className="p-[10px]  font-medium " to="/#">
+        <Link
+          className="p-[10px]  font-medium "
+          to="/dashboard/rejectedApplications"
+        >
           Rejected
         </Link>
-      </li> */}
+      </li>
 
       <li className={`mt-5 ${sidebarHoverClass}`}>
         <span>
