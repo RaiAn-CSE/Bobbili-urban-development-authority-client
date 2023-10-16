@@ -159,14 +159,12 @@ const DocumentUpload = () => {
       let updatedDynamicDocumentsToAdd = [];
       const applicationData = await getApplicationData(applicationNo);
       const applicationCheckList = applicationData.applicationCheckList;
-      // const ltp = role === "LTP" && document?.data?.default;
-      // const ps = role === "PS" && psDocumentPageObservation?.data?.default;
       role === "LTP" && setPreviousDefaultDocumentData(applicationData?.document?.data?.default);
       role === "LTP" && setPreviousDynamicDocumentData(applicationData?.document?.data?.dynamic);
 
       role === "PS" && setPreviousDefaultDocumentData(applicationData?.psDocumentPageObservation?.data?.default);
       role === "PS" && setPreviousDynamicDocumentData(applicationData?.psDocumentPageObservation?.data?.dynamic);
-      role === "PS" && setApprovedConfirmation(applicationData?.documents?.psDocumentPageObservation?.approved);
+      role === "PS" && setApprovedConfirmation(applicationData?.psDocumentPageObservation?.approved);
       role === "PS" && setRecomendationMessage(applicationData?.psDocumentPageObservation?.message);
 
       // Checklist "yes" Data integrating to Document
@@ -188,7 +186,7 @@ const DocumentUpload = () => {
     };
     gettingData();
   }, []);
-
+console.log({PreviousDefaultDocumentData,PreviousDynamicDocumentData,setApprovedConfirmation,setRecomendationMessage},"PS Saved Data")
 
   // file send into the database
   const handleFileUpload = async (url) => {
@@ -244,8 +242,6 @@ const DocumentUpload = () => {
       fileCheckToUpload++;
     }
 
-    console.log(sendingImageId, "Sending Image id");
-
     if (fileCheckToUpload === loopTimes.length) {
       console.log({
         default: [...imageIdFromDB?.default, ...sendingImageId?.default],
@@ -277,7 +273,7 @@ const DocumentUpload = () => {
 
       const sendingDynamic = sendingImageId?.dynamic;
       const dbDynamic = imageIdFromDB?.dynamic;
-      
+
       if (sendingDynamic?.length) {
         sendingDynamic?.forEach((sendImg, sendIndx) => {
           dbDynamic?.forEach((dbImg, dbIndx) => {
@@ -305,10 +301,7 @@ const DocumentUpload = () => {
     }
   };
 
-  console.log(imageIdFromDB, "IMAGE ID FROM DB");
-
   // send data to PS DB
-
   const sentPsDecision = async (url) => {
     const PSData = {
       data: psSendingDocument,

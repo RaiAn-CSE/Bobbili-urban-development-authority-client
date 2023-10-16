@@ -110,25 +110,23 @@ const Payment = () => {
     // General Informatin
     const { natureOfTheSite } = generalInformation;
 
-    const builtup_Area = Number(totalBuiltUpArea)||1;
-    const vacant_area = Number(vacantLand)||1;
-    const net_Plot_Area = Number(netPlotAreaCal)||1;
-    const market_value = Number(marketValueSqym)||1;
+    const builtup_Area = Number(totalBuiltUpArea) || 1;
+    const vacant_area = Number(vacantLand) || 1;
+    const net_Plot_Area = Number(netPlotAreaCal) || 1;
+    const market_value = Number(marketValueSqym) || 1;
     const nature_of_site = natureOfTheSite;
-    const BuiltUp_area_SquareFeet = Number(builtup_Area * 10.7639)||1;
+    const BuiltUp_area_SquareFeet = Number(builtup_Area * 10.7639) || 1;
 
     console.log(typeof builtup_Area, "builtup_Area");
 
     // ======UDA Charged Segment======
     // ====Built up Development====
     const builtupAreaChargedUnitRate = 15; //per Sqm.
-    const builtUpAreaDevelopmentCharged =
-      builtupAreaChargedUnitRate * builtup_Area;
+    const builtUpAreaDevelopmentCharged = builtupAreaChargedUnitRate * builtup_Area;
 
     // ====Vacant Development====
     const vacantAreaChargedUnitRate = 10; // per Sqm.
-    const vacantAreaDevelopmentCharged =
-      vacantAreaChargedUnitRate * vacant_area;
+    const vacantAreaDevelopmentCharged = vacantAreaChargedUnitRate * vacant_area;
 
     // ====33% Penalization====
     const calculatePenalizationCharges = (net_Plot_Area, nature_of_site) => {
@@ -167,7 +165,7 @@ const Payment = () => {
     }
 
     // ==== Total 14% Open Space Charged ====
-    const TotalOpenSpaceCharged = calculateOpenSpaceCharge(nature_of_site,net_Plot_Area,market_value);
+    const TotalOpenSpaceCharged = calculateOpenSpaceCharge(nature_of_site, net_Plot_Area, market_value);
 
     // ==== Labour Cess Component 2 ====
     const labourCessComponentUnitRate2 = 1400; // per Sq.Ft.
@@ -253,7 +251,7 @@ const Payment = () => {
       greenFeeCharged = Math.round(greenFeeChargesUnitRate * BuiltUp_area_SquareFeet * 10.76
       );
     }
-    const showVariable= `NetPlot: ${net_Plot_Area}(Sq.M), BuiltUpArea: ${builtup_Area} (Sq.M), VacantArea: ${vacant_area} (Sq.M), BuiltUpArea: ${BuiltUp_area_SquareFeet} (Sq.Ft) NatureOfSite: ${nature_of_site}`
+    const showVariable = `NetPlot: ${net_Plot_Area}(Sq.M), BuiltUpArea: ${builtup_Area} (Sq.M), VacantArea: ${vacant_area} (Sq.M), BuiltUpArea: ${BuiltUp_area_SquareFeet} (Sq.Ft) NatureOfSite: ${nature_of_site}`
     toast.success(showVariable)
     // ====Labour Cess Component 1 Charged====
     const labourCessComponentUnitRate1 = 1400; // per Sq.ft.
