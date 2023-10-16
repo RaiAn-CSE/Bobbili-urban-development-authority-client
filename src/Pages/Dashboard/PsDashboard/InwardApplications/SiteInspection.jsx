@@ -341,7 +341,7 @@ const SiteInspection = () => {
                   </td>
                   <td
                     colSpan="3"
-                    className={`${tableDataClass} text-base font-semibold bg-gray-200 dark:text-black dark:bg-gradient-to-r dark:from-violet-300 dark:to-fuchsia-300`}
+                    className={`${tableDataClass} text-base font-semibold bg-gray-200`}
                   >
                     Ground Position
                   </td>
@@ -440,7 +440,7 @@ const SiteInspection = () => {
                   </td>
                   <td
                     colSpan="3"
-                    className={`${tableDataClass} text-base font-semibold bg-gray-200 dark:text-black dark:bg-gradient-to-r dark:from-violet-300 dark:to-fuchsia-300`}
+                    className={`${tableDataClass} text-base font-semibold bg-gray-200`}
                   >
                     Site Boundaries
                   </td>
@@ -548,7 +548,7 @@ const SiteInspection = () => {
                   </td>
                   <td
                     colSpan="3"
-                    className={`${tableDataClass} text-base font-semibold bg-gray-200 dark:text-black dark:bg-gradient-to-r dark:from-violet-300 dark:to-fuchsia-300`}
+                    className={`${tableDataClass} text-base font-semibold bg-gray-200`}
                   >
                     Access Road
                   </td>
@@ -673,7 +673,7 @@ const SiteInspection = () => {
                   </td>
                   <td
                     colSpan="3"
-                    className={`${tableDataClass} text-base font-semibold bg-gray-200 dark:text-black dark:bg-gradient-to-r dark:from-violet-300 dark:to-fuchsia-300`}
+                    className={`${tableDataClass} text-base font-semibold bg-gray-200`}
                   >
                     Land Use
                   </td>
@@ -808,10 +808,10 @@ const SiteInspection = () => {
 
       {/* Comment Box  */}
       <div className="flex items-center">
-        <div className="my-4 basis-[80%]">
+        <div className="my-4 basis-[50%]">
           <label
             htmlFor="ltpAddress"
-            className="block mb-1 font-semibold text-black"
+            className="block mb-1 font-semibold text-gray-600"
           >
             Recommendations
           </label>
@@ -820,7 +820,7 @@ const SiteInspection = () => {
             name="Recommendations"
             rows="5"
             defaultValue={recommendations}
-            className="w-full px-3 py-2 border border-green-600 rounded-lg dark:text-black bg-gray-100"
+            className="w-full px-3 py-2 border rounded-lg border-gray-300 text-gray-900 bg-gray-50 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200"
             placeholder="Comments"
           ></textarea>
         </div>

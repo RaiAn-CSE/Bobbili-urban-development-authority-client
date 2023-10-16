@@ -81,7 +81,7 @@ const Payment = () => {
         generalInformation?.natureOfTheSite === "Approved Layout" ||
         generalInformation?.natureOfTheSite === "Regularised under LRS" ||
         generalInformation?.natureOfTheSite ===
-          "Congested/ Gramakanta/ Old Built-up area" ||
+        "Congested/ Gramakanta/ Old Built-up area" ||
         generalInformation?.natureOfTheSite === "Newly Developed/ Built up area"
       ) {
         setCondition(1);
@@ -271,9 +271,9 @@ const Payment = () => {
     const labourCessComponentUnitRate1 = 1400; // per Sq.ft.
     const labourCessCompo1Charged = Math.round(
       labourCessComponentUnitRate1 *
-        BuiltUp_area_SquareFeet *
-        10.76 *
-        (0.01 * 0.98)
+      BuiltUp_area_SquareFeet *
+      10.76 *
+      (0.01 * 0.98)
     );
 
     setCalculatedData({
@@ -486,10 +486,10 @@ const Payment = () => {
   };
 
   return (
-    <>
+    <div className="text-gray-600">
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="grid my-5 mx-7 font-roboto text-xl lg:my-0 lg:p-2"
+        className="grid my-5 mx-7 lg:my-0 lg:p-2"
       >
         <div>
           <div className="flex items-center">
@@ -498,11 +498,11 @@ const Payment = () => {
               alt="Image icon for uda charge section"
               className="h-10 me-3"
             />
-            <h3 className="font-bold text-xl">UDA Charge</h3>
+            <h3 className="font-bold text-xl text-gray-900">UDA Charge</h3>
           </div>
           <div className="divider m-0"></div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-3 mt-5 mb-7">
+          <div className="grid grid-cols-2 lg:grid-cols-3 mb-10">
             <InputField
               id="vacantArea"
               name="vacantArea"
@@ -558,7 +558,7 @@ const Payment = () => {
             {role === "LTP" && (
               <div>
                 <button
-                  className={`btn btn-md text-sm px-3 mt-10 ml-3  text-white shadow-md transition-all duration-500 ${gradientColor}`}
+                  className={`btn btn-md text-sm px-3 mt-10 ml-3 border-none text-white shadow-md transition-all duration-500 ${gradientColor}`}
                 >
                   <GiMoneyStack size={25} /> pay now
                 </button>
@@ -683,7 +683,7 @@ const Payment = () => {
               alt="Image icon for Grama Panchayat fee section"
               className="h-10 me-3"
             />
-            <h3 className="font-bold text-xl">Grama Panchayat fee</h3>
+            <h3 className="font-bold text-xl text-gray-900">Grama Panchayat fee</h3>
           </div>
           <div className="divider m-0"></div>
 
@@ -783,7 +783,7 @@ const Payment = () => {
               {role === "LTP" && (
                 <input
                   type="file"
-                  className="file-input file-input-bordered w-full max-w-xs"
+                  className="file-input file-input-bordered w-full max-w-xs text-gray-400"
                   id="gramaBankReceipt"
                   onChange={(e) => handleFileChange(e, "gramaBankReceipt")}
                 />
@@ -809,7 +809,7 @@ const Payment = () => {
               alt="Image icon for labour charge section"
               className="h-10 me-3"
             />
-            <h3 className="font-bold text-xl">Labour cess charge</h3>
+            <h3 className="font-bold text-xl text-gray-900">Labour cess charge</h3>
           </div>
           <div className="divider m-0"></div>
 
@@ -874,7 +874,7 @@ const Payment = () => {
               {role === "LTP" && (
                 <input
                   type="file"
-                  className="file-input file-input-bordered w-full max-w-xs"
+                  className="file-input file-input-bordered w-full max-w-xs text-gray-400"
                   id="labourCessBankReceipt"
                   onChange={(e) => handleFileChange(e, "labourCessBankReceipt")}
                 />
@@ -883,15 +883,15 @@ const Payment = () => {
 
             {applicationData?.payment?.labourCessCharge
               ?.labourCessBankReceipt && (
-              <Link
-                to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
-                target="_blank"
-                className="flex justify-center items-center ms-10 px-6 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
-              >
-                <MdReceiptLong className="me-1" />
-                View Challan
-              </Link>
-            )}
+                <Link
+                  to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
+                  target="_blank"
+                  className="flex justify-center items-center ms-10 px-6 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
+                >
+                  <MdReceiptLong className="me-1" />
+                  View Challan
+                </Link>
+              )}
           </div>
         </div>
 
@@ -903,7 +903,7 @@ const Payment = () => {
               alt="Image icon for green charge section"
               className="h-10 me-3"
             />
-            <h3 className="font-bold text-xl">Green fee charge</h3>
+            <h3 className="font-bold text-xl text-gray-900">Green fee charge</h3>
           </div>
           <div className="divider m-0"></div>
 
@@ -970,7 +970,7 @@ const Payment = () => {
             {role === "LTP" && (
               <input
                 type="file"
-                className="file-input file-input-bordered w-full max-w-xs"
+                className="file-input file-input-bordered w-full max-w-xs text-gray-400"
                 id="greenFeeBankReceipt"
                 onChange={(e) => handleFileChange(e, "greenFeeBankReceipt")}
               />
@@ -1004,7 +1004,7 @@ const Payment = () => {
           sentData={sentData}
         />
       </form>
-    </>
+    </div>
   );
 };
 

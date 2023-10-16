@@ -351,7 +351,7 @@ const DocumentUpload = () => {
             // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
             setApprovedConfirmation={setApprovedConfirmation}
             handleStatus={handleStatus}
-            // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
+          // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
           />
           <DynamicDocument
             role={role}
@@ -363,7 +363,7 @@ const DocumentUpload = () => {
             // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
             setApprovedConfirmation={setApprovedConfirmation}
             handleStatus={handleStatus}
-            // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
+          // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
           />
         </div>
       </form>

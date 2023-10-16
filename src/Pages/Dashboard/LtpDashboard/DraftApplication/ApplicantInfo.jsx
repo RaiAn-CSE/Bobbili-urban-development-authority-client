@@ -14,8 +14,13 @@ const ApplicantInfo = () => {
 
   // console.log(stepperData);
 
-  const { confirmAlert, sendUserDataIntoDB, getApplicationData } =
+  const { userInfoFromLocalStorage } = useContext(AuthContext);
+  const { confirmAlert, sendUserDataIntoDB, getApplicationData, } =
     useContext(AuthContext);
+
+  const role = userInfoFromLocalStorage().role;
+
+  const isReadOnly = role === 'PS';
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
 
@@ -138,9 +143,9 @@ const ApplicantInfo = () => {
 
   // Classes for this component :
   let labelClass =
-    "block mb-1 font-semibold text-black";
+    "block mb-1 font-semibold text-gray-600";
   const inputClass =
-    "w-full px-3 py-2 border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200 bg-gray-100";
+    "w-full px-3 py-2 border rounded-lg max-w-xs border-gray-300 text-gray-900 bg-gray-50 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200";
 
   return (
     <div className="grid my-5 mx-5 lg:my-0 lg:p-2 text-black">
@@ -206,6 +211,7 @@ const ApplicantInfo = () => {
                 name="validity"
                 className={inputClass}
                 defaultValue={validity}
+                disabled={isReadOnly}
               />
             </div>
 
@@ -222,6 +228,7 @@ const ApplicantInfo = () => {
                 onChange={(e) => setPhoneNoLimit(e, setLtpPhone)}
                 className={inputClass}
                 maxLength={10}
+                readOnly={isReadOnly}
               />
             </div>
 
@@ -232,6 +239,7 @@ const ApplicantInfo = () => {
               placeholder="xxxx@gmail.com"
               type="email"
               ltpDetails={email}
+              readOnly={isReadOnly}
             />
           </div>
           <div className="my-4 mx-3 basis-[25%]">
@@ -245,6 +253,7 @@ const ApplicantInfo = () => {
               className={inputClass}
               defaultValue={address}
               placeholder="Dr. no., Street, Village, Mandal, Dist."
+              disabled={isReadOnly}
             ></textarea>
           </div>
         </div>
@@ -273,6 +282,7 @@ const ApplicantInfo = () => {
               decreaseApplicationNo={decreaseApplicationNo}
               setPhoneNoLimit={setPhoneNoLimit}
               applicantDetails={applicantDetails[index]}
+              isReadOnly={isReadOnly}
             />
           ))}
         </div>

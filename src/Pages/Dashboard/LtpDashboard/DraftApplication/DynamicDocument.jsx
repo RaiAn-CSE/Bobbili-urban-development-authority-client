@@ -76,7 +76,7 @@ function DynamicDocument({
                           onChange={(event) =>
                             someEventHandler(event, index + 9, uploadId)
                           }
-                          className="file-input file-input-bordered w-full max-w-xs dark:text-white"
+                          className="file-input file-input-bordered w-full max-w-xs text-gray-400"
                         />
                       )}
 

@@ -55,7 +55,7 @@ function Outward() {
             <th>Status</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="text-gray-900">
           {/* show draft applications  */}
 
           {allData?.length !== 0 &&
