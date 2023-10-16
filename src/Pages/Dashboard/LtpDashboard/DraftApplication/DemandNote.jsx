@@ -81,6 +81,10 @@ function DemandNote() {
                         </tr>
                     </tbody>
                 </table>
+                <p>Note :- Please ensure the payment of fee within validity period failing which leads to application disablement.</p>
+                <p>Total Amount to be Paid	
+(INR) :
+</p>
             </div>
         </div>
     )
