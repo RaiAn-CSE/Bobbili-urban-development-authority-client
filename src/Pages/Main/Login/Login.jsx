@@ -167,7 +167,7 @@ const Login = () => {
               />
 
               <div
-                className="absolute top-[55%] right-3 w-fit"
+                className="absolute top-[55%] right-3 w-fit dark:text-black"
                 onClick={handlePasswordShow}
               >
                 {show ? <BsFillHouseCheckFill /> : <BsFillHouseLockFill />}
@@ -181,7 +181,7 @@ const Login = () => {
                   type="checkbox"
                   {...register("checkbox")}
                   value=""
-                  className="w-4 h-4 border border-gray-300 rounded bg-gray-50"
+                  className="w-4 h-4 border border-gray-300 rounded bg-gray-50 "
                 />
               </div>
               <label

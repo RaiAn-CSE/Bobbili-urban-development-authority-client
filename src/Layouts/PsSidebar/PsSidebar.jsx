@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { MdSpaceDashboard } from "react-icons/md";
 import { Link, useLocation } from "react-router-dom";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
+import { BiSolidAddToQueue } from "react-icons/bi";
+import { AiOutlineFileDone, AiOutlineFileSearch } from "react-icons/ai";
 
 function PsSidebar() {
   const path = useLocation().pathname;
@@ -22,8 +24,9 @@ function PsSidebar() {
   return (
     <>
       <li
-        className={`${path === "/dashboard" && activeColor
-          } mt-24 lg:mt-0 flex items-center  ps-3 ${hoverColor}`}
+        className={`${
+          path === "/dashboard" && activeColor
+        } mt-24 lg:mt-0 flex items-center  ps-3 ${hoverColor}`}
       >
         <span>
           <MdSpaceDashboard size={20} />
@@ -34,40 +37,44 @@ function PsSidebar() {
       </li>
 
       <li
-        className={`${(path === "/dashboard/inward" ||
-          path === "/dashboard/draftApplication/buildingInfo" ||
-          path === "/dashboard/draftApplication/applicantInfo" ||
-          path === "/dashboard/draftApplication/applicationChecklist" ||
-          path === "/dashboard/draftApplication/documents" ||
-          path === "/dashboard/draftApplication/drawing" ||
-          path === "/dashboard/draftApplication/payment") &&
+        className={`${
+          (path === "/dashboard/inward" ||
+            path === "/dashboard/draftApplication/buildingInfo" ||
+            path === "/dashboard/draftApplication/applicantInfo" ||
+            path === "/dashboard/draftApplication/applicationChecklist" ||
+            path === "/dashboard/draftApplication/documents" ||
+            path === "/dashboard/draftApplication/drawing" ||
+            path === "/dashboard/draftApplication/payment" ||
+            path === "/dashboard/draftApplication/siteInspection") &&
           activeColor
-          } mt-1  flex items-center  ps-3 ${hoverColor}`}
+        } mt-1  flex items-center  ps-3 ${hoverColor}`}
       >
         <span>
-          <MdSpaceDashboard size={20} />
+          <BiSolidAddToQueue size={20} />
         </span>
         <Link className={`p-[10px] font-medium `} to="/dashboard/inward">
           Inward Application
         </Link>
       </li>
       <li
-        className={`${path === "/dashboard/outWard" && activeColor
-          } mt-1 flex items-center  ps-3 ${hoverColor}`}
+        className={`${
+          path === "/dashboard/outWard" && activeColor
+        } mt-1 flex items-center  ps-3 ${hoverColor}`}
       >
         <span>
-          <MdSpaceDashboard size={20} />
+          <AiOutlineFileDone size={20} />
         </span>
         <Link className={`p-[10px] font-medium `} to="/dashboard/outWard">
           Outward Application
         </Link>
       </li>
       <li
-        className={`${path === "/dashboard/searchApplication" && activeColor
-          } mt-1 flex items-center  ps-3 ${hoverColor}`}
+        className={`${
+          path === "/dashboard/searchApplication" && activeColor
+        } mt-1 flex items-center  ps-3 ${hoverColor}`}
       >
         <span>
-          <MdSpaceDashboard size={20} />
+          <AiOutlineFileSearch size={20} />
         </span>
         <Link
           className={`p-[10px] font-medium `}
@@ -76,9 +83,10 @@ function PsSidebar() {
           Search Application
         </Link>
       </li>
-      <li
-        className={`${path === "/dashboard/reValidation" && activeColor
-          } mt-1 flex items-center  ps-3 ${hoverColor}`}
+      {/* <li
+        className={`${
+          path === "/dashboard/reValidation" && activeColor
+        } mt-1 flex items-center  ps-3 ${hoverColor}`}
       >
         <span>
           <MdSpaceDashboard size={20} />
@@ -86,7 +94,7 @@ function PsSidebar() {
         <Link className={`p-[10px] font-medium `} to="/dashboard/reValidation">
           Re-validation
         </Link>
-      </li>
+      </li> */}
 
       {/* <Link to="/dashboard">
         <button>Dashboard</button>

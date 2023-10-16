@@ -55,7 +55,7 @@ const MainLayout = () => {
           </p>
         </div>
 
-        <div className="basis-[20%] flex justify-end items-center space-x-6">
+        <div className="basis-[20%] flex justify-end items-center space-x-6 dark:text-black">
           <Link
             to="/"
             className={`w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center  ${
