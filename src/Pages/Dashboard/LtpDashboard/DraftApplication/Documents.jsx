@@ -90,18 +90,16 @@ const DocumentUpload = () => {
   useEffect(() => {
     setSendingDocument({ default: defaultData, dynamic: dynamicData });
     setSendingImageId({ default: defaultImageData, dynamic: dynamicImageData });
-    console.log(sendingDocument, "Sending Document");
-    console.log(sendingImageId, "Sending  image Document");
-    // setLtpSendingDocument({ default: defaultData, dynamic: de });
   }, [defaultData, dynamicData, defaultImageData, dynamicImageData]);
 
   // PS Approved and Shortfall Data handeling
   const handleStatus = (event, id, uploadId, type) => {
-    if (type === "dynamic") {
+    console.log({event, id, uploadId, type}, "Event from Document")
+    if (type == "dynamic") {
       const dynamicMatchedIndex = statusDynamicData.findIndex(
-        (data) => data.id == id
+        (data) => data.id == id && data.uploadId == uploadId
       );
-
+     
       if (dynamicMatchedIndex !== -1) {
         // If a matching ID is found in dynamic data, updated it
         const updatedData = {
@@ -134,7 +132,6 @@ const DocumentUpload = () => {
         setStatusDefaultData((prev) => [...prev, data]);
       }
     }
-    console.log({ id, event, uploadId });
   };
   // PS Sending Document Updating when handleChange
   useEffect(() => {
@@ -150,9 +147,9 @@ const DocumentUpload = () => {
     setRecomendationMessage(RecomdMessage);
   };
   const handleConfirmation = (data) => {
-    setApprovedConfirmation(data);
+    setApprovedConfirmation(data)
   };
-
+console.log(approvedConfirmation,"ApprovedConfirmatin from document")
   // Adding checklist Data to Document from server data && Updating Data from server Data
   useEffect(() => {
     const gettingData = async () => {
@@ -186,7 +183,7 @@ const DocumentUpload = () => {
     };
     gettingData();
   }, []);
-console.log({PreviousDefaultDocumentData,PreviousDynamicDocumentData,setApprovedConfirmation,setRecomendationMessage},"PS Saved Data")
+  // console.log({ PreviousDefaultDocumentData, PreviousDynamicDocumentData, setApprovedConfirmation, setRecomendationMessage }, "PS Saved Data")
 
   // file send into the database
   const handleFileUpload = async (url) => {

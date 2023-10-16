@@ -68,6 +68,7 @@ function AppChecklist() {
                   className="radio radio-sm checked:bg-violetDark border-violetLight mr-3 lg:mr-0"
                   checked={answer === "yes"}
                   onChange={(event) => handleAnswer(event, id)}
+                  disabled={role}
                 />
                 <span>Yes</span>
               </label>

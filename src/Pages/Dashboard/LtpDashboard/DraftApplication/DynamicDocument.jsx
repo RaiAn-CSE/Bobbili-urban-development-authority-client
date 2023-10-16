@@ -19,13 +19,13 @@ function DynamicDocument({
     handleFileChange(event, id, selectedFiles, "dynamic", uploadId);
   };
 
-  console.log(dynamicImageFromDB, "Dynamic Image from DB");
+  // console.log(PreviousDynamicDocumentData, "PreviousDynamicDocumentData from Dynamic Components");
 
   return (
     <div className="dark:text-black">
       {UpdatedDynamicDocumentData?.map((document, index) => {
         const { id, question, requirements } = document;
-
+        // console.log(document, "From Dynamic")
         return (
           <div key={id} className="w-full px-2 py-5 rounded">
             <div className="text-[17px]">
@@ -34,7 +34,7 @@ function DynamicDocument({
               </p>
               <div className="ml-6">
                 {requirements?.map((RequireData, ind) => {
-                  const { uploadId, requirement, upload, approved } =
+                  const { uploadId, requirement, upload, event } =
                     RequireData;
 
                   const isMatch = dynamicImageFromDB?.find(
@@ -42,11 +42,7 @@ function DynamicDocument({
                       eachFile?.id === index + 9 &&
                       eachFile?.uploadId === uploadId
                   );
-
-                  console.log(isMatch, "IS MATCH");
-
-                  const letters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n",
-                  ];
+                  const letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n"];
                   return (
                     <div key={ind + 1} className="mb-8 ">
                       <div className="mb-3">
@@ -59,7 +55,7 @@ function DynamicDocument({
                           type="file"
                           accept=".pdf, image/*"
                           onChange={(event) =>
-                            someEventHandler(event, index + 9, uploadId)
+                            someEventHandler(event, id, uploadId)
                           }
                           className="file-input file-input-bordered w-full max-w-xs dark:text-white"
                         />
@@ -78,7 +74,7 @@ function DynamicDocument({
                       <PsDocument
                         role={role}
                         id={id}
-                        approved={approved}
+                        approved={event}
                         uploadId={uploadId}
                         handleStatus={handleStatus}
                         PreviousDocumentData={PreviousDynamicDocumentData}

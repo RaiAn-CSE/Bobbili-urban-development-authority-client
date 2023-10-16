@@ -12,8 +12,7 @@ function DocumentFooter({
     handleConfirmation(data)
   };
 
-  console.log(submitData, "submitData");
-  //   const path = "LTP";
+  console.log(approvedConfirmation && approvedConfirmation === "true", "Checking");
   return (
     <div className="dark:text-white">
       <div className="lg:ml-6">
@@ -27,7 +26,8 @@ function DocumentFooter({
               value="approved"
               name="finalApproved"
               className="radio radio-sm radio-success mr-3 lg:mr-0"
-              defaultChecked={approvedConfirmation === "true"}
+              // defaultChecked=
+              checked={approvedConfirmation && approvedConfirmation === "true"}
               onClick={() => handleConfirm("true")}
             />
             <span>Approve</span>
@@ -40,7 +40,7 @@ function DocumentFooter({
               value="shortfall"
               name="finalApproved"
               className="radio radio-sm radio-success mr-3 lg:mr-0"
-              defaultChecked={approvedConfirmation === "false"}
+              checked={approvedConfirmation && approvedConfirmation === "false"}
               onClick={() => handleConfirm("false")}
             />
             <span>Shortfall</span>
