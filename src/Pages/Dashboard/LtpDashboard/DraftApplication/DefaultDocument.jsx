@@ -3,40 +3,33 @@ import DefaultDocumentData from "../../../../assets/DefaultDocument.json";
 import PsDocument from "./PsDocument";
 import { Link } from "react-router-dom";
 
-function DefaultDocument({
-  PreviousDefaultDocumentData,
-  role,
-  handleFileChange,
-  gradientColor,
-  defaultImageFromDB,
-  handleStatus,
-}) {
-  const [selectedFiles, setSelectedFiles] = useState([]);
-  const [UpdatedDefaultData, setUpdatedDefaultData] = useState([]);
+function DefaultDocument({ PreviousDefaultDocumentData, role, handleFileChange, gradientColor, handleStatus, defaultImageFromDB }) {
+    const [selectedFiles, setSelectedFiles] = useState([]);
+    const [UpdatedDefaultData, setUpdatedDefaultData] = useState([]);
 
-  useEffect(() => {
-    if (PreviousDefaultDocumentData.length) {
-      setUpdatedDefaultData([...PreviousDefaultDocumentData]);
-    } else {
-      setUpdatedDefaultData([...DefaultDocumentData]);
-    }
-  }, []);
+    useEffect(() => {
+        if (PreviousDefaultDocumentData.length) {
+            setUpdatedDefaultData([...PreviousDefaultDocumentData]);
+        } else {
+            setUpdatedDefaultData([...DefaultDocumentData]);
+        }
+    }, []);
 
-  const someEventHandler = (event, id) => {
-    const file = event?.target.files[0];
-    selectedFiles[id] = file;
-    handleFileChange(event, id, selectedFiles, "default");
-  };
+    const someEventHandler = (event, id) => {
+        const file = event?.target.files[0];
+        selectedFiles[id] = file;
+        handleFileChange(event, id, selectedFiles, "default");
+    };
 
-  console.log(defaultImageFromDB, "DEFAULT IMAGE FROM DB");
-  return (
-    <div className="dark:text-black">
-      {UpdatedDefaultData?.map((data, index) => {
-        const { id, question, approved, upload } = data;
+    console.log(defaultImageFromDB, "DEFAULT IMAGE FROM DB");
+    return (
+        <div className="dark:text-black">
+            {UpdatedDefaultData?.map((data, index) => {
+                const { id, question, approved, upload } = data;
 
-        const isMatch = defaultImageFromDB?.find(
-          (eachFile, i) => eachFile.id === id
-        );
+                const isMatch = defaultImageFromDB?.find(
+                    (eachFile, i) => eachFile.id === id
+                );
 
         console.log(isMatch, "IS MATCH");
         return (

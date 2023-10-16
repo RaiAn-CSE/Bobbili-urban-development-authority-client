@@ -13,9 +13,13 @@ import SaveData from "./SaveData";
 import { Link } from "react-router-dom";
 import { MdReceiptLong } from "react-icons/md";
 import Application from "./Application";
+import Modal from "./Modal";
 
 const Payment = () => {
   const [openApplication, setOpenApplication] = useState(false);
+  const [viewChallan, setViewChallan] = useState(false)
+  const [Newly_Developed_Condition, setNewlyDevelopedCondition] = useState(false);
+  const [RLP_IPLP_Condition, setRLP_IPLP_Condition] = useState(false);
   const stepperData = useOutletContext();
   const {
     getApplicationData,
@@ -80,8 +84,7 @@ const Payment = () => {
       if (
         generalInformation?.natureOfTheSite === "Approved Layout" ||
         generalInformation?.natureOfTheSite === "Regularised under LRS" ||
-        generalInformation?.natureOfTheSite ===
-          "Congested/ Gramakanta/ Old Built-up area" ||
+        generalInformation?.natureOfTheSite === "Congested/ Gramakanta/ Old Built-up area" ||
         generalInformation?.natureOfTheSite === "Newly Developed/ Built up area"
       ) {
         setCondition(1);
@@ -101,38 +104,29 @@ const Payment = () => {
     });
   }, []);
 
-  const calculateFees = (
-    generalInformation,
-    ltpDetails,
-    applicantDetailsData,
-    plotDetails
-  ) => {
+  const calculateFees = (generalInformation, ltpDetails, applicantDetailsData, plotDetails) => {
     // Plots Details
-    const { netPlotAreaCal, marketValueSqym, totalBuiltUpArea, vacantLand } =
-      plotDetails;
-    console.log(plotDetails, "plotDetails");
+    const { netPlotAreaCal, marketValueSqym, totalBuiltUpArea, vacantLand } = plotDetails;
     // General Informatin
     const { natureOfTheSite } = generalInformation;
 
-    const builtup_Area = Number(totalBuiltUpArea);
-    const vacant_area = Number(vacantLand);
-    const net_Plot_Area = Number(netPlotAreaCal);
-    const market_value = Number(marketValueSqym);
+    const builtup_Area = Number(totalBuiltUpArea) || 1;
+    const vacant_area = Number(vacantLand) || 1;
+    const net_Plot_Area = Number(netPlotAreaCal) || 1;
+    const market_value = Number(marketValueSqym) || 1;
     const nature_of_site = natureOfTheSite;
-    const BuiltUp_area_SquareFeet = Number(builtup_Area * 10.7639);
+    const BuiltUp_area_SquareFeet = Number(builtup_Area * 10.7639) || 1;
 
     console.log(typeof builtup_Area, "builtup_Area");
 
     // ======UDA Charged Segment======
     // ====Built up Development====
     const builtupAreaChargedUnitRate = 15; //per Sqm.
-    const builtUpAreaDevelopmentCharged =
-      builtupAreaChargedUnitRate * builtup_Area;
+    const builtUpAreaDevelopmentCharged = builtupAreaChargedUnitRate * builtup_Area;
 
     // ====Vacant Development====
     const vacantAreaChargedUnitRate = 10; // per Sqm.
-    const vacantAreaDevelopmentCharged =
-      vacantAreaChargedUnitRate * vacant_area;
+    const vacantAreaDevelopmentCharged = vacantAreaChargedUnitRate * vacant_area;
 
     // ====33% Penalization====
     const calculatePenalizationCharges = (net_Plot_Area, nature_of_site) => {
@@ -158,16 +152,12 @@ const Payment = () => {
     );
 
     // ====Open Space====
-    function calculateOpenSpaceCharge(
-      nature_of_site,
-      net_Plot_Area,
-      market_value
-    ) {
-      const condition01 = nature_of_site === "Newly Developed/ Built up area";
-      const condition02 =
-        nature_of_site === "Plot port of RLP/IPLP but not regularised";
-
-      if (condition01 || condition02) {
+    function calculateOpenSpaceCharge(nature_of_site, net_Plot_Area, market_value) {
+      const Newly_Developed_Condition = nature_of_site === "Newly Developed/ Built up area";
+      const RLP_IPLP_Condition = nature_of_site === "Plot port of RLP/IPLP but not regularised";
+      setNewlyDevelopedCondition(Newly_Developed_Condition);
+      setRLP_IPLP_Condition(RLP_IPLP_Condition);
+      if (Newly_Developed_Condition || RLP_IPLP_Condition) {
         return net_Plot_Area * 1.196 * market_value * 0.14;
       } else {
         return 0;
@@ -175,21 +165,19 @@ const Payment = () => {
     }
 
     // ==== Total 14% Open Space Charged ====
-    const TotalOpenSpaceCharged = calculateOpenSpaceCharge(
-      nature_of_site,
-      net_Plot_Area,
-      market_value
-    );
+    const TotalOpenSpaceCharged = calculateOpenSpaceCharge(nature_of_site, net_Plot_Area, market_value);
 
     // ==== Labour Cess Component 2 ====
     const labourCessComponentUnitRate2 = 1400; // per Sq.Ft.
 
     const laboutCessCompo2Calculation = (BuiltUp_area_SquareFeet) => {
       let labourCessComponentCharge2 = 0;
+
       if (BuiltUp_area_SquareFeet <= 10000) {
         labourCessComponentCharge2 =
           labourCessComponentUnitRate2 * BuiltUp_area_SquareFeet * 10.76;
-      } else if (BuiltUp_area_SquareFeet > 10000) {
+      }
+      if (BuiltUp_area_SquareFeet > 10000) {
         labourCessComponentCharge2 =
           labourCessComponentUnitRate2 *
           BuiltUp_area_SquareFeet *
@@ -200,9 +188,7 @@ const Payment = () => {
       return labourCessComponentCharge2;
     };
     // ===== Total labour cess Compo 2 Charged====
-    const TotalLabourCessComp2Charged = laboutCessCompo2Calculation(
-      BuiltUp_area_SquareFeet
-    );
+    const TotalLabourCessComp2Charged = laboutCessCompo2Calculation(BuiltUp_area_SquareFeet);
 
     // =====UDA Total=====
     const UDATotal = () => {
@@ -212,7 +198,7 @@ const Payment = () => {
         vacantAreaDevelopmentCharged +
         TotalPenalizationCharged +
         TotalOpenSpaceCharged +
-        TotalLabourCessComp2Charged;
+        TotalLabourCessComp2Charged
       return Math.round(UDATotalCharged);
     };
     // =====UDA Total Charged=====
@@ -226,7 +212,7 @@ const Payment = () => {
         TotalLabourCessComp2Charged,
         UDATotalCharged,
       },
-      "UDATotalCharged-in"
+      "UDATotalCharged-Included Items"
     );
 
     // =======Grama Panchayet Segment=======
@@ -262,18 +248,18 @@ const Payment = () => {
     let greenFeeCharged = 0;
     const greenFeeChargesUnitRate = 3; //per Sq.ft
     if (BuiltUp_area_SquareFeet > 5000) {
-      greenFeeCharged = Math.round(
-        greenFeeChargesUnitRate * BuiltUp_area_SquareFeet * 10.76
+      greenFeeCharged = Math.round(greenFeeChargesUnitRate * BuiltUp_area_SquareFeet * 10.76
       );
     }
-
+    const showVariable = `NetPlot: ${net_Plot_Area}(Sq.M), BuiltUpArea: ${builtup_Area} (Sq.M), VacantArea: ${vacant_area} (Sq.M), BuiltUpArea: ${BuiltUp_area_SquareFeet} (Sq.Ft) NatureOfSite: ${nature_of_site}`
+    toast.success(showVariable)
     // ====Labour Cess Component 1 Charged====
     const labourCessComponentUnitRate1 = 1400; // per Sq.ft.
     const labourCessCompo1Charged = Math.round(
       labourCessComponentUnitRate1 *
-        BuiltUp_area_SquareFeet *
-        10.76 *
-        (0.01 * 0.98)
+      BuiltUp_area_SquareFeet *
+      10.76 *
+      (0.01 * 0.98)
     );
 
     setCalculatedData({
@@ -519,7 +505,7 @@ const Payment = () => {
               type="number"
               ltpDetails={calculatedData?.builtUpAreaDevelopmentCharged}
             />
-            {condition !== 1 && (
+            {(Newly_Developed_Condition || RLP_IPLP_Condition) && (
               <InputField
                 id="TotalOpenSpaceCharged"
                 name="TotalOpenSpaceCharged"
@@ -529,7 +515,7 @@ const Payment = () => {
                 ltpDetails={calculatedData?.TotalOpenSpaceCharged}
               />
             )}
-            {condition !== 1 && condition !== 2 && (
+            {RLP_IPLP_Condition && (
               <InputField
                 id="TotalPenalizationCharged"
                 name="TotalPenalizationCharged"
@@ -545,7 +531,7 @@ const Payment = () => {
               label="Labour Cess Component 2"
               placeholder="000"
               type="number"
-              ltpDetails={calculatedData?.TotalPenalizationCharged}
+              ltpDetails={calculatedData?.TotalLabourCessComp2Charged}
             />
             <InputField
               id="UDATotalCharged"
@@ -558,14 +544,24 @@ const Payment = () => {
             {role === "LTP" && (
               <div>
                 <button
+<<<<<<< HEAD
                   className={`btn btn-md text-sm px-3 mt-10 ml-3 border-none text-white shadow-md transition-all duration-500 ${gradientColor}`}
+=======
+                  className={`btn btn-md text-sm px-3 mt-10 ml-3 text-white shadow-md transition-all duration-500 ${gradientColor}`}
+>>>>>>> Tanjimul
                 >
                   <GiMoneyStack size={25} /> pay now
                 </button>
               </div>
             )}
             {role === "PS" && (
+
               <>
+                <button
+                  className={`btn btn-md text-sm px-3 mt-10 ml-3 border-none text-white shadow-md transition-all duration-500 ${gradientColor} hover:shadow-lg hover:shadow-violetDark hover:bg-gradient-to-bl`}
+                  onClick={() => setViewChallan(true)}
+                >View Challan</button>
+                {viewChallan && <Modal viewChallan={viewChallan} setViewChallan={setViewChallan} />}
                 <div>
                   <button
                     className={`btn btn-md text-sm px-3 mt-10 font-roboto ml-3 border-none text-white shadow-md transition-all duration-500 ${gradientColor} hover:shadow-lg hover:shadow-violetDark hover:bg-gradient-to-bl`}
@@ -706,7 +702,7 @@ const Payment = () => {
               type="number"
               ltpDetails={calculatedData?.processingFees}
             />
-            {condition !== 1 && (
+            {(
               <InputField
                 id="bettermentCharged"
                 name="bettermentCharged"
@@ -887,15 +883,15 @@ const Payment = () => {
 
             {applicationData?.payment?.labourCessCharge
               ?.labourCessBankReceipt && (
-              <Link
-                to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
-                target="_blank"
-                className="flex justify-center items-center ms-10 px-6 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
-              >
-                <MdReceiptLong className="me-1" />
-                View Challan
-              </Link>
-            )}
+                <Link
+                  to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
+                  target="_blank"
+                  className="flex justify-center items-center ms-10 px-6 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
+                >
+                  <MdReceiptLong className="me-1" />
+                  View Challan
+                </Link>
+              )}
           </div>
         </div>
 

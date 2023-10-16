@@ -45,23 +45,8 @@ function DynamicDocument({
 
                   console.log(isMatch, "IS MATCH");
 
-                  const letters = [
-                    "a",
-                    "b",
-                    "c",
-                    "d",
-                    "e",
-                    "f",
-                    "g",
-                    "h",
-                    "i",
-                    "j",
-                    "k",
-                    "l",
-                    "m",
-                    "n",
+                  const letters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n",
                   ];
-
                   return (
                     <div key={ind + 1} className="mb-8 ">
                       <div className="mb-3">
