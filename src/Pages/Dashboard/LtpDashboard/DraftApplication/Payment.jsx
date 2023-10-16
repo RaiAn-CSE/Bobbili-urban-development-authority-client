@@ -702,7 +702,7 @@ const Payment = () => {
               type="number"
               ltpDetails={calculatedData?.processingFees}
             />
-            {condition !== 1 && (
+            { (
               <InputField
                 id="bettermentCharged"
                 name="bettermentCharged"
