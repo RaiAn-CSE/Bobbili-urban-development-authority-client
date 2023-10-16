@@ -360,12 +360,12 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const showPageBasedOnApplicationType = (applicationNo, navigate) => {
+  const showPageBasedOnApplicationType = (applicationNo, navigate, page) => {
     localStorage.setItem("CurrentAppNo", JSON.stringify(applicationNo));
     localStorage.setItem("stepIndex", JSON.stringify(0));
 
     navigate("/dashboard/draftApplication/buildingInfo", {
-      state: { page: "draft" },
+      state: { page },
     });
   };
   //   create a object to transfer data into various components

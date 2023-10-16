@@ -3,7 +3,8 @@ import React from "react";
 const ShowAllShortfallApplications = ({
   serialNo,
   applicationData,
-  showDraftApplication,
+  showShortfallApplication,
+  navigate,
 }) => {
   const { applicationNo, buildingInfo, applicantInfo, psSubmitDate } =
     applicationData;
@@ -15,7 +16,9 @@ const ShowAllShortfallApplications = ({
       <th>{serialNo + 1}</th>
       <td
         className="hover:underline cursor-pointer"
-        onClick={() => showDraftApplication(applicationNo)}
+        onClick={() =>
+          showShortfallApplication(applicationNo, navigate, "shortfall")
+        }
       >
         {applicationNo}
       </td>

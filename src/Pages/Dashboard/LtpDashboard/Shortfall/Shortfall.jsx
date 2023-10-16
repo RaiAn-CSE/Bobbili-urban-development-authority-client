@@ -3,10 +3,13 @@ import { useQuery } from "react-query";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import useGetPageWiseApplication from "../../../CustomHook/useGetPageWiseApplication";
 import ShowAllShortfallApplications from "./ShowAllShortfallApplications";
+import { useNavigate } from "react-router-dom";
 
 const Shortfall = () => {
-  const { userInfoFromLocalStorage } = useContext(AuthContext);
+  const { userInfoFromLocalStorage, showPageBasedOnApplicationType } =
+    useContext(AuthContext);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   // get all applications which are submitted already
   //   const { data, refetch, isLoading, isError } = useQuery(
@@ -57,6 +60,8 @@ const Shortfall = () => {
               key={index}
               serialNo={index}
               applicationData={applicationData}
+              showShortfallApplication={showPageBasedOnApplicationType}
+              navigate={navigate}
             />
           ))}
         </tbody>

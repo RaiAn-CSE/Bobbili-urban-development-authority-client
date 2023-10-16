@@ -26,7 +26,7 @@ const AllDraftApplication = ({
       <td className="px-2">
         <button
           className="hover:underline"
-          onClick={() => showDraftApplication(applicationNo, navigate)}
+          onClick={() => showDraftApplication(applicationNo, navigate, "draft")}
         >
           {applicationNo}
         </button>
