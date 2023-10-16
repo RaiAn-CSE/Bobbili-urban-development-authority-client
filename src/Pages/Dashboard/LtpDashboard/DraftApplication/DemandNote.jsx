@@ -85,7 +85,7 @@ function DemandNote() {
             </div>
             <p className='text-sm text-center font-semibold'>Note :- Please ensure the payment of fee within validity period failing which leads to application disablement.</p>
 
-            <div className='flex items-center justify-end mt-10 text-base font-semibold'>
+            <div className='flex items-center justify-start mt-10 text-base font-semibold lg:pl-10'>
                 <div>
                     <p>Total Amount to be Paid
                         (INR) :
