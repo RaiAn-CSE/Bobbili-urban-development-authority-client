@@ -276,7 +276,7 @@ const Drawing = () => {
               <Link
                 to={`https://drive.google.com/file/d/${savedData?.drawing?.Drawing}/view?usp=sharing`}
                 target="_blank"
-                className={`${gradientColor} text-white hover:underline  py-2 px-5 rounded-full`}
+                className={`${gradientColor} text-white hover:underline py-2 px-5 rounded-full`}
               >
                 View
               </Link>
