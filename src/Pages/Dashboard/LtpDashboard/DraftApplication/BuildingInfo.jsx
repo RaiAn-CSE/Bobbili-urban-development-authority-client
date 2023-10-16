@@ -540,10 +540,10 @@ const BuildingInfo = () => {
 
     localStorage.setItem("CurrentAppNo", JSON.stringify(newApplicationNo));
 
-    // return await sendUserDataIntoDB(url, "PATCH", {
-    //   applicationNo: newApplicationNo,
-    //   buildingInfo,
-    // });
+    return await sendUserDataIntoDB(url, "PATCH", {
+      applicationNo: newApplicationNo,
+      buildingInfo,
+    });
   };
 
   const {

@@ -28,8 +28,8 @@ function Outward() {
       const approved = data?.applications?.approvedApplications;
       const shortfall = data?.applications?.shortfallApplications;
 
-      console.log(approved);
-      console.log(shortfall);
+      console.log(approved, "App");
+      console.log(shortfall, "shrt");
       setAllData((prev) => {
         const newValue = [...approved, ...shortfall];
         return newValue;
