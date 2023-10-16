@@ -18,6 +18,8 @@ import Modal from "./Modal";
 const Payment = () => {
   const [openApplication, setOpenApplication] = useState(false);
   const [viewChallan, setViewChallan] = useState(false)
+  const [Newly_Developed_Condition, setNewlyDevelopedCondition] = useState(false);
+  const [RLP_IPLP_Condition, setRLP_IPLP_Condition] = useState(false);
   const stepperData = useOutletContext();
   const {
     getApplicationData,
@@ -82,8 +84,7 @@ const Payment = () => {
       if (
         generalInformation?.natureOfTheSite === "Approved Layout" ||
         generalInformation?.natureOfTheSite === "Regularised under LRS" ||
-        generalInformation?.natureOfTheSite ===
-        "Congested/ Gramakanta/ Old Built-up area" ||
+        generalInformation?.natureOfTheSite ==="Congested/ Gramakanta/ Old Built-up area" ||
         generalInformation?.natureOfTheSite === "Newly Developed/ Built up area"
       ) {
         setCondition(1);
@@ -103,16 +104,9 @@ const Payment = () => {
     });
   }, []);
 
-  const calculateFees = (
-    generalInformation,
-    ltpDetails,
-    applicantDetailsData,
-    plotDetails
-  ) => {
+  const calculateFees = (generalInformation, ltpDetails, applicantDetailsData, plotDetails) => {
     // Plots Details
-    const { netPlotAreaCal, marketValueSqym, totalBuiltUpArea, vacantLand } =
-      plotDetails;
-    console.log(plotDetails, "plotDetails");
+    const { netPlotAreaCal, marketValueSqym, totalBuiltUpArea, vacantLand } = plotDetails;
     // General Informatin
     const { natureOfTheSite } = generalInformation;
 
@@ -160,16 +154,12 @@ const Payment = () => {
     );
 
     // ====Open Space====
-    function calculateOpenSpaceCharge(
-      nature_of_site,
-      net_Plot_Area,
-      market_value
-    ) {
-      const condition01 = nature_of_site === "Newly Developed/ Built up area";
-      const condition02 =
-        nature_of_site === "Plot port of RLP/IPLP but not regularised";
-
-      if (condition01 || condition02) {
+    function calculateOpenSpaceCharge(nature_of_site, net_Plot_Area, market_value) {
+      const Newly_Developed_Condition = nature_of_site === "Newly Developed/ Built up area";
+      const RLP_IPLP_Condition = nature_of_site === "Plot port of RLP/IPLP but not regularised";
+      setNewlyDevelopedCondition(Newly_Developed_Condition);
+      setRLP_IPLP_Condition(RLP_IPLP_Condition);
+      if (Newly_Developed_Condition || RLP_IPLP_Condition) {
         return net_Plot_Area * 1.196 * market_value * 0.14;
       } else {
         return 0;
@@ -228,7 +218,7 @@ const Payment = () => {
         TotalLabourCessComp2Charged,
         UDATotalCharged,
       },
-      "UDATotalCharged-in"
+      "UDATotalCharged-Included Items"
     );
 
     // =======Grama Panchayet Segment=======
@@ -521,7 +511,7 @@ const Payment = () => {
               type="number"
               ltpDetails={calculatedData?.builtUpAreaDevelopmentCharged}
             />
-            {condition !== 1 && (
+            {(Newly_Developed_Condition || RLP_IPLP_Condition) && (
               <InputField
                 id="TotalOpenSpaceCharged"
                 name="TotalOpenSpaceCharged"
@@ -531,7 +521,7 @@ const Payment = () => {
                 ltpDetails={calculatedData?.TotalOpenSpaceCharged}
               />
             )}
-            {condition !== 1 && condition !== 2 && (
+            {RLP_IPLP_Condition && (
               <InputField
                 id="TotalPenalizationCharged"
                 name="TotalPenalizationCharged"
@@ -547,7 +537,7 @@ const Payment = () => {
               label="Labour Cess Component 2"
               placeholder="000"
               type="number"
-              ltpDetails={calculatedData?.TotalPenalizationCharged}
+              ltpDetails={calculatedData?.TotalLabourCessComp2Charged}
             />
             <InputField
               id="UDATotalCharged"
@@ -560,7 +550,7 @@ const Payment = () => {
             {role === "LTP" && (
               <div>
                 <button
-                  className={`btn btn-md text-sm px-3 mt-10 ml-3  text-white shadow-md transition-all duration-500 ${gradientColor}`}
+                  className={`btn btn-md text-sm px-3 mt-10 ml-3 text-white shadow-md transition-all duration-500 ${gradientColor}`}
                 >
                   <GiMoneyStack size={25} /> pay now
                 </button>
@@ -571,9 +561,9 @@ const Payment = () => {
               <>
                 <button
                   className={`btn btn-md text-sm px-3 mt-10 ml-3 border-none text-white shadow-md transition-all duration-500 ${gradientColor} hover:shadow-lg hover:shadow-violetDark hover:bg-gradient-to-bl`}
-                  onClick={() => document.getElementById('my_modal_2').showModal()}
+                  onClick={() => setViewChallan(true)}
                 >View Challan</button>
-                {viewChallan && <Modal />}
+                {viewChallan && <Modal viewChallan={viewChallan} setViewChallan={setViewChallan}/>}
                 <div>
                   <button
                     className={`btn btn-md text-sm px-3 mt-10 ml-3 border-none text-white shadow-md transition-all duration-500 ${gradientColor} hover:shadow-lg hover:shadow-violetDark hover:bg-gradient-to-bl`}
