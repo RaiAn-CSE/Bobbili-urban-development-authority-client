@@ -1,15 +1,13 @@
-import React from 'react'
-
 function DemandNote() {
     return (
-        <div>
+        <div className='py-10'>
             {/* Part01 */}
             <div className='text-center'>
                 <h1>Bobbili Urban Development Authority PLANNING DEPARTMENT</h1>
                 <p className='text-base underline'>Demand Note (Challan/ Memo)</p>
             </div>
             {/* Part02 */}
-            <div className='flex justify-around mt-10 text-base'>
+            <div className='flex items-center justify-around mt-10 text-base'>
                 <div className='space-y-2'>
                     <p>File No:</p>
                     <p>Name:</p>
@@ -23,8 +21,8 @@ function DemandNote() {
             </div>
             {/* Part03 */}
             <div className='overflow-x-auto mt-10 flex items-center justify-center'>
-                <table className='"table table-sm text-base border-black'>
-                    <thead>
+                <table className='table table-sm text-base '>
+                    <thead className='text-black'>
                         <th>Sr. No.</th>
                         <th>Particulars</th>
                         <th>Area (m2)</th>
@@ -34,7 +32,7 @@ function DemandNote() {
                         <th>Net Amount</th>
                     </thead>
                     <tbody className='text-black'>
-                        <tr>
+                        <tr className="text-black">
                             <td className='text-black'>01</td>
                             <td className='text-black'>Development Charges (Built Up Area)</td>
                             <td className='text-black'></td>
@@ -83,15 +81,15 @@ function DemandNote() {
 
                 </table>
             </div>
-            <p className='text-sm text-center'>Note :- Please ensure the payment of fee within validity period failing which leads to application disablement.</p>
+            <p className='text-sm text-center font-semibold'>Note :- Please ensure the payment of fee within validity period failing which leads to application disablement.</p>
 
-            <div className='flex items-center justify-end mt-10 text-base'>
+            <div className='flex items-center justify-end mt-10 text-base font-semibold'>
                 <div>
                     <p>Total Amount to be Paid
                         (INR) :
                     </p>
                     <p>Amount In Words: Rupees  Seventy Two Thousand Six Hundred Fourty Only</p>
-                    <p className='font-semibold'>Bobbili Urban Development Authority</p>
+                    <p>Bobbili Urban Development Authority</p>
                 </div>
             </div>
         </div>
