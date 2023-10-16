@@ -178,7 +178,10 @@ const OnlinePayment = () => {
 
       <div className="flex justify-center items-center mt-5">
         <h3 className="text-base font-medium">
-          For UDA charge you can pay only Rs. xxxxx/= fee online, remaining all
+          For UDA charge you can pay only Rs. {
+            (filteredData?.payment?.udaCharge?.UDATotalCharged) ? (filteredData?.payment?.udaCharge?.UDATotalCharged) : "xxxxxxx"
+          }/=
+          fee online, remaining all
           fee DD/Challan can be attached in LTP login only.
         </h3>
       </div>
@@ -191,7 +194,7 @@ const OnlinePayment = () => {
         <button
           className={`flex rounded justify-center items-center px-2 py-[6px] border-none text-white cursor-pointer shadow-md shadow-violetDark transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold text-base bg-gradient-to-r from-violet-500 to-fuchsia-500`}
         >
-          <GiMoneyStack size={25} /><span className="ml-1">Pay. Rs.</span>
+          <GiMoneyStack size={25} /><span className="ml-1">pay now</span>
         </button>
       </div>
     </div>
