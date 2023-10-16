@@ -265,38 +265,71 @@ const Location = () => {
           Export <TfiExport size={18} className="ms-2" />
         </button>
 
-        <table ref={tableRef} border="1px" className={`${styles.table}`}>
-          <thead>
+        <table
+          ref={tableRef}
+          className={`table border border-solid border-black text-center dark:text-black`}
+        >
+          <thead className="border border-solid border-black dark:text-black">
             <tr>
-              <th rowSpan={2}>Sl. no.</th>
-              <th rowSpan={2}>District</th>
-              <th rowSpan={2}>Mandal</th>
-              <th rowSpan={2}>Village</th>
-              <th rowSpan={2}>Date</th>
-              <th colSpan={4}>Prices</th>
+              <th rowSpan={2} className="border border-solid border-black">
+                Sl. no.
+              </th>
+              <th rowSpan={2} className="border border-solid border-black">
+                District
+              </th>
+              <th rowSpan={2} className="border border-solid border-black">
+                Mandal
+              </th>
+              <th rowSpan={2} className="border border-solid border-black">
+                Village
+              </th>
+              <th rowSpan={2} className="border border-solid border-black">
+                Date
+              </th>
+              <th colSpan={4} className="border border-solid border-black">
+                Prices
+              </th>
             </tr>
             <tr>
-              <th>UDA Charges</th>
-              <th>Grama Panchayat Fee</th>
-              <th>Labour Cess Charge</th>
-              <th>Green Fee Charge</th>
+              <th className="border border-solid border-black">UDA Charges</th>
+              <th className="border border-solid border-black">
+                Grama Panchayat Fee
+              </th>
+              <th className="border border-solid border-black">
+                Labour Cess Charge
+              </th>
+              <th className="border border-solid border-black">
+                Green Fee Charge
+              </th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td className="w-[35px]">1</td>
-              <td>
+              <td className="w-[35px] border border-solid border-black">1</td>
+              <td className="border border-solid border-black">
                 {selectedDistrict?.length === 0 ? "All" : selectedDistrict}
               </td>
-              <td>{selectedMandal?.length === 0 ? "All" : selectedMandal}</td>
-              <td>
+              <td className="border border-solid border-black">
+                {selectedMandal?.length === 0 ? "All" : selectedMandal}
+              </td>
+              <td className="border border-solid border-black">
                 {selectedPanchayat?.length === 0 ? "All" : selectedPanchayat}
               </td>
-              <td>{selectedDate?.length === 0 ? "All" : selectedDate}</td>
-              <td>{serverData?.totalUdaCharge}</td>
-              <td>{serverData?.totalPanchayatCharge}</td>
-              <td>{serverData?.totalLabourCharge}</td>
-              <td>{serverData?.totalGreenFee}</td>
+              <td className="border border-solid border-black">
+                {selectedDate?.length === 0 ? "All" : selectedDate}
+              </td>
+              <td className="border border-solid border-black">
+                {serverData?.totalUdaCharge}
+              </td>
+              <td className="border border-solid border-black">
+                {serverData?.totalPanchayatCharge}
+              </td>
+              <td className="border border-solid border-black">
+                {serverData?.totalLabourCharge}
+              </td>
+              <td className="border border-solid border-black">
+                {serverData?.totalGreenFee}
+              </td>
             </tr>
           </tbody>
         </table>
