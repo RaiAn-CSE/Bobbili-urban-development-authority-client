@@ -81,7 +81,7 @@ const Payment = () => {
         generalInformation?.natureOfTheSite === "Approved Layout" ||
         generalInformation?.natureOfTheSite === "Regularised under LRS" ||
         generalInformation?.natureOfTheSite ===
-        "Congested/ Gramakanta/ Old Built-up area" ||
+          "Congested/ Gramakanta/ Old Built-up area" ||
         generalInformation?.natureOfTheSite === "Newly Developed/ Built up area"
       ) {
         setCondition(1);
@@ -271,9 +271,9 @@ const Payment = () => {
     const labourCessComponentUnitRate1 = 1400; // per Sq.ft.
     const labourCessCompo1Charged = Math.round(
       labourCessComponentUnitRate1 *
-      BuiltUp_area_SquareFeet *
-      10.76 *
-      (0.01 * 0.98)
+        BuiltUp_area_SquareFeet *
+        10.76 *
+        (0.01 * 0.98)
     );
 
     setCalculatedData({
@@ -568,7 +568,7 @@ const Payment = () => {
               <>
                 <div>
                   <button
-                    className={`btn btn-md text-sm px-3 mt-10 ml-3 border-none text-white shadow-md transition-all duration-500 ${gradientColor} hover:shadow-lg hover:shadow-violetDark hover:bg-gradient-to-bl`}
+                    className={`btn btn-md text-sm px-3 mt-10 font-roboto ml-3 border-none text-white shadow-md transition-all duration-500 ${gradientColor} hover:shadow-lg hover:shadow-violetDark hover:bg-gradient-to-bl`}
                     onClick={() =>
                       document.getElementById("my_modal_4").showModal()
                     }
@@ -580,7 +580,7 @@ const Payment = () => {
                 {/* modal box */}
 
                 <dialog id="my_modal_4" className="modal">
-                  <div className="modal-box w-11/12 max-w-5xl">
+                  <div className="modal-box w-11/12 max-w-5xl dark:bg-white dark:text-black">
                     <div className="modal-action">
                       <form method="dialog">
                         <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
@@ -683,7 +683,9 @@ const Payment = () => {
               alt="Image icon for Grama Panchayat fee section"
               className="h-10 me-3"
             />
-            <h3 className="font-bold text-xl text-gray-900">Grama Panchayat fee</h3>
+            <h3 className="font-bold text-xl text-gray-900">
+              Grama Panchayat fee
+            </h3>
           </div>
           <div className="divider m-0"></div>
 
@@ -809,7 +811,9 @@ const Payment = () => {
               alt="Image icon for labour charge section"
               className="h-10 me-3"
             />
-            <h3 className="font-bold text-xl text-gray-900">Labour cess charge</h3>
+            <h3 className="font-bold text-xl text-gray-900">
+              Labour cess charge
+            </h3>
           </div>
           <div className="divider m-0"></div>
 
@@ -883,15 +887,15 @@ const Payment = () => {
 
             {applicationData?.payment?.labourCessCharge
               ?.labourCessBankReceipt && (
-                <Link
-                  to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
-                  target="_blank"
-                  className="flex justify-center items-center ms-10 px-6 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
-                >
-                  <MdReceiptLong className="me-1" />
-                  View Challan
-                </Link>
-              )}
+              <Link
+                to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
+                target="_blank"
+                className="flex justify-center items-center ms-10 px-6 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
+              >
+                <MdReceiptLong className="me-1" />
+                View Challan
+              </Link>
+            )}
           </div>
         </div>
 
@@ -903,7 +907,9 @@ const Payment = () => {
               alt="Image icon for green charge section"
               className="h-10 me-3"
             />
-            <h3 className="font-bold text-xl text-gray-900">Green fee charge</h3>
+            <h3 className="font-bold text-xl text-gray-900">
+              Green fee charge
+            </h3>
           </div>
           <div className="divider m-0"></div>
 
