@@ -71,7 +71,7 @@ const OnlinePayment = () => {
           <input
             type="search"
             id="default-search"
-            className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+            className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 "
             placeholder="Application no. or owner name"
             onChange={(e) => searchApplicationData(e)}
             required
@@ -80,7 +80,7 @@ const OnlinePayment = () => {
       </form>
 
       {/* Location details  */}
-      <div className="divide-y-2 divide-gray-200 mt-9">
+      <div className="divide-y-2 divide-gray-200 mt-9  text-black">
         <div className="mb-1">
           <h3 className="basis-[50%] text-lg px-5 font-semibold">
             Application details
@@ -132,11 +132,9 @@ const OnlinePayment = () => {
       </div>
 
       {/* Owner details  */}
-      <div className="divide-y-2 divide-gray-200 mt-9">
+      <div className="divide-y-2 divide-gray-200 mt-9 text-black">
         <div className="flex mb-1">
-          <h3 className="text-lg px-5 font-semibold">
-            Fees details
-          </h3>
+          <h3 className="text-lg px-5 font-semibold">Fees details</h3>
         </div>
         <div className="flex">
           <div className="basis-[70%]">
@@ -170,7 +168,8 @@ const OnlinePayment = () => {
 
       <div className="flex justify-center items-center mt-5">
         <h3 className="text-base font-medium">
-          For UDA charge you can pay only Rs. xxxxx/= fee online, remaining all fee DD/Challan can be attached in LTP login only.
+          For UDA charge you can pay only Rs. xxxxx/= fee online, remaining all
+          fee DD/Challan can be attached in LTP login only.
         </h3>
       </div>
       <div className="flex justify-end mt-2 pb-9">
