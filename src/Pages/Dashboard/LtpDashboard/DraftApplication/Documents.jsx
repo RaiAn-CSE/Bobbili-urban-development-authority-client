@@ -224,7 +224,7 @@ const DocumentUpload = () => {
         formData.append("file", loopTimes[lt][i].file);
         try {
           const response = await axios.post(
-            "http://localhost:5000/upload?page=document",
+            "https://residential-building.vercel.app/upload?page=document",
             formData,
             {
               headers: {
@@ -351,7 +351,7 @@ const DocumentUpload = () => {
             // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
             setApprovedConfirmation={setApprovedConfirmation}
             handleStatus={handleStatus}
-          // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
+            // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
           />
           <DynamicDocument
             role={role}
@@ -363,7 +363,7 @@ const DocumentUpload = () => {
             // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
             setApprovedConfirmation={setApprovedConfirmation}
             handleStatus={handleStatus}
-          // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
+            // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
           />
         </div>
       </form>

@@ -9,7 +9,9 @@ function Outward() {
   const { data, refetch, isLoading, isError, isSuccess } = useQuery(
     ["allOutwardApplications"],
     async () => {
-      const response = await fetch(`http://localhost:5000/totalApplications`);
+      const response = await fetch(
+        `https://residential-building.vercel.app/totalApplications`
+      );
       return await response.json();
     }
   );

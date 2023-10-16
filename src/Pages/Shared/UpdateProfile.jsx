@@ -56,7 +56,9 @@ const UpdateProfile = () => {
     console.log(newObj, "FOrm r value");
 
     fetch(
-      `http://localhost:5000/updateUserInfo/${userInfoFromLocalStorage()._id}`,
+      `https://residential-building.vercel.app/updateUserInfo/${
+        userInfoFromLocalStorage()._id
+      }`,
       {
         method: "PATCH",
         headers: { "content-type": "application/json" },
