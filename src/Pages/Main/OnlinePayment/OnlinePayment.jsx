@@ -93,18 +93,21 @@ const OnlinePayment = () => {
               id="fileNo"
               type="text"
               placeholder="xxxxxxx"
+              ltpDetails={filteredData?.applicationNo}
             />
             <MainPageInput
-              label="Applicant name"
+              label="Owner name"
               id="applicantName"
               type="text"
               placeholder="xxxxxxx"
+              ltpDetails={filteredData?.applicantInfo?.applicantDetails?.[0].name}
             />
             <MainPageInput
               label="Mandal"
               id="mandal2"
               type="text"
               placeholder="xxxxxxx"
+              ltpDetails={filteredData?.buildingInfo?.generalInformation?.mandal}
             />
           </div>
 
@@ -114,18 +117,21 @@ const OnlinePayment = () => {
               id="caseType"
               type="text"
               placeholder="xxxxxxx"
+              ltpDetails={filteredData?.buildingInfo?.generalInformation?.caseType}
             />
             <MainPageInput
               label="Village name"
               id="villageName"
               type="text"
               placeholder="xxxxxxx"
+              ltpDetails={filteredData?.buildingInfo?.generalInformation?.village}
             />
             <MainPageInput
               label="District"
               id="district2"
               type="text"
               placeholder="xxxxxxx"
+              ltpDetails={filteredData?.buildingInfo?.generalInformation?.district}
             />
           </div>
         </div>
@@ -143,24 +149,28 @@ const OnlinePayment = () => {
               id="udaCharges"
               type="text"
               placeholder="xxxxxxx"
+              ltpDetails={filteredData?.payment?.udaCharge?.UDATotalCharged}
             />
             <MainPageInput
               label="Grama Panchayat fee"
               id="gramaPanchayatFee"
               type="text"
               placeholder="xxxxxxx"
+              ltpDetails={filteredData?.payment?.gramaPanchayatFee?.GramaPanchayetTotalCharged}
             />
             <MainPageInput
               label="Labour cess charge"
               id="labourCessCharge"
               type="text"
               placeholder="xxxxxxx"
+              ltpDetails={filteredData?.payment?.labourCessCharge?.labourCessOne}
             />
             <MainPageInput
               label="Green fee charge"
               id="labourCessCharge"
               type="text"
               placeholder="xxxxxxx"
+              ltpDetails={filteredData?.payment?.greenFeeCharge?.greenFee}
             />
           </div>
         </div>
@@ -172,9 +182,16 @@ const OnlinePayment = () => {
           fee DD/Challan can be attached in LTP login only.
         </h3>
       </div>
-      <div className="flex justify-end mt-2 pb-9">
+      {/* <div className="flex justify-end mt-2 pb-9">
         <button className="flex text-[#000] font-semibold bottom-2.5 bg-[#ffd66c] hover:bg-[#e1bc60] focus:ring-4 focus:outline-none focus:ring-[#ffd66c] rounded-lg text-sm px-4 py-2">
           <GiMoneyStack size={25} /> <span className="ml-1">pay now</span>
+        </button>
+      </div> */}
+      <div className="flex justify-end mt-2 pb-9">
+        <button
+          className={`flex rounded justify-center items-center px-2 py-[6px] border-none text-white cursor-pointer shadow-md shadow-violetDark transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold text-base bg-gradient-to-r from-violet-500 to-fuchsia-500`}
+        >
+          <GiMoneyStack size={25} /><span className="ml-1">Pay. Rs.</span>
         </button>
       </div>
     </div>

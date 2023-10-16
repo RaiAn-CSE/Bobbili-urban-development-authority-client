@@ -186,7 +186,7 @@ const ApplicationSearch = () => {
               ltpDetails={filteredData?.applicantInfo.applicantDetails?.[0].ownerDoorNo}
             />
             <MainPageInput
-              label="Owner street no"
+              label="Owner street name"
               id="ownerStreetNo"
               type="text"
               placeholder="xxxxxxx"
