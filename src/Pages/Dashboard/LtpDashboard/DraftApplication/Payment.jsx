@@ -254,11 +254,10 @@ const Payment = () => {
     let greenFeeCharged = 0;
     const greenFeeChargesUnitRate = 3; //per Sq.ft
     if (BuiltUp_area_SquareFeet > 5000) {
-      greenFeeCharged = Math.round(
-        greenFeeChargesUnitRate * BuiltUp_area_SquareFeet * 10.76
+      greenFeeCharged = Math.round( greenFeeChargesUnitRate * BuiltUp_area_SquareFeet * 10.76
       );
     }
-
+toast.success(BuiltUp_area_SquareFeet)
     // ====Labour Cess Component 1 Charged====
     const labourCessComponentUnitRate1 = 1400; // per Sq.ft.
     const labourCessCompo1Charged = Math.round(
