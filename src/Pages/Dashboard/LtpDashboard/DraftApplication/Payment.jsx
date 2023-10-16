@@ -188,10 +188,12 @@ const Payment = () => {
 
     const laboutCessCompo2Calculation = (BuiltUp_area_SquareFeet) => {
       let labourCessComponentCharge2 = 0;
+
       if (BuiltUp_area_SquareFeet <= 10000) {
         labourCessComponentCharge2 =
           labourCessComponentUnitRate2 * BuiltUp_area_SquareFeet * 10.76;
-      } else if (BuiltUp_area_SquareFeet > 10000) {
+      }
+      if (BuiltUp_area_SquareFeet > 10000) {
         labourCessComponentCharge2 =
           labourCessComponentUnitRate2 *
           BuiltUp_area_SquareFeet *
@@ -202,9 +204,7 @@ const Payment = () => {
       return labourCessComponentCharge2;
     };
     // ===== Total labour cess Compo 2 Charged====
-    const TotalLabourCessComp2Charged = laboutCessCompo2Calculation(
-      BuiltUp_area_SquareFeet
-    );
+    const TotalLabourCessComp2Charged = laboutCessCompo2Calculation(BuiltUp_area_SquareFeet);
 
     // =====UDA Total=====
     const UDATotal = () => {
@@ -214,7 +214,7 @@ const Payment = () => {
         vacantAreaDevelopmentCharged +
         TotalPenalizationCharged +
         TotalOpenSpaceCharged +
-        TotalLabourCessComp2Charged;
+        TotalLabourCessComp2Charged
       return Math.round(UDATotalCharged);
     };
     // =====UDA Total Charged=====
@@ -571,7 +571,7 @@ const Payment = () => {
               <>
                 <button
                   className={`btn btn-md text-sm px-3 mt-10 ml-3 border-none text-white shadow-md transition-all duration-500 ${gradientColor} hover:shadow-lg hover:shadow-violetDark hover:bg-gradient-to-bl`}
-                  onClick={() =>  document.getElementById('my_modal_2').showModal()}
+                  onClick={() => document.getElementById('my_modal_2').showModal()}
                 >View Challan</button>
                 {viewChallan && <Modal />}
                 <div>

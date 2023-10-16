@@ -20,16 +20,18 @@ function DemandNote() {
                 </div>
             </div>
             {/* Part03 */}
-            <div className='overflow-x-auto mt-10 flex items-center justify-center'>
-                <table className='table table-sm text-base '>
+            <div className='overflow-x-auto mt-10 flex items-center justify-center lg:px-10'>
+                <table className='table table-md text-base'>
                     <thead className='text-black'>
-                        <th>Sr. No.</th>
-                        <th>Particulars</th>
-                        <th>Area (m2)</th>
-                        <th>Unit Rate</th>
-                        <th>Gross Amount</th>
-                        <th>Previous Paid</th>
-                        <th>Net Amount</th>
+                        <tr>
+                            <th>Sr. No.</th>
+                            <th>Particulars</th>
+                            <th>Area (m2)</th>
+                            <th>Unit Rate</th>
+                            <th>Gross Amount</th>
+                            <th>Previous Paid</th>
+                            <th>Net Amount</th>
+                        </tr>
                     </thead>
                     <tbody className='text-black'>
                         <tr className="text-black">
