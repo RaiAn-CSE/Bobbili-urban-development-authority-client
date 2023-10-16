@@ -22,8 +22,8 @@ function DemandNote() {
                 </div>
             </div>
             {/* Part03 */}
-            <div className='overflow-x-auto mt-10 pb-10 flex items-center justify-center'>
-                <table className='"table table-xs text-base border-black'>
+            <div className='overflow-x-auto mt-10 flex items-center justify-center'>
+                <table className='"table table-sm text-base border-black'>
                     <thead>
                         <th>Sr. No.</th>
                         <th>Particulars</th>
@@ -80,11 +80,19 @@ function DemandNote() {
                             <td className='text-black'></td>
                         </tr>
                     </tbody>
+
                 </table>
-                <p>Note :- Please ensure the payment of fee within validity period failing which leads to application disablement.</p>
-                <p>Total Amount to be Paid	
-(INR) :
-</p>
+            </div>
+            <p className='text-sm text-center'>Note :- Please ensure the payment of fee within validity period failing which leads to application disablement.</p>
+
+            <div className='flex items-center justify-end mt-10 text-base'>
+                <div>
+                    <p>Total Amount to be Paid
+                        (INR) :
+                    </p>
+                    <p>Amount In Words: Rupees  Seventy Two Thousand Six Hundred Fourty Only</p>
+                    <p className='font-semibold'>Bobbili Urban Development Authority</p>
+                </div>
             </div>
         </div>
     )
