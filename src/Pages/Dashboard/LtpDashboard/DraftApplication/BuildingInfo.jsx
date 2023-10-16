@@ -32,7 +32,7 @@ const BuildingInfo = () => {
 
   const role = userInfoFromLocalStorage().role;
 
-  const isReadOnly = role === 'PS';
+  const isReadOnly = role === "PS";
 
   // Here declared all variables initial value in the use state
 
@@ -676,7 +676,9 @@ const BuildingInfo = () => {
                     onChange={handleRadio1}
                     disabled={isReadOnly}
                   />
-                  <span className="ml-2 text-base text-gray-600">Govt. Land</span>
+                  <span className="ml-2 text-base text-gray-600">
+                    Govt. Land
+                  </span>
                 </label>
               </div>
             </div>
@@ -920,15 +922,15 @@ const BuildingInfo = () => {
 
             {selectedNatureOfTheSite ===
               "Plot port of RLP/IPLP but not regularised" && (
-                <InputField
-                  id="IplpNo"
-                  name="IplpNo"
-                  label="RLP/IPLP no."
-                  placeholder="RLP/IPLP no."
-                  type="number"
-                  ltpDetails={iplpNo}
-                />
-              )}
+              <InputField
+                id="IplpNo"
+                name="IplpNo"
+                label="RLP/IPLP no."
+                placeholder="RLP/IPLP no."
+                type="number"
+                ltpDetails={iplpNo}
+              />
+            )}
             {/*===================== Conditional Input Field End =====================*/}
           </div>
         </div>
@@ -959,7 +961,7 @@ const BuildingInfo = () => {
                 ltpDetails={totalPlotGround}
               />
 
-              <div className="my-4 mx-3">
+              <div className="my-4 mx-3 flex flex-col justify-between">
                 <label htmlFor="" className={labelClass}>
                   Proposed Plot area
                 </label>
@@ -982,7 +984,7 @@ const BuildingInfo = () => {
                 )} */}
               </div>
 
-              <div className="my-4 mx-3">
+              <div className="my-4 mx-3 flex flex-col justify-between">
                 <label htmlFor="" className={labelClass}>
                   Road Widening Area
                 </label>

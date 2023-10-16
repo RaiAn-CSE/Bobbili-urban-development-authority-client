@@ -64,11 +64,8 @@ function Application({ setOpenApplication }) {
   } = generalInformation || {};
 
   // Plot Details
-  const {
-    proposedPlotAreaCal,
-    roadWideningAreaCal,
-    netPlotAreaCal,
-  } = plotDetails || {};
+  const { proposedPlotAreaCal, roadWideningAreaCal, netPlotAreaCal } =
+    plotDetails || {};
 
   // LTP Details
   const {
@@ -97,22 +94,22 @@ function Application({ setOpenApplication }) {
     { "Name(in full)": ApplicantName },
     { "Door No/Flat No.": adharNo },
     { "Road/Street": roadWideningAreaCal },
-    { "Village": village },
-    { "Mandal": mandal },
-    { "District": district },
+    { Village: village },
+    { Mandal: mandal },
+    { District: district },
     { "PIN Code": pinCode },
     { "Phone No": applicantPhone },
-    { "E-mail": AppEmail }
+    { "E-mail": AppEmail },
   ];
 
   const Part02 = [
     { "Survey No": surveyNo },
     { "L.P Mo./LRS No.": lrsNo },
     { "Plot No": plotNo },
-    { "Village": village },
+    { Village: village },
     { "Grama Panchayat": gramaPanchayat },
-    { "Mandal": gramaPanchayat },
-    { "District": district },
+    { Mandal: gramaPanchayat },
+    { District: district },
   ];
 
   // Part01 && Part02 Keys and Values
@@ -121,13 +118,18 @@ function Application({ setOpenApplication }) {
     const isArray = Array.isArray(data);
     if (isArray) {
       return (
-        <td className={`bg-white border border-black ${type === "keys" && "w-1/3"} p-0`}>
+        <td
+          className={`bg-white border border-black ${
+            type === "keys" && "w-1/3"
+          } p-0`}
+        >
           <div className="flex">
             {data?.map((e, i) => (
               <p
                 key={i}
-                className={`flex items-center p-2 border-l border-black h-12 ${i === 0 && "w-1/2 border-l-0"
-                  }`}
+                className={`flex items-center p-2 border-l border-black h-12 ${
+                  i === 0 && "w-1/2 border-l-0 bg-white"
+                }`}
               >
                 {(keys ? Object.keys(data[i]) : Object.values(data[i])) || e}
               </p>
@@ -137,7 +139,11 @@ function Application({ setOpenApplication }) {
       );
     } else {
       return (
-        <td className={`bg-white border border-black ${type === "keys" && "w-1/3"} p-0`}>
+        <td
+          className={`bg-white border border-black ${
+            type === "keys" && "w-1/3"
+          } p-0`}
+        >
           <p className="h-12 p-2 flex items-center">
             {keys ? Object.keys(data) : Object.values(data)}
           </p>
@@ -149,7 +155,7 @@ function Application({ setOpenApplication }) {
   return (
     <div className="w-full h-full text-black">
       <dialog id="my_modal_5" className="modal">
-        <div className="modal-box w-full max-w-4xl p-14">
+        <div className="modal-box w-full max-w-4xl p-14 bg-white">
           {/* Header */}
           <ApplicationHeader />
           <div>
@@ -160,7 +166,9 @@ function Application({ setOpenApplication }) {
                 <thead className="bg-gray-400 text-black dark:text-white">
                   <tr>
                     <th className="border-l border-black">A</th>
-                    <th className="border-0 text-end">ADDRESS OF THE APPLICANT</th>
+                    <th className="border-0 text-end">
+                      ADDRESS OF THE APPLICANT
+                    </th>
                     <th className="border-0"></th>
                   </tr>
                 </thead>
@@ -221,7 +229,9 @@ function Application({ setOpenApplication }) {
               <thead className="bg-gray-400 text-black dark:text-white">
                 <tr>
                   <th className="w-[10%]">D</th>
-                  <th className="uppercase">DETAILS OF THE PROPOSED CONSTRUCTION</th>
+                  <th className="uppercase">
+                    DETAILS OF THE PROPOSED CONSTRUCTION
+                  </th>
                   <th></th>
                   <th></th>
                 </tr>
@@ -229,21 +239,33 @@ function Application({ setOpenApplication }) {
               <tbody className="text-start">
                 <tr>
                   <td className="border border-black w-[10%]">01</td>
-                  <td className="border border-black w-[30%]">Site Area (Sq.mtr.)</td>
+                  <td className="border border-black w-[30%]">
+                    Site Area (Sq.mtr.)
+                  </td>
                   <td className="p-0 border-0 border-r">
-                    <td className="border-0 border-b border-black w-full block">As per Document</td>
-                    <td className="border-0 border-b border-black w-full block">As on Ground</td>
+                    <td className="border-0 border-b border-black w-full block">
+                      As per Document
+                    </td>
+                    <td className="border-0 border-b border-black w-full block">
+                      As on Ground
+                    </td>
                     <td className="border-0 w-full block">As on Proposed</td>
                   </td>
                   <td className="p-0 border-0 border-y">
-                    <td className="border-0 border-b border-black w-full block">As per Document</td>
-                    <td className="border-0 border-b border-black w-full block">As on Ground</td>
+                    <td className="border-0 border-b border-black w-full block">
+                      As per Document
+                    </td>
+                    <td className="border-0 border-b border-black w-full block">
+                      As on Ground
+                    </td>
                     <td className="border-0 w-full block">As on Proposed</td>
                   </td>
                 </tr>
                 <tr className="border border-black">
                   <td className="border border-black">02</td>
-                  <td className="border border-black">Total Number of floors</td>
+                  <td className="border border-black">
+                    Total Number of floors
+                  </td>
                   <td className="border border-black"></td>
                 </tr>
                 <tr className="border border-black">
@@ -259,7 +281,9 @@ function Application({ setOpenApplication }) {
                 </tr>
                 <tr className="border border-black">
                   <td className="border border-black">b</td>
-                  <td className="border border-black">Ground floor (sq.mtr.)</td>
+                  <td className="border border-black">
+                    Ground floor (sq.mtr.)
+                  </td>
                   <td className="border border-black"></td>
                 </tr>
                 <tr className="border border-black">
@@ -269,12 +293,16 @@ function Application({ setOpenApplication }) {
                 </tr>
                 <tr className="border border-black">
                   <td className="border border-black">d</td>
-                  <td className="border border-black">Second floor (sq.mtr.)</td>
+                  <td className="border border-black">
+                    Second floor (sq.mtr.)
+                  </td>
                   <td className="border border-black"></td>
                 </tr>
                 <tr className="border border-black">
                   <td className="border border-black">03</td>
-                  <td className="border border-black">Total Built-up area and parking area (sq.mtr.)</td>
+                  <td className="border border-black">
+                    Total Built-up area and parking area (sq.mtr.)
+                  </td>
                   <td className="border border-black"></td>
                   <td className="border border-black"></td>
                 </tr>
@@ -294,7 +322,9 @@ function Application({ setOpenApplication }) {
           <div className="mt-7">
             <p className="font-bold">Primary</p>
             <p>
-              I hereby declare that I am the owner/ PAH in possession of the plot on which the work is proposed and that the statement made in this form is true and correct to the best of my knowledge.
+              I hereby declare that I am the owner/ PAH in possession of the
+              plot on which the work is proposed and that the statement made in
+              this form is true and correct to the best of my knowledge.
             </p>
           </div>
           <div>
@@ -308,14 +338,28 @@ function Application({ setOpenApplication }) {
               </thead>
               <tbody>
                 <tr className="border border-black">
-                  <td className="border border-black" style={{ width: '10%' }}>01</td>
-                  <td className="border border-black" style={{ width: '40%' }}>Signature of owner</td>
-                  <td className="border border-black" style={{ width: '50%' }}></td>
+                  <td className="border border-black" style={{ width: "10%" }}>
+                    01
+                  </td>
+                  <td className="border border-black" style={{ width: "40%" }}>
+                    Signature of owner
+                  </td>
+                  <td
+                    className="border border-black"
+                    style={{ width: "50%" }}
+                  ></td>
                 </tr>
                 <tr className="border border-black">
-                  <td className="border border-black" style={{ width: '10%' }}>02</td>
-                  <td className="border border-black" style={{ width: '40%' }}>Signature of the LTP</td>
-                  <td className="border border-black" style={{ width: '50%' }}></td>
+                  <td className="border border-black" style={{ width: "10%" }}>
+                    02
+                  </td>
+                  <td className="border border-black" style={{ width: "40%" }}>
+                    Signature of the LTP
+                  </td>
+                  <td
+                    className="border border-black"
+                    style={{ width: "50%" }}
+                  ></td>
                 </tr>
               </tbody>
             </table>
@@ -323,7 +367,7 @@ function Application({ setOpenApplication }) {
           <form method="dialog" className="mt-5">
             <button
               onClick={() => setOpenApplication(false)}
-              className="btn text-center"
+              className="btn text-center btn-md"
             >
               Close
             </button>
