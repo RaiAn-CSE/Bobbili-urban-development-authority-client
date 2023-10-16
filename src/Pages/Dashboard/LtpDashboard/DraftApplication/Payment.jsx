@@ -84,7 +84,7 @@ const Payment = () => {
       if (
         generalInformation?.natureOfTheSite === "Approved Layout" ||
         generalInformation?.natureOfTheSite === "Regularised under LRS" ||
-        generalInformation?.natureOfTheSite ==="Congested/ Gramakanta/ Old Built-up area" ||
+        generalInformation?.natureOfTheSite === "Congested/ Gramakanta/ Old Built-up area" ||
         generalInformation?.natureOfTheSite === "Newly Developed/ Built up area"
       ) {
         setCondition(1);
@@ -110,12 +110,12 @@ const Payment = () => {
     // General Informatin
     const { natureOfTheSite } = generalInformation;
 
-    const builtup_Area = Number(totalBuiltUpArea);
-    const vacant_area = Number(vacantLand);
-    const net_Plot_Area = Number(netPlotAreaCal);
-    const market_value = Number(marketValueSqym);
+    const builtup_Area = Number(totalBuiltUpArea)||1;
+    const vacant_area = Number(vacantLand)||1;
+    const net_Plot_Area = Number(netPlotAreaCal)||1;
+    const market_value = Number(marketValueSqym)||1;
     const nature_of_site = natureOfTheSite;
-    const BuiltUp_area_SquareFeet = Number(builtup_Area * 10.7639);
+    const BuiltUp_area_SquareFeet = Number(builtup_Area * 10.7639)||1;
 
     console.log(typeof builtup_Area, "builtup_Area");
 
@@ -167,11 +167,7 @@ const Payment = () => {
     }
 
     // ==== Total 14% Open Space Charged ====
-    const TotalOpenSpaceCharged = calculateOpenSpaceCharge(
-      nature_of_site,
-      net_Plot_Area,
-      market_value
-    );
+    const TotalOpenSpaceCharged = calculateOpenSpaceCharge(nature_of_site,net_Plot_Area,market_value);
 
     // ==== Labour Cess Component 2 ====
     const labourCessComponentUnitRate2 = 1400; // per Sq.Ft.
@@ -254,10 +250,11 @@ const Payment = () => {
     let greenFeeCharged = 0;
     const greenFeeChargesUnitRate = 3; //per Sq.ft
     if (BuiltUp_area_SquareFeet > 5000) {
-      greenFeeCharged = Math.round( greenFeeChargesUnitRate * BuiltUp_area_SquareFeet * 10.76
+      greenFeeCharged = Math.round(greenFeeChargesUnitRate * BuiltUp_area_SquareFeet * 10.76
       );
     }
-toast.success(BuiltUp_area_SquareFeet)
+    const showVariable= `NetPlot: ${net_Plot_Area}(Sq.M), BuiltUpArea: ${builtup_Area} (Sq.M), VacantArea: ${vacant_area} (Sq.M), BuiltUpArea: ${BuiltUp_area_SquareFeet} (Sq.Ft) NatureOfSite: ${nature_of_site}`
+    toast.success(showVariable)
     // ====Labour Cess Component 1 Charged====
     const labourCessComponentUnitRate1 = 1400; // per Sq.ft.
     const labourCessCompo1Charged = Math.round(
@@ -562,7 +559,7 @@ toast.success(BuiltUp_area_SquareFeet)
                   className={`btn btn-md text-sm px-3 mt-10 ml-3 border-none text-white shadow-md transition-all duration-500 ${gradientColor} hover:shadow-lg hover:shadow-violetDark hover:bg-gradient-to-bl`}
                   onClick={() => setViewChallan(true)}
                 >View Challan</button>
-                {viewChallan && <Modal viewChallan={viewChallan} setViewChallan={setViewChallan}/>}
+                {viewChallan && <Modal viewChallan={viewChallan} setViewChallan={setViewChallan} />}
                 <div>
                   <button
                     className={`btn btn-md text-sm px-3 mt-10 ml-3 border-none text-white shadow-md transition-all duration-500 ${gradientColor} hover:shadow-lg hover:shadow-violetDark hover:bg-gradient-to-bl`}
@@ -701,7 +698,7 @@ toast.success(BuiltUp_area_SquareFeet)
               type="number"
               ltpDetails={calculatedData?.processingFees}
             />
-            { (
+            {(
               <InputField
                 id="bettermentCharged"
                 name="bettermentCharged"
