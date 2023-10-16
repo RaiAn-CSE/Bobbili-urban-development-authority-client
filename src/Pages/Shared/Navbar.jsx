@@ -50,6 +50,7 @@ const Navbar = () => {
     return () => {
       document.documentElement.classList.remove("dark");
       localStorage.setItem("theme", "light");
+      localStorage.setItem("stepIndex", 0);
       queryClient.removeQueries();
     };
   }, [theme]);
