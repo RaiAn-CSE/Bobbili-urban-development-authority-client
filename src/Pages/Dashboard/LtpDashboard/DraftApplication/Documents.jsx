@@ -163,6 +163,7 @@ const DocumentUpload = () => {
       // const ps = role === "PS" && psDocumentPageObservation?.data?.default;
       role === "LTP" && setPreviousDefaultDocumentData(applicationData?.document?.data?.default);
       role === "LTP" && setPreviousDynamicDocumentData(applicationData?.document?.data?.dynamic);
+
       role === "PS" && setPreviousDefaultDocumentData(applicationData?.psDocumentPageObservation?.data?.default);
       role === "PS" && setPreviousDynamicDocumentData(applicationData?.psDocumentPageObservation?.data?.dynamic);
       role === "PS" && setApprovedConfirmation(applicationData?.documents?.psDocumentPageObservation?.approved);
@@ -276,6 +277,7 @@ const DocumentUpload = () => {
 
       const sendingDynamic = sendingImageId?.dynamic;
       const dbDynamic = imageIdFromDB?.dynamic;
+      
       if (sendingDynamic?.length) {
         sendingDynamic?.forEach((sendImg, sendIndx) => {
           dbDynamic?.forEach((dbImg, dbIndx) => {
