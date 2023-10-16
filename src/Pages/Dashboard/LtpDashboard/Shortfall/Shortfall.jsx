@@ -13,7 +13,7 @@ const Shortfall = () => {
   //     ["allSubmitApplication"],
   //     async () => {
   //       const response = await fetch(
-  //         `https://residential-building.vercel.app/allSubmitApplications?id=${
+  //         `http://localhost:5000/allSubmitApplications?id=${
   //           userInfoFromLocalStorage()._id
   //         }`
   //       );

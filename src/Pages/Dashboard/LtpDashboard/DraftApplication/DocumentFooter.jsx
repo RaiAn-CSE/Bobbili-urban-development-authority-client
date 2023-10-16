@@ -3,13 +3,13 @@ function DocumentFooter({
   approvedConfirmation,
   recomendationMessage,
   handleRecomendationMessage,
-  handleConfirmation
+  handleConfirmation,
 }) {
   const handleMessage = (e) => {
-    handleRecomendationMessage(e)
+    handleRecomendationMessage(e);
   };
   const handleConfirm = (data) => {
-    handleConfirmation(data)
+    handleConfirmation(data);
   };
 
   console.log(submitData, "submitData");
@@ -47,15 +47,18 @@ function DocumentFooter({
           </label>
         </div>
         {/* Recomendation */}
-        <div className="my-4 mx-3 basis-[25%]">
-          <label htmlFor="recomendation" className='block mb-1 font-semibold text-gray-600'>
+        <div className="my-4 mx-3 ">
+          <label
+            htmlFor="recomendation"
+            className="block mb-1 font-semibold text-gray-600"
+          >
             Recommendation
           </label>
           <textarea
             id="recomendation"
             name="recomendation"
-            rows="4"
-            className='w-full px-3 py-2 border rounded-lg max-w-xs border-gray-300 text-gray-900 bg-gray-50 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200'
+            rows={6}
+            className="w-3/4 px-3 py-2 border rounded-lg  border-gray-300 text-gray-900 bg-gray-50 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200"
             defaultValue={recomendationMessage && recomendationMessage}
             placeholder="Recommendation"
           ></textarea>
