@@ -7,16 +7,16 @@ function DemandNote() {
                 <p className='text-base underline'>Demand Note (Challan/ Memo)</p>
             </div>
             {/* Part02 */}
-            <div className='flex items-center justify-around mt-10 text-base'>
+            <div className='flex items-center justify-between mt-10 text-base lg:px-10'>
                 <div className='space-y-2'>
-                    <p>File No:</p>
-                    <p>Name:</p>
-                    <p>Address:</p>
+                    <p>File No: <span className="font-bold">16.10.2023</span></p>
+                    <p>Name: <span className="font-bold">Nothing Added</span></p>
+                    <p>Address: <span className="font-bold">California, USA</span></p>
                 </div>
                 <div className='space-y-2'>
-                    <p>Memo Date:</p>
-                    <p>BA No:</p>
-                    <p>Case Type:</p>
+                    <p>Memo Date: <span className="font-bold">16/10/2023</span> </p>
+                    <p>BA No: <span className="font-bold">2023</span> </p>
+                    <p>Case Type: <span className="font-bold">LTP</span> </p>
                 </div>
             </div>
             {/* Part03 */}
