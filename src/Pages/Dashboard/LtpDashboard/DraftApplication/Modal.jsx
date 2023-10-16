@@ -9,7 +9,6 @@ function Modal() {
                 <div className="modal-box w-11/12 max-w-4xl relative">
                     <DemandNote />
                 </div>
-
                 <form method="dialog" className="modal-backdrop absolute top-0 right-10">
                     <button className={`btn btn-md text-sm px-3 mt-10 ml-3 border-none text-white shadow-md transition-all duration-500 ${gradientColor} hover:shadow-lg hover:shadow-violetDark hover:bg-gradient-to-bl`}>Close</button>
                 </form>
