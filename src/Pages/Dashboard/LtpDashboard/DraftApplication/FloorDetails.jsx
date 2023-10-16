@@ -92,8 +92,9 @@ const FloorDetails = ({
                 <option
                   key={index}
                   value={eachFloor}
-                  className={`${findOldSelectedValue(eachFloor) ? "hidden" : ""
-                    }`}
+                  className={`${
+                    findOldSelectedValue(eachFloor) ? "hidden" : ""
+                  }`}
                 >
                   {eachFloor}
                 </option>
