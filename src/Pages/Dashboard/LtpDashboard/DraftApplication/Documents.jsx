@@ -95,6 +95,7 @@ const DocumentUpload = () => {
   // PS Approved and Shortfall Data handeling
   const handleStatus = (event, id, uploadId, type) => {
     console.log({event, id, uploadId, type}, "Event from Document")
+
     if (type == "dynamic") {
       const dynamicMatchedIndex = statusDynamicData.findIndex(
         (data) => data.id == id && data.uploadId == uploadId
@@ -133,6 +134,7 @@ const DocumentUpload = () => {
       }
     }
   };
+  console.log({statusDefaultData,statusDynamicData})
   // PS Sending Document Updating when handleChange
   useEffect(() => {
     setPsSendingDocument({
