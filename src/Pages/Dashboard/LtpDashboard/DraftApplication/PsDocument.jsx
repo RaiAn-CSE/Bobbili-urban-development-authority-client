@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 
-function PsDocument({ role, id, approved, uploadId, handleStatus, type, PreviousDocumentData }) {
+function PsDocument({ role, id, event, uploadId, handleStatus, type, PreviousDocumentData }) {
+    const [valueData, setValueData] = useState("");
 
     const handleDocumentStatus = (event, id, uploadId, type) => {
         const data = event?.target?.value;
+        if (!event) {
+            return;
+        }
         if (type === "dynamic") {
             handleStatus(data, id, uploadId, type);
         } else {
@@ -12,7 +16,23 @@ function PsDocument({ role, id, approved, uploadId, handleStatus, type, Previous
         }
         toast.success(data);
     }
-    // console.log( approved )
+    console.log(id, valueData, uploadId)
+    useEffect(() => {
+        if (PreviousDocumentData?.length) {
+            const dynamicMatch = PreviousDocumentData.find(data => data.id === id && data.uploadId === uploadId);
+            const defaultMatch = PreviousDocumentData.find(data => data.id == id);
+            if (type === "dynamic") {
+                if (dynamicMatch) {
+                    setValueData(dynamicMatch.event);
+                }
+            } else {
+                if (defaultMatch) {
+                    setValueData(defaultMatch.event);
+                }
+            }
+        }
+    }, [PreviousDocumentData, id, uploadId, type]);
+
     return (
         <div className='dark:text-white'>
             <div className="flex items-center mt-6">
@@ -24,13 +44,13 @@ function PsDocument({ role, id, approved, uploadId, handleStatus, type, Previous
                             `}
                         >
                             <input
-                                id={id}
+                                id={type === "dynamic" ? uploadId : id}
                                 type="radio"
                                 name={type === "dynamic" ? uploadId : id}
                                 value="approved"
                                 className="radio radio-sm radio-success mr-3 lg:mr-0"
                                 onChange={(event) => handleDocumentStatus(event, id, uploadId, type)}
-                                defaultChecked={approved == "approved"}
+                                defaultChecked={valueData === "approved"}
                             />
                             <span>Approve</span>
                         </label>
@@ -39,13 +59,13 @@ function PsDocument({ role, id, approved, uploadId, handleStatus, type, Previous
                            `}
                         >
                             <input
-                                id={id}
+                                id={type === "dynamic" ? uploadId : id}
                                 type="radio"
                                 name={type === "dynamic" ? uploadId : id}
                                 value="shortfall"
                                 className="radio radio-sm radio-success mr-3 lg:mr-0"
                                 onChange={(event) => handleDocumentStatus(event, id, uploadId, type)}
-                                defaultChecked={approved == "shortfall"}
+                                defaultChecked={valueData === "shortfall"}
                             />
                             <span>Shortfall</span>
                         </label>

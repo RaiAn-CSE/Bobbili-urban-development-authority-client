@@ -58,7 +58,7 @@ function DefaultDocument({ PreviousDefaultDocumentData, role, handleFileChange, 
             <PsDocument
               role={role}
               id={id}
-              approved={event}
+              event={event}
               handleStatus={handleStatus}
               PreviousDocumentData={PreviousDefaultDocumentData}
               type="default"

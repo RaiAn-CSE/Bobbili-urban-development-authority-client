@@ -13,7 +13,7 @@ function AppChecklist() {
   const [questions, setQuestions] = useState(ChecklistQuestions.Questions);
   const stepperData = useOutletContext();
   const [isStepperVisible, currentStep, steps] = stepperData;
-  const { confirmAlert, sendUserDataIntoDB, getApplicationData } =
+  const { confirmAlert, sendUserDataIntoDB, getApplicationData,  userInfoFromLocalStorage } =
     useContext(AuthContext);
   // after select question firing here
   const handleAnswer = (event, questionNo) => {

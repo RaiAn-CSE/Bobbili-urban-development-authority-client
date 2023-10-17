@@ -74,7 +74,7 @@ function DynamicDocument({
                       <PsDocument
                         role={role}
                         id={id}
-                        approved={event}
+                        event={event}
                         uploadId={uploadId}
                         handleStatus={handleStatus}
                         PreviousDocumentData={PreviousDynamicDocumentData}
