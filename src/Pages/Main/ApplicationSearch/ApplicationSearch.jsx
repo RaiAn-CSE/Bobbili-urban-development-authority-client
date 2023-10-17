@@ -52,13 +52,15 @@ const ApplicationSearch = () => {
 
   console.log(filteredData, 'filteredData');
 
+  const titleClass = "basis-[50%] text-lg px-5 font-semibold bg-gradient-to-r from-violet-500 to-fuchsia-500 text-transparent bg-clip-text"
+
   return (
-    <div className="h-full px-4 font-roboto dark:bg-white">
+    <div className="h-full w-full px-4 font-roboto dark:bg-white">
       <form>
-        <div className="relative">
+        <div className="relative mt-2 text-violet-500">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
             <svg
-              className="w-4 h-4 text-gray-500"
+              className="w-4 h-4 text-violet-500"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -76,7 +78,7 @@ const ApplicationSearch = () => {
           <input
             type="search"
             id="default-search"
-            className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50"
+            className="block w-full p-4 pl-10 text-sm text-violet-500 border border-violet-500 focus:border-violet-500 focus:outline-none focus:ring-2 ring-violet-200 rounded-lg bg-violet-50"
             placeholder="Application no. or owner name"
             onChange={(e) => searchApplicationData(e)}
             required
@@ -85,40 +87,40 @@ const ApplicationSearch = () => {
       </form>
 
       {/* Location details  */}
-      <div className="divide-y-2 divide-gray-200 mt-9 dark:bg-white">
+      <div className="divide-y-2 divide-violet-200 mt-9 dark:bg-white">
         <div className="flex mb-1">
-          <h3 className="basis-[50%] text-lg px-5 font-semibold">
+          <h3 className={titleClass}>
             Location details
           </h3>
-          <h3 className="basis-[50%] text-lg px-5 font-semibold">
+          <h3 className={titleClass}>
             Building info
           </h3>
         </div>
         <div className="flex">
           <div className="basis-[50%]">
             <MainPageInput
-              label="Survey no"
+              label="Survey no :"
               id="surveyNo"
               type="text"
               placeholder="xxxxxxx"
               ltpDetails={filteredData?.buildingInfo?.generalInformation?.surveyNo}
             />
             <MainPageInput
-              label="Village"
+              label="Village :"
               id="village"
               type="text"
               placeholder="xxxxxxx"
               ltpDetails={filteredData?.buildingInfo?.generalInformation?.village}
             />
             <MainPageInput
-              label="Mandal"
+              label="Mandal :"
               id="mandal"
               type="text"
               placeholder="xxxxxxx"
               ltpDetails={filteredData?.buildingInfo?.generalInformation?.mandal}
             />
             <MainPageInput
-              label="District"
+              label="District :"
               id="district"
               type="text"
               placeholder="xxxxxxx"
@@ -128,28 +130,28 @@ const ApplicationSearch = () => {
 
           <div className="basis-[50%]">
             <MainPageInput
-              label="Net plot area"
+              label="Net plot area :"
               id="netPlotArea"
               type="text"
               placeholder="xxxxxxx"
               ltpDetails={filteredData?.buildingInfo?.plotDetails?.netPlotAreaCal}
             />
             <MainPageInput
-              label="No. of floors"
+              label="No. of floors :"
               id="noOfFloors"
               type="text"
               placeholder="xxxxxxx"
               ltpDetails={filteredData?.buildingInfo?.plotDetails?.floorDetails?.length}
             />
             <MainPageInput
-              label="N0. of units"
+              label="N0. of units :"
               id="noOfUnits"
               type="text"
               placeholder="xxxxxxx"
               ltpDetails={filteredData?.buildingInfo?.plotDetails?.noOfUnits}
             />
             <MainPageInput
-              label="Total built up area"
+              label="Total built up area :"
               id="totalBuiltUpArea"
               type="text"
               placeholder="xxxxxxx"
@@ -160,33 +162,33 @@ const ApplicationSearch = () => {
       </div>
 
       {/* Owner details  */}
-      <div className="divide-y-2 divide-gray-200 mt-9 dark:bg-white">
+      <div className="divide-y-2 divide-violet-200 mt-9">
         <div className="flex mb-1">
-          <h3 className="basis-[50%] text-lg px-5 font-semibold">
+          <h3 className={titleClass}>
             Owner details
           </h3>
-          <h3 className="basis-[50%] text-lg px-5 font-semibold">
+          <h3 className={titleClass}>
             LTP Details
           </h3>
         </div>
         <div className="flex">
           <div className="basis-[50%]">
             <MainPageInput
-              label="Name"
+              label="Name :"
               id="name1"
               type="text"
               placeholder="xxxxxxx"
               ltpDetails={filteredData?.applicantInfo.applicantDetails?.[0].name}
             />
             <MainPageInput
-              label="Owner door no"
+              label="Owner door no :"
               id="ownerDoorNo"
               type="text"
               placeholder="xxxxxxx"
               ltpDetails={filteredData?.applicantInfo.applicantDetails?.[0].ownerDoorNo}
             />
             <MainPageInput
-              label="Owner street name"
+              label="Owner street name :"
               id="ownerStreetNo"
               type="text"
               placeholder="xxxxxxx"
@@ -196,14 +198,14 @@ const ApplicationSearch = () => {
 
           <div className="basis-[50%]">
             <MainPageInput
-              label="Name"
+              label="Name :"
               id="name2"
               type="text"
               placeholder="xxxxxxx"
               ltpDetails={filteredData?.applicantInfo.ltpDetails?.name}
             />
             <MainPageInput
-              label="Address"
+              label="Address :"
               id="address2"
               type="text"
               placeholder="xxxxxxx"
@@ -213,24 +215,24 @@ const ApplicationSearch = () => {
         </div>
       </div>
 
-      <div className="flex justify-center items-center pt-5 pb-9 dark:bg-white">
+      <div className="flex justify-center items-center pt-5 pb-9 dark:bg-white ">
         <div className="p-3">
           <span className="grid justify-center items-center">
-            <AiOutlineFileDone size={25} />
+            <AiOutlineFileDone className="text-violet-500" size={25} />
           </span>
-          <h4 className="text-base font-semibold">Application</h4>
+          <h4 className="text-base font-semibold bg-gradient-to-r from-violet-400 to-fuchsia-400 text-transparent bg-clip-text">Application</h4>
         </div>
         <div className="p-3">
           <span className="grid justify-center items-center">
-            <BsHouses size={25} />
+            <BsHouses className="text-violet-500" size={25} />
           </span>
-          <h4 className="text-base font-semibold">Drawing</h4>
+          <h4 className="text-base font-semibold bg-gradient-to-r from-violet-400 to-fuchsia-400 text-transparent bg-clip-text">Drawing</h4>
         </div>
         <div className="p-3">
           <span className="grid justify-center items-center">
-            <MdOutlineNoteAlt size={25} />
+            <MdOutlineNoteAlt className="text-violet-500" size={25} />
           </span>
-          <h4 className="text-base font-semibold">Proceeding</h4>
+          <h4 className="text-base font-semibold bg-gradient-to-r from-violet-400 to-fuchsia-400 text-transparent bg-clip-text">Proceeding</h4>
         </div>
       </div>
     </div>

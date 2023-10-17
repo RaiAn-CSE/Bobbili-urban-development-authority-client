@@ -47,10 +47,10 @@ const MainLayout = () => {
       {/* upper part  */}
       <div className="py-3 flex justify-between items-center">
         <div className="basis-3/4">
-          <p className="text-2xl text-gray-400 font-bold font-sofadi">
+          <p className="text-2xl text-gray-400 font-bold font-sofadi bg-gradient-to-r from-violet-400 to-fuchsia-400 text-transparent bg-clip-text">
             Bobbili Urban Development Authority
           </p>
-          <p className="text-4xl mt-2 text-black font-notSerif font-bold">
+          <p className="text-4xl mt-2 text-black font-notSerif font-bold ">
             Residential Building Plan Approval
           </p>
         </div>
@@ -58,24 +58,22 @@ const MainLayout = () => {
         <div className="basis-[20%] flex justify-end items-center space-x-6 dark:text-black">
           <Link
             to="/"
-            className={`w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center  ${
-              path === "/" ||
+            className={`w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center  ${path === "/" ||
               path === "/onlinePayment" ||
               path === "/listOfLTP" ||
               path === "/demoVideos" ||
               path === "/privacyPolicy" ||
               path === "/defaultDrawingFormat"
-                ? active
-                : ` ${notActive}`
-            }`}
+              ? active
+              : ` ${notActive}`
+              }`}
           >
             <AiOutlineHome size={25} className="text-2xl " />
           </Link>
           <Link
             to="/statistics"
-            className={`w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center ${
-              path.includes("/statistics") ? active : ` ${notActive}`
-            }`}
+            className={`w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center ${path.includes("/statistics") ? active : ` ${notActive}`
+              }`}
           >
             <MdOutlineDashboard size={25} className="text-2xl" />
           </Link>

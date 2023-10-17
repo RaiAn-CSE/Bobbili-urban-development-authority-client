@@ -57,8 +57,7 @@ const Navbar = () => {
 
   const onSubmit = (formValue) => {
     fetch(
-      `https://residential-building.vercel.app/updateUserInfo/${
-        userInfoFromLocalStorage()._id
+      `https://residential-building.vercel.app/updateUserInfo/${userInfoFromLocalStorage()._id
       }`,
       {
         method: "PATCH",
@@ -90,10 +89,10 @@ const Navbar = () => {
 
   return (
     <div className="navbar bg-base-100 sticky top-0 z-50 shadow-md dark:bg-white">
-      <div className="flex-1">
-        <Link to="/dashboard" className="btn btn-ghost normal-case text-xl">
+      <div className="flex-1 ">
+        <Link to="/dashboard" className="font-bold normal-case text-xl">
           {/* <img className="h-full" src={Logo} alt="The logo of the website" /> */}
-          <p className="hidden lg:block font-sofadi dark:text-black">
+          <p className="hidden lg:block font-sofadi bg-gradient-to-r from-violet-400 to-fuchsia-400 text-transparent bg-clip-text">
             Bobbili Urban Development Authority
           </p>
         </Link>

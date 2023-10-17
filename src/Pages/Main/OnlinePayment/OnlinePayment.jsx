@@ -48,12 +48,12 @@ const OnlinePayment = () => {
 
   console.log(filteredData, "FILTERED DATA");
   return (
-    <div className="h-full px-4 font-roboto">
+    <div className="h-full w-full px-4 font-roboto">
       <form>
-        <div className="relative">
+        <div className="relative mt-2">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
             <svg
-              className="w-4 h-4 text-gray-500 dark:text-gray-400"
+              className="w-4 h-4 text-violet-500"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -71,7 +71,7 @@ const OnlinePayment = () => {
           <input
             type="search"
             id="default-search"
-            className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 "
+            className="block w-full p-4 pl-10 text-sm text-violet-500 border border-violet-500 focus:border-violet-500 focus:outline-none focus:ring-2 ring-violet-200 rounded-lg bg-violet-50"
             placeholder="Application no. or owner name"
             onChange={(e) => searchApplicationData(e)}
             required
@@ -80,30 +80,30 @@ const OnlinePayment = () => {
       </form>
 
       {/* Location details  */}
-      <div className="divide-y-2 divide-gray-200 mt-9  text-black">
+      <div className="divide-y-2 divide-violet-200 mt-9  text-black">
         <div className="mb-1">
-          <h3 className="basis-[50%] text-lg px-5 font-semibold">
+          <h3 className="basis-[50%] text-lg px-5 font-semibold bg-gradient-to-r from-violet-500 to-fuchsia-500 text-transparent bg-clip-text">
             Application details
           </h3>
         </div>
         <div className="flex">
           <div className="basis-[50%]">
             <MainPageInput
-              label="File no"
+              label="File no :"
               id="fileNo"
               type="text"
               placeholder="xxxxxxx"
               ltpDetails={filteredData?.applicationNo}
             />
             <MainPageInput
-              label="Owner name"
+              label="Owner name :"
               id="applicantName"
               type="text"
               placeholder="xxxxxxx"
               ltpDetails={filteredData?.applicantInfo?.applicantDetails?.[0].name}
             />
             <MainPageInput
-              label="Mandal"
+              label="Mandal :"
               id="mandal2"
               type="text"
               placeholder="xxxxxxx"
@@ -113,21 +113,21 @@ const OnlinePayment = () => {
 
           <div className="basis-[50%]">
             <MainPageInput
-              label="Case Type"
+              label="Case Type :"
               id="caseType"
               type="text"
               placeholder="xxxxxxx"
               ltpDetails={filteredData?.buildingInfo?.generalInformation?.caseType}
             />
             <MainPageInput
-              label="Village name"
+              label="Village name :"
               id="villageName"
               type="text"
               placeholder="xxxxxxx"
               ltpDetails={filteredData?.buildingInfo?.generalInformation?.village}
             />
             <MainPageInput
-              label="District"
+              label="District :"
               id="district2"
               type="text"
               placeholder="xxxxxxx"
@@ -138,35 +138,35 @@ const OnlinePayment = () => {
       </div>
 
       {/* Owner details  */}
-      <div className="divide-y-2 divide-gray-200 mt-9 text-black">
+      <div className="divide-y-2 divide-violet-200 mt-9 text-black">
         <div className="flex mb-1">
-          <h3 className="text-lg px-5 font-semibold">Fees details</h3>
+          <h3 className="basis-[50%] text-lg px-5 font-semibold bg-gradient-to-r from-violet-500 to-fuchsia-500 text-transparent bg-clip-text">Fees details</h3>
         </div>
         <div className="flex">
           <div className="basis-[70%]">
             <MainPageInput
-              label="UDA charges"
+              label="UDA charges :"
               id="udaCharges"
               type="text"
               placeholder="xxxxxxx"
               ltpDetails={filteredData?.payment?.udaCharge?.UDATotalCharged}
             />
             <MainPageInput
-              label="Grama Panchayat fee"
+              label="Grama Panchayat fee :"
               id="gramaPanchayatFee"
               type="text"
               placeholder="xxxxxxx"
               ltpDetails={filteredData?.payment?.gramaPanchayatFee?.GramaPanchayetTotalCharged}
             />
             <MainPageInput
-              label="Labour cess charge"
+              label="Labour cess charge :"
               id="labourCessCharge"
               type="text"
               placeholder="xxxxxxx"
               ltpDetails={filteredData?.payment?.labourCessCharge?.labourCessOne}
             />
             <MainPageInput
-              label="Green fee charge"
+              label="Green fee charge :"
               id="labourCessCharge"
               type="text"
               placeholder="xxxxxxx"
@@ -177,7 +177,7 @@ const OnlinePayment = () => {
       </div>
 
       <div className="flex justify-center items-center mt-5">
-        <h3 className="text-base font-medium">
+        <h3 className="text-base font-semibold bg-gradient-to-r from-violet-400 to-fuchsia-400 text-transparent bg-clip-text">
           For UDA charge you can pay only Rs. {
             (filteredData?.payment?.udaCharge?.UDATotalCharged) ? (filteredData?.payment?.udaCharge?.UDATotalCharged) : "xxxxxxx"
           }/=

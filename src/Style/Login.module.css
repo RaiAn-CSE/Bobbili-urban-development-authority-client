@@ -1,0 +1,19 @@
+
+.formGroup input:valid,
+.formGroup input:focus {
+    outline: none;
+}
+
+.formGroup input:valid+label,
+.formGroup input:focus+label {
+    color: #905af5;
+    /* font-size: 14px; */
+    transform: translateY(8px);
+    background: white;
+    border-radius: 3px;
+    padding: 0px 4px;
+}
+
+.formGroup label {
+    transition: all 0.2s ease-in-out;
+}

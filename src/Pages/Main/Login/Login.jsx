@@ -7,6 +7,8 @@ import { BsFillHouseCheckFill, BsFillHouseLockFill } from "react-icons/bs";
 import { AuthContext } from "../../../AuthProvider/AuthProvider";
 import BeatLoader from "react-spinners/BeatLoader";
 
+import LoginCSS from '../../../Style/Login.module.css'
+
 const Login = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -122,7 +124,7 @@ const Login = () => {
 
   return (
     <>
-      <div className="relative font-roboto dark:bg-white">
+      <div className="relative dark:bg-white">
         {/* support icon  */}
 
         {/* login form  */}
@@ -132,39 +134,42 @@ const Login = () => {
             <h1 className="text-3xl text-center font-bold text-gray-900">
               Sign in
             </h1>
-            <div>
-              <label
-                htmlFor="userId"
-                className="block mb-2 text-base font-bold  text-gray-900"
-              >
-                Your ID
-              </label>
+
+            <div className={`${LoginCSS.formGroup} relative pt-[20px] max-w-xs`}>
               <input
                 type="text"
                 {...register("id", { required: true })}
                 id="userId"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                className="border-[1.5px] border-solid rounded-md block text-base w-full p-2 border-violet-500 text-violet-900 bg-white focus:border-violet-600 focus:outline-none"
                 defaultValue={cookieUserId}
-                placeholder="name@company.com"
+                // placeholder="name@company.com"
+                autoFocus
                 required
               />
-            </div>
-            <div className="relative">
               <label
-                htmlFor="password"
-                className="block mb-2 text-base font-bold  text-gray-900"
+                htmlFor="userId"
+                className='text-gray-400 text-base font-normal absolute top-0 left-[16px] pointer-events-none transform translate-y-7'
               >
-                Your password
+                Your ID
               </label>
+            </div>
+
+            <div className={`${LoginCSS.formGroup} relative pt-[20px] max-w-xs`}>
               <input
                 type={`${show === true ? "text" : "password"}`}
                 id="password"
-                placeholder="••••••••"
+                // placeholder="••••••••"
                 defaultValue={cookieUserPassword}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pe-10"
+                className="border-[1.5px] border-solid rounded-md block text-base w-full p-2 border-violet-500 text-violet-900 bg-white focus:border-violet-600 focus:outline-none"
                 {...register("password", { required: true })}
                 required
               />
+              <label
+                htmlFor="password"
+                className='text-gray-400 text-base font-normal absolute top-0 left-[16px] pointer-events-none transform translate-y-7'
+              >
+                Your password
+              </label>
 
               <div
                 className="absolute top-[55%] right-3 w-fit dark:text-black"
@@ -186,7 +191,7 @@ const Login = () => {
               </div>
               <label
                 htmlFor="remember"
-                className="ml-2 text-base font-medium text-gray-900 dark:bg-white bg-white"
+                className="ml-2 text-sm font-roboto font-medium text-gray-900 dark:bg-white bg-white"
               >
                 Remember me
               </label>
