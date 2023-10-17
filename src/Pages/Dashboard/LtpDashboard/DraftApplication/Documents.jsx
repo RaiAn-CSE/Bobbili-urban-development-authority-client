@@ -33,20 +33,15 @@ const DocumentUpload = () => {
     default: [],
   });
 
-  const [statusDefaultData, setStatusDefaultData] = useState([]);
-  const [statusDynamicData, setStatusDynamicData] = useState([]);
+  const [radioStatusDefaultData, setRadioStatusDefaultData] = useState([]);
+  const [radioStatusDynamicData, setRadioStatusDynamicData] = useState([]);
   const [sendingDocument, setSendingDocument] = useState({
     dynamic: [],
     default: [],
   });
   const [defaultData, setDefaultData] = useState([]);
   const [dynamicData, setDynamicData] = useState([]);
-  const {
-    confirmAlert,
-    sendUserDataIntoDB,
-    getApplicationData,
-    userInfoFromLocalStorage,
-  } = useContext(AuthContext);
+  const {confirmAlert,sendUserDataIntoDB,getApplicationData,userInfoFromLocalStorage} = useContext(AuthContext);
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
   const role = userInfoFromLocalStorage().role;
@@ -92,57 +87,13 @@ const DocumentUpload = () => {
     setSendingImageId({ default: defaultImageData, dynamic: dynamicImageData });
   }, [defaultData, dynamicData, defaultImageData, dynamicImageData]);
 
-  // PS Approved and Shortfall Data handeling
-  // const handleStatus = (event, id, uploadId, type) => {
-  //   console.log({event, id, uploadId, type}, "Event from Document")
-
-  //   if (type == "dynamic") {
-  //     const dynamicMatchedIndex = statusDynamicData.findIndex(
-  //       (data) => data.id == id && data.uploadId == uploadId
-  //     );
-
-  //     if (dynamicMatchedIndex !== -1) {
-  //       // If a matching ID is found in dynamic data, updated it
-  //       const updatedData = {
-  //         ...statusDynamicData[dynamicMatchedIndex],
-  //         event,
-  //       };
-  //       statusDynamicData[dynamicMatchedIndex] = updatedData;
-  //       setStatusDynamicData([...PreviousDynamicDocumentData,...statusDynamicData]);
-  //     } else {
-  //       // If no match is found in dynamic data, added a new entry
-  //       const data = { id, uploadId, event };
-  //       setStatusDynamicData((prev) => [...PreviousDynamicDocumentData, data]);
-  //     }
-  //   } else {
-  //     const defaultMatchedIndex = statusDefaultData.findIndex(
-  //       (data) => data.id == id
-  //     );
-
-  //     if (defaultMatchedIndex !== -1) {
-  //       // If a matching ID is found in default data, updated it
-  //       const updatedData = {
-  //         ...statusDefaultData[defaultMatchedIndex],
-  //         event,
-  //       };
-  //       statusDefaultData[defaultMatchedIndex] = updatedData;
-  //       setStatusDefaultData([PreviousDefaultDocumentData,...statusDefaultData]);
-  //     } else {
-  //       // If no match is found in default data, added a new entry
-  //       const data = { id, event };
-  //       setStatusDefaultData((prev) => [...PreviousDefaultDocumentData, data]);
-  //     }
-  //   }
-  // };
-
-  console.log({ statusDefaultData, statusDynamicData, setPreviousDefaultDocumentData, setPreviousDynamicDocumentData })
   // PS Sending Document Updating when handleChange
   useEffect(() => {
     setPsSendingDocument({
-      default: statusDefaultData,
-      dynamic: statusDynamicData,
+      default: radioStatusDefaultData,
+      dynamic: radioStatusDynamicData,
     });
-  }, [statusDefaultData, statusDynamicData]);
+  }, [radioStatusDefaultData, radioStatusDynamicData]);
 
   // PS Page Recomendation Message and Approved
   const handleRecomendationMessage = (e) => {
@@ -188,18 +139,22 @@ const DocumentUpload = () => {
   }, []);
 
 
-  console.log({UpdatedDynamicDocumentData})
-  const handleStatus = (data) => {
-    console.log(data, "Document Data")
+  console.log({ PreviousDynamicDocumentData })
+  const [clickedDynamicRadio, setClickDynamicRadio] = useState([]);
+  const [clickedDefaultRadio, setClickDefaultRadio] = useState([]);
 
-    // if (data.type === "dynamic") {
-    //   setDynamicData([...PreviousDynamicDocumentData, data])
-    //   setPreviousDynamicDocumentData([...PreviousDynamicDocumentData, data])
-    // } else {
-    //   setDefaultData([...PreviousDefaultDocumentData, data])
-    //   setPreviousDynamicDocumentData([...PreviousDefaultDocumentData, data])
-    // }
+  const handleStatus = (data) => {
+    if (data.type === "dynamic") {
+      setClickDynamicRadio((prev) => [...prev, data]);
+      setDynamicData((prev) => [...prev, data])
+    } else {
+      setClickDefaultRadio((prev) => [...prev, data]);
+      setDefaultData((prev) => [...prev, data])
+    }
   }
+
+  console.log({ clickedDynamicRadio, clickedDefaultRadio });
+
 
   // file send into the database
   const handleFileUpload = async (url) => {
@@ -338,17 +293,17 @@ const DocumentUpload = () => {
         <div className="w-full text-[17px] px-2 py-5 rounded">
           <DefaultDocument
             role={role}
-            PreviousDefaultDocumentData={PreviousDefaultDocumentData}
+            PreviousDefaultDocumentData={clickedDefaultRadio}
             handleFileChange={handleFileChange}
             gradientColor={gradientColor}
             defaultImageFromDB={imageIdFromDB?.default}
             setApprovedConfirmation={setApprovedConfirmation}
             handleStatus={handleStatus}
-        
+
           />
           <DynamicDocument
             role={role}
-            PreviousDynamicDocumentData={PreviousDynamicDocumentData}
+            PreviousDynamicDocumentData={clickedDynamicRadio}
             UpdatedDynamicDocumentData={UpdatedDynamicDocumentData}
             handleFileChange={handleFileChange}
             gradientColor={gradientColor}

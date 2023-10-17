@@ -5,14 +5,15 @@ function PsDocument({ role, id, event, uploadId, handleStatus, type, PreviousDoc
     const [valueData, setValueData] = useState("");
 
     const handleDocumentStatus = (event, id, uploadId, type) => {
-        const data = event?.target?.value;
+        const approved = event?.target?.value;
         if (type === "dynamic") {
-            handleStatus({ event: data, id, uploadId, type });
+            handleStatus({ approved, id, uploadId, type });
         } else {
-            handleStatus({ event: data, id, type });
+            handleStatus({ approved, id, type });
         }
-        toast.success(data);
+        toast.success(approved,uploadId,id);
     }
+
 
     // const handleAnswer = (event, questionNo) => {
     //     const updatedQuestions = PreviousDocumentData.map((question) => ({
@@ -63,9 +64,9 @@ function PsDocument({ role, id, event, uploadId, handleStatus, type, PreviousDoc
                             `}
                         >
                             <input
-                                id={type === "dynamic" ? uploadId : id}
+                                id={id}
                                 type="radio"
-                                name={type === "dynamic" ? uploadId : id}
+                                name={type === "dynamic" ? uploadId+id : id}
                                 value="approved"
                                 className="radio radio-sm radio-success mr-3 lg:mr-0"
                                 onChange={(event) => handleDocumentStatus(event, id, uploadId, type)}
@@ -80,7 +81,7 @@ function PsDocument({ role, id, event, uploadId, handleStatus, type, PreviousDoc
                             <input
                                 id={type === "dynamic" ? uploadId : id}
                                 type="radio"
-                                name={type === "dynamic" ? uploadId : id}
+                                name={type === "dynamic" ? uploadId+id : id}
                                 value="shortfall"
                                 className="radio radio-sm radio-success mr-3 lg:mr-0"
                                 onChange={(event) => handleDocumentStatus(event, id, uploadId, type)}
