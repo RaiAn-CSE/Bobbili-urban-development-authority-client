@@ -19,7 +19,7 @@ function DynamicDocument({
     handleFileChange(event, id, selectedFiles, "dynamic", uploadId);
   };
 
-  // console.log(PreviousDynamicDocumentData, "PreviousDynamicDocumentData from Dynamic Components");
+  
 
   return (
     <div className="dark:text-black">

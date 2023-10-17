@@ -7,18 +7,9 @@ function PsDocument({ role, id, event, uploadId, handleStatus, type, PreviousDoc
     const handleDocumentStatus = (event, id, uploadId, type) => {
         const data = event?.target?.value;
         if (type === "dynamic") {
-            if (PreviousDocumentData?.data?.length) {
-                handleStatus({ data: [...PreviousDocumentData, { event, id, uploadId }], type });
-            }
-            // else {
-            //     handleStatus({ event, id, uploadId, type })
-            // }
+            handleStatus({ event: data, id, uploadId, type });
         } else {
-
-            handleStatus({ data: [...PreviousDocumentData, { event, id }], type });
-            // } else {
-            //     handleStatus({ event, id, type })
-            // }
+            handleStatus({ event: data, id, type });
         }
         toast.success(data);
     }
@@ -78,7 +69,7 @@ function PsDocument({ role, id, event, uploadId, handleStatus, type, PreviousDoc
                                 value="approved"
                                 className="radio radio-sm radio-success mr-3 lg:mr-0"
                                 onChange={(event) => handleDocumentStatus(event, id, uploadId, type)}
-                                checked={valueData === "approved"}
+                            // checked={valueData === "approved"}
                             />
                             <span>Approve</span>
                         </label>
@@ -93,7 +84,7 @@ function PsDocument({ role, id, event, uploadId, handleStatus, type, PreviousDoc
                                 value="shortfall"
                                 className="radio radio-sm radio-success mr-3 lg:mr-0"
                                 onChange={(event) => handleDocumentStatus(event, id, uploadId, type)}
-                                checked={valueData === "shortfall"}
+                            // checked={valueData === "shortfall"}
                             />
                             <span>Shortfall</span>
                         </label>
