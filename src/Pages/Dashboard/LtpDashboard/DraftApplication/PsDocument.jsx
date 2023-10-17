@@ -6,17 +6,45 @@ function PsDocument({ role, id, event, uploadId, handleStatus, type, PreviousDoc
 
     const handleDocumentStatus = (event, id, uploadId, type) => {
         const data = event?.target?.value;
-        if (!event) {
-            return;
-        }
         if (type === "dynamic") {
-            handleStatus(data, id, uploadId, type);
+            if (PreviousDocumentData?.data?.length) {
+                handleStatus({ data: [...PreviousDocumentData, { event, id, uploadId }], type });
+            }
+            // else {
+            //     handleStatus({ event, id, uploadId, type })
+            // }
         } else {
-            handleStatus(data, id, uploadId = "", type);
+
+            handleStatus({ data: [...PreviousDocumentData, { event, id }], type });
+            // } else {
+            //     handleStatus({ event, id, type })
+            // }
         }
         toast.success(data);
     }
-    console.log(id, valueData, uploadId)
+
+    // const handleAnswer = (event, questionNo) => {
+    //     const updatedQuestions = PreviousDocumentData.map((question) => ({
+    //       ...question,
+    //       answer: question.id === questionNo ? event.target.value : question.answer,
+    //     }));
+    //     setQuestions(updatedQuestions);
+    //   };
+    //   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
+
+    //   useEffect(() => {
+    //     const gettingData = async () => {
+    //       const applicationData = await getApplicationData(applicationNo);
+    //       const applicationCheckList = applicationData.applicationCheckList;
+    //       if (applicationCheckList.length) {
+    //         setQuestions(applicationCheckList);
+    //       }
+    //     };
+    //     gettingData();
+    //   }, []);
+
+
+
     useEffect(() => {
         if (PreviousDocumentData?.length) {
             const dynamicMatch = PreviousDocumentData.find(data => data.id === id && data.uploadId === uploadId);
@@ -50,7 +78,7 @@ function PsDocument({ role, id, event, uploadId, handleStatus, type, PreviousDoc
                                 value="approved"
                                 className="radio radio-sm radio-success mr-3 lg:mr-0"
                                 onChange={(event) => handleDocumentStatus(event, id, uploadId, type)}
-                                defaultChecked={valueData === "approved"}
+                                checked={valueData === "approved"}
                             />
                             <span>Approve</span>
                         </label>
@@ -65,7 +93,7 @@ function PsDocument({ role, id, event, uploadId, handleStatus, type, PreviousDoc
                                 value="shortfall"
                                 className="radio radio-sm radio-success mr-3 lg:mr-0"
                                 onChange={(event) => handleDocumentStatus(event, id, uploadId, type)}
-                                defaultChecked={valueData === "shortfall"}
+                                checked={valueData === "shortfall"}
                             />
                             <span>Shortfall</span>
                         </label>
