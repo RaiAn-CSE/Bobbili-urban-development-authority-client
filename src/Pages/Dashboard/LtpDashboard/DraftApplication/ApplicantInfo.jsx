@@ -165,10 +165,10 @@ const ApplicantInfo = () => {
         <div className="lg:flex mt-2">
           <div className="grid grid-cols-2 lg:grid-cols-3 basis-[75%]">
 
-            <div className={`${LoginCSS.formGroup} relative pt-[20px] max-w-xs`}>
+            {/* <div className={`${LoginCSS.formGroup} relative pt-[20px] max-w-xs`}>
               <input type="text" className="border border-solid border-gray-400 rounded-md bg-white block text-base w-full p-2" autoFocus id='email' name='' required />
               <label className='text-gray-400 text-base font-normal absolute top-0 left-[16px] pointer-events-none transform translate-y-7' htmlFor="email">Case type</label>
-            </div>
+            </div> */}
 
             <InputField
               id="ltpType"
