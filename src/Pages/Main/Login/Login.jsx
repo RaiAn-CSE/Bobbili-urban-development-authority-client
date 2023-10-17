@@ -124,14 +124,14 @@ const Login = () => {
 
   return (
     <>
-      <div className="relative dark:bg-white">
+      <div className="relative">
         {/* support icon  */}
 
         {/* login form  */}
 
-        <div className="rounded-lg border p-4 sm:p-6 md:p-8 shadow-lg">
+        <div className="rounded-lg border p-4 sm:p-6 md:p-8 shadow-lg bg-black">
           <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-            <h1 className="text-3xl text-center font-bold text-gray-900">
+            <h1 className="text-3xl text-center font-bold text-gray-50">
               Sign in
             </h1>
 
@@ -140,7 +140,7 @@ const Login = () => {
                 type="text"
                 {...register("id", { required: true })}
                 id="userId"
-                className="border-[1.5px] border-solid rounded-md block text-base w-full p-2 border-violet-500 text-violet-900 bg-white focus:border-violet-600 focus:outline-none"
+                className="border-[1.5px] border-solid rounded-md block text-base w-full p-2 border-violet-200 text-gray-50 bg-black focus:border-violet-50 focus:outline-none focus:ring-2 ring-violet-700"
                 defaultValue={cookieUserId}
                 // placeholder="name@company.com"
                 autoFocus
@@ -148,9 +148,9 @@ const Login = () => {
               />
               <label
                 htmlFor="userId"
-                className='text-gray-400 text-base font-normal absolute top-0 left-[16px] pointer-events-none transform translate-y-7'
+                className='text-gray-200 text-base font-normal absolute top-0 left-[16px] pointer-events-none transform translate-y-7'
               >
-                Your ID
+                Your Id
               </label>
             </div>
 
@@ -160,13 +160,13 @@ const Login = () => {
                 id="password"
                 // placeholder="••••••••"
                 defaultValue={cookieUserPassword}
-                className="border-[1.5px] border-solid rounded-md block text-base w-full p-2 border-violet-500 text-violet-900 bg-white focus:border-violet-600 focus:outline-none"
+                className="border-[1.5px] border-solid rounded-md block text-base w-full p-2 border-violet-200 text-gray-50 bg-black focus:border-violet-50 focus:outline-none focus:ring-2 ring-violet-700"
                 {...register("password", { required: true })}
                 required
               />
               <label
                 htmlFor="password"
-                className='text-gray-400 text-base font-normal absolute top-0 left-[16px] pointer-events-none transform translate-y-7'
+                className='text-gray-200 text-base font-normal absolute top-0 left-[16px] pointer-events-none transform translate-y-7'
               >
                 Your password
               </label>
@@ -175,7 +175,7 @@ const Login = () => {
                 className="absolute top-[55%] right-3 w-fit dark:text-black"
                 onClick={handlePasswordShow}
               >
-                {show ? <BsFillHouseCheckFill /> : <BsFillHouseLockFill />}
+                {show ? <BsFillHouseCheckFill className="text-gray-50" /> : <BsFillHouseLockFill className="text-gray-50" />}
               </div>
             </div>
 
@@ -191,12 +191,12 @@ const Login = () => {
               </div>
               <label
                 htmlFor="remember"
-                className="ml-2 text-sm font-roboto font-medium text-gray-900 dark:bg-white bg-white"
+                className="ml-2 text-sm font-roboto font-medium text-gray-50"
               >
                 Remember me
               </label>
             </div>
-            <div className="w-fit mx-auto">
+            <div className="w-full mx-auto">
               {loading ? (
                 <BeatLoader
                   color={color}
@@ -210,7 +210,7 @@ const Login = () => {
                 <input
                   type="submit"
                   value="Sign in"
-                  className="w-full bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white cursor-pointer shadow-md shadow-violetDark transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold text-base px-7 py-2.5 my-1 text-center"
+                  className="w-full rounded-sm bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white cursor-pointer font-bold text-base px-7 py-2.5 my-1 text-center hover:bg-gradient-to-r hover:from-violet-600 hover:to-fuchsia-600"
                 />
               )}
             </div>
