@@ -54,7 +54,9 @@ const ShowCharts = () => {
     panchayatSelect.value = "";
 
     const dateSelected = document.getElementById("date");
-    dateSelected.value = "";
+    if (dateSelected) {
+      dateSelected.value = "";
+    }
 
     if (chooseDistrict === "Vizianagaram") {
       console.log(district[0]?.mandal);
@@ -72,7 +74,9 @@ const ShowCharts = () => {
     const panchayatSelect = document.getElementById("panchayat");
     panchayatSelect.value = "";
     const dateSelected = document.getElementById("date");
-    dateSelected.value = "";
+    if (dateSelected) {
+      dateSelected.value = "";
+    }
     const value = e.target.value;
     setSelectedMandal(value);
 
