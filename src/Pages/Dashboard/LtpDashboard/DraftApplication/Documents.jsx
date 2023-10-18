@@ -49,6 +49,9 @@ const DocumentUpload = () => {
   } = useContext(AuthContext);
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
+
+  const cameFrom = JSON.parse(localStorage.getItem("page"));
+
   const role = userInfoFromLocalStorage().role;
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
@@ -157,7 +160,7 @@ const DocumentUpload = () => {
   useEffect(() => {
     const gettingData = async () => {
       let updatedDynamicDocumentsToAdd = [];
-      const applicationData = await getApplicationData(applicationNo);
+      const applicationData = await getApplicationData(applicationNo, cameFrom);
       const applicationCheckList = applicationData.applicationCheckList;
       role === "LTP" &&
         setPreviousDefaultDocumentData(
@@ -245,6 +248,8 @@ const DocumentUpload = () => {
               },
             }
           );
+
+          console.log(response, "Response");
           // Handle success or display a success message to the user
           if (response?.data.msg === "Successfully uploaded") {
             const documentImageId = response?.data?.fileId;
@@ -268,6 +273,7 @@ const DocumentUpload = () => {
     }
 
     if (fileCheckToUpload === loopTimes.length) {
+      console.log(setImageId, "Image id");
       console.log({
         default: [...imageIdFromDB?.default, ...sendingImageId?.default],
         dynamic: [...imageIdFromDB?.dynamic, ...sendingImageId?.dynamic],

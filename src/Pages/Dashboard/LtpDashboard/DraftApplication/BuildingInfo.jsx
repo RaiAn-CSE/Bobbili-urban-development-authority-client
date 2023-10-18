@@ -27,6 +27,7 @@ const BuildingInfo = () => {
   } = useContext(AuthContext);
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
+  const cameFrom = JSON.parse(localStorage.getItem("page"));
 
   const { _id: id } = userInfoFromLocalStorage();
 
@@ -129,7 +130,7 @@ const BuildingInfo = () => {
   // HERE DATA IS GETTING FROM THE DATABASE AS WELL AS UPDATING THE USE STATES  AND  ALL DISTRICTS ARE FETCHED
   useEffect(() => {
     const getData = async () => {
-      const applicationData = await getApplicationData(applicationNo);
+      const applicationData = await getApplicationData(applicationNo, cameFrom);
       console.log(applicationData, "All info ApplicationData");
       if (Object.keys(applicationData).length) {
         setDataFromDB(applicationData);

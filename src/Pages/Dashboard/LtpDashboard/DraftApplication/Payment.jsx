@@ -46,10 +46,11 @@ const Payment = () => {
   const [sentData, setSentData] = useState(0);
   const role = userInfoFromLocalStorage().role;
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
+  const cameFrom = JSON.parse(localStorage.getItem("page"));
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
   useEffect(() => {
-    getApplicationData(applicationNo).then((applicationData) => {
+    getApplicationData(applicationNo, cameFrom).then((applicationData) => {
       setApplicationData(applicationData);
       const generalInformation =
         applicationData?.buildingInfo?.generalInformation;

@@ -215,13 +215,14 @@ const AuthProvider = ({ children }) => {
   };
 
   // specific application data
-  const getApplicationData = async (appNo) => {
+  const getApplicationData = async (appNo, page) => {
     try {
       setLoading(true);
       const query = JSON.stringify({
         appNo,
         userId: userInfoFromLocalStorage()._id,
         role: userInfoFromLocalStorage().role,
+        page,
       });
 
       console.log(query, "query");
@@ -363,10 +364,9 @@ const AuthProvider = ({ children }) => {
   const showPageBasedOnApplicationType = (applicationNo, navigate, page) => {
     localStorage.setItem("CurrentAppNo", JSON.stringify(applicationNo));
     localStorage.setItem("stepIndex", JSON.stringify(0));
+    localStorage.setItem("page", JSON.stringify(page));
 
-    navigate("/dashboard/draftApplication/buildingInfo", {
-      state: { page },
-    });
+    navigate("/dashboard/draftApplication/buildingInfo");
   };
   //   create a object to transfer data into various components
   const userInfo = {

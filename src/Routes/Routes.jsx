@@ -32,7 +32,7 @@ import Home from "../Pages/Main/Home/Home";
 import Reports from "../Pages/Main/Reports/Reports";
 import Location from "../Pages/Dashboard/UDA/Location";
 import UpdateProfile from "../Pages/Shared/UpdateProfile";
-import RejectedApplications from "../Pages/Dashboard/LtpDashboard/DraftApplication/RejectedApplication/RejectedApplications";
+import RejectedApplications from "../Pages/Dashboard/LtpDashboard/RejectedApplication/RejectedApplications";
 
 const router = createBrowserRouter([
   {

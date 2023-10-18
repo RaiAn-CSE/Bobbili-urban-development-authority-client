@@ -15,14 +15,16 @@ const ApplicantInfo = () => {
   // console.log(stepperData);
 
   const { userInfoFromLocalStorage } = useContext(AuthContext);
-  const { confirmAlert, sendUserDataIntoDB, getApplicationData, } =
+  const { confirmAlert, sendUserDataIntoDB, getApplicationData } =
     useContext(AuthContext);
 
   const role = userInfoFromLocalStorage().role;
 
-  const isReadOnly = role === 'PS';
+  const isReadOnly = role === "PS";
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
+
+  const cameFrom = JSON.parse(localStorage.getItem("page"));
 
   // const handleBackendData = () => {
   //   const applicationId = JSON.parse(localStorage.getItem("applicationId"));
@@ -130,7 +132,7 @@ const ApplicantInfo = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const applicationData = await getApplicationData(applicationNo);
+      const applicationData = await getApplicationData(applicationNo, cameFrom);
       const ltpDetailsData = applicationData.applicantInfo.ltpDetails;
       const applicantDetailsData =
         applicationData.applicantInfo.applicantDetails;
@@ -142,8 +144,7 @@ const ApplicantInfo = () => {
   }, []);
 
   // Classes for this component :
-  let labelClass =
-    "block mb-1 font-semibold text-gray-600";
+  let labelClass = "block mb-1 font-semibold text-gray-600";
   const inputClass =
     "w-full px-3 py-2 border rounded-lg max-w-xs border-gray-300 text-gray-900 bg-gray-50 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200";
 

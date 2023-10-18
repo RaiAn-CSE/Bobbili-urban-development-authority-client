@@ -130,11 +130,8 @@ const DraftApplication = () => {
   const path = useLocation()?.pathname;
 
   // check the page name to show the building info and other pages application value
-  let cameFrom;
-  if (location?.state) {
-    const { page } = location?.state;
-    cameFrom = page;
-  }
+
+  const cameFrom = JSON.parse(localStorage.getItem("page"));
 
   const applicationModalShow =
     path.includes("applicationChecklist") ||
