@@ -9,13 +9,17 @@ function DefaultDocument({ PreviousDefaultDocumentData, clickedDefaultRadio, rol
 
   // console.log(PreviousDefaultDocumentData, "PreviousDefaultDocumentData from Default Components")
 
-  useEffect(() => {
-    if (clickedDefaultRadio?.length) {
-      setUpdatedDefaultData([PreviousDefaultDocumentData, ...clickedDefaultRadio]);
-    } else {
-      setUpdatedDefaultData([PreviousDefaultDocumentData, ...clickedDefaultRadio]);
+  let combinedData = [...(PreviousDefaultDocumentData || []), ...(clickedDefaultRadio || [])];
+
+  // Create a Map to ensure unique items based on id
+  const uniqueDataMap = new Map();
+  combinedData.forEach(item => {
+    // Prioritize clickedDefaultRadio data over PreviousDefaultDocumentData
+    if (!uniqueDataMap.has(item.id)) {
+      uniqueDataMap.set(item.id, item);
     }
-  }, []);
+  });
+  combinedData = Array.from(uniqueDataMap.values());
 
   const someEventHandler = (event, id) => {
     const file = event?.target.files[0];
@@ -26,9 +30,15 @@ function DefaultDocument({ PreviousDefaultDocumentData, clickedDefaultRadio, rol
   // console.log(defaultImageFromDB, "DEFAULT IMAGE FROM DB");
   return (
     <div className="dark:text-black">
-      {UpdatedDefaultData?.map((data, index) => {
-        const { id, question, approved, upload } = data;
-
+      {DefaultDocumentData?.map((data, index) => {
+        let { id, question, approved, upload } = data;
+        const matched = combinedData.find(items => {
+          if (items.id == id) {
+            return items.approved
+          }
+        })
+        approved = matched?.approved
+        console.log(approved)
         const isMatch = defaultImageFromDB?.find(
           (eachFile, i) => eachFile.id === id
         );

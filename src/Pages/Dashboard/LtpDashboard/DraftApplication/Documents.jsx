@@ -303,7 +303,7 @@ const DocumentUpload = () => {
             handleStatus={handleStatus}
 
           />
-          <DynamicDocument
+          {/* <DynamicDocument
             role={role}
             PreviousDynamicDocumentData={PreviousDynamicDocumentData}
             clickedDynamicRadio={clickedDynamicRadio}
@@ -315,7 +315,7 @@ const DocumentUpload = () => {
             setApprovedConfirmation={setApprovedConfirmation}
             handleStatus={handleStatus}
           // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
-          />
+          /> */}
         </div>
       </form>
 
