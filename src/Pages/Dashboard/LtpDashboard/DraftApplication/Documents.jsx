@@ -144,15 +144,30 @@ const DocumentUpload = () => {
   const [clickedDefaultRadio, setClickDefaultRadio] = useState([]);
 
   const handleStatus = (data) => {
-    console.log(data, "handleRadioClickedData")
+    console.log(data, "handleRadioClickedData");
     if (data.type === "dynamic") {
-      setClickDynamicRadio((prev) => [...prev, data]);
-      // setRadioStatusDynamicData((prev) => [...prev, data])
+      setClickDynamicRadio((prev) => {
+        const already = prev.findIndex(item => item.id === data.id);
+        if (already !== -1) {
+          prev[already] = data;
+          return [...prev];
+        } else {
+          return [...PreviousDynamicDocumentData, data];
+        }
+      });
     } else {
-      setClickDefaultRadio((prev) => [...prev, data]);
-      // setRadioStatusDefaultData((prev) => [...prev, data])
+      setClickDefaultRadio((prev) => {
+        const already = prev.findIndex(item => item.id === data.id);
+        if (already !== -1) {
+          prev[already] = data;
+          return [...prev];
+        } else {
+          return [...PreviousDefaultDocumentData, data];
+        }
+      });
     }
-  }
+  };
+
 
   console.log({ clickedDynamicRadio, clickedDefaultRadio });
 
