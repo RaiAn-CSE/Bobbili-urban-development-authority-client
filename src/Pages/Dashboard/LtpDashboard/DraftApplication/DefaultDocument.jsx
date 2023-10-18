@@ -3,17 +3,17 @@ import DefaultDocumentData from "../../../../assets/DefaultDocument.json";
 import PsDocument from "./PsDocument";
 import { Link } from "react-router-dom";
 
-function DefaultDocument({ PreviousDefaultDocumentData, role, handleFileChange, gradientColor, handleStatus, defaultImageFromDB }) {
+function DefaultDocument({ PreviousDefaultDocumentData, clickedDefaultRadio, role, handleFileChange, gradientColor, handleStatus, defaultImageFromDB }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [UpdatedDefaultData, setUpdatedDefaultData] = useState([]);
 
   // console.log(PreviousDefaultDocumentData, "PreviousDefaultDocumentData from Default Components")
 
   useEffect(() => {
-    if (PreviousDefaultDocumentData.length) {
-      setUpdatedDefaultData([...PreviousDefaultDocumentData]);
+    if (clickedDefaultRadio?.length) {
+      setUpdatedDefaultData([PreviousDefaultDocumentData, ...clickedDefaultRadio]);
     } else {
-      setUpdatedDefaultData([...DefaultDocumentData]);
+      setUpdatedDefaultData([PreviousDefaultDocumentData, ...clickedDefaultRadio]);
     }
   }, []);
 
@@ -27,7 +27,7 @@ function DefaultDocument({ PreviousDefaultDocumentData, role, handleFileChange, 
   return (
     <div className="dark:text-black">
       {UpdatedDefaultData?.map((data, index) => {
-        const { id, question, event, upload } = data;
+        const { id, question, approved, upload } = data;
 
         const isMatch = defaultImageFromDB?.find(
           (eachFile, i) => eachFile.id === id
@@ -58,9 +58,9 @@ function DefaultDocument({ PreviousDefaultDocumentData, role, handleFileChange, 
             <PsDocument
               role={role}
               id={id}
-              event={event}
+              approved={approved}
               handleStatus={handleStatus}
-              PreviousDocumentData={PreviousDefaultDocumentData}
+              clickedDefaultRadio={clickedDefaultRadio}
               type="default"
             />
           </div>

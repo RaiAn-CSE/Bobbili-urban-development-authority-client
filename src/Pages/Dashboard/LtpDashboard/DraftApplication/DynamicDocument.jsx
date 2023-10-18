@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PsDocument from "./PsDocument";
 import { Link } from "react-router-dom";
 
 function DynamicDocument({
   PreviousDynamicDocumentData,
+  clickedDynamicRadio,
   UpdatedDynamicDocumentData,
   role,
   handleFileChange,
@@ -12,14 +13,24 @@ function DynamicDocument({
   handleStatus,
 }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const [ReqData, setReqeData] = useState([]);
 
   const someEventHandler = (event, id, uploadId) => {
     const file = event?.target.files[0];
     selectedFiles[id] = file;
     handleFileChange(event, id, selectedFiles, "dynamic", uploadId);
   };
+  useEffect(() => {
+    if (PreviousDynamicDocumentData?.length) {
+      const dynamicMatch = PreviousDynamicDocumentData.filter(data => data.id === id && data.uploadId === uploadId);
 
-  
+      if (dynamicMatch.length > 0) {
+        setReqeData([...PreviousDynamicDocumentData.requirements, ...clickedDynamicRadio]);
+      } else {
+        setReqeData(clickedDynamicRadio)
+      }
+    }
+  }, [PreviousDynamicDocumentData, clickedDynamicRadio]);
 
   return (
     <div className="dark:text-black">
@@ -33,8 +44,8 @@ function DynamicDocument({
                 {index + 9}. {question}
               </p>
               <div className="ml-6">
-                {requirements?.map((RequireData, ind) => {
-                  const { uploadId, requirement, upload, event } =
+                {ReqData?.map((RequireData, ind) => {
+                  const { uploadId, requirement, approved, upload } =
                     RequireData;
 
                   const isMatch = dynamicImageFromDB?.find(
@@ -75,7 +86,7 @@ function DynamicDocument({
                       <PsDocument
                         role={role}
                         id={id}
-                        event={event}
+                        approved={approved}
                         uploadId={uploadId}
                         handleStatus={handleStatus}
                         PreviousDocumentData={PreviousDynamicDocumentData}

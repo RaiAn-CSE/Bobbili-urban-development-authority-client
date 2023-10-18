@@ -41,7 +41,7 @@ const DocumentUpload = () => {
   });
   const [defaultData, setDefaultData] = useState([]);
   const [dynamicData, setDynamicData] = useState([]);
-  const {confirmAlert,sendUserDataIntoDB,getApplicationData,userInfoFromLocalStorage} = useContext(AuthContext);
+  const { confirmAlert, sendUserDataIntoDB, getApplicationData, userInfoFromLocalStorage } = useContext(AuthContext);
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
   const role = userInfoFromLocalStorage().role;
@@ -144,12 +144,13 @@ const DocumentUpload = () => {
   const [clickedDefaultRadio, setClickDefaultRadio] = useState([]);
 
   const handleStatus = (data) => {
+    console.log(data, "handleRadioClickedData")
     if (data.type === "dynamic") {
       setClickDynamicRadio((prev) => [...prev, data]);
-      setDynamicData((prev) => [...prev, data])
+      // setRadioStatusDynamicData((prev) => [...prev, data])
     } else {
       setClickDefaultRadio((prev) => [...prev, data]);
-      setDefaultData((prev) => [...prev, data])
+      // setRadioStatusDefaultData((prev) => [...prev, data])
     }
   }
 
@@ -293,7 +294,8 @@ const DocumentUpload = () => {
         <div className="w-full text-[17px] px-2 py-5 rounded">
           <DefaultDocument
             role={role}
-            PreviousDefaultDocumentData={clickedDefaultRadio}
+            PreviousDefaultDocumentData={PreviousDefaultDocumentData}
+            clickedDefaultRadio={clickedDefaultRadio}
             handleFileChange={handleFileChange}
             gradientColor={gradientColor}
             defaultImageFromDB={imageIdFromDB?.default}
@@ -303,7 +305,8 @@ const DocumentUpload = () => {
           />
           <DynamicDocument
             role={role}
-            PreviousDynamicDocumentData={clickedDynamicRadio}
+            PreviousDynamicDocumentData={PreviousDynamicDocumentData}
+            clickedDynamicRadio={clickedDynamicRadio}
             UpdatedDynamicDocumentData={UpdatedDynamicDocumentData}
             handleFileChange={handleFileChange}
             gradientColor={gradientColor}
