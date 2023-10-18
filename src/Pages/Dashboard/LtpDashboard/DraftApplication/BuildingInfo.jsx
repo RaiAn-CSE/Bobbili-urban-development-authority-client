@@ -132,7 +132,7 @@ const BuildingInfo = () => {
     const getData = async () => {
       const applicationData = await getApplicationData(applicationNo, cameFrom);
       console.log(applicationData, "All info ApplicationData");
-      if (Object.keys(applicationData).length) {
+      if (Object.keys(applicationData)?.length) {
         setDataFromDB(applicationData);
       }
     };

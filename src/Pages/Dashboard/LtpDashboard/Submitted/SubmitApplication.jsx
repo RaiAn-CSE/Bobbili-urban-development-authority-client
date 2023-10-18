@@ -3,9 +3,12 @@ import { useQuery } from "react-query";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import ShowSubmittedApplication from "./ShowSubmittedApplication";
 import useGetPageWiseApplication from "../../../CustomHook/useGetPageWiseApplication";
+import { useNavigate } from "react-router-dom";
 
 const SubmitApplication = () => {
-  const { userInfoFromLocalStorage } = useContext(AuthContext);
+  const { userInfoFromLocalStorage, showPageBasedOnApplicationType } =
+    useContext(AuthContext);
+  const navigate = useNavigate();
   const [error, setError] = useState("");
 
   const [data, refetch, isError, isLoading] = useGetPageWiseApplication(
@@ -47,6 +50,8 @@ const SubmitApplication = () => {
               key={index}
               serialNo={index}
               applicationData={applicationData}
+              showSubmitApplication={showPageBasedOnApplicationType}
+              navigate={navigate}
             />
           ))}
         </tbody>
