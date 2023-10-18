@@ -74,9 +74,11 @@ const SiteInspection = () => {
       setLandUse(landUse);
       setDecision(decision);
       setRecommendations(recommendations);
+
       if (siteBoundaries) {
-        const imageFiles = siteBoundaries?.siteBoundariesImageFilesId;
-        setSiteBoundariesImageFilesId(imageFiles);
+        setSiteBoundariesImageFilesId((prev) => {
+          return siteBoundaries?.siteBoundariesImageFilesId;
+        });
       }
     };
     getData();
@@ -435,6 +437,7 @@ const SiteInspection = () => {
                       id="northApp"
                       onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
+                      imageId={siteBoundariesImageFilesId?.northApp}
                     />
                   </td>
                   <td className={inputTableDataClass}>
@@ -442,6 +445,7 @@ const SiteInspection = () => {
                       id="northObs"
                       onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
+                      imageId={siteBoundariesImageFilesId?.northObs}
                     />
                   </td>
                 </tr>
@@ -452,6 +456,7 @@ const SiteInspection = () => {
                       id="southApp"
                       onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
+                      imageId={siteBoundariesImageFilesId?.southApp}
                     />
                   </td>
                   <td className={inputTableDataClass}>
@@ -459,6 +464,7 @@ const SiteInspection = () => {
                       id="southObs"
                       onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
+                      imageId={siteBoundariesImageFilesId?.southObs}
                     />
                   </td>
                 </tr>
@@ -469,6 +475,7 @@ const SiteInspection = () => {
                       id="eastApp"
                       onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
+                      imageId={siteBoundariesImageFilesId?.eastApp}
                     />
                   </td>
                   <td className={inputTableDataClass}>
@@ -476,6 +483,7 @@ const SiteInspection = () => {
                       id="eastObs"
                       onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
+                      imageId={siteBoundariesImageFilesId?.eastObs}
                     />
                   </td>
                 </tr>
@@ -486,6 +494,7 @@ const SiteInspection = () => {
                       id="westApp"
                       onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
+                      imageId={siteBoundariesImageFilesId?.westApp}
                     />
                   </td>
                   <td className={inputTableDataClass}>
@@ -493,6 +502,7 @@ const SiteInspection = () => {
                       id="westObs"
                       onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
+                      imageId={siteBoundariesImageFilesId?.westObs}
                     />
                   </td>
                 </tr>
