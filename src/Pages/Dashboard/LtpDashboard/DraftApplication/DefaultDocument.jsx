@@ -5,21 +5,23 @@ import { Link } from "react-router-dom";
 
 function DefaultDocument({ PreviousDefaultDocumentData, clickedDefaultRadio, role, handleFileChange, gradientColor, handleStatus, defaultImageFromDB }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
-  const [UpdatedDefaultData, setUpdatedDefaultData] = useState([]);
+  const [UpdatedDefaultData, setUpdatedDefaultData] = useState(DefaultDocumentData);
 
-  // console.log(PreviousDefaultDocumentData, "PreviousDefaultDocumentData from Default Components")
+  let  updatedDataCopy=[...UpdatedDefaultData];
+  useEffect(() => {
+    // Create a copy of the current UpdatedDefaultData
+    
 
-  let combinedData = [...(PreviousDefaultDocumentData || []), ...(clickedDefaultRadio || [])];
+    DefaultDocumentData.forEach(item => {
+      const matched = clickedDefaultRadio?.find(clickedItem => clickedItem.id === item.id);
+      if (matched) {
+        item.approved = matched.approved;
+      }
+      updatedDataCopy.push(item);
+    });
+  }, [DefaultDocumentData, clickedDefaultRadio]);
 
-  // Create a Map to ensure unique items based on id
-  const uniqueDataMap = new Map();
-  combinedData.forEach(item => {
-    // Prioritize clickedDefaultRadio data over PreviousDefaultDocumentData
-    if (!uniqueDataMap.has(item.id)) {
-      uniqueDataMap.set(item.id, item);
-    }
-  });
-  combinedData = Array.from(uniqueDataMap.values());
+
 
   const someEventHandler = (event, id) => {
     const file = event?.target.files[0];
@@ -27,18 +29,11 @@ function DefaultDocument({ PreviousDefaultDocumentData, clickedDefaultRadio, rol
     handleFileChange(event, id, selectedFiles, "default");
   };
 
-  // console.log(defaultImageFromDB, "DEFAULT IMAGE FROM DB");
   return (
     <div className="dark:text-black">
-      {DefaultDocumentData?.map((data, index) => {
+      {updatedDataCopy.map((data, index) => {
         let { id, question, approved, upload } = data;
-        const matched = combinedData.find(items => {
-          if (items.id == id) {
-            return items.approved
-          }
-        })
-        approved = matched?.approved
-        console.log(approved)
+
         const isMatch = defaultImageFromDB?.find(
           (eachFile, i) => eachFile.id === id
         );
