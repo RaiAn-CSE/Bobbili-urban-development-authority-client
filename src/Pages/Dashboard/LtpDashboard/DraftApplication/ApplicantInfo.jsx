@@ -184,7 +184,7 @@ const ApplicantInfo = () => {
               id="ltpType"
               name="ltpType"
               label="LTP Type"
-              placeholder="Licenced Engineer"
+              placeholder="Licensed Engineer"
               ltpDetails={type}
             />
             <InputField
