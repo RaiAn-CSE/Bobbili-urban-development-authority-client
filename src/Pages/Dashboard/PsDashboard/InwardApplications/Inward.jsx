@@ -6,7 +6,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 const Inward = () => {
-  const { userInfoFromLocalStorage } = useContext(AuthContext);
+  const { userInfoFromLocalStorage, showPageBasedOnApplicationType } =
+    useContext(AuthContext);
   const [error, setError] = useState("");
   const [allData, setAllData] = useState([]);
 
@@ -49,11 +50,11 @@ const Inward = () => {
   // console.log(data);
 
   // navigate after clicking on the draft application no
-  const showDraftApplication = (applicationNo) => {
-    console.log(applicationNo);
-    localStorage.setItem("CurrentAppNo", JSON.stringify(applicationNo));
-    navigate("/dashboard/draftApplication/buildingInfo");
-  };
+  // const showDraftApplication = (applicationNo) => {
+  //   console.log(applicationNo);
+  //   localStorage.setItem("CurrentAppNo", JSON.stringify(applicationNo));
+  //   navigate("/dashboard/draftApplication/buildingInfo");
+  // };
 
   const onSubmit = (data) => {
     console.log(data);
@@ -147,7 +148,8 @@ const Inward = () => {
                 key={index}
                 serialNo={index}
                 applicationData={applicationData}
-                showDraftApplication={showDraftApplication}
+                showSubmitApplication={showPageBasedOnApplicationType}
+                navigate={navigate}
               />
             ))}
           </tbody>
