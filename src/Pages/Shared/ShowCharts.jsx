@@ -5,18 +5,24 @@ import { CategoryScale } from "chart.js";
 import Data from "../../assets/Data.json";
 import BarChart from "./BarChart";
 import PieChart from "./PieChart";
-import { district } from "../../assets/buildingInfo.json";
+// import { district } from "../../assets/buildingInfo.json";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
+import toast from "react-hot-toast";
 
 Chart.register(CategoryScale);
 
 const ShowCharts = () => {
   const path = useLocation().pathname;
 
-  const { userInfoFromLocalStorage } = useContext(AuthContext);
+  const { userInfoFromLocalStorage, getLocationInfo } = useContext(AuthContext);
+
+  const role = userInfoFromLocalStorage()?.role;
+
+  const isLtpOrPs = role === "LTP" || role === "PS";
 
   // const role = userInfoFromLocalStorage().role;
 
+  const [allLocationData, setAllLocationData] = useState([]);
   const [allDistricts, setAllDistricts] = useState([]);
   const [allMandal, setAllMandal] = useState([]);
   const [allPanchayat, setAllPanchayat] = useState([]);
@@ -28,11 +34,15 @@ const ShowCharts = () => {
 
   const [selectedDate, setSelectedDate] = useState("");
 
-  console.log(district, "District");
-
   useEffect(() => {
-    const districts = district.map((each) => each?.name);
-    setAllDistricts(districts);
+    (async function () {
+      const locationData = await getLocationInfo();
+      console.log(locationData, "LOC");
+      const extractsDataFromDB = locationData[0]?.district;
+      setAllLocationData(extractsDataFromDB);
+      const districts = extractsDataFromDB?.map((each) => each?.name);
+      setAllDistricts(districts);
+    })();
   }, []);
 
   const detectSelectOfDistrict = (e) => {
@@ -54,14 +64,17 @@ const ShowCharts = () => {
     panchayatSelect.value = "";
 
     const dateSelected = document.getElementById("date");
-    dateSelected.value = "";
+    if (dateSelected) {
+      dateSelected.value = "";
+    }
 
     if (chooseDistrict === "Vizianagaram") {
-      console.log(district[0]?.mandal);
-      setAllMandal(district[0]?.mandal);
+      console.log(allLocationData, "ALOC");
+      console.log(allLocationData[0]?.mandal);
+      setAllMandal(allLocationData[0]?.mandal);
     }
     if (chooseDistrict === "Parvathipuram Manyam") {
-      setAllMandal(district[1]?.mandal);
+      setAllMandal(allLocationData[1]?.mandal);
     }
   };
 
@@ -72,7 +85,9 @@ const ShowCharts = () => {
     const panchayatSelect = document.getElementById("panchayat");
     panchayatSelect.value = "";
     const dateSelected = document.getElementById("date");
-    dateSelected.value = "";
+    if (dateSelected) {
+      dateSelected.value = "";
+    }
     const value = e.target.value;
     setSelectedMandal(value);
 
@@ -117,7 +132,7 @@ const ShowCharts = () => {
 
       console.log(data);
       fetch(
-        `https://residential-building.vercel.app/filterApplications?search=${JSON.stringify(
+        `http://localhost:5000/filterApplications?search=${JSON.stringify(
           data
         )}`
       )
@@ -130,7 +145,7 @@ const ShowCharts = () => {
       console.log(data, "Data");
     } else {
       console.log("all");
-      fetch("https://residential-building.vercel.app/totalApplications")
+      fetch(`http://localhost:5000/totalApplications?role=${role}`)
         .then((res) => res.json())
         .then((result) => {
           console.log(result);
@@ -315,6 +330,9 @@ const ShowCharts = () => {
                 Select an option
               </option>
               <option value="7 days">1 week</option>
+              <option value="1 months" className={`${!isLtpOrPs && "hidden"}`}>
+                1 months
+              </option>
               <option value="6 months">6 months</option>
               <option value="1 year">1 year</option>
             </select>

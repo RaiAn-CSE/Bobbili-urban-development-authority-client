@@ -3,9 +3,13 @@ import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import { useQuery } from "react-query";
 import useGetPageWiseApplication from "../../../CustomHook/useGetPageWiseApplication";
 import ShowAllApprovedApplications from "./ShowAllApprovedApplications";
+import { useNavigate } from "react-router-dom";
 
 const Approved = () => {
-  const { userInfoFromLocalStorage } = useContext(AuthContext);
+  const { userInfoFromLocalStorage, showPageBasedOnApplicationType } =
+    useContext(AuthContext);
+
+  const navigate = useNavigate();
   const [error, setError] = useState("");
 
   const [data, refetch, isError, isLoading] = useGetPageWiseApplication(
@@ -46,6 +50,8 @@ const Approved = () => {
               key={index}
               serialNo={index}
               applicationData={applicationData}
+              showApprovedApplication={showPageBasedOnApplicationType}
+              navigate={navigate}
             />
           ))}
         </tbody>

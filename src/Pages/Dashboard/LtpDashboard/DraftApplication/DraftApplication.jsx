@@ -129,11 +129,9 @@ const DraftApplication = () => {
 
   const path = useLocation()?.pathname;
 
-  let cameFrom;
-  if (location?.state) {
-    const { page } = location?.state;
-    cameFrom = page;
-  }
+  // check the page name to show the building info and other pages application value
+
+  const cameFrom = JSON.parse(localStorage.getItem("page"));
 
   const applicationModalShow =
     path.includes("applicationChecklist") ||
@@ -152,15 +150,6 @@ const DraftApplication = () => {
               <span className="text-black">Application No:</span>{" "}
               {applicationNo}
             </p>
-            {applicationModalShow && (
-              <button
-                onClick={() => setOpenApplication(true)}
-                className={`btn btn-sm text-xs ${gradientColor} transition-all duration-700 text-white dark:border-none`}
-              >
-                <HiOutlineClipboardDocumentList className="text-lg" />{" "}
-                <span>Application</span>
-              </button>
-            )}
 
             {cameFrom === "approved" && (
               <>
@@ -168,14 +157,14 @@ const DraftApplication = () => {
                   className={`btn btn-sm text-xs ${gradientColor} transition-all duration-700 text-white dark:border-none`}
                 >
                   <HiOutlineClipboardDocumentList className="text-lg" />{" "}
-                  <span>Application</span>
+                  <span>Proceeding</span>
                 </button>
 
                 <button
                   className={`btn btn-sm text-xs ${gradientColor} transition-all duration-700 text-white dark:border-none`}
                 >
                   <HiOutlineClipboardDocumentList className="text-lg" />{" "}
-                  <span>Application</span>
+                  <span>Drawing</span>
                 </button>
               </>
             )}
@@ -186,7 +175,7 @@ const DraftApplication = () => {
                   className={`btn btn-sm text-xs ${gradientColor} transition-all duration-700 text-white dark:border-none`}
                 >
                   <HiOutlineClipboardDocumentList className="text-lg" />{" "}
-                  <span>Application</span>
+                  <span>Endorsement</span>
                 </button>
                 <button
                   className={`btn btn-sm text-xs ${gradientColor} transition-all duration-700 text-white dark:border-none`}
@@ -195,6 +184,16 @@ const DraftApplication = () => {
                   <span>Application</span>
                 </button>
               </>
+            )}
+
+            {applicationModalShow && (
+              <button
+                onClick={() => setOpenApplication(true)}
+                className={`btn btn-sm text-xs ${gradientColor} transition-all duration-700 text-white dark:border-none`}
+              >
+                <HiOutlineClipboardDocumentList className="text-lg" />{" "}
+                <span>Application</span>
+              </button>
             )}
 
             {/* Application Modal */}

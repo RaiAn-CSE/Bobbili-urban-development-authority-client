@@ -12,8 +12,16 @@ const LtpSidebar = () => {
 
   const navigate = useNavigate();
 
-  const { handleLogOut, decideActiveColor, decideHoverColor, isDark } =
-    useContext(AuthContext);
+  const {
+    handleLogOut,
+    decideActiveColor,
+    decideHoverColor,
+    isDark,
+    findWhichMenuIsActiveForLtpSideBar,
+    userInfoFromLocalStorage,
+  } = useContext(AuthContext);
+
+  const role = userInfoFromLocalStorage()?.role;
 
   const [activeColor, setActiveColor] = useState("");
   const [hoverColor, setHoverColor] = useState("");
@@ -25,13 +33,15 @@ const LtpSidebar = () => {
     setHoverColor(getHoverColor);
   }, [isDark]);
 
-  const sidebarHoverClass = 'flex items-center ps-4 hover:bg-gradient-to-r hover:from-violet-500 hover:to-fuchsia-500 mb-1'
+  const sidebarHoverClass =
+    "flex items-center ps-4 hover:bg-gradient-to-r hover:from-violet-500 hover:to-fuchsia-500 mb-1";
 
   return (
     <>
       <li
-        className={`${path === "/dashboard" && activeColor
-          } mt-24 lg:mt-0 ${sidebarHoverClass}`}
+        className={`${
+          path === "/dashboard" && activeColor
+        } mt-24 lg:mt-0 ${sidebarHoverClass}`}
       >
         <span>
           <MdSpaceDashboard size={20} />
@@ -42,15 +52,14 @@ const LtpSidebar = () => {
       </li>
 
       <li
-        className={`${(path === "/dashboard/draftApplication" ||
-          path === "/dashboard/draftApplication/buildingInfo" ||
-          path === "/dashboard/draftApplication/applicantInfo" ||
-          path === "/dashboard/draftApplication/applicationChecklist" ||
-          path === "/dashboard/draftApplication/documents" ||
-          path === "/dashboard/draftApplication/drawing" ||
-          path === "/dashboard/draftApplication/payment") &&
-          activeColor
-          } ${sidebarHoverClass}`}
+        className={`${
+          findWhichMenuIsActiveForLtpSideBar(
+            path,
+            "/dashboard/draftApplication",
+            "draft",
+            role
+          ) && activeColor
+        } ${sidebarHoverClass}`}
       >
         <span>
           <BiSolidImageAdd size={22} />
@@ -58,14 +67,23 @@ const LtpSidebar = () => {
         <Link
           className="p-[10px] font-medium "
           to="/dashboard/draftApplication"
+          onClick={() => {
+            localStorage.setItem("page", JSON.stringify("draft"));
+          }}
         >
           Draft Application
         </Link>
       </li>
 
       <li
-        className={`${path === "/dashboard/submitApplication" && activeColor
-          } ${sidebarHoverClass}`}
+        className={`${
+          findWhichMenuIsActiveForLtpSideBar(
+            path,
+            "/dashboard/submitApplication",
+            "submit",
+            role
+          ) && activeColor
+        } ${sidebarHoverClass}`}
       >
         <span>
           <BsSendCheckFill size={19} />
@@ -73,29 +91,47 @@ const LtpSidebar = () => {
         <Link
           className="p-[10px] font-medium"
           to="/dashboard/submitApplication"
+          onClick={() => {
+            localStorage.setItem("page", JSON.stringify("submit"));
+          }}
         >
           Submitted App:
         </Link>
       </li>
 
       <li
-        className={`${path === "/dashboard/approvedApplication" && activeColor
-          } ${sidebarHoverClass}`}
+        className={`${
+          findWhichMenuIsActiveForLtpSideBar(
+            path,
+            "/dashboard/approvedApplication",
+            "approved",
+            role
+          ) && activeColor
+        } ${sidebarHoverClass}`}
       >
         <span>
           <BiCheckDouble size={23} />
         </span>
         <Link
-          className="p-[10px]  font-medium "
+          className="p-[10px] font-medium"
           to="/dashboard/approvedApplication"
+          onClick={() => {
+            localStorage.setItem("page", JSON.stringify("approved"));
+          }}
         >
           Approved
         </Link>
       </li>
 
       <li
-        className={`${path === "/dashboard/shortfallApplication" && activeColor
-          } ${sidebarHoverClass}`}
+        className={`${
+          findWhichMenuIsActiveForLtpSideBar(
+            path,
+            "/dashboard/shortfallApplication",
+            "shortfall",
+            role
+          ) && activeColor
+        } ${sidebarHoverClass}`}
       >
         <span>
           <AiOutlineForm size={20} />
@@ -103,19 +139,37 @@ const LtpSidebar = () => {
         <Link
           className="p-[10px] font-medium "
           to="/dashboard/shortfallApplication"
+          onClick={() => {
+            localStorage.setItem("page", JSON.stringify("shortfall"));
+          }}
         >
           Shortfall
         </Link>
       </li>
 
-      {/* <li className={`flex items-center ps-4 ${hoverColor}  mb-1`}>
+      <li
+        className={`${
+          findWhichMenuIsActiveForLtpSideBar(
+            path,
+            "/dashboard/rejectedApplications",
+            "rejected",
+            role
+          ) && activeColor
+        } ${sidebarHoverClass} flex items-center ps-4 ${hoverColor} mb-1`}
+      >
         <span>
           <CgDanger size={22} />
         </span>
-        <Link className="p-[10px]  font-medium " to="/#">
+        <Link
+          className="p-[10px]  font-medium "
+          to="/dashboard/rejectedApplications"
+          onClick={() => {
+            localStorage.setItem("page", JSON.stringify("rejected"));
+          }}
+        >
           Rejected
         </Link>
-      </li> */}
+      </li>
 
       <li className={`mt-5 ${sidebarHoverClass}`}>
         <span>

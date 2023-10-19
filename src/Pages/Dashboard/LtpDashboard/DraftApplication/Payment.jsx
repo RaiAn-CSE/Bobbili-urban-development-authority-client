@@ -13,9 +13,14 @@ import SaveData from "./SaveData";
 import { Link } from "react-router-dom";
 import { MdReceiptLong } from "react-icons/md";
 import Application from "./Application";
+import Modal from "./Modal";
 
 const Payment = () => {
   const [openApplication, setOpenApplication] = useState(false);
+  const [viewChallan, setViewChallan] = useState(false);
+  const [Newly_Developed_Condition, setNewlyDevelopedCondition] =
+    useState(false);
+  const [RLP_IPLP_Condition, setRLP_IPLP_Condition] = useState(false);
   const stepperData = useOutletContext();
   const {
     getApplicationData,
@@ -41,10 +46,11 @@ const Payment = () => {
   const [sentData, setSentData] = useState(0);
   const role = userInfoFromLocalStorage().role;
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
+  const cameFrom = JSON.parse(localStorage.getItem("page"));
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
   useEffect(() => {
-    getApplicationData(applicationNo).then((applicationData) => {
+    getApplicationData(applicationNo, cameFrom).then((applicationData) => {
       setApplicationData(applicationData);
       const generalInformation =
         applicationData?.buildingInfo?.generalInformation;
@@ -110,16 +116,15 @@ const Payment = () => {
     // Plots Details
     const { netPlotAreaCal, marketValueSqym, totalBuiltUpArea, vacantLand } =
       plotDetails;
-    console.log(plotDetails, "plotDetails");
     // General Informatin
     const { natureOfTheSite } = generalInformation;
 
-    const builtup_Area = Number(totalBuiltUpArea);
-    const vacant_area = Number(vacantLand);
-    const net_Plot_Area = Number(netPlotAreaCal);
-    const market_value = Number(marketValueSqym);
+    const builtup_Area = Number(totalBuiltUpArea) || 1;
+    const vacant_area = Number(vacantLand) || 1;
+    const net_Plot_Area = Number(netPlotAreaCal) || 1;
+    const market_value = Number(marketValueSqym) || 1;
     const nature_of_site = natureOfTheSite;
-    const BuiltUp_area_SquareFeet = Number(builtup_Area * 10.7639);
+    const BuiltUp_area_SquareFeet = Number(builtup_Area * 10.7639104) || 1;
 
     console.log(typeof builtup_Area, "builtup_Area");
 
@@ -163,11 +168,13 @@ const Payment = () => {
       net_Plot_Area,
       market_value
     ) {
-      const condition01 = nature_of_site === "Newly Developed/ Built up area";
-      const condition02 =
+      const Newly_Developed_Condition =
+        nature_of_site === "Newly Developed/ Built up area";
+      const RLP_IPLP_Condition =
         nature_of_site === "Plot port of RLP/IPLP but not regularised";
-
-      if (condition01 || condition02) {
+      setNewlyDevelopedCondition(Newly_Developed_Condition);
+      setRLP_IPLP_Condition(RLP_IPLP_Condition);
+      if (Newly_Developed_Condition || RLP_IPLP_Condition) {
         return net_Plot_Area * 1.196 * market_value * 0.14;
       } else {
         return 0;
@@ -186,10 +193,12 @@ const Payment = () => {
 
     const laboutCessCompo2Calculation = (BuiltUp_area_SquareFeet) => {
       let labourCessComponentCharge2 = 0;
+
       if (BuiltUp_area_SquareFeet <= 10000) {
         labourCessComponentCharge2 =
           labourCessComponentUnitRate2 * BuiltUp_area_SquareFeet * 10.76;
-      } else if (BuiltUp_area_SquareFeet > 10000) {
+      }
+      if (BuiltUp_area_SquareFeet > 10000) {
         labourCessComponentCharge2 =
           labourCessComponentUnitRate2 *
           BuiltUp_area_SquareFeet *
@@ -226,7 +235,7 @@ const Payment = () => {
         TotalLabourCessComp2Charged,
         UDATotalCharged,
       },
-      "UDATotalCharged-in"
+      "UDATotalCharged-Included Items"
     );
 
     // =======Grama Panchayet Segment=======
@@ -266,7 +275,8 @@ const Payment = () => {
         greenFeeChargesUnitRate * BuiltUp_area_SquareFeet * 10.76
       );
     }
-
+    const showVariable = `NetPlot: ${net_Plot_Area}(Sq.M), BuiltUpArea: ${builtup_Area} (Sq.M), VacantArea: ${vacant_area} (Sq.M), BuiltUpArea: ${BuiltUp_area_SquareFeet} (Sq.Ft) NatureOfSite: ${nature_of_site}`;
+    toast.success(showVariable);
     // ====Labour Cess Component 1 Charged====
     const labourCessComponentUnitRate1 = 1400; // per Sq.ft.
     const labourCessCompo1Charged = Math.round(
@@ -351,7 +361,7 @@ const Payment = () => {
         console.log(...formData);
         try {
           const response = await axios.post(
-            "https://residential-building.vercel.app/upload?page=payment",
+            "http://localhost:5000/upload?page=payment",
             formData,
             {
               headers: {
@@ -519,7 +529,7 @@ const Payment = () => {
               type="number"
               ltpDetails={calculatedData?.builtUpAreaDevelopmentCharged}
             />
-            {condition !== 1 && (
+            {(Newly_Developed_Condition || RLP_IPLP_Condition) && (
               <InputField
                 id="TotalOpenSpaceCharged"
                 name="TotalOpenSpaceCharged"
@@ -529,7 +539,7 @@ const Payment = () => {
                 ltpDetails={calculatedData?.TotalOpenSpaceCharged}
               />
             )}
-            {condition !== 1 && condition !== 2 && (
+            {RLP_IPLP_Condition && (
               <InputField
                 id="TotalPenalizationCharged"
                 name="TotalPenalizationCharged"
@@ -545,7 +555,7 @@ const Payment = () => {
               label="Labour Cess Component 2"
               placeholder="000"
               type="number"
-              ltpDetails={calculatedData?.TotalPenalizationCharged}
+              ltpDetails={calculatedData?.TotalLabourCessComp2Charged}
             />
             <InputField
               id="UDATotalCharged"
@@ -566,6 +576,18 @@ const Payment = () => {
             )}
             {role === "PS" && (
               <>
+                <button
+                  className={`btn btn-md text-sm px-3 mt-10 ml-3 border-none text-white shadow-md transition-all duration-500 ${gradientColor} hover:shadow-lg hover:shadow-violetDark hover:bg-gradient-to-bl`}
+                  onClick={() => setViewChallan(true)}
+                >
+                  View Challan
+                </button>
+                {viewChallan && (
+                  <Modal
+                    viewChallan={viewChallan}
+                    setViewChallan={setViewChallan}
+                  />
+                )}
                 <div>
                   <button
                     className={`btn btn-md text-sm px-3 mt-10 font-roboto ml-3 border-none text-white shadow-md transition-all duration-500 ${gradientColor} hover:shadow-lg hover:shadow-violetDark hover:bg-gradient-to-bl`}
@@ -706,7 +728,7 @@ const Payment = () => {
               type="number"
               ltpDetails={calculatedData?.processingFees}
             />
-            {condition !== 1 && (
+            {
               <InputField
                 id="bettermentCharged"
                 name="bettermentCharged"
@@ -715,7 +737,7 @@ const Payment = () => {
                 type="number"
                 ltpDetails={calculatedData?.bettermentCharged}
               />
-            )}
+            }
             <InputField
               id="buildingPermitFees"
               name="buildingPermitFees"

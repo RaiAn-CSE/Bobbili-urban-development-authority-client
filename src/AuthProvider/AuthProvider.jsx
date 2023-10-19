@@ -16,7 +16,7 @@ const AuthProvider = ({ children }) => {
 
   // update user info
   const updateUserInfoInLocalStorage = (id) => {
-    fetch(`https://residential-building.vercel.app/getUser?id=${id}`)
+    fetch(`http://localhost:5000/getUser?id=${id}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -56,9 +56,7 @@ const AuthProvider = ({ children }) => {
   const getUserData = async (id) => {
     console.log(id, "AUTH ID");
 
-    const response = await fetch(
-      `https://residential-building.vercel.app/getUser?id=${id}`
-    );
+    const response = await fetch(`http://localhost:5000/getUser?id=${id}`);
     const data = await response.json();
     return data;
   };
@@ -70,7 +68,7 @@ const AuthProvider = ({ children }) => {
 
     const data = { userId: userInfoFromLocalStorage()._id, applicationNo };
 
-    const url = `https://residential-building.vercel.app/deleteApplication?data=${JSON.stringify(
+    const url = `http://localhost:5000/deleteApplication?data=${JSON.stringify(
       data
     )}`;
     Swal.fire({
@@ -136,10 +134,10 @@ const AuthProvider = ({ children }) => {
     });
 
     role === "LTP" &&
-      (url = `https://residential-building.vercel.app/updateDraftApplicationData?filterData=${filterDataForLtp}`);
+      (url = `http://localhost:5000/updateDraftApplicationData?filterData=${filterDataForLtp}`);
 
     role === "PS" &&
-      (url = `https://residential-building.vercel.app/recommendDataOfPs?appNo=${applicationNo}`);
+      (url = `http://localhost:5000/recommendDataOfPs?appNo=${applicationNo}`);
 
     console.log(url, "url here");
 
@@ -217,19 +215,20 @@ const AuthProvider = ({ children }) => {
   };
 
   // specific application data
-  const getApplicationData = async (appNo) => {
+  const getApplicationData = async (appNo, page) => {
     try {
       setLoading(true);
       const query = JSON.stringify({
         appNo,
         userId: userInfoFromLocalStorage()._id,
         role: userInfoFromLocalStorage().role,
+        page,
       });
 
       console.log(query, "query");
 
       const response = await fetch(
-        `https://residential-building.vercel.app/getApplicationData?data=${query}`
+        `http://localhost:5000/getApplicationData?data=${query}`
       );
 
       return await response.json();
@@ -248,7 +247,7 @@ const AuthProvider = ({ children }) => {
       console.log(query, "query");
 
       const response = await fetch(
-        `https://residential-building.vercel.app/getSubmitDataOfPs?appNo=${query}`
+        `http://localhost:5000/getSubmitDataOfPs?appNo=${query}`
       );
 
       return await response.json();
@@ -261,7 +260,7 @@ const AuthProvider = ({ children }) => {
   const getAllDraftApplicationData = async () => {
     try {
       const response = await fetch(
-        `https://residential-building.vercel.app/allDraftApplicationData`
+        `http://localhost:5000/allDraftApplicationData`
       );
 
       return await response.json();
@@ -362,13 +361,63 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const showPageBasedOnApplicationType = (applicationNo, navigate) => {
+  const showPageBasedOnApplicationType = (applicationNo, navigate, page) => {
     localStorage.setItem("CurrentAppNo", JSON.stringify(applicationNo));
     localStorage.setItem("stepIndex", JSON.stringify(0));
+    localStorage.setItem("page", JSON.stringify(page));
 
-    navigate("/dashboard/draftApplication/buildingInfo", {
-      state: { page: "draft" },
-    });
+    navigate("/dashboard/draftApplication/buildingInfo");
+  };
+
+  const findWhichMenuIsActiveForLtpSideBar = (
+    path,
+    mainUrl,
+    cameFrom,
+    role
+  ) => {
+    const page = JSON.parse(localStorage.getItem("page"));
+    const isActive =
+      (path === mainUrl ||
+        path === "/dashboard/draftApplication/buildingInfo" ||
+        path === "/dashboard/draftApplication/applicantInfo" ||
+        path === "/dashboard/draftApplication/applicationChecklist" ||
+        path === "/dashboard/draftApplication/documents" ||
+        path === "/dashboard/draftApplication/drawing" ||
+        path === "/dashboard/draftApplication/payment" ||
+        (role === "PS" &&
+          path === "/dashboard/draftApplication/siteInspection")) &&
+      page === cameFrom;
+
+    return isActive;
+  };
+  const findWhichMenuIsActiveForPsSideBar = (
+    path,
+    mainUrl,
+    cameFrom,
+    role,
+    menu
+  ) => {
+    const page = JSON.parse(localStorage.getItem("page"));
+    const psMenu = JSON.parse(localStorage.getItem("psMenu"));
+    const isActive =
+      (path === mainUrl ||
+        path === "/dashboard/draftApplication/buildingInfo" ||
+        path === "/dashboard/draftApplication/applicantInfo" ||
+        path === "/dashboard/draftApplication/applicationChecklist" ||
+        path === "/dashboard/draftApplication/documents" ||
+        path === "/dashboard/draftApplication/drawing" ||
+        path === "/dashboard/draftApplication/payment" ||
+        (role === "PS" &&
+          path === "/dashboard/draftApplication/siteInspection")) &&
+      page === cameFrom &&
+      psMenu === menu;
+
+    return isActive;
+  };
+
+  const getLocationInfo = async () => {
+    const response = await fetch("http://localhost:5000/getDistricts");
+    return await response.json();
   };
   //   create a object to transfer data into various components
   const userInfo = {
@@ -388,6 +437,9 @@ const AuthProvider = ({ children }) => {
     setIsDark,
     isDark,
     showPageBasedOnApplicationType,
+    findWhichMenuIsActiveForLtpSideBar,
+    findWhichMenuIsActiveForPsSideBar,
+    getLocationInfo,
     handleLogOut,
   };
 

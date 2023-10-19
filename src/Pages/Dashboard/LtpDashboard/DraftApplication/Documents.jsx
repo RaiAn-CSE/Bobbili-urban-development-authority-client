@@ -24,10 +24,10 @@ const DocumentUpload = () => {
   const [UpdatedDynamicDocumentData, setUpdatedDynamicDocumentData] = useState(
     []
   );
-  const [ltpSendingDocument, setLtpSendingDocument] = useState({
-    dynamic: [],
-    default: [],
-  });
+  // const [ltpSendingDocument, setLtpSendingDocument] = useState({
+  //   dynamic: [],
+  //   default: [],
+  // });
   const [psSendingDocument, setPsSendingDocument] = useState({
     dynamic: [],
     default: [],
@@ -49,6 +49,9 @@ const DocumentUpload = () => {
   } = useContext(AuthContext);
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
+
+  const cameFrom = JSON.parse(localStorage.getItem("page"));
+
   const role = userInfoFromLocalStorage().role;
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
@@ -157,23 +160,36 @@ const DocumentUpload = () => {
   useEffect(() => {
     const gettingData = async () => {
       let updatedDynamicDocumentsToAdd = [];
-      const applicationData = await getApplicationData(applicationNo);
-
-      console.log(applicationData, "Application Data");
+      const applicationData = await getApplicationData(applicationNo, cameFrom);
       const applicationCheckList = applicationData.applicationCheckList;
-      // setPreviousDefaultDocumentData(applicationData.documents?.default);
-      // const PreviousDynamicDocument = applicationData.documents?.dynamic;
-      setPreviousDefaultDocumentData(
-        applicationData?.documents?.psData?.data?.default
-      );
-      setPreviousDynamicDocumentData(
-        applicationData?.documents?.psData?.data?.dynamic
-      );
-      setApprovedConfirmation(applicationData?.documents?.psData?.approved);
-      setRecomendationMessage(applicationData?.documents?.psData?.message);
+      role === "LTP" &&
+        setPreviousDefaultDocumentData(
+          applicationData?.document?.data?.default
+        );
+      role === "LTP" &&
+        setPreviousDynamicDocumentData(
+          applicationData?.document?.data?.dynamic
+        );
+
+      role === "PS" &&
+        setPreviousDefaultDocumentData(
+          applicationData?.psDocumentPageObservation?.data?.default
+        );
+      role === "PS" &&
+        setPreviousDynamicDocumentData(
+          applicationData?.psDocumentPageObservation?.data?.dynamic
+        );
+      role === "PS" &&
+        setApprovedConfirmation(
+          applicationData?.psDocumentPageObservation?.approved
+        );
+      role === "PS" &&
+        setRecomendationMessage(
+          applicationData?.psDocumentPageObservation?.message
+        );
 
       // Checklist "yes" Data integrating to Document
-      if (applicationCheckList.length) {
+      if (applicationCheckList?.length) {
         const documents = applicationData?.documents;
         console.log(documents, "Documents");
         setImageIdFromDB({ ...documents });
@@ -188,16 +204,18 @@ const DocumentUpload = () => {
         });
       }
       setUpdatedDynamicDocumentData(updatedDynamicDocumentsToAdd);
-      console.log(
-        applicationData,
-        updatedDynamicDocumentsToAdd,
-        "UpdatedDynamicData"
-      );
     };
     gettingData();
   }, []);
-
-  console.log(sendingDocument, "sending document");
+  console.log(
+    {
+      PreviousDefaultDocumentData,
+      PreviousDynamicDocumentData,
+      setApprovedConfirmation,
+      setRecomendationMessage,
+    },
+    "PS Saved Data"
+  );
 
   // file send into the database
   const handleFileUpload = async (url) => {
@@ -209,13 +227,11 @@ const DocumentUpload = () => {
 
     const loopTimes = [defaultImages, dynamicImages];
 
-    console.log(loopTimes, "LOOP TIMES");
-
     console.log(defaultImages, dynamicImages, "ALL files");
 
     for (let lt = 0; lt < loopTimes.length; lt++) {
       // another loop
-      console.log(loopTimes[lt].length, "LOOP LENGTH");
+
       for (let i = 0; i < loopTimes[lt].length; i++) {
         console.log(loopTimes[lt][i].file, "File CHECK");
 
@@ -224,7 +240,7 @@ const DocumentUpload = () => {
         formData.append("file", loopTimes[lt][i].file);
         try {
           const response = await axios.post(
-            "https://residential-building.vercel.app/upload?page=document",
+            "http://localhost:5000/upload?page=document",
             formData,
             {
               headers: {
@@ -232,6 +248,8 @@ const DocumentUpload = () => {
               },
             }
           );
+
+          console.log(response, "Response");
           // Handle success or display a success message to the user
           if (response?.data.msg === "Successfully uploaded") {
             const documentImageId = response?.data?.fileId;
@@ -254,9 +272,8 @@ const DocumentUpload = () => {
       fileCheckToUpload++;
     }
 
-    console.log(sendingImageId, "Sending Image id");
-
     if (fileCheckToUpload === loopTimes.length) {
+      console.log(setImageId, "Image id");
       console.log({
         default: [...imageIdFromDB?.default, ...sendingImageId?.default],
         dynamic: [...imageIdFromDB?.dynamic, ...sendingImageId?.dynamic],
@@ -287,6 +304,7 @@ const DocumentUpload = () => {
 
       const sendingDynamic = sendingImageId?.dynamic;
       const dbDynamic = imageIdFromDB?.dynamic;
+
       if (sendingDynamic?.length) {
         sendingDynamic?.forEach((sendImg, sendIndx) => {
           dbDynamic?.forEach((dbImg, dbIndx) => {
@@ -310,20 +328,14 @@ const DocumentUpload = () => {
       return await sendUserDataIntoDB(url, "PATCH", {
         applicationNo,
         documents,
-        approved: approvedConfirmation,
-        message: recomendationMessage,
       });
     }
   };
 
-  console.log(imageIdFromDB, "IMAGE ID FROM DB");
-
   // send data to PS DB
-  const selectedData = role == "PS" ? psSendingDocument : ltpSendingDocument;
-
   const sentPsDecision = async (url) => {
     const PSData = {
-      data: selectedData,
+      data: psSendingDocument,
       approved: approvedConfirmation ?? "",
       message: recomendationMessage ?? "",
     };

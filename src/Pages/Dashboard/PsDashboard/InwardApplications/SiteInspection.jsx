@@ -11,6 +11,7 @@ const SiteInspection = () => {
     useContext(AuthContext);
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
+  const cameFrom = JSON.parse(localStorage.getItem("page"));
 
   const stepperData = useOutletContext();
 
@@ -38,9 +39,24 @@ const SiteInspection = () => {
     setApproachRoadObs(e.target.value);
   };
 
+  const [siteBoundariesImageFilesId, setSiteBoundariesImageFilesId] = useState({
+    northApp: "",
+    northObs: "",
+    southApp: "",
+    southObs: "",
+    eastApp: "",
+    eastObs: "",
+    westApp: "",
+    westObs: "",
+  });
+
+  const [siteBoundariesImageFiles, setSiteBoundariesImageFiles] = useState({});
+
+  console.log(siteBoundariesImageFiles, "siteBoundariesImageFiles");
+
   useEffect(() => {
     const getData = async () => {
-      const applicationData = await getApplicationData(applicationNo);
+      const applicationData = await getApplicationData(applicationNo, cameFrom);
       console.log(applicationData, "applicationData");
 
       const groundPosition = applicationData?.siteInspection?.groundPosition;
@@ -58,54 +74,23 @@ const SiteInspection = () => {
       setLandUse(landUse);
       setDecision(decision);
       setRecommendations(recommendations);
+
+      if (siteBoundaries) {
+        setSiteBoundariesImageFilesId((prev) => {
+          return siteBoundaries?.siteBoundariesImageFilesId;
+        });
+      }
     };
     getData();
   }, []);
+
+  console.log(siteBoundariesImageFilesId, "IMAGE FILES ID");
 
   // Decision :
   const [radioPs, setRadioPs] = useState("");
   const handleRadioPs = (e) => {
     setRadioPs(e.target.value);
   };
-
-  const [siteBoundariesImageFilesId, setSiteBoundariesImageFilesId] = useState({
-    northApp: "",
-    northObs: "",
-    southApp: "",
-    southObs: "",
-    eastApp: "",
-    eastObs: "",
-    westApp: "",
-    westObs: "",
-  });
-
-  // console.log(siteBoundariesImageFiles, 'siteBoundariesImageFiles');
-
-  // const get = () => {
-  //   const northApp = document.getElementById("northApp").files[0];
-  //   const northObs = document.getElementById("northObs").files[0];
-  //   const southApp = document.getElementById("southApp").files[0];
-  //   const southObs = document.getElementById("southObs").files[0];
-  //   const eastApp = document.getElementById("eastApp").files[0];
-  //   const eastObs = document.getElementById("eastObs").files[0];
-  //   const westApp = document.getElementById("westApp").files[0];
-  //   const westObs = document.getElementById("westObs").files[0];
-
-  //   console.log(
-  //     northApp,
-  //     northObs,
-  //     southApp,
-  //     southObs,
-  //     eastApp,
-  //     eastObs,
-  //     westApp,
-  //     westObs
-  //   );
-  // };
-
-  const [siteBoundariesImageFiles, setSiteBoundariesImageFiles] = useState({});
-
-  console.log(siteBoundariesImageFiles, "siteBoundariesImageFiles");
 
   const handleFileChange = (id, file) => {
     setSiteBoundariesImageFiles((prevFiles) => ({
@@ -128,7 +113,7 @@ const SiteInspection = () => {
         console.log(...formData, "FORM DATA");
         try {
           const response = await axios.post(
-            "https://residential-building.vercel.app/upload?page=siteInspection",
+            "http://localhost:5000/upload?page=siteInspection",
             formData,
             {
               headers: {
@@ -258,7 +243,7 @@ const SiteInspection = () => {
 
       console.log(siteInspection, "SITE INSPECTION");
 
-      // fetch(`https://residential-building.vercel.app/recommendDataOfPs?appNo=${applicationNo}`, {
+      // fetch(`http://localhost:5000/recommendDataOfPs?appNo=${applicationNo}`, {
       //     method: "PATCH",
       //     headers: {
       //         "content-type": "application/json",
@@ -283,7 +268,7 @@ const SiteInspection = () => {
   };
 
   const sentPsDecision = async (url) => {
-    url = `https://residential-building.vercel.app/decisionOfPs?appNo=${applicationNo}`;
+    url = `http://localhost:5000/decisionOfPs?appNo=${applicationNo}`;
     console.log(url);
 
     const config = {
@@ -452,6 +437,7 @@ const SiteInspection = () => {
                       id="northApp"
                       onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
+                      imageId={siteBoundariesImageFilesId?.northApp}
                     />
                   </td>
                   <td className={inputTableDataClass}>
@@ -459,6 +445,7 @@ const SiteInspection = () => {
                       id="northObs"
                       onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
+                      imageId={siteBoundariesImageFilesId?.northObs}
                     />
                   </td>
                 </tr>
@@ -469,6 +456,7 @@ const SiteInspection = () => {
                       id="southApp"
                       onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
+                      imageId={siteBoundariesImageFilesId?.southApp}
                     />
                   </td>
                   <td className={inputTableDataClass}>
@@ -476,6 +464,7 @@ const SiteInspection = () => {
                       id="southObs"
                       onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
+                      imageId={siteBoundariesImageFilesId?.southObs}
                     />
                   </td>
                 </tr>
@@ -486,6 +475,7 @@ const SiteInspection = () => {
                       id="eastApp"
                       onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
+                      imageId={siteBoundariesImageFilesId?.eastApp}
                     />
                   </td>
                   <td className={inputTableDataClass}>
@@ -493,6 +483,7 @@ const SiteInspection = () => {
                       id="eastObs"
                       onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
+                      imageId={siteBoundariesImageFilesId?.eastObs}
                     />
                   </td>
                 </tr>
@@ -503,6 +494,7 @@ const SiteInspection = () => {
                       id="westApp"
                       onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
+                      imageId={siteBoundariesImageFilesId?.westApp}
                     />
                   </td>
                   <td className={inputTableDataClass}>
@@ -510,6 +502,7 @@ const SiteInspection = () => {
                       id="westObs"
                       onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
+                      imageId={siteBoundariesImageFilesId?.westObs}
                     />
                   </td>
                 </tr>

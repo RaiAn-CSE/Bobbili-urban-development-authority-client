@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 
 const ShowAllApprovedApplications = ({
   serialNo,
   applicationData,
-  showDraftApplication,
+  showApprovedApplication,
+  navigate,
 }) => {
   const {
     applicationNo,
@@ -15,12 +16,15 @@ const ShowAllApprovedApplications = ({
 
   const { generalInformation } = buildingInfo;
   const { applicantDetails } = applicantInfo;
+
   return (
     <tr>
       <th>{serialNo + 1}</th>
       <td
         className="hover:underline cursor-pointer"
-        onClick={() => showDraftApplication(applicationNo)}
+        onClick={() =>
+          showApprovedApplication(applicationNo, navigate, "approved")
+        }
       >
         {applicationNo}
       </td>

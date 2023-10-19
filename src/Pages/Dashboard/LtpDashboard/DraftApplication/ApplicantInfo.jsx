@@ -6,6 +6,7 @@ import OwnerDetail from "./OwnerDetail";
 import { useOutletContext } from "react-router";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import SaveData from "./SaveData";
+import useGetUser from "../../../CustomHook/useGetUser";
 
 import LoginCSS from '../../../../Style/Login.module.css'
 
@@ -17,14 +18,24 @@ const ApplicantInfo = () => {
   // console.log(stepperData);
 
   const { userInfoFromLocalStorage } = useContext(AuthContext);
-  const { confirmAlert, sendUserDataIntoDB, getApplicationData, } =
+  const { confirmAlert, sendUserDataIntoDB, getApplicationData } =
     useContext(AuthContext);
 
   const role = userInfoFromLocalStorage().role;
 
-  const isReadOnly = role === 'PS';
+  const [data] = useGetUser();
+  console.log(data, "LTP"); //(LTP DATA)
+
+  const isReadOnly = role === "PS";
+
+  const isReadOnlyForAll = 1;
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
+
+  const cameFrom = JSON.parse(localStorage.getItem("page"));
+
+  const [ltpDetails, setLtpDetails] = useState("");
+  const [applicantDetails, setApplicantDetails] = useState("");
 
   // const handleBackendData = () => {
   //   const applicationId = JSON.parse(localStorage.getItem("applicationId"));
@@ -115,8 +126,27 @@ const ApplicantInfo = () => {
     });
   };
 
-  const [ltpDetails, setLtpDetails] = useState("");
-  const [applicantDetails, setApplicantDetails] = useState("");
+  const [isDataGet, setIsDataGet] = useState(0);
+
+  useEffect(() => {
+    const getData = async () => {
+      const applicationData = await getApplicationData(applicationNo, cameFrom);
+      const ltpDetailsData = applicationData.applicantInfo.ltpDetails;
+      const applicantDetailsData =
+        applicationData.applicantInfo.applicantDetails;
+      setLtpDetails(ltpDetailsData);
+      setApplicantDetails(applicantDetailsData);
+      setLtpPhone(ltpDetailsData?.phoneNo);
+      setIsDataGet((prev) => prev + 1);
+    };
+    getData();
+  }, []);
+
+  useEffect(() => {
+    if (role === "LTP" && isDataGet) {
+      setLtpDetails(data);
+    }
+  }, [isDataGet]);
 
   const {
     type,
@@ -125,27 +155,15 @@ const ApplicantInfo = () => {
     ltpStreetName,
     email,
     licenseNo,
-    phoneNo,
+    phone,
     validity,
     address,
-  } = ltpDetails;
+  } = ltpDetails || {};
 
-  useEffect(() => {
-    const getData = async () => {
-      const applicationData = await getApplicationData(applicationNo);
-      const ltpDetailsData = applicationData.applicantInfo.ltpDetails;
-      const applicantDetailsData =
-        applicationData.applicantInfo.applicantDetails;
-      setLtpDetails(ltpDetailsData);
-      setApplicantDetails(applicantDetailsData);
-      setLtpPhone(ltpDetailsData?.phoneNo);
-    };
-    getData();
-  }, []);
+  console.log(ltpDetails, "LTP Details");
 
   // Classes for this component :
-  let labelClass =
-    "block mb-1 font-semibold text-gray-600";
+  let labelClass = "block mb-1 font-semibold text-gray-600";
   const inputClass =
     "w-full px-3 py-2 border rounded-lg max-w-xs border-gray-300 text-gray-900 bg-gray-50 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200";
 
@@ -174,7 +192,7 @@ const ApplicantInfo = () => {
               id="ltpType"
               name="ltpType"
               label="LTP Type"
-              placeholder="Licenced Engineer"
+              placeholder="Licensed Engineer"
               ltpDetails={type}
             />
             <InputField
@@ -205,7 +223,7 @@ const ApplicantInfo = () => {
               name="licenseNo"
               label="Licence no."
               placeholder="xx/xxxxx"
-              type="number"
+              type="text"
               ltpDetails={licenseNo}
             />
 
@@ -214,7 +232,7 @@ const ApplicantInfo = () => {
                 Validity
               </label>
               <input
-                type="date"
+                type="text"
                 id="validity"
                 name="validity"
                 className={inputClass}
@@ -232,7 +250,7 @@ const ApplicantInfo = () => {
                 type="text"
                 name="ltpPhoneNo"
                 placeholder="xxxxxxxxxx"
-                defaultValue={ltpPhone}
+                defaultValue={phone}
                 onChange={(e) => setPhoneNoLimit(e, setLtpPhone)}
                 className={inputClass}
                 maxLength={10}
