@@ -14,37 +14,39 @@ function DynamicDocument({ PreviousDynamicDocumentData, setDynamicAppChecklistDo
   };
   useEffect(() => {
     const updatedData = RootDynamicDocument.map(mainItem => {
-      const matchedItem = PreviousDynamicDocumentData.find(prevItem => {
-        return prevItem.id === mainItem.id && prevItem.uploadId === mainItem.requirements.includes(reqData => reqData.uploadId)
+      const matchedItems = PreviousDynamicDocumentData.filter(prevItem => {
+        const IsUploadIdExist = mainItem.requirements.some(reqData => reqData.uploadId === prevItem.uploadId);
+        const matched = prevItem.id === mainItem.id && IsUploadIdExist;
+        return matched;
       });
-
-      console.log({ matchedItem })
-
-      if (matchedItem) {
+  
+      console.log({ matchedItems });
+  
+      if (matchedItems.length > 0) {
         mainItem.requirements = mainItem.requirements.map(reqItem => {
-          const reqMatched = matchedItem.requirements.find(reqData => reqData.uploadId === reqItem.uploadId);
-
-          if (reqMatched.approved) {
+          const reqMatched = matchedItems.find(matchedItem => matchedItem.requirements.some(reqData => reqData.uploadId === reqItem.uploadId));
+          
+          if (reqMatched && reqMatched.approved) {
             return {
               uploadId: reqItem.uploadId,
               requirement: reqItem.requirement,
-              approved: matchedItem.approved,
+              approved: reqMatched.approved,
               upload: reqItem.upload
             };
           } else {
-            return {}; // Return an empty object when the condition is not met
+            return reqItem;
           }
         });
       }
-
+  
       return mainItem;
     });
-
+  
     // Update the state with the new data
     // Assuming you have a state variable like setDynamicAppChecklistDocument
     setDynamicAppChecklistDocument(updatedData);
   }, [PreviousDynamicDocumentData]);
-
+  
 
   const handleDynamicStatus = (data) => {
     const updatedRequirements = DynamicAppChecklistDocument.requirements.map(mainItem => {
