@@ -602,7 +602,7 @@ const BuildingInfo = () => {
   // classes for this component:
   const labelClass = "block mb-1 font-semibold text-gray-600";
   const inputClass =
-    "w-full px-3 py-[10px] border rounded-lg max-w-xs  border-gray-300 text-gray-900 bg-gray-50 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200";
+    "w-full px-3 py-[10px] border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-violet-500 focus:outline-none focus:ring-2 ring-violet-100";
 
   return (
     <>
@@ -618,7 +618,7 @@ const BuildingInfo = () => {
           <div className="grid grid-cols-2 lg:grid-cols-4 mt-2 mb-5">
             <div className="flex flex-col justify-center my-4 px-3">
               <label htmlFor="nature" className={labelClass}>
-                <span>Case Type</span>
+                Case Type
               </label>
               <select
                 id="caseType"
@@ -651,7 +651,7 @@ const BuildingInfo = () => {
                   <input
                     type="radio"
                     name="radio-1"
-                    className="radio border border-gray-500 h-4 w-4"
+                    className="radio border border-violet-500 h-4 w-4"
                     value="Private"
                     checked={
                       radio1 === "Private"
@@ -667,7 +667,7 @@ const BuildingInfo = () => {
                   <input
                     type="radio"
                     name="radio-1"
-                    className="radio border border-gray-500 h-4 w-4"
+                    className="radio border border-violet-500 h-4 w-4"
                     value="Govt. Land"
                     checked={
                       radio1 === "Govt. Land"
@@ -923,15 +923,15 @@ const BuildingInfo = () => {
 
             {selectedNatureOfTheSite ===
               "Plot port of RLP/IPLP but not regularised" && (
-              <InputField
-                id="IplpNo"
-                name="IplpNo"
-                label="RLP/IPLP no."
-                placeholder="RLP/IPLP no."
-                type="number"
-                ltpDetails={iplpNo}
-              />
-            )}
+                <InputField
+                  id="IplpNo"
+                  name="IplpNo"
+                  label="RLP/IPLP no."
+                  placeholder="RLP/IPLP no."
+                  type="number"
+                  ltpDetails={iplpNo}
+                />
+              )}
             {/*===================== Conditional Input Field End =====================*/}
           </div>
         </div>
@@ -1037,7 +1037,7 @@ const BuildingInfo = () => {
                     <input
                       type="radio"
                       name="radio-2"
-                      className="radio border border-gray-500 h-4 w-4"
+                      className="radio border border-violet-500 h-4 w-4"
                       value="yes"
                       checked={
                         radio2 == "yes"
@@ -1053,7 +1053,7 @@ const BuildingInfo = () => {
                     <input
                       type="radio"
                       name="radio-2"
-                      className="radio border border-gray-500 h-4 w-4"
+                      className="radio border border-violet-500 h-4 w-4"
                       value="no"
                       checked={
                         radio2 == "no" ? radio2 == "no" : existingRoad === "no"
@@ -1075,7 +1075,7 @@ const BuildingInfo = () => {
                   <input
                     type="radio"
                     name="radio-3"
-                    className="radio border border-gray-500 h-4 w-4"
+                    className="radio border border-violet-500 h-4 w-4"
                     value="Public"
                     checked={
                       radio3 == "Public"
@@ -1091,7 +1091,7 @@ const BuildingInfo = () => {
                   <input
                     type="radio"
                     name="radio-3"
-                    className="radio border border-gray-500 h-4 w-4"
+                    className="radio border border-violet-500 h-4 w-4"
                     value="Private"
                     checked={
                       radio3 == "Private"
@@ -1177,13 +1177,6 @@ const BuildingInfo = () => {
             </div>
 
             <div className="grid grid-cols-2 lg:grid-cols-4 mt-5">
-              {/* <InputField
-                id="noOfUnits"
-                name="noOfUnits"
-                label="No of units"
-                placeholder="No of units"
-              // ltpDetails={noOfUnits}
-              /> */}
               <div className="hidden lg:grid"></div>
               <div className="my-4 mx-3 grid">
                 <label htmlFor="disabled-input" className={labelClass}>
@@ -1213,13 +1206,6 @@ const BuildingInfo = () => {
                   readOnly
                 />
               </div>
-              {/* <InputField
-                id="vacantLand"
-                name="vacantLand"
-                label="Vacant land area"
-                placeholder="in Sq.Mts."
-                ltpDetails={vacantLand}
-              /> */}
             </div>
 
             <div className="grid grid-cols-2 lg:grid-cols-4">
@@ -1287,7 +1273,7 @@ const BuildingInfo = () => {
                     <input
                       type="radio"
                       name="radio-4"
-                      className="radio border border-gray-500 h-4 w-4"
+                      className="radio border border-violet-500 h-4 w-4"
                       value="yes"
                       checked={radio4 == "yes"}
                       onChange={handleRadio4}
@@ -1299,7 +1285,7 @@ const BuildingInfo = () => {
                     <input
                       type="radio"
                       name="radio-4"
-                      className="radio border border-gray-500 h-4 w-4"
+                      className="radio border border-violet-500 h-4 w-4"
                       value="no"
                       checked={radio4 == "no"}
                       onChange={handleRadio4}
@@ -1333,7 +1319,7 @@ const BuildingInfo = () => {
                   <input
                     type="radio"
                     name="radio-5"
-                    className="radio border border-gray-500 h-4 w-4"
+                    className="radio border border-violet-500 h-4 w-4"
                     value="yes"
                     checked={radio5 == "yes"}
                     onChange={handleRadio5}
@@ -1345,7 +1331,7 @@ const BuildingInfo = () => {
                   <input
                     type="radio"
                     name="radio-5"
-                    className="radio border border-gray-500 h-4 w-4"
+                    className="radio border border-violet-500 h-4 w-4"
                     value="no"
                     checked={radio5 == "no"}
                     onChange={handleRadio5}

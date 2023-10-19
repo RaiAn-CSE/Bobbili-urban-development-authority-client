@@ -57,12 +57,7 @@ const Navbar = () => {
 
   const onSubmit = (formValue) => {
     fetch(
-<<<<<<< HEAD
-      `https://residential-building.vercel.app/updateUserInfo/${userInfoFromLocalStorage()._id
-      }`,
-=======
       `http://localhost:5000/updateUserInfo/${userInfoFromLocalStorage()._id}`,
->>>>>>> local-branch
       {
         method: "PATCH",
         headers: { "content-type": "application/json" },

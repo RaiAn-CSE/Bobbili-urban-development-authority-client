@@ -8,7 +8,6 @@ import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import SaveData from "./SaveData";
 import useGetUser from "../../../CustomHook/useGetUser";
 
-import LoginCSS from '../../../../Style/Login.module.css'
 
 const ApplicantInfo = () => {
   const stepperData = useOutletContext();
@@ -151,8 +150,6 @@ const ApplicantInfo = () => {
   const {
     type,
     name,
-    ltpDoorNo,
-    ltpStreetName,
     email,
     licenseNo,
     phone,
@@ -165,10 +162,10 @@ const ApplicantInfo = () => {
   // Classes for this component :
   let labelClass = "block mb-1 font-semibold text-gray-600";
   const inputClass =
-    "w-full px-3 py-2 border rounded-lg max-w-xs border-gray-300 text-gray-900 bg-gray-50 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200";
+    "w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-violet-600 focus:outline-none focus:ring-2 ring-violet-100";
 
   return (
-    <div className="grid my-5 mx-5 lg:my-0 lg:p-2 text-black">
+    <div className="grid my-5 mx-5 lg:my-0 lg:p-2 text-gray-900">
       {/* LTP’s Details  */}
       <div className="divide-y-2 divide-gray-200 mb-[60px]">
         <div className="flex items-center">
@@ -182,12 +179,6 @@ const ApplicantInfo = () => {
 
         <div className="lg:flex mt-2">
           <div className="grid grid-cols-2 lg:grid-cols-3 basis-[75%]">
-
-            {/* <div className={`${LoginCSS.formGroup} relative pt-[20px] max-w-xs`}>
-              <input type="text" className="border border-solid border-gray-400 rounded-md bg-white block text-base w-full p-2" autoFocus id='email' name='' required />
-              <label className='text-gray-400 text-base font-normal absolute top-0 left-[16px] pointer-events-none transform translate-y-7' htmlFor="email">Case type</label>
-            </div> */}
-
             <InputField
               id="ltpType"
               name="ltpType"
@@ -202,22 +193,6 @@ const ApplicantInfo = () => {
               placeholder="xxxxxxxxxxxxxxxxx"
               ltpDetails={name}
             />
-            {/* <InputField
-            id="ltpDoorNo"
-            name="ltpDoorNo"
-            label="Door no"
-            placeholder="Door no"
-            type="text"
-            ltpDetails={ltpDoorNo}
-          />
-          <InputField
-            id="ltpStreetName"
-            name="ltpStreetName"
-            label="Street name"
-            placeholder="Street name"
-            type="text"
-            ltpDetails={ltpStreetName}
-          /> */}
             <InputField
               id="licenseNo"
               name="licenseNo"
@@ -232,7 +207,7 @@ const ApplicantInfo = () => {
                 Validity
               </label>
               <input
-                type="text"
+                type="date"
                 id="validity"
                 name="validity"
                 className={inputClass}
