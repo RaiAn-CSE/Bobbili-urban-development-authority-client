@@ -87,9 +87,9 @@ const ListOfLTP = () => {
       </form>
 
       {/* Location details  */}
-      <div className="divide-y-2 divide-gray-200 mt-5 font-roboto">
-        <div className="overflow-x-auto">
-          <table className="table table-footer-group text-center text-wrap text-black">
+      <div className="w-full divide-y-2 divide-gray-200 mt-5 font-roboto">
+        <div className="w-full overflow-x-auto">
+          <table className="w-full table  text-center text-wrap text-black">
             {/* head */}
             <thead className={`text-base text-black bg-indigo-300`}>
               <tr>
