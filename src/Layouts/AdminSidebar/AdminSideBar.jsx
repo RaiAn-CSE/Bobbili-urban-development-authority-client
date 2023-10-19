@@ -58,6 +58,21 @@ const AdminSideBar = () => {
           All Users
         </Link>
       </li>
+      <li
+        className={`${
+          path === "/dashboard/updateLocation" && activeColor
+        }  ps-4 mb-1 flex items-center  ${hoverColor}`}
+      >
+        <span>
+          <FaUsersGear size={20} />
+        </span>
+        <Link
+          className={`p-[10px] font-medium `}
+          to="/dashboard/updateLocation"
+        >
+          Location
+        </Link>
+      </li>
     </>
   );
 };

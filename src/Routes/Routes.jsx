@@ -33,6 +33,7 @@ import Reports from "../Pages/Main/Reports/Reports";
 import Location from "../Pages/Dashboard/UDA/Location";
 import UpdateProfile from "../Pages/Shared/UpdateProfile";
 import RejectedApplications from "../Pages/Dashboard/LtpDashboard/RejectedApplication/RejectedApplications";
+import UpdateLocation from "../Pages/Dashboard/Admin/SuperAdmin/UpdateLocation";
 
 const router = createBrowserRouter([
   {
@@ -106,6 +107,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AllUsers />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/updateLocation",
+        element: (
+          <PrivateRoute>
+            <UpdateLocation />
           </PrivateRoute>
         ),
       },
