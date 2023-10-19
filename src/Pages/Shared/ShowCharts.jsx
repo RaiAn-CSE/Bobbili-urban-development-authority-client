@@ -7,6 +7,7 @@ import BarChart from "./BarChart";
 import PieChart from "./PieChart";
 import { district } from "../../assets/buildingInfo.json";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
+import toast from "react-hot-toast";
 
 Chart.register(CategoryScale);
 
@@ -14,6 +15,10 @@ const ShowCharts = () => {
   const path = useLocation().pathname;
 
   const { userInfoFromLocalStorage } = useContext(AuthContext);
+
+  const role = userInfoFromLocalStorage().role;
+
+  const isLtpOrPs = role === "LTP" || role === "PS";
 
   // const role = userInfoFromLocalStorage().role;
 
@@ -31,8 +36,16 @@ const ShowCharts = () => {
   console.log(district, "District");
 
   useEffect(() => {
-    const districts = district.map((each) => each?.name);
-    setAllDistricts(districts);
+    fetch("http://localhost:5000/getDistricts")
+      .then((res) => res.json())
+      .then((data) => {
+        const districts = data[0]?.district?.map((each) => each?.name);
+
+        setAllDistricts(districts);
+      })
+      .catch((err) => {
+        toast.error("Server Error");
+      });
   }, []);
 
   const detectSelectOfDistrict = (e) => {
@@ -319,6 +332,9 @@ const ShowCharts = () => {
                 Select an option
               </option>
               <option value="7 days">1 week</option>
+              <option value="1 months" className={`${!isLtpOrPs && "hidden"}`}>
+                1 months
+              </option>
               <option value="6 months">6 months</option>
               <option value="1 year">1 year</option>
             </select>
