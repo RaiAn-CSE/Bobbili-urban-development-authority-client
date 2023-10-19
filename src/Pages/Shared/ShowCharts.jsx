@@ -147,7 +147,7 @@ const ShowCharts = () => {
       console.log(data, "Data");
     } else {
       console.log("all");
-      fetch("http://localhost:5000/totalApplications")
+      fetch(`http://localhost:5000/totalApplications?role=${role}`)
         .then((res) => res.json())
         .then((result) => {
           console.log(result);
