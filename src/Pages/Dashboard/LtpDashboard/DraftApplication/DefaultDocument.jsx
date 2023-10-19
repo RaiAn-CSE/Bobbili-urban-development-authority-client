@@ -3,11 +3,8 @@ import DefaultDocumentData from "../../../../assets/DefaultDocument.json";
 import PsDocument from "./PsDocument";
 import { Link } from "react-router-dom";
 
-function DefaultDocument({ UpdatedDefaultData, PreviousDefaultDocumentData, setUpdatedDefaultData, role, handleFileChange, gradientColor, handleStatus, defaultImageFromDB }) {
+function DefaultDocument({ UpdatedDefaultData, PreviousDefaultDocumentData, setUpdatedDefaultData, role, handleFileChange, gradientColor, defaultImageFromDB }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
-
-  // Use this state to track the updated data
-  // const [updatedDocumentData, setUpdatedDocumentData] = useState([]);
 
   // This useEffect runs only on the initial render
   useEffect(() => {
@@ -84,7 +81,6 @@ function DefaultDocument({ UpdatedDefaultData, PreviousDefaultDocumentData, setU
               role={role}
               id={id}
               approved={approved}
-              handleStatus={handleStatus}
               handleDefaultStatus={handleDefaultStatus}
               type="default"
             />

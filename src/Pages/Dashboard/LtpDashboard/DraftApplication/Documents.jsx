@@ -314,15 +314,12 @@ const DocumentUpload = () => {
           <DefaultDocument
             role={role}
             PreviousDefaultDocumentData={PreviousDefaultDocumentData}
-            // clickedDefaultRadio={clickedDefaultRadio}
             UpdatedDefaultData={UpdatedDefaultData}
             setUpdatedDefaultData={setUpdatedDefaultData}
             handleFileChange={handleFileChange}
             gradientColor={gradientColor}
             defaultImageFromDB={imageIdFromDB?.default}
             setApprovedConfirmation={setApprovedConfirmation}
-            // handleStatus={handleStatus}
-
           />
           {/* <DynamicDocument
             role={role}
