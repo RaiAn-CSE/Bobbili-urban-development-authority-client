@@ -5,7 +5,7 @@ import { CategoryScale } from "chart.js";
 import Data from "../../assets/Data.json";
 import BarChart from "./BarChart";
 import PieChart from "./PieChart";
-import { district } from "../../assets/buildingInfo.json";
+// import { district } from "../../assets/buildingInfo.json";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import toast from "react-hot-toast";
 
@@ -14,7 +14,7 @@ Chart.register(CategoryScale);
 const ShowCharts = () => {
   const path = useLocation().pathname;
 
-  const { userInfoFromLocalStorage } = useContext(AuthContext);
+  const { userInfoFromLocalStorage, getLocationInfo } = useContext(AuthContext);
 
   const role = userInfoFromLocalStorage()?.role;
 
@@ -22,6 +22,7 @@ const ShowCharts = () => {
 
   // const role = userInfoFromLocalStorage().role;
 
+  const [allLocationData, setAllLocationData] = useState([]);
   const [allDistricts, setAllDistricts] = useState([]);
   const [allMandal, setAllMandal] = useState([]);
   const [allPanchayat, setAllPanchayat] = useState([]);
@@ -33,19 +34,15 @@ const ShowCharts = () => {
 
   const [selectedDate, setSelectedDate] = useState("");
 
-  console.log(district, "District");
-
   useEffect(() => {
-    fetch("http://localhost:5000/getDistricts")
-      .then((res) => res.json())
-      .then((data) => {
-        const districts = data[0]?.district?.map((each) => each?.name);
-
-        setAllDistricts(districts);
-      })
-      .catch((err) => {
-        toast.error("Server Error");
-      });
+    (async function () {
+      const locationData = await getLocationInfo();
+      console.log(locationData, "LOC");
+      const extractsDataFromDB = locationData[0]?.district;
+      setAllLocationData(extractsDataFromDB);
+      const districts = extractsDataFromDB?.map((each) => each?.name);
+      setAllDistricts(districts);
+    })();
   }, []);
 
   const detectSelectOfDistrict = (e) => {
@@ -72,11 +69,12 @@ const ShowCharts = () => {
     }
 
     if (chooseDistrict === "Vizianagaram") {
-      console.log(district[0]?.mandal);
-      setAllMandal(district[0]?.mandal);
+      console.log(allLocationData, "ALOC");
+      console.log(allLocationData[0]?.mandal);
+      setAllMandal(allLocationData[0]?.mandal);
     }
     if (chooseDistrict === "Parvathipuram Manyam") {
-      setAllMandal(district[1]?.mandal);
+      setAllMandal(allLocationData[1]?.mandal);
     }
   };
 

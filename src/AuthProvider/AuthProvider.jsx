@@ -414,6 +414,11 @@ const AuthProvider = ({ children }) => {
 
     return isActive;
   };
+
+  const getLocationInfo = async () => {
+    const response = await fetch("http://localhost:5000/getDistricts");
+    return await response.json();
+  };
   //   create a object to transfer data into various components
   const userInfo = {
     updateUserInfoInLocalStorage,
@@ -434,6 +439,7 @@ const AuthProvider = ({ children }) => {
     showPageBasedOnApplicationType,
     findWhichMenuIsActiveForLtpSideBar,
     findWhichMenuIsActiveForPsSideBar,
+    getLocationInfo,
     handleLogOut,
   };
 
