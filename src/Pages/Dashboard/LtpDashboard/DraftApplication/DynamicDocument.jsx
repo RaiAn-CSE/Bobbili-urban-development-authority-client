@@ -2,39 +2,21 @@ import { useEffect, useState } from "react";
 import PsDocument from "./PsDocument";
 import { Link } from "react-router-dom";
 
-function DynamicDocument({
-  PreviousDynamicDocumentData,
-  clickedDynamicRadio,
-  UpdatedDynamicDocumentData,
-  role,
-  handleFileChange,
-  gradientColor,
-  dynamicImageFromDB,
-  handleStatus,
+function DynamicDocument({ PreviousDynamicDocumentData, DynamicAppChecklistDocument, role, handleFileChange, gradientColor, dynamicImageFromDB,
 }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
-  const [ReqData, setReqeData] = useState([]);
 
   const someEventHandler = (event, id, uploadId) => {
     const file = event?.target.files[0];
     selectedFiles[id] = file;
     handleFileChange(event, id, selectedFiles, "dynamic", uploadId);
   };
-  useEffect(() => {
-    if (PreviousDynamicDocumentData?.length) {
-      const dynamicMatch = PreviousDynamicDocumentData.filter(data => data.id === id && data.uploadId === uploadId);
+  const handleDynamicStatus = (data) => {
 
-      if (dynamicMatch.length > 0) {
-        setReqeData([...PreviousDynamicDocumentData.requirements, ...clickedDynamicRadio]);
-      } else {
-        setReqeData(clickedDynamicRadio)
-      }
-    }
-  }, [PreviousDynamicDocumentData, clickedDynamicRadio]);
-
+  }
   return (
     <div className="dark:text-black">
-      {UpdatedDynamicDocumentData?.map((document, index) => {
+      {DynamicAppChecklistDocument?.map((document, index) => {
         const { id, question, requirements } = document;
         // console.log(document, "From Dynamic")
         return (
@@ -44,7 +26,7 @@ function DynamicDocument({
                 {index + 9}. {question}
               </p>
               <div className="ml-6">
-                {ReqData?.map((RequireData, ind) => {
+                {requirements?.map((RequireData, ind) => {
                   const { uploadId, requirement, approved, upload } =
                     RequireData;
 
@@ -69,7 +51,7 @@ function DynamicDocument({
                           onChange={(event) =>
                             someEventHandler(event, id, uploadId)
                           }
-                          className="file-input file-input-bordered w-full max-w-xs dark:text-white"
+                          className="file-input file-input-bordered w-full max-w-xs text-gray-400"
                         />
                       )}
 
@@ -88,8 +70,7 @@ function DynamicDocument({
                         id={id}
                         approved={approved}
                         uploadId={uploadId}
-                        handleStatus={handleStatus}
-                        PreviousDocumentData={PreviousDynamicDocumentData}
+                        handleDynamicStatus={handleDynamicStatus}
                         type="dynamic"
                       />
                     </div>

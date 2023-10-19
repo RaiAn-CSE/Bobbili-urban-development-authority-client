@@ -4,7 +4,8 @@ import React, { useContext } from "react";
 const ShowSubmittedApplication = ({
   serialNo,
   applicationData,
-  showDraftApplication,
+  showSubmitApplication,
+  navigate,
 }) => {
   // console.log(serialNo, applicationData);
 
@@ -20,7 +21,7 @@ const ShowSubmittedApplication = ({
       <td className="p-2">{serialNo + 1}</td>
       <td
         className="hover:underline cursor-pointer p-2"
-        onClick={() => showDraftApplication(applicationNo)}
+        onClick={() => showSubmitApplication(applicationNo, navigate, "submit")}
       >
         {applicationNo}
       </td>

@@ -11,6 +11,7 @@ const SiteInspection = () => {
     useContext(AuthContext);
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
+  const cameFrom = JSON.parse(localStorage.getItem("page"));
 
   const stepperData = useOutletContext();
 
@@ -38,40 +39,6 @@ const SiteInspection = () => {
     setApproachRoadObs(e.target.value);
   };
 
-  useEffect(() => {
-    const getData = async () => {
-      const applicationData = await getApplicationData(applicationNo);
-      console.log(applicationData, "applicationData");
-
-      const groundPosition = applicationData?.siteInspection?.groundPosition;
-      setGroundPosition(groundPosition);
-
-      const siteBoundaries = applicationData?.siteInspection?.siteBoundaries;
-      setSiteBoundaries(siteBoundaries);
-      setApproachRoadApp(siteBoundaries?.accessRoad?.approachRoad?.[0]);
-      setApproachRoadObs(siteBoundaries?.accessRoad?.approachRoad?.[1]);
-
-      const accessRoad = applicationData?.siteInspection?.accessRoad;
-      setAccessRoad(accessRoad);
-
-      const landUse = applicationData?.siteInspection?.landUse;
-      setLandUse(landUse);
-
-      const decision = applicationData?.siteInspection?.decision;
-      setDecision(decision);
-
-      const recommendations = applicationData?.siteInspection?.recommendations;
-      setRecommendations(recommendations);
-    };
-    getData();
-  }, []);
-
-  // Decision :
-  const [radioPs, setRadioPs] = useState("");
-  const handleRadioPs = (e) => {
-    setRadioPs(e.target.value);
-  };
-
   const [siteBoundariesImageFilesId, setSiteBoundariesImageFilesId] = useState({
     northApp: "",
     northObs: "",
@@ -83,33 +50,47 @@ const SiteInspection = () => {
     westObs: "",
   });
 
-  // console.log(siteBoundariesImageFiles, 'siteBoundariesImageFiles');
-
-  // const get = () => {
-  //   const northApp = document.getElementById("northApp").files[0];
-  //   const northObs = document.getElementById("northObs").files[0];
-  //   const southApp = document.getElementById("southApp").files[0];
-  //   const southObs = document.getElementById("southObs").files[0];
-  //   const eastApp = document.getElementById("eastApp").files[0];
-  //   const eastObs = document.getElementById("eastObs").files[0];
-  //   const westApp = document.getElementById("westApp").files[0];
-  //   const westObs = document.getElementById("westObs").files[0];
-
-  //   console.log(
-  //     northApp,
-  //     northObs,
-  //     southApp,
-  //     southObs,
-  //     eastApp,
-  //     eastObs,
-  //     westApp,
-  //     westObs
-  //   );
-  // };
-
   const [siteBoundariesImageFiles, setSiteBoundariesImageFiles] = useState({});
 
   console.log(siteBoundariesImageFiles, "siteBoundariesImageFiles");
+
+  useEffect(() => {
+    const getData = async () => {
+      const applicationData = await getApplicationData(applicationNo, cameFrom);
+      console.log(applicationData, "applicationData");
+
+      const groundPosition = applicationData?.siteInspection?.groundPosition;
+      const siteBoundaries = applicationData?.siteInspection?.siteBoundaries;
+      const accessRoad = applicationData?.siteInspection?.accessRoad;
+      const landUse = applicationData?.siteInspection?.landUse;
+      const decision = applicationData?.siteInspection?.decision;
+      const recommendations = applicationData?.siteInspection?.recommendations;
+
+      setGroundPosition(groundPosition);
+      setSiteBoundaries(siteBoundaries);
+      setApproachRoadApp(siteBoundaries?.accessRoad?.approachRoad?.[0]);
+      setApproachRoadObs(siteBoundaries?.accessRoad?.approachRoad?.[1]);
+      setAccessRoad(accessRoad);
+      setLandUse(landUse);
+      setDecision(decision);
+      setRecommendations(recommendations);
+
+      if (siteBoundaries) {
+        setSiteBoundariesImageFilesId((prev) => {
+          return siteBoundaries?.siteBoundariesImageFilesId;
+        });
+      }
+    };
+    getData();
+  }, []);
+
+  console.log(siteBoundariesImageFilesId, "IMAGE FILES ID");
+
+  // Decision :
+  const [radioPs, setRadioPs] = useState("");
+  const handleRadioPs = (e) => {
+    setRadioPs(e.target.value);
+  };
 
   const handleFileChange = (id, file) => {
     setSiteBoundariesImageFiles((prevFiles) => ({
@@ -119,7 +100,7 @@ const SiteInspection = () => {
   };
 
   const collectInputFieldData = async (url) => {
-    let fileUploadSuccess = 0;
+    let fileUploadSuccess = 1;
 
     // uploadFileInCloudStorage(formData);
     for (const file in siteBoundariesImageFiles) {
@@ -345,7 +326,7 @@ const SiteInspection = () => {
                   </td>
                   <td
                     colSpan="3"
-                    className={`${tableDataClass} text-base font-semibold bg-gray-200 dark:text-black dark:bg-gradient-to-r dark:from-violet-300 dark:to-fuchsia-300`}
+                    className={`${tableDataClass} text-base font-semibold bg-gray-200`}
                   >
                     Ground Position
                   </td>
@@ -444,7 +425,7 @@ const SiteInspection = () => {
                   </td>
                   <td
                     colSpan="3"
-                    className={`${tableDataClass} text-base font-semibold bg-gray-200 dark:text-black dark:bg-gradient-to-r dark:from-violet-300 dark:to-fuchsia-300`}
+                    className={`${tableDataClass} text-base font-semibold bg-gray-200`}
                   >
                     Site Boundaries
                   </td>
@@ -456,6 +437,7 @@ const SiteInspection = () => {
                       id="northApp"
                       onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
+                      imageId={siteBoundariesImageFilesId?.northApp}
                     />
                   </td>
                   <td className={inputTableDataClass}>
@@ -463,6 +445,7 @@ const SiteInspection = () => {
                       id="northObs"
                       onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
+                      imageId={siteBoundariesImageFilesId?.northObs}
                     />
                   </td>
                 </tr>
@@ -473,6 +456,7 @@ const SiteInspection = () => {
                       id="southApp"
                       onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
+                      imageId={siteBoundariesImageFilesId?.southApp}
                     />
                   </td>
                   <td className={inputTableDataClass}>
@@ -480,6 +464,7 @@ const SiteInspection = () => {
                       id="southObs"
                       onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
+                      imageId={siteBoundariesImageFilesId?.southObs}
                     />
                   </td>
                 </tr>
@@ -490,6 +475,7 @@ const SiteInspection = () => {
                       id="eastApp"
                       onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
+                      imageId={siteBoundariesImageFilesId?.eastApp}
                     />
                   </td>
                   <td className={inputTableDataClass}>
@@ -497,6 +483,7 @@ const SiteInspection = () => {
                       id="eastObs"
                       onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
+                      imageId={siteBoundariesImageFilesId?.eastObs}
                     />
                   </td>
                 </tr>
@@ -507,6 +494,7 @@ const SiteInspection = () => {
                       id="westApp"
                       onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
+                      imageId={siteBoundariesImageFilesId?.westApp}
                     />
                   </td>
                   <td className={inputTableDataClass}>
@@ -514,6 +502,7 @@ const SiteInspection = () => {
                       id="westObs"
                       onFileChange={handleFileChange}
                       siteBoundariesImageFiles={siteBoundariesImageFiles}
+                      imageId={siteBoundariesImageFilesId?.westObs}
                     />
                   </td>
                 </tr>
@@ -552,7 +541,7 @@ const SiteInspection = () => {
                   </td>
                   <td
                     colSpan="3"
-                    className={`${tableDataClass} text-base font-semibold bg-gray-200 dark:text-black dark:bg-gradient-to-r dark:from-violet-300 dark:to-fuchsia-300`}
+                    className={`${tableDataClass} text-base font-semibold bg-gray-200`}
                   >
                     Access Road
                   </td>
@@ -677,7 +666,7 @@ const SiteInspection = () => {
                   </td>
                   <td
                     colSpan="3"
-                    className={`${tableDataClass} text-base font-semibold bg-gray-200 dark:text-black dark:bg-gradient-to-r dark:from-violet-300 dark:to-fuchsia-300`}
+                    className={`${tableDataClass} text-base font-semibold bg-gray-200`}
                   >
                     Land Use
                   </td>
@@ -812,10 +801,10 @@ const SiteInspection = () => {
 
       {/* Comment Box  */}
       <div className="flex items-center">
-        <div className="my-4 basis-[80%]">
+        <div className="my-4 basis-[50%]">
           <label
             htmlFor="ltpAddress"
-            className="block mb-1 font-semibold text-black"
+            className="block mb-1 font-semibold text-gray-600"
           >
             Recommendations
           </label>
@@ -824,7 +813,7 @@ const SiteInspection = () => {
             name="Recommendations"
             rows="5"
             defaultValue={recommendations}
-            className="w-full px-3 py-2 border border-green-600 rounded-lg dark:text-black bg-gray-100"
+            className="w-full px-3 py-2 border rounded-lg border-gray-300 text-gray-900 bg-gray-50 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200"
             placeholder="Comments"
           ></textarea>
         </div>

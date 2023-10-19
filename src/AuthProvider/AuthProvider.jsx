@@ -159,7 +159,7 @@ const AuthProvider = ({ children }) => {
             console.log(response, "response");
 
             if (!response?.acknowledged) {
-              throw new Error(response?.statusText);
+              throw new Error(response.statusText);
             }
             return response;
           })
@@ -215,13 +215,14 @@ const AuthProvider = ({ children }) => {
   };
 
   // specific application data
-  const getApplicationData = async (appNo) => {
+  const getApplicationData = async (appNo, page) => {
     try {
       setLoading(true);
       const query = JSON.stringify({
         appNo,
         userId: userInfoFromLocalStorage()._id,
         role: userInfoFromLocalStorage().role,
+        page,
       });
 
       console.log(query, "query");
@@ -360,6 +361,64 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  const showPageBasedOnApplicationType = (applicationNo, navigate, page) => {
+    localStorage.setItem("CurrentAppNo", JSON.stringify(applicationNo));
+    localStorage.setItem("stepIndex", JSON.stringify(0));
+    localStorage.setItem("page", JSON.stringify(page));
+
+    navigate("/dashboard/draftApplication/buildingInfo");
+  };
+
+  const findWhichMenuIsActiveForLtpSideBar = (
+    path,
+    mainUrl,
+    cameFrom,
+    role
+  ) => {
+    const page = JSON.parse(localStorage.getItem("page"));
+    const isActive =
+      (path === mainUrl ||
+        path === "/dashboard/draftApplication/buildingInfo" ||
+        path === "/dashboard/draftApplication/applicantInfo" ||
+        path === "/dashboard/draftApplication/applicationChecklist" ||
+        path === "/dashboard/draftApplication/documents" ||
+        path === "/dashboard/draftApplication/drawing" ||
+        path === "/dashboard/draftApplication/payment" ||
+        (role === "PS" &&
+          path === "/dashboard/draftApplication/siteInspection")) &&
+      page === cameFrom;
+
+    return isActive;
+  };
+  const findWhichMenuIsActiveForPsSideBar = (
+    path,
+    mainUrl,
+    cameFrom,
+    role,
+    menu
+  ) => {
+    const page = JSON.parse(localStorage.getItem("page"));
+    const psMenu = JSON.parse(localStorage.getItem("psMenu"));
+    const isActive =
+      (path === mainUrl ||
+        path === "/dashboard/draftApplication/buildingInfo" ||
+        path === "/dashboard/draftApplication/applicantInfo" ||
+        path === "/dashboard/draftApplication/applicationChecklist" ||
+        path === "/dashboard/draftApplication/documents" ||
+        path === "/dashboard/draftApplication/drawing" ||
+        path === "/dashboard/draftApplication/payment" ||
+        (role === "PS" &&
+          path === "/dashboard/draftApplication/siteInspection")) &&
+      page === cameFrom &&
+      psMenu === menu;
+
+    return isActive;
+  };
+
+  const getLocationInfo = async () => {
+    const response = await fetch("http://localhost:5000/getDistricts");
+    return await response.json();
+  };
   //   create a object to transfer data into various components
   const userInfo = {
     updateUserInfoInLocalStorage,
@@ -377,6 +436,10 @@ const AuthProvider = ({ children }) => {
     decideHoverColor,
     setIsDark,
     isDark,
+    showPageBasedOnApplicationType,
+    findWhichMenuIsActiveForLtpSideBar,
+    findWhichMenuIsActiveForPsSideBar,
+    getLocationInfo,
     handleLogOut,
   };
 

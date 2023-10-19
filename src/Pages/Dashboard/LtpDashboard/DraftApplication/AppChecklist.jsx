@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import ChecklistQuestions from "../../../../assets/AppChecklist.json";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 import Application from "./Application";
 import { useOutletContext } from "react-router-dom";
@@ -25,9 +25,11 @@ function AppChecklist() {
   };
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
 
+  const cameFrom = JSON.parse(localStorage.getItem("page"));
+
   useEffect(() => {
     const gettingData = async () => {
-      const applicationData = await getApplicationData(applicationNo);
+      const applicationData = await getApplicationData(applicationNo, cameFrom);
       const applicationCheckList = applicationData.applicationCheckList;
       if (applicationCheckList.length) {
         setQuestions(applicationCheckList);
@@ -58,8 +60,9 @@ function AppChecklist() {
             </p>
             <div className="space-x-10 mt-2 lg:pr-2 text-base md:text-lg">
               <label
-                className={`ml-2 inline-flex items-center space-x-1 text-black ${answer === "yes" && "font-extrabold text-violetDark"
-                  }`}
+                className={`ml-2 inline-flex items-center space-x-1 text-black ${
+                  answer === "yes" && "font-extrabold text-violetDark"
+                }`}
               >
                 <input
                   type="radio"
@@ -73,8 +76,9 @@ function AppChecklist() {
                 <span>Yes</span>
               </label>
               <label
-                className={`ml-2 inline-flex items-center space-x-1 text-black ${answer === "no" && "font-extrabold text-violetDark"
-                  }`}
+                className={`ml-2 inline-flex items-center space-x-1 text-black ${
+                  answer === "no" && "font-extrabold text-violetDark"
+                }`}
               >
                 <input
                   type="radio"

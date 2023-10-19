@@ -4,7 +4,7 @@ import { FaHandPointRight } from "react-icons/fa";
 import generalInfoImage from "../../../../assets/images/general-information.png";
 import plotImage from "../../../../assets/images/land.png";
 import wallImage from "../../../../assets/images/gate.png";
-import { useOutletContext } from "react-router";
+import { useOutletContext, useLocation } from "react-router";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import allDistrictData from "../../../../assets/buildingInfo.json";
 import SaveData from "./SaveData";
@@ -12,6 +12,10 @@ import FloorDetails from "./FloorDetails";
 
 const BuildingInfo = () => {
   const stepperData = useOutletContext();
+
+  const location = useLocation();
+
+  console.log(location, "LOC");
 
   const [isStepperVisible, currentStep, steps] = stepperData;
 
@@ -23,8 +27,13 @@ const BuildingInfo = () => {
   } = useContext(AuthContext);
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
+  const cameFrom = JSON.parse(localStorage.getItem("page"));
 
   const { _id: id } = userInfoFromLocalStorage();
+
+  const role = userInfoFromLocalStorage().role;
+
+  const isReadOnly = role === "PS";
 
   // Here declared all variables initial value in the use state
 
@@ -121,9 +130,9 @@ const BuildingInfo = () => {
   // HERE DATA IS GETTING FROM THE DATABASE AS WELL AS UPDATING THE USE STATES  AND  ALL DISTRICTS ARE FETCHED
   useEffect(() => {
     const getData = async () => {
-      const applicationData = await getApplicationData(applicationNo);
+      const applicationData = await getApplicationData(applicationNo, cameFrom);
       console.log(applicationData, "All info ApplicationData");
-      if (Object.keys(applicationData).length) {
+      if (Object.keys(applicationData)?.length) {
         setDataFromDB(applicationData);
       }
     };
@@ -181,6 +190,15 @@ const BuildingInfo = () => {
             return oldData;
           });
         });
+
+        plotDetailsFloor?.forEach((eachFloor, floorPosition) => {
+          setIndividualFloorSelected((prev) => {
+            const oldValue = [...prev];
+            oldValue[floorPosition] = eachFloor?.name;
+            return oldValue;
+          });
+        });
+
         setPlotDetails(plotDetails);
         setPlotDetailsFloor(plotDetailsFloor);
         setProposedPlotArea(plotDetails?.proposedPlotAreaCal);
@@ -201,6 +219,10 @@ const BuildingInfo = () => {
       }
     }
   }, [dataFromDB]);
+
+  // useEffect(() => {
+
+  // }, [plotDetails]);
 
   // Case Type
   const handleCaseTypeChange = (e) => {
@@ -423,6 +445,7 @@ const BuildingInfo = () => {
     const floorDetails = totalFloor.map((floor, index) => {
       const builtUpArea = document.getElementById(`builtUpArea${index}`).value;
       const parkingArea = document.getElementById(`parkingArea${index}`).value;
+
       return {
         name: document.getElementById(`floorName${index}`).value,
         builtUpArea: builtUpArea === "" ? 0 : builtUpArea,
@@ -577,13 +600,13 @@ const BuildingInfo = () => {
   const { east, west, north, south } = scheduleBoundaries ?? {};
 
   // classes for this component:
-  const labelClass = "block text-gray-600 mb-1 font-semibold dark:text-black";
+  const labelClass = "block mb-1 font-semibold text-gray-600";
   const inputClass =
-    "w-full px-3 py-[10px] border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200 bg-gray-100";
+    "w-full px-3 py-[10px] border rounded-lg max-w-xs  border-gray-300 text-gray-900 bg-gray-50 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200";
 
   return (
     <>
-      <div className="grid my-5 mx-5 lg:my-0 lg:p-2 dark:text-black">
+      <div className="grid my-5 mx-5 lg:my-0 lg:p-2 text-gray-900">
         {/* general information */}
         <div className="divide-y-2 divide-gray-200 mb-10">
           {/* heading  */}
@@ -602,6 +625,7 @@ const BuildingInfo = () => {
                 className={inputClass}
                 value={selectedOptionCase}
                 onChange={handleCaseTypeChange}
+                disabled={isReadOnly}
               >
                 <option disabled value="">
                   Select Case type
@@ -619,7 +643,7 @@ const BuildingInfo = () => {
 
             {/* General Information radio button  */}
             <div className="grid grid-cols-1 font-medium  lg:justify-items-center my-4 mx-3">
-              <p className="flex items-center font-semibold text-black">
+              <p className="flex items-center font-semibold text-gray-600">
                 Application Type?
               </p>
               <div className="grid-cols-1 lg:grid-cols-2 items-center">
@@ -627,7 +651,7 @@ const BuildingInfo = () => {
                   <input
                     type="radio"
                     name="radio-1"
-                    className="radio border border-violet-500  h-4 w-4"
+                    className="radio border border-gray-500 h-4 w-4"
                     value="Private"
                     checked={
                       radio1 === "Private"
@@ -635,14 +659,15 @@ const BuildingInfo = () => {
                         : applicationType === "Private"
                     }
                     onChange={handleRadio1}
+                    disabled={isReadOnly}
                   />
-                  <span className="ml-2 text-base">Private</span>
+                  <span className="ml-2 text-base text-gray-600">Private</span>
                 </label>
                 <label className="inline-flex items-center md:ml-3">
                   <input
                     type="radio"
                     name="radio-1"
-                    className="radio border border-violet-500 h-4 w-4"
+                    className="radio border border-gray-500 h-4 w-4"
                     value="Govt. Land"
                     checked={
                       radio1 === "Govt. Land"
@@ -650,14 +675,17 @@ const BuildingInfo = () => {
                         : applicationType === "Govt. Land"
                     }
                     onChange={handleRadio1}
+                    disabled={isReadOnly}
                   />
-                  <span className="ml-2 text-base">Govt. Land</span>
+                  <span className="ml-2 text-base text-gray-600">
+                    Govt. Land
+                  </span>
                 </label>
               </div>
             </div>
 
             <div className="flex flex-col justify-center my-4 mx-3">
-              <label className="block text-gray-600 dark:text-black mb-1 font-semibold">
+              <label className="block text-gray-600 mb-1 font-semibold">
                 <span>Nature of permission</span>
               </label>
               <select
@@ -665,6 +693,7 @@ const BuildingInfo = () => {
                 className={inputClass}
                 value={selectedOptionPermission}
                 onChange={handlePermissionChange}
+                disabled={isReadOnly}
               >
                 <option value="General">General</option>
                 <option value="Regularised under BPS">
@@ -683,6 +712,7 @@ const BuildingInfo = () => {
                 className={inputClass}
                 value={selectedNatureOfTheSite}
                 onChange={handleNatureChange}
+                disabled={isReadOnly}
               >
                 <option disabled value="">
                   Select Nature of the site
@@ -726,6 +756,7 @@ const BuildingInfo = () => {
                 className={inputClass}
                 onChange={handleDistrictChange}
                 value={selectedDistrict}
+                disabled={isReadOnly}
               >
                 <option value="" disabled>
                   Select District
@@ -748,7 +779,7 @@ const BuildingInfo = () => {
                 className={inputClass}
                 onChange={handleMandalChange}
                 value={selectedMandal}
-                disabled={!selectedDistrict}
+                disabled={!selectedDistrict || isReadOnly}
               >
                 <option value="" disabled>
                   Select Mandal
@@ -774,7 +805,7 @@ const BuildingInfo = () => {
                 className={inputClass}
                 value={selectedGrama}
                 onChange={(e) => setSelectedGrama(e.target.value)}
-                disabled={!selectedMandal}
+                disabled={!selectedMandal || isReadOnly}
               >
                 <option value="" disabled>
                   Select Grama Panchayat
@@ -801,7 +832,7 @@ const BuildingInfo = () => {
                 className={inputClass}
                 value={selectedVillage}
                 onChange={(e) => setSelectedVillage(e.target.value)}
-                disabled={!selectedMandal}
+                disabled={!selectedMandal || isReadOnly}
               >
                 <option value="" disabled>
                   Select Village
@@ -855,7 +886,7 @@ const BuildingInfo = () => {
                   name="LpNo"
                   label="L.P. no."
                   placeholder="L.P. no."
-                  type="number"
+                  type="Test"
                   ltpDetails={lpNo}
                 />
                 <InputField
@@ -876,7 +907,7 @@ const BuildingInfo = () => {
                   name=""
                   label="LRS no"
                   placeholder="LRS no."
-                  type="number"
+                  type="text"
                   ltpDetails={lrsNo}
                 />
                 <InputField
@@ -931,7 +962,7 @@ const BuildingInfo = () => {
                 ltpDetails={totalPlotGround}
               />
 
-              <div className="my-4 mx-3">
+              <div className="my-4 mx-3 flex flex-col justify-between">
                 <label htmlFor="" className={labelClass}>
                   Proposed Plot area
                 </label>
@@ -940,20 +971,21 @@ const BuildingInfo = () => {
                   id="proposedPlotArea"
                   name="proposedPlotArea"
                   placeholder="in Sq.Mts."
-                  className="w-full px-3 py-2 border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200 bg-gray-100"
+                  className="w-full px-3 py-2 border rounded-lg max-w-xs border-gray-300 text-gray-900 bg-gray-50 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200"
                   defaultValue={proposedPlotArea ?? ""}
                   onChange={handleProposedPlotAreaChange}
+                  readOnly={isReadOnly}
                 />
-                {proposedPlotArea && (
+                {/* {proposedPlotArea && (
                   <p className="text-xs text-red-500 mt-2">
                     {proposedPlotArea > 300 && proposedPlotArea !== ""
                       ? "Value must be less than 300"
                       : ""}
                   </p>
-                )}
+                )} */}
               </div>
 
-              <div className="my-4 mx-3">
+              <div className="my-4 mx-3 flex flex-col justify-between">
                 <label htmlFor="" className={labelClass}>
                   Road Widening Area
                 </label>
@@ -961,17 +993,18 @@ const BuildingInfo = () => {
                   id="roadWideningArea"
                   type="roadWideningArea"
                   placeholder="in Sq.Mts."
-                  className="w-full px-3 py-2 border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200 bg-gray-100"
+                  className="w-full px-3 py-2 border rounded-lg max-w-xs border-gray-300 text-gray-900 bg-gray-50 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200"
                   defaultValue={roadWideningArea ?? ""}
                   onChange={handleRoadWideningAreaChange}
+                  disabled={isReadOnly}
                 />
-                {roadWideningArea && (
+                {/* {roadWideningArea && (
                   <p className="text-xs text-red-500 mt-2">
                     {roadWideningArea > 300 && roadWideningArea !== ""
                       ? "Value must be less than 300"
                       : ""}
                   </p>
-                )}
+                )} */}
               </div>
 
               {/* Automatically calculated Plot Details  */}
@@ -984,9 +1017,9 @@ const BuildingInfo = () => {
                   id="netPlotArea"
                   name="netPlotArea"
                   placeholder="Automatically calculated"
-                  className="w-full px-3 py-2 border rounded-lg max-w-xs"
+                  className="w-full px-3 py-2 border rounded-lg max-w-xs border-gray-300 text-gray-900 bg-gray-200 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200"
                   value={netPlotArea ?? ""}
-                  disabled
+                  readOnly={isReadOnly}
                 />
               </div>
             </div>
@@ -1004,7 +1037,7 @@ const BuildingInfo = () => {
                     <input
                       type="radio"
                       name="radio-2"
-                      className="radio border border-violet-500 h-4 w-4"
+                      className="radio border border-gray-500 h-4 w-4"
                       value="yes"
                       checked={
                         radio2 == "yes"
@@ -1012,6 +1045,7 @@ const BuildingInfo = () => {
                           : existingRoad === "yes"
                       }
                       onChange={handleRadio2}
+                      disabled={isReadOnly}
                     />
                     <span className="ml-2 text-base">Yes</span>
                   </label>
@@ -1019,12 +1053,13 @@ const BuildingInfo = () => {
                     <input
                       type="radio"
                       name="radio-2"
-                      className="radio border border-violet-500 h-4 w-4"
+                      className="radio border border-gray-500 h-4 w-4"
                       value="no"
                       checked={
                         radio2 == "no" ? radio2 == "no" : existingRoad === "no"
                       }
                       onChange={handleRadio2}
+                      disabled={isReadOnly}
                     />
                     <span className="ml-2 text-base">No</span>
                   </label>
@@ -1040,7 +1075,7 @@ const BuildingInfo = () => {
                   <input
                     type="radio"
                     name="radio-3"
-                    className="radio border border-violet-500 h-4 w-4"
+                    className="radio border border-gray-500 h-4 w-4"
                     value="Public"
                     checked={
                       radio3 == "Public"
@@ -1048,6 +1083,7 @@ const BuildingInfo = () => {
                         : statusOfRoad === "Public"
                     }
                     onChange={handleRadio3}
+                    disabled={isReadOnly}
                   />
                   <span className="ml-2 text-base">Public</span>
                 </label>
@@ -1055,7 +1091,7 @@ const BuildingInfo = () => {
                   <input
                     type="radio"
                     name="radio-3"
-                    className="radio border border-violet-500 h-4 w-4"
+                    className="radio border border-gray-500 h-4 w-4"
                     value="Private"
                     checked={
                       radio3 == "Private"
@@ -1063,6 +1099,7 @@ const BuildingInfo = () => {
                         : statusOfRoad === "Private"
                     }
                     onChange={handleRadio3}
+                    disabled={isReadOnly}
                   />
                   <span className="ml-2 text-base">Private</span>
                 </label>
@@ -1079,6 +1116,7 @@ const BuildingInfo = () => {
                   className={inputClass}
                   value={natureOfRoadValue}
                   onChange={handleNatureOfRoad}
+                  disabled={isReadOnly}
                 >
                   <option disabled value="">
                     Select Nature of Road
@@ -1111,20 +1149,6 @@ const BuildingInfo = () => {
                 placeholder="per Sq.Yd."
                 ltpDetails={marketValueSqym}
               />
-              <InputField
-                id="vacantLand"
-                name="vacantLand"
-                label="Vacant land area"
-                placeholder="in Sq.Mts."
-                ltpDetails={vacantLand}
-              />
-              <InputField
-                id="noOfUnits"
-                name="noOfUnits"
-                label="No of units"
-                placeholder="No of units"
-                ltpDetails={noOfUnits}
-              />
             </div>
 
             <div className="grid grid-cols-2 lg:grid-cols-4">
@@ -1147,6 +1171,7 @@ const BuildingInfo = () => {
                   setFloorOptions={setFloorOptions}
                   setIndividualFloorSelected={setIndividualFloorSelected}
                   individualFloorSelected={individualFloorSelected}
+                  isReadOnly={isReadOnly}
                 />
               ))}
             </div>
@@ -1169,9 +1194,9 @@ const BuildingInfo = () => {
                   id="totalBuiltUpArea"
                   name="name1"
                   placeholder="Automatically calculated"
-                  className="w-full px-3 py-2 border rounded-lg max-w-xs"
+                  className="w-full px-3 py-2 border rounded-lg max-w-xs border-gray-300 text-gray-900 bg-gray-200 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200"
                   value={builtUpAreaSum}
-                  disabled
+                  readOnly
                 />
               </div>
 
@@ -1183,9 +1208,9 @@ const BuildingInfo = () => {
                   id="totalParkingArea"
                   name="name1"
                   placeholder="Automatically calculated"
-                  className="w-full px-3 py-2 border rounded-lg max-w-xs"
+                  className="w-full px-3 py-2 border rounded-lg max-w-xs border-gray-300 text-gray-900 bg-gray-200 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200"
                   value={parkingAreaSum}
-                  disabled
+                  readOnly
                 />
               </div>
               {/* <InputField
@@ -1233,6 +1258,20 @@ const BuildingInfo = () => {
                 placeholder="in Mts."
                 ltpDetails={buildingExcludeStilt}
               />
+              <InputField
+                id="vacantLand"
+                name="vacantLand"
+                label="Vacant land area"
+                placeholder="in Sq.Mts."
+                ltpDetails={vacantLand}
+              />
+              <InputField
+                id="noOfUnits"
+                name="noOfUnits"
+                label="No of units"
+                placeholder="No of units"
+                ltpDetails={noOfUnits}
+              />
             </div>
 
             <div className="grid grid-cols-1 mx-5 md:mx-10 lg:mx-14 mb-5">
@@ -1248,10 +1287,11 @@ const BuildingInfo = () => {
                     <input
                       type="radio"
                       name="radio-4"
-                      className="radio border border-violet-500 h-4 w-4"
+                      className="radio border border-gray-500 h-4 w-4"
                       value="yes"
                       checked={radio4 == "yes"}
                       onChange={handleRadio4}
+                      disabled={isReadOnly}
                     />
                     <span className="ml-2 text-base">Yes</span>
                   </label>
@@ -1259,10 +1299,11 @@ const BuildingInfo = () => {
                     <input
                       type="radio"
                       name="radio-4"
-                      className="radio border border-violet-500 h-4 w-4"
+                      className="radio border border-gray-500 h-4 w-4"
                       value="no"
                       checked={radio4 == "no"}
                       onChange={handleRadio4}
+                      disabled={isReadOnly}
                     />
                     <span className="ml-2 text-base">No</span>
                   </label>
@@ -1292,10 +1333,11 @@ const BuildingInfo = () => {
                   <input
                     type="radio"
                     name="radio-5"
-                    className="radio border border-violet-500 h-4 w-4"
+                    className="radio border border-gray-500 h-4 w-4"
                     value="yes"
                     checked={radio5 == "yes"}
                     onChange={handleRadio5}
+                    disabled={isReadOnly}
                   />
                   <span className="ml-2 text-base">Yes</span>
                 </label>
@@ -1303,10 +1345,11 @@ const BuildingInfo = () => {
                   <input
                     type="radio"
                     name="radio-5"
-                    className="radio border border-violet-500 h-4 w-4"
+                    className="radio border border-gray-500 h-4 w-4"
                     value="no"
                     checked={radio5 == "no"}
                     onChange={handleRadio5}
+                    disabled={isReadOnly}
                   />
                   <span className="ml-2 text-base">No</span>
                 </label>
@@ -1332,6 +1375,7 @@ const BuildingInfo = () => {
                 className={inputClass}
                 value={northValue}
                 onChange={handleNorthChange}
+                disabled={isReadOnly}
               >
                 <option disabled value="">
                   Select North
@@ -1353,6 +1397,7 @@ const BuildingInfo = () => {
                 className={inputClass}
                 value={southValue}
                 onChange={handleSouthChange}
+                disabled={isReadOnly}
               >
                 <option disabled value="">
                   Select South
@@ -1374,6 +1419,7 @@ const BuildingInfo = () => {
                 className={inputClass}
                 value={eastValue}
                 onChange={handleEastChange}
+                disabled={isReadOnly}
               >
                 <option disabled value="">
                   Select East
@@ -1395,6 +1441,7 @@ const BuildingInfo = () => {
                 className={inputClass}
                 value={westValue}
                 onChange={handleWestChange}
+                disabled={isReadOnly}
               >
                 <option disabled value="">
                   Select West

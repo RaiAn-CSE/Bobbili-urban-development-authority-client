@@ -25,15 +25,15 @@ function Outward() {
     if (isSuccess) {
       console.log(data, "DATA");
 
-      const approved = data?.approvedApplications;
-      const shortfall = data?.shortfallApplications;
+      const approved = data?.applications?.approvedApplications;
+      const shortfall = data?.applications?.shortfallApplications;
 
-      console.log(approved);
-      console.log(shortfall);
-      setAllData([
-        ...data?.applications?.approvedApplications,
-        ...data?.applications?.shortfallApplications,
-      ]);
+      console.log(approved, "App");
+      console.log(shortfall, "shrt");
+      setAllData((prev) => {
+        const newValue = [...approved, ...shortfall];
+        return newValue;
+      });
     }
   }, [isError, isSuccess]);
 
@@ -55,7 +55,7 @@ function Outward() {
             <th>Status</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="text-gray-900">
           {/* show draft applications  */}
 
           {allData?.length !== 0 &&

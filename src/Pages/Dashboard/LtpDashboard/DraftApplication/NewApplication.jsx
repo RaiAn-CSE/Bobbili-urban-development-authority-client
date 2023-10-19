@@ -8,15 +8,18 @@ import AllDraftApplication from "./AllDraftApplication";
 import Swal from "sweetalert2";
 
 const NewApplication = () => {
-  const { userInfoFromLocalStorage, sendUserDataIntoDB, alertToConfirmDelete } =
-    useContext(AuthContext);
+  const {
+    userInfoFromLocalStorage,
+    sendUserDataIntoDB,
+    alertToConfirmDelete,
+    showPageBasedOnApplicationType,
+  } = useContext(AuthContext);
 
   console.log(userInfoFromLocalStorage());
 
   const { _id: userID } = userInfoFromLocalStorage();
   const [error, setError] = useState("");
 
-  const navigate = useNavigate();
   const date = new Date();
 
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
@@ -82,12 +85,16 @@ const NewApplication = () => {
   // };
 
   // navigate after clicking on the draft application no
-  const showDraftApplication = (applicationNo) => {
-    console.log(applicationNo);
-    localStorage.setItem("CurrentAppNo", JSON.stringify(applicationNo));
-    localStorage.setItem("stepIndex", JSON.stringify(0));
-    navigate("/dashboard/draftApplication/buildingInfo");
-  };
+  const navigate = useNavigate();
+  // const showDraftApplication = (applicationNo) => {
+  //   console.log(applicationNo);
+  //   localStorage.setItem("CurrentAppNo", JSON.stringify(applicationNo));
+  //   localStorage.setItem("stepIndex", JSON.stringify(0));
+
+  //   navigate("/dashboard/draftApplication/buildingInfo", {
+  //     state: { page: "draft" },
+  //   });
+  // };
 
   // store new application information into the database
   const storeApplicationData = (serialNo) => {
@@ -175,7 +182,7 @@ const NewApplication = () => {
     <div className=" my-3">
       <div className="flex justify-end my-5 mr-3">
         <button
-          className={`btn flex font-roboto ${gradientColor} transition-all duration-700 text-[#fff]`}
+          className={`btn flex font-roboto dark:border-none transition-all duration-700 bg-gradient-to-r from-violet-500 to-fuchsia-500 text-[#fff] hover:bg-gradient-to-l`}
           onClick={showConfirmModal}
         >
           <span className="text-sm">Create a new application</span>
@@ -184,7 +191,7 @@ const NewApplication = () => {
       </div>
 
       <div className=" w-full overflow-auto">
-        <table className="w-full font-roboto ">
+        <table className="w-full font-roboto table ">
           {/* head */}
           <thead>
             <tr className="bg-[#2d3436] text-sm md:text-base text-white hover:bg-[#353b48]">
@@ -207,8 +214,9 @@ const NewApplication = () => {
                 key={index}
                 serialNo={index}
                 applicationData={applicationData}
-                showDraftApplication={showDraftApplication}
+                showDraftApplication={showPageBasedOnApplicationType}
                 removeDraftApplication={removeDraftApplication}
+                navigate={navigate}
               />
             ))}
           </tbody>

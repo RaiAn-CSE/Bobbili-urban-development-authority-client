@@ -3,13 +3,13 @@ function DocumentFooter({
   approvedConfirmation,
   recomendationMessage,
   handleRecomendationMessage,
-  handleConfirmation
+  handleConfirmation,
 }) {
   const handleMessage = (e) => {
-    handleRecomendationMessage(e)
+    handleRecomendationMessage(e);
   };
   const handleConfirm = (data) => {
-    handleConfirmation(data)
+    handleConfirmation(data);
   };
 
   console.log(approvedConfirmation && approvedConfirmation === "true", "Checking");
@@ -30,7 +30,7 @@ function DocumentFooter({
               checked={approvedConfirmation && approvedConfirmation === "true"}
               onClick={() => handleConfirm("true")}
             />
-            <span>Approve</span>
+            <span className="text-gray-900">Approve</span>
           </label>
           <label
             className={`ml-2 inline-flex items-center space-x-1 text-black}`}
@@ -43,21 +43,38 @@ function DocumentFooter({
               checked={approvedConfirmation && approvedConfirmation === "false"}
               onClick={() => handleConfirm("false")}
             />
-            <span>Shortfall</span>
+            <span className="text-gray-900">Shortfall</span>
           </label>
         </div>
         {/* Recomendation */}
-        <div>
-          <p className="mb-4 font-bold">Recomendation</p>
+        <div className="my-4 mx-3 ">
+          <label
+            htmlFor="recomendation"
+            className="block mb-1 font-semibold text-gray-600"
+          >
+            Recommendation
+          </label>
+          <textarea
+            id="recomendation"
+            name="recomendation"
+            rows={6}
+            className="w-3/4 px-3 py-2 border rounded-lg  border-gray-300 text-gray-900 bg-gray-50 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200"
+            defaultValue={recomendationMessage && recomendationMessage}
+            placeholder="Recommendation"
+          ></textarea>
+        </div>
+
+        {/* <div>
+          <p className="mb-4 font-bold text-gray-600">Recomendation</p>
           <textarea
             onChange={(e) => handleMessage(e)}
-            className="textarea textarea-bordered border-black"
+            className="textarea textarea-bordered bg-gray-50"
             cols={80}
             rows={5}
             defaultValue={recomendationMessage && recomendationMessage}
             name="recomendation"
           ></textarea>
-        </div>
+        </div> */}
       </div>
     </div>
   );

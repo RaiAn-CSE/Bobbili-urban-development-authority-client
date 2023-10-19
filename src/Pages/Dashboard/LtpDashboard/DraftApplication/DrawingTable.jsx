@@ -215,9 +215,9 @@ function DrawingTable({
                 <input
                   id="proposedSiteObs"
                   type="text"
-                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none"
+                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
                   defaultValue={submitData?.drawingTableObs?.proposedSiteObs}
-                  // onChange={handleRoadWideningAreaChange}
+                // onChange={handleRoadWideningAreaChange}
                 />
               </td>
             </tr>
@@ -231,9 +231,9 @@ function DrawingTable({
                 <input
                   id="accessRoadWidthObs"
                   type="text"
-                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none"
+                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
                   defaultValue={submitData?.drawingTableObs?.accessRoadWidthObs}
-                  // onChange={handleRoadWideningAreaChange}
+                // onChange={handleRoadWideningAreaChange}
                 />
               </td>
             </tr>
@@ -246,11 +246,11 @@ function DrawingTable({
                 <input
                   id="scopeRoadWideObs"
                   type="text"
-                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none"
+                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
                   defaultValue={
                     submitData?.drawingTableObs?.scopeOfRoadWideningObs
                   }
-                  // onChange={handleRoadWideningAreaChange}
+                // onChange={handleRoadWideningAreaChange}
                 />
               </td>
             </tr>
@@ -263,24 +263,24 @@ function DrawingTable({
                 <input
                   id="netSiteObs"
                   type="text"
-                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none"
+                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
                   defaultValue={submitData?.drawingTableObs?.netPlotAreaObs}
-                  // onChange={handleRoadWideningAreaChange}
+                // onChange={handleRoadWideningAreaChange}
                 />
               </td>
             </tr>
             <tr>
               <td>5</td>
-              <td>Building Hight</td>
+              <td>Building Height</td>
               <td></td>
               <td>{plotDetails?.buildingExcludeStilt ?? ""}</td>
               <td>
                 <input
                   id="buildingHeightObs"
                   type="text"
-                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none"
+                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
                   defaultValue={submitData?.drawingTableObs?.buildingHeightObs}
-                  // onChange={handleRoadWideningAreaChange}
+                // onChange={handleRoadWideningAreaChange}
                 />
               </td>
             </tr>
@@ -293,9 +293,9 @@ function DrawingTable({
                 <input
                   id="setBacksObs"
                   type="text"
-                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none"
+                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
                   defaultValue={submitData?.drawingTableObs?.setBacksObs}
-                  // onChange={handleRoadWideningAreaChange}
+                // onChange={handleRoadWideningAreaChange}
                 />
               </td>
             </tr>
@@ -308,9 +308,9 @@ function DrawingTable({
                 <input
                   id="frontObs"
                   type="text"
-                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none"
+                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
                   defaultValue={submitData?.drawingTableObs?.fontObs}
-                  // onChange={handleRoadWideningAreaChange}
+                // onChange={handleRoadWideningAreaChange}
                 />
               </td>
             </tr>
@@ -323,9 +323,9 @@ function DrawingTable({
                 <input
                   id="rareObs"
                   type="text"
-                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none"
+                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
                   defaultValue={submitData?.drawingTableObs?.rareObs}
-                  // onChange={handleRoadWideningAreaChange}
+                // onChange={handleRoadWideningAreaChange}
                 />
               </td>
             </tr>
@@ -338,9 +338,9 @@ function DrawingTable({
                 <input
                   id="sideOneObs"
                   type="text"
-                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none"
+                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
                   defaultValue={submitData?.drawingTableObs?.sideOneObs}
-                  // onChange={handleRoadWideningAreaChange}
+                // onChange={handleRoadWideningAreaChange}
                 />
               </td>
             </tr>
@@ -353,9 +353,9 @@ function DrawingTable({
                 <input
                   id="sideTwoObs"
                   type="text"
-                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none"
+                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
                   defaultValue={submitData?.drawingTableObs?.sideTwoObs}
-                  // onChange={handleRoadWideningAreaChange}
+                // onChange={handleRoadWideningAreaChange}
                 />
               </td>
             </tr>
@@ -368,9 +368,9 @@ function DrawingTable({
                 <input
                   id="numberOfFloorsObs"
                   type="text"
-                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none"
+                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
                   defaultValue={submitData?.drawingTableObs?.floorObs}
-                  // onChange={handleRoadWideningAreaChange}
+                // onChange={handleRoadWideningAreaChange}
                 />
               </td>
             </tr>
@@ -383,9 +383,9 @@ function DrawingTable({
                 <input
                   id="stiltFloorObs"
                   type="text"
-                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none"
+                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
                   defaultValue={submitData?.drawingTableObs?.stiltFloorObs}
-                  // onChange={handleRoadWideningAreaChange}
+                // onChange={handleRoadWideningAreaChange}
                 />
               </td>
             </tr>
@@ -398,9 +398,9 @@ function DrawingTable({
                 <input
                   id="groundFloorObs"
                   type="text"
-                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none"
+                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
                   defaultValue={submitData?.drawingTableObs?.groundFloorObs}
-                  // onChange={handleRoadWideningAreaChange}
+                // onChange={handleRoadWideningAreaChange}
                 />
               </td>
             </tr>
@@ -413,9 +413,9 @@ function DrawingTable({
                 <input
                   id="firstFloorObs"
                   type="text"
-                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none"
+                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
                   defaultValue={submitData?.drawingTableObs?.firstFloorObs}
-                  // onChange={handleRoadWideningAreaChange}
+                // onChange={handleRoadWideningAreaChange}
                 />
               </td>
             </tr>
@@ -428,9 +428,9 @@ function DrawingTable({
                 <input
                   id="secondFloorObs"
                   type="text"
-                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none"
+                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
                   defaultValue={submitData?.drawingTableObs?.secondFloorObs}
-                  // onChange={handleRoadWideningAreaChange}
+                // onChange={handleRoadWideningAreaChange}
                 />
               </td>
             </tr>
@@ -442,7 +442,7 @@ function DrawingTable({
               <td>
                 <select
                   id="greenStripObs"
-                  className=" w-1/6 outline-none"
+                  className=" w-1/6 outline-none bg-gray-50"
                   defaultValue={
                     submitData?.drawingTableObs?.greenStripObs ?? ""
                   }
@@ -461,9 +461,9 @@ function DrawingTable({
                 <input
                   id="stairCaseWidthObs"
                   type="text"
-                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none"
+                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
                   defaultValue={submitData?.drawingTableObs?.stairCaseWidthObs}
-                  // onChange={handleRoadWideningAreaChange}
+                // onChange={handleRoadWideningAreaChange}
                 />
               </td>
             </tr>
@@ -476,9 +476,9 @@ function DrawingTable({
                 <input
                   id="unitObs"
                   type="text"
-                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none"
+                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
                   defaultValue={submitData?.drawingTableObs?.unitsObs}
-                  // onChange={handleRoadWideningAreaChange}
+                // onChange={handleRoadWideningAreaChange}
                 />
               </td>
             </tr>

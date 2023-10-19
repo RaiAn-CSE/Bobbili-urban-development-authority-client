@@ -167,21 +167,20 @@ const Login = () => {
               />
 
               <div
-                className="absolute top-[55%] right-3 w-fit"
+                className="absolute top-[55%] right-3 w-fit dark:text-black"
                 onClick={handlePasswordShow}
               >
                 {show ? <BsFillHouseCheckFill /> : <BsFillHouseLockFill />}
               </div>
             </div>
 
-            <div className="flex items-start">
-              <div className="flex items-center h-5">
+            <div className="flex items-center">
+              <div className="flex items-center h-5 ">
                 <input
                   id="remember"
                   type="checkbox"
                   {...register("checkbox")}
-                  value=""
-                  className="w-4 h-4 border border-gray-300 rounded bg-gray-50"
+                  className="w-4 h-4"
                 />
               </div>
               <label

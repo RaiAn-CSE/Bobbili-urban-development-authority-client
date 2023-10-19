@@ -17,8 +17,9 @@ import Modal from "./Modal";
 
 const Payment = () => {
   const [openApplication, setOpenApplication] = useState(false);
-  const [viewChallan, setViewChallan] = useState(false)
-  const [Newly_Developed_Condition, setNewlyDevelopedCondition] = useState(false);
+  const [viewChallan, setViewChallan] = useState(false);
+  const [Newly_Developed_Condition, setNewlyDevelopedCondition] =
+    useState(false);
   const [RLP_IPLP_Condition, setRLP_IPLP_Condition] = useState(false);
   const stepperData = useOutletContext();
   const {
@@ -45,10 +46,11 @@ const Payment = () => {
   const [sentData, setSentData] = useState(0);
   const role = userInfoFromLocalStorage().role;
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
+  const cameFrom = JSON.parse(localStorage.getItem("page"));
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
   useEffect(() => {
-    getApplicationData(applicationNo).then((applicationData) => {
+    getApplicationData(applicationNo, cameFrom).then((applicationData) => {
       setApplicationData(applicationData);
       const generalInformation =
         applicationData?.buildingInfo?.generalInformation;
@@ -84,7 +86,8 @@ const Payment = () => {
       if (
         generalInformation?.natureOfTheSite === "Approved Layout" ||
         generalInformation?.natureOfTheSite === "Regularised under LRS" ||
-        generalInformation?.natureOfTheSite === "Congested/ Gramakanta/ Old Built-up area" ||
+        generalInformation?.natureOfTheSite ===
+          "Congested/ Gramakanta/ Old Built-up area" ||
         generalInformation?.natureOfTheSite === "Newly Developed/ Built up area"
       ) {
         setCondition(1);
@@ -104,9 +107,15 @@ const Payment = () => {
     });
   }, []);
 
-  const calculateFees = (generalInformation, ltpDetails, applicantDetailsData, plotDetails) => {
+  const calculateFees = (
+    generalInformation,
+    ltpDetails,
+    applicantDetailsData,
+    plotDetails
+  ) => {
     // Plots Details
-    const { netPlotAreaCal, marketValueSqym, totalBuiltUpArea, vacantLand } = plotDetails;
+    const { netPlotAreaCal, marketValueSqym, totalBuiltUpArea, vacantLand } =
+      plotDetails;
     // General Informatin
     const { natureOfTheSite } = generalInformation;
 
@@ -115,18 +124,20 @@ const Payment = () => {
     const net_Plot_Area = Number(netPlotAreaCal) || 1;
     const market_value = Number(marketValueSqym) || 1;
     const nature_of_site = natureOfTheSite;
-    const BuiltUp_area_SquareFeet = Number(builtup_Area * 10.7639) || 1;
+    const BuiltUp_area_SquareFeet = Number(builtup_Area * 10.7639104) || 1;
 
     console.log(typeof builtup_Area, "builtup_Area");
 
     // ======UDA Charged Segment======
     // ====Built up Development====
     const builtupAreaChargedUnitRate = 15; //per Sqm.
-    const builtUpAreaDevelopmentCharged = builtupAreaChargedUnitRate * builtup_Area;
+    const builtUpAreaDevelopmentCharged =
+      builtupAreaChargedUnitRate * builtup_Area;
 
     // ====Vacant Development====
     const vacantAreaChargedUnitRate = 10; // per Sqm.
-    const vacantAreaDevelopmentCharged = vacantAreaChargedUnitRate * vacant_area;
+    const vacantAreaDevelopmentCharged =
+      vacantAreaChargedUnitRate * vacant_area;
 
     // ====33% Penalization====
     const calculatePenalizationCharges = (net_Plot_Area, nature_of_site) => {
@@ -152,9 +163,15 @@ const Payment = () => {
     );
 
     // ====Open Space====
-    function calculateOpenSpaceCharge(nature_of_site, net_Plot_Area, market_value) {
-      const Newly_Developed_Condition = nature_of_site === "Newly Developed/ Built up area";
-      const RLP_IPLP_Condition = nature_of_site === "Plot port of RLP/IPLP but not regularised";
+    function calculateOpenSpaceCharge(
+      nature_of_site,
+      net_Plot_Area,
+      market_value
+    ) {
+      const Newly_Developed_Condition =
+        nature_of_site === "Newly Developed/ Built up area";
+      const RLP_IPLP_Condition =
+        nature_of_site === "Plot port of RLP/IPLP but not regularised";
       setNewlyDevelopedCondition(Newly_Developed_Condition);
       setRLP_IPLP_Condition(RLP_IPLP_Condition);
       if (Newly_Developed_Condition || RLP_IPLP_Condition) {
@@ -165,7 +182,11 @@ const Payment = () => {
     }
 
     // ==== Total 14% Open Space Charged ====
-    const TotalOpenSpaceCharged = calculateOpenSpaceCharge(nature_of_site, net_Plot_Area, market_value);
+    const TotalOpenSpaceCharged = calculateOpenSpaceCharge(
+      nature_of_site,
+      net_Plot_Area,
+      market_value
+    );
 
     // ==== Labour Cess Component 2 ====
     const labourCessComponentUnitRate2 = 1400; // per Sq.Ft.
@@ -188,7 +209,9 @@ const Payment = () => {
       return labourCessComponentCharge2;
     };
     // ===== Total labour cess Compo 2 Charged====
-    const TotalLabourCessComp2Charged = laboutCessCompo2Calculation(BuiltUp_area_SquareFeet);
+    const TotalLabourCessComp2Charged = laboutCessCompo2Calculation(
+      BuiltUp_area_SquareFeet
+    );
 
     // =====UDA Total=====
     const UDATotal = () => {
@@ -198,7 +221,7 @@ const Payment = () => {
         vacantAreaDevelopmentCharged +
         TotalPenalizationCharged +
         TotalOpenSpaceCharged +
-        TotalLabourCessComp2Charged
+        TotalLabourCessComp2Charged;
       return Math.round(UDATotalCharged);
     };
     // =====UDA Total Charged=====
@@ -248,18 +271,19 @@ const Payment = () => {
     let greenFeeCharged = 0;
     const greenFeeChargesUnitRate = 3; //per Sq.ft
     if (BuiltUp_area_SquareFeet > 5000) {
-      greenFeeCharged = Math.round(greenFeeChargesUnitRate * BuiltUp_area_SquareFeet * 10.76
+      greenFeeCharged = Math.round(
+        greenFeeChargesUnitRate * BuiltUp_area_SquareFeet * 10.76
       );
     }
-    const showVariable = `NetPlot: ${net_Plot_Area}(Sq.M), BuiltUpArea: ${builtup_Area} (Sq.M), VacantArea: ${vacant_area} (Sq.M), BuiltUpArea: ${BuiltUp_area_SquareFeet} (Sq.Ft) NatureOfSite: ${nature_of_site}`
-    toast.success(showVariable)
+    const showVariable = `NetPlot: ${net_Plot_Area}(Sq.M), BuiltUpArea: ${builtup_Area} (Sq.M), VacantArea: ${vacant_area} (Sq.M), BuiltUpArea: ${BuiltUp_area_SquareFeet} (Sq.Ft) NatureOfSite: ${nature_of_site}`;
+    toast.success(showVariable);
     // ====Labour Cess Component 1 Charged====
     const labourCessComponentUnitRate1 = 1400; // per Sq.ft.
     const labourCessCompo1Charged = Math.round(
       labourCessComponentUnitRate1 *
-      BuiltUp_area_SquareFeet *
-      10.76 *
-      (0.01 * 0.98)
+        BuiltUp_area_SquareFeet *
+        10.76 *
+        (0.01 * 0.98)
     );
 
     setCalculatedData({
@@ -472,10 +496,10 @@ const Payment = () => {
   };
 
   return (
-    <>
+    <div className="text-gray-600">
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="grid my-5 mx-7 font-roboto text-xl lg:my-0 lg:p-2"
+        className="grid my-5 mx-7 lg:my-0 lg:p-2"
       >
         <div>
           <div className="flex items-center">
@@ -484,11 +508,11 @@ const Payment = () => {
               alt="Image icon for uda charge section"
               className="h-10 me-3"
             />
-            <h3 className="font-bold text-xl">UDA Charge</h3>
+            <h3 className="font-bold text-xl text-gray-900">UDA Charge</h3>
           </div>
           <div className="divider m-0"></div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-3 mt-5 mb-7">
+          <div className="grid grid-cols-2 lg:grid-cols-3 mb-10">
             <InputField
               id="vacantArea"
               name="vacantArea"
@@ -544,23 +568,29 @@ const Payment = () => {
             {role === "LTP" && (
               <div>
                 <button
-                  className={`btn btn-md text-sm px-3 mt-10 ml-3 text-white shadow-md transition-all duration-500 ${gradientColor}`}
+                  className={`btn btn-md text-sm px-3 mt-10 ml-3 border-none text-white shadow-md transition-all duration-500 ${gradientColor}`}
                 >
                   <GiMoneyStack size={25} /> pay now
                 </button>
               </div>
             )}
             {role === "PS" && (
-
               <>
                 <button
                   className={`btn btn-md text-sm px-3 mt-10 ml-3 border-none text-white shadow-md transition-all duration-500 ${gradientColor} hover:shadow-lg hover:shadow-violetDark hover:bg-gradient-to-bl`}
                   onClick={() => setViewChallan(true)}
-                >View Challan</button>
-                {viewChallan && <Modal viewChallan={viewChallan} setViewChallan={setViewChallan} />}
+                >
+                  View Challan
+                </button>
+                {viewChallan && (
+                  <Modal
+                    viewChallan={viewChallan}
+                    setViewChallan={setViewChallan}
+                  />
+                )}
                 <div>
                   <button
-                    className={`btn btn-md text-sm px-3 mt-10 ml-3 border-none text-white shadow-md transition-all duration-500 ${gradientColor} hover:shadow-lg hover:shadow-violetDark hover:bg-gradient-to-bl`}
+                    className={`btn btn-md text-sm px-3 mt-10 font-roboto ml-3 border-none text-white shadow-md transition-all duration-500 ${gradientColor} hover:shadow-lg hover:shadow-violetDark hover:bg-gradient-to-bl`}
                     onClick={() =>
                       document.getElementById("my_modal_4").showModal()
                     }
@@ -572,7 +602,7 @@ const Payment = () => {
                 {/* modal box */}
 
                 <dialog id="my_modal_4" className="modal">
-                  <div className="modal-box w-11/12 max-w-5xl">
+                  <div className="modal-box w-11/12 max-w-5xl dark:bg-white dark:text-black">
                     <div className="modal-action">
                       <form method="dialog">
                         <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
@@ -675,7 +705,9 @@ const Payment = () => {
               alt="Image icon for Grama Panchayat fee section"
               className="h-10 me-3"
             />
-            <h3 className="font-bold text-xl">Grama Panchayat fee</h3>
+            <h3 className="font-bold text-xl text-gray-900">
+              Grama Panchayat fee
+            </h3>
           </div>
           <div className="divider m-0"></div>
 
@@ -696,7 +728,7 @@ const Payment = () => {
               type="number"
               ltpDetails={calculatedData?.processingFees}
             />
-            {(
+            {
               <InputField
                 id="bettermentCharged"
                 name="bettermentCharged"
@@ -705,7 +737,7 @@ const Payment = () => {
                 type="number"
                 ltpDetails={calculatedData?.bettermentCharged}
               />
-            )}
+            }
             <InputField
               id="buildingPermitFees"
               name="buildingPermitFees"
@@ -775,7 +807,7 @@ const Payment = () => {
               {role === "LTP" && (
                 <input
                   type="file"
-                  className="file-input file-input-bordered w-full max-w-xs"
+                  className="file-input file-input-bordered w-full max-w-xs text-gray-400"
                   id="gramaBankReceipt"
                   onChange={(e) => handleFileChange(e, "gramaBankReceipt")}
                 />
@@ -801,7 +833,9 @@ const Payment = () => {
               alt="Image icon for labour charge section"
               className="h-10 me-3"
             />
-            <h3 className="font-bold text-xl">Labour cess charge</h3>
+            <h3 className="font-bold text-xl text-gray-900">
+              Labour cess charge
+            </h3>
           </div>
           <div className="divider m-0"></div>
 
@@ -866,7 +900,7 @@ const Payment = () => {
               {role === "LTP" && (
                 <input
                   type="file"
-                  className="file-input file-input-bordered w-full max-w-xs"
+                  className="file-input file-input-bordered w-full max-w-xs text-gray-400"
                   id="labourCessBankReceipt"
                   onChange={(e) => handleFileChange(e, "labourCessBankReceipt")}
                 />
@@ -875,15 +909,15 @@ const Payment = () => {
 
             {applicationData?.payment?.labourCessCharge
               ?.labourCessBankReceipt && (
-                <Link
-                  to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
-                  target="_blank"
-                  className="flex justify-center items-center ms-10 px-6 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
-                >
-                  <MdReceiptLong className="me-1" />
-                  View Challan
-                </Link>
-              )}
+              <Link
+                to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
+                target="_blank"
+                className="flex justify-center items-center ms-10 px-6 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
+              >
+                <MdReceiptLong className="me-1" />
+                View Challan
+              </Link>
+            )}
           </div>
         </div>
 
@@ -895,7 +929,9 @@ const Payment = () => {
               alt="Image icon for green charge section"
               className="h-10 me-3"
             />
-            <h3 className="font-bold text-xl">Green fee charge</h3>
+            <h3 className="font-bold text-xl text-gray-900">
+              Green fee charge
+            </h3>
           </div>
           <div className="divider m-0"></div>
 
@@ -962,7 +998,7 @@ const Payment = () => {
             {role === "LTP" && (
               <input
                 type="file"
-                className="file-input file-input-bordered w-full max-w-xs"
+                className="file-input file-input-bordered w-full max-w-xs text-gray-400"
                 id="greenFeeBankReceipt"
                 onChange={(e) => handleFileChange(e, "greenFeeBankReceipt")}
               />
@@ -996,7 +1032,7 @@ const Payment = () => {
           sentData={sentData}
         />
       </form>
-    </>
+    </div>
   );
 };
 

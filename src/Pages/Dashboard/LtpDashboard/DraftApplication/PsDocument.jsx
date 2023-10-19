@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 
-function PsDocument({ role, id, approved, uploadId, handleStatus, type, handleDefaultStatus }) {
+function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus,handleDynamicStatus }) {
 
     const handleDocumentStatus = (event, id, uploadId, type) => {
         const data = event?.target?.value;
         if (type === "dynamic") {
-            handleStatus({ approved: data, id, uploadId, type });
+            // handleStatus({ approved: data, id, uploadId, type });
+            handleDynamicStatus({ approved: data, id, uploadId, type })
         } else {
             // handleStatus({ approved: data, id, type });
             handleDefaultStatus({ approved: data, id, type })

@@ -6,6 +6,7 @@ import OwnerDetail from "./OwnerDetail";
 import { useOutletContext } from "react-router";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import SaveData from "./SaveData";
+import useGetUser from "../../../CustomHook/useGetUser";
 
 const ApplicantInfo = () => {
   const stepperData = useOutletContext();
@@ -14,10 +15,25 @@ const ApplicantInfo = () => {
 
   // console.log(stepperData);
 
+  const { userInfoFromLocalStorage } = useContext(AuthContext);
   const { confirmAlert, sendUserDataIntoDB, getApplicationData } =
     useContext(AuthContext);
 
+  const role = userInfoFromLocalStorage().role;
+
+  const [data] = useGetUser();
+  console.log(data, "LTP"); //(LTP DATA)
+
+  const isReadOnly = role === "PS";
+
+  const isReadOnlyForAll = 1;
+
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
+
+  const cameFrom = JSON.parse(localStorage.getItem("page"));
+
+  const [ltpDetails, setLtpDetails] = useState("");
+  const [applicantDetails, setApplicantDetails] = useState("");
 
   // const handleBackendData = () => {
   //   const applicationId = JSON.parse(localStorage.getItem("applicationId"));
@@ -108,8 +124,27 @@ const ApplicantInfo = () => {
     });
   };
 
-  const [ltpDetails, setLtpDetails] = useState("");
-  const [applicantDetails, setApplicantDetails] = useState("");
+  const [isDataGet, setIsDataGet] = useState(0);
+
+  useEffect(() => {
+    const getData = async () => {
+      const applicationData = await getApplicationData(applicationNo, cameFrom);
+      const ltpDetailsData = applicationData.applicantInfo.ltpDetails;
+      const applicantDetailsData =
+        applicationData.applicantInfo.applicantDetails;
+      setLtpDetails(ltpDetailsData);
+      setApplicantDetails(applicantDetailsData);
+      setLtpPhone(ltpDetailsData?.phoneNo);
+      setIsDataGet((prev) => prev + 1);
+    };
+    getData();
+  }, []);
+
+  useEffect(() => {
+    if (role === "LTP" && isDataGet) {
+      setLtpDetails(data);
+    }
+  }, [isDataGet]);
 
   const {
     type,
@@ -118,29 +153,17 @@ const ApplicantInfo = () => {
     ltpStreetName,
     email,
     licenseNo,
-    phoneNo,
+    phone,
     validity,
     address,
-  } = ltpDetails;
+  } = ltpDetails || {};
 
-  useEffect(() => {
-    const getData = async () => {
-      const applicationData = await getApplicationData(applicationNo);
-      const ltpDetailsData = applicationData.applicantInfo.ltpDetails;
-      const applicantDetailsData =
-        applicationData.applicantInfo.applicantDetails;
-      setLtpDetails(ltpDetailsData);
-      setApplicantDetails(applicantDetailsData);
-      setLtpPhone(ltpDetailsData?.phoneNo);
-    };
-    getData();
-  }, []);
+  console.log(ltpDetails, "LTP Details");
 
   // Classes for this component :
-  let labelClass =
-    "block mb-1 font-semibold text-black";
+  let labelClass = "block mb-1 font-semibold text-gray-600";
   const inputClass =
-    "w-full px-3 py-2 border border-violet-500 rounded-lg max-w-xs dark:text-black focus:border-violetLight focus:outline-none focus:ring-2 ring-violet-200 bg-gray-100";
+    "w-full px-3 py-2 border rounded-lg max-w-xs border-gray-300 text-gray-900 bg-gray-50 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200";
 
   return (
     <div className="grid my-5 mx-5 lg:my-0 lg:p-2 text-black">
@@ -161,7 +184,7 @@ const ApplicantInfo = () => {
               id="ltpType"
               name="ltpType"
               label="LTP Type"
-              placeholder="Licenced Engineer"
+              placeholder="Licensed Engineer"
               ltpDetails={type}
             />
             <InputField
@@ -192,7 +215,7 @@ const ApplicantInfo = () => {
               name="licenseNo"
               label="Licence no."
               placeholder="xx/xxxxx"
-              type="number"
+              type="text"
               ltpDetails={licenseNo}
             />
 
@@ -201,11 +224,12 @@ const ApplicantInfo = () => {
                 Validity
               </label>
               <input
-                type="date"
+                type="text"
                 id="validity"
                 name="validity"
                 className={inputClass}
                 defaultValue={validity}
+                disabled={isReadOnly}
               />
             </div>
 
@@ -218,10 +242,11 @@ const ApplicantInfo = () => {
                 type="text"
                 name="ltpPhoneNo"
                 placeholder="xxxxxxxxxx"
-                defaultValue={ltpPhone}
+                defaultValue={phone}
                 onChange={(e) => setPhoneNoLimit(e, setLtpPhone)}
                 className={inputClass}
                 maxLength={10}
+                readOnly={isReadOnly}
               />
             </div>
 
@@ -232,6 +257,7 @@ const ApplicantInfo = () => {
               placeholder="xxxx@gmail.com"
               type="email"
               ltpDetails={email}
+              readOnly={isReadOnly}
             />
           </div>
           <div className="my-4 mx-3 basis-[25%]">
@@ -245,6 +271,7 @@ const ApplicantInfo = () => {
               className={inputClass}
               defaultValue={address}
               placeholder="Dr. no., Street, Village, Mandal, Dist."
+              disabled={isReadOnly}
             ></textarea>
           </div>
         </div>
@@ -273,6 +300,7 @@ const ApplicantInfo = () => {
               decreaseApplicationNo={decreaseApplicationNo}
               setPhoneNoLimit={setPhoneNoLimit}
               applicantDetails={applicantDetails[index]}
+              isReadOnly={isReadOnly}
             />
           ))}
         </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import { FaMapLocation } from "react-icons/fa6";
 import { MdSpaceDashboard } from "react-icons/md";
 import { Link, useLocation } from "react-router-dom";
 
@@ -28,7 +29,7 @@ const UdaSidebar = () => {
         } mb-1 ps-3 flex items-center ${hoverGradientColor}`}
       >
         <span>
-          <MdSpaceDashboard size={20} />
+          <FaMapLocation size={20} />
         </span>
         <Link className={`p-[10px] font-medium `} to="/dashboard/location">
           Location

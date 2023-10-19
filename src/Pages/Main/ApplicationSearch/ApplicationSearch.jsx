@@ -146,6 +146,7 @@ const ApplicationSearch = () => {
               id="noOfUnits"
               type="text"
               placeholder="xxxxxxx"
+              ltpDetails={filteredData?.buildingInfo?.plotDetails?.noOfUnits}
             />
             <MainPageInput
               label="Total built up area"

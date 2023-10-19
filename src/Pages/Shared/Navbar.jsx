@@ -50,6 +50,7 @@ const Navbar = () => {
     return () => {
       document.documentElement.classList.remove("dark");
       localStorage.setItem("theme", "light");
+      localStorage.setItem("stepIndex", 0);
       queryClient.removeQueries();
     };
   }, [theme]);
@@ -133,7 +134,7 @@ const Navbar = () => {
         </ul>
       </div>
 
-      <div className="mx-4">
+      {/* <div className="mx-4">
         {theme === "dark" ? (
           <FiSun
             size={25}
@@ -151,7 +152,7 @@ const Navbar = () => {
             }}
           />
         )}
-      </div>
+      </div> */}
 
       {/* You can open the modal using document.getElementById('ID').showModal() method */}
     </div>

@@ -127,7 +127,11 @@ const DraftApplication = () => {
     <RiSecurePaymentLine size={19} />,
   ];
 
-  const path = useLocation().pathname;
+  const path = useLocation()?.pathname;
+
+  // check the page name to show the building info and other pages application value
+
+  const cameFrom = JSON.parse(localStorage.getItem("page"));
 
   const applicationModalShow =
     path.includes("applicationChecklist") ||
@@ -143,11 +147,45 @@ const DraftApplication = () => {
             <p
               className={`my-8 font-roboto font-semibold text-xl ${gradientColor} text-transparent bg-clip-text`}
             >
-              <span className="text-black">
-                Application No:
-              </span>{" "}
+              <span className="text-black">Application No:</span>{" "}
               {applicationNo}
             </p>
+
+            {cameFrom === "approved" && (
+              <>
+                <button
+                  className={`btn btn-sm text-xs ${gradientColor} transition-all duration-700 text-white dark:border-none`}
+                >
+                  <HiOutlineClipboardDocumentList className="text-lg" />{" "}
+                  <span>Proceeding</span>
+                </button>
+
+                <button
+                  className={`btn btn-sm text-xs ${gradientColor} transition-all duration-700 text-white dark:border-none`}
+                >
+                  <HiOutlineClipboardDocumentList className="text-lg" />{" "}
+                  <span>Drawing</span>
+                </button>
+              </>
+            )}
+
+            {cameFrom === "shortfall" && (
+              <>
+                <button
+                  className={`btn btn-sm text-xs ${gradientColor} transition-all duration-700 text-white dark:border-none`}
+                >
+                  <HiOutlineClipboardDocumentList className="text-lg" />{" "}
+                  <span>Endorsement</span>
+                </button>
+                <button
+                  className={`btn btn-sm text-xs ${gradientColor} transition-all duration-700 text-white dark:border-none`}
+                >
+                  <HiOutlineClipboardDocumentList className="text-lg" />{" "}
+                  <span>Application</span>
+                </button>
+              </>
+            )}
+
             {applicationModalShow && (
               <button
                 onClick={() => setOpenApplication(true)}
