@@ -28,7 +28,6 @@ function DefaultDocument({ UpdatedDefaultData, PreviousDefaultDocumentData, setU
     }
   }, [PreviousDefaultDocumentData]);
 
-
   // This function updates the data with handleDefaultStatus
   const handleDefaultStatus = (data) => {
     const updatedDocument = UpdatedDefaultData.map(item => ({
@@ -38,7 +37,6 @@ function DefaultDocument({ UpdatedDefaultData, PreviousDefaultDocumentData, setU
 
     setUpdatedDefaultData(updatedDocument);
   };
-
 
   const someEventHandler = (event, id) => {
     const file = event?.target.files[0];
