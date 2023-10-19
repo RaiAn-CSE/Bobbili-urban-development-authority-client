@@ -14,50 +14,47 @@ function DynamicDocument({ PreviousDynamicDocumentData, setDynamicAppChecklistDo
   };
   useEffect(() => {
     const combinedRootDocument = RootDynamicDocument.map(mainItem => {
-      const matchedData = PreviousDynamicDocumentData
-        .filter(data => data.id === mainItem.id)
-        .map(data => ({
+      const matchedData = PreviousDynamicDocumentData.filter(data => data.id === mainItem.id);
+    
+      if (matchedData.length > 0) {
+        return {
           id: mainItem.id,
           question: mainItem.question,
-          requirement: mainItem.requirements.map(item => ({
-            ...item,
-            approved: item.uploadId === data.uploadId && data.approved
-          }))
-        }));
-      
-  
-      return matchedData;
+          requirements: matchedData.map(data=>( {...data,requirement:"working on it"}))
+        };
+      }
+    
+      return mainItem;
     });
+    
+    
+    
+    
   
     // Update the state with the new data
     // Assuming you have a state variable like setDynamicAppChecklistDocument
     setDynamicAppChecklistDocument(combinedRootDocument);
   }, [PreviousDynamicDocumentData]);
-  
 
 
+  const handleDynamicStatus = (data) => {
+    const updatedRequirements = DynamicAppChecklistDocument.requirements.map(mainItem => {
+      if (data.uploadId === mainItem.uploadId) {
+        return {
+          ...mainItem,
+          requirement: data
+        };
+      } else {
+        return mainItem;
+      }
+    });
 
-
-
-
-  // const handleDynamicStatus = (data) => {
-  //   const updatedRequirements = DynamicAppChecklistDocument.requirements.map(mainItem => {
-  //     if (data.uploadId === mainItem.uploadId) {
-  //       return {
-  //         ...mainItem,
-  //         requirement: data
-  //       };
-  //     } else {
-  //       return mainItem;
-  //     }
-  //   });
-
-  //   // Update the state with the new requirements
-  //   setDynamicAppChecklistDocument((prev) => ({
-  //     ...prev,
-  //     requirements: updatedRequirements,
-  //   }));
-  // };
+    // Update the state with the new requirements
+    setDynamicAppChecklistDocument((prev) => ({
+      ...prev,
+      requirements: updatedRequirements,
+    }));
+  };
   console.log(DynamicAppChecklistDocument, "Dyamic Document")
   return (
     <div className="dark:text-black">
