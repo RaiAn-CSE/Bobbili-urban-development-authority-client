@@ -19,34 +19,34 @@ function DynamicDocument({ PreviousDynamicDocumentData, setDynamicAppChecklistDo
         const matched = prevItem.id === mainItem.id && IsUploadIdExist;
         return matched;
       });
-  
-      console.log({ matchedItems });
-  
-      if (matchedItems.length > 0) {
-        mainItem.requirements = mainItem.requirements.map(reqItem => {
-          const reqMatched = matchedItems.find(matchedItem => matchedItem.requirements.some(reqData => reqData.uploadId === reqItem.uploadId));
-          
-          if (reqMatched && reqMatched.approved) {
-            return {
-              uploadId: reqItem.uploadId,
-              requirement: reqItem.requirement,
-              approved: reqMatched.approved,
-              upload: reqItem.upload
-            };
-          } else {
-            return reqItem;
-          }
-        });
+      // return matchedItems;
+
+      if (matchedItems.length) {
+        // matchedItems.map(item => {
+        //   mainItem.requirements = mainItem.requirements.map(reqItem => {
+        //     const reqMatched = reqItem.includes(approved)
+
+        //     if (reqMatched && item.approved) {
+        //       return {
+        //         uploadId: reqMatched.uploadId,
+        //         requirement: item.requirement,
+        //         approved: reqMatched.approved,
+        //         upload: reqMatched.upload
+        //       };
+        //     } else {
+        //       return reqItem;
+        //     }
+        //   });
+        // });
+        console.log([...matchedItems, { requirements: mainItem.requirements }])
       }
-  
-      return mainItem;
     });
-  
+
     // Update the state with the new data
     // Assuming you have a state variable like setDynamicAppChecklistDocument
     setDynamicAppChecklistDocument(updatedData);
   }, [PreviousDynamicDocumentData]);
-  
+
 
   const handleDynamicStatus = (data) => {
     const updatedRequirements = DynamicAppChecklistDocument.requirements.map(mainItem => {
