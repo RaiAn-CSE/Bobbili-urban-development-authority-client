@@ -20,7 +20,7 @@ function DynamicDocument({ PreviousDynamicDocumentData, setDynamicAppChecklistDo
         return {
           id: mainItem.id,
           question: mainItem.question,
-          requirements: matchedData.map(data=>( {...data,requirement:"working on it"}))
+          requirements: matchedData.map(data=>( {...data, requirement:mainItem.requirements.map(data=>data.requirement)}))
         };
       }
     
