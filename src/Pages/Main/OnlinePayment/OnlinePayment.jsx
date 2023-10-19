@@ -48,7 +48,7 @@ const OnlinePayment = () => {
 
   console.log(filteredData, "FILTERED DATA");
   return (
-    <div className="h-full w-full px-4 font-roboto">
+    <div className="h-full font-lg w-full px-4 font-roboto">
       <form>
         <div className="relative mt-2">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -71,7 +71,7 @@ const OnlinePayment = () => {
           <input
             type="search"
             id="default-search"
-            className="block w-full p-4 pl-10 text-sm text-violet-500 border border-violet-500 focus:border-violet-500 focus:outline-none focus:ring-2 ring-violet-200 rounded-lg bg-violet-50"
+            className="block w-full p-4 pl-10 text-base font-normal text-gray-900 border-2 border-violet-500 focus:border-violet-500 focus:outline-none focus:ring-2 ring-violet-200 rounded-lg bg-gray-50"
             placeholder="Application no. or owner name"
             onChange={(e) => searchApplicationData(e)}
             required
@@ -79,10 +79,10 @@ const OnlinePayment = () => {
         </div>
       </form>
 
-      {/* Location details  */}
-      <div className="divide-y-2 divide-violet-200 mt-9  text-black">
+      {/* Application details  */}
+      <div className="divide-y-2 divide-gray-200 mt-9">
         <div className="mb-1">
-          <h3 className="basis-[50%] text-lg px-5 font-semibold bg-gradient-to-r from-violet-500 to-fuchsia-500 text-transparent bg-clip-text">
+          <h3 className="basis-[50%] text-lg px-5 font-semibold text-gray-900">
             Application details
           </h3>
         </div>
@@ -137,10 +137,10 @@ const OnlinePayment = () => {
         </div>
       </div>
 
-      {/* Owner details  */}
-      <div className="divide-y-2 divide-violet-200 mt-9 text-black">
+      {/* Fees details  */}
+      <div className="divide-y-2 divide-gray-200 mt-9">
         <div className="flex mb-1">
-          <h3 className="basis-[50%] text-lg px-5 font-semibold bg-gradient-to-r from-violet-500 to-fuchsia-500 text-transparent bg-clip-text">Fees details</h3>
+          <h3 className="basis-[50%] text-lg px-5 font-semibold text-gray-900">Fees details</h3>
         </div>
         <div className="flex">
           <div className="basis-[70%]">
@@ -176,8 +176,8 @@ const OnlinePayment = () => {
         </div>
       </div>
 
-      <div className="flex justify-center items-center mt-5">
-        <h3 className="text-base font-semibold bg-gradient-to-r from-violet-400 to-fuchsia-400 text-transparent bg-clip-text">
+      <div className="flex justify-center items-center mt-5 text-gray-600">
+        <h3 className="text-base font-semibold">
           For UDA charge you can pay only Rs. {
             (filteredData?.payment?.udaCharge?.UDATotalCharged) ? (filteredData?.payment?.udaCharge?.UDATotalCharged) : "xxxxxxx"
           }/=
@@ -185,11 +185,6 @@ const OnlinePayment = () => {
           fee DD/Challan can be attached in LTP login only.
         </h3>
       </div>
-      {/* <div className="flex justify-end mt-2 pb-9">
-        <button className="flex text-[#000] font-semibold bottom-2.5 bg-[#ffd66c] hover:bg-[#e1bc60] focus:ring-4 focus:outline-none focus:ring-[#ffd66c] rounded-lg text-sm px-4 py-2">
-          <GiMoneyStack size={25} /> <span className="ml-1">pay now</span>
-        </button>
-      </div> */}
       <div className="flex justify-end mt-2 pb-9">
         <button
           className={`flex rounded justify-center items-center px-2 py-[6px] border-none text-white cursor-pointer shadow-md shadow-violetDark transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold text-base bg-gradient-to-r from-violet-500 to-fuchsia-500`}

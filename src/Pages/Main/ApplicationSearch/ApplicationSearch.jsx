@@ -52,15 +52,15 @@ const ApplicationSearch = () => {
 
   console.log(filteredData, 'filteredData');
 
-  const titleClass = "basis-[50%] text-lg px-5 font-semibold bg-gradient-to-r from-violet-500 to-fuchsia-500 text-transparent bg-clip-text"
+  const titleClass = "basis-[50%] text-lg px-5 font-semibold text-gray-900"
 
   return (
-    <div className="h-full w-full px-4 font-roboto dark:bg-white">
+    <div className="h-full font-roboto w-full px-4 dark:bg-white">
       <form>
-        <div className="relative mt-2 text-violet-500">
+        <div className="relative mt-2">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
             <svg
-              className="w-4 h-4 text-violet-500"
+              className="w-4 h-4 text-violet-900"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -78,7 +78,7 @@ const ApplicationSearch = () => {
           <input
             type="search"
             id="default-search"
-            className="block w-full p-4 pl-10 text-sm text-violet-500 border border-violet-500 focus:border-violet-500 focus:outline-none focus:ring-2 ring-violet-200 rounded-lg bg-violet-50"
+            className="block w-full p-4 pl-10 text-base font-normal text-gray-900 border-2 border-violet-500 focus:border-violet-500 focus:outline-none focus:ring-2 ring-violet-200 rounded-lg bg-gray-50"
             placeholder="Application no. or owner name"
             onChange={(e) => searchApplicationData(e)}
             required
@@ -87,7 +87,7 @@ const ApplicationSearch = () => {
       </form>
 
       {/* Location details  */}
-      <div className="divide-y-2 divide-violet-200 mt-9 dark:bg-white">
+      <div className="divide-y-2 divide-gray-200 mt-9">
         <div className="flex mb-1">
           <h3 className={titleClass}>
             Location details
@@ -162,7 +162,7 @@ const ApplicationSearch = () => {
       </div>
 
       {/* Owner details  */}
-      <div className="divide-y-2 divide-violet-200 mt-9">
+      <div className="divide-y-2 divide-gray-200 mt-9">
         <div className="flex mb-1">
           <h3 className={titleClass}>
             Owner details
@@ -215,7 +215,7 @@ const ApplicationSearch = () => {
         </div>
       </div>
 
-      <div className="flex justify-center items-center pt-5 pb-9 dark:bg-white ">
+      <div className="flex justify-center items-center pt-5 pb-9">
         <div className="p-3">
           <span className="grid justify-center items-center">
             <AiOutlineFileDone className="text-violet-500" size={25} />
