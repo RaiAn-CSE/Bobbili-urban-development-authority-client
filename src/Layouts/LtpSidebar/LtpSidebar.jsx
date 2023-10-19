@@ -25,6 +25,21 @@ const LtpSidebar = () => {
     setHoverColor(getHoverColor);
   }, [isDark]);
 
+  const findWhichMenuIsActive = (mainUrl, cameFrom) => {
+    const page = JSON.parse(localStorage.getItem("page"));
+    const isActive =
+      (path === mainUrl ||
+        path === "/dashboard/draftApplication/buildingInfo" ||
+        path === "/dashboard/draftApplication/applicantInfo" ||
+        path === "/dashboard/draftApplication/applicationChecklist" ||
+        path === "/dashboard/draftApplication/documents" ||
+        path === "/dashboard/draftApplication/drawing" ||
+        path === "/dashboard/draftApplication/payment") &&
+      page === cameFrom;
+
+    return isActive;
+  };
+
   const sidebarHoverClass =
     "flex items-center ps-4 hover:bg-gradient-to-r hover:from-violet-500 hover:to-fuchsia-500 mb-1";
 
@@ -45,13 +60,7 @@ const LtpSidebar = () => {
 
       <li
         className={`${
-          (path === "/dashboard/draftApplication" ||
-            path === "/dashboard/draftApplication/buildingInfo" ||
-            path === "/dashboard/draftApplication/applicantInfo" ||
-            path === "/dashboard/draftApplication/applicationChecklist" ||
-            path === "/dashboard/draftApplication/documents" ||
-            path === "/dashboard/draftApplication/drawing" ||
-            path === "/dashboard/draftApplication/payment") &&
+          findWhichMenuIsActive("/dashboard/draftApplication", "draft") &&
           activeColor
         } ${sidebarHoverClass}`}
       >
@@ -61,6 +70,9 @@ const LtpSidebar = () => {
         <Link
           className="p-[10px] font-medium "
           to="/dashboard/draftApplication"
+          onClick={() => {
+            localStorage.setItem("page", JSON.stringify("draft"));
+          }}
         >
           Draft Application
         </Link>
@@ -68,7 +80,8 @@ const LtpSidebar = () => {
 
       <li
         className={`${
-          path === "/dashboard/submitApplication" && activeColor
+          findWhichMenuIsActive("/dashboard/submitApplication", "submit") &&
+          activeColor
         } ${sidebarHoverClass}`}
       >
         <span>
@@ -77,6 +90,9 @@ const LtpSidebar = () => {
         <Link
           className="p-[10px] font-medium"
           to="/dashboard/submitApplication"
+          onClick={() => {
+            localStorage.setItem("page", JSON.stringify("submit"));
+          }}
         >
           Submitted App:
         </Link>
@@ -84,15 +100,19 @@ const LtpSidebar = () => {
 
       <li
         className={`${
-          path === "/dashboard/approvedApplication" && activeColor
+          findWhichMenuIsActive("/dashboard/approvedApplication", "approved") &&
+          activeColor
         } ${sidebarHoverClass}`}
       >
         <span>
           <BiCheckDouble size={23} />
         </span>
         <Link
-          className="p-[10px]  font-medium "
+          className="p-[10px] font-medium"
           to="/dashboard/approvedApplication"
+          onClick={() => {
+            localStorage.setItem("page", JSON.stringify("approved"));
+          }}
         >
           Approved
         </Link>
@@ -100,7 +120,10 @@ const LtpSidebar = () => {
 
       <li
         className={`${
-          path === "/dashboard/shortfallApplication" && activeColor
+          findWhichMenuIsActive(
+            "/dashboard/shortfallApplication",
+            "shortfall"
+          ) && activeColor
         } ${sidebarHoverClass}`}
       >
         <span>
@@ -109,6 +132,9 @@ const LtpSidebar = () => {
         <Link
           className="p-[10px] font-medium "
           to="/dashboard/shortfallApplication"
+          onClick={() => {
+            localStorage.setItem("page", JSON.stringify("shortfall"));
+          }}
         >
           Shortfall
         </Link>

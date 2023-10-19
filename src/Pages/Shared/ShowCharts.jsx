@@ -16,7 +16,7 @@ const ShowCharts = () => {
 
   const { userInfoFromLocalStorage } = useContext(AuthContext);
 
-  const role = userInfoFromLocalStorage().role;
+  const role = userInfoFromLocalStorage()?.role;
 
   const isLtpOrPs = role === "LTP" || role === "PS";
 
