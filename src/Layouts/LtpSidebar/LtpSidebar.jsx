@@ -12,8 +12,16 @@ const LtpSidebar = () => {
 
   const navigate = useNavigate();
 
-  const { handleLogOut, decideActiveColor, decideHoverColor, isDark } =
-    useContext(AuthContext);
+  const {
+    handleLogOut,
+    decideActiveColor,
+    decideHoverColor,
+    isDark,
+    findWhichMenuIsActiveForLtpSideBar,
+    userInfoFromLocalStorage,
+  } = useContext(AuthContext);
+
+  const role = userInfoFromLocalStorage()?.role;
 
   const [activeColor, setActiveColor] = useState("");
   const [hoverColor, setHoverColor] = useState("");
@@ -24,21 +32,6 @@ const LtpSidebar = () => {
     setActiveColor(getActiveColor);
     setHoverColor(getHoverColor);
   }, [isDark]);
-
-  const findWhichMenuIsActive = (mainUrl, cameFrom) => {
-    const page = JSON.parse(localStorage.getItem("page"));
-    const isActive =
-      (path === mainUrl ||
-        path === "/dashboard/draftApplication/buildingInfo" ||
-        path === "/dashboard/draftApplication/applicantInfo" ||
-        path === "/dashboard/draftApplication/applicationChecklist" ||
-        path === "/dashboard/draftApplication/documents" ||
-        path === "/dashboard/draftApplication/drawing" ||
-        path === "/dashboard/draftApplication/payment") &&
-      page === cameFrom;
-
-    return isActive;
-  };
 
   const sidebarHoverClass =
     "flex items-center ps-4 hover:bg-gradient-to-r hover:from-violet-500 hover:to-fuchsia-500 mb-1";
@@ -60,8 +53,12 @@ const LtpSidebar = () => {
 
       <li
         className={`${
-          findWhichMenuIsActive("/dashboard/draftApplication", "draft") &&
-          activeColor
+          findWhichMenuIsActiveForLtpSideBar(
+            path,
+            "/dashboard/draftApplication",
+            "draft",
+            role
+          ) && activeColor
         } ${sidebarHoverClass}`}
       >
         <span>
@@ -80,8 +77,12 @@ const LtpSidebar = () => {
 
       <li
         className={`${
-          findWhichMenuIsActive("/dashboard/submitApplication", "submit") &&
-          activeColor
+          findWhichMenuIsActiveForLtpSideBar(
+            path,
+            "/dashboard/submitApplication",
+            "submit",
+            role
+          ) && activeColor
         } ${sidebarHoverClass}`}
       >
         <span>
@@ -100,8 +101,12 @@ const LtpSidebar = () => {
 
       <li
         className={`${
-          findWhichMenuIsActive("/dashboard/approvedApplication", "approved") &&
-          activeColor
+          findWhichMenuIsActiveForLtpSideBar(
+            path,
+            "/dashboard/approvedApplication",
+            "approved",
+            role
+          ) && activeColor
         } ${sidebarHoverClass}`}
       >
         <span>
@@ -120,9 +125,11 @@ const LtpSidebar = () => {
 
       <li
         className={`${
-          findWhichMenuIsActive(
+          findWhichMenuIsActiveForLtpSideBar(
+            path,
             "/dashboard/shortfallApplication",
-            "shortfall"
+            "shortfall",
+            role
           ) && activeColor
         } ${sidebarHoverClass}`}
       >
@@ -140,13 +147,25 @@ const LtpSidebar = () => {
         </Link>
       </li>
 
-      <li className={`flex items-center ps-4 ${hoverColor}  mb-1`}>
+      <li
+        className={`${
+          findWhichMenuIsActiveForLtpSideBar(
+            path,
+            "/dashboard/rejectedApplications",
+            "rejected",
+            role
+          ) && activeColor
+        } ${sidebarHoverClass} flex items-center ps-4 ${hoverColor} mb-1`}
+      >
         <span>
           <CgDanger size={22} />
         </span>
         <Link
           className="p-[10px]  font-medium "
           to="/dashboard/rejectedApplications"
+          onClick={() => {
+            localStorage.setItem("page", JSON.stringify("rejected"));
+          }}
         >
           Rejected
         </Link>

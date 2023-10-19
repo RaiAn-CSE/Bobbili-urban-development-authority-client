@@ -8,8 +8,16 @@ import { AiOutlineFileDone, AiOutlineFileSearch } from "react-icons/ai";
 function PsSidebar() {
   const path = useLocation().pathname;
 
-  const { handleLogOut, decideActiveColor, decideHoverColor, isDark } =
-    useContext(AuthContext);
+  const {
+    handleLogOut,
+    decideActiveColor,
+    decideHoverColor,
+    isDark,
+    findWhichMenuIsActiveForPsSideBar,
+    userInfoFromLocalStorage,
+  } = useContext(AuthContext);
+
+  const role = userInfoFromLocalStorage()?.role;
 
   const [activeColor, setActiveColor] = useState("");
   const [hoverColor, setHoverColor] = useState("");
@@ -38,39 +46,63 @@ function PsSidebar() {
 
       <li
         className={`${
-          (path === "/dashboard/inward" ||
-            path === "/dashboard/draftApplication/buildingInfo" ||
-            path === "/dashboard/draftApplication/applicantInfo" ||
-            path === "/dashboard/draftApplication/applicationChecklist" ||
-            path === "/dashboard/draftApplication/documents" ||
-            path === "/dashboard/draftApplication/drawing" ||
-            path === "/dashboard/draftApplication/payment" ||
-            path === "/dashboard/draftApplication/siteInspection") &&
-          activeColor
+          findWhichMenuIsActiveForPsSideBar(
+            path,
+            "/dashboard/inward",
+            "submit",
+            role,
+            "inward"
+          ) && activeColor
         } mt-1  flex items-center  ps-3 ${hoverColor}`}
       >
         <span>
           <BiSolidAddToQueue size={20} />
         </span>
-        <Link className={`p-[10px] font-medium `} to="/dashboard/inward">
+        <Link
+          className={`p-[10px] font-medium `}
+          to="/dashboard/inward"
+          onClick={() => {
+            localStorage.setItem("page", JSON.stringify("submit"));
+            localStorage.setItem("psMenu", JSON.stringify("inward"));
+          }}
+        >
           Inward Application
         </Link>
       </li>
       <li
         className={`${
-          path === "/dashboard/outWard" && activeColor
+          findWhichMenuIsActiveForPsSideBar(
+            path,
+            "/dashboard/outWard",
+            "submit",
+            role,
+            "outward"
+          ) && activeColor
         } mt-1 flex items-center  ps-3 ${hoverColor}`}
       >
         <span>
           <AiOutlineFileDone size={20} />
         </span>
-        <Link className={`p-[10px] font-medium `} to="/dashboard/outWard">
+        <Link
+          className={`p-[10px] font-medium `}
+          to="/dashboard/outWard"
+          onClick={() => {
+            localStorage.setItem("page", JSON.stringify("submit"));
+            localStorage.setItem("psMenu", JSON.stringify("outward"));
+          }}
+        >
           Outward Application
         </Link>
       </li>
       <li
         className={`${
-          path === "/dashboard/searchApplication" && activeColor
+          findWhichMenuIsActiveForPsSideBar(
+            path,
+            "/dashboard/searchApplication",
+            "submit",
+            role,
+            "search"
+          ) && activeColor
         } mt-1 flex items-center  ps-3 ${hoverColor}`}
       >
         <span>
@@ -79,6 +111,10 @@ function PsSidebar() {
         <Link
           className={`p-[10px] font-medium `}
           to="/dashboard/searchApplication"
+          onClick={() => {
+            localStorage.setItem("page", JSON.stringify("submit"));
+            localStorage.setItem("psMenu", JSON.stringify("search"));
+          }}
         >
           Search Application
         </Link>
