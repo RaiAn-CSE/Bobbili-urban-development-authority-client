@@ -13,60 +13,52 @@ function DynamicDocument({ PreviousDynamicDocumentData, setDynamicAppChecklistDo
     handleFileChange(event, id, selectedFiles, "dynamic", uploadId);
   };
   useEffect(() => {
-    const updatedData = RootDynamicDocument.map(mainItem => {
-      const matchedItems = PreviousDynamicDocumentData.filter(prevItem => {
-        const IsUploadIdExist = mainItem.requirements.some(reqData => reqData.uploadId === prevItem.uploadId);
-        const matched = prevItem.id === mainItem.id && IsUploadIdExist;
-        return matched;
-      });
-      // return matchedItems;
-
-      if (matchedItems.length) {
-        // matchedItems.map(item => {
-        //   mainItem.requirements = mainItem.requirements.map(reqItem => {
-        //     const reqMatched = reqItem.includes(approved)
-
-        //     if (reqMatched && item.approved) {
-        //       return {
-        //         uploadId: reqMatched.uploadId,
-        //         requirement: item.requirement,
-        //         approved: reqMatched.approved,
-        //         upload: reqMatched.upload
-        //       };
-        //     } else {
-        //       return reqItem;
-        //     }
-        //   });
-        // });
-        console.log([...matchedItems, { requirements: mainItem.requirements }])
-      }
+    const combinedRootDocument = RootDynamicDocument.map(mainItem => {
+      const matchedData = PreviousDynamicDocumentData
+        .filter(data => data.id === mainItem.id)
+        .map(data => ({
+          id: mainItem.id,
+          question: mainItem.question,
+          requirement: mainItem.requirements.map(item => ({
+            ...item,
+            approved: item.uploadId === data.uploadId && data.approved
+          }))
+        }));
+      
+  
+      return matchedData;
     });
-
+  
     // Update the state with the new data
     // Assuming you have a state variable like setDynamicAppChecklistDocument
-    setDynamicAppChecklistDocument(updatedData);
+    setDynamicAppChecklistDocument(combinedRootDocument);
   }, [PreviousDynamicDocumentData]);
+  
 
 
-  const handleDynamicStatus = (data) => {
-    const updatedRequirements = DynamicAppChecklistDocument.requirements.map(mainItem => {
-      if (data.uploadId === mainItem.uploadId) {
-        return {
-          ...mainItem,
-          requirement: data
-        };
-      } else {
-        return mainItem;
-      }
-    });
 
-    // Update the state with the new requirements
-    setDynamicAppChecklistDocument((prev) => ({
-      ...prev,
-      requirements: updatedRequirements,
-    }));
-  };
-  console.log(PreviousDynamicDocumentData, "Dyamic Document latest Updated Array")
+
+
+
+  // const handleDynamicStatus = (data) => {
+  //   const updatedRequirements = DynamicAppChecklistDocument.requirements.map(mainItem => {
+  //     if (data.uploadId === mainItem.uploadId) {
+  //       return {
+  //         ...mainItem,
+  //         requirement: data
+  //       };
+  //     } else {
+  //       return mainItem;
+  //     }
+  //   });
+
+  //   // Update the state with the new requirements
+  //   setDynamicAppChecklistDocument((prev) => ({
+  //     ...prev,
+  //     requirements: updatedRequirements,
+  //   }));
+  // };
+  console.log(DynamicAppChecklistDocument, "Dyamic Document")
   return (
     <div className="dark:text-black">
       {DynamicAppChecklistDocument?.map((document, index) => {
