@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import PsDocument from "./PsDocument";
 import { Link } from "react-router-dom";
 
-function DynamicDocument({ PreviousDynamicDocumentData, DynamicAppChecklistDocument, role, handleFileChange, gradientColor, dynamicImageFromDB,
+function DynamicDocument({ PreviousDynamicDocumentData, setDynamicAppChecklistDocument, DynamicAppChecklistDocument, role, handleFileChange, gradientColor, dynamicImageFromDB,
 }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
 
@@ -11,6 +11,34 @@ function DynamicDocument({ PreviousDynamicDocumentData, DynamicAppChecklistDocum
     selectedFiles[id] = file;
     handleFileChange(event, id, selectedFiles, "dynamic", uploadId);
   };
+  useEffect(() => {
+    const updatedData = DynamicAppChecklistDocument.map(mainItem => {
+      const matchedItem = PreviousDynamicDocumentData.find(prevItem => prevItem.id === mainItem.id);
+
+      if (matchedItem) {
+        mainItem.requirements = mainItem.requirements.map(reqItem => {
+          const reqMatched = matchedItem.uploadId === reqItem.uploadId;
+          if (reqMatched) {
+            return {
+              uploadId: matchedItem.uploadId,
+              requirement: reqItem.requirement,
+              approved: matchedItem.approved,
+              upload: matchedItem.upload
+            };
+          } else {
+            return reqItem;
+          }
+        });
+      } else {
+        return mainItem;
+      }
+    });
+
+    // Update the state with the new data
+    // Assuming you have a state variable like setDynamicAppChecklistDocument
+    setDynamicAppChecklistDocument(updatedData);
+  }, [PreviousDynamicDocumentData]);
+
   const handleDynamicStatus = (data) => {
 
   }

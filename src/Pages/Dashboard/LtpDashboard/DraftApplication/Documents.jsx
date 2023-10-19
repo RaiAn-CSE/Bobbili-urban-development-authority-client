@@ -14,7 +14,7 @@ import PsDocument from "./PsDocument";
 const DocumentUpload = () => {
   const [UpdatedDefaultData, setUpdatedDefaultData] = useState([...DefaultDocumentData]);
   const [DynamicAppChecklistDocument, setDynamicAppChecklistDocument] = useState([]);
-  // const [UpdatedDynamicData, setUpdatedDynamictData] = useState([...DynamicDocuments]);
+  const [UpdatedDynamicData, setUpdatedDynamictData] = useState([]);
   const [PreviousDefaultDocumentData, setPreviousDefaultDocumentData] = useState([]);
   const [PreviousDynamicDocumentData, setPreviousDynamicDocumentData] = useState([]);
   
@@ -28,25 +28,14 @@ const DocumentUpload = () => {
   const [defaultData, setDefaultData] = useState([]);
   const [dynamicData, setDynamicData] = useState([]);
   const { confirmAlert, sendUserDataIntoDB, getApplicationData, userInfoFromLocalStorage } = useContext(AuthContext);
-
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
-
   const cameFrom = JSON.parse(localStorage.getItem("page"));
-
   const role = userInfoFromLocalStorage().role;
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
-
   const [defaultImageData, setDefaultImageData] = useState([]);
   const [dynamicImageData, setDynamicImageData] = useState([]);
-  const [sendingImageId, setSendingImageId] = useState({
-    dynamic: [],
-    default: [],
-  });
-
-  const [imageIdFromDB, setImageIdFromDB] = useState({
-    default: [],
-    dynamic: [],
-  });
+  const [sendingImageId, setSendingImageId] = useState({dynamic: [],default: []});
+  const [imageIdFromDB, setImageIdFromDB] = useState({default: [],dynamic: []});
 
   // Ltp File uploading Data handeling
   const handleFileChange = (event, id, uploadedFile, type, uploadId) => {
@@ -300,7 +289,7 @@ const DocumentUpload = () => {
             PreviousDynamicDocumentData={PreviousDynamicDocumentData}
             DynamicAppChecklistDocument={DynamicAppChecklistDocument}
             setDynamicAppChecklistDocument={setDynamicAppChecklistDocument}
-            // UpdatedDynamicData={UpdatedDynamicData}
+            UpdatedDynamicData={UpdatedDynamicData}
             // setUpdatedDynamictData={setUpdatedDynamictData}
             handleFileChange={handleFileChange}
             gradientColor={gradientColor}
