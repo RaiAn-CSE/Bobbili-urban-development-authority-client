@@ -1,35 +1,18 @@
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 
-function PsDocument({ role, id, approved, uploadId, handleStatus, type, PreviousDocumentData }) {
-    const [valueData, setValueData] = useState("");
+function PsDocument({ role, id, approved, uploadId, handleStatus, type, handleDefaultStatus }) {
 
     const handleDocumentStatus = (event, id, uploadId, type) => {
         const data = event?.target?.value;
         if (type === "dynamic") {
             handleStatus({ approved: data, id, uploadId, type });
         } else {
-            handleStatus({ approved: data, id, type });
+            // handleStatus({ approved: data, id, type });
+            handleDefaultStatus({ approved: data, id, type })
         }
         toast.success(data, uploadId, id);
     }
-
-
-    // useEffect(() => {
-    //     if (PreviousDocumentData?.length) {
-    //         const dynamicMatch = PreviousDocumentData.find(data => data.id === id && data.uploadId === uploadId);
-    //         const defaultMatch = PreviousDocumentData.find(data => data.id == id);
-    //         if (type === "dynamic") {
-    //             if (dynamicMatch) {
-    //                 setValueData(dynamicMatch.event);
-    //             }
-    //         } else {
-    //             if (defaultMatch) {
-    //                 setValueData(defaultMatch.event);
-    //             }
-    //         }
-    //     }
-    // }, [PreviousDocumentData, id, uploadId, type]);
 
     return (
         <div className='dark:text-white'>

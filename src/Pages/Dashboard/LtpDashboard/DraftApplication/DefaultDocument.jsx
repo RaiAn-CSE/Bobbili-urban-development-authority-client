@@ -3,24 +3,44 @@ import DefaultDocumentData from "../../../../assets/DefaultDocument.json";
 import PsDocument from "./PsDocument";
 import { Link } from "react-router-dom";
 
-function DefaultDocument({ PreviousDefaultDocumentData, clickedDefaultRadio, role, handleFileChange, gradientColor, handleStatus, defaultImageFromDB }) {
+function DefaultDocument({ UpdatedDefaultData, PreviousDefaultDocumentData, setUpdatedDefaultData, role, handleFileChange, gradientColor, handleStatus, defaultImageFromDB }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
-  const [UpdatedDefaultData, setUpdatedDefaultData] = useState(DefaultDocumentData);
 
-  let  updatedDataCopy=[...UpdatedDefaultData];
+  // Use this state to track the updated data
+  // const [updatedDocumentData, setUpdatedDocumentData] = useState([]);
+
+  // This useEffect runs only on the initial render
   useEffect(() => {
-    // Create a copy of the current UpdatedDefaultData
-    
+    if (PreviousDefaultDocumentData.length) {
+      const updatedData = DefaultDocumentData.map(mainItem => {
+        const matchedPrevItem = PreviousDefaultDocumentData.find(prevItem => prevItem.id === mainItem.id);
 
-    DefaultDocumentData.forEach(item => {
-      const matched = clickedDefaultRadio?.find(clickedItem => clickedItem.id === item.id);
-      if (matched) {
-        item.approved = matched.approved;
-      }
-      updatedDataCopy.push(item);
-    });
-  }, [DefaultDocumentData, clickedDefaultRadio]);
+        if (matchedPrevItem) {
+          return {
+            id: mainItem.id,
+            question: mainItem.question,
+            upload: mainItem.upload,
+            approved: matchedPrevItem.approved
+          };
+        } else {
+          return mainItem
+        }
+      });
+      // Update the state with the new data
+      setUpdatedDefaultData(updatedData);
+    }
+  }, [PreviousDefaultDocumentData]);
 
+
+  // This function updates the data with handleDefaultStatus
+  const handleDefaultStatus = (data) => {
+    const updatedDocument = UpdatedDefaultData.map(item => ({
+      ...item,
+      approved: item.id === data.id ? data.approved : item.approved
+    }));
+
+    setUpdatedDefaultData(updatedDocument);
+  };
 
 
   const someEventHandler = (event, id) => {
@@ -31,7 +51,7 @@ function DefaultDocument({ PreviousDefaultDocumentData, clickedDefaultRadio, rol
 
   return (
     <div className="dark:text-black">
-      {updatedDataCopy.map((data, index) => {
+      {UpdatedDefaultData.map((data, index) => {
         let { id, question, approved, upload } = data;
 
         const isMatch = defaultImageFromDB?.find(
@@ -65,7 +85,7 @@ function DefaultDocument({ PreviousDefaultDocumentData, clickedDefaultRadio, rol
               id={id}
               approved={approved}
               handleStatus={handleStatus}
-              clickedDefaultRadio={clickedDefaultRadio}
+              handleDefaultStatus={handleDefaultStatus}
               type="default"
             />
           </div>

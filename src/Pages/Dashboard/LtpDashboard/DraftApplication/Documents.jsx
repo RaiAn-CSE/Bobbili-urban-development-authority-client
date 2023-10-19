@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import DynamicDocuments from "../../../../assets/DynamicDocument.json";
+import DefaultDocumentData from "../../../../assets/DefaultDocument.json";
 import { Link, useOutletContext } from "react-router-dom";
 import toast from "react-hot-toast";
 import SaveData from "./SaveData";
@@ -12,6 +13,7 @@ import PsDocument from "./PsDocument";
 
 const DocumentUpload = () => {
   const [updatedDefaultDocument, setUpdatedDefaultDocument] = useState([]);
+  const [UpdatedDefaultData, setUpdatedDefaultData] = useState([...DefaultDocumentData]);
   const [imageId, setImageId] = useState({});
   const [approvedConfirmation, setApprovedConfirmation] = useState("");
   const [recomendationMessage, setRecomendationMessage] = useState("");
@@ -139,37 +141,39 @@ const DocumentUpload = () => {
   }, []);
 
 
-  console.log({ PreviousDynamicDocumentData })
-  const [clickedDynamicRadio, setClickDynamicRadio] = useState([]);
-  const [clickedDefaultRadio, setClickDefaultRadio] = useState([]);
+  
 
-  const handleStatus = (data) => {
-    console.log(data, "handleRadioClickedData");
-    if (data.type === "dynamic") {
-      setClickDynamicRadio((prev) => {
-        const already = prev.findIndex(item => item.id === data.id);
-        if (already !== -1) {
-          prev[already] = data;
-          return [...prev];
-        } else {
-          return [...PreviousDynamicDocumentData, data];
-        }
-      });
-    } else {
-      setClickDefaultRadio((prev) => {
-        const already = prev.findIndex(item => item.id === data.id);
-        if (already !== -1) {
-          prev[already] = data;
-          return [...prev];
-        } else {
-          return [...PreviousDefaultDocumentData, data];
-        }
-      });
-    }
-  };
+  console.log({ UpdatedDefaultData },"Document Page combined Data")
+  // const [clickedDynamicRadio, setClickDynamicRadio] = useState([]);
+  // const [clickedDefaultRadio, setClickDefaultRadio] = useState([]);
+
+  // const handleStatus = (data) => {
+  //   console.log(data, "handleRadioClickedData");
+  //   if (data.type === "dynamic") {
+  //     setClickDynamicRadio((prev) => {
+  //       const already = prev.findIndex(item => item.id === data.id);
+  //       if (already !== -1) {
+  //         prev[already] = data;
+  //         return [...prev];
+  //       } else {
+  //         return [...PreviousDynamicDocumentData, data];
+  //       }
+  //     });
+  //   } else {
+  //     setClickDefaultRadio((prev) => {
+  //       const already = prev.findIndex(item => item.id === data.id);
+  //       if (already !== -1) {
+  //         prev[already] = data;
+  //         return [...prev];
+  //       } else {
+  //         return [...PreviousDefaultDocumentData, data];
+  //       }
+  //     });
+  //   }
+  // };
 
 
-  console.log({ clickedDynamicRadio, clickedDefaultRadio });
+  // console.log({ clickedDynamicRadio, clickedDefaultRadio });
 
 
   // file send into the database
@@ -310,12 +314,14 @@ const DocumentUpload = () => {
           <DefaultDocument
             role={role}
             PreviousDefaultDocumentData={PreviousDefaultDocumentData}
-            clickedDefaultRadio={clickedDefaultRadio}
+            // clickedDefaultRadio={clickedDefaultRadio}
+            UpdatedDefaultData={UpdatedDefaultData}
+            setUpdatedDefaultData={setUpdatedDefaultData}
             handleFileChange={handleFileChange}
             gradientColor={gradientColor}
             defaultImageFromDB={imageIdFromDB?.default}
             setApprovedConfirmation={setApprovedConfirmation}
-            handleStatus={handleStatus}
+            // handleStatus={handleStatus}
 
           />
           {/* <DynamicDocument
