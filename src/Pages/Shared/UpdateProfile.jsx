@@ -3,6 +3,7 @@ import useGetUser from "../CustomHook/useGetUser";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import toast from "react-hot-toast";
+import UpdateProfileInput from "./UpdateProfileInput";
 
 const UpdateProfile = () => {
   const { userInfoFromLocalStorage } = useContext(AuthContext);
@@ -41,7 +42,20 @@ const UpdateProfile = () => {
     console.log(formValue, "Formvalue");
     let keysToKeep;
     if (role === "LTP") {
-      keysToKeep = ["email", "address", "adharNo", "phone"];
+      keysToKeep = [
+        "department",
+        "townPlaning",
+        "designation",
+        "registrationNo",
+        "qualification",
+
+
+        "engineer",
+        "email",
+        "address",
+        "adharNo",
+        "phone"
+      ];
     } else {
       keysToKeep = ["email", "address", "phone"];
     }
@@ -78,8 +92,10 @@ const UpdateProfile = () => {
         toast.error("Server error");
       });
   };
+
+
   return (
-    <div className="dark:bg-white p-10">
+    <div className="p-10 text-gray-900">
       <p className="text-center font-roboto font-bold text-3xl mb-10 dark:text-black">
         Update Your Profile
       </p>
@@ -90,12 +106,69 @@ const UpdateProfile = () => {
         {/* if there is a button in form, it will close the modal */}
 
         {/* form input boxes  */}
+        <div className="divide-y-2 divide-gray-200 mb-[60px]">
+          <div className="flex items-center">
+            <h3 className="font-bold text-xl">Basic Information</h3>
+          </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4">
+            <UpdateProfileInput
+              id="department"
+              name="department"
+              label="Department"
+              placeholder="Department"
+              type="text"
+              register={register}
+            />
+            <UpdateProfileInput
+              id="townPlaning"
+              name="townPlaning"
+              label="Town Planing"
+              placeholder="Town Planing"
+              type="text"
+              register={register}
+            />
+            <UpdateProfileInput
+              id="designation"
+              name="designation"
+              label="Designation"
+              placeholder="Designation"
+              type="text"
+              register={register}
+            />
+            <UpdateProfileInput
+              id="engineer"
+              name="engineer"
+              label="Engineer"
+              placeholder="Engineer"
+              type="text"
+              register={register}
+            />
+            <UpdateProfileInput
+              id="registrationNo"
+              name="registrationNo"
+              label="Registration No"
+              placeholder="Registration No"
+              type="text"
+              register={register}
+            />
+            <UpdateProfileInput
+              id="qualification"
+              name="qualification"
+              label="Qualification"
+              placeholder="Qualification"
+              type="text"
+              register={register}
+            />
+
+          </div>
+        </div>
 
         <div className="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <div>
             <label
               htmlFor="email"
-              className="block mb-2 text-sm font-bold text-gray-900 "
+              className="block mb-1 font-semibold text-gray-600"
             >
               Email
             </label>
@@ -103,7 +176,7 @@ const UpdateProfile = () => {
               type="text"
               {...register("email", { required: true })}
               id="email"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full p-2.5"
+              className="w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-violet-500 focus:outline-none focus:ring-2 ring-violet-100"
               placeholder="test@gmail.com"
               required
             />
@@ -149,7 +222,7 @@ const UpdateProfile = () => {
             <div>
               <label
                 htmlFor="adharNo"
-                className="block mb-2 text-base font-bold '' text-gray-900 dark:text-white"
+                className="block mb-2 text-base font-bold text-gray-900"
               >
                 Aadhar no
               </label>

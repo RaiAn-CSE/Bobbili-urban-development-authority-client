@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import InputField from "../../../Components/InputField";
 import LTPImg from "../../../../assets/images/id-card.png";
 import OwnerImg from "../../../../assets/images/real-estate-agent.png";
@@ -7,7 +7,6 @@ import { useOutletContext } from "react-router";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import SaveData from "./SaveData";
 import useGetUser from "../../../CustomHook/useGetUser";
-
 
 const ApplicantInfo = () => {
   const stepperData = useOutletContext();
