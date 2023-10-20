@@ -14,23 +14,39 @@ function DynamicDocument({ PreviousDynamicDocumentData, setDynamicAppChecklistDo
   };
   useEffect(() => {
     const combinedRootDocument = RootDynamicDocument.map(mainItem => {
-      const matchedData = PreviousDynamicDocumentData.filter(data => data.id === mainItem.id);
-    
-      if (matchedData.length > 0) {
+      const matchedIdData = PreviousDynamicDocumentData.filter(data => data.id === mainItem.id);
+
+      console.log(mainItem.id, mainItem.requirements, "Each MainItems Requirement")
+
+      const matchedUploadIdData = PreviousDynamicDocumentData.filter(data => {
+        if (data.id === mainItem.id) {
+          const matchingRequirement = mainItem.requirements.find(MainReqData => MainReqData.uploadId === data.uploadId);
+          if (matchingRequirement) {
+            data.requirement = matchingRequirement.requirement;
+            return true;
+          }
+        }
+        return false;
+      });
+      
+
+      console.log({ matchedUploadIdData })
+
+      if (matchedIdData.length > 0) {
         return {
           id: mainItem.id,
           question: mainItem.question,
-          requirements: matchedData.map(data=>( {...data, requirement:mainItem.requirements.map(data=>data.requirement)}))
+          requirements: matchedUploadIdData
         };
       }
-    
+
       return mainItem;
     });
-    
-    
-    
-    
-  
+
+
+
+
+
     // Update the state with the new data
     // Assuming you have a state variable like setDynamicAppChecklistDocument
     setDynamicAppChecklistDocument(combinedRootDocument);
