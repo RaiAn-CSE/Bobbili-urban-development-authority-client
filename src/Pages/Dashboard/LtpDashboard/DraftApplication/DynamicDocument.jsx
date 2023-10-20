@@ -70,9 +70,12 @@ function DynamicDocument({ PreviousDynamicDocumentData, setDynamicAppChecklistDo
     setCombinedDynamicAppChecklistDocument(updatedRequirements);
   };
 
-
+  useEffect(() => {
+    // Your previous useEffect dependencies here
+  }, [combinedDynamicAppChecklistDocument]);
 
   console.log(DynamicAppChecklistDocument, combinedDynamicAppChecklistDocument, "Dyamic Document && combined Document")
+
   return (
     <div className="dark:text-black">
       {combinedDynamicAppChecklistDocument?.map((document, index) => {
