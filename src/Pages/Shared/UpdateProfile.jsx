@@ -49,12 +49,18 @@ const UpdateProfile = () => {
         "registrationNo",
         "qualification",
 
+        "contactEmail",
+        "mobileNo",
+        "phone",
+        "fax",
 
-        "engineer",
-        "email",
-        "address",
-        "adharNo",
-        "phone"
+
+
+        // "engineer",
+        // "email",
+        // "address",
+        // "adharNo",
+        // "phone"
       ];
     } else {
       keysToKeep = ["email", "address", "phone"];
@@ -95,7 +101,7 @@ const UpdateProfile = () => {
 
 
   return (
-    <div className="p-10 text-gray-900">
+    <div className="py-10 text-gray-900">
       <p className="text-center font-roboto font-bold text-3xl mb-10 dark:text-black">
         Update Your Profile
       </p>
@@ -105,13 +111,13 @@ const UpdateProfile = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* if there is a button in form, it will close the modal */}
 
-        {/* form input boxes  */}
+        {/* Basic Information  */}
         <div className="divide-y-2 divide-gray-200 mb-[60px]">
-          <div className="flex items-center">
-            <h3 className="font-bold text-xl">Basic Information</h3>
+          <div className="flex items-center bg-gradient-to-t from-gray-200 to-gray-50">
+            <h3 className="font-bold text-xl px-5">Basic Information</h3>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 px-5">
             <UpdateProfileInput
               id="department"
               name="department"
@@ -164,7 +170,107 @@ const UpdateProfile = () => {
           </div>
         </div>
 
-        <div className="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {/* Contact Information  */}
+        <div className="divide-y-2 divide-gray-200 mb-[60px]">
+          <div className="flex items-center bg-gradient-to-t from-gray-200 to-gray-50">
+            <h3 className="font-bold text-xl px-5">Contact Information</h3>
+          </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 px-5">
+            <UpdateProfileInput
+              id="contactEmail"
+              name="contactEmail"
+              label="Email"
+              placeholder="Email"
+              type="email"
+              register={register}
+            />
+            <UpdateProfileInput
+              id="mobileNo"
+              name="mobileNo"
+              label="Mobile No."
+              placeholder="Mobile No."
+              type="text"
+              register={register}
+            />
+            <UpdateProfileInput
+              id="phone"
+              name="phone"
+              label="Phone"
+              placeholder="Phone"
+              type="text"
+              register={register}
+            />
+            <UpdateProfileInput
+              id="fax"
+              name="fax"
+              label="Fax"
+              placeholder="Fax"
+              type="text"
+              register={register}
+            />
+          </div>
+        </div>
+
+        {/* Address Information  */}
+        <div className="divide-y-2 divide-gray-200 mb-[60px]">
+          <div className="flex items-center bg-gradient-to-t from-gray-200 to-gray-50">
+            <h3 className="font-bold text-xl px-5">Address Information</h3>
+          </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 px-5">
+            <UpdateProfileInput
+              id="address"
+              name="address"
+              label="Address"
+              placeholder="Address"
+              type="text"
+              register={register}
+            />
+            <UpdateProfileInput
+              id="city"
+              name="city"
+              label="City"
+              placeholder="City"
+              type="text"
+              register={register}
+            />
+            <UpdateProfileInput
+              id="country"
+              name="country"
+              label="Country"
+              placeholder="Country"
+              type="text"
+              register={register}
+            />
+            <UpdateProfileInput
+              id="aadharNo"
+              name="aadharNo"
+              label="Aadhar No."
+              placeholder="Aadhar No."
+              type="text"
+              register={register}
+            />
+            <UpdateProfileInput
+              id="state"
+              name="state"
+              label="State"
+              placeholder="State"
+              type="text"
+              register={register}
+            />
+            <UpdateProfileInput
+              id="zip"
+              name="zip"
+              label="Zip"
+              placeholder="Zip"
+              type="text"
+              register={register}
+            />
+          </div>
+        </div>
+
+        {/* <div className="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <div>
             <label
               htmlFor="email"
@@ -236,7 +342,7 @@ const UpdateProfile = () => {
               />
             </div>
           </div>
-        )}
+        )} */}
 
         {/* {error.length !== 0 && (
             <p className="text-red-500 text-center my-6">{error}</p>
@@ -245,7 +351,7 @@ const UpdateProfile = () => {
         <div className="flex justify-center">
           <button
             type="submit"
-            className="text-white transition-all duration-700 shadow-md hover:shadow-violetDark bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:bg-gradient-to-l font-bold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            className="text-white transition-all duration-700 shadow-md hover:shadow-violetDark bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:bg-gradient-to-l font-bold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
           >
             Submit
           </button>
