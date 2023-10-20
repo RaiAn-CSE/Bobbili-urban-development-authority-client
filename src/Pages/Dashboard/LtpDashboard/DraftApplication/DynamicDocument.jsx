@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import PsDocument from "./PsDocument";
 import RootDynamicDocument from "./../../../../assets/DynamicDocument.json"
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function DynamicDocument({ PreviousDynamicDocumentData, setDynamicAppChecklistDocument, DynamicAppChecklistDocument, role, handleFileChange, gradientColor, dynamicImageFromDB,
 }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
-  console.log({ PreviousDynamicDocumentData, DynamicAppChecklistDocument })
+  const [combinedDynamicAppChecklistDocument, setCombinedDynamicAppChecklistDocument] = useState(DynamicAppChecklistDocument)
+
   const someEventHandler = (event, id, uploadId) => {
     const file = event?.target.files[0];
     selectedFiles[id] = file;
@@ -14,9 +16,10 @@ function DynamicDocument({ PreviousDynamicDocumentData, setDynamicAppChecklistDo
   };
   useEffect(() => {
     const combinedRootDocument = RootDynamicDocument.map(mainItem => {
+      toast.success(`Clicked Radio UseEffect`)
       const matchedIdData = PreviousDynamicDocumentData.filter(data => data.id === mainItem.id);
 
-      console.log(mainItem.id, mainItem.requirements, "Each MainItems Requirement")
+      // console.log(mainItem.id, mainItem.requirements, "Each MainItems Requirement")
 
       const matchedUploadIdData = PreviousDynamicDocumentData.filter(data => {
         if (data.id === mainItem.id) {
@@ -28,53 +31,51 @@ function DynamicDocument({ PreviousDynamicDocumentData, setDynamicAppChecklistDo
         }
         return false;
       });
-      
-
-      console.log({ matchedUploadIdData })
-
       if (matchedIdData.length > 0) {
         return {
           id: mainItem.id,
           question: mainItem.question,
-          requirements: matchedUploadIdData
+          requirements: matchedUploadIdData.sort((a, b) => a.uploadId - b.uploadId)
         };
       }
-
-      return mainItem;
     });
-
-
-
-
-
     // Update the state with the new data
     // Assuming you have a state variable like setDynamicAppChecklistDocument
-    setDynamicAppChecklistDocument(combinedRootDocument);
-  }, [PreviousDynamicDocumentData]);
+    setCombinedDynamicAppChecklistDocument(combinedRootDocument.filter(finalData => finalData));
+  }, []);
 
 
   const handleDynamicStatus = (data) => {
-    const updatedRequirements = DynamicAppChecklistDocument.requirements.map(mainItem => {
-      if (data.uploadId === mainItem.uploadId) {
+    const updatedRequirements = combinedDynamicAppChecklistDocument.map(mainItem => {
+      const matchedUpload = mainItem.requirements.find(reqItem => mainItem.id === data.id && reqItem.uploadId === data.uploadId);
+      const unmatchedUploads = mainItem.requirements.filter(reqItem => mainItem.id === data.id && reqItem.uploadId !== data.uploadId);
+
+      if (matchedUpload) {
+        const updated = { ...matchedUpload, approved: data.approved };
+        const updatedRequirements = [...(unmatchedUploads || []), updated].sort((a, b) => a.uploadId - b.uploadId);
+
         return {
           ...mainItem,
-          requirement: data
+          requirements: updatedRequirements
         };
       } else {
-        return mainItem;
+        return mainItem
       }
     });
 
+    toast.success(`Clicked Radio ${data.uploadId}`);
+    console.log(updatedRequirements, "Updated Requirements");
+
     // Update the state with the new requirements
-    setDynamicAppChecklistDocument((prev) => ({
-      ...prev,
-      requirements: updatedRequirements,
-    }));
+    setCombinedDynamicAppChecklistDocument(updatedRequirements);
   };
-  console.log(DynamicAppChecklistDocument, "Dyamic Document")
+
+
+
+  console.log(DynamicAppChecklistDocument, combinedDynamicAppChecklistDocument, "Dyamic Document && combined Document")
   return (
     <div className="dark:text-black">
-      {DynamicAppChecklistDocument?.map((document, index) => {
+      {combinedDynamicAppChecklistDocument?.map((document, index) => {
         const { id, question, requirements } = document || {};
         // console.log(document, "From Dynamic")
         return (

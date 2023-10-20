@@ -26,7 +26,7 @@ function DefaultDocument({ UpdatedDefaultData, PreviousDefaultDocumentData, setU
       // Update the state with the new data
       setUpdatedDefaultData(updatedData);
     }
-  }, [PreviousDefaultDocumentData]);
+  }, []);
 
   // This function updates the data with handleDefaultStatus
   const handleDefaultStatus = (data) => {

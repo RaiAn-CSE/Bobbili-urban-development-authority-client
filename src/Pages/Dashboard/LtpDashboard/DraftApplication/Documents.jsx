@@ -263,7 +263,7 @@ const DocumentUpload = () => {
       psDocumentPageObservation: PSData,
     });
   };
-
+toast.success("Rendered")
   return (
     <div className="text-black">
       <form
