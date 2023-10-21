@@ -17,7 +17,8 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
 
     useEffect(() => {
         // Your previous useEffect dependencies here
-    }, [approved,uploadId]);
+    }, [approved, uploadId]);
+    
     return (
         <div className='dark:text-white'>
             <div className="flex items-center mt-6">

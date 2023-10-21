@@ -5,11 +5,12 @@ import { Link } from "react-router-dom";
 
 function DefaultDocument({ UpdatedDefaultData, PreviousDefaultDocumentData, setUpdatedDefaultData, role, handleFileChange, gradientColor, defaultImageFromDB }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const [latestUpdatedDefaultData, setLatestUpdatedDefaultData] = useState([...UpdatedDefaultData])
 
   // This useEffect runs only on the initial render
   useEffect(() => {
     if (PreviousDefaultDocumentData.length) {
-      const updatedData = DefaultDocumentData.map(mainItem => {
+      const updatedData = latestUpdatedDefaultData.map(mainItem => {
         const matchedPrevItem = PreviousDefaultDocumentData.find(prevItem => prevItem.id === mainItem.id);
 
         if (matchedPrevItem) {
@@ -24,23 +25,23 @@ function DefaultDocument({ UpdatedDefaultData, PreviousDefaultDocumentData, setU
         }
       });
       // Update the state with the new data
-      setUpdatedDefaultData(updatedData);
+      setLatestUpdatedDefaultData(updatedData);
     }
   }, []);
 
   // This function updates the data with handleDefaultStatus
   const handleDefaultStatus = (data) => {
-    const updatedDocument = UpdatedDefaultData.map(item => ({
+    const updatedDocument = latestUpdatedDefaultData.map(item => ({
       ...item,
       approved: item.id === data.id ? data.approved : item.approved
     }));
 
-    setUpdatedDefaultData(updatedDocument);
+    setLatestUpdatedDefaultData(updatedDocument);
   };
 
   useEffect(() => {
     // Your previous useEffect dependencies here
-  }, [UpdatedDefaultData,PreviousDefaultDocumentData]);
+  }, [latestUpdatedDefaultData, PreviousDefaultDocumentData]);
 
   const someEventHandler = (event, id) => {
     const file = event?.target.files[0];
@@ -50,7 +51,7 @@ function DefaultDocument({ UpdatedDefaultData, PreviousDefaultDocumentData, setU
 
   return (
     <div className="dark:text-black">
-      {UpdatedDefaultData.map((data, index) => {
+      {latestUpdatedDefaultData.map((data, index) => {
         let { id, question, approved, upload } = data;
 
         const isMatch = defaultImageFromDB?.find(
