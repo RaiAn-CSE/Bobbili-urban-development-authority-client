@@ -17,7 +17,7 @@ const DocumentUpload = () => {
   const [UpdatedDynamicData, setUpdatedDynamictData] = useState([]);
   const [PreviousDefaultDocumentData, setPreviousDefaultDocumentData] = useState([]);
   const [PreviousDynamicDocumentData, setPreviousDynamicDocumentData] = useState([]);
-  
+
   const [imageId, setImageId] = useState({});
   const [approvedConfirmation, setApprovedConfirmation] = useState("");
   const [recomendationMessage, setRecomendationMessage] = useState("");
@@ -34,8 +34,8 @@ const DocumentUpload = () => {
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
   const [defaultImageData, setDefaultImageData] = useState([]);
   const [dynamicImageData, setDynamicImageData] = useState([]);
-  const [sendingImageId, setSendingImageId] = useState({dynamic: [],default: []});
-  const [imageIdFromDB, setImageIdFromDB] = useState({default: [],dynamic: []});
+  const [sendingImageId, setSendingImageId] = useState({ dynamic: [], default: [] });
+  const [imageIdFromDB, setImageIdFromDB] = useState({ default: [], dynamic: [] });
 
   // Ltp File uploading Data handeling
   const handleFileChange = (event, id, uploadedFile, type, uploadId) => {
@@ -263,7 +263,7 @@ const DocumentUpload = () => {
       psDocumentPageObservation: PSData,
     });
   };
-toast.success("Rendered")
+  toast.success("Rendered")
   return (
     <div className="text-black">
       <form
