@@ -9,9 +9,9 @@ function DefaultDocument({ UpdatedDefaultData, PreviousDefaultDocumentData, setU
 
   // This useEffect runs only on the initial render
   useEffect(() => {
-    if (PreviousDefaultDocumentData.length) {
+    if (PreviousDefaultDocumentData?.length) {
       const updatedData = latestUpdatedDefaultData.map(mainItem => {
-        const matchedPrevItem = PreviousDefaultDocumentData.find(prevItem => prevItem.id === mainItem.id);
+        const matchedPrevItem = PreviousDefaultDocumentData?.find(prevItem => prevItem.id === mainItem.id);
 
         if (matchedPrevItem) {
           return {
@@ -26,8 +26,9 @@ function DefaultDocument({ UpdatedDefaultData, PreviousDefaultDocumentData, setU
       });
       // Update the state with the new data
       setLatestUpdatedDefaultData(updatedData);
+      setUpdatedDefaultData(updatedData)
     }
-  }, []);
+  }, [PreviousDefaultDocumentData]);
 
   // This function updates the data with handleDefaultStatus
   const handleDefaultStatus = (data) => {
@@ -37,11 +38,12 @@ function DefaultDocument({ UpdatedDefaultData, PreviousDefaultDocumentData, setU
     }));
 
     setLatestUpdatedDefaultData(updatedDocument);
+    setUpdatedDefaultData(updatedDocument)
   };
 
   useEffect(() => {
     // Your previous useEffect dependencies here
-  }, [latestUpdatedDefaultData, PreviousDefaultDocumentData]);
+  }, [latestUpdatedDefaultData]);
 
   const someEventHandler = (event, id) => {
     const file = event?.target.files[0];

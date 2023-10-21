@@ -22,62 +22,62 @@ function DemandNote() {
             {/* Part03 */}
             <div className='overflow-x-auto mt-10 flex items-center justify-center lg:px-10'>
                 <table className='table table-md text-base'>
-                    <thead className='text-black'>
+                    <thead className='border border-black text-black'>
                         <tr>
-                            <th>Sr. No.</th>
-                            <th>Particulars</th>
-                            <th>Area (m2)</th>
-                            <th>Unit Rate</th>
-                            <th>Gross Amount</th>
-                            <th>Previous Paid</th>
-                            <th>Net Amount</th>
+                            <th className="border border-black" >Sr. No.</th>
+                            <th className="border border-black" >Particulars</th>
+                            <th className="border border-black" >Area (m2)</th>
+                            <th className="border border-black" >Unit Rate</th>
+                            <th className="border border-black" >Gross Amount</th>
+                            <th className="border border-black" >Previous Paid</th>
+                            <th className="border border-black" >Net Amount</th>
                         </tr>
                     </thead>
                     <tbody className='text-black'>
                         <tr className="text-black">
-                            <td className='border-black text-black'>01</td>
-                            <td className='border-black text-black'>Development Charges (Built Up Area)</td>
-                            <td className='border-black text-black'></td>
-                            <td className='border-black text-black'></td>
-                            <td className='border-black text-black'></td>
-                            <td className='border-black text-black'></td>
-                            <td className='border-black text-black'></td>
+                            <td className='border border-black text-black'>01</td>
+                            <td className='border border-black text-black'>Development Charges (Built Up Area)</td>
+                            <td className='border border-black text-black'></td>
+                            <td className='border border-black text-black'></td>
+                            <td className='border border-black text-black'></td>
+                            <td className='border border-black text-black'></td>
+                            <td className='border border-black text-black'></td>
                         </tr>
                         <tr>
-                            <td className='border-black text-black'>02</td>
-                            <td className='border-black text-black'>Development Charges (Vacant Land)</td>
-                            <td className='border-black text-black'></td>
-                            <td className='border-black text-black'></td>
-                            <td className='border-black text-black'></td>
-                            <td className='border-black text-black'></td>
-                            <td className='border-black text-black'></td>
+                            <td className='border border-black text-black'>02</td>
+                            <td className='border border-black text-black'>Development Charges (Vacant Land)</td>
+                            <td className='border border-black text-black'></td>
+                            <td className='border border-black text-black'></td>
+                            <td className='border border-black text-black'></td>
+                            <td className='border border-black text-black'></td>
+                            <td className='border border-black text-black'></td>
                         </tr>
                         <tr>
-                            <td className='border-black text-black'>03</td>
-                            <td className='border-black text-black'>Paper Publication Charges</td>
-                            <td className='border-black text-black'></td>
-                            <td className='border-black text-black'></td>
-                            <td className='border-black text-black'></td>
-                            <td className='border-black text-black'></td>
-                            <td className='border-black text-black'></td>
+                            <td className='border border-black text-black'>03</td>
+                            <td className='border border-black text-black'>Paper Publication Charges</td>
+                            <td className='border border-black text-black'></td>
+                            <td className='border border-black text-black'></td>
+                            <td className='border border-black text-black'></td>
+                            <td className='border border-black text-black'></td>
+                            <td className='border border-black text-black'></td>
                         </tr>
                         <tr>
-                            <td className='border-black text-black'>04</td>
-                            <td className='border-black text-black'>Building Permit Fees</td>
-                            <td className='border-black text-black'></td>
-                            <td className='border-black text-black'></td>
-                            <td className='border-black text-black'></td>
-                            <td className='border-black text-black'></td>
-                            <td className='border-black text-black'></td>
+                            <td className='border border-black text-black'>04</td>
+                            <td className='border border-black text-black'>Building Permit Fees</td>
+                            <td className='border border-black text-black'></td>
+                            <td className='border border-black text-black'></td>
+                            <td className='border border-black text-black'></td>
+                            <td className='border border-black text-black'></td>
+                            <td className='border border-black text-black'></td>
                         </tr>
                         <tr>
-                            <td className='border-black text-black'>05</td>
-                            <td className='border-black text-black'>Processing Fees</td>
-                            <td className='border-black text-black'></td>
-                            <td className='border-black text-black'></td>
-                            <td className='border-black text-black'></td>
-                            <td className='border-black text-black'></td>
-                            <td className='border-black text-black'></td>
+                            <td className='border border-black text-black'>05</td>
+                            <td className='border border-black text-black'>Processing Fees</td>
+                            <td className='border border-black text-black'></td>
+                            <td className='border border-black text-black'></td>
+                            <td className='border border-black text-black'></td>
+                            <td className='border border-black text-black'></td>
+                            <td className='border border-black text-black'></td>
                         </tr>
                     </tbody>
 

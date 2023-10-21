@@ -7,8 +7,8 @@ import toast from "react-hot-toast";
 function DynamicDocument({ PreviousDynamicDocumentData, setDynamicAppChecklistDocument, DynamicAppChecklistDocument, role, handleFileChange, gradientColor, dynamicImageFromDB,
 }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
-  const [combinedDynamicAppChecklistDocument, setCombinedDynamicAppChecklistDocument] = useState(DynamicAppChecklistDocument)
-  const [render, setRender] = useState(false);
+
+  const [combinedDynamicAppChecklistDocument, setCombinedDynamicAppChecklistDocument] = useState(DynamicAppChecklistDocument);
 
   const someEventHandler = (event, id, uploadId) => {
     const file = event?.target.files[0];
@@ -17,12 +17,9 @@ function DynamicDocument({ PreviousDynamicDocumentData, setDynamicAppChecklistDo
   };
   useEffect(() => {
     const combinedRootDocument = RootDynamicDocument.map(mainItem => {
-      toast.success(`Clicked Radio UseEffect`)
-      const matchedIdData = PreviousDynamicDocumentData.filter(data => data.id === mainItem.id);
-
+      const matchedIdData = PreviousDynamicDocumentData?.filter(data => data.id === mainItem.id);
       // console.log(mainItem.id, mainItem.requirements, "Each MainItems Requirement")
-
-      const matchedUploadIdData = PreviousDynamicDocumentData.filter(data => {
+      const matchedUploadIdData = PreviousDynamicDocumentData?.filter(data => {
         if (data.id === mainItem.id) {
           const matchingRequirement = mainItem.requirements.find(MainReqData => MainReqData.uploadId === data.uploadId);
           if (matchingRequirement) {
@@ -32,7 +29,7 @@ function DynamicDocument({ PreviousDynamicDocumentData, setDynamicAppChecklistDo
         }
         return false;
       });
-      if (matchedIdData.length > 0) {
+      if (matchedIdData?.length > 0) {
         return {
           id: mainItem.id,
           question: mainItem.question,
@@ -42,25 +39,22 @@ function DynamicDocument({ PreviousDynamicDocumentData, setDynamicAppChecklistDo
     });
     // Update the state with the new data
     // Assuming you have a state variable like setDynamicAppChecklistDocument
-    setCombinedDynamicAppChecklistDocument(combinedRootDocument.filter(finalData => finalData));
-  }, []);
+    setCombinedDynamicAppChecklistDocument(combinedRootDocument?.filter(finalData => finalData));
+    setDynamicAppChecklistDocument(combinedRootDocument?.filter(finalData => finalData))
+  }, [PreviousDynamicDocumentData]);
 
 
   const handleDynamicStatus = (data) => {
     const updatedRequirements = combinedDynamicAppChecklistDocument.map(mainItem => {
-      const matchedUpload = mainItem.requirements.find(reqItem => mainItem.id === data.id && reqItem.uploadId === data.uploadId);
-      const unmatchedUploads = mainItem.requirements.filter(reqItem => mainItem.id === data.id && reqItem.uploadId !== data.uploadId);
-  
+
+      const matchedUpload = mainItem.requirements.find(reqItem => mainItem.id == data.id && reqItem.uploadId == data.uploadId);
+      const unmatchedUploads = mainItem.requirements.filter(reqItem => mainItem.id == data.id && reqItem.uploadId !== data.uploadId);
+
       if (matchedUpload) {
         const updated = { ...matchedUpload, approved: data.approved };
-        let updatedSortingRequirements;
-  
-        if (unmatchedUploads.length === 2) {
-          updatedSortingRequirements = [...unmatchedUploads, updated];
-        } else {
-          updatedSortingRequirements = [...(unmatchedUploads || []), updated].sort((a, b) => parseInt(a.uploadId) - parseInt(b.uploadId));
-        }
-  
+
+        const updatedSortingRequirements = [...(unmatchedUploads || []), updated].sort((a, b) => parseInt(a.uploadId) - parseInt(b.uploadId));
+
         return {
           ...mainItem,
           requirements: updatedSortingRequirements
@@ -69,21 +63,20 @@ function DynamicDocument({ PreviousDynamicDocumentData, setDynamicAppChecklistDo
         return mainItem;
       }
     });
-  
+
     toast.success(`Clicked Radio ${data.uploadId}`);
     console.log(updatedRequirements, "Updated Requirements");
-  
+
     // Update the state with the new requirements
     setCombinedDynamicAppChecklistDocument(updatedRequirements);
-    setRender(data);
+    setDynamicAppChecklistDocument(updatedRequirements)
   };
-  
 
   useEffect(() => {
     // Your previous useEffect dependencies here
-  }, [render, PreviousDynamicDocumentData]);
+  }, [combinedDynamicAppChecklistDocument]);
 
-  console.log(PreviousDynamicDocumentData,DynamicAppChecklistDocument, combinedDynamicAppChecklistDocument, "Dyamic Document && combined Document")
+  console.log(PreviousDynamicDocumentData, combinedDynamicAppChecklistDocument, "Dyamic Document && combined Document")
 
   return (
     <div className="dark:text-black">

@@ -12,13 +12,13 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
             // handleStatus({ approved: data, id, type });
             handleDefaultStatus({ approved: data, id, type })
         }
-        toast.success(data, uploadId, id);
+        toast.success(`${data, uploadId, id}`);
     }
 
     useEffect(() => {
         // Your previous useEffect dependencies here
     }, [approved, uploadId]);
-    
+
     return (
         <div className='dark:text-white'>
             <div className="flex items-center mt-6">
