@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 
-function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus,handleDynamicStatus }) {
+function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, handleDynamicStatus }) {
 
     const handleDocumentStatus = (event, id, uploadId, type) => {
         const data = event?.target?.value;
@@ -15,6 +15,9 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus,ha
         toast.success(data, uploadId, id);
     }
 
+    useEffect(() => {
+        // Your previous useEffect dependencies here
+    }, [approved,uploadId]);
     return (
         <div className='dark:text-white'>
             <div className="flex items-center mt-6">

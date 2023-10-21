@@ -38,6 +38,10 @@ function DefaultDocument({ UpdatedDefaultData, PreviousDefaultDocumentData, setU
     setUpdatedDefaultData(updatedDocument);
   };
 
+  useEffect(() => {
+    // Your previous useEffect dependencies here
+  }, [UpdatedDefaultData,PreviousDefaultDocumentData]);
+
   const someEventHandler = (event, id) => {
     const file = event?.target.files[0];
     selectedFiles[id] = file;

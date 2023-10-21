@@ -8,6 +8,7 @@ function DynamicDocument({ PreviousDynamicDocumentData, setDynamicAppChecklistDo
 }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [combinedDynamicAppChecklistDocument, setCombinedDynamicAppChecklistDocument] = useState(DynamicAppChecklistDocument)
+  const [render, setRender] = useState(false);
 
   const someEventHandler = (event, id, uploadId) => {
     const file = event?.target.files[0];
@@ -52,11 +53,11 @@ function DynamicDocument({ PreviousDynamicDocumentData, setDynamicAppChecklistDo
 
       if (matchedUpload) {
         const updated = { ...matchedUpload, approved: data.approved };
-        const updatedRequirements = [...(unmatchedUploads || []), updated].sort((a, b) => a.uploadId - b.uploadId);
 
+        const updatedSortingRequirements = [...(unmatchedUploads || []), updated].sort((a, b) => a.uploadId - b.uploadId);
         return {
           ...mainItem,
-          requirements: updatedRequirements
+          requirements: updatedSortingRequirements
         };
       } else {
         return mainItem
@@ -68,13 +69,14 @@ function DynamicDocument({ PreviousDynamicDocumentData, setDynamicAppChecklistDo
 
     // Update the state with the new requirements
     setCombinedDynamicAppChecklistDocument(updatedRequirements);
+    setRender(data);
   };
 
   useEffect(() => {
     // Your previous useEffect dependencies here
-  }, [combinedDynamicAppChecklistDocument]);
+  }, [render, PreviousDynamicDocumentData]);
 
-  console.log(DynamicAppChecklistDocument, combinedDynamicAppChecklistDocument, "Dyamic Document && combined Document")
+  console.log(PreviousDynamicDocumentData,DynamicAppChecklistDocument, combinedDynamicAppChecklistDocument, "Dyamic Document && combined Document")
 
   return (
     <div className="dark:text-black">
