@@ -340,9 +340,11 @@ const DocumentUpload = () => {
       message: recomendationMessage ?? "",
     };
 
-    return await sendUserDataIntoDB(url, "PATCH", {
-      psDocumentPageObservation: PSData,
-    });
+    console.log(PSData, "PS data");
+
+    // return await sendUserDataIntoDB(url, "PATCH", {
+    //   psDocumentPageObservation: PSData,
+    // });
   };
 
   return (
