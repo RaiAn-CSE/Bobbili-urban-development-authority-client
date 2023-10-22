@@ -93,14 +93,15 @@ const SiteInspection = () => {
     const landUse = applicationData?.siteInspection?.landUse;
     const decision = applicationData?.siteInspection?.decision;
     const recommendations = applicationData?.siteInspection?.recommendations;
-
+    console.log(decision, "DECISION");
     setGroundPosition(groundPosition);
     setSiteBoundaries(siteBoundaries);
     setApproachRoadApp(siteBoundaries?.accessRoad?.approachRoad?.[0]);
     setApproachRoadObs(siteBoundaries?.accessRoad?.approachRoad?.[1]);
     setAccessRoad(accessRoad);
     setLandUse(landUse);
-    setDecision(decision);
+    // setDecision(decision);
+    setRadioPs(decision);
     setRecommendations(recommendations);
 
     if (siteBoundaries) {
@@ -108,11 +109,12 @@ const SiteInspection = () => {
         return siteBoundaries?.siteBoundariesImageFilesId;
       });
     }
-  }, [isSuccess]);
+  }, [isSuccess, data]);
 
-  useEffect(() => {
-    refetch();
-  }, [isSavedData]);
+  // useEffect(() => {
+  //   console.log(isSavedData, "IS SAVED DATA");
+  //   refetch();
+  // }, [isSavedData]);
 
   console.log(siteBoundariesImageFilesId, "IMAGE FILES ID");
 
@@ -298,8 +300,6 @@ const SiteInspection = () => {
         //         }
         //     });
 
-        setIsSavedData((prev) => prev + 1);
-
         return await sendUserDataIntoDB(url, "PATCH", {
           applicationNo,
           siteInspection,
@@ -314,8 +314,6 @@ const SiteInspection = () => {
       );
     }
   };
-
-  console.log(isSavedData, "SavedData");
 
   const sentPsDecision = async (url) => {
     url = `http://localhost:5000/decisionOfPs?appNo=${applicationNo}`;
@@ -334,6 +332,10 @@ const SiteInspection = () => {
   const inputClass =
     "input rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-200 bg-gray-100";
   const inputTableDataClass = "whitespace-nowrap border-r border-neutral-500";
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div className="flex flex-col sm:px-6 lg:px-8 text-black">
@@ -823,11 +825,7 @@ const SiteInspection = () => {
             name="radioPs"
             className="radio border border-[#10AC84] h-4 w-4"
             value="Approved"
-            checked={
-              radioPs === "Approved"
-                ? radioPs === "Approved"
-                : decision === "Approved"
-            }
+            checked={radioPs === "Approved"}
             onChange={handleRadioPs}
           />
           <span className="ml-2 text-base">Approved</span>
@@ -838,11 +836,7 @@ const SiteInspection = () => {
             name="radioPs"
             className="radio border border-[#10AC84] h-4 w-4"
             value="Shortfall"
-            checked={
-              radioPs === "Shortfall"
-                ? radioPs === "Shortfall"
-                : decision === "Shortfall"
-            }
+            checked={radioPs === "Shortfall"}
             onChange={handleRadioPs}
           />
           <span className="ml-2 text-base">Shortfall</span>
@@ -880,6 +874,7 @@ const SiteInspection = () => {
         confirmAlert={confirmAlert}
         collectInputFieldData={collectInputFieldData}
         sentData={sentPsDecision}
+        refetch={refetch}
       />
     </div>
   );
