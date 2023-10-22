@@ -14,7 +14,7 @@ const Drawing = () => {
 
   console.log({ approvedConfirmation, recomendationMessage });
 
-  const [openApplication, setOpenApplication] = useState(false);
+  // const [openApplication, setOpenApplication] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState({
     AutoCAD: "",
     Drawing: "",
@@ -202,10 +202,19 @@ const Drawing = () => {
     };
 
     console.log(psData, "PSDATA");
-    return await sendUserDataIntoDB(url, "PATCH", {
-      applicationNo,
-      psDrawingPageObservation: psData,
-    });
+    if (approvedConfirmation?.length) {
+      return await sendUserDataIntoDB(url, "PATCH", {
+        applicationNo,
+        psDrawingPageObservation: psData,
+      });
+    } else {
+      toast.error(
+        "Please fill up the decision whether the application is approved or shortfall"
+      );
+      throw new Error(
+        "Please fill up the decision whether the application is approved or shortfall"
+      );
+    }
   };
 
   useEffect(() => {
@@ -301,9 +310,9 @@ const Drawing = () => {
             submitData={getSubmitData?.psDrawingPageObservation}
           />
         )}
-      {openApplication && (
+      {/* {openApplication && (
         <Application setOpenApplication={setOpenApplication} />
-      )}
+      )} */}
 
       {/* save & continue  */}
       <SaveData
