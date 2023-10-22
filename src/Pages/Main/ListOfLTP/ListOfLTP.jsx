@@ -95,7 +95,7 @@ const ListOfLTP = () => {
               <tr>
                 <th>Name</th>
                 <th>Contact no.</th>
-                <th c>Email</th>
+                <th>Email</th>
                 <th>Address</th>
                 <th>License no.</th>
                 <th>Validity</th>

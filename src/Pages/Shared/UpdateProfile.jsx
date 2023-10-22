@@ -54,6 +54,12 @@ const UpdateProfile = () => {
         "phone",
         "fax",
 
+        "address",
+        "city",
+        "country",
+        "aadharNo",
+        "state",
+        "zip",
 
 
         // "engineer",

@@ -50,7 +50,9 @@ const AllDraftApplication = ({
         {" "}
         {generalInformation.mandal !== "" ? generalInformation.mandal : "N/A"}
       </td>
+
       <td className="px-2">{createdDate ?? "N/A"}</td>
+
       <td className="p-5">
         <button
           className={`btn btn-sm text-white bg-red-500 hover:bg-red-600`}
