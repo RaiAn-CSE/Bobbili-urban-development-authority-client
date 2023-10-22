@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import DynamicDocuments from "../../../../assets/DynamicDocument.json";
+import DefaultDocumentData from "../../../../assets/DefaultDocument.json";
 import { Link, useOutletContext } from "react-router-dom";
 import toast from "react-hot-toast";
 import SaveData from "./SaveData";
@@ -11,61 +12,30 @@ import DynamicDocument from "./DynamicDocument";
 import PsDocument from "./PsDocument";
 
 const DocumentUpload = () => {
-  const [updatedDefaultDocument, setUpdatedDefaultDocument] = useState([]);
+  const [UpdatedDefaultData, setUpdatedDefaultData] = useState([...DefaultDocumentData]);
+  const [DynamicAppChecklistDocument, setDynamicAppChecklistDocument] = useState([]);
+  const [UpdatedDynamicData, setUpdatedDynamictData] = useState([]);
+  const [PreviousDefaultDocumentData, setPreviousDefaultDocumentData] = useState([]);
+  const [PreviousDynamicDocumentData, setPreviousDynamicDocumentData] = useState([]);
+
   const [imageId, setImageId] = useState({});
   const [approvedConfirmation, setApprovedConfirmation] = useState("");
   const [recomendationMessage, setRecomendationMessage] = useState("");
   const stepperData = useOutletContext();
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
-  const [PreviousDefaultDocumentData, setPreviousDefaultDocumentData] =
-    useState([]);
-  const [PreviousDynamicDocumentData, setPreviousDynamicDocumentData] =
-    useState([]);
-  const [UpdatedDynamicDocumentData, setUpdatedDynamicDocumentData] = useState(
-    []
-  );
-  // const [ltpSendingDocument, setLtpSendingDocument] = useState({
-  //   dynamic: [],
-  //   default: [],
-  // });
-  const [psSendingDocument, setPsSendingDocument] = useState({
-    dynamic: [],
-    default: [],
-  });
-
-  const [statusDefaultData, setStatusDefaultData] = useState([]);
-  const [statusDynamicData, setStatusDynamicData] = useState([]);
-  const [sendingDocument, setSendingDocument] = useState({
-    dynamic: [],
-    default: [],
-  });
+  const [psSendingDocument, setPsSendingDocument] = useState({ dynamic: [], default: [] });
+  const [sendingDocument, setSendingDocument] = useState({ dynamic: [], default: [] });
   const [defaultData, setDefaultData] = useState([]);
   const [dynamicData, setDynamicData] = useState([]);
-  const {
-    confirmAlert,
-    sendUserDataIntoDB,
-    getApplicationData,
-    userInfoFromLocalStorage,
-  } = useContext(AuthContext);
-
+  const { confirmAlert, sendUserDataIntoDB, getApplicationData, userInfoFromLocalStorage } = useContext(AuthContext);
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
-
   const cameFrom = JSON.parse(localStorage.getItem("page"));
-
   const role = userInfoFromLocalStorage().role;
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
-
   const [defaultImageData, setDefaultImageData] = useState([]);
   const [dynamicImageData, setDynamicImageData] = useState([]);
-  const [sendingImageId, setSendingImageId] = useState({
-    dynamic: [],
-    default: [],
-  });
-
-  const [imageIdFromDB, setImageIdFromDB] = useState({
-    default: [],
-    dynamic: [],
-  });
+  const [sendingImageId, setSendingImageId] = useState({ dynamic: [], default: [] });
+  const [imageIdFromDB, setImageIdFromDB] = useState({ default: [], dynamic: [] });
 
   // Ltp File uploading Data handeling
   const handleFileChange = (event, id, uploadedFile, type, uploadId) => {
@@ -93,59 +63,15 @@ const DocumentUpload = () => {
   useEffect(() => {
     setSendingDocument({ default: defaultData, dynamic: dynamicData });
     setSendingImageId({ default: defaultImageData, dynamic: dynamicImageData });
-    console.log(sendingDocument, "Sending Document");
-    console.log(sendingImageId, "Sending  image Document");
-    // setLtpSendingDocument({ default: defaultData, dynamic: de });
   }, [defaultData, dynamicData, defaultImageData, dynamicImageData]);
 
-  // PS Approved and Shortfall Data handeling
-  const handleStatus = (event, id, uploadId, type) => {
-    if (type === "dynamic") {
-      const dynamicMatchedIndex = statusDynamicData.findIndex(
-        (data) => data.id == id
-      );
-
-      if (dynamicMatchedIndex !== -1) {
-        // If a matching ID is found in dynamic data, updated it
-        const updatedData = {
-          ...statusDynamicData[dynamicMatchedIndex],
-          event,
-        };
-        statusDynamicData[dynamicMatchedIndex] = updatedData;
-        setStatusDynamicData([...statusDynamicData]);
-      } else {
-        // If no match is found in dynamic data, added a new entry
-        const data = { id, uploadId, event };
-        setStatusDynamicData((prev) => [...prev, data]);
-      }
-    } else {
-      const defaultMatchedIndex = statusDefaultData.findIndex(
-        (data) => data.id == id
-      );
-
-      if (defaultMatchedIndex !== -1) {
-        // If a matching ID is found in default data, updated it
-        const updatedData = {
-          ...statusDefaultData[defaultMatchedIndex],
-          event,
-        };
-        statusDefaultData[defaultMatchedIndex] = updatedData;
-        setStatusDefaultData([...statusDefaultData]);
-      } else {
-        // If no match is found in default data, added a new entry
-        const data = { id, event };
-        setStatusDefaultData((prev) => [...prev, data]);
-      }
-    }
-    console.log({ id, event, uploadId });
-  };
   // PS Sending Document Updating when handleChange
   useEffect(() => {
     setPsSendingDocument({
-      default: statusDefaultData,
-      dynamic: statusDynamicData,
+      default: UpdatedDefaultData,
+      dynamic: UpdatedDynamicData,
     });
-  }, [statusDefaultData, statusDynamicData]);
+  }, [UpdatedDefaultData, UpdatedDynamicData]);
 
   // PS Page Recomendation Message and Approved
   const handleRecomendationMessage = (e) => {
@@ -153,9 +79,8 @@ const DocumentUpload = () => {
     setRecomendationMessage(RecomdMessage);
   };
   const handleConfirmation = (data) => {
-    setApprovedConfirmation(data);
+    setApprovedConfirmation(data)
   };
-
   // Adding checklist Data to Document from server data && Updating Data from server Data
   useEffect(() => {
     const gettingData = async () => {
@@ -187,7 +112,6 @@ const DocumentUpload = () => {
         setRecomendationMessage(
           applicationData?.psDocumentPageObservation?.message
         );
-
       // Checklist "yes" Data integrating to Document
       if (applicationCheckList?.length) {
         const documents = applicationData?.documents;
@@ -203,18 +127,13 @@ const DocumentUpload = () => {
           });
         });
       }
-      setUpdatedDynamicDocumentData(updatedDynamicDocumentsToAdd);
+      setDynamicAppChecklistDocument(updatedDynamicDocumentsToAdd);
     };
     gettingData();
   }, []);
-  console.log(
-    {
-      PreviousDefaultDocumentData,
-      PreviousDynamicDocumentData,
-      setApprovedConfirmation,
-      setRecomendationMessage,
-    },
-    "PS Saved Data"
+
+  console.log({ UpdatedDefaultData }, "Document Page combined Data")
+  console.log({ PreviousDefaultDocumentData, PreviousDynamicDocumentData, approvedConfirmation, recomendationMessage, }, "PS Saved Data"
   );
 
   // file send into the database
@@ -346,7 +265,7 @@ const DocumentUpload = () => {
     //   psDocumentPageObservation: PSData,
     // });
   };
-
+  toast.success("Rendered")
   return (
     <div className="text-black">
       <form
@@ -359,25 +278,26 @@ const DocumentUpload = () => {
           <DefaultDocument
             role={role}
             PreviousDefaultDocumentData={PreviousDefaultDocumentData}
+            UpdatedDefaultData={UpdatedDefaultData}
+            setUpdatedDefaultData={setUpdatedDefaultData}
             handleFileChange={handleFileChange}
             gradientColor={gradientColor}
             defaultImageFromDB={imageIdFromDB?.default}
-            // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
             setApprovedConfirmation={setApprovedConfirmation}
-            handleStatus={handleStatus}
-            // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
+          // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
           />
           <DynamicDocument
             role={role}
             PreviousDynamicDocumentData={PreviousDynamicDocumentData}
-            UpdatedDynamicDocumentData={UpdatedDynamicDocumentData}
+            DynamicAppChecklistDocument={DynamicAppChecklistDocument}
+            setDynamicAppChecklistDocument={setDynamicAppChecklistDocument}
+            UpdatedDynamicData={UpdatedDynamicData}
+            // setUpdatedDynamictData={setUpdatedDynamictData}
             handleFileChange={handleFileChange}
             gradientColor={gradientColor}
             dynamicImageFromDB={imageIdFromDB?.dynamic}
-            // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
             setApprovedConfirmation={setApprovedConfirmation}
-            handleStatus={handleStatus}
-            // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
+          // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
           />
         </div>
       </form>

@@ -3,35 +3,62 @@ import DefaultDocumentData from "../../../../assets/DefaultDocument.json";
 import PsDocument from "./PsDocument";
 import { Link } from "react-router-dom";
 
-function DefaultDocument({ PreviousDefaultDocumentData, role, handleFileChange, gradientColor, handleStatus, defaultImageFromDB }) {
-    const [selectedFiles, setSelectedFiles] = useState([]);
-    const [UpdatedDefaultData, setUpdatedDefaultData] = useState([]);
+function DefaultDocument({ UpdatedDefaultData, PreviousDefaultDocumentData, setUpdatedDefaultData, role, handleFileChange, gradientColor, defaultImageFromDB }) {
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [latestUpdatedDefaultData, setLatestUpdatedDefaultData] = useState([...UpdatedDefaultData])
 
-    useEffect(() => {
-        if (PreviousDefaultDocumentData.length) {
-            setUpdatedDefaultData([...PreviousDefaultDocumentData]);
+  // This useEffect runs only on the initial render
+  useEffect(() => {
+    if (PreviousDefaultDocumentData?.length) {
+      const updatedData = latestUpdatedDefaultData.map(mainItem => {
+        const matchedPrevItem = PreviousDefaultDocumentData?.find(prevItem => prevItem.id === mainItem.id);
+
+        if (matchedPrevItem) {
+          return {
+            id: mainItem.id,
+            question: mainItem.question,
+            upload: mainItem.upload,
+            approved: matchedPrevItem.approved
+          };
         } else {
-            setUpdatedDefaultData([...DefaultDocumentData]);
+          return mainItem
         }
-    }, []);
+      });
+      // Update the state with the new data
+      setLatestUpdatedDefaultData(updatedData);
+      setUpdatedDefaultData(updatedData)
+    }
+  }, [PreviousDefaultDocumentData]);
 
-    const someEventHandler = (event, id) => {
-        const file = event?.target.files[0];
-        selectedFiles[id] = file;
-        handleFileChange(event, id, selectedFiles, "default");
-    };
+  // This function updates the data with handleDefaultStatus
+  const handleDefaultStatus = (data) => {
+    const updatedDocument = latestUpdatedDefaultData.map(item => ({
+      ...item,
+      approved: item.id === data.id ? data.approved : item.approved
+    }));
 
-    console.log(defaultImageFromDB, "DEFAULT IMAGE FROM DB");
-    return (
-        <div className="dark:text-black">
-            {UpdatedDefaultData?.map((data, index) => {
-                const { id, question, approved, upload } = data;
+    setLatestUpdatedDefaultData(updatedDocument);
+    setUpdatedDefaultData(updatedDocument)
+  };
 
-                const isMatch = defaultImageFromDB?.find(
-                    (eachFile, i) => eachFile.id === id
-                );
+  useEffect(() => {
+    // Your previous useEffect dependencies here
+  }, [latestUpdatedDefaultData]);
 
-        console.log(isMatch, "IS MATCH");
+  const someEventHandler = (event, id) => {
+    const file = event?.target.files[0];
+    selectedFiles[id] = file;
+    handleFileChange(event, id, selectedFiles, "default");
+  };
+
+  return (
+    <div className="dark:text-black">
+      {latestUpdatedDefaultData.map((data, index) => {
+        let { id, question, approved, upload } = data;
+
+        const isMatch = defaultImageFromDB?.find(
+          (eachFile, i) => eachFile.id === id
+        );
         return (
           <div key={id} className="w-full px-2 py-5 rounded mb-8">
             <p className="pb-4 font-bold">
@@ -59,8 +86,7 @@ function DefaultDocument({ PreviousDefaultDocumentData, role, handleFileChange, 
               role={role}
               id={id}
               approved={approved}
-              handleStatus={handleStatus}
-              PreviousDocumentData={PreviousDefaultDocumentData}
+              handleDefaultStatus={handleDefaultStatus}
               type="default"
             />
           </div>
