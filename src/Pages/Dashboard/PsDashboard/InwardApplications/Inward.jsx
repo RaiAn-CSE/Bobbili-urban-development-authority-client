@@ -26,7 +26,11 @@ const Inward = () => {
   const { data, refetch, isLoading, isError, isSuccess } = useQuery(
     ["allInwardApplications"],
     async () => {
-      const response = await fetch(`http://localhost:5000/submitApplications`);
+      const response = await fetch(
+        `http://localhost:5000/submitApplications?userId=${
+          userInfoFromLocalStorage()?._id
+        }`
+      );
       return await response.json();
     }
   );
