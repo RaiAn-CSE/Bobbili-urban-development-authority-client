@@ -1,15 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useQuery } from "react-query";
+import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 
 function Outward() {
   const [error, setError] = useState("");
   const [allData, setAllData] = useState([]);
 
+  const { userInfoFromLocalStorage } = useContext(AuthContext);
+
   // get all applications which are submitted already
   const { data, refetch, isLoading, isError, isSuccess } = useQuery(
     ["allOutwardApplications"],
     async () => {
-      const response = await fetch(`http://localhost:5000/totalApplications`);
+      const response = await fetch(
+        `http://localhost:5000/totalApplications?data=${JSON.stringify(
+          userInfoFromLocalStorage()
+        )}`
+      );
       return await response.json();
     }
   );

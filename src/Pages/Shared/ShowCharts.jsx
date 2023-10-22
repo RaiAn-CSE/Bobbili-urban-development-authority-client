@@ -142,7 +142,11 @@ const ShowCharts = () => {
       console.log(data, "Data");
     } else {
       console.log("all");
-      fetch(`http://localhost:5000/totalApplications?role=${role}`)
+      fetch(
+        `http://localhost:5000/totalApplications?data=${JSON.stringify(
+          userInfoFromLocalStorage()
+        )}`
+      )
         .then((res) => res.json())
         .then((result) => {
           console.log(result);
