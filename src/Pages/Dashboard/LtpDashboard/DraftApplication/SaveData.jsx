@@ -12,6 +12,7 @@ const SaveData = ({
   sentToPS,
   setSentData,
   sentData,
+  isApproved,
   refetch,
 }) => {
   let btnClass =
@@ -26,52 +27,56 @@ const SaveData = ({
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
   const location = useLocation();
 
-  const [isApproved, setIsApproved] = useState(null);
-  // console.log(location, "Saved Data");
+  // const [isApproved, setIsApproved] = useState(null);
+
+  // const [isUpdate, setIsUpdate] = useState(0);
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (location.pathname.includes("siteInspection")) {
-      const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
-      console.log(applicationNo, "AppNo");
+  // useEffect(() => {
+  //   if (location.pathname.includes("siteInspection")) {
+  //     console.log("INSIDE");
+  //     const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
+  //     console.log(applicationNo, "AppNo");
 
-      const getSubmitAppData = async () => {
-        const data = await getSubmitApplicationData(applicationNo);
-        console.log(data, "SAD");
-        // setGetSubmitData(data);
+  //     const getSubmitAppData = async () => {
+  //       const data = await getSubmitApplicationData(applicationNo);
+  //       console.log(data, "SAD");
+  //       // setGetSubmitData(data);
 
-        const documentDecision = data?.psDocumentPageObservation?.approved;
-        const drawingDecision = data?.psDrawingPageObservation?.approved;
-        const siteInspectionDecision = data?.siteInspection?.decision;
+  //       const documentDecision = data?.psDocumentPageObservation?.approved;
+  //       const drawingDecision = data?.psDrawingPageObservation?.approved;
+  //       const siteInspectionDecision = data?.siteInspection?.decision;
 
-        console.log(documentDecision, drawingDecision, siteInspectionDecision);
+  //       console.log(documentDecision, drawingDecision, siteInspectionDecision);
 
-        if (
-          documentDecision?.length &&
-          drawingDecision?.length &&
-          siteInspectionDecision?.length
-        ) {
-          if (
-            documentDecision.toLowerCase() === "true" &&
-            drawingDecision.toLowerCase() === "true" &&
-            siteInspectionDecision.toLowerCase() === "approved"
-          ) {
-            setIsApproved(1);
-          }
-          if (
-            documentDecision.toLowerCase() === "false" &&
-            drawingDecision.toLowerCase() === "false" &&
-            siteInspectionDecision.toLowerCase() === "shortfall"
-          ) {
-            setIsApproved(0);
-          }
-        }
-      };
+  //       if (
+  //         documentDecision?.length &&
+  //         drawingDecision?.length &&
+  //         siteInspectionDecision?.length
+  //       ) {
+  //         if (
+  //           documentDecision.toLowerCase() === "true" &&
+  //           drawingDecision.toLowerCase() === "true" &&
+  //           siteInspectionDecision.toLowerCase() === "approved"
+  //         ) {
+  //           setIsApproved(1);
+  //         }
+  //         if (
+  //           documentDecision.toLowerCase() === "false" &&
+  //           drawingDecision.toLowerCase() === "false" &&
+  //           siteInspectionDecision.toLowerCase() === "shortfall"
+  //         ) {
+  //           setIsApproved(0);
+  //         }
+  //       }
+  //     };
 
-      getSubmitAppData();
-    }
-  }, []);
+  //     getSubmitAppData();
+  //   }
+  // }, []);
+
+  console.log(isApproved, "approved");
   return (
     <>
       {isStepperVisible && ( // Render the stepper only when isStepperVisible is true
@@ -133,28 +138,16 @@ const SaveData = ({
               <button
                 className={`btn btn-md ${gradientColor} text-sm text-white px-8 mt-10 ml-3 shadow-md hover:shadow-violetDark border-0 transition-all duration-500`}
                 onClick={() => {
-                  confirmAlert(undefined, collectInputFieldData);
-                  console.log("HELLO WORLD");
-                  refetch();
+                  confirmAlert(undefined, collectInputFieldData, {
+                    page: "PS site inspection data save",
+                    refetch,
+                  });
                 }}
               >
                 Save
               </button>
               {location.pathname.includes("siteInspection") &&
-              isApproved === 1 ? (
-                <button
-                  className={`btn btn-md text-sm px-7 mt-10 ml-6 shadow-md hover:shadow-violetDark border-0 transition-all duration-500 bg-black hover:bg-black text-white`}
-                  // onClick={() => {
-                  //   confirmAlert(undefined, sentData, {
-                  //     page: "siteInspection",
-                  //     navigate,
-                  //   });
-                  // }}
-                >
-                  Proceeding Issued
-                </button>
-              ) : (
-                <>
+                isApproved === 1 && (
                   <button
                     className={`btn btn-md text-sm px-7 mt-10 ml-6 shadow-md hover:shadow-violetDark border-0 transition-all duration-500 bg-black hover:bg-black text-white`}
                     // onClick={() => {
@@ -164,21 +157,36 @@ const SaveData = ({
                     //   });
                     // }}
                   >
-                    Publish Endorsement
+                    Proceeding Issued
                   </button>
-                  <button
-                    className={`btn btn-md text-sm px-7 mt-10 ml-6 shadow-md hover:shadow-violetDark border-0 transition-all duration-500 bg-black hover:bg-black text-white`}
-                    // onClick={() => {
-                    //   confirmAlert(undefined, sentData, {
-                    //     page: "siteInspection",
-                    //     navigate,
-                    //   });
-                    // }}
-                  >
-                    Reject
-                  </button>
-                </>
-              )}
+                )}
+              {location.pathname.includes("siteInspection") &&
+                isApproved === 0 && (
+                  <>
+                    <button
+                      className={`btn btn-md text-sm px-7 mt-10 ml-6 shadow-md hover:shadow-violetDark border-0 transition-all duration-500 bg-black hover:bg-black text-white`}
+                      // onClick={() => {
+                      //   confirmAlert(undefined, sentData, {
+                      //     page: "siteInspection",
+                      //     navigate,
+                      //   });
+                      // }}
+                    >
+                      Publish Endorsement
+                    </button>
+                    <button
+                      className={`btn btn-md text-sm px-7 mt-10 ml-6 shadow-md hover:shadow-violetDark border-0 transition-all duration-500 bg-black hover:bg-black text-white`}
+                      // onClick={() => {
+                      //   confirmAlert(undefined, sentData, {
+                      //     page: "siteInspection",
+                      //     navigate,
+                      //   });
+                      // }}
+                    >
+                      Reject
+                    </button>
+                  </>
+                )}
             </>
           )}
         </div>

@@ -58,6 +58,7 @@ const SiteInspection = () => {
   });
 
   const [siteBoundariesImageFiles, setSiteBoundariesImageFiles] = useState({});
+  const [isApproved, setIsApproved] = useState(-1);
 
   console.log(siteBoundariesImageFiles, "siteBoundariesImageFiles");
 
@@ -85,6 +86,35 @@ const SiteInspection = () => {
 
   useEffect(() => {
     console.log(data, "DATA");
+
+    const documentDecision = data?.psDocumentPageObservation?.approved;
+    const drawingDecision = data?.psDrawingPageObservation?.approved;
+    const siteInspectionDecision = data?.siteInspection?.decision;
+
+    console.log(documentDecision, drawingDecision, siteInspectionDecision);
+
+    if (
+      documentDecision?.length &&
+      drawingDecision?.length &&
+      siteInspectionDecision?.length
+    ) {
+      if (
+        documentDecision.toLowerCase() === "true" &&
+        drawingDecision.toLowerCase() === "true" &&
+        siteInspectionDecision.toLowerCase() === "approved"
+      ) {
+        console.log("APPROVED COND");
+        setIsApproved(1);
+      }
+      if (
+        documentDecision.toLowerCase() === "false" ||
+        drawingDecision.toLowerCase() === "false" ||
+        siteInspectionDecision.toLowerCase() === "shortfall"
+      ) {
+        console.log("SHORTFALL COND");
+        setIsApproved(0);
+      }
+    }
 
     const applicationData = data;
     const groundPosition = applicationData?.siteInspection?.groundPosition;
@@ -117,6 +147,7 @@ const SiteInspection = () => {
   // }, [isSavedData]);
 
   console.log(siteBoundariesImageFilesId, "IMAGE FILES ID");
+  console.log(isApproved, "APPROVED SITE");
 
   // Decision :
   const [radioPs, setRadioPs] = useState("");
@@ -874,6 +905,7 @@ const SiteInspection = () => {
         confirmAlert={confirmAlert}
         collectInputFieldData={collectInputFieldData}
         sentData={sentPsDecision}
+        isApproved={isApproved}
         refetch={refetch}
       />
     </div>
