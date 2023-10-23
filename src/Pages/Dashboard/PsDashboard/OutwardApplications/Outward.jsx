@@ -34,11 +34,13 @@ function Outward() {
 
       const approved = data?.applications?.approvedApplications;
       const shortfall = data?.applications?.shortfallApplications;
+      const rejected = data?.applications?.totalRejectedApplications;
 
       console.log(approved, "App");
       console.log(shortfall, "shrt");
+      console.log(rejected, "reject");
       setAllData((prev) => {
-        const newValue = [...approved, ...shortfall];
+        const newValue = [...approved, ...shortfall, ...rejected];
         return newValue;
       });
     }
@@ -98,7 +100,7 @@ function Outward() {
                       ? applicationData?.generalInformation?.mandal
                       : "N/A"}
                   </td>
-                  <td>{applicationData?.submitDate ?? "N/A"}</td>
+                  <td>{applicationData?.psSubmitDate ?? "N/A"}</td>
                   <td>{applicationData?.status ?? "N/A"}</td>
                 </tr>
               );

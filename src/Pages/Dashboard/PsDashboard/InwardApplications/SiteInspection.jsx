@@ -347,7 +347,13 @@ const SiteInspection = () => {
   };
 
   const sentPsDecision = async (url) => {
-    url = `http://localhost:5000/decisionOfPs?appNo=${applicationNo}`;
+    const trackPSAction = JSON.parse(localStorage.getItem("PSDecision"));
+
+    const data = {
+      applicationNo,
+      trackPSAction,
+    };
+    url = `http://localhost:5000/decisionOfPs?data=${JSON.stringify(data)}`;
     console.log(url);
 
     const config = {

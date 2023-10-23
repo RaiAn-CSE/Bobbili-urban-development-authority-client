@@ -176,12 +176,16 @@ const SaveData = ({
                     </button>
                     <button
                       className={`btn btn-md text-sm px-7 mt-10 ml-6 shadow-md hover:shadow-violetDark border-0 transition-all duration-500 bg-black hover:bg-black text-white`}
-                      // onClick={() => {
-                      //   confirmAlert(undefined, sentData, {
-                      //     page: "siteInspection",
-                      //     navigate,
-                      //   });
-                      // }}
+                      onClick={() => {
+                        localStorage.setItem(
+                          "PSDecision",
+                          JSON.stringify("reject")
+                        );
+                        confirmAlert(undefined, sentData, {
+                          page: "siteInspection",
+                          navigate,
+                        });
+                      }}
                     >
                       Reject
                     </button>
