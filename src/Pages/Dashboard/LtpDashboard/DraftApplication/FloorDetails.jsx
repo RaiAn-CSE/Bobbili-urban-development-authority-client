@@ -35,14 +35,14 @@ const FloorDetails = ({
       }
     });
 
-    console.log(selectedFloor, "SELELELE");
+    // console.log(selectedFloor, "SELELELE");
 
     if (flag === 1) {
       const searchInIndividualFloorSelected = individualFloorSelected.findIndex(
         (floorSelected) => floorSelected === value
       );
 
-      console.log(searchInIndividualFloorSelected);
+      // console.log(searchInIndividualFloorSelected);
       if (searchInIndividualFloorSelected === -1) {
         return 0;
       } else {
@@ -65,7 +65,7 @@ const FloorDetails = ({
     });
   };
 
-  console.log(selectedFloor?.length ? selectedFloor : floorChange, "SELECTED");
+  // console.log(selectedFloor?.length ? selectedFloor : floorChange, "SELECTED");
 
   return (
     <>
@@ -92,9 +92,8 @@ const FloorDetails = ({
                 <option
                   key={index}
                   value={eachFloor}
-                  className={`${
-                    findOldSelectedValue(eachFloor) ? "hidden" : ""
-                  }`}
+                  className={`${findOldSelectedValue(eachFloor) ? "hidden" : ""
+                    }`}
                 >
                   {eachFloor}
                 </option>

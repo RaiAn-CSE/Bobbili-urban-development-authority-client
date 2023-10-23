@@ -6,7 +6,7 @@ import plotImage from "../../../../assets/images/land.png";
 import wallImage from "../../../../assets/images/gate.png";
 import { useOutletContext, useLocation } from "react-router";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
-import allDistrictData from "../../../../assets/buildingInfo.json";
+// import allDistrictData from "../../../../assets/buildingInfo.json";
 import SaveData from "./SaveData";
 import FloorDetails from "./FloorDetails";
 
@@ -24,6 +24,7 @@ const BuildingInfo = () => {
     sendUserDataIntoDB,
     userInfoFromLocalStorage,
     getApplicationData,
+    getLocationInfo,
   } = useContext(AuthContext);
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
@@ -138,17 +139,34 @@ const BuildingInfo = () => {
     };
     getData();
 
+
+    // const districtData = getLocationInfo();
+
+    // console.log(districtData, 'districtData');
+
     // const apiUrl = "../../src/assets/buildingInfo.json";
-    // fetch(apiUrl)
+    // fetch('http://localhost:5000/getDistricts')
     //   .then((response) => response.json())
     //   .then((result) => {
-    //     setDistrictData(result.district);
+    //     console.log(result[0], 'result.district');
     //   })
     //   .catch((error) => {
     //     console.error("Error:", error);
     //   });
 
-    setDistrictData(allDistrictData.district);
+    // setDistrictData(allDistrictData.district);
+  }, []);
+
+
+  useEffect(() => {
+    (async function () {
+      const locationData = await getLocationInfo();
+      console.log(locationData, "LOC");
+      const extractsDataFromDB = locationData[0]?.district;
+      // setAllLocationData(extractsDataFromDB);
+      // const districts = extractsDataFromDB?.map((each) => each?.name);
+      setDistrictData(extractsDataFromDB);
+    })();
   }, []);
 
   useEffect(() => {
@@ -797,18 +815,18 @@ const BuildingInfo = () => {
 
             <div className="flex flex-col justify-center my-4 mx-3">
               <label className={labelClass}>
-                <span>Grama Panchayat</span>
+                <span>Village</span>
               </label>
               <select
-                id="gramaPanchayat"
-                name="gramaPanchayat"
+                id="village"
+                name="village"
                 className={inputClass}
-                value={selectedGrama}
-                onChange={(e) => setSelectedGrama(e.target.value)}
+                value={selectedVillage}
+                onChange={(e) => setSelectedVillage(e.target.value)}
                 disabled={!selectedMandal || isReadOnly}
               >
                 <option value="" disabled>
-                  Select Grama Panchayat
+                  Select Village
                 </option>
                 {selectedMandal &&
                   districtData
@@ -824,18 +842,18 @@ const BuildingInfo = () => {
 
             <div className="flex flex-col justify-center my-4 mx-3">
               <label className={labelClass}>
-                <span>Village</span>
+                <span>Grama Panchayat</span>
               </label>
               <select
-                id="village"
-                name="village"
+                id="gramaPanchayat"
+                name="gramaPanchayat"
                 className={inputClass}
-                value={selectedVillage}
-                onChange={(e) => setSelectedVillage(e.target.value)}
+                value={selectedGrama}
+                onChange={(e) => setSelectedGrama(e.target.value)}
                 disabled={!selectedMandal || isReadOnly}
               >
                 <option value="" disabled>
-                  Select Village
+                  Select Grama Panchayat
                 </option>
                 {selectedMandal &&
                   districtData
