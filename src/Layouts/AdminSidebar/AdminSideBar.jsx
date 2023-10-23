@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { MdSpaceDashboard } from "react-icons/md";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { BiSolidUserPlus } from "react-icons/bi";
-import { FaUsersGear } from "react-icons/fa6";
+import { FaLocationDot, FaUsersGear } from "react-icons/fa6";
 
 const AdminSideBar = () => {
   const path = useLocation().pathname;
@@ -64,7 +64,7 @@ const AdminSideBar = () => {
         }  ps-4 mb-1 flex items-center  ${hoverColor}`}
       >
         <span>
-          <FaUsersGear size={20} />
+          <FaLocationDot size={20} />
         </span>
         <Link
           className={`p-[10px] font-medium `}

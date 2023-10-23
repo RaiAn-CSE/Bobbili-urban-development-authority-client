@@ -183,6 +183,10 @@ const AuthProvider = ({ children }) => {
           currentStep < steps.length - 1 && handleStepClick(currentStep + 1);
         }
 
+        if (pageWiseAction?.page === "PS site inspection data save") {
+          const { refetch } = pageWiseAction;
+          refetch();
+        }
         if (pageWiseAction?.page === "payment") {
           const { setSentData } = pageWiseAction;
           setSentData((prev) => prev + 1);

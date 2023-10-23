@@ -1,39 +1,23 @@
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 
-function PsDocument({ role, id, approved, uploadId, handleStatus, type, PreviousDocumentData }) {
-    const [valueData, setValueData] = useState("");
-
-    useEffect(() => {
-        if (PreviousDocumentData?.length) {
-            const dynamicMatch = PreviousDocumentData.find(data => data.id === id && data.uploadId === uploadId);
-            const defaultMatch = PreviousDocumentData.find(data => data.id == id);
-            if (type === "dynamic") {
-                if (dynamicMatch) {
-                    setValueData(dynamicMatch.event);
-                } else {
-                    // Set a default value when no dynamic match is found
-                    setValueData("approved");
-                }
-            } else {
-                if (defaultMatch) {
-                    setValueData(defaultMatch.event);
-                } else {
-                    // Set a default value when no default match is found
-                    setValueData("approved");
-                }
-            }
-        } else {
-            // Set a default value when PreviousDocumentData is empty
-            setValueData("approved");
-        }
-    }, [PreviousDocumentData, id, uploadId, type]);
+function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, handleDynamicStatus }) {
 
     const handleDocumentStatus = (event, id, uploadId, type) => {
         const data = event?.target?.value;
-        handleStatus(data, id, uploadId, type);
-        toast.success(data);
+        if (type === "dynamic") {
+            // handleStatus({ approved: data, id, uploadId, type });
+            handleDynamicStatus({ approved: data, id, uploadId, type })
+        } else {
+            // handleStatus({ approved: data, id, type });
+            handleDefaultStatus({ approved: data, id, type })
+        }
+        toast.success(`${data, uploadId, id}`);
     }
+
+    useEffect(() => {
+        // Your previous useEffect dependencies here
+    }, [approved, uploadId]);
 
     return (
         <div className='dark:text-white'>
@@ -48,11 +32,11 @@ function PsDocument({ role, id, approved, uploadId, handleStatus, type, Previous
                             <input
                                 id={id}
                                 type="radio"
-                                name={id}
+                                name={type === "dynamic" ? uploadId + id : id}
                                 value="approved"
                                 className="radio radio-sm radio-success mr-3 lg:mr-0"
                                 onChange={(event) => handleDocumentStatus(event, id, uploadId, type)}
-                                defaultChecked={valueData === "approved"}
+                                checked={approved === "approved"}
                             />
                             <span>Approve</span>
                         </label>
@@ -61,13 +45,13 @@ function PsDocument({ role, id, approved, uploadId, handleStatus, type, Previous
                            `}
                         >
                             <input
-                                id={id}
+                                id={type === "dynamic" ? uploadId : id}
                                 type="radio"
-                                name={id}
+                                name={type === "dynamic" ? uploadId + id : id}
                                 value="shortfall"
                                 className="radio radio-sm radio-success mr-3 lg:mr-0"
                                 onChange={(event) => handleDocumentStatus(event, id, uploadId, type)}
-                                defaultChecked={valueData === "shortfall"}
+                                checked={approved === "shortfall"}
                             />
                             <span>Shortfall</span>
                         </label>

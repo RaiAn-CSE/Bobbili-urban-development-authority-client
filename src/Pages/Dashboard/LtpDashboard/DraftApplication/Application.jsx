@@ -9,7 +9,7 @@ function Application({ setOpenApplication }) {
   const [plotDetails, setPlotDetails] = useState({});
   const [ltpDetailsData, setLtpDetailsData] = useState({});
   const [applicantDetailsData, setApplicantDetailsData] = useState({});
-
+  const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
   useEffect(() => {
     // Opening the modal when the component mounts
     const modal = document.getElementById("my_modal_5");
@@ -163,13 +163,13 @@ function Application({ setOpenApplication }) {
             <div className="overflow-x-auto">
               <table className="table bg-white table-sm cursor-default">
                 {/* Part01 head */}
-                <thead className="bg-gray-400 text-black dark:text-white">
+                <thead className="bg-gray-400 border border-black text-black dark:text-white">
                   <tr>
-                    <th className="border-l border-black">A</th>
-                    <th className="border-0 text-end">
+                    <th className="border border-black">A</th>
+                    <th className="border border-black text-end">
                       ADDRESS OF THE APPLICANT
                     </th>
-                    <th className="border-0"></th>
+                    <th className="border border-black"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -195,11 +195,11 @@ function Application({ setOpenApplication }) {
             <div className="overflow-x-auto mt-10 text-black">
               <table className="table bg-white table-sm">
                 {/* Part02 head */}
-                <thead className="bg-gray-400 text-black uppercase">
+                <thead className="bg-gray-400 border border-black text-black uppercase">
                   <tr>
-                    <th>B</th>
-                    <th>LOCATION OF THE PROPOSED SITE</th>
-                    <th></th>
+                    <th className="border border-black">B</th>
+                    <th className="border border-black">LOCATION OF THE PROPOSED SITE</th>
+                    <th className="border border-black"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -228,21 +228,21 @@ function Application({ setOpenApplication }) {
               {/* Part 03 head */}
               <thead className="bg-gray-400 text-black dark:text-white">
                 <tr>
-                  <th className="w-[10%]">D</th>
-                  <th className="uppercase">
+                  <th className="border border-black w-[10%]">D</th>
+                  <th className="border border-black uppercase">
                     DETAILS OF THE PROPOSED CONSTRUCTION
                   </th>
-                  <th></th>
-                  <th></th>
+                  <th className="border border-black"></th>
+                  <th className="border border-black"></th>
                 </tr>
               </thead>
               <tbody className="text-start">
-                <tr>
+                <tr className="border border-black">
                   <td className="border border-black w-[10%]">01</td>
                   <td className="border border-black w-[30%]">
                     Site Area (Sq.mtr.)
                   </td>
-                  <td className="p-0 border-0 border-r">
+                  <td className="p-0 border-0 border-r border-black">
                     <td className="border-0 border-b border-black w-full block">
                       As per Document
                     </td>
@@ -251,7 +251,7 @@ function Application({ setOpenApplication }) {
                     </td>
                     <td className="border-0 w-full block">As on Proposed</td>
                   </td>
-                  <td className="p-0 border-0 border-y">
+                  <td className="p-0 border-0 border-y border-black">
                     <td className="border-0 border-b border-black w-full block">
                       As per Document
                     </td>
@@ -331,29 +331,29 @@ function Application({ setOpenApplication }) {
             <table className="mt-7 w-full">
               <thead>
                 <tr>
-                  <th className="border border-black"></th>
-                  <th className="border-0 border-black text-end">Signature</th>
-                  <th className="border-0 border-black"></th>
+                  <th className="border border-black p-1"></th>
+                  <th className="border border-black p-1">Signature</th>
+                  <th className="border border-black p-1"></th>
                 </tr>
               </thead>
               <tbody>
                 <tr className="border border-black">
-                  <td className="border border-black" style={{ width: "10%" }}>
+                  <td className="border border-black p-1" style={{ width: "10%" }}>
                     01
                   </td>
-                  <td className="border border-black" style={{ width: "40%" }}>
+                  <td className="border border-black p-1" style={{ width: "40%" }}>
                     Signature of owner
                   </td>
                   <td
-                    className="border border-black"
+                    className="border border-black p-1"
                     style={{ width: "50%" }}
                   ></td>
                 </tr>
                 <tr className="border border-black">
-                  <td className="border border-black" style={{ width: "10%" }}>
+                  <td className="border border-black p-1" style={{ width: "10%" }}>
                     02
                   </td>
-                  <td className="border border-black" style={{ width: "40%" }}>
+                  <td className="border border-black p-1" style={{ width: "40%" }}>
                     Signature of the LTP
                   </td>
                   <td
@@ -367,7 +367,7 @@ function Application({ setOpenApplication }) {
           <form method="dialog" className="mt-5">
             <button
               onClick={() => setOpenApplication(false)}
-              className="btn text-center btn-md"
+              className={`btn btn-md text-sm px-3 mt-10 ml-3 border-none text-white shadow-md transition-all duration-500 ${gradientColor} hover:shadow-lg hover:shadow-violetDark hover:bg-gradient-to-bl`}
             >
               Close
             </button>

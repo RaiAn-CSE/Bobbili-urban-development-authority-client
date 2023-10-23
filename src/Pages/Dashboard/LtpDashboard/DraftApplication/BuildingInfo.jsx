@@ -555,9 +555,9 @@ const BuildingInfo = () => {
 
     const splitApplicationNo = applicationNo.split("/");
 
-    splitApplicationNo[2] = gramaPanchayat?.length ? gramaPanchayat : "XX";
-    splitApplicationNo[2] = village?.length ? village : "XX";
-    splitApplicationNo[3] = mandal?.length ? mandal : "XX";
+    // splitApplicationNo[2] = gramaPanchayat?.length ? gramaPanchayat : "XX";
+    splitApplicationNo[2] = village?.length ? village.slice(0, 3) : "XX";
+    splitApplicationNo[3] = mandal?.length ? mandal.slice(0, 3) : "XX";
 
     const newApplicationNo = splitApplicationNo.join("/");
 

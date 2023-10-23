@@ -12,8 +12,7 @@ function DocumentFooter({
     handleConfirmation(data);
   };
 
-  console.log(submitData, "submitData");
-  //   const path = "LTP";
+  console.log(approvedConfirmation && approvedConfirmation === "true", "Checking");
   return (
     <div className="dark:text-white">
       <div className="lg:ml-6">
@@ -27,7 +26,8 @@ function DocumentFooter({
               value="approved"
               name="finalApproved"
               className="radio radio-sm radio-success mr-3 lg:mr-0"
-              defaultChecked={approvedConfirmation === "true"}
+              // defaultChecked=
+              checked={approvedConfirmation && approvedConfirmation === "true"}
               onClick={() => handleConfirm("true")}
             />
             <span className="text-gray-900">Approve</span>
@@ -40,7 +40,7 @@ function DocumentFooter({
               value="shortfall"
               name="finalApproved"
               className="radio radio-sm radio-success mr-3 lg:mr-0"
-              defaultChecked={approvedConfirmation === "false"}
+              checked={approvedConfirmation && approvedConfirmation === "false"}
               onClick={() => handleConfirm("false")}
             />
             <span className="text-gray-900">Shortfall</span>
@@ -61,6 +61,7 @@ function DocumentFooter({
             className="w-3/4 px-3 py-2 border rounded-lg  border-gray-300 text-gray-900 bg-gray-50 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200"
             defaultValue={recomendationMessage && recomendationMessage}
             placeholder="Recommendation"
+            onChange={(event)=>handleMessage(event)}
           ></textarea>
         </div>
 

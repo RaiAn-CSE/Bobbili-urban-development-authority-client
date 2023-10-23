@@ -1,15 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useQuery } from "react-query";
+import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 
 function Outward() {
   const [error, setError] = useState("");
   const [allData, setAllData] = useState([]);
 
+  const { userInfoFromLocalStorage } = useContext(AuthContext);
+
   // get all applications which are submitted already
   const { data, refetch, isLoading, isError, isSuccess } = useQuery(
     ["allOutwardApplications"],
     async () => {
-      const response = await fetch(`http://localhost:5000/totalApplications`);
+      const response = await fetch(
+        `http://localhost:5000/totalApplications?data=${JSON.stringify(
+          userInfoFromLocalStorage()
+        )}`
+      );
       return await response.json();
     }
   );
@@ -27,11 +34,13 @@ function Outward() {
 
       const approved = data?.applications?.approvedApplications;
       const shortfall = data?.applications?.shortfallApplications;
+      const rejected = data?.applications?.totalRejectedApplications;
 
       console.log(approved, "App");
       console.log(shortfall, "shrt");
+      console.log(rejected, "reject");
       setAllData((prev) => {
-        const newValue = [...approved, ...shortfall];
+        const newValue = [...approved, ...shortfall, ...rejected];
         return newValue;
       });
     }
@@ -91,7 +100,7 @@ function Outward() {
                       ? applicationData?.generalInformation?.mandal
                       : "N/A"}
                   </td>
-                  <td>{applicationData?.submitDate ?? "N/A"}</td>
+                  <td>{applicationData?.psSubmitDate ?? "N/A"}</td>
                   <td>{applicationData?.status ?? "N/A"}</td>
                 </tr>
               );

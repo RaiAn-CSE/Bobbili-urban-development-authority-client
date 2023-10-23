@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -9,14 +9,88 @@ const AddUser = () => {
 
   const [userType, setUserType] = useState(null);
 
-  const { userInfoFromLocalStorage, checkLicenseExpirationOfLtp } =
-    useContext(AuthContext);
+  const {
+    userInfoFromLocalStorage,
+    checkLicenseExpirationOfLtp,
+    getLocationInfo,
+  } = useContext(AuthContext);
 
   const userRole = userInfoFromLocalStorage().role;
 
   const navigate = useNavigate();
 
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
+
+  const [allLocationData, setAllLocationData] = useState([]);
+  const [allDistricts, setAllDistricts] = useState([]);
+  const [allMandal, setAllMandal] = useState([]);
+  const [allPanchayat, setAllPanchayat] = useState([]);
+
+  const [selectedDistrict, setSelectedDistrict] = useState("");
+  const [selectedMandal, setSelectedMandal] = useState("");
+  const [selectedPanchayat, setSelectedPanchayat] = useState("");
+
+  useEffect(() => {
+    (async function () {
+      const locationData = await getLocationInfo();
+      console.log(locationData, "LOC");
+      const extractsDataFromDB = locationData[0]?.district;
+      setAllLocationData(extractsDataFromDB);
+      const districts = extractsDataFromDB?.map((each) => each?.name);
+      setAllDistricts(districts);
+    })();
+  }, []);
+
+  const detectSelectOfDistrict = (e) => {
+    setAllMandal([]);
+    setAllPanchayat([]);
+    setSelectedMandal("");
+    setSelectedPanchayat("");
+
+    const chooseDistrict = e.target.value;
+    console.log(chooseDistrict);
+    setSelectedDistrict(chooseDistrict);
+
+    // Reset the selected value of the Mandal dropdown to "select"
+    const mandalSelect = document.getElementById("mandal");
+    mandalSelect.value = "";
+
+    const panchayatSelect = document.getElementById("panchayat");
+    panchayatSelect.value = "";
+
+    allDistricts.forEach((eachDistrict, index) => {
+      if (eachDistrict === chooseDistrict) {
+        setAllMandal(allLocationData[index]?.mandal);
+      }
+    });
+  };
+
+  const detectChangeOfMandals = (e) => {
+    setAllPanchayat([]);
+    setSelectedPanchayat("");
+
+    const panchayatSelect = document.getElementById("panchayat");
+    panchayatSelect.value = "";
+
+    const value = e.target.value;
+    setSelectedMandal(value);
+
+    console.log(value);
+
+    console.log(allMandal, "DCM");
+
+    const mandalWiseVillage = allMandal.find(
+      (eachMandal) => eachMandal?.name === value
+    )?.village;
+
+    console.log(mandalWiseVillage);
+    setAllPanchayat(mandalWiseVillage);
+  };
+
+  const detectChangeOfPanchayat = (e) => {
+    setSelectedPanchayat(e.target.value);
+  };
+
   const onSubmit = (data) => {
     console.log(data);
 
@@ -37,6 +111,30 @@ const AddUser = () => {
           };
         } else {
           toast.error(isValidate);
+        }
+      } else if (data?.role.toLowerCase() === "ps") {
+        console.log(selectedDistrict, "District");
+        console.log(selectedMandal, "MAndal");
+        console.log(selectedPanchayat, "Panchayat");
+
+        if (selectedDistrict?.length) {
+          if (selectedMandal?.length) {
+            if (selectedPanchayat?.length) {
+              const address = {
+                district: selectedDistrict,
+                mandal: selectedMandal,
+                gramaPanchayat: selectedPanchayat,
+              };
+
+              userInfo = { ...data, ...address };
+            } else {
+              toast.error("Please select a grama panchayat");
+            }
+          } else {
+            toast.error("Please select a mandal");
+          }
+        } else {
+          toast.error("Please select a district");
         }
       } else {
         userInfo = { ...data };
@@ -268,6 +366,89 @@ const AddUser = () => {
                 id="validity"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
+            </div>
+          </div>
+        )}
+
+        {userType === "PS" && (
+          <div className="flex justify-between items-center">
+            {/* district  */}
+            <div className="basis-1/5">
+              <label
+                htmlFor="district"
+                className="block mb-2 text-base font-bold text-gray-900"
+              >
+                District
+              </label>
+              <select
+                id="district"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                defaultValue={selectedDistrict}
+                onChange={(e) => detectSelectOfDistrict(e)}
+              >
+                <option value="" disabled>
+                  Select an option
+                </option>
+                {allDistricts.map((eachDistrict) => {
+                  return (
+                    <option key={eachDistrict} value={eachDistrict}>
+                      {eachDistrict}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+
+            {/* mandal */}
+
+            <div className="basis-1/5">
+              <label
+                htmlFor="mandal"
+                className="block mb-2 text-base font-bold text-gray-900"
+              >
+                Mandal
+              </label>
+              <select
+                id="mandal"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                defaultValue={selectedMandal}
+                onChange={(e) => detectChangeOfMandals(e)}
+                disabled={allMandal?.length === 0}
+              >
+                <option value="" disabled>
+                  Select an option
+                </option>
+                {allMandal?.map((eachMandal, index) => {
+                  return (
+                    <option key={index} value={eachMandal?.name}>
+                      {eachMandal?.name}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            {/* gram panchayat  */}
+            <div className="basis-1/5">
+              <label
+                htmlFor="panchayat"
+                className="block mb-2 text-base font-bold text-gray-900"
+              >
+                Grama Panchayat
+              </label>
+              <select
+                id="panchayat"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                defaultValue={selectedPanchayat}
+                disabled={allPanchayat?.length === 0}
+                onChange={(e) => detectChangeOfPanchayat(e)}
+              >
+                <option value="" disabled>
+                  Select an option
+                </option>
+                {allPanchayat?.map((eachPanchayt, index) => {
+                  return <option key={index}>{eachPanchayt}</option>;
+                })}
+              </select>
             </div>
           </div>
         )}
