@@ -6,6 +6,7 @@ import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import toast from "react-hot-toast";
 import AllDraftApplication from "./AllDraftApplication";
 import Swal from "sweetalert2";
+import TableLayout from "../../../Components/TableLayout";
 
 const NewApplication = () => {
   const {
@@ -25,7 +26,7 @@ const NewApplication = () => {
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
   // get all draft applications
-  const { data, refetch, isLoading, isError } = useQuery(
+  const { data, refetch, isLoading, isError, isSuccess } = useQuery(
     ["draftApplications"],
     async () => {
       const response = await fetch(
@@ -70,31 +71,9 @@ const NewApplication = () => {
         toast.error("Server is not responded");
       });
   };
-  // Function to generate a unique number
-  // const generateApplicationNumber = () => {
-  //   const date = new Date();
-  //   const milisecond = date.getMilliseconds();
-  //   const second = date.getSeconds();
-  //   const hour = date.getHours();
-  //   const year = date.getFullYear();
-
-  //   console.log(hour, milisecond, second);
-  //   const applicationNo = `1177/${milisecond}/${hour}/${second}/BUDA/${year}`;
-
-  //   return applicationNo;
-  // };
 
   // navigate after clicking on the draft application no
   const navigate = useNavigate();
-  // const showDraftApplication = (applicationNo) => {
-  //   console.log(applicationNo);
-  //   localStorage.setItem("CurrentAppNo", JSON.stringify(applicationNo));
-  //   localStorage.setItem("stepIndex", JSON.stringify(0));
-
-  //   navigate("/dashboard/draftApplication/buildingInfo", {
-  //     state: { page: "draft" },
-  //   });
-  // };
 
   // store new application information into the database
   const storeApplicationData = (serialNo) => {
@@ -178,9 +157,207 @@ const NewApplication = () => {
     });
   };
 
+  const tableHeader = [
+    "Sl.no.",
+    "Application no.",
+    "Owner name",
+    "Phone no.",
+    "Case type",
+    "Village",
+    "Mandal",
+    "Created date",
+    "Action",
+  ];
+
+  const [tableData, setTableData] = useState({});
+
+  useEffect(() => {
+    console.log("object");
+    setTableData((prev) => {
+      const newValue = {
+        tableHeader,
+        tableData: data,
+        removeDraftApplication,
+        showPageBasedOnApplicationType,
+        navigate,
+      };
+      return { ...prev, ...newValue };
+    });
+  }, [isSuccess, data]);
+
   return (
     <div className=" my-3">
-      <div className="flex justify-end my-5 mr-3">
+      {/* test  */}
+      {/* <div className="container mx-auto px-4 sm:px-8">
+        <div className="py-8">
+          <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+            <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
+              <table className="min-w-full leading-normal">
+                <thead>
+                  <tr>
+                    <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      User
+                    </th>
+                    <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      Rol
+                    </th>
+                    <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      Created at
+                    </th>
+                    <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      Status
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <div className="flex items-center">
+                        <div className="flex-shrink-0 w-10 h-10">
+                          <img
+                            className="w-full h-full rounded-full"
+                            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
+                            alt=""
+                          />
+                        </div>
+                        <div className="ml-3">
+                          <p className="text-gray-900 whitespace-no-wrap">
+                            Vera Carpenter
+                          </p>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <p className="text-gray-900 whitespace-no-wrap">Admin</p>
+                    </td>
+                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <p className="text-gray-900 whitespace-no-wrap">
+                        Jan 21, 2020
+                      </p>
+                    </td>
+                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+                        <span
+                          aria-hidden
+                          className="absolute inset-0 bg-green-200 opacity-50 rounded-full"
+                        ></span>
+                        <span className="relative">Activo</span>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <div className="flex items-center">
+                        <div className="flex-shrink-0 w-10 h-10">
+                          <img
+                            className="w-full h-full rounded-full"
+                            src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
+                            alt=""
+                          />
+                        </div>
+                        <div className="ml-3">
+                          <p className="text-gray-900 whitespace-no-wrap">
+                            Blake Bowman
+                          </p>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <p className="text-gray-900 whitespace-no-wrap">Editor</p>
+                    </td>
+                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <p className="text-gray-900 whitespace-no-wrap">
+                        Jan 01, 2020
+                      </p>
+                    </td>
+                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+                        <span
+                          aria-hidden
+                          className="absolute inset-0 bg-green-200 opacity-50 rounded-full"
+                        ></span>
+                        <span className="relative">Activo</span>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <div className="flex items-center">
+                        <div className="flex-shrink-0 w-10 h-10">
+                          <img
+                            className="w-full h-full rounded-full"
+                            src="https://images.unsplash.com/photo-1540845511934-7721dd7adec3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
+                            alt=""
+                          />
+                        </div>
+                        <div className="ml-3">
+                          <p className="text-gray-900 whitespace-no-wrap">
+                            Dana Moore
+                          </p>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <p className="text-gray-900 whitespace-no-wrap">Editor</p>
+                    </td>
+                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <p className="text-gray-900 whitespace-no-wrap">
+                        Jan 10, 2020
+                      </p>
+                    </td>
+                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <span className="relative inline-block px-3 py-1 font-semibold text-orange-900 leading-tight">
+                        <span
+                          aria-hidden
+                          className="absolute inset-0 bg-orange-200 opacity-50 rounded-full"
+                        ></span>
+                        <span className="relative">Suspended</span>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="px-5 py-5 bg-white text-sm">
+                      <div className="flex items-center">
+                        <div className="flex-shrink-0 w-10 h-10">
+                          <img
+                            className="w-full h-full rounded-full"
+                            src="https://images.unsplash.com/photo-1522609925277-66fea332c575?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&h=160&w=160&q=80"
+                            alt=""
+                          />
+                        </div>
+                        <div className="ml-3">
+                          <p className="text-gray-900 whitespace-no-wrap">
+                            Alonzo Cox
+                          </p>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-5 py-5 bg-white text-sm">
+                      <p className="text-gray-900 whitespace-no-wrap">Admin</p>
+                    </td>
+                    <td className="px-5 py-5 bg-white text-sm">
+                      <p className="text-gray-900 whitespace-no-wrap">
+                        Jan 18, 2020
+                      </p>
+                    </td>
+                    <td className="px-5 py-5 bg-white text-sm">
+                      <span className="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
+                        <span
+                          aria-hidden
+                          className="absolute inset-0 bg-red-200 opacity-50 rounded-full"
+                        ></span>
+                        <span className="relative">Inactive</span>
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div> */}
+
+      <div className="flex justify-end mt-10 mr-3">
         <button
           className={`btn flex font-roboto dark:border-none transition-all duration-700 bg-gradient-to-r from-violet-500 to-fuchsia-500 text-[#fff] hover:bg-gradient-to-l`}
           onClick={showConfirmModal}
@@ -190,46 +367,13 @@ const NewApplication = () => {
         </button>
       </div>
 
-      <div className=" w-full overflow-auto">
-        <table className="w-full font-roboto table ">
-          {/* head */}
-          <thead>
-            <tr className="bg-[#2d3436] text-sm md:text-base text-white hover:bg-[#353b48]">
-              <th className="p-2">Sl.no.</th>
-              <th className="p-2">Application no.</th>
-              <th className="p-2">Owner name</th>
-              <th className="p-2">Phone no.</th>
-              <th className="p-2">Case type</th>
-              <th className="p-2">Village</th>
-              <th className="p-2">Mandal</th>
-              <th className="p-2">Created date</th>
-              <th className="p-2">Delete</th>
-            </tr>
-          </thead>
-          <tbody className="text-sm">
-            {/* show draft applications  */}
+      <TableLayout props={tableData} />
 
-            {data?.map((applicationData, index) => (
-              <AllDraftApplication
-                key={index}
-                serialNo={index}
-                applicationData={applicationData}
-                showDraftApplication={showPageBasedOnApplicationType}
-                removeDraftApplication={removeDraftApplication}
-                navigate={navigate}
-              />
-            ))}
-          </tbody>
-        </table>
+      {error && (
+        <p className="text-lg text-center my-4 font-bold text-error">{error}</p>
+      )}
 
-        {error && (
-          <p className="text-lg text-center my-4 font-bold text-error">
-            {error}
-          </p>
-        )}
-
-        {isLoading && <p>Loading...</p>}
-      </div>
+      {isLoading && <p>Loading...</p>}
     </div>
   );
 };
