@@ -4,6 +4,7 @@ import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import useGetPageWiseApplication from "../../../CustomHook/useGetPageWiseApplication";
 import ShowAllShortfallApplications from "./ShowAllShortfallApplications";
 import { useNavigate } from "react-router-dom";
+import TableLayout from "../../../Components/TableLayout";
 
 const Shortfall = () => {
   const { userInfoFromLocalStorage, showPageBasedOnApplicationType } =
@@ -24,9 +25,8 @@ const Shortfall = () => {
   //     }
   //   );
 
-  const [data, refetch, isError, isLoading] = useGetPageWiseApplication(
-    "Shortfall Applications"
-  );
+  const [data, refetch, isError, isLoading, isSuccess] =
+    useGetPageWiseApplication("Shortfall Applications");
 
   useEffect(() => {
     if (isError) {
@@ -36,43 +36,54 @@ const Shortfall = () => {
       setError("");
     }
   }, [isError]);
-  return (
-    <div className="w-full overflow-x-auto mt-6">
-      <table className="table text-gray-900">
-        {/* head */}
-        <thead>
-          <tr className="bg-[#2d3436] text-xs md:text-sm text-white hover:bg-[#353b48]">
-            <th>Sl.no.</th>
-            <th>Application no.</th>
-            <th>Owner name</th>
-            <th>Phone no.</th>
-            <th>Case type</th>
-            <th>Village</th>
-            <th>Mandal</th>
-            <th>Shortfall issued date</th>
-          </tr>
-        </thead>
-        <tbody>
-          {/* show draft applications  */}
 
-          {data?.map((applicationData, index) => (
-            <ShowAllShortfallApplications
-              key={index}
-              serialNo={index}
-              applicationData={applicationData}
-              showShortfallApplication={showPageBasedOnApplicationType}
-              navigate={navigate}
-            />
-          ))}
-        </tbody>
-      </table>
+  const tableHeader = [
+    "Sl.no.",
+    "Application no.",
+    "Owner name",
+    "Phone no.",
+    "Case type",
+    "Village",
+    "Mandal",
+    "Shortfall issued date",
+  ];
+
+  const [tableData, setTableData] = useState({});
+  const [tableComponentProps, setTableComponentProps] = useState({});
+
+  useEffect(() => {
+    setTableData((prev) => {
+      const newValue = {
+        tableHeader,
+        data,
+      };
+      return { ...prev, ...newValue };
+    });
+  }, [isSuccess, data]);
+
+  useEffect(() => {
+    setTableComponentProps((prev) => {
+      const newValue = {
+        showPageBasedOnApplicationType,
+        navigate,
+      };
+      return { ...prev, ...newValue };
+    });
+  }, []);
+  return (
+    <>
+      <TableLayout
+        tableData={tableData}
+        Component={ShowAllShortfallApplications}
+        tableComponentProps={tableComponentProps}
+      />
 
       {error && (
         <p className="text-lg text-center my-4 font-bold text-error">{error}</p>
       )}
 
       {isLoading && <p>Loading...</p>}
-    </div>
+    </>
   );
 };
 
