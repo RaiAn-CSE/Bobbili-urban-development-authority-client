@@ -219,18 +219,18 @@ const NewApplication = () => {
       </div>
 
       <TableLayout
-          tableData={tableData}
-          Component={AllDraftApplication}
-          tableComponentProps={tableComponentProps}
-        />
+        tableData={tableData}
+        Component={AllDraftApplication}
+        tableComponentProps={tableComponentProps}
+      />
 
-        {error && (
-          <p className="text-lg text-center my-4 font-bold text-error">{error}</p>
-        )}
+      {error && (
+        <p className="text-lg text-center my-4 font-bold text-error">{error}</p>
+      )}
 
-        {isLoading && <p>Loading...</p>}
-      </div>
-      );
+      {isLoading && <p>Loading...</p>}
+    </div>
+  );
 };
 
-      export default NewApplication;
+export default NewApplication;

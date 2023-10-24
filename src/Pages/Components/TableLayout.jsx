@@ -9,14 +9,12 @@ const TableLayout = ({ tableData, Component, tableComponentProps }) => {
           <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
             <table className="min-w-full leading-normal text-center">
               <thead className="bg-[#303952]">
-                <tr>
+                <tr className="hidden md:table-row">
                   {tableData?.tableHeader?.map((headerName) => {
                     return (
                       <th
                         key={headerName}
-                        className={`p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider ${
-                          headerName === "Application no." && "w-48"
-                        }`}
+                        className={`p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider ${headerName === "Application no." && "w-48"}`}
                       >
                         {headerName}
                       </th>

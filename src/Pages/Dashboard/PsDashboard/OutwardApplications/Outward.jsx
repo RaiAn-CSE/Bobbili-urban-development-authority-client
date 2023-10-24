@@ -121,7 +121,7 @@ function Outward() {
                           <td className="p-3  border-b border-gray-200 text-sm">
                             <p className="text-gray-900 break-words">
                               {applicationData?.generalInformation?.caseType !==
-                              ""
+                                ""
                                 ? applicationData?.generalInformation?.caseType
                                 : "N/A"}
                             </p>
@@ -129,7 +129,7 @@ function Outward() {
                           <td className="p-3  border-b border-gray-200 text-sm">
                             <p className="text-gray-900 break-words">
                               {applicationData?.generalInformation?.village !==
-                              ""
+                                ""
                                 ? applicationData?.generalInformation?.village
                                 : "N/A"}
                             </p>
@@ -137,7 +137,7 @@ function Outward() {
                           <td className="p-3  border-b border-gray-200 text-sm">
                             <p className="text-gray-900 break-words">
                               {applicationData?.generalInformation?.mandal !==
-                              ""
+                                ""
                                 ? applicationData?.generalInformation?.mandal
                                 : "N/A"}
                             </p>
@@ -151,11 +151,10 @@ function Outward() {
                             <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
                               <span
                                 aria-hidden
-                                className={`absolute inset-0  ${
-                                  (applicationData?.status
-                                    ?.toLowerCase()
-                                    ?.includes("pending") &&
-                                    "bg-orange-200") ||
+                                className={`absolute inset-0  ${(applicationData?.status
+                                  ?.toLowerCase()
+                                  ?.includes("pending") &&
+                                  "bg-orange-200") ||
                                   (applicationData?.status
                                     ?.toLowerCase()
                                     ?.includes("approved") &&
@@ -168,7 +167,7 @@ function Outward() {
                                     ?.toLowerCase()
                                     ?.includes("rejected") &&
                                     "bg-red-200")
-                                } opacity-50 rounded-full`}
+                                  } opacity-50 rounded-full`}
                               ></span>
                               <span className="relative">
                                 {applicationData?.status ?? "N/A"}
