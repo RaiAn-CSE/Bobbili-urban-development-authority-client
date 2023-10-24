@@ -25,14 +25,6 @@ const TableLayout = ({ tableData, Component, tableComponentProps }) => {
                 </tr>
               </thead>
               <tbody>
-                {/* <tr>
-                  
-                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <p className="text-gray-900 whitespace-no-wrap">Admin</p>
-                  </td>
-                  
-                </tr> */}
-
                 {tableData?.data?.map((applicationData, index) => (
                   <Component
                     key={index}
