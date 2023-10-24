@@ -4,12 +4,15 @@ import ShowSubmittedApplication from "../../LtpDashboard/Submitted/ShowSubmitted
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import TableLayout from "../../../Components/TableLayout";
 
 const Inward = () => {
   const { userInfoFromLocalStorage, showPageBasedOnApplicationType } =
     useContext(AuthContext);
   const [error, setError] = useState("");
   const [allData, setAllData] = useState([]);
+
+  const [storeData, setStoreData] = useState([]);
 
   const navigate = useNavigate();
 
@@ -48,17 +51,10 @@ const Inward = () => {
     }
 
     setAllData(data);
+    setStoreData(data);
   }, [isError, data]);
 
   console.log(allData);
-  // console.log(data);
-
-  // navigate after clicking on the draft application no
-  // const showDraftApplication = (applicationNo) => {
-  //   console.log(applicationNo);
-  //   localStorage.setItem("CurrentAppNo", JSON.stringify(applicationNo));
-  //   navigate("/dashboard/draftApplication/buildingInfo");
-  // };
 
   const onSubmit = (data) => {
     console.log(data);
@@ -67,20 +63,72 @@ const Inward = () => {
     console.log(search, "Search");
 
     if (search?.includes("BUDA/2023")) {
+      console.log("object");
+      console.log(
+        storeData?.filter(
+          (application) => application?.applicationNo === search
+        ),
+        "FILER"
+      );
+
+      console.log(storeData, "StoreData");
       //  search by application No
       setAllData(
-        allData?.filter((application) => application?.applicationNo === search)
+        storeData?.filter(
+          (application) => application?.applicationNo === search
+        )
       );
     } else {
       console.log("Asci");
 
       setAllData(
-        allData?.filter(
+        storeData?.filter(
           (application) =>
             application?.applicantInfo?.applicantDetails[0]?.name?.toLowerCase() ===
             search?.toLowerCase()
         )
       );
+    }
+  };
+
+  const tableHeader = [
+    "Sl.no.",
+    "Application no.",
+    "Owner name",
+    "Phone no.",
+    "Case type",
+    "Village",
+    "Mandal",
+    "Submitted date",
+    "Status",
+  ];
+
+  const [tableData, setTableData] = useState({});
+  const [tableComponentProps, setTableComponentProps] = useState({});
+
+  useEffect(() => {
+    setTableData((prev) => {
+      const newValue = {
+        tableHeader,
+        data: allData,
+      };
+      return { ...prev, ...newValue };
+    });
+  }, [isSuccess, allData]);
+
+  useEffect(() => {
+    setTableComponentProps((prev) => {
+      const newValue = {
+        showPageBasedOnApplicationType,
+        navigate,
+      };
+      return { ...prev, ...newValue };
+    });
+  }, []);
+
+  const detectChange = (e) => {
+    if (!e.target.value.length) {
+      setAllData(storeData);
     }
   };
 
@@ -116,6 +164,7 @@ const Inward = () => {
               type="search"
               id="default-search"
               {...register("search")}
+              onChange={detectChange}
               className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50"
               placeholder="Application no. or owner name"
               required
@@ -128,36 +177,13 @@ const Inward = () => {
           </div>
         </form>
       )}
-      <div className="w-full overflow-x-auto my-10">
-        <table className="table text-black">
-          {/* head */}
-          <thead>
-            <tr className="bg-[#2d3436] text-xs md:text-sm text-white hover:bg-[#353b48]">
-              <th>Sl.no.</th>
-              <th>Application no.</th>
-              <th>Owner name</th>
-              <th>Phone no.</th>
-              <th>Case type</th>
-              <th>Village</th>
-              <th>Mandal</th>
-              <th>Submitted date</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {/* show draft applications  */}
 
-            {allData?.map((applicationData, index) => (
-              <ShowSubmittedApplication
-                key={index}
-                serialNo={index}
-                applicationData={applicationData}
-                showSubmitApplication={showPageBasedOnApplicationType}
-                navigate={navigate}
-              />
-            ))}
-          </tbody>
-        </table>
+      <>
+        <TableLayout
+          tableData={tableData}
+          Component={ShowSubmittedApplication}
+          tableComponentProps={tableComponentProps}
+        />
 
         {allData?.length === 0 && (
           <p className="text-center mt-8 font-bold text-xl">
@@ -171,7 +197,7 @@ const Inward = () => {
         )}
 
         {isLoading && <p>Loading...</p>}
-      </div>
+      </>
     </div>
   );
 };

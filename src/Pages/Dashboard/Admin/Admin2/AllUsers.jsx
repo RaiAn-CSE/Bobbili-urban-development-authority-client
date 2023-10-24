@@ -5,6 +5,7 @@ import Loading from "../../../Shared/Loading";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
+import TableLayout from "../../../Components/TableLayout";
 
 const AllUsers = () => {
   const [records, setRecords] = useState([]);
@@ -177,30 +178,37 @@ const AllUsers = () => {
       </div>
 
       {/* display users  */}
-      <div className="overflow-x-auto transition-all duration-700">
-        <table
-          className={`table w-full font-roboto md:w-[70%] mx-auto mt-10 dark:text-white`}
-        >
-          {/* head */}
-          <thead
-            className={`bg-black font-bold text-white text-base text-center dark:bg-gradient-to-r dark:from-violet-500 dark:to-fuchsia-500`}
-          >
-            <tr>
-              <th>Name</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody className="text-center">
-            {records?.map((user) => (
-              <IndividualUser
-                key={user?._id}
-                user={user}
-                deleteUser={deleteUser}
-                updateUser={updateUser}
-              />
-            ))}
-          </tbody>
-        </table>
+
+      <div className="w-3/4 mx-auto px-4 font-roboto ">
+        <div className="py-4">
+          <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4">
+            <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
+              <table className="min-w-full leading-normal text-center">
+                {/* head */}
+                <thead className="bg-[#303952]">
+                  <tr>
+                    <th className="p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider">
+                      Name
+                    </th>
+                    <th className="p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider">
+                      Actions
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="text-center">
+                  {records?.map((user) => (
+                    <IndividualUser
+                      key={user?._id}
+                      user={user}
+                      deleteUser={deleteUser}
+                      updateUser={updateUser}
+                    />
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
 
       {records?.length === 0 && (

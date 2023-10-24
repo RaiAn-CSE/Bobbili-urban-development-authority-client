@@ -6,6 +6,7 @@ import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import toast from "react-hot-toast";
 import AllDraftApplication from "./AllDraftApplication";
 import Swal from "sweetalert2";
+import TableLayout from "../../../Components/TableLayout";
 
 const NewApplication = () => {
   const {
@@ -25,7 +26,7 @@ const NewApplication = () => {
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
   // get all draft applications
-  const { data, refetch, isLoading, isError } = useQuery(
+  const { data, refetch, isLoading, isError, isSuccess } = useQuery(
     ["draftApplications"],
     async () => {
       const response = await fetch(
@@ -70,31 +71,9 @@ const NewApplication = () => {
         toast.error("Server is not responded");
       });
   };
-  // Function to generate a unique number
-  // const generateApplicationNumber = () => {
-  //   const date = new Date();
-  //   const milisecond = date.getMilliseconds();
-  //   const second = date.getSeconds();
-  //   const hour = date.getHours();
-  //   const year = date.getFullYear();
-
-  //   console.log(hour, milisecond, second);
-  //   const applicationNo = `1177/${milisecond}/${hour}/${second}/BUDA/${year}`;
-
-  //   return applicationNo;
-  // };
 
   // navigate after clicking on the draft application no
   const navigate = useNavigate();
-  // const showDraftApplication = (applicationNo) => {
-  //   console.log(applicationNo);
-  //   localStorage.setItem("CurrentAppNo", JSON.stringify(applicationNo));
-  //   localStorage.setItem("stepIndex", JSON.stringify(0));
-
-  //   navigate("/dashboard/draftApplication/buildingInfo", {
-  //     state: { page: "draft" },
-  //   });
-  // };
 
   // store new application information into the database
   const storeApplicationData = (serialNo) => {
@@ -178,9 +157,58 @@ const NewApplication = () => {
     });
   };
 
+  const tableHeader = [
+    "Sl.no.",
+    "Application no.",
+    "Owner name",
+    "Phone no.",
+    "Case type",
+    "Village",
+    "Mandal",
+    "Created date",
+    "Action",
+  ];
+
+  const [tableData, setTableData] = useState({});
+  const [tableComponentProps, setTableComponentProps] = useState({});
+
+  useEffect(() => {
+    setTableData((prev) => {
+      const newValue = {
+        tableHeader,
+        data,
+      };
+      return { ...prev, ...newValue };
+    });
+  }, [isSuccess, data]);
+
+  useEffect(() => {
+    setTableComponentProps((prev) => {
+      const newValue = {
+        removeDraftApplication,
+        showPageBasedOnApplicationType,
+        navigate,
+      };
+      return { ...prev, ...newValue };
+    });
+  }, []);
+
+  // const component = (
+  //   <AllDraftApplication
+  //     key={index}
+  //     serialNo={index}
+  //     applicationData={applicationData}
+  //     showDraftApplication={props?.showPageBasedOnApplicationType}
+  //     removeDraftApplication={props?.removeDraftApplication}
+  //     navigate={props?.navigate}
+  //   />
+  // );
+
   return (
     <div className=" my-3">
-      <div className="flex justify-end my-5 mr-3">
+      {/* test  */}
+
+      <div className="flex justify-end mt-10 mr-3">
         <button
           className={`btn flex font-roboto dark:border-none transition-all duration-700 bg-gradient-to-r from-violet-500 to-fuchsia-500 text-[#fff] hover:bg-gradient-to-l`}
           onClick={showConfirmModal}
@@ -190,48 +218,19 @@ const NewApplication = () => {
         </button>
       </div>
 
-      <div className=" w-full overflow-auto">
-        <table className="w-full font-roboto table ">
-          {/* head */}
-          <thead>
-            <tr className="bg-[#2d3436] text-sm md:text-base text-white hover:bg-[#353b48] hidden md:table-row">
-              <th className="p-2">Sl.no.</th>
-              <th className="p-2">Application no.</th>
-              <th className="p-2">Owner name</th>
-              <th className="p-2">Phone no.</th>
-              <th className="p-2">Case type</th>
-              <th className="p-2">Village</th>
-              <th className="p-2">Mandal</th>
-              <th className="p-2">Created date</th>
-              <th className="p-2">Delete</th>
-            </tr>
-          </thead>
-          <tbody className="text-sm">
-            {/* show draft applications  */}
-
-            {data?.map((applicationData, index) => (
-              <AllDraftApplication
-                key={index}
-                serialNo={index}
-                applicationData={applicationData}
-                showDraftApplication={showPageBasedOnApplicationType}
-                removeDraftApplication={removeDraftApplication}
-                navigate={navigate}
-              />
-            ))}
-          </tbody>
-        </table>
+      <TableLayout
+          tableData={tableData}
+          Component={AllDraftApplication}
+          tableComponentProps={tableComponentProps}
+        />
 
         {error && (
-          <p className="text-lg text-center my-4 font-bold text-error">
-            {error}
-          </p>
+          <p className="text-lg text-center my-4 font-bold text-error">{error}</p>
         )}
 
         {isLoading && <p>Loading...</p>}
       </div>
-    </div>
-  );
+      );
 };
 
-export default NewApplication;
+      export default NewApplication;
