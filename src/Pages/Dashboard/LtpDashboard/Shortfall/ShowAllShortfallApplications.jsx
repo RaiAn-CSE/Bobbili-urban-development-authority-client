@@ -3,14 +3,15 @@ import React from "react";
 const ShowAllShortfallApplications = ({
   serialNo,
   applicationData,
-  showShortfallApplication,
-  navigate,
+  tableComponentProps,
 }) => {
   const { applicationNo, buildingInfo, applicantInfo, psSubmitDate } =
     applicationData;
 
   const { generalInformation } = buildingInfo;
   const { applicantDetails } = applicantInfo;
+
+  const { showPageBasedOnApplicationType, navigate } = tableComponentProps;
   return (
     <tr>
       <td className="p-3  border-b border-gray-200 text-sm">
@@ -19,7 +20,7 @@ const ShowAllShortfallApplications = ({
       <td
         className="hover:underline cursor-pointer p-3  border-b border-gray-200 text-sm"
         onClick={() =>
-          showShortfallApplication(applicationNo, navigate, "shortfall")
+          showPageBasedOnApplicationType(applicationNo, navigate, "shortfall")
         }
       >
         <p className="text-gray-900 break-words">{applicationNo}</p>

@@ -3,9 +3,9 @@ import React, { useContext } from "react";
 const ShowAllApprovedApplications = ({
   serialNo,
   applicationData,
-  showApprovedApplication,
-  navigate,
+  tableComponentProps,
 }) => {
+  const { showPageBasedOnApplicationType, navigate } = tableComponentProps;
   const {
     applicationNo,
     buildingInfo,
@@ -25,7 +25,7 @@ const ShowAllApprovedApplications = ({
       <td
         className="hover:underline cursor-pointer p-3  border-b border-gray-200 text-sm"
         onClick={() =>
-          showApprovedApplication(applicationNo, navigate, "approved")
+          showPageBasedOnApplicationType(applicationNo, navigate, "approved")
         }
       >
         <p className="text-gray-900 break-words">{applicationNo}</p>

@@ -4,13 +4,15 @@ import React, { useContext } from "react";
 const ShowSubmittedApplication = ({
   serialNo,
   applicationData,
-  showSubmitApplication,
-  navigate,
+  tableComponentProps,
 }) => {
   // console.log(serialNo, applicationData);
 
   // const { showDraftApplication } = useContext(AuthContext)
 
+  const { showPageBasedOnApplicationType, navigate } = tableComponentProps;
+
+  console.log(showPageBasedOnApplicationType, navigate, "DDD");
   const { applicationNo, buildingInfo, applicantInfo, submitDate, status } =
     applicationData;
 
@@ -24,7 +26,9 @@ const ShowSubmittedApplication = ({
       </td>
       <td
         className="hover:underline cursor-pointer border-b border-gray-200 text-sm"
-        onClick={() => showSubmitApplication(applicationNo, navigate, "submit")}
+        onClick={() =>
+          showPageBasedOnApplicationType(applicationNo, navigate, "submit")
+        }
       >
         <p className="text-gray-900 break-words">{applicationNo}</p>
       </td>

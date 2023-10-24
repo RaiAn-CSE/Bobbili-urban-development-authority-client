@@ -7,14 +7,15 @@ import { CiEdit } from "react-icons/ci";
 const AllDraftApplication = ({
   serialNo,
   applicationData,
+  tableComponentProps,
 
-  showDraftApplication,
-  removeDraftApplication,
-  navigate,
   // tableComponentProps,
 }) => {
   const { alertToConfirmDelete } = useContext(AuthContext);
   console.log(applicationData);
+
+  const { showPageBasedOnApplicationType, removeDraftApplication, navigate } =
+    tableComponentProps;
 
   // const { showDraftApplication, removeDraftApplication, navigate } =
   //   tableComponentProps;
@@ -34,7 +35,9 @@ const AllDraftApplication = ({
       <td className="p-3  border-b border-gray-200  text-sm">
         <button
           className="hover:underline"
-          onClick={() => showDraftApplication(applicationNo, navigate, "draft")}
+          onClick={() =>
+            showPageBasedOnApplicationType(applicationNo, navigate, "draft")
+          }
         >
           <p className="text-gray-900 break-words">{applicationNo}</p>
         </button>
