@@ -92,7 +92,7 @@ const AllDraftApplication = ({
           <CiEdit size={19} />
         </button> */}
           <button
-            className={`btn btn-sm border-none bg-[#ffd7d7] hover:bg-[#f6c7c7] rounded-full text-red-400 hover:text-red-500 bg-transparent`}
+            className={`btn btn-sm border-none bg-[#ffd7d7] hover:bg-[#f6c7c7] text-red-400 hover:text-red-500 bg-transparent`}
             onClick={() =>
               alertToConfirmDelete(applicationNo, removeDraftApplication)
             }
