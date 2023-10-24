@@ -18,34 +18,57 @@ const ShowSubmittedApplication = ({
   const { applicantDetails } = applicantInfo;
   return (
     <tr>
-      <td className="p-2">{serialNo + 1}</td>
+      <td className="p-3  border-b border-gray-200 text-sm">
+        <p className="text-gray-900 break-words">{serialNo + 1}</p>
+      </td>
       <td
-        className="hover:underline cursor-pointer p-2"
+        className="hover:underline cursor-pointer border-b border-gray-200 text-sm"
         onClick={() => showSubmitApplication(applicationNo, navigate, "submit")}
       >
-        {applicationNo}
+        <p className="text-gray-900 break-words">{applicationNo}</p>
       </td>
-      <td className="p-2">
-        {applicantDetails.length ? applicantDetails[0].name : "N/A"}
+      <td className="p-3  border-b border-gray-200 text-sm">
+        <p className="text-gray-900 break-words">
+          {applicantDetails.length ? applicantDetails[0].name : "N/A"}
+        </p>
       </td>
-      <td className="p-2">
-        {applicantDetails.length ? applicantDetails[0].phone : "N/A"}
+      <td className="p-3  border-b border-gray-200 text-sm">
+        <p className="text-gray-900 break-words">
+          {applicantDetails.length ? applicantDetails[0].phone : "N/A"}
+        </p>
       </td>
-      <td className="p-2">
-        {generalInformation.caseType !== ""
-          ? generalInformation.caseType
-          : "N/A"}
+      <td className="p-3  border-b border-gray-200 text-sm">
+        <p className="text-gray-900 break-words">
+          {generalInformation.caseType !== ""
+            ? generalInformation.caseType
+            : "N/A"}
+        </p>
       </td>
-      <td className="p-2">
-        {" "}
-        {generalInformation.village !== "" ? generalInformation.village : "N/A"}
+      <td className="p-3  border-b border-gray-200 text-sm">
+        <p className="text-gray-900 break-words">
+          {generalInformation.village !== ""
+            ? generalInformation.village
+            : "N/A"}
+        </p>
       </td>
-      <td className="p-2">
-        {" "}
-        {generalInformation.mandal !== "" ? generalInformation.mandal : "N/A"}
+      <td className="p-3  border-b border-gray-200 text-sm">
+        <p className="text-gray-900 break-words">
+          {generalInformation.mandal !== "" ? generalInformation.mandal : "N/A"}
+        </p>
       </td>
-      <td className="p-2">{submitDate ?? "N/A"}</td>
-      <td className="p-2">{status ?? "N/A"}</td>
+      <td className="p-3  border-b border-gray-200 text-sm">
+        <p className="text-gray-900 break-words">{submitDate ?? "N/A"}</p>
+      </td>
+      <td className="p-3  border-b border-gray-200 text-sm">
+        <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+          <span
+            aria-hidden
+            className="absolute inset-0 bg-orange-200 opacity-50 rounded-full"
+          ></span>
+          <span className="relative">{status ?? "N/A"}</span>
+        </span>
+        {/* <p className="text-gray-900 break-words">{status ?? "N/A"}</p> */}
+      </td>
     </tr>
   );
 };
