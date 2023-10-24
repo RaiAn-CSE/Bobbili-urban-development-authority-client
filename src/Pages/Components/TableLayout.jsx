@@ -1,21 +1,20 @@
 import React from "react";
 import AllDraftApplication from "../Dashboard/LtpDashboard/DraftApplication/AllDraftApplication";
 
-const TableLayout = ({ props }) => {
-  console.log(props, "PROPS");
+const TableLayout = ({ tableData, Component, tableComponentProps }) => {
   return (
     <div className="container mx-auto px-4 font-roboto ">
       <div className="py-4">
         <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4">
           <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
             <table className="min-w-full leading-normal text-center">
-              <thead className="bg-gradient-to-r from-teal-400 to-yellow-200">
+              <thead className="bg-[#303952]">
                 <tr>
-                  {props?.tableHeader?.map((headerName) => {
+                  {tableData?.tableHeader?.map((headerName) => {
                     return (
                       <th
                         key={headerName}
-                        className={`p-3 border-b-2 border-gray-200  text-black  text-xs font-semibold uppercase tracking-wider ${
+                        className={`p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider ${
                           headerName === "Application no." && "w-48"
                         }`}
                       >
@@ -34,14 +33,12 @@ const TableLayout = ({ props }) => {
                   
                 </tr> */}
 
-                {props?.tableData?.map((applicationData, index) => (
-                  <AllDraftApplication
+                {tableData?.data?.map((applicationData, index) => (
+                  <Component
                     key={index}
                     serialNo={index}
                     applicationData={applicationData}
-                    showDraftApplication={props?.showPageBasedOnApplicationType}
-                    removeDraftApplication={props?.removeDraftApplication}
-                    navigate={props?.navigate}
+                    tableComponentProps={tableComponentProps}
                   />
                 ))}
               </tbody>

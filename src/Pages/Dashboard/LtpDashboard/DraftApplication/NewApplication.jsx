@@ -170,20 +170,39 @@ const NewApplication = () => {
   ];
 
   const [tableData, setTableData] = useState({});
+  const [tableComponentProps, setTableComponentProps] = useState({});
 
   useEffect(() => {
-    console.log("object");
     setTableData((prev) => {
       const newValue = {
         tableHeader,
-        tableData: data,
+        data,
+      };
+      return { ...prev, ...newValue };
+    });
+  }, [isSuccess, data]);
+
+  useEffect(() => {
+    setTableComponentProps((prev) => {
+      const newValue = {
         removeDraftApplication,
         showPageBasedOnApplicationType,
         navigate,
       };
       return { ...prev, ...newValue };
     });
-  }, [isSuccess, data]);
+  }, []);
+
+  // const component = (
+  //   <AllDraftApplication
+  //     key={index}
+  //     serialNo={index}
+  //     applicationData={applicationData}
+  //     showDraftApplication={props?.showPageBasedOnApplicationType}
+  //     removeDraftApplication={props?.removeDraftApplication}
+  //     navigate={props?.navigate}
+  //   />
+  // );
 
   return (
     <div className=" my-3">
@@ -367,7 +386,11 @@ const NewApplication = () => {
         </button>
       </div>
 
-      <TableLayout props={tableData} />
+      <TableLayout
+        tableData={tableData}
+        Component={AllDraftApplication}
+        tableComponentProps={tableComponentProps}
+      />
 
       {error && (
         <p className="text-lg text-center my-4 font-bold text-error">{error}</p>

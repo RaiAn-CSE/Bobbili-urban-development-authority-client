@@ -7,12 +7,13 @@ import { CiEdit } from "react-icons/ci";
 const AllDraftApplication = ({
   serialNo,
   applicationData,
-  showDraftApplication,
-  removeDraftApplication,
-  navigate,
+  tableComponentProps,
 }) => {
   const { alertToConfirmDelete } = useContext(AuthContext);
   console.log(applicationData);
+
+  const { showDraftApplication, removeDraftApplication, navigate } =
+    tableComponentProps;
   const { applicationNo, buildingInfo, applicantInfo, createdDate } =
     applicationData;
 
