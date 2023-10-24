@@ -989,7 +989,7 @@ const BuildingInfo = () => {
                   id="proposedPlotArea"
                   name="proposedPlotArea"
                   placeholder="in Sq.Mts."
-                  className="w-full px-3 py-2 border rounded-lg max-w-xs border-gray-300 text-gray-900 bg-gray-50 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200"
+                  className="w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-violet-500 focus:outline-none focus:ring-2 ring-violet-100"
                   defaultValue={proposedPlotArea ?? ""}
                   onChange={handleProposedPlotAreaChange}
                   readOnly={isReadOnly}
@@ -1011,7 +1011,7 @@ const BuildingInfo = () => {
                   id="roadWideningArea"
                   type="roadWideningArea"
                   placeholder="in Sq.Mts."
-                  className="w-full px-3 py-2 border rounded-lg max-w-xs border-gray-300 text-gray-900 bg-gray-50 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200"
+                  className="w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-violet-500 focus:outline-none focus:ring-2 ring-violet-100"
                   defaultValue={roadWideningArea ?? ""}
                   onChange={handleRoadWideningAreaChange}
                   disabled={isReadOnly}
@@ -1037,7 +1037,7 @@ const BuildingInfo = () => {
                   placeholder="Automatically calculated"
                   className="w-full px-3 py-2 border rounded-lg max-w-xs border-gray-300 text-gray-900 bg-gray-200 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200"
                   value={netPlotArea ?? ""}
-                  readOnly={isReadOnly}
+                  readOnly
                 />
               </div>
             </div>

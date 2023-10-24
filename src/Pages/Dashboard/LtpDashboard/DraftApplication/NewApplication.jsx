@@ -194,7 +194,7 @@ const NewApplication = () => {
         <table className="w-full font-roboto table ">
           {/* head */}
           <thead>
-            <tr className="bg-[#2d3436] text-sm md:text-base text-white hover:bg-[#353b48]">
+            <tr className="bg-[#2d3436] text-sm md:text-base text-white hover:bg-[#353b48] hidden md:table-row">
               <th className="p-2">Sl.no.</th>
               <th className="p-2">Application no.</th>
               <th className="p-2">Owner name</th>
