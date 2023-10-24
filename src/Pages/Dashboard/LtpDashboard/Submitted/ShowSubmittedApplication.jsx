@@ -16,6 +16,7 @@ const ShowSubmittedApplication = ({
 
   const { generalInformation } = buildingInfo;
   const { applicantDetails } = applicantInfo;
+
   return (
     <tr>
       <td className="p-3  border-b border-gray-200 text-sm">
@@ -63,7 +64,7 @@ const ShowSubmittedApplication = ({
         <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
           <span
             aria-hidden
-            className="absolute inset-0 bg-orange-200 opacity-50 rounded-full"
+            className={`absolute inset-0 bg-orange-200 opacity-50 rounded-full`}
           ></span>
           <span className="relative">{status ?? "N/A"}</span>
         </span>
