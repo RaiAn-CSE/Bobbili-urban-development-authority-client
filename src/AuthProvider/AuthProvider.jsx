@@ -87,7 +87,7 @@ const AuthProvider = ({ children }) => {
           .then((response) => {
             console.log(response, "response");
             if (!response.ok) {
-              throw new Error(response.statusText);
+              throw new Error(response?.statusText);
             }
             return response;
           })
