@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 function DrawingTable({
   setApprovedConfirmation,
   setRecomendationMessage,
+  recomendationMessage,
+  approvedConfirmation,
   applicationData,
   submitData,
 }) {
@@ -168,322 +170,486 @@ function DrawingTable({
     <div>
       <div className="overflow-x-auto mb-16 w-full px-4">
         <p>Drawing Scrutiny report</p>
-        <table className="table text-black table-sm mt-4">
-          {/* Table Header */}
-          <thead className="text-black">
-            <tr>
-              <th className="border border-black w-5">Sl. No.</th>
-              <th className="border border-black">Description</th>
-              <th className="border border-black">As per G.O.s</th>
-              <th className="border border-black">As on Plan</th>
-              <th className="border border-black">Observation</th>
-            </tr>
-          </thead>
-          <tbody>
-            {/* {TrData.map((data, index) => {
-              return (
-                <tr key={index}>
-                  <th className="border border-black bg-white w-8 text-center">
-                    {skipNumber.includes(index + 1)
-                      ? ""
-                      : skipNumber.find((num) => num < index + 1)
-                      ? index - 3
-                      : index + 1}
-                  </th>
-                  <td className="border border-black bg-white">
-                    {Object.keys(TrData[index])}
-                  </td>
-                  <td className="border border-black bg-white">
-                    {Object.values(data)[0][0]}
-                  </td>
-                  <td className="border border-black bg-white">
-                    {Object.values(data)[0][1]}
-                  </td>
-                  <td className="border border-black bg-white">
-                    {Object.values(data)[0][2]}
-                  </td>
-                </tr>
-              );
-            })} */}
-            {/* 1st row  */}
-            <tr>
-              <td>1</td>
-              <td>Proposed Site / Plot area</td>
-              <td></td>
-              <td>{plotDetails?.proposedPlotAreaCal ?? ""}</td>
-              <td>
-                <input
-                  id="proposedSiteObs"
-                  type="text"
-                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
-                  defaultValue={submitData?.drawingTableObs?.proposedSiteObs}
-                // onChange={handleRoadWideningAreaChange}
-                />
-              </td>
-            </tr>
 
-            <tr>
-              <td>2</td>
-              <td>Access Road Width</td>
-              <td></td>
-              <td>{plotDetails?.roadWideningAreaCal ?? ""}</td>
-              <td>
-                <input
-                  id="accessRoadWidthObs"
-                  type="text"
-                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
-                  defaultValue={submitData?.drawingTableObs?.accessRoadWidthObs}
-                // onChange={handleRoadWideningAreaChange}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Scope of Road windening</td>
-              <td></td>
-              <td>{plotDetails?.roadWideningAreaCal ?? ""}</td>
-              <td>
-                <input
-                  id="scopeRoadWideObs"
-                  type="text"
-                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
-                  defaultValue={
-                    submitData?.drawingTableObs?.scopeOfRoadWideningObs
-                  }
-                // onChange={handleRoadWideningAreaChange}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>Net Site / Plot area</td>
-              <td></td>
-              <td>{plotDetails?.netPlotAreaCal ?? ""}</td>
-              <td>
-                <input
-                  id="netSiteObs"
-                  type="text"
-                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
-                  defaultValue={submitData?.drawingTableObs?.netPlotAreaObs}
-                // onChange={handleRoadWideningAreaChange}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>5</td>
-              <td>Building Height</td>
-              <td></td>
-              <td>{plotDetails?.buildingExcludeStilt ?? ""}</td>
-              <td>
-                <input
-                  id="buildingHeightObs"
-                  type="text"
-                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
-                  defaultValue={submitData?.drawingTableObs?.buildingHeightObs}
-                // onChange={handleRoadWideningAreaChange}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>6</td>
-              <td>Setbacks</td>
-              <td></td>
-              <td></td>
-              <td>
-                <input
-                  id="setBacksObs"
-                  type="text"
-                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
-                  defaultValue={submitData?.drawingTableObs?.setBacksObs}
-                // onChange={handleRoadWideningAreaChange}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>Front</td>
-              <td>{preDeterminedValue?.front}</td>
-              <td>{plotDetails?.frontSetback ?? ""}</td>
-              <td>
-                <input
-                  id="frontObs"
-                  type="text"
-                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
-                  defaultValue={submitData?.drawingTableObs?.fontObs}
-                // onChange={handleRoadWideningAreaChange}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>Rare</td>
-              <td>{preDeterminedValue?.rare}</td>
-              <td>{plotDetails?.rareSetback ?? ""}</td>
-              <td>
-                <input
-                  id="rareObs"
-                  type="text"
-                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
-                  defaultValue={submitData?.drawingTableObs?.rareObs}
-                // onChange={handleRoadWideningAreaChange}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>Side 1</td>
-              <td>{preDeterminedValue?.side1}</td>
-              <td>{plotDetails?.side1Setback ?? ""}</td>
-              <td>
-                <input
-                  id="sideOneObs"
-                  type="text"
-                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
-                  defaultValue={submitData?.drawingTableObs?.sideOneObs}
-                // onChange={handleRoadWideningAreaChange}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>Side 2</td>
-              <td>{preDeterminedValue?.side2}</td>
-              <td>{plotDetails?.side2Setback}</td>
-              <td>
-                <input
-                  id="sideTwoObs"
-                  type="text"
-                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
-                  defaultValue={submitData?.drawingTableObs?.sideTwoObs}
-                // onChange={handleRoadWideningAreaChange}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>7</td>
-              <td>Number of floors</td>
-              <td></td>
-              <td>{numberOfFloors ?? 0}</td>
-              <td>
-                <input
-                  id="numberOfFloorsObs"
-                  type="text"
-                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
-                  defaultValue={submitData?.drawingTableObs?.floorObs}
-                // onChange={handleRoadWideningAreaChange}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>Stilt Floor</td>
-              <td></td>
-              <td></td>
-              <td>
-                <input
-                  id="stiltFloorObs"
-                  type="text"
-                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
-                  defaultValue={submitData?.drawingTableObs?.stiltFloorObs}
-                // onChange={handleRoadWideningAreaChange}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>Ground Floor</td>
-              <td></td>
-              <td></td>
-              <td>
-                <input
-                  id="groundFloorObs"
-                  type="text"
-                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
-                  defaultValue={submitData?.drawingTableObs?.groundFloorObs}
-                // onChange={handleRoadWideningAreaChange}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>First Floor</td>
-              <td></td>
-              <td></td>
-              <td>
-                <input
-                  id="firstFloorObs"
-                  type="text"
-                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
-                  defaultValue={submitData?.drawingTableObs?.firstFloorObs}
-                // onChange={handleRoadWideningAreaChange}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>Second Floor</td>
-              <td></td>
-              <td></td>
-              <td>
-                <input
-                  id="secondFloorObs"
-                  type="text"
-                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
-                  defaultValue={submitData?.drawingTableObs?.secondFloorObs}
-                // onChange={handleRoadWideningAreaChange}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>8</td>
-              <td>Green Strip</td>
-              <td>1mtr wide required</td>
-              <td>Yes</td>
-              <td>
-                <select
-                  id="greenStripObs"
-                  className=" w-1/6 outline-none bg-gray-50"
-                  defaultValue={
-                    submitData?.drawingTableObs?.greenStripObs ?? ""
-                  }
-                >
-                  <option value="">Yes</option>
-                  <option>No</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>9</td>
-              <td>Staircase width</td>
-              <td>Minimum 2.00 mtr</td>
-              <td></td>
-              <td>
-                <input
-                  id="stairCaseWidthObs"
-                  type="text"
-                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
-                  defaultValue={submitData?.drawingTableObs?.stairCaseWidthObs}
-                // onChange={handleRoadWideningAreaChange}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>10</td>
-              <td>No. of Units</td>
-              <td>Maximum 4 no.</td>
-              <td>{plotDetails?.noOfUnits ?? ""}</td>
-              <td>
-                <input
-                  id="unitObs"
-                  type="text"
-                  className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
-                  defaultValue={submitData?.drawingTableObs?.unitsObs}
-                // onChange={handleRoadWideningAreaChange}
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div className="container mx-auto px-4 font-roboto ">
+          <div className="py-4">
+            <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4">
+              <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
+                <table className="min-w-full leading-normal text-center">
+                  {/* Table Header */}
+                  <thead className="bg-[#303952]">
+                    <tr className="bg-[#303952] text-xs md:text-sm text-white hover:bg-[#303952]">
+                      <th className="p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider ">
+                        Sl. No.
+                      </th>
+                      <th className="p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider ">
+                        Description
+                      </th>
+                      <th className="p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider ">
+                        As per G.O.s
+                      </th>
+                      <th className="p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider ">
+                        As on Plan
+                      </th>
+                      <th className="p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider ">
+                        Observation
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="text-gray-900">
+                    {/* 1st row  */}
+                    <tr>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">1</p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">
+                          Proposed Site / Plot area
+                        </p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm"></td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">
+                          {plotDetails?.proposedPlotAreaCal ?? ""}
+                        </p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <input
+                          id="proposedSiteObs"
+                          type="text"
+                          className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
+                          defaultValue={
+                            submitData?.drawingTableObs?.proposedSiteObs
+                          }
+                          // onChange={handleRoadWideningAreaChange}
+                        />
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">2</p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">
+                          Access Road Width
+                        </p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm"></td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">
+                          {plotDetails?.roadWideningAreaCal ?? ""}
+                        </p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <input
+                          id="accessRoadWidthObs"
+                          type="text"
+                          className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
+                          defaultValue={
+                            submitData?.drawingTableObs?.accessRoadWidthObs
+                          }
+                          // onChange={handleRoadWideningAreaChange}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">3</p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">
+                          Scope of Road windening
+                        </p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm"></td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">
+                          {plotDetails?.roadWideningAreaCal ?? ""}
+                        </p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <input
+                          id="scopeRoadWideObs"
+                          type="text"
+                          className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
+                          defaultValue={
+                            submitData?.drawingTableObs?.scopeOfRoadWideningObs
+                          }
+                          // onChange={handleRoadWideningAreaChange}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">4</p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">
+                          Net Site / Plot area
+                        </p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm"></td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">
+                          {plotDetails?.netPlotAreaCal ?? ""}
+                        </p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <input
+                          id="netSiteObs"
+                          type="text"
+                          className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
+                          defaultValue={
+                            submitData?.drawingTableObs?.netPlotAreaObs
+                          }
+                          // onChange={handleRoadWideningAreaChange}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">5</p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">
+                          Building Height
+                        </p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm"></td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">
+                          {plotDetails?.buildingExcludeStilt ?? ""}
+                        </p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <input
+                          id="buildingHeightObs"
+                          type="text"
+                          className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
+                          defaultValue={
+                            submitData?.drawingTableObs?.buildingHeightObs
+                          }
+                          // onChange={handleRoadWideningAreaChange}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">6</p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">Setbacks</p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm"></td>
+                      <td className="p-3  border-b border-gray-200 text-sm"></td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <input
+                          id="setBacksObs"
+                          type="text"
+                          className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
+                          defaultValue={
+                            submitData?.drawingTableObs?.setBacksObs
+                          }
+                          // onChange={handleRoadWideningAreaChange}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="p-3  border-b border-gray-200 text-sm"></td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">Front</p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">
+                          {preDeterminedValue?.front}
+                        </p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">
+                          {plotDetails?.frontSetback ?? ""}
+                        </p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <input
+                          id="frontObs"
+                          type="text"
+                          className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
+                          defaultValue={submitData?.drawingTableObs?.fontObs}
+                          // onChange={handleRoadWideningAreaChange}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="p-3  border-b border-gray-200 text-sm"></td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">Rare</p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">
+                          {preDeterminedValue?.rare}
+                        </p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">
+                          {plotDetails?.rareSetback ?? ""}
+                        </p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <input
+                          id="rareObs"
+                          type="text"
+                          className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
+                          defaultValue={submitData?.drawingTableObs?.rareObs}
+                          // onChange={handleRoadWideningAreaChange}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="p-3  border-b border-gray-200 text-sm"></td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">Side 1</p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">
+                          {preDeterminedValue?.side1}
+                        </p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">
+                          {plotDetails?.side1Setback ?? ""}
+                        </p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <input
+                          id="sideOneObs"
+                          type="text"
+                          className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
+                          defaultValue={submitData?.drawingTableObs?.sideOneObs}
+                          // onChange={handleRoadWideningAreaChange}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="p-3  border-b border-gray-200 text-sm"></td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">Side 2</p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">
+                          {preDeterminedValue?.side2}
+                        </p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">
+                          {plotDetails?.side2Setback}
+                        </p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <input
+                          id="sideTwoObs"
+                          type="text"
+                          className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
+                          defaultValue={submitData?.drawingTableObs?.sideTwoObs}
+                          // onChange={handleRoadWideningAreaChange}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">7</p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">
+                          Number of floors
+                        </p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm"></td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">
+                          {numberOfFloors ?? 0}
+                        </p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <input
+                          id="numberOfFloorsObs"
+                          type="text"
+                          className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
+                          defaultValue={submitData?.drawingTableObs?.floorObs}
+                          // onChange={handleRoadWideningAreaChange}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="p-3  border-b border-gray-200 text-sm"></td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">Stilt Floor</p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm"></td>
+                      <td className="p-3  border-b border-gray-200 text-sm"></td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <input
+                          id="stiltFloorObs"
+                          type="text"
+                          className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
+                          defaultValue={
+                            submitData?.drawingTableObs?.stiltFloorObs
+                          }
+                          // onChange={handleRoadWideningAreaChange}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="p-3  border-b border-gray-200 text-sm"></td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">
+                          Ground Floor
+                        </p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm"></td>
+                      <td className="p-3  border-b border-gray-200 text-sm"></td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <input
+                          id="groundFloorObs"
+                          type="text"
+                          className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
+                          defaultValue={
+                            submitData?.drawingTableObs?.groundFloorObs
+                          }
+                          // onChange={handleRoadWideningAreaChange}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="p-3  border-b border-gray-200 text-sm"></td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">First Floor</p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm"></td>
+                      <td className="p-3  border-b border-gray-200 text-sm"></td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <input
+                          id="firstFloorObs"
+                          type="text"
+                          className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
+                          defaultValue={
+                            submitData?.drawingTableObs?.firstFloorObs
+                          }
+                          // onChange={handleRoadWideningAreaChange}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="p-3  border-b border-gray-200 text-sm"></td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">
+                          Second Floor
+                        </p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm"></td>
+                      <td className="p-3  border-b border-gray-200 text-sm"></td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <input
+                          id="secondFloorObs"
+                          type="text"
+                          className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
+                          defaultValue={
+                            submitData?.drawingTableObs?.secondFloorObs
+                          }
+                          // onChange={handleRoadWideningAreaChange}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">8</p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">Green Strip</p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">
+                          1mtr wide required
+                        </p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">Yes</p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <select
+                          id="greenStripObs"
+                          className=" w-1/6 outline-none bg-gray-50"
+                          defaultValue={
+                            submitData?.drawingTableObs?.greenStripObs ?? ""
+                          }
+                        >
+                          <option value="">Yes</option>
+                          <option>No</option>
+                        </select>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">9</p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">
+                          Staircase width
+                        </p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">
+                          Minimum 2.00 mtr
+                        </p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm"></td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <input
+                          id="stairCaseWidthObs"
+                          type="text"
+                          className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
+                          defaultValue={
+                            submitData?.drawingTableObs?.stairCaseWidthObs
+                          }
+                          // onChange={handleRoadWideningAreaChange}
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">10</p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">
+                          No. of Units
+                        </p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">
+                          Maximum 4 no.
+                        </p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">
+                          {plotDetails?.noOfUnits ?? ""}
+                        </p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <input
+                          id="unitObs"
+                          type="text"
+                          className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
+                          defaultValue={submitData?.drawingTableObs?.unitsObs}
+                          // onChange={handleRoadWideningAreaChange}
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <DocumentFooter
         setApprovedConfirmation={setApprovedConfirmation}

@@ -133,11 +133,21 @@ const DraftApplication = () => {
 
   const cameFrom = JSON.parse(localStorage.getItem("page"));
 
-  const applicationModalShow =
-    path.includes("applicationChecklist") ||
-    path.includes("documents") ||
-    path.includes("drawing") ||
-    path.includes("payment");
+  const applicationButtonForDraftApplication =
+    (path.includes("applicationChecklist") ||
+      path.includes("documents") ||
+      path.includes("drawing") ||
+      path.includes("payment")) &&
+    (cameFrom === "draft" || cameFrom === "submit");
+
+  console.log(
+    applicationButtonForDraftApplication &&
+      (cameFrom === "draft" || cameFrom === "submit")
+  );
+
+  const applicationButtonForApprovedOrShortfallApplication =
+    !path.includes("siteInspection") &&
+    (cameFrom === "approved" || cameFrom === "shortfall");
 
   return (
     <>
@@ -151,50 +161,53 @@ const DraftApplication = () => {
               {applicationNo}
             </p>
 
-            {cameFrom === "approved" && (
-              <>
-                <button
-                  className={`btn btn-sm text-xs ${gradientColor} transition-all duration-700 text-white dark:border-none`}
-                >
-                  <HiOutlineClipboardDocumentList className="text-lg" />{" "}
-                  <span>Proceeding</span>
-                </button>
+            <div>
+              {cameFrom === "approved" && (
+                <>
+                  <button
+                    className={`btn btn-sm text-xs ${gradientColor} transition-all duration-700 text-white me-5 dark:border-none`}
+                  >
+                    <HiOutlineClipboardDocumentList className="text-lg" />{" "}
+                    <span>Proceeding</span>
+                  </button>
 
-                <button
-                  className={`btn btn-sm text-xs ${gradientColor} transition-all duration-700 text-white dark:border-none`}
-                >
-                  <HiOutlineClipboardDocumentList className="text-lg" />{" "}
-                  <span>Drawing</span>
-                </button>
-              </>
-            )}
+                  <button
+                    className={`btn btn-sm text-xs ${gradientColor} transition-all duration-700 text-white me-5 dark:border-none`}
+                  >
+                    <HiOutlineClipboardDocumentList className="text-lg" />{" "}
+                    <span>Drawing</span>
+                  </button>
+                </>
+              )}
 
-            {cameFrom === "shortfall" && (
-              <>
+              {cameFrom === "shortfall" && (
+                <>
+                  <button
+                    className={`btn btn-sm text-xs ${gradientColor} transition-all duration-700 text-white me-5 dark:border-none`}
+                  >
+                    <HiOutlineClipboardDocumentList className="text-lg" />{" "}
+                    <span>Resubmit</span>
+                  </button>
+                  <button
+                    className={`btn btn-sm me-5 text-xs ${gradientColor} transition-all duration-700 text-white dark:border-none`}
+                  >
+                    <HiOutlineClipboardDocumentList className="text-lg" />{" "}
+                    <span>Endorsement</span>
+                  </button>
+                </>
+              )}
+
+              {(applicationButtonForDraftApplication ||
+                applicationButtonForApprovedOrShortfallApplication) && (
                 <button
-                  className={`btn btn-sm text-xs ${gradientColor} transition-all duration-700 text-white dark:border-none`}
-                >
-                  <HiOutlineClipboardDocumentList className="text-lg" />{" "}
-                  <span>Endorsement</span>
-                </button>
-                <button
+                  onClick={() => setOpenApplication(true)}
                   className={`btn btn-sm text-xs ${gradientColor} transition-all duration-700 text-white dark:border-none`}
                 >
                   <HiOutlineClipboardDocumentList className="text-lg" />{" "}
                   <span>Application</span>
                 </button>
-              </>
-            )}
-
-            {applicationModalShow && (
-              <button
-                onClick={() => setOpenApplication(true)}
-                className={`btn btn-sm text-xs ${gradientColor} transition-all duration-700 text-white dark:border-none`}
-              >
-                <HiOutlineClipboardDocumentList className="text-lg" />{" "}
-                <span>Application</span>
-              </button>
-            )}
+              )}
+            </div>
 
             {/* Application Modal */}
             {openApplication ? (

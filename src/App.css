@@ -33,3 +33,10 @@ body {
 .swal2-title {
   font-family: "Roboto Condensed", "sans-serif";
 }
+
+table tbody tr:nth-child(2n) {
+  background-color: #f9fafb;
+}
+table tbody tr:hover {
+  background-color: #f7fbfb;
+}

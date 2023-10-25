@@ -5,13 +5,20 @@ import { useOutletContext } from "react-router-dom";
 import toast from "react-hot-toast";
 import ImageUploadInput from "./ImageUploadInput";
 import axios from "axios";
+import { useQuery } from "react-query";
 
 const SiteInspection = () => {
-  const { confirmAlert, sendUserDataIntoDB, getApplicationData } =
-    useContext(AuthContext);
+  const {
+    confirmAlert,
+    sendUserDataIntoDB,
+    getApplicationData,
+    userInfoFromLocalStorage,
+  } = useContext(AuthContext);
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
   const cameFrom = JSON.parse(localStorage.getItem("page"));
+
+  const [isSavedData, setIsSavedData] = useState(0);
 
   const stepperData = useOutletContext();
 
@@ -51,40 +58,96 @@ const SiteInspection = () => {
   });
 
   const [siteBoundariesImageFiles, setSiteBoundariesImageFiles] = useState({});
+  const [isApproved, setIsApproved] = useState(-1);
 
   console.log(siteBoundariesImageFiles, "siteBoundariesImageFiles");
 
+  const { data, refetch, isLoading, isSuccess } = useQuery(
+    ["sitInspectionData"],
+    async () => {
+      const query = JSON.stringify({
+        appNo: applicationNo,
+        userId: userInfoFromLocalStorage()._id,
+        role: userInfoFromLocalStorage().role,
+        page: cameFrom,
+      });
+
+      console.log(query, "query");
+
+      const response = await fetch(
+        `http://localhost:5000/getApplicationData?data=${query}`
+      );
+
+      return await response.json();
+    }
+  );
+
+  // console.log(data, "DATA");
+
   useEffect(() => {
-    const getData = async () => {
-      const applicationData = await getApplicationData(applicationNo, cameFrom);
-      console.log(applicationData, "applicationData");
+    console.log(data, "DATA");
 
-      const groundPosition = applicationData?.siteInspection?.groundPosition;
-      const siteBoundaries = applicationData?.siteInspection?.siteBoundaries;
-      const accessRoad = applicationData?.siteInspection?.accessRoad;
-      const landUse = applicationData?.siteInspection?.landUse;
-      const decision = applicationData?.siteInspection?.decision;
-      const recommendations = applicationData?.siteInspection?.recommendations;
+    const documentDecision = data?.psDocumentPageObservation?.approved;
+    const drawingDecision = data?.psDrawingPageObservation?.approved;
+    const siteInspectionDecision = data?.siteInspection?.decision;
 
-      setGroundPosition(groundPosition);
-      setSiteBoundaries(siteBoundaries);
-      setApproachRoadApp(siteBoundaries?.accessRoad?.approachRoad?.[0]);
-      setApproachRoadObs(siteBoundaries?.accessRoad?.approachRoad?.[1]);
-      setAccessRoad(accessRoad);
-      setLandUse(landUse);
-      setDecision(decision);
-      setRecommendations(recommendations);
+    console.log(documentDecision, drawingDecision, siteInspectionDecision);
 
-      if (siteBoundaries) {
-        setSiteBoundariesImageFilesId((prev) => {
-          return siteBoundaries?.siteBoundariesImageFilesId;
-        });
+    if (
+      documentDecision?.length &&
+      drawingDecision?.length &&
+      siteInspectionDecision?.length
+    ) {
+      if (
+        documentDecision.toLowerCase() === "true" &&
+        drawingDecision.toLowerCase() === "true" &&
+        siteInspectionDecision.toLowerCase() === "approved"
+      ) {
+        console.log("APPROVED COND");
+        setIsApproved(1);
       }
-    };
-    getData();
-  }, []);
+      if (
+        documentDecision.toLowerCase() === "false" ||
+        drawingDecision.toLowerCase() === "false" ||
+        siteInspectionDecision.toLowerCase() === "shortfall"
+      ) {
+        console.log("SHORTFALL COND");
+        setIsApproved(0);
+      }
+    }
+
+    const applicationData = data;
+    const groundPosition = applicationData?.siteInspection?.groundPosition;
+    const siteBoundaries = applicationData?.siteInspection?.siteBoundaries;
+    const accessRoad = applicationData?.siteInspection?.accessRoad;
+    const landUse = applicationData?.siteInspection?.landUse;
+    const decision = applicationData?.siteInspection?.decision;
+    const recommendations = applicationData?.siteInspection?.recommendations;
+    console.log(decision, "DECISION");
+    setGroundPosition(groundPosition);
+    setSiteBoundaries(siteBoundaries);
+    setApproachRoadApp(siteBoundaries?.accessRoad?.approachRoad?.[0]);
+    setApproachRoadObs(siteBoundaries?.accessRoad?.approachRoad?.[1]);
+    setAccessRoad(accessRoad);
+    setLandUse(landUse);
+    // setDecision(decision);
+    setRadioPs(decision);
+    setRecommendations(recommendations);
+
+    if (siteBoundaries) {
+      setSiteBoundariesImageFilesId((prev) => {
+        return siteBoundaries?.siteBoundariesImageFilesId;
+      });
+    }
+  }, [isSuccess, data]);
+
+  // useEffect(() => {
+  //   console.log(isSavedData, "IS SAVED DATA");
+  //   refetch();
+  // }, [isSavedData]);
 
   console.log(siteBoundariesImageFilesId, "IMAGE FILES ID");
+  console.log(isApproved, "APPROVED SITE");
 
   // Decision :
   const [radioPs, setRadioPs] = useState("");
@@ -100,175 +163,197 @@ const SiteInspection = () => {
   };
 
   const collectInputFieldData = async (url) => {
-    let fileUploadSuccess = 1;
+    if (radioPs?.length || decision?.length) {
+      let fileUploadSuccess = 1;
 
-    // uploadFileInCloudStorage(formData);
-    for (const file in siteBoundariesImageFiles) {
-      console.log(file, "File");
-      const formData = new FormData();
-      if (siteBoundariesImageFiles[file]) {
-        console.log(siteBoundariesImageFiles[file], "INSIDE");
-        formData.append("file", siteBoundariesImageFiles[file]);
+      // uploadFileInCloudStorage(formData);
+      for (const file in siteBoundariesImageFiles) {
+        console.log(file, "File");
+        const formData = new FormData();
+        if (siteBoundariesImageFiles[file]) {
+          console.log(siteBoundariesImageFiles[file], "INSIDE");
+          formData.append("file", siteBoundariesImageFiles[file]);
 
-        console.log(...formData, "FORM DATA");
-        try {
-          const response = await axios.post(
-            "http://localhost:5000/upload?page=siteInspection",
-            formData,
-            {
-              headers: {
-                "Content-Type": "multipart/form-data", // Important for file uploads
-              },
+          console.log(...formData, "FORM DATA");
+          try {
+            const response = await axios.post(
+              "http://localhost:5000/upload?page=siteInspection",
+              formData,
+              {
+                headers: {
+                  "Content-Type": "multipart/form-data", // Important for file uploads
+                },
+              }
+            );
+
+            console.log(response, "RESPONSE");
+            if (response?.data.msg === "Successfully uploaded") {
+              const fileId = response.data.fileId;
+              siteBoundariesImageFilesId[file] = fileId;
+              fileUploadSuccess = 1;
             }
-          );
-
-          console.log(response, "RESPONSE");
-          if (response?.data.msg === "Successfully uploaded") {
-            const fileId = response.data.fileId;
-            siteBoundariesImageFilesId[file] = fileId;
-            fileUploadSuccess = 1;
+          } catch (error) {
+            // Handle errors, e.g., show an error message to the user
+            toast.error("Error to upload documents");
+            fileUploadSuccess = 0;
           }
-        } catch (error) {
-          // Handle errors, e.g., show an error message to the user
-          toast.error("Error to upload documents");
-          fileUploadSuccess = 0;
         }
       }
-    }
 
-    console.log(fileUploadSuccess, "FILEUPLOAD SUCCESS");
+      console.log(fileUploadSuccess, "FILEUPLOAD SUCCESS");
 
-    if (fileUploadSuccess) {
-      // Ground Position :
-      const natureOfSiteApp = document.getElementById("natureOfSiteApp").value;
-      const natureOfSiteObs = document.getElementById("natureOfSiteObs").value;
-      const siteLevelApp = document.getElementById("siteLevelApp").value;
-      const siteLevelObs = document.getElementById("siteLevelObs").value;
-      const totalAreaAsOnGroundApp = document.getElementById(
-        "totalAreaAsOnGroundApp"
-      ).value;
-      const totalAreaAsOnGroundObs = document.getElementById(
-        "totalAreaAsOnGroundObs"
-      ).value;
-      const workCommentedApp =
-        document.getElementById("workCommentedApp").value;
-      const workCommentedObs =
-        document.getElementById("workCommentedObs").value;
-      // Site Boundaries :
-      const northApp = document.getElementById("northApp").files[0];
-      const northObs = document.getElementById("northObs").files[0];
-      const southApp = document.getElementById("southApp").files[0];
-      const southObs = document.getElementById("southObs").files[0];
-      const eastApp = document.getElementById("eastApp").files[0];
-      const eastObs = document.getElementById("eastObs").files[0];
-      const westApp = document.getElementById("westApp").files[0];
-      const westObs = document.getElementById("westObs").files[0];
-      const scheduleOfTheDocumentsApp = document.getElementById(
-        "scheduleOfTheDocumentsApp"
-      ).value;
-      const scheduleOfTheDocumentsObs = document.getElementById(
-        "scheduleOfTheDocumentsObs"
-      ).value;
-      // Access Road :
-      const natureOfRoadApp = document.getElementById("natureOfRoadApp").value;
-      const natureOfRoadObs = document.getElementById("natureOfRoadObs").value;
-      const approachRoadApp = document.getElementById("approachRoadApp").value;
-      const approachRoadObs = document.getElementById("approachRoadObs").value;
-      const roadWidthApp = document.getElementById("roadWidthApp").value;
-      const roadWidthObs = document.getElementById("roadWidthObs").value;
-      const scopeOfRoadApp = document.getElementById("scopeOfRoadApp").value;
-      const scopeOfRoadObs = document.getElementById("scopeOfRoadObs").value;
-      // Land Use :
-      const landUseApp = document.getElementById("landUseApp").value;
-      const landUseObs = document.getElementById("landUseObs").value;
-      const proposedActivityApp = document.getElementById(
-        "proposedActivityApp"
-      ).value;
-      const proposedActivityObs = document.getElementById(
-        "proposedActivityObs"
-      ).value;
-      const landRoadWidthApp =
-        document.getElementById("landRoadWidthApp").value;
-      const landRoadWidthObs =
-        document.getElementById("landRoadWidthApp").value;
-      const whetherPermissionApp = document.getElementById(
-        "whetherPermissionApp"
-      ).value;
-      const whetherPermissionObs = document.getElementById(
-        "whetherPermissionObs"
-      ).value;
-      // Comments
-      const recommendations = document.getElementById("recommendations").value;
+      if (fileUploadSuccess) {
+        // Ground Position :
+        const natureOfSiteApp =
+          document.getElementById("natureOfSiteApp").value;
+        const natureOfSiteObs =
+          document.getElementById("natureOfSiteObs").value;
+        const siteLevelApp = document.getElementById("siteLevelApp").value;
+        const siteLevelObs = document.getElementById("siteLevelObs").value;
+        const totalAreaAsOnGroundApp = document.getElementById(
+          "totalAreaAsOnGroundApp"
+        ).value;
+        const totalAreaAsOnGroundObs = document.getElementById(
+          "totalAreaAsOnGroundObs"
+        ).value;
+        const workCommentedApp =
+          document.getElementById("workCommentedApp").value;
+        const workCommentedObs =
+          document.getElementById("workCommentedObs").value;
+        // Site Boundaries :
+        const northApp = document.getElementById("northApp").files[0];
+        const northObs = document.getElementById("northObs").files[0];
+        const southApp = document.getElementById("southApp").files[0];
+        const southObs = document.getElementById("southObs").files[0];
+        const eastApp = document.getElementById("eastApp").files[0];
+        const eastObs = document.getElementById("eastObs").files[0];
+        const westApp = document.getElementById("westApp").files[0];
+        const westObs = document.getElementById("westObs").files[0];
+        const scheduleOfTheDocumentsApp = document.getElementById(
+          "scheduleOfTheDocumentsApp"
+        ).value;
+        const scheduleOfTheDocumentsObs = document.getElementById(
+          "scheduleOfTheDocumentsObs"
+        ).value;
+        // Access Road :
+        const natureOfRoadApp =
+          document.getElementById("natureOfRoadApp").value;
+        const natureOfRoadObs =
+          document.getElementById("natureOfRoadObs").value;
+        const approachRoadApp =
+          document.getElementById("approachRoadApp").value;
+        const approachRoadObs =
+          document.getElementById("approachRoadObs").value;
+        const roadWidthApp = document.getElementById("roadWidthApp").value;
+        const roadWidthObs = document.getElementById("roadWidthObs").value;
+        const scopeOfRoadApp = document.getElementById("scopeOfRoadApp").value;
+        const scopeOfRoadObs = document.getElementById("scopeOfRoadObs").value;
+        // Land Use :
+        const landUseApp = document.getElementById("landUseApp").value;
+        const landUseObs = document.getElementById("landUseObs").value;
+        const proposedActivityApp = document.getElementById(
+          "proposedActivityApp"
+        ).value;
+        const proposedActivityObs = document.getElementById(
+          "proposedActivityObs"
+        ).value;
+        const landRoadWidthApp =
+          document.getElementById("landRoadWidthApp").value;
+        const landRoadWidthObs =
+          document.getElementById("landRoadWidthApp").value;
+        const whetherPermissionApp = document.getElementById(
+          "whetherPermissionApp"
+        ).value;
+        const whetherPermissionObs = document.getElementById(
+          "whetherPermissionObs"
+        ).value;
+        // Comments
+        const recommendations =
+          document.getElementById("recommendations").value;
 
-      const groundPosition = {
-        natureOfSite: [natureOfSiteApp, natureOfSiteObs],
-        siteLevel: [siteLevelApp, siteLevelObs],
-        totalAreaAsOnGround: [totalAreaAsOnGroundApp, totalAreaAsOnGroundObs],
-        workCommented: [workCommentedApp, workCommentedObs],
-      };
+        const groundPosition = {
+          natureOfSite: [natureOfSiteApp, natureOfSiteObs],
+          siteLevel: [siteLevelApp, siteLevelObs],
+          totalAreaAsOnGround: [totalAreaAsOnGroundApp, totalAreaAsOnGroundObs],
+          workCommented: [workCommentedApp, workCommentedObs],
+        };
 
-      const siteBoundaries = {
-        siteBoundariesImageFilesId,
-        scheduleOfTheDocuments: [
-          scheduleOfTheDocumentsApp,
-          scheduleOfTheDocumentsObs,
-        ],
-      };
+        const siteBoundaries = {
+          siteBoundariesImageFilesId,
+          scheduleOfTheDocuments: [
+            scheduleOfTheDocumentsApp,
+            scheduleOfTheDocumentsObs,
+          ],
+        };
 
-      console.log(siteBoundaries, "siteBoundaries");
+        console.log(siteBoundaries, "siteBoundaries");
 
-      const accessRoad = {
-        natureOfRoad: [natureOfRoadApp, natureOfRoadObs],
-        approachRoad: [approachRoadApp, approachRoadObs],
-        accessRoadWidth: [roadWidthApp, roadWidthObs],
-        scopeOfRoad: [scopeOfRoadApp, scopeOfRoadObs],
-      };
+        const accessRoad = {
+          natureOfRoad: [natureOfRoadApp, natureOfRoadObs],
+          approachRoad: [approachRoadApp, approachRoadObs],
+          accessRoadWidth: [roadWidthApp, roadWidthObs],
+          scopeOfRoad: [scopeOfRoadApp, scopeOfRoadObs],
+        };
 
-      const landUse = {
-        landUse: [landUseApp, landUseObs],
-        proposedActivity: [proposedActivityApp, proposedActivityObs],
-        landRoadWidth: [landRoadWidthApp, landRoadWidthObs],
-        whetherPermission: [whetherPermissionApp, whetherPermissionObs],
-      };
+        const landUse = {
+          landUse: [landUseApp, landUseObs],
+          proposedActivity: [proposedActivityApp, proposedActivityObs],
+          landRoadWidth: [landRoadWidthApp, landRoadWidthObs],
+          whetherPermission: [whetherPermissionApp, whetherPermissionObs],
+        };
 
-      // All Information :
-      const siteInspection = {
-        groundPosition,
-        siteBoundaries,
-        accessRoad,
-        landUse,
-        decision: radioPs,
-        recommendations,
-      };
+        // All Information :
+        const siteInspection = {
+          groundPosition,
+          siteBoundaries,
+          accessRoad,
+          landUse,
+          decision: radioPs,
+          recommendations,
+        };
 
-      console.log(siteInspection, "SITE INSPECTION");
+        console.log(siteInspection, "SITE INSPECTION");
 
-      // fetch(`http://localhost:5000/recommendDataOfPs?appNo=${applicationNo}`, {
-      //     method: "PATCH",
-      //     headers: {
-      //         "content-type": "application/json",
-      //     },
-      //     body: JSON.stringify({ siteInspection }),
-      // })
-      //     .then((res) => res.json())
-      //     .then((result) => {
-      //         console.log(result);
-      //         if (result.acknowledged) {
-      //             toast.success("Saved data successfully");
-      //         } else {
-      //             toast.error("Server Error");
-      //         }
-      //     });
+        // fetch(`http://localhost:5000/recommendDataOfPs?appNo=${applicationNo}`, {
+        //     method: "PATCH",
+        //     headers: {
+        //         "content-type": "application/json",
+        //     },
+        //     body: JSON.stringify({ siteInspection }),
+        // })
+        //     .then((res) => res.json())
+        //     .then((result) => {
+        //         console.log(result);
+        //         if (result.acknowledged) {
+        //             toast.success("Saved data successfully");
+        //         } else {
+        //             toast.error("Server Error");
+        //         }
+        //     });
 
-      return await sendUserDataIntoDB(url, "PATCH", {
-        applicationNo,
-        siteInspection,
-      });
+        return await sendUserDataIntoDB(url, "PATCH", {
+          applicationNo,
+          siteInspection,
+        });
+      }
+    } else {
+      toast.error(
+        "Please fill up the decision whether the application is approved or shortfall"
+      );
+      throw new Error(
+        "Please fill up the decision whether the application is approved or shortfall"
+      );
     }
   };
 
   const sentPsDecision = async (url) => {
-    url = `http://localhost:5000/decisionOfPs?appNo=${applicationNo}`;
+    const trackPSAction = JSON.parse(localStorage.getItem("PSDecision"));
+
+    const data = {
+      applicationNo,
+      trackPSAction,
+    };
+    url = `http://localhost:5000/decisionOfPs?data=${JSON.stringify(data)}`;
     console.log(url);
 
     const config = {
@@ -284,6 +369,10 @@ const SiteInspection = () => {
   const inputClass =
     "input rounded-none w-full max-w-xs focus:outline-none bg-gray-50 hover:bg-gray-200 bg-gray-100";
   const inputTableDataClass = "whitespace-nowrap border-r border-neutral-500";
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div className="flex flex-col sm:px-6 lg:px-8 text-black">
@@ -773,11 +862,7 @@ const SiteInspection = () => {
             name="radioPs"
             className="radio border border-[#10AC84] h-4 w-4"
             value="Approved"
-            checked={
-              radioPs === "Approved"
-                ? radioPs === "Approved"
-                : decision === "Approved"
-            }
+            checked={radioPs === "Approved"}
             onChange={handleRadioPs}
           />
           <span className="ml-2 text-base">Approved</span>
@@ -788,11 +873,7 @@ const SiteInspection = () => {
             name="radioPs"
             className="radio border border-[#10AC84] h-4 w-4"
             value="Shortfall"
-            checked={
-              radioPs === "Shortfall"
-                ? radioPs === "Shortfall"
-                : decision === "Shortfall"
-            }
+            checked={radioPs === "Shortfall"}
             onChange={handleRadioPs}
           />
           <span className="ml-2 text-base">Shortfall</span>
@@ -830,6 +911,8 @@ const SiteInspection = () => {
         confirmAlert={confirmAlert}
         collectInputFieldData={collectInputFieldData}
         sentData={sentPsDecision}
+        isApproved={isApproved}
+        refetch={refetch}
       />
     </div>
   );

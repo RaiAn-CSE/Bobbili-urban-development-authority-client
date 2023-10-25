@@ -4,6 +4,7 @@ import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import ShowSubmittedApplication from "./ShowSubmittedApplication";
 import useGetPageWiseApplication from "../../../CustomHook/useGetPageWiseApplication";
 import { useNavigate } from "react-router-dom";
+import TableLayout from "../../../Components/TableLayout";
 
 const SubmitApplication = () => {
   const { userInfoFromLocalStorage, showPageBasedOnApplicationType } =
@@ -11,9 +12,8 @@ const SubmitApplication = () => {
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
-  const [data, refetch, isError, isLoading] = useGetPageWiseApplication(
-    "Submit Applications"
-  );
+  const [data, refetch, isError, isLoading, isSuccess] =
+    useGetPageWiseApplication("Submit Applications");
 
   useEffect(() => {
     if (isError) {
@@ -25,44 +25,56 @@ const SubmitApplication = () => {
   }, [isError]);
 
   console.log(data);
-  return (
-    <div className="w-full mt-6">
-      <table className="w-full font-roboto text-gray-900">
-        {/* head */}
-        <thead>
-          <tr className="bg-[#2d3436] text-sm md:text-base text-white hover:bg-[#353b48]">
-            <th className="p-2">Sl.no.</th>
-            <th className="p-2">Application no.</th>
-            <th className="p-2">Owner name</th>
-            <th className="p-2">Phone no.</th>
-            <th className="p-2">Case type</th>
-            <th className="p-2">Village</th>
-            <th className="p-2">Mandal</th>
-            <th className="p-2">Submitted date</th>
-            <th className="p-2">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {/* show draft applications  */}
 
-          {data?.map((applicationData, index) => (
-            <ShowSubmittedApplication
-              key={index}
-              serialNo={index}
-              applicationData={applicationData}
-              showSubmitApplication={showPageBasedOnApplicationType}
-              navigate={navigate}
-            />
-          ))}
-        </tbody>
-      </table>
+  const tableHeader = [
+    "Sl.no.",
+    "Application no.",
+    "Owner name",
+    "Phone no.",
+    "Case type",
+    "Village",
+    "Mandal",
+    "Submitted date",
+    "Status",
+  ];
+
+  const [tableData, setTableData] = useState({});
+  const [tableComponentProps, setTableComponentProps] = useState({});
+
+  useEffect(() => {
+    setTableData((prev) => {
+      const newValue = {
+        tableHeader,
+        data,
+      };
+      return { ...prev, ...newValue };
+    });
+  }, [isSuccess, data]);
+
+  useEffect(() => {
+    setTableComponentProps((prev) => {
+      const newValue = {
+        showPageBasedOnApplicationType,
+        navigate,
+      };
+      return { ...prev, ...newValue };
+    });
+  }, []);
+
+  return (
+    <>
+      <TableLayout
+        tableData={tableData}
+        Component={ShowSubmittedApplication}
+        tableComponentProps={tableComponentProps}
+      />
 
       {error && (
         <p className="text-lg text-center my-4 font-bold text-error">{error}</p>
       )}
 
       {isLoading && <p>Loading...</p>}
-    </div>
+    </>
   );
 };
 

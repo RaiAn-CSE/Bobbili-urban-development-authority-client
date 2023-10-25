@@ -14,8 +14,8 @@ const IndividualUser = ({ user, deleteUser, updateUser }) => {
   return (
     <>
       <tr className="text-black">
-        <td>
-          <div className="flex items-center space-x-3">
+        <td className="p-3  border-b border-gray-200 text-sm">
+          {/* <div className="flex items-center space-x-3">
             <div className="avatar">
               <div className="mask mask-squircle w-8 h-8 md:w-12 md:h-12">
                 <img src={userIcon} alt="Avatar Tailwind CSS Component" />
@@ -27,9 +27,27 @@ const IndividualUser = ({ user, deleteUser, updateUser }) => {
                 ({user?.role})
               </div>
             </div>
+          </div> */}
+
+          <div className="flex">
+            <div className="flex-shrink-0 w-10 h-10">
+              <img
+                className="w-full h-full rounded-full"
+                src={userIcon}
+                alt="An avatar image"
+              />
+            </div>
+            <div className="ml-3">
+              <p className="text-gray-900 break-words text-base font-bold text-left">
+                {user?.name}
+              </p>
+              <p className="text-gray-600 break-words text-left">
+                {user?.role}
+              </p>
+            </div>
           </div>
         </td>
-        <td>
+        <td className="p-3  border-b border-gray-200 text-sm">
           {/* update user information button  */}
           <button
             className="btn btn-sm me-3 border-none bg-yellow-300 hover:bg-yellow-400 hover:shadow-md hover:shadow-yellow-500 "
