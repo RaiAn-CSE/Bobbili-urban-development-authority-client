@@ -88,6 +88,7 @@ const DocumentUpload = () => {
       let updatedDynamicDocumentsToAdd = [];
       const applicationData = await getApplicationData(applicationNo, cameFrom);
       const applicationCheckList = applicationData.applicationCheckList;
+      console.log(applicationCheckList,"Checklist Data")
       role === "LTP" &&
         setPreviousDefaultDocumentData(
           applicationData?.document?.data?.default
@@ -113,7 +114,8 @@ const DocumentUpload = () => {
         setRecommendationMessage(
           applicationData?.psDocumentPageObservation?.message
         );
-      // Checklist "yes" Data integrating to Document
+
+      // Checklist "yes" Data integrating to Dynamic Document
       if (applicationCheckList?.length) {
         const documents = applicationData?.documents;
         console.log(documents, "Documents");
@@ -129,9 +131,12 @@ const DocumentUpload = () => {
         });
       }
       setDynamicAppChecklistDocument(updatedDynamicDocumentsToAdd);
+      
     };
     gettingData();
   }, []);
+
+  console.log(DynamicAppChecklistDocument,"Dynamic checklist Data")
 
   console.log({ UpdatedDefaultData }, "Document Page combined Data")
   console.log({ PreviousDefaultDocumentData, PreviousDynamicDocumentData, approvedConfirmation, recomendationMessage, }, "PS Saved Data"
