@@ -10,7 +10,7 @@ import DrawingTable from "./DrawingTable";
 
 const Drawing = () => {
   const [approvedConfirmation, setApprovedConfirmation] = useState("");
-  const [recomendationMessage, setRecomendationMessage] = useState("");
+  const [recomendationMessage, setRecommendationMessage] = useState("");
 
   console.log({ approvedConfirmation, recomendationMessage });
 
@@ -48,6 +48,8 @@ const Drawing = () => {
       setBuildingInfoData(res?.buildingInfo);
       if (Object.keys(res?.drawing).length) {
         const drawingDataFromDB = res?.drawing;
+        setApprovedConfirmation(res?.psDrawingPageObservation.approved);
+        setRecommendationMessage(res?.psDrawingPageObservation.message)
         setImageId(drawingDataFromDB);
       }
     });
@@ -147,6 +149,9 @@ const Drawing = () => {
       return await sendUserDataIntoDB(url, "PATCH", {
         applicationNo,
         drawing,
+        approved: approvedConfirmation,
+        message: recomendationMessage
+
       });
     }
   };
@@ -303,7 +308,7 @@ const Drawing = () => {
         getSubmitData?.length !== 0 && (
           <DrawingTable
             setApprovedConfirmation={setApprovedConfirmation}
-            setRecomendationMessage={setRecomendationMessage}
+            setRecommendationMessage={setRecommendationMessage}
             recomendationMessage={recomendationMessage}
             approvedConfirmation={approvedConfirmation}
             applicationData={buildingInfoData}
