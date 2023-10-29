@@ -215,24 +215,24 @@ const ApplicationSearch = () => {
         </div>
       </div>
 
-      <div className="flex justify-center items-center pt-5 pb-9">
+      <div className="flex justify-center items-center pt-5 pb-9 dark:text-gray-600">
         <div className="p-3">
           <span className="grid justify-center items-center">
             <AiOutlineFileDone className="text-violet-500" size={25} />
           </span>
-          <h4 className="text-base font-semibold bg-gradient-to-r from-violet-400 to-fuchsia-400 text-transparent bg-clip-text">Application</h4>
+          <h4 className="text-base font-semibold">Application</h4>
         </div>
         <div className="p-3">
           <span className="grid justify-center items-center">
             <BsHouses className="text-violet-500" size={25} />
           </span>
-          <h4 className="text-base font-semibold bg-gradient-to-r from-violet-400 to-fuchsia-400 text-transparent bg-clip-text">Drawing</h4>
+          <h4 className="text-base font-semibold">Drawing</h4>
         </div>
         <div className="p-3">
           <span className="grid justify-center items-center">
             <MdOutlineNoteAlt className="text-violet-500" size={25} />
           </span>
-          <h4 className="text-base font-semibold bg-gradient-to-r from-violet-400 to-fuchsia-400 text-transparent bg-clip-text">Proceeding</h4>
+          <h4 className="text-base font-semibold">Proceeding</h4>
         </div>
       </div>
     </div>

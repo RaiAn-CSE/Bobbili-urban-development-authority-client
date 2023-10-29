@@ -36,7 +36,7 @@ const AllDraftApplication = ({
 
   return (
     <>
-      <tr className=" dark:text-black hidden md:table-row">
+      <tr className="dark:text-black hidden md:table-row">
         <td className="p-3  border-b border-gray-200 text-sm">
           <p className="text-gray-900 break-words">{serialNo + 1}</p>
         </td>
@@ -83,14 +83,6 @@ const AllDraftApplication = ({
           <p className="text-gray-900 break-words">{createdDate ?? "N/A"}</p>
         </td>
         <td className="px-3 py-[7px] border-b border-gray-200 text-sm flex">
-          {/* <button
-          className={`btn btn-sm text-black bg-transparent`}
-          // onClick={() =>
-          //   alertToConfirmDelete(applicationNo, removeDraftApplication)
-          // }
-        >
-          <CiEdit size={19} />
-        </button> */}
           <button
             className={`btn btn-sm border-none bg-[#ffd7d7] hover:bg-[#f6c7c7] text-red-400 hover:text-red-500 bg-transparent`}
             onClick={() =>
