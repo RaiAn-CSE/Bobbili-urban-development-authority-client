@@ -6,14 +6,27 @@
 
 .formGroup input:valid+label,
 .formGroup input:focus+label {
-    color: #ffffff;
+    color: #000000;
     /* font-size: 14px; */
     transform: translateY(8px);
-    background: #1f1132;
+    background: #ffffff;
     border-radius: 3px;
     padding: 0px 4px;
 }
 
 .formGroup label {
     transition: all 0.2s ease-in-out;
+}
+
+.shapeDiv1{
+    width: 0;
+    height: 0;
+    border-top: 100px solid #895dd5;
+    border-right: 100px solid transparent;
+}
+.shapeDiv2{
+    width: 0;
+    height: 0;
+    border-top: 100px solid #895dd5;
+    border-left: 100px solid transparent;
 }

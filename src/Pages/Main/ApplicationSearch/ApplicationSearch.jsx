@@ -78,7 +78,7 @@ const ApplicationSearch = () => {
           <input
             type="search"
             id="default-search"
-            className="block w-full p-4 pl-10 text-base font-normal text-gray-900 border-2 border-violet-500 focus:border-violet-500 focus:outline-none focus:ring-2 ring-violet-200 rounded-lg bg-gray-50"
+            className="block w-full p-4 pl-10 text-base font-normal text-gray-900 border border-violet-400 focus:border-violet-500 focus:outline-none focus:ring-2 ring-violet-100 rounded-lg bg-gray-50"
             placeholder="Application no. or owner name"
             onChange={(e) => searchApplicationData(e)}
             required

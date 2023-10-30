@@ -11,9 +11,11 @@ bg-gradient-to-r from-violet-500 to-fuchsia-500
 
 
 
-                      initial={{ x: '-100vw' }}
-                      animate={{ x: 0 }}
-                      transition={{ delay: 0.2, type: 'spring', stiffness: 110 }}
+                <motion.div"
+                  initial={{ x: '100vw' }}
+                  animate={{ x: 0 }}
+                  transition={{ delay: 0.2, type: 'spring', stiffness: 110 }}
+                >
 
 
 

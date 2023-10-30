@@ -6,8 +6,10 @@ import { useLocation, useNavigate } from "react-router";
 import { BsFillHouseCheckFill, BsFillHouseLockFill } from "react-icons/bs";
 import { AuthContext } from "../../../AuthProvider/AuthProvider";
 import BeatLoader from "react-spinners/BeatLoader";
-
+import { motion } from 'framer-motion'
+import signInAnimation from "../../../assets/signIn.json";
 import LoginCSS from '../../../Style/Login.module.css'
+import Lottie from "lottie-react";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -128,19 +130,37 @@ const Login = () => {
         {/* support icon  */}
 
         {/* login form  */}
+        <div className="">
+          <div className="flex justify-between relative text-gray-50">
+            <div className={`${LoginCSS.shapeDiv1} rounded-tl-lg`}>
+              <h1 className="absolute top-2 left-2 text-2xl font-semibold">Sign</h1>
+            </div>
+            <div className={`${LoginCSS.shapeDiv2} rounded-tr-lg`}>
+              <h1 className="absolute top-2 right-4 text-2xl font-semibold">in</h1>
+            </div>
+          </div>
+          <div className="flex justify-center">
+            <Lottie
+              animationData={signInAnimation}
+              loop={true}
+              className="w-[200px] h-[200px] absolute top-3"
+            />
+          </div>
+        </div>
 
-        <div className="rounded-lg border p-4 sm:p-6 md:p-8 shadow-lg bg-black">
-          <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-            <h1 className="text-3xl text-center font-bold text-gray-50">
+        <div className="p-4 sm:p-6 md:p-5 shadow-lg mt-14 rounded-b-lg">
+
+          <form className="space-y-3" onSubmit={handleSubmit(onSubmit)}>
+            {/* <h1 className="text-3xl text-center font-bold text-gray-50">
               Sign in
-            </h1>
+            </h1> */}
 
             <div className={`${LoginCSS.formGroup} relative pt-[20px] max-w-xs`}>
               <input
                 type="text"
                 {...register("id", { required: true })}
                 id="userId"
-                className="border-[1.5px] border-solid rounded-md block text-base w-full p-2 border-violet-200 text-gray-50 bg-black focus:border-violet-50 focus:outline-none focus:ring-2 ring-violet-700"
+                className="border-[1.5px] border-solid rounded-md block text-base w-full p-2 border-violet-400 text-gray-900 bg-white focus:border-violet-500 focus:outline-none focus:ring-2 ring-violet-50"
                 defaultValue={cookieUserId}
                 // placeholder="name@company.com"
                 autoFocus
@@ -148,7 +168,7 @@ const Login = () => {
               />
               <label
                 htmlFor="userId"
-                className='text-gray-200 text-base font-normal absolute top-0 left-[16px] pointer-events-none transform translate-y-7'
+                className='text-gray-900 text-base font-normal absolute top-0 left-[16px] pointer-events-none transform translate-y-7'
               >
                 Your Id
               </label>
@@ -160,13 +180,13 @@ const Login = () => {
                 id="password"
                 // placeholder="••••••••"
                 defaultValue={cookieUserPassword}
-                className="border-[1.5px] border-solid rounded-md block text-base w-full p-2 border-violet-200 text-gray-50 bg-black focus:border-violet-50 focus:outline-none focus:ring-2 ring-violet-700"
+                className="border-[1.5px] border-solid rounded-md block text-base w-full p-2 border-violet-400 text-gray-900 bg-white  focus:border-violet-500 focus:outline-none focus:ring-2 ring-violet-50"
                 {...register("password", { required: true })}
                 required
               />
               <label
                 htmlFor="password"
-                className='text-gray-200 text-base font-normal absolute top-0 left-[16px] pointer-events-none transform translate-y-7'
+                className='text-gray-900 text-base font-normal absolute top-0 left-[16px] pointer-events-none transform translate-y-7'
               >
                 Your password
               </label>
@@ -175,12 +195,12 @@ const Login = () => {
                 className="absolute top-[55%] right-3 w-fit dark:text-black"
                 onClick={handlePasswordShow}
               >
-                {show ? <BsFillHouseCheckFill className="text-gray-50" /> : <BsFillHouseLockFill className="text-gray-50" />}
+                {show ? <BsFillHouseCheckFill className="text-gray-50" /> : <BsFillHouseLockFill className="text-gray-900" />}
               </div>
             </div>
 
             <div className="flex items-center">
-              <div className="flex items-center h-5 ">
+              <div className="flex items-center h-5">
                 <input
                   id="remember"
                   type="checkbox"
@@ -190,7 +210,7 @@ const Login = () => {
               </div>
               <label
                 htmlFor="remember"
-                className="ml-2 text-sm font-roboto font-medium text-gray-50"
+                className="ml-2 text-sm font-roboto font-medium text-gray-900"
               >
                 Remember me
               </label>
@@ -206,11 +226,16 @@ const Login = () => {
                   data-testid="loader"
                 />
               ) : (
-                <input
-                  type="submit"
-                  value="Sign in"
-                  className="w-full rounded-sm bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white cursor-pointer font-bold text-base px-7 py-2.5 my-1 text-center hover:bg-gradient-to-r hover:from-violet-600 hover:to-fuchsia-600"
-                />
+                <motion.div
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <input
+                    type="submit"
+                    value="Sign in"
+                    className="w-full rounded-sm bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white cursor-pointer font-bold text-base px-7 py-2.5 my-1 text-center hover:bg-gradient-to-r hover:from-violet-600 hover:to-fuchsia-600"
+                  />
+                </motion.div>
               )}
             </div>
           </form>
