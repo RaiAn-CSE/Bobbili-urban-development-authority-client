@@ -17,6 +17,7 @@ export default {
         notSerif: ["Noto Serif JP", "seri"],
       },
     },
+
   },
   plugins: [require("daisyui")],
 };

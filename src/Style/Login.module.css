@@ -1,3 +1,9 @@
+.nmUi{
+
+    box-shadow: 20px 20px 60px #bebebe,
+        -20px -20px 60px #ffffff;
+}
+
 
 .formGroup input:valid,
 .formGroup input:focus {
@@ -8,10 +14,11 @@
 .formGroup input:focus+label {
     color: #000000;
     /* font-size: 14px; */
-    transform: translateY(8px);
+    transform: translate(8px, 8px);
     background: #ffffff;
     border-radius: 3px;
     padding: 0px 4px;
+
 }
 
 .formGroup label {

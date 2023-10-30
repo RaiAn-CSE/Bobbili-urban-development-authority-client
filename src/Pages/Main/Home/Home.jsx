@@ -71,7 +71,7 @@ const Home = () => {
     </>
   );
   return (
-    <div className="w-full h-[100vh] grid grid-cols-[200px_minmax(700px,_1fr)_284px] pt-10">
+    <div className="w-full grid grid-cols-[200px_minmax(700px,_1fr)_284px] pt-10">
       {/* sidebar menus  */}
       <div className="w-full h-[400px]  text-base flex flex-col justify-between bg-black text-white border border-gray-200 rounded-lg">
         {menu}
