@@ -71,15 +71,15 @@ const Home = () => {
     </>
   );
   return (
-    <div className="w-full grid grid-cols-[200px_minmax(700px,_1fr)_284px] pt-10">
+    <div className=" w-full grid grid-cols-[200px_minmax(700px,_1fr)_284px] pt-10">
       {/* sidebar menus  */}
-      <div className="w-full h-[400px]  text-base flex flex-col justify-between bg-black text-white border border-gray-200 rounded-lg">
+      <div className="nm_Container w-full text-base flex flex-col justify-between bg-black text-white border border-gray-200 rounded-lg">
         {menu}
       </div>
 
       {/* Scrollable content */}
       <div
-        className={`${customScroll.customScrolling} h-[400px] bg-base-100 shadow-md rounded-lg mx-4  flex items-center dark:bg-white`}
+        className={`${customScroll.customScrolling} nm_Container h-[400px] bg-base-100  rounded-lg mx-4  flex items-center dark:bg-white`}
       >
         <Outlet />
       </div>

@@ -1,6 +1,9 @@
-body {
-  font-family: "Roboto", sans-serif;
+:root {
+  --colorMain: #c0c0c0;
+  --brShadow: -6px 6px 15px rgba(0, 0, 0, 0.5);
+  --tlShadow: 6px -6px 15px rgba(255, 255, 255, 0.8);
 }
+
 
 .modal-box {
   cursor: auto;
@@ -33,4 +36,14 @@ table tbody tr:hover {
 .nm_Inset{
   box-shadow: inset -3px -3px 7px #ffffffb0,
       inset 3px 3px 5px rgba(94, 104, 121, 0.692);
+}
+
+.text {
+  color: var(--colorMain);
+  font-size: 8em;
+  font-weight: bold;
+  font-family: sans-serif;
+  text-shadow: var(--brShadow),
+    var(--tlShadow);
+
 }

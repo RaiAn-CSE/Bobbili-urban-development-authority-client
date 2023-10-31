@@ -156,7 +156,7 @@ const Login = () => {
         </div> */}
 
         <div className="nm_Inset mt-[-65%] ml-[-20%] h-[330px] w-[343px] bg-gradient-to-r from-[#cecbf5] via-[#BDB9F6] to-[#8980fd] rounded-full flex justify-center flex-col items-center">
-          <p className={`${LoginCSS.text} text-white font-medium text-4xl uppercase pt-40 pr-14`}>Sign in</p>
+          <p className={`text text-white font-medium text-4xl uppercase pt-40 pr-14`}>Sign in</p>
           <p className="text-white font-base text-lg">Welcome back!</p>
         </div>
 

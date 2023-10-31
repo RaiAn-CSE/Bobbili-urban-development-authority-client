@@ -55,8 +55,8 @@ const ApplicationSearch = () => {
   const titleClass = "basis-[50%] text-lg px-5 font-semibold text-gray-900"
 
   return (
-    <div className="h-full font-roboto w-full px-4 dark:bg-white">
-      <form>
+    <div className=" h-full font-roboto w-full px-4 dark:bg-white">
+      <form className="">
         <div className="relative mt-2">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
             <svg
