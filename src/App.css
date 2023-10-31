@@ -2,27 +2,6 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
-.Roboto {
-  font-family: "Roboto", sans-serif;
-}
-
-.roboto-regular,
-.displayFair-regular {
-  font-weight: 400;
-}
-
-.roboto-bold,
-.displayFair-bold {
-  font-weight: 600;
-}
-
-.DisplayFair {
-  font-family: "Playfair Display", serif;
-}
-
-/* .primaryColor{
-  background-color: #edab03;
-} */
 .modal-box {
   cursor: auto;
 }
@@ -39,4 +18,19 @@ table tbody tr:nth-child(2n) {
 }
 table tbody tr:hover {
   background-color: #f7fbfb;
+}
+
+
+/* Neuromorphism */
+
+.nm_Container {
+
+  border-radius: 6px;
+  box-shadow: -3px -3px 7px #ffffffb2,
+    3px 3px 5px rgba(94, 104, 121, 0.945);
+}
+
+.nm_Inset{
+  box-shadow: inset -3px -3px 7px #ffffffb0,
+      inset 3px 3px 5px rgba(94, 104, 121, 0.692);
 }

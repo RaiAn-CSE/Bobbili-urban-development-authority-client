@@ -126,8 +126,9 @@ const Login = () => {
     borderColor: "red",
   };
 
+
   return (
-    <div className={` h-full`}>
+    <div className={`nm_Container h-full overflow-hidden`}>
       <div className="relative overflow-hidden ">
         {/* support icon  */}
 
@@ -154,9 +155,9 @@ const Login = () => {
           </div>
         </div> */}
 
-        <div className=" mt-[-65%] ml-[-20%] h-[330px] w-[343px] bg-gradient-to-r from-[#cecbf5] via-[#BDB9F6] to-[#8980fd] rounded-full flex justify-center flex-col items-center">
-          <h1 className="text-white font-medium text-4xl uppercase pt-40 pr-14">Sign in</h1>
-          <h1 className="text-white font-base text-lg">Welcome back!</h1>
+        <div className="nm_Inset mt-[-65%] ml-[-20%] h-[330px] w-[343px] bg-gradient-to-r from-[#cecbf5] via-[#BDB9F6] to-[#8980fd] rounded-full flex justify-center flex-col items-center">
+          <p className={`${LoginCSS.text} text-white font-medium text-4xl uppercase pt-40 pr-14`}>Sign in</p>
+          <p className="text-white font-base text-lg">Welcome back!</p>
         </div>
 
 
@@ -172,7 +173,7 @@ const Login = () => {
                 type="text"
                 {...register("id", { required: true })}
                 id="userId"
-                className="border-[1.5px] border-solid rounded-full block text-base w-full py-2 px-4 border-violet-400 text-gray-900 bg-white  focus:border-violet-500 focus:outline-none focus:ring-2 ring-violet-50"
+                className="nm_Container border-[1.5px] border-solid rounded-full block text-base w-full py-2 px-4 border-violet-400 text-gray-900 bg-white  focus:border-violet-500 focus:outline-none focus:ring-2 ring-violet-50"
                 defaultValue={cookieUserId}
                 // placeholder="name@company.com"
                 autoFocus
@@ -192,7 +193,7 @@ const Login = () => {
                 id="password"
                 // placeholder="••••••••"
                 defaultValue={cookieUserPassword}
-                className="border-[1.5px] border-solid rounded-full block text-base w-full py-2 px-4 border-violet-400 text-gray-900 bg-white  focus:border-violet-500 focus:outline-none focus:ring-2 ring-violet-50"
+                className={`nm_Container border-[1.5px] border-solid rounded-full block text-base w-full py-2 px-4 border-violet-400 text-gray-900 bg-white   ring-violet-50`}
                 {...register("password", { required: true })}
                 required
               />
@@ -217,12 +218,12 @@ const Login = () => {
                   id="remember"
                   type="checkbox"
                   {...register("checkbox")}
-                  className="w-4 h-4"
+                  className="nm_Inset checkbox w-5 h-5"
                 />
               </div>
               <label
                 htmlFor="remember"
-                className="ml-2 text-sm font-roboto font-medium text-gray-900"
+                className={`${LoginCSS.checkboxLabel} ml-2 text-sm `}
               >
                 Remember me
               </label>
@@ -245,7 +246,7 @@ const Login = () => {
                   <input
                     type="submit"
                     value="Sign in"
-                    className="bg-[#8980FD] py-2 px-7 rounded-full text-white cursor-pointer text-center mt-3 uppercase text-md"
+                    className="nm_Inset bg-[#8980FD] py-2 px-7 rounded-full text-white cursor-pointer text-center mt-3 uppercase text-md"
                   // className="w-full rounded-sm bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white cursor-pointer font-bold text-base px-7 py-2.5 my-1 text-center hover:bg-gradient-to-r hover:from-violet-600 hover:to-fuchsia-600"
                   />
                 </motion.div>
@@ -254,7 +255,7 @@ const Login = () => {
           </form>
         </div >
       </div >
-      <div className="absolute bottom-[2%] right-[2%] w-[15vw] h-[15vw] md:w-[12vw] md:h-[12vw] lg:w-[5vw] lg:h-[5vw] rounded-full cursor-pointer">
+      <div className=" absolute bottom-[2%] right-[2%] w-[15vw] h-[15vw] md:w-[12vw] md:h-[12vw] lg:w-[5vw] lg:h-[5vw] rounded-full cursor-pointer">
         <img
           className="object-cover"
           src={SupportIcon}
