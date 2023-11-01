@@ -35,30 +35,45 @@ const UdaSidebar = () => {
           Location
         </Link>
       </li>
-      {/* <li
+      <li
         className={`${
-          path === "/dashboard/location" && gradientColor
+          path === "/dashboard/plotDetails" && gradientColor
         } mb-1 ps-3 flex items-center ${hoverGradientColor}`}
       >
         <span>
           <FaMapLocation size={20} />
         </span>
-        <Link className={`p-[10px] font-medium `} to="/dashboard/location">
-          Location
+        <Link className={`p-[10px] font-medium `} to="/dashboard/plotDetails">
+          PlotDetails
         </Link>
       </li>
       <li
         className={`${
-          path === "/dashboard/location" && gradientColor
+          path === "/dashboard/revenueReport" && gradientColor
         } mb-1 ps-3 flex items-center ${hoverGradientColor}`}
       >
         <span>
           <FaMapLocation size={20} />
         </span>
-        <Link className={`p-[10px] font-medium `} to="/dashboard/location">
-          Location
+        <Link className={`p-[10px] font-medium `} to="/dashboard/revenueReport">
+          Revenue Report
         </Link>
-      </li> */}
+      </li>
+      <li
+        className={`${
+          path === "/dashboard/verificationStatus" && gradientColor
+        } mb-1 ps-3 flex items-center ${hoverGradientColor}`}
+      >
+        <span>
+          <FaMapLocation size={20} />
+        </span>
+        <Link
+          className={`p-[10px] font-medium `}
+          to="/dashboard/verificationStatus"
+        >
+          Verification Status
+        </Link>
+      </li>
     </>
   );
 };
