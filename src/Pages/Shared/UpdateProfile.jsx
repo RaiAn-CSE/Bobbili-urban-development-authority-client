@@ -17,9 +17,9 @@ const UpdateProfile = () => {
 
       let keysToKeep;
       if (role === "LTP") {
-        keysToKeep = ["email", "address", "adharNo", "phone"];
+        keysToKeep = ["contactEmail", "address", "adharNo", "phone"];
       } else {
-        keysToKeep = ["email", "address", "phone"];
+        keysToKeep = ["contactEmail", "address", "phone"];
       }
       const newObj = {};
 
@@ -61,7 +61,6 @@ const UpdateProfile = () => {
         "state",
         "zip",
 
-
         // "engineer",
         // "email",
         // "address",
@@ -69,7 +68,7 @@ const UpdateProfile = () => {
         // "phone"
       ];
     } else {
-      keysToKeep = ["email", "address", "phone"];
+      keysToKeep = ["contactEmail", "address", "phone"];
     }
     const newObj = {};
 
@@ -81,30 +80,29 @@ const UpdateProfile = () => {
 
     console.log(newObj, "FOrm r value");
 
-    fetch(
-      `http://localhost:5000/updateUserInfo/${userInfoFromLocalStorage()._id}`,
-      {
-        method: "PATCH",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(newObj),
-      }
-    )
-      .then((res) => res.json())
-      .then(async (result) => {
-        console.log(result);
-        if (result.acknowledged) {
-          refetch();
+    // fetch(
+    //   `http://localhost:5000/updateUserInfo/${userInfoFromLocalStorage()._id}`,
+    //   {
+    //     method: "PATCH",
+    //     headers: { "content-type": "application/json" },
+    //     body: JSON.stringify(newObj),
+    //   }
+    // )
+    //   .then((res) => res.json())
+    //   .then(async (result) => {
+    //     console.log(result);
+    //     if (result.acknowledged) {
+    //       refetch();
 
-          toast.success("Update successfully");
-        } else {
-          toast.error("Failed to update");
-        }
-      })
-      .catch(() => {
-        toast.error("Server error");
-      });
+    //       toast.success("Update successfully");
+    //     } else {
+    //       toast.error("Failed to update");
+    //     }
+    //   })
+    //   .catch(() => {
+    //     toast.error("Server error");
+    //   });
   };
-
 
   return (
     <div className="py-10 text-gray-900">
@@ -172,7 +170,6 @@ const UpdateProfile = () => {
               type="text"
               register={register}
             />
-
           </div>
         </div>
 
