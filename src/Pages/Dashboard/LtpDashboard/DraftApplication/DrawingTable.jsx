@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function DrawingTable({
   setApprovedConfirmation,
-  setRecomendationMessage,
+  setRecommendationMessage,
   recomendationMessage,
   approvedConfirmation,
   applicationData,
@@ -653,7 +653,9 @@ function DrawingTable({
       </div>
       <DocumentFooter
         setApprovedConfirmation={setApprovedConfirmation}
-        setRecomendationMessage={setRecomendationMessage}
+        setRecommendationMessage={setRecommendationMessage}
+        recomendationMessage={recomendationMessage}
+        approvedConfirmation={approvedConfirmation}
         submitData={submitData}
       />
     </div>

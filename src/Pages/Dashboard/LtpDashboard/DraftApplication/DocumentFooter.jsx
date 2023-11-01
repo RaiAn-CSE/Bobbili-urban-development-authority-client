@@ -1,18 +1,17 @@
 function DocumentFooter({
-  submitData,
   approvedConfirmation,
   recomendationMessage,
-  handleRecomendationMessage,
-  handleConfirmation,
+  setApprovedConfirmation,
+  setRecommendationMessage
 }) {
-  const handleMessage = (e) => {
-    handleRecomendationMessage(e);
+  const handleMessage = (event) => {
+    setRecommendationMessage(event?.target?.value);
   };
   const handleConfirm = (data) => {
-    handleConfirmation(data);
+    setApprovedConfirmation(data);
   };
 
-  console.log(approvedConfirmation && approvedConfirmation === "true", "Checking");
+  // console.log(approvedConfirmation && approvedConfirmation === "true", "Checking");
   return (
     <div className="dark:text-white">
       <div className="lg:ml-6">
@@ -26,8 +25,7 @@ function DocumentFooter({
               value="approved"
               name="finalApproved"
               className="radio radio-sm radio-success mr-3 lg:mr-0"
-              // defaultChecked=
-              checked={approvedConfirmation && approvedConfirmation === "true"}
+              defaultChecked={approvedConfirmation && approvedConfirmation === "true"}
               onClick={() => handleConfirm("true")}
             />
             <span className="text-gray-900">Approve</span>
@@ -40,7 +38,7 @@ function DocumentFooter({
               value="shortfall"
               name="finalApproved"
               className="radio radio-sm radio-success mr-3 lg:mr-0"
-              checked={approvedConfirmation && approvedConfirmation === "false"}
+              defaultChecked={approvedConfirmation && approvedConfirmation === "false"}
               onClick={() => handleConfirm("false")}
             />
             <span className="text-gray-900">Shortfall</span>
@@ -61,10 +59,9 @@ function DocumentFooter({
             className="w-3/4 px-3 py-2 border rounded-lg  border-gray-300 text-gray-900 bg-gray-50 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200"
             defaultValue={recomendationMessage && recomendationMessage}
             placeholder="Recommendation"
-            onChange={(event)=>handleMessage(event)}
+            onChange={(event) => handleMessage(event)}
           ></textarea>
         </div>
-
         {/* <div>
           <p className="mb-4 font-bold text-gray-600">Recomendation</p>
           <textarea

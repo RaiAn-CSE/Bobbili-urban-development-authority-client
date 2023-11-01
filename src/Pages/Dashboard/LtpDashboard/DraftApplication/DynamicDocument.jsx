@@ -8,7 +8,7 @@ function DynamicDocument({ PreviousDynamicDocumentData, setDynamicAppChecklistDo
 }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
 
-  const [combinedDynamicAppChecklistDocument, setCombinedDynamicAppChecklistDocument] = useState(DynamicAppChecklistDocument);
+  const [combinedDynamicAppChecklistDocument, setCombinedDynamicAppChecklistDocument] = useState([]);
 
   const someEventHandler = (event, id, uploadId) => {
     const file = event?.target.files[0];
@@ -16,6 +16,10 @@ function DynamicDocument({ PreviousDynamicDocumentData, setDynamicAppChecklistDo
     handleFileChange(event, id, selectedFiles, "dynamic", uploadId);
   };
   useEffect(() => {
+    toast.success(role)
+    if (role !== "PS") {
+      return setCombinedDynamicAppChecklistDocument(DynamicAppChecklistDocument);
+    }
     const combinedRootDocument = RootDynamicDocument.map(mainItem => {
       const matchedIdData = PreviousDynamicDocumentData?.filter(data => data.id === mainItem.id);
       // console.log(mainItem.id, mainItem.requirements, "Each MainItems Requirement")
@@ -43,7 +47,7 @@ function DynamicDocument({ PreviousDynamicDocumentData, setDynamicAppChecklistDo
     setDynamicAppChecklistDocument(combinedRootDocument?.filter(finalData => finalData))
   }, [PreviousDynamicDocumentData]);
 
-
+  console.log({combinedDynamicAppChecklistDocument})
   const handleDynamicStatus = (data) => {
     const updatedRequirements = combinedDynamicAppChecklistDocument.map(mainItem => {
 
@@ -73,6 +77,9 @@ function DynamicDocument({ PreviousDynamicDocumentData, setDynamicAppChecklistDo
   };
 
   useEffect(() => {
+    if (role !== "PS") {
+      return;
+    }
     // Your previous useEffect dependencies here
   }, [combinedDynamicAppChecklistDocument]);
 
@@ -129,14 +136,14 @@ function DynamicDocument({ PreviousDynamicDocumentData, setDynamicAppChecklistDo
                           View
                         </Link>
                       )}
-                      <PsDocument
+                      {role === "PS" && <PsDocument
                         role={role}
                         id={id}
                         approved={approved}
                         uploadId={uploadId}
                         handleDynamicStatus={handleDynamicStatus}
                         type="dynamic"
-                      />
+                      />}
                     </div>
                   );
                 })}
