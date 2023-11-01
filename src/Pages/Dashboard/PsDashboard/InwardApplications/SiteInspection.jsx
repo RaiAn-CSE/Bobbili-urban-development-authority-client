@@ -670,8 +670,8 @@ const SiteInspection = () => {
                         }
                         onChange={handleApproachRoadApp}
                       >
-                        <option value="Private">Private</option>
                         <option value="Public">Public</option>
+                        <option value="Private">Private</option>
                       </select>
                     </div>
                   </td>
@@ -697,8 +697,8 @@ const SiteInspection = () => {
                         <option value="Select option" disabled>
                           Select option
                         </option>
-                        <option value="Private">Private</option>
                         <option value="Public">Public</option>
+                        <option value="Private">Private</option>
                       </select>
                     </div>
                   </td>
