@@ -1,19 +1,48 @@
 
+
 .formGroup input:valid,
 .formGroup input:focus {
     outline: none;
+    box-shadow: inset -3px -3px 7px #ffffffb0,
+            inset 3px 3px 5px rgba(94, 104, 121, 0.692);
 }
 
 .formGroup input:valid+label,
 .formGroup input:focus+label {
-    color: #ffffff;
+    color: #000000;
     /* font-size: 14px; */
-    transform: translateY(8px);
-    background: #1f1132;
+    transform: translate(8px, 8px);
+    background: #ffffff;
     border-radius: 3px;
     padding: 0px 4px;
+
+}
+
+
+.formGroup input[type='checkbox']{
+    background-color: red;
 }
 
 .formGroup label {
     transition: all 0.2s ease-in-out;
+}
+
+.shapeDiv1{
+    width: 0;
+    height: 0;
+    border-top: 100px solid #895dd5;
+    border-right: 100px solid transparent;
+}
+.shapeDiv2{
+    width: 0;
+    height: 0;
+    border-top: 100px solid #895dd5;
+    border-left: 100px solid transparent;
+}
+
+
+.checkboxLabel{
+    font-size: 8em;
+    font-weight: bold;
+    font-family: sans-serif;
 }
