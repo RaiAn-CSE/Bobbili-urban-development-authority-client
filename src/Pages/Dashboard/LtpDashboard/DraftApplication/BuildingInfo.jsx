@@ -9,7 +9,7 @@ import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 // import allDistrictData from "../../../../assets/buildingInfo.json";
 import SaveData from "./SaveData";
 import FloorDetails from "./FloorDetails";
-import { motion, spring } from "framer-motion"
+import { motion, spring } from "framer-motion";
 
 const BuildingInfo = () => {
   const stepperData = useOutletContext();
@@ -25,7 +25,7 @@ const BuildingInfo = () => {
     sendUserDataIntoDB,
     userInfoFromLocalStorage,
     getApplicationData,
-    getLocationInfo,
+    fetchDataFromTheDb,
   } = useContext(AuthContext);
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
@@ -140,7 +140,6 @@ const BuildingInfo = () => {
     };
     getData();
 
-
     // const districtData = getLocationInfo();
 
     // console.log(districtData, 'districtData');
@@ -158,10 +157,11 @@ const BuildingInfo = () => {
     // setDistrictData(allDistrictData.district);
   }, []);
 
-
   useEffect(() => {
     (async function () {
-      const locationData = await getLocationInfo();
+      const locationData = await fetchDataFromTheDb(
+        "http://localhost:5000/getDistricts"
+      );
       console.log(locationData, "LOC");
       const extractsDataFromDB = locationData[0]?.district;
       // setAllLocationData(extractsDataFromDB);
@@ -872,9 +872,9 @@ const BuildingInfo = () => {
             {selectedOptionCase === "Alteration Addition Existing" &&
               selectedOptionPermission === "Regularised under BPS" && (
                 <motion.div
-                  initial={{ x: '-100vw' }}
+                  initial={{ x: "-100vw" }}
                   animate={{ x: 0 }}
-                  transition={{ delay: 0.2, type: 'spring', stiffness: 110 }}
+                  transition={{ delay: 0.2, type: "spring", stiffness: 110 }}
                 >
                   <InputField
                     id="BpsApprovedNo"
@@ -890,9 +890,9 @@ const BuildingInfo = () => {
             {selectedOptionCase === "Alteration Addition Existing" &&
               selectedOptionPermission !== "Regularised under BPS" && (
                 <motion.div
-                  initial={{ x: '-100vw' }}
+                  initial={{ x: "-100vw" }}
                   animate={{ x: 0 }}
-                  transition={{ delay: 0.2, type: 'spring', stiffness: 110 }}
+                  transition={{ delay: 0.2, type: "spring", stiffness: 110 }}
                 >
                   <InputField
                     id="PreviewsApprovedFileNo"
@@ -909,9 +909,9 @@ const BuildingInfo = () => {
             {selectedNatureOfTheSite === "Approved Layout" && (
               <>
                 <motion.div
-                  initial={{ x: '-100vw' }}
+                  initial={{ x: "-100vw" }}
                   animate={{ x: 0 }}
-                  transition={{ delay: 0.2, type: 'spring', stiffness: 110 }}
+                  transition={{ delay: 0.2, type: "spring", stiffness: 110 }}
                 >
                   <InputField
                     id="LpNo"
@@ -923,9 +923,9 @@ const BuildingInfo = () => {
                   />
                 </motion.div>
                 <motion.div
-                  initial={{ x: '-100vw' }}
+                  initial={{ x: "-100vw" }}
                   animate={{ x: 0 }}
-                  transition={{ delay: 0.2, type: 'spring', stiffness: 110 }}
+                  transition={{ delay: 0.2, type: "spring", stiffness: 110 }}
                 >
                   <InputField
                     id="PlotNo"
@@ -942,9 +942,9 @@ const BuildingInfo = () => {
             {selectedNatureOfTheSite === "Regularised under LRS" && (
               <>
                 <motion.div
-                  initial={{ x: '-100vw' }}
+                  initial={{ x: "-100vw" }}
                   animate={{ x: 0 }}
-                  transition={{ delay: 0.2, type: 'spring', stiffness: 110 }}
+                  transition={{ delay: 0.2, type: "spring", stiffness: 110 }}
                 >
                   <InputField
                     id="LrsNo"
@@ -956,9 +956,9 @@ const BuildingInfo = () => {
                   />
                 </motion.div>
                 <motion.div
-                  initial={{ x: '-100vw' }}
+                  initial={{ x: "-100vw" }}
                   animate={{ x: 0 }}
-                  transition={{ delay: 0.2, type: 'spring', stiffness: 110 }}
+                  transition={{ delay: 0.2, type: "spring", stiffness: 110 }}
                 >
                   <InputField
                     id="PlotNo2"
@@ -974,21 +974,21 @@ const BuildingInfo = () => {
 
             {selectedNatureOfTheSite ===
               "Plot port of RLP/IPLP but not regularised" && (
-                <motion.div
-                  initial={{ x: '-100vw' }}
-                  animate={{ x: 0 }}
-                  transition={{ delay: 0.2, type: 'spring', stiffness: 110 }}
-                >
-                  <InputField
-                    id="IplpNo"
-                    name="IplpNo"
-                    label="RLP/IPLP no."
-                    placeholder="RLP/IPLP no."
-                    type="number"
-                    ltpDetails={iplpNo}
-                  />
-                </motion.div>
-              )}
+              <motion.div
+                initial={{ x: "-100vw" }}
+                animate={{ x: 0 }}
+                transition={{ delay: 0.2, type: "spring", stiffness: 110 }}
+              >
+                <InputField
+                  id="IplpNo"
+                  name="IplpNo"
+                  label="RLP/IPLP no."
+                  placeholder="RLP/IPLP no."
+                  type="number"
+                  ltpDetails={iplpNo}
+                />
+              </motion.div>
+            )}
             {/*===================== Conditional Input Field End =====================*/}
           </div>
         </div>
@@ -1083,10 +1083,11 @@ const BuildingInfo = () => {
 
             <div className="grid grid-cols-1 mx-5 md:mx-10 lg:mx-14 my-10">
               {selectedNatureOfTheSite === "Newly Developed/ Built up area" && (
-                <motion.div className="flex flex-col md:flex-row font-medium mb-4 text-lg"
-                  initial={{ x: '100vw' }}
+                <motion.div
+                  className="flex flex-col md:flex-row font-medium mb-4 text-lg"
+                  initial={{ x: "100vw" }}
                   animate={{ x: 0 }}
-                  transition={{ delay: 0.2, type: 'spring', stiffness: 110 }}
+                  transition={{ delay: 0.2, type: "spring", stiffness: 110 }}
                 >
                   <div className="flex items-center mb-3 md:mb-0">
                     <FaHandPointRight className="me-3 w-5 lg:w-auto text-violetLight" />
@@ -1355,13 +1356,16 @@ const BuildingInfo = () => {
                     <span className="ml-2 text-base">No</span>
                   </label>
                 </div>
-                <div className="basis-[30%]"
-                >
+                <div className="basis-[30%]">
                   {radio4 === "yes" ? (
                     <motion.div
-                      initial={{ x: '-100vw' }}
+                      initial={{ x: "-100vw" }}
                       animate={{ x: 0 }}
-                      transition={{ delay: 0.2, type: 'spring', stiffness: 110 }}
+                      transition={{
+                        delay: 0.2,
+                        type: "spring",
+                        stiffness: 110,
+                      }}
                     >
                       <InputField
                         id="runningMeter"
