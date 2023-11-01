@@ -32,15 +32,15 @@ const AllDraftApplication = ({
   const [tableInfo, setTableInfo] = useState(false);
   const handleTableInfo = () => {
     tableInfo ? setTableInfo(false) : setTableInfo(true);
-  }
+  };
 
   return (
     <>
-      <tr className="dark:text-black hidden md:table-row">
-        <td className="p-3  border-b border-gray-200 text-sm">
+      <tr className="border-b border-gray-200 dark:text-black hidden md:table-row">
+        <td className="p-3 text-sm">
           <p className="text-gray-900 break-words">{serialNo + 1}</p>
         </td>
-        <td className="p-3 border-b border-gray-200  text-sm">
+        <td className="p-3 text-sm">
           <button
             className="hover:underline"
             onClick={() =>
@@ -50,41 +50,43 @@ const AllDraftApplication = ({
             <p className="text-gray-900 break-words">{applicationNo}</p>
           </button>
         </td>
-        <td className="p-3 border-b border-gray-200  text-sm">
+        <td className="p-3 text-sm">
           <p className="text-gray-900 break-words">
             {applicantDetails.length ? applicantDetails[0].name : "N/A"}
           </p>
         </td>
-        <td className="p-3 border-b border-gray-200  text-sm">
+        <td className="p-3 text-sm">
           <p className="text-gray-900 break-words">
             {applicantDetails.length ? applicantDetails[0].phone : "N/A"}
           </p>
         </td>
-        <td className="p-3 border-b border-gray-200  text-sm">
+        <td className="p-3 text-sm">
           <p className="text-gray-900 break-words">
             {generalInformation.caseType !== ""
               ? generalInformation.caseType
               : "N/A"}
           </p>
         </td>
-        <td className="p-3 border-b border-gray-200  text-sm">
+        <td className="p-3 text-sm">
           <p className="text-gray-900 break-words">
             {generalInformation.village !== ""
               ? generalInformation.village
               : "N/A"}
           </p>
         </td>
-        <td className="p-3 border-b border-gray-200  text-sm">
+        <td className="p-3 text-sm">
           <p className="text-gray-900 break-words">
-            {generalInformation.mandal !== "" ? generalInformation.mandal : "N/A"}
+            {generalInformation.mandal !== ""
+              ? generalInformation.mandal
+              : "N/A"}
           </p>
         </td>
-        <td className="p-3 border-b border-gray-200  text-sm">
+        <td className="p-3 text-sm">
           <p className="text-gray-900 break-words">{createdDate ?? "N/A"}</p>
         </td>
-        <td className="px-3 py-[7px] border-b border-gray-200 text-sm flex">
+        <td className="px-3 py-[7px] text-sm ">
           <button
-            className={`btn btn-sm border-none bg-[#ffd7d7] hover:bg-[#f6c7c7] text-red-400 hover:text-red-500 bg-transparent`}
+            className={`btn btn-sm flex items-center border-none bg-[#ffd7d7] hover:bg-[#f6c7c7] text-red-400 hover:text-red-500 bg-transparent`}
             onClick={() =>
               alertToConfirmDelete(applicationNo, removeDraftApplication)
             }
@@ -94,28 +96,40 @@ const AllDraftApplication = ({
         </td>
       </tr>
 
-
-
       <tr className="dark:text-black table-row md:hidden">
         <details className="flex flex-coll px-2 bg-gray-100">
           <summary className="flex items-center" onClick={handleTableInfo}>
-            <div className="" >
+            <div className="">
               {
                 // tableInfo ? <AiOutlineMinusCircle size={19} /> : <AiFillPlusCircle size={19} />
-                tableInfo ? <BiSolidDownArrow size={19} /> : <BiSolidRightArrow size={19} />
+                tableInfo ? (
+                  <BiSolidDownArrow size={19} />
+                ) : (
+                  <BiSolidRightArrow size={19} />
+                )
               }
             </div>
             <td className="p-3 border-b border-gray-200 text-sm">
-              <p className="text-gray-900 break-words"><span className="font-semibold">Si.No: </span>{serialNo + 1}</p>
+              <p className="text-gray-900 break-words">
+                <span className="font-semibold">Si.No: </span>
+                {serialNo + 1}
+              </p>
             </td>
             <td className="p-3 border-b border-gray-200 text-sm">
               <button
                 className="hover:underline"
                 onClick={() =>
-                  showPageBasedOnApplicationType(applicationNo, navigate, "draft")
+                  showPageBasedOnApplicationType(
+                    applicationNo,
+                    navigate,
+                    "draft"
+                  )
                 }
               >
-                <p className="text-gray-900 break-words"><span className="font-semibold">Application no: </span>{applicationNo}</p>
+                <p className="text-gray-900 break-words">
+                  <span className="font-semibold">Application no: </span>
+                  {applicationNo}
+                </p>
               </button>
             </td>
             <td className="p-3 border-b border-gray-200 bg-[#ffd7d7] hover:bg-[#f6c7c7] rounded-full text-sm flex">
@@ -162,12 +176,16 @@ const AllDraftApplication = ({
             <td className="p-3 border-b border-gray-200 text-sm flex justify-start">
               <span className="font-semibold mr-2">Mandal: </span>
               <p className="text-gray-900 break-words">
-                {generalInformation.mandal !== "" ? generalInformation.mandal : "N/A"}
+                {generalInformation.mandal !== ""
+                  ? generalInformation.mandal
+                  : "N/A"}
               </p>
             </td>
             <td className="p-3 border-b border-gray-200 text-sm flex justify-start">
               <span className="font-semibold mr-2">Created date: </span>
-              <p className="text-gray-900 break-words">{createdDate ?? "N/A"}</p>
+              <p className="text-gray-900 break-words">
+                {createdDate ?? "N/A"}
+              </p>
             </td>
           </div>
         </details>
