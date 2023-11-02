@@ -47,7 +47,7 @@ const MainLayout = () => {
       {/* upper part  */}
       <div className="py-3 flex justify-between items-center">
         <div className="basis-3/4">
-          <p className="text-2xl text-gray-400 font-bold font-sofadi bg-gradient-to-r from-violet-400 to-fuchsia-400 text-transparent bg-clip-text">
+          <p className="text-2xl text-gray-600 font-bold font-sofadi">
             Bobbili Urban Development Authority
           </p>
           <p className="text-4xl mt-2 text-black font-notSerif font-bold ">
