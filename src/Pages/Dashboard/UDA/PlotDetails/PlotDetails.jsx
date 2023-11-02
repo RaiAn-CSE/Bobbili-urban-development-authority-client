@@ -1,5 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
+import TableLayout from "../../../Components/TableLayout";
+import ShowPlotDetails from "./ShowPlotDetails";
+import MISReportTableLayout from "../../../Components/MISReportTableLayout";
 
 const PlotDetails = () => {
   const { fetchDataFromTheDb } = useContext(AuthContext);
@@ -36,10 +39,28 @@ const PlotDetails = () => {
       );
       console.log(applicationData, "AD");
       if (Object.keys(applicationData)?.length) {
+        const approvedApplications =
+          applicationData?.applications?.approvedApplications;
+        const shortfallApplications =
+          applicationData?.applications?.shortfallApplications;
+        const submitApplications =
+          applicationData?.applications?.submittedApplications;
+
+        console.log(
+          approvedApplications,
+          shortfallApplications,
+          submitApplications
+        );
+
+        const allApplications = [].concat(
+          approvedApplications,
+          shortfallApplications,
+          submitApplications
+        );
         setTableData((prev) => {
           const newValue = {
             tableHeader,
-            data: applicationData,
+            data: allApplications,
           };
           return { ...prev, ...newValue };
         });
@@ -50,7 +71,7 @@ const PlotDetails = () => {
   console.log(tableData, "TABLE DATA");
   return (
     <div>
-      <p>PLOT DETAILS</p>
+      <MISReportTableLayout tableData={tableData} Component={ShowPlotDetails} />
     </div>
   );
 };

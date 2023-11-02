@@ -45,3 +45,5 @@ table tbody tr:hover {
   font-family: sans-serif;
   text-shadow: var(--brShadow), var(--tlShadow);
 }
+
+/* Custom CSS for sticky table header */
