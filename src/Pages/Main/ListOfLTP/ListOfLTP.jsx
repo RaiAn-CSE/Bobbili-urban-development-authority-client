@@ -57,79 +57,77 @@ const ListOfLTP = () => {
 
       {/* Location details  */}
 
-      <div className="container mx-auto px-4 font-roboto ">
-        <div className="py-4">
-          <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4">
-            <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
-              <table className="min-w-full leading-normal text-center">
-                {/* head */}
-                <thead className="bg-[#303952]">
-                  <tr>
-                    <th className="p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider">
-                      Name
-                    </th>
-                    <th className="p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider">
-                      Contact no.
-                    </th>
-                    <th className="p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider">
-                      Email
-                    </th>
-                    <th className="p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider">
-                      Address
-                    </th>
-                    <th className="p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider">
-                      License no.
-                    </th>
-                    <th className="p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider">
-                      Validity
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="text-center">
-                  {filteredData?.map((ltp) => {
-                    return (
-                      <tr key={ltp?._id}>
-                        <td className="p-3  border-b border-gray-200 text-sm">
-                          <p className="text-gray-900 break-words">
-                            {ltp?.name}
-                          </p>
-                        </td>
-                        <td className="p-3  border-b border-gray-200 text-sm">
-                          <p className="text-gray-900 break-words">
-                            {ltp?.phone ?? "N/A"}
-                          </p>
-                        </td>
-                        <td className="p-3  border-b border-gray-200 text-sm">
-                          <p className="text-gray-900 break-words">
-                            {ltp?.email ?? "N/A"}
-                          </p>
-                        </td>
-                        <td className="p-3  border-b border-gray-200 text-sm">
-                          <p className="text-gray-900 break-words">
-                            {ltp?.address ?? "N/A"}
-                          </p>
-                        </td>
-                        <td className="p-3  border-b border-gray-200 text-sm">
-                          <p className="text-gray-900 break-words">
-                            {ltp?.licenseNo ?? "N/A"}
-                          </p>
-                        </td>
-                        <td className="p-3  border-b border-gray-200 text-sm">
-                          <p className="text-gray-900 break-words">
-                            {ltp?.validity ?? "N/A"}
-                          </p>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-              {filteredData?.length === 0 && (
-                <p className="text-center my-5 text-base text-red-500">
-                  No data found
-                </p>
-              )}
-            </div>
+      <div className="container mx-auto font-roboto ">
+        <div className="pt-7 pb-4">
+          <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
+            <table className="min-w-full leading-normal text-center">
+              {/* head */}
+              <thead className="bg-[#303952]">
+                <tr>
+                  <th className="p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider">
+                    Name
+                  </th>
+                  <th className="p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider">
+                    Contact no.
+                  </th>
+                  <th className="p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider">
+                    Email
+                  </th>
+                  <th className="p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider">
+                    Address
+                  </th>
+                  <th className="p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider">
+                    License no.
+                  </th>
+                  <th className="p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider">
+                    Validity
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="text-center">
+                {filteredData?.map((ltp) => {
+                  return (
+                    <tr key={ltp?._id}>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">
+                          {ltp?.name}
+                        </p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">
+                          {ltp?.phone ?? "N/A"}
+                        </p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">
+                          {ltp?.email ?? "N/A"}
+                        </p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">
+                          {ltp?.address ?? "N/A"}
+                        </p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">
+                          {ltp?.licenseNo ?? "N/A"}
+                        </p>
+                      </td>
+                      <td className="p-3  border-b border-gray-200 text-sm">
+                        <p className="text-gray-900 break-words">
+                          {ltp?.validity ?? "N/A"}
+                        </p>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+            {filteredData?.length === 0 && (
+              <p className="text-center my-5 text-base text-red-500">
+                No data found
+              </p>
+            )}
           </div>
         </div>
       </div>
