@@ -77,4 +77,3 @@ const PlotDetails = () => {
 };
 
 export default PlotDetails;
-<p>PLOT DETAILS</p>;
