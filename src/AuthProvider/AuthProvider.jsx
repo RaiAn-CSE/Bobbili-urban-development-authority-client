@@ -87,7 +87,7 @@ const AuthProvider = ({ children }) => {
           .then((response) => {
             console.log(response, "response");
             if (!response.ok) {
-              throw new Error(response.statusText);
+              throw new Error(response?.statusText);
             }
             return response;
           })
@@ -419,8 +419,8 @@ const AuthProvider = ({ children }) => {
     return isActive;
   };
 
-  const getLocationInfo = async () => {
-    const response = await fetch("http://localhost:5000/getDistricts");
+  const fetchDataFromTheDb = async (url) => {
+    const response = await fetch(url);
     return await response.json();
   };
   //   create a object to transfer data into various components
@@ -443,7 +443,7 @@ const AuthProvider = ({ children }) => {
     showPageBasedOnApplicationType,
     findWhichMenuIsActiveForLtpSideBar,
     findWhichMenuIsActiveForPsSideBar,
-    getLocationInfo,
+    fetchDataFromTheDb,
     handleLogOut,
   };
 

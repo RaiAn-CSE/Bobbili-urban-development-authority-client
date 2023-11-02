@@ -132,6 +132,7 @@ const ApplicantInfo = () => {
       const ltpDetailsData = applicationData.applicantInfo.ltpDetails;
       const applicantDetailsData =
         applicationData.applicantInfo.applicantDetails;
+
       setLtpDetails(ltpDetailsData);
       setApplicantDetails(applicantDetailsData);
       setLtpPhone(ltpDetailsData?.phoneNo);
@@ -146,17 +147,27 @@ const ApplicantInfo = () => {
     }
   }, [isDataGet]);
 
-  const {
-    type,
-    name,
-    email,
-    licenseNo,
-    phone,
-    validity,
-    address,
-  } = ltpDetails || {};
+  useEffect(() => {
+    if (applicantDetails?.length) {
+      console.log(applicantDetails, "APPDD");
+      applicantDetails.forEach((value, index) => {
+        console.log(index, "UAPDD");
+        if (index > 0 && totalApplicant?.length < applicantDetails?.length) {
+          console.log(index, "INDEX");
+          setTotalApplicant((prev) => {
+            return [...prev, `Owner${index + 1}`];
+          });
+        }
+      });
+    }
+  }, [applicantDetails]);
+
+  const { type, name, email, licenseNo, phone, validity, address } =
+    ltpDetails || {};
 
   console.log(ltpDetails, "LTP Details");
+
+  console.log(totalApplicant, "TAPP");
 
   // Classes for this component :
   let labelClass = "block mb-1 font-semibold text-gray-600";

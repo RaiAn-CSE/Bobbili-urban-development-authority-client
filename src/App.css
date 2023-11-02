@@ -4,6 +4,9 @@
   --tlShadow: 6px -6px 15px rgba(255, 255, 255, 0.8);
 }
 
+body {
+  font-family: "Roboto Condensed", "sans-serif";
+}
 
 .modal-box {
   cursor: auto;
@@ -23,19 +26,16 @@ table tbody tr:hover {
   background-color: #f7fbfb;
 }
 
-
 /* Neuromorphism */
 
 .nm_Container {
-
   border-radius: 6px;
-  box-shadow: -5px -5px 4px #ffffff,
-    5px 5px 4px #C5C8CF;
+  box-shadow: -3px -3px 7px #ffffffb2, 3px 3px 5px rgba(94, 104, 121, 0.945);
 }
 
-.nm_Inset{
+.nm_Inset {
   box-shadow: inset -3px -3px 7px #ffffffb0,
-      inset 3px 3px 5px rgba(94, 104, 121, 0.692);
+    inset 3px 3px 5px rgba(94, 104, 121, 0.692);
 }
 
 .text {
@@ -43,7 +43,7 @@ table tbody tr:hover {
   font-size: 8em;
   font-weight: bold;
   font-family: sans-serif;
-  text-shadow: var(--brShadow),
-    var(--tlShadow);
-
+  text-shadow: var(--brShadow), var(--tlShadow);
 }
+
+/* Custom CSS for sticky table header */

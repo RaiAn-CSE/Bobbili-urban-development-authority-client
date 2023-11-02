@@ -34,6 +34,9 @@ import Location from "../Pages/Dashboard/UDA/Location";
 import UpdateProfile from "../Pages/Shared/UpdateProfile";
 import RejectedApplications from "../Pages/Dashboard/LtpDashboard/RejectedApplication/RejectedApplications";
 import UpdateLocation from "../Pages/Dashboard/Admin/SuperAdmin/UpdateLocation";
+import PlotDetails from "../Pages/Dashboard/UDA/PlotDetails/PlotDetails";
+import RevenueReport from "../Pages/Dashboard/UDA/RevenueReport/RevenueReport";
+import VerificationStatus from "../Pages/Dashboard/UDA/VerificationStatus/VerificationStatus";
 
 const router = createBrowserRouter([
   {
@@ -261,6 +264,18 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/location",
         element: <Location />,
+      },
+      {
+        path: "/dashboard/plotDetails",
+        element: <PlotDetails />,
+      },
+      {
+        path: "/dashboard/revenueReport",
+        element: <RevenueReport />,
+      },
+      {
+        path: "/dashboard/verificationStatus",
+        element: <VerificationStatus />,
       },
       {
         path: "/dashboard/profile",

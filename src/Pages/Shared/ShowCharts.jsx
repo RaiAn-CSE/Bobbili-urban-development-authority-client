@@ -14,7 +14,8 @@ Chart.register(CategoryScale);
 const ShowCharts = () => {
   const path = useLocation().pathname;
 
-  const { userInfoFromLocalStorage, getLocationInfo } = useContext(AuthContext);
+  const { userInfoFromLocalStorage, fetchDataFromTheDb } =
+    useContext(AuthContext);
 
   const role = userInfoFromLocalStorage()?.role;
 
@@ -36,7 +37,9 @@ const ShowCharts = () => {
 
   useEffect(() => {
     (async function () {
-      const locationData = await getLocationInfo();
+      const locationData = await fetchDataFromTheDb(
+        "http://localhost:5000/getDistricts"
+      );
       console.log(locationData, "LOC");
       const extractsDataFromDB = locationData[0]?.district;
       setAllLocationData(extractsDataFromDB);

@@ -1,24 +1,23 @@
 import React from "react";
-import AllDraftApplication from "../Dashboard/LtpDashboard/DraftApplication/AllDraftApplication";
 
-const TableLayout = ({ tableData, Component, tableComponentProps }) => {
+const MISReportTableLayout = ({ tableData, Component }) => {
   return (
     <div className="container mx-auto px-4 font-roboto ">
       <div className="py-4">
         <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4">
-          <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
-            <table className="min-w-full leading-normal text-center ">
-              <thead className="bg-[#303952]">
-                <tr className="hidden md:table-row">
+          <div className="shadow-md rounded-lg overflow-scroll h-[calc(100vh-20vh)]">
+            <table className="min-w-full leading-normal text-center">
+              <thead className="bg-[#303952] sticky top-0 z-10">
+                <tr>
                   {tableData?.tableHeader?.map((headerName) => {
                     return (
                       <th
                         key={headerName}
-                        className={`p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider ${
-                          headerName === "Application no." && "w-48"
-                        }`}
+                        className={`p-3 border-b-2  border-gray-200  text-white text-xs font-semibold uppercase text-center`}
                       >
-                        {headerName}
+                        <p className="w-[100px] mx-auto text-center">
+                          {headerName}
+                        </p>
                       </th>
                     );
                   })}
@@ -30,7 +29,6 @@ const TableLayout = ({ tableData, Component, tableComponentProps }) => {
                     key={index}
                     serialNo={index}
                     applicationData={applicationData}
-                    tableComponentProps={tableComponentProps}
                   />
                 ))}
               </tbody>
@@ -42,4 +40,4 @@ const TableLayout = ({ tableData, Component, tableComponentProps }) => {
   );
 };
 
-export default TableLayout;
+export default MISReportTableLayout;

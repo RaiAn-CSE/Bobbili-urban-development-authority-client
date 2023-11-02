@@ -77,12 +77,14 @@ const LtpSidebar = () => {
 
       <li
         className={`${
-          findWhichMenuIsActiveForLtpSideBar(
+          (findWhichMenuIsActiveForLtpSideBar(
             path,
             "/dashboard/submitApplication",
             "submit",
             role
-          ) && activeColor
+          ) ||
+            path.includes("submit")) &&
+          activeColor
         } ${sidebarHoverClass}`}
       >
         <span>
