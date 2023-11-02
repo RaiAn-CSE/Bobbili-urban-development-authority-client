@@ -1,6 +1,7 @@
 import React from "react";
-import { FaMapLocation } from "react-icons/fa6";
-import { MdSpaceDashboard } from "react-icons/md";
+import { FaMapLocation, FaMoneyCheckDollar } from "react-icons/fa6";
+import { MdSpaceDashboard, MdVerified } from "react-icons/md";
+import { AiOutlineAreaChart } from "react-icons/ai";
 import { Link, useLocation } from "react-router-dom";
 
 const UdaSidebar = () => {
@@ -41,10 +42,10 @@ const UdaSidebar = () => {
         } mb-1 ps-3 flex items-center ${hoverGradientColor}`}
       >
         <span>
-          <FaMapLocation size={20} />
+          <AiOutlineAreaChart size={20} />
         </span>
         <Link className={`p-[10px] font-medium `} to="/dashboard/plotDetails">
-          PlotDetails
+          Plot Details
         </Link>
       </li>
       <li
@@ -53,7 +54,7 @@ const UdaSidebar = () => {
         } mb-1 ps-3 flex items-center ${hoverGradientColor}`}
       >
         <span>
-          <FaMapLocation size={20} />
+          <FaMoneyCheckDollar size={20} />
         </span>
         <Link className={`p-[10px] font-medium `} to="/dashboard/revenueReport">
           Revenue Report
@@ -65,7 +66,7 @@ const UdaSidebar = () => {
         } mb-1 ps-3 flex items-center ${hoverGradientColor}`}
       >
         <span>
-          <FaMapLocation size={20} />
+          <MdVerified size={20} />
         </span>
         <Link
           className={`p-[10px] font-medium `}
