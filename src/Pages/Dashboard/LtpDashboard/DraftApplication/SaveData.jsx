@@ -150,12 +150,16 @@ const SaveData = ({
                 isApproved === 1 && (
                   <button
                     className={`btn btn-md text-sm px-7 mt-10 ml-6 shadow-md hover:shadow-violetDark border-0 transition-all duration-500 bg-black hover:bg-black text-white`}
-                    // onClick={() => {
-                    //   confirmAlert(undefined, sentData, {
-                    //     page: "siteInspection",
-                    //     navigate,
-                    //   });
-                    // }}
+                    onClick={() => {
+                      localStorage.setItem(
+                        "PSDecision",
+                        JSON.stringify("approved")
+                      );
+                      confirmAlert(undefined, sentData, {
+                        page: "siteInspection",
+                        navigate,
+                      });
+                    }}
                   >
                     Proceeding Issued
                   </button>
@@ -165,12 +169,16 @@ const SaveData = ({
                   <>
                     <button
                       className={`btn btn-md text-sm px-7 mt-10 ml-6 shadow-md hover:shadow-violetDark border-0 transition-all duration-500 bg-black hover:bg-black text-white`}
-                      // onClick={() => {
-                      //   confirmAlert(undefined, sentData, {
-                      //     page: "siteInspection",
-                      //     navigate,
-                      //   });
-                      // }}
+                      onClick={() => {
+                        localStorage.setItem(
+                          "PSDecision",
+                          JSON.stringify("shortfall")
+                        );
+                        confirmAlert(undefined, sentData, {
+                          page: "siteInspection",
+                          navigate,
+                        });
+                      }}
                     >
                       Publish Endorsement
                     </button>
