@@ -43,7 +43,7 @@ const MainLayout = () => {
   }, [theme]);
 
   return (
-    <div className="px-10 min-h-screen dark:bg-white">
+    <div className="px-10 min-h-screen dark:bg-[#ffffff]">
       {/* upper part  */}
       <div className="py-3 flex justify-between items-center">
         <div className="basis-3/4">
