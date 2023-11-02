@@ -196,6 +196,15 @@ const BuildingInfo = () => {
         setRadio5(plotDetails?.siteRegistered);
         // update floor details as well as builtup area and parking area
         plotDetails?.floorDetails?.map((floor, index) => {
+          if (
+            index > 0 &&
+            totalFloor?.length < plotDetails?.floorDetails?.length
+          ) {
+            console.log(index, "INDEX");
+            setTotalFloor((prev) => {
+              return [...prev, `Floor${index + 1}`];
+            });
+          }
           setBuiltUpArea((prev) => {
             const oldData = [...prev];
             oldData[index] = parseFloat(floor?.builtUpArea);
@@ -397,6 +406,8 @@ const BuildingInfo = () => {
   const handleRadio5 = (e) => {
     setRadio5(e.target.value);
   };
+
+  console.log(totalFloor, "Total floor");
 
   // get data from input field :
   const collectInputFieldData = async (url) => {
