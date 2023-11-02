@@ -75,6 +75,12 @@ const SaveData = ({
   //     getSubmitAppData();
   //   }
   // }, []);
+  const path = location.pathname;
+  const hiddenSaveButtonForPS =
+    (path.includes("buildingInfo") ||
+      path.includes("applicantInfo") ||
+      path.includes("applicationChecklist")) &&
+    "hidden";
 
   console.log(isApproved, "approved");
   return (
@@ -136,7 +142,7 @@ const SaveData = ({
           {role === "PS" && (
             <>
               <button
-                className={`btn btn-md ${gradientColor} text-sm text-white px-8 mt-10 ml-3 shadow-md hover:shadow-violetDark border-0 transition-all duration-500`}
+                className={`btn btn-md ${gradientColor} ${hiddenSaveButtonForPS} text-sm text-white px-8 mt-10 ml-3 shadow-md hover:shadow-violetDark border-0 transition-all duration-500`}
                 onClick={() => {
                   confirmAlert(undefined, collectInputFieldData, {
                     page: "PS site inspection data save",
