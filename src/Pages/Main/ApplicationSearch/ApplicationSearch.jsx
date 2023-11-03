@@ -57,7 +57,7 @@ const ApplicationSearch = () => {
   const titleClass = "basis-[50%] text-lg px-5 font-semibold text-gray-900"
 
   return (
-    <div className=" h-full font-roboto w-full px-4 dark:bg-white">
+    <div className=" h-full font-roboto w-full px-4 dark:bg-[#DDE1E7]">
 
       <div className={HomeCss.searchInputContainer}>
         <input placeholder="Application no. or owner name" className={`${HomeCss.searchInput} text-gray-900 focus:border-violet-500 focus:outline-none focus:ring-2 ring-violet-100`} name="text" type="text"

@@ -14,10 +14,10 @@ const EndorsementModal = () => {
                     </form>
 
 
-                    <div className='px-5'>
+                    <div className='py-5 pt-2'>
                         <div className='flex justify-between'>
-                            <h2>Letter No.:</h2>
-                            <h2>Date:</h2>
+                            <h2>Letter No.:1112/4232/21</h2>
+                            <h2>Date:05/23/2023</h2>
                         </div>
                         <div className='flex flex-col py-4'>
                             <p className='text-start'>Sub: - BUILDINGS - ___________ Grama panchayat - required compliances - Endorsement issued - Regarding</p>
