@@ -7,6 +7,7 @@ import { RiSecurePaymentLine } from "react-icons/ri";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import Application from "./Application";
+import EndorsementModal from "../../../Shared/EndorsementModal";
 
 const DraftApplication = () => {
   const navigate = useNavigate();
@@ -142,7 +143,7 @@ const DraftApplication = () => {
 
   console.log(
     applicationButtonForDraftApplication &&
-      (cameFrom === "draft" || cameFrom === "submit")
+    (cameFrom === "draft" || cameFrom === "submit")
   );
 
   const applicationButtonForApprovedOrShortfallApplication =
@@ -189,24 +190,26 @@ const DraftApplication = () => {
                     <span>Resubmit</span>
                   </button>
                   <button
+                    // Open the modal using document.getElementById('ID').showModal() method
+                    onClick={() => document.getElementById('my_modal_2').showModal()}
                     className={`btn btn-sm me-5 text-xs ${gradientColor} transition-all duration-700 text-white dark:border-none`}
                   >
                     <HiOutlineClipboardDocumentList className="text-lg" />{" "}
-                    <span>Endorsement</span>
+                    <span className="text-xs uppercase">Endorsement</span>
                   </button>
                 </>
               )}
 
               {(applicationButtonForDraftApplication ||
                 applicationButtonForApprovedOrShortfallApplication) && (
-                <button
-                  onClick={() => setOpenApplication(true)}
-                  className={`btn btn-sm text-xs ${gradientColor} transition-all duration-700 text-white dark:border-none`}
-                >
-                  <HiOutlineClipboardDocumentList className="text-lg" />{" "}
-                  <span>Application</span>
-                </button>
-              )}
+                  <button
+                    onClick={() => setOpenApplication(true)}
+                    className={`btn btn-sm text-xs ${gradientColor} transition-all duration-700 text-white dark:border-none`}
+                  >
+                    <HiOutlineClipboardDocumentList className="text-lg" />{" "}
+                    <span>Application</span>
+                  </button>
+                )}
             </div>
 
             {/* Application Modal */}
@@ -246,6 +249,8 @@ const DraftApplication = () => {
       <Outlet
         context={[isStepperVisible, currentStep, steps, handleStepClick]}
       />
+
+      <EndorsementModal />
     </>
   );
 };

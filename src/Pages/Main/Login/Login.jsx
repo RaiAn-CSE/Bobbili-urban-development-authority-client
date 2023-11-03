@@ -258,7 +258,7 @@ const Login = () => {
                     type="submit"
                     value="Sign in"
                     className="nm_Inset bg-[#8980FD] py-2 px-7 rounded-full text-white cursor-pointer text-center mt-3 uppercase text-md"
-                    // className="w-full rounded-sm bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white cursor-pointer font-bold text-base px-7 py-2.5 my-1 text-center hover:bg-gradient-to-r hover:from-violet-600 hover:to-fuchsia-600"
+                  // className="w-full rounded-sm bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white cursor-pointer font-bold text-base px-7 py-2.5 my-1 text-center hover:bg-gradient-to-r hover:from-violet-600 hover:to-fuchsia-600"
                   />
                 </motion.div>
               )}

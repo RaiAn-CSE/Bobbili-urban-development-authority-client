@@ -985,21 +985,21 @@ const BuildingInfo = () => {
 
             {selectedNatureOfTheSite ===
               "Plot port of RLP/IPLP but not regularised" && (
-              <motion.div
-                initial={{ x: "-100vw" }}
-                animate={{ x: 0 }}
-                transition={{ delay: 0.2, type: "spring", stiffness: 110 }}
-              >
-                <InputField
-                  id="IplpNo"
-                  name="IplpNo"
-                  label="RLP/IPLP no."
-                  placeholder="RLP/IPLP no."
-                  type="number"
-                  ltpDetails={iplpNo}
-                />
-              </motion.div>
-            )}
+                <motion.div
+                  initial={{ x: "-100vw" }}
+                  animate={{ x: 0 }}
+                  transition={{ delay: 0.2, type: "spring", stiffness: 110 }}
+                >
+                  <InputField
+                    id="IplpNo"
+                    name="IplpNo"
+                    label="RLP/IPLP no."
+                    placeholder="RLP/IPLP no."
+                    type="number"
+                    ltpDetails={iplpNo}
+                  />
+                </motion.div>
+              )}
             {/*===================== Conditional Input Field End =====================*/}
           </div>
         </div>

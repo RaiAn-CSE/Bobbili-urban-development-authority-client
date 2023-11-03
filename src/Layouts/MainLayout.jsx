@@ -12,7 +12,7 @@ const MainLayout = () => {
     "bg-gradient-to-r from-violet-500 to-fuchsia-500 shadow-md shadow-violetDark text-white border-none ";
 
   const notActive =
-    "hover:bg-gradient-to-r hover:from-violet-500 hover:to-fuchsia-500 hover:text-white border border-violetLight";
+    "hover:bg-gradient-to-r hover:from-violet-500 hover:to-fuchsia-500 text-[#B451F2] hover:text-white border border-violetLight";
 
   // const active = "font-bold bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
@@ -58,24 +58,22 @@ const MainLayout = () => {
         <div className="basis-[20%] flex justify-end items-center space-x-6 dark:text-black">
           <Link
             to="/"
-            className={`w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center  ${
-              path === "/" ||
+            className={`w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center  ${path === "/" ||
               path === "/onlinePayment" ||
               path === "/listOfLTP" ||
               path === "/demoVideos" ||
               path === "/privacyPolicy" ||
               path === "/defaultDrawingFormat"
-                ? active
-                : ` ${notActive}`
-            }`}
+              ? active
+              : ` ${notActive}`
+              }`}
           >
             <AiOutlineHome size={25} className="text-2xl " />
           </Link>
           <Link
             to="/statistics"
-            className={`w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center ${
-              path.includes("/statistics") ? active : ` ${notActive}`
-            }`}
+            className={`w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center ${path.includes("/statistics") ? active : ` ${notActive}`
+              }`}
           >
             <MdOutlineDashboard size={25} className="text-2xl" />
           </Link>
