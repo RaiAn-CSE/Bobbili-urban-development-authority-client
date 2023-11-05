@@ -115,7 +115,7 @@ const OnlinePayment = () => {
       {/* Application details  */}
       <div className="divide-y-2 divide-gray-200 mt-7">
         <div className="mb-1">
-          <h3 className="w-fit basis-[50%] text-lg  pl-3 font-semibold text-gray-900">
+          <h3 className="w-fit basis-[50%] text-lg  pl-3 font-semibold ">
             Application details
           </h3>
         </div>

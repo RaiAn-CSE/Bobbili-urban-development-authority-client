@@ -13,7 +13,7 @@ const MainLayout = () => {
     "bg-[#8B5BF6] shadow-md shadow-violetDark text-white border-none ";
 
   const notActive =
-    "hover:bg-gradient-to-r hover:from-violet-500 hover:to-fuchsia-500 text-[#8B5BF6] hover:text-white border border-violetLight";
+    "hover:bg-normalViolet text-[#8B5BF6] hover:text-white border border-violetLight";
 
   const gradientColor =
     "font-bold bg-gradient-to-r from-violet-500 to-fuchsia-500";
