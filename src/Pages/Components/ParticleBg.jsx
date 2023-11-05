@@ -24,7 +24,7 @@ const ParticleBg = () => {
       options={{
         background: {
           color: {
-            value: "#0d47a1",
+            value: "#E0E6EB",
           },
         },
         fpsLimit: 120,
@@ -52,13 +52,13 @@ const ParticleBg = () => {
         },
         particles: {
           color: {
-            value: "#ffffff",
+            value: "#9B94FB",
           },
           links: {
-            color: "#ffffff",
+            color: "#9B94",
             distance: 150,
             enable: true,
-            opacity: 0.5,
+            opacity: 0.8,
             width: 1,
           },
           move: {
@@ -68,7 +68,7 @@ const ParticleBg = () => {
               default: "bounce",
             },
             random: false,
-            speed: 6,
+            speed: 3,
             straight: false,
           },
           number: {
@@ -76,7 +76,7 @@ const ParticleBg = () => {
               enable: true,
               area: 800,
             },
-            value: 80,
+            value: 50,
           },
           opacity: {
             value: 0.5,
