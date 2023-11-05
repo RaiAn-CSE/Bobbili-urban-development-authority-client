@@ -30,12 +30,15 @@ table tbody tr:hover {
 
 .nm_Container {
   border-radius: 6px;
-  box-shadow: -3px -3px 7px #ffffffb2, 3px 3px 5px rgba(94, 104, 121, 0.945);
+  box-shadow: -5px -5px 9px rgba(255, 255, 255, 0.45), 5px 5px 9px rgba(94, 104, 121, 0.3);
 }
 
 .nm_Inset {
-  box-shadow: inset -3px -3px 7px #ffffffb0,
-    inset 3px 3px 5px rgba(94, 104, 121, 0.692);
+  box-shadow: inset -5px -5px 9px rgba(255, 255, 255, 0.45), inset 5px 5px 9px rgba(94, 104, 121, 0.3);
+}
+
+.nm_Inset:focus{
+  box-shadow: inset -5px -5px 9px rgba(255, 255, 255, 0.45), inset 5px 5px 9px rgba(94, 104, 121, 0.3);
 }
 
 .text {
