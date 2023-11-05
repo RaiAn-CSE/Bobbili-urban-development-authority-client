@@ -63,3 +63,7 @@ table tbody tr:hover {
 }
 
 /* Custom CSS for sticky table header */
+#tsparticles {
+  z-index: -10;
+  background-color: transparent;
+}

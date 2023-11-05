@@ -4,6 +4,7 @@ import { AiOutlineHome } from "react-icons/ai";
 import { MdOutlineDarkMode, MdOutlineDashboard } from "react-icons/md";
 
 import { FiSun } from "react-icons/fi";
+import ParticleBg from "../Pages/Components/ParticleBg";
 
 const MainLayout = () => {
   const path = useLocation().pathname;
@@ -43,44 +44,49 @@ const MainLayout = () => {
   }, [theme]);
 
   return (
-    <div className="px-10 min-h-screen bg-[#e0e6eb]">
-      {/* upper part  */}
-      <div className="py-3 flex justify-between items-center">
-        <div className="basis-3/4">
-          <p className="text-2xl text-gray-600 font-bold font-sofadi">
-            Bobbili Urban Development Authority
-          </p>
-          <p className="text-4xl mt-2 text-black font-notSerif font-bold ">
-            Residential Building Plan Approval
-          </p>
-        </div>
+    <>
+      {/* particle  */}
 
-        <div className="basis-[20%] flex justify-end items-center space-x-6 dark:text-black">
-          <Link
-            to="/"
-            className={`w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center  ${
-              path === "/" ||
-              path === "/onlinePayment" ||
-              path === "/listOfLTP" ||
-              path === "/demoVideos" ||
-              path === "/privacyPolicy" ||
-              path === "/defaultDrawingFormat"
-                ? active
-                : ` ${notActive}`
-            }`}
-          >
-            <AiOutlineHome size={25} className="text-2xl " />
-          </Link>
-          <Link
-            to="/statistics"
-            className={`w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center ${
-              path.includes("/statistics") ? active : ` ${notActive}`
-            }`}
-          >
-            <MdOutlineDashboard size={25} className="text-2xl" />
-          </Link>
+      <ParticleBg />
 
-          {/* <div className="cursor-pointer">
+      <div className="px-10 min-h-screen z-[10] bg-[#e0e6eb]">
+        {/* upper part  */}
+        <div className="py-3 flex justify-between items-center z-[10]">
+          <div className="basis-3/4 z-[10]">
+            <p className="text-2xl text-gray-600 font-bold font-sofadi">
+              Bobbili Urban Development Authority
+            </p>
+            <p className="text-4xl mt-2 text-black font-notSerif font-bold ">
+              Residential Building Plan Approval
+            </p>
+          </div>
+
+          <div className="basis-[20%] z-[10] flex justify-end items-center space-x-6 dark:text-black">
+            <Link
+              to="/"
+              className={`w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center  ${
+                path === "/" ||
+                path === "/onlinePayment" ||
+                path === "/listOfLTP" ||
+                path === "/demoVideos" ||
+                path === "/privacyPolicy" ||
+                path === "/defaultDrawingFormat"
+                  ? active
+                  : ` ${notActive}`
+              }`}
+            >
+              <AiOutlineHome size={25} className="text-2xl " />
+            </Link>
+            <Link
+              to="/statistics"
+              className={`w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center ${
+                path.includes("/statistics") ? active : ` ${notActive}`
+              }`}
+            >
+              <MdOutlineDashboard size={25} className="text-2xl" />
+            </Link>
+
+            {/* <div className="cursor-pointer">
             {theme === "dark" ? (
               <FiSun
                 size={25}
@@ -95,12 +101,13 @@ const MainLayout = () => {
               />
             )}
           </div> */}
+          </div>
         </div>
-      </div>
 
-      {/* lower part  */}
-      <Outlet />
-    </div>
+        {/* lower part  */}
+        <Outlet />
+      </div>
+    </>
   );
 };
 
