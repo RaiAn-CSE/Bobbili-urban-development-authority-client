@@ -10,12 +10,13 @@ const MainLayout = () => {
   const path = useLocation().pathname;
   console.log(path);
   const active =
-    "bg-gradient-to-r from-violet-500 to-fuchsia-500 shadow-md shadow-violetDark text-white border-none ";
+    "bg-[#8B5BF6] shadow-md shadow-violetDark text-white border-none ";
 
   const notActive =
-    "hover:bg-gradient-to-r hover:from-violet-500 hover:to-fuchsia-500 text-[#B451F2] hover:text-white border border-violetLight";
+    "hover:bg-gradient-to-r hover:from-violet-500 hover:to-fuchsia-500 text-[#8B5BF6] hover:text-white border border-violetLight";
 
-  // const active = "font-bold bg-gradient-to-r from-violet-500 to-fuchsia-500";
+  const gradientColor =
+    "font-bold bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
   const [theme, setTheme] = useState(localStorage.getItem("theme"));
 
@@ -53,10 +54,10 @@ const MainLayout = () => {
         {/* upper part  */}
         <div className="py-3 flex justify-between items-center z-[10]">
           <div className="basis-3/4 z-[10]">
-            <p className="text-2xl text-gray-600 font-bold font-sofadi">
+            <p className="css-3d-text  w-fit p-2 text-2xl text-gray-600 font-bold font-sofadi">
               Bobbili Urban Development Authority
             </p>
-            <p className="text-4xl mt-2 text-black font-notSerif font-bold ">
+            <p className={` w-fit text-4xl mt-2 font-notSerif font-bold `}>
               Residential Building Plan Approval
             </p>
           </div>
