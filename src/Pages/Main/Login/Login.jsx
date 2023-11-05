@@ -126,7 +126,7 @@ const Login = () => {
   };
 
   return (
-    <div className={`nm_Container z-[10] h-full overflow-hidden bg-[#e0e6eb]`}>
+    <div className={`nm_Container z-[10] h-full overflow-hidden bg-[#E8EAEC]`}>
       <div className="relative overflow-hidden ">
         {/* support icon  */}
 

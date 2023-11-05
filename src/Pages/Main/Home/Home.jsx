@@ -8,10 +8,12 @@ const Home = () => {
   console.log(path);
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
-  const hoverGradientColor =
-    "hover:bg-gradient-to-r hover:from-violet-500 hover:to-fuchsia-500";
+  // const hoverGradientColor =
+  //   "hover:bg-gradient-to-r hover:from-violet-500 hover:to-fuchsia-500";
 
-  const active = "font-bold bg-gradient-to-r from-violet-500 to-fuchsia-500";
+  const hoverGradientColor = "hover:bg-[#8B5BF6] hover:text-white";
+
+  const active = "nm_Container font-bold bg-[#8B5BF6] text-white";
   const menu = (
     <>
       <Link
@@ -79,13 +81,13 @@ const Home = () => {
   return (
     <div className=" w-full grid grid-cols-[200px_minmax(700px,_1fr)_284px] pt-10">
       {/* sidebar menus  */}
-      <div className="nm_Container z-[10] w-full text-base flex flex-col justify-between bg-black text-white border border-gray-200 rounded-lg">
+      <div className="nm_Container z-[10] w-full text-base flex flex-col justify-between bg-[#E8EAEC] text-black border border-gray-200 rounded-lg">
         {menu}
       </div>
 
       {/* Scrollable content */}
       <div
-        className={`${customScroll.customScrolling} nm_Container h-[400px] bg-base-100  rounded-lg mx-4 z-[10] flex items-center dark:bg-white`}
+        className={`${customScroll.customScrolling} nm_Container h-[400px]   rounded-lg mx-4 z-[10] flex items-center bg-[#E8EAEC]`}
       >
         <Outlet />
       </div>

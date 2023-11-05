@@ -46,7 +46,7 @@ table tbody tr:hover {
 
 .nm_Container {
   border-radius: 6px;
-  box-shadow: -3px -3px 7px #ffffffb2, 3px 3px 5px rgba(94, 104, 121, 0.945);
+  box-shadow: 4px 4px 8px rgb(189 200 213), -4px -4px 8px rgb(255 255 255);
 }
 
 .nm_Inset {

@@ -49,7 +49,7 @@ const MainLayout = () => {
 
       <ParticleBg />
 
-      <div className="px-10 min-h-screen z-[10] bg-[#e0e6eb]">
+      <div className="px-10 min-h-screen z-[10] bg-[#E8EAEC]">
         {/* upper part  */}
         <div className="py-3 flex justify-between items-center z-[10]">
           <div className="basis-3/4 z-[10]">

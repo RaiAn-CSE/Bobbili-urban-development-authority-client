@@ -24,18 +24,18 @@ const ParticleBg = () => {
       options={{
         background: {
           color: {
-            value: "#E0E6EB",
+            value: "#E8EAEC",
           },
         },
         fpsLimit: 120,
         interactivity: {
           events: {
             onClick: {
-              enable: true,
+              enable: false,
               mode: "push",
             },
             onHover: {
-              enable: true,
+              enable: false,
               mode: "repulse",
             },
             resize: true,
