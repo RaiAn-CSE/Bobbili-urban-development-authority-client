@@ -9,6 +9,7 @@ export default {
         btnHover: "#edab03",
         violetLight: "#a36ee0",
         violetDark: "#6a39a1",
+        normalViolet: "#8B5BF6",
         black: "#1f1132",
       },
       fontFamily: {
@@ -17,7 +18,6 @@ export default {
         notSerif: ["Noto Serif JP", "seri"],
       },
     },
-
   },
   plugins: [require("daisyui")],
 };
