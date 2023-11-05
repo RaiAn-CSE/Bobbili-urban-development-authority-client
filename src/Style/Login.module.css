@@ -1,7 +1,8 @@
 .formGroup input:valid,
 .formGroup input:focus {
   outline: none;
-  box-shadow: inset -5px -5px 9px rgba(255, 255, 255, 0.45), inset 5px 5px 9px rgba(94, 104, 121, 0.3);
+  background: transparent;
+  box-shadow: inset -5px -5px 12px #fff, inset 5px 5px 12px #cbced1;
 }
 
 .formGroup input:valid + label,
@@ -9,14 +10,9 @@
   color: #000000;
   /* font-size: 14px; */
   transform: translate(8px, 8px);
-  background: #DDE1E7;
+  background: #e0e6eb;
   border-radius: 3px;
   padding: 0px 4px;
-  /* background-color: inherit; */
-}
-
-.formGroup input[type="checkbox"] {
-  background-color: red;
 }
 
 .formGroup label {
@@ -37,7 +33,7 @@
 } */
 
 .checkboxLabel {
-  color: var(--colorMain);
+  color: #000;
   font-size: 8em;
   font-weight: bold;
   font-family: sans-serif;
