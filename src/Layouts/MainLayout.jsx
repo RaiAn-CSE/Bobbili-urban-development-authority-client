@@ -3,7 +3,6 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 import { AiOutlineHome } from "react-icons/ai";
 import { MdOutlineDarkMode, MdOutlineDashboard } from "react-icons/md";
 import { motion } from "framer-motion";
-
 import { FiSun } from "react-icons/fi";
 import ParticleBg from "../Pages/Components/ParticleBg";
 
@@ -59,7 +58,7 @@ const MainLayout = () => {
               Bobbili Urban Development Authority
             </p>
             <p
-              className={` css-3d-text  w-fit p-2 text-4xl text-gray-600 font-bold font-sofadi `}
+              className={`css-3d-text  w-fit p-2 text-4xl text-gray-600 font-bold font-sofadi `}
             >
               Residential Building Plan Approval
             </p>
