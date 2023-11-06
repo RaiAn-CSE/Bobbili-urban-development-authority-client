@@ -98,7 +98,7 @@ const DraftApplication = () => {
   const isStepperVisible = allSteps.includes(location.pathname); // Check if current route is in the list of routes with the stepper
 
   let btnClass =
-    "btn btn-md hover:text-[#fff] rounded-lg transition-all duration-500 cursor-pointer hover:bg-black";
+    "btn btn-md hover:text-[#fff] rounded-lg transition-all duration-500 cursor-pointer nm_Container hover:bg-normalViolet";
 
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
@@ -113,9 +113,9 @@ const DraftApplication = () => {
   };
   const completeBtn = (index) => {
     if (index === currentStep) {
-      return `bg-black text-white shadow-sm shadow-black border-0 dark:${gradientColor}`;
+      return `nm_Container bg-normalViolet text-white shadow-sm shadow-black border-0 `;
     } else if (index < currentStep) {
-      return `bg-black text-white shadow-md shadow-black border-0 dark:${gradientColor}`;
+      return `nm_Container bg-normalViolet text-white shadow-md shadow-black border-0 `;
     }
   };
 
@@ -143,7 +143,7 @@ const DraftApplication = () => {
 
   console.log(
     applicationButtonForDraftApplication &&
-    (cameFrom === "draft" || cameFrom === "submit")
+      (cameFrom === "draft" || cameFrom === "submit")
   );
 
   const applicationButtonForApprovedOrShortfallApplication =
@@ -154,9 +154,9 @@ const DraftApplication = () => {
     <>
       {isStepperVisible && ( // Render the stepper only when isStepperVisible is true
         <>
-          <div className="flex justify-between items-center mx-10">
+          <div className="flex justify-between items-center mx-5">
             <p
-              className={`my-8 font-roboto font-semibold text-xl ${gradientColor} text-transparent bg-clip-text`}
+              className={`nm_Container p-2 my-8 font-roboto font-semibold text-xl ${gradientColor} text-transparent bg-clip-text`}
             >
               <span className="text-black">Application No:</span>{" "}
               {applicationNo}
@@ -191,7 +191,9 @@ const DraftApplication = () => {
                   </button>
                   <button
                     // Open the modal using document.getElementById('ID').showModal() method
-                    onClick={() => document.getElementById('my_modal_2').showModal()}
+                    onClick={() =>
+                      document.getElementById("my_modal_2").showModal()
+                    }
                     className={`btn btn-sm me-5 text-xs ${gradientColor} transition-all duration-700 text-white dark:border-none`}
                   >
                     <HiOutlineClipboardDocumentList className="text-lg" />{" "}
@@ -202,14 +204,14 @@ const DraftApplication = () => {
 
               {(applicationButtonForDraftApplication ||
                 applicationButtonForApprovedOrShortfallApplication) && (
-                  <button
-                    onClick={() => setOpenApplication(true)}
-                    className={`btn btn-sm text-xs ${gradientColor} transition-all duration-700 text-white dark:border-none`}
-                  >
-                    <HiOutlineClipboardDocumentList className="text-lg" />{" "}
-                    <span>Application</span>
-                  </button>
-                )}
+                <button
+                  onClick={() => setOpenApplication(true)}
+                  className={`btn btn-sm text-xs ${gradientColor} transition-all duration-700 text-white dark:border-none`}
+                >
+                  <HiOutlineClipboardDocumentList className="text-lg" />{" "}
+                  <span>Application</span>
+                </button>
+              )}
             </div>
 
             {/* Application Modal */}
