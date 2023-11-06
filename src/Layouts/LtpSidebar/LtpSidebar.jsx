@@ -34,14 +34,14 @@ const LtpSidebar = () => {
   }, [isDark]);
 
   const sidebarHoverClass =
-    "flex items-center ps-4 hover:bg-gradient-to-r hover:from-violet-500 hover:to-fuchsia-500 mb-1";
+    "flex items-center ps-4  hover:text-normalViolet hover:nm_Container mb-1";
 
   return (
     <>
       <li
         className={`${
           path === "/dashboard" && activeColor
-        } mt-24 lg:mt-0 ${sidebarHoverClass}`}
+        } mt-24 lg:mt-0 ${sidebarHoverClass} `}
       >
         <span>
           <MdSpaceDashboard size={20} />

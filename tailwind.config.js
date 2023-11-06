@@ -17,6 +17,7 @@ export default {
         sofadi: ["Sofadi One", "cursive"],
         roboto: ["Roboto Condensed", "sans-serif"],
         notSerif: ["Noto Serif JP", "seri"],
+        poppins: ["Poppins", "sans-serif"],
       },
     },
   },

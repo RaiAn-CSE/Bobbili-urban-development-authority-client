@@ -341,28 +341,14 @@ const AuthProvider = ({ children }) => {
 
   // sidebar active & hover color changed on the basis of theme
   const decideActiveColor = () => {
-    const theme = localStorage.getItem("theme");
-
-    const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
-
-    const darkActiveColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
-    if (theme === "dark") {
-      return darkActiveColor;
-    } else {
-      return gradientColor;
-    }
+    const gradientColor =
+      " text-normalViolet nm_Inset border-4 border-r-normalViolet";
+    return gradientColor;
   };
 
   const decideHoverColor = () => {
-    const theme = localStorage.getItem("theme");
-    console.log(theme, "THEME");
-    const hoverGradientColor =
-      "hover:bg-gradient-to-r hover:from-violet-500 hover:to-fuchsia-500";
-    if (theme === "dark") {
-      return "dark:hover:bg-black";
-    } else {
-      return hoverGradientColor;
-    }
+    const hoverColor = "hover:text-normalViolet hover:nm_Container";
+    return hoverColor;
   };
 
   const showPageBasedOnApplicationType = (applicationNo, navigate, page) => {
