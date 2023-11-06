@@ -104,7 +104,7 @@ const SaveData = ({
             ) : (
               <div>
                 <button
-                  className={`${btnClass} me-10 px-6 bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white font-roboto shadow-md shadow-violetDark border-none hover:bg-violetDark`}
+                  className={`${btnClass} me-10 px-6 bg-normalViolet text-white font-roboto shadow-md shadow-violetDark border-none hover:bg-violetDark`}
                   type="submit"
                   // onClick={() =>
                   //   // currentStep < steps.length - 1 &&
@@ -142,7 +142,7 @@ const SaveData = ({
           {role === "PS" && (
             <>
               <button
-                className={`btn btn-md ${gradientColor} ${hiddenSaveButtonForPS} text-sm text-white px-8 mt-10 ml-3 shadow-md hover:shadow-violetDark border-0 transition-all duration-500`}
+                className={`btn btn-md nm_Container bg-normalViolet ${hiddenSaveButtonForPS} text-sm text-white px-8 mt-10 ml-3  hover:bg-bgColor hover:text-normalViolet border-0 transition-all duration-500`}
                 onClick={() => {
                   confirmAlert(undefined, collectInputFieldData, {
                     page: "PS site inspection data save",

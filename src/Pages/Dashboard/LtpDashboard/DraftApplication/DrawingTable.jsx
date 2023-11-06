@@ -180,7 +180,7 @@ function DrawingTable({
   return (
     <div>
       <div className="overflow-x-auto mb-16 w-full px-4">
-        <p>Drawing Scrutiny report</p>
+        <p className="font-bold text-lg ml-5">Drawing Scrutiny report</p>
 
         <div className="container mx-auto px-4 font-roboto ">
           <div className="py-4">
@@ -188,21 +188,21 @@ function DrawingTable({
               <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
                 <table className="min-w-full leading-normal text-center">
                   {/* Table Header */}
-                  <thead className="bg-[#303952]">
-                    <tr className="bg-[#303952] text-xs md:text-sm text-white hover:bg-[#303952]">
-                      <th className="p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider ">
+                  <thead className="bg-normalViolet">
+                    <tr className="text-sm md:text-base text-white hover:bg-normalViolet">
+                      <th className="p-3 border-b-2 border-gray-200  text-white text-sm font-semibold uppercase tracking-wider ">
                         Sl. No.
                       </th>
-                      <th className="p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider ">
+                      <th className="p-3 border-b-2 border-gray-200  text-white  text-sm font-semibold uppercase tracking-wider ">
                         Description
                       </th>
-                      <th className="p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider ">
+                      <th className="p-3 border-b-2 border-gray-200  text-white  text-sm font-semibold uppercase tracking-wider ">
                         As per G.O.s
                       </th>
-                      <th className="p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider ">
+                      <th className="p-3 border-b-2 border-gray-200  text-white  text-sm font-semibold uppercase tracking-wider ">
                         As on Plan
                       </th>
-                      <th className="p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider ">
+                      <th className="p-3 border-b-2 border-gray-200  text-white  text-sm font-semibold uppercase tracking-wider ">
                         Observation
                       </th>
                     </tr>
@@ -210,21 +210,21 @@ function DrawingTable({
                   <tbody className="text-gray-900">
                     {/* 1st row  */}
                     <tr>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">1</p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">
                           Proposed Site / Plot area
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm"></td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base"></td>
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">
                           {plotDetails?.proposedPlotAreaCal ?? ""}
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <input
                           id="proposedSiteObs"
                           type="text"
@@ -238,21 +238,21 @@ function DrawingTable({
                     </tr>
 
                     <tr>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">2</p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">
                           Access Road Width
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm"></td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base"></td>
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">
                           {plotDetails?.roadWideningAreaCal ?? ""}
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <input
                           id="accessRoadWidthObs"
                           type="text"
@@ -265,21 +265,21 @@ function DrawingTable({
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">3</p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">
                           Scope of Road windening
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm"></td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base"></td>
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">
                           {plotDetails?.roadWideningAreaCal ?? ""}
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <input
                           id="scopeRoadWideObs"
                           type="text"
@@ -292,21 +292,21 @@ function DrawingTable({
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">4</p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">
                           Net Site / Plot area
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm"></td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base"></td>
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">
                           {plotDetails?.netPlotAreaCal ?? ""}
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <input
                           id="netSiteObs"
                           type="text"
@@ -319,21 +319,21 @@ function DrawingTable({
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">5</p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">
                           Building Height
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm"></td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base"></td>
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">
                           {plotDetails?.buildingExcludeStilt ?? ""}
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <input
                           id="buildingHeightObs"
                           type="text"
@@ -346,15 +346,15 @@ function DrawingTable({
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">6</p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">Setbacks</p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm"></td>
-                      <td className="p-3  border-b border-gray-200 text-sm"></td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base"></td>
+                      <td className="p-3  border-b border-gray-200 text-base"></td>
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <input
                           id="setBacksObs"
                           type="text"
@@ -367,21 +367,21 @@ function DrawingTable({
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-3  border-b border-gray-200 text-sm"></td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base"></td>
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">Front</p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">
                           {preDeterminedValue?.front}
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">
                           {plotDetails?.frontSetback ?? ""}
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <input
                           id="frontObs"
                           type="text"
@@ -392,21 +392,21 @@ function DrawingTable({
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-3  border-b border-gray-200 text-sm"></td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base"></td>
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">Rare</p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">
                           {preDeterminedValue?.rare}
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">
                           {plotDetails?.rareSetback ?? ""}
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <input
                           id="rareObs"
                           type="text"
@@ -417,21 +417,21 @@ function DrawingTable({
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-3  border-b border-gray-200 text-sm"></td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base"></td>
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">Side 1</p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">
                           {preDeterminedValue?.side1}
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">
                           {plotDetails?.side1Setback ?? ""}
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <input
                           id="sideOneObs"
                           type="text"
@@ -442,21 +442,21 @@ function DrawingTable({
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-3  border-b border-gray-200 text-sm"></td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base"></td>
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">Side 2</p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">
                           {preDeterminedValue?.side2}
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">
                           {plotDetails?.side2Setback}
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <input
                           id="sideTwoObs"
                           type="text"
@@ -467,21 +467,21 @@ function DrawingTable({
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">7</p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">
                           Number of floors
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm"></td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base"></td>
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">
                           {numberOfFloors ?? 0}
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <input
                           id="numberOfFloorsObs"
                           type="text"
@@ -492,13 +492,13 @@ function DrawingTable({
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-3  border-b border-gray-200 text-sm"></td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base"></td>
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">Stilt Floor</p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm"></td>
-                      <td className="p-3  border-b border-gray-200 text-sm"></td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base"></td>
+                      <td className="p-3  border-b border-gray-200 text-base"></td>
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <input
                           id="stiltFloorObs"
                           type="text"
@@ -511,15 +511,15 @@ function DrawingTable({
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-3  border-b border-gray-200 text-sm"></td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base"></td>
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">
                           Ground Floor
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm"></td>
-                      <td className="p-3  border-b border-gray-200 text-sm"></td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base"></td>
+                      <td className="p-3  border-b border-gray-200 text-base"></td>
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <input
                           id="groundFloorObs"
                           type="text"
@@ -532,13 +532,13 @@ function DrawingTable({
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-3  border-b border-gray-200 text-sm"></td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base"></td>
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">First Floor</p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm"></td>
-                      <td className="p-3  border-b border-gray-200 text-sm"></td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base"></td>
+                      <td className="p-3  border-b border-gray-200 text-base"></td>
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <input
                           id="firstFloorObs"
                           type="text"
@@ -551,15 +551,15 @@ function DrawingTable({
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-3  border-b border-gray-200 text-sm"></td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base"></td>
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">
                           Second Floor
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm"></td>
-                      <td className="p-3  border-b border-gray-200 text-sm"></td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base"></td>
+                      <td className="p-3  border-b border-gray-200 text-base"></td>
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <input
                           id="secondFloorObs"
                           type="text"
@@ -572,21 +572,21 @@ function DrawingTable({
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">8</p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">Green Strip</p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">
                           1mtr wide required
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">Yes</p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <select
                           id="greenStripObs"
                           className=" w-1/6 outline-none bg-gray-50"
@@ -600,21 +600,21 @@ function DrawingTable({
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">9</p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">
                           Staircase width
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">
                           Minimum 2.00 mtr
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm"></td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base"></td>
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <input
                           id="stairCaseWidthObs"
                           type="text"
@@ -627,25 +627,25 @@ function DrawingTable({
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">10</p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">
                           No. of Units
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">
                           Maximum 4 no.
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <p className="text-gray-900 break-words">
                           {plotDetails?.noOfUnits ?? ""}
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-sm">
+                      <td className="p-3  border-b border-gray-200 text-base">
                         <input
                           id="unitObs"
                           type="text"

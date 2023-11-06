@@ -2,7 +2,7 @@ function DocumentFooter({
   approvedConfirmation,
   recomendationMessage,
   setApprovedConfirmation,
-  setRecommendationMessage
+  setRecommendationMessage,
 }) {
   const handleMessage = (event) => {
     setRecommendationMessage(event?.target?.value);
@@ -13,32 +13,36 @@ function DocumentFooter({
 
   // console.log(approvedConfirmation && approvedConfirmation === "true", "Checking");
   return (
-    <div className="dark:text-white">
+    <div className="dark:text-white font-roboto">
       <div className="lg:ml-6">
         {/* Approved Buttons */}
         <div className="space-x-14 mb-7">
           <label
-            className={`ml-2 inline-flex items-center space-x-1 text-black"}`}
+            className={`ml-2 text-lg inline-flex items-center space-x-1 text-black"}`}
           >
             <input
               type="radio"
               value="approved"
               name="finalApproved"
-              className="radio radio-sm radio-success mr-3 lg:mr-0"
-              defaultChecked={approvedConfirmation && approvedConfirmation === "true"}
+              className="radio radio-sm radio-success mr-2"
+              defaultChecked={
+                approvedConfirmation && approvedConfirmation === "true"
+              }
               onClick={() => handleConfirm("true")}
             />
             <span className="text-gray-900">Approve</span>
           </label>
           <label
-            className={`ml-2 inline-flex items-center space-x-1 text-black}`}
+            className={`ml-2 text-lg inline-flex items-center space-x-1 text-black}`}
           >
             <input
               type="radio"
               value="shortfall"
               name="finalApproved"
-              className="radio radio-sm radio-success mr-3 lg:mr-0"
-              defaultChecked={approvedConfirmation && approvedConfirmation === "false"}
+              className="radio radio-sm radio-success mr-2"
+              defaultChecked={
+                approvedConfirmation && approvedConfirmation === "false"
+              }
               onClick={() => handleConfirm("false")}
             />
             <span className="text-gray-900">Shortfall</span>
@@ -48,7 +52,7 @@ function DocumentFooter({
         <div className="my-4 mx-3 ">
           <label
             htmlFor="recomendation"
-            className="block mb-1 font-semibold text-gray-600"
+            className="block mb-2 font-semibold text-lg text-gray-600"
           >
             Recommendation
           </label>
