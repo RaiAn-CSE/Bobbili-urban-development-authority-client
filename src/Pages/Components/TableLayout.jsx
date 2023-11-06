@@ -6,9 +6,9 @@ const TableLayout = ({ tableData, Component, tableComponentProps }) => {
     <div className="container mx-auto px-4 font-roboto ">
       <div className="py-4">
         <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4">
-          <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
-            <table className="min-w-full leading-normal text-center ">
-              <thead className="bg-[#303952]">
+          <div className="inline-block min-w-full nm_Container rounded-lg overflow-hidden">
+            <table className=" min-w-full leading-normal text-center ">
+              <thead className="bg-normalViolet">
                 <tr className="hidden md:table-row">
                   {tableData?.tableHeader?.map((headerName) => {
                     return (
