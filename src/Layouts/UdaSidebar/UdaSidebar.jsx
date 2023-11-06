@@ -6,10 +6,10 @@ import { Link, useLocation } from "react-router-dom";
 
 const UdaSidebar = () => {
   const path = useLocation().pathname;
-  const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
+  const gradientColor =
+    "text-normalViolet nm_Inset border-4 border-r-normalViolet";
 
-  const hoverGradientColor =
-    "hover:bg-gradient-to-r hover:from-violet-500 hover:to-fuchsia-500";
+  const hoverGradientColor = "hover:bg-normalViolet hover:text-white";
   return (
     <>
       <li
