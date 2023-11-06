@@ -8,6 +8,7 @@ import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import Application from "./Application";
 import EndorsementModal from "../../../Shared/EndorsementModal";
+import Resubmit from "../../../Shared/Resubmit";
 
 const DraftApplication = () => {
   const navigate = useNavigate();
@@ -143,7 +144,7 @@ const DraftApplication = () => {
 
   console.log(
     applicationButtonForDraftApplication &&
-      (cameFrom === "draft" || cameFrom === "submit")
+    (cameFrom === "draft" || cameFrom === "submit")
   );
 
   const applicationButtonForApprovedOrShortfallApplication =
@@ -184,6 +185,10 @@ const DraftApplication = () => {
               {cameFrom === "shortfall" && (
                 <>
                   <button
+                    // Open the modal using document.getElementById('ID').showModal() method
+                    onClick={() =>
+                      document.getElementById("my_modal_1").showModal()
+                    }
                     className={`btn btn-sm text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white me-5  dark:border-none`}
                   >
                     <HiOutlineClipboardDocumentList className="text-lg" />{" "}
@@ -204,14 +209,14 @@ const DraftApplication = () => {
 
               {(applicationButtonForDraftApplication ||
                 applicationButtonForApprovedOrShortfallApplication) && (
-                <button
-                  onClick={() => setOpenApplication(true)}
-                  className={`btn btn-sm text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white dark:border-none`}
-                >
-                  <HiOutlineClipboardDocumentList className="text-lg" />{" "}
-                  <span>Application</span>
-                </button>
-              )}
+                  <button
+                    onClick={() => setOpenApplication(true)}
+                    className={`btn btn-sm text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white dark:border-none`}
+                  >
+                    <HiOutlineClipboardDocumentList className="text-lg" />{" "}
+                    <span>Application</span>
+                  </button>
+                )}
             </div>
 
             {/* Application Modal */}
@@ -251,7 +256,9 @@ const DraftApplication = () => {
       <Outlet
         context={[isStepperVisible, currentStep, steps, handleStepClick]}
       />
-
+      {/* my_modal_1 modal info : */}
+      <Resubmit />
+      {/* my_modal_2 modal info : */}
       <EndorsementModal />
     </>
   );

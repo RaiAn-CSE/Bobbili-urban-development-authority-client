@@ -152,10 +152,11 @@ function Application({ setOpenApplication }) {
   return (
     <div className="w-full h-full text-black">
       <dialog id="my_modal_5" className="modal">
-        <div className="modal-box w-full max-w-4xl p-14 bg-white">
+        <div className="modal-box w-full max-w-4xl p-14 bg-white relative">
           {/* Header */}
           <ApplicationHeader />
           <div>
+
             {/* Part01 */}
             <div className="overflow-x-auto">
               <table className="table bg-white table-sm cursor-default">
