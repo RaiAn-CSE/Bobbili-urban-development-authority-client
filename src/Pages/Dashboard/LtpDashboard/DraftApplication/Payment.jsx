@@ -12,7 +12,11 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import SaveData from "./SaveData";
 import { Link } from "react-router-dom";
-import { MdOutlinePayments, MdReceiptLong } from "react-icons/md";
+import {
+  MdOutlinePayments,
+  MdOutlineReceiptLong,
+  MdReceiptLong,
+} from "react-icons/md";
 import Application from "./Application";
 import Modal from "./Modal";
 import { HiCurrencyRupee } from "react-icons/hi2";
@@ -580,9 +584,10 @@ const Payment = () => {
             {role === "PS" && (
               <>
                 <button
-                  className={`btn btn-md text-sm px-3 mt-10 ml-3 border-none text-white shadow-md transition-all duration-500 ${gradientColor} hover:shadow-lg hover:shadow-violetDark hover:bg-gradient-to-bl`}
+                  className={`btn btn-md nm_Container w-[60%] mx-auto text-sm px-3 mt-10 border-none text-white transition-all duration-500 bg-normalViolet hover:bg-bgColor hover:text-normalViolet`}
                   onClick={() => setViewChallan(true)}
                 >
+                  <MdOutlineReceiptLong size={20} />
                   View Challan
                 </button>
                 {viewChallan && (
@@ -593,7 +598,7 @@ const Payment = () => {
                 )}
                 <div>
                   <button
-                    className={`btn btn-md text-sm px-3 mt-10 font-roboto ml-3 border-none text-white shadow-md transition-all duration-500 ${gradientColor} hover:shadow-lg hover:shadow-violetDark hover:bg-gradient-to-bl`}
+                    className={`btn btn-md text-sm px-3 mt-10 font-roboto w-[60%] mx-auto border-none text-white shadow-md transition-all duration-500 ${gradientColor} nm_Container hover:bg-gradient-to-bl`}
                     onClick={() =>
                       document.getElementById("my_modal_4").showModal()
                     }
