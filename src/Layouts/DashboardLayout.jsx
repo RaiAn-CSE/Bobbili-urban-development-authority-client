@@ -19,7 +19,7 @@ const DashboardLayout = () => {
       <Navbar />
       <div className="drawer dark:bg-grad lg:drawer-open min-h-[calc(100vh-69px)] relative transition-all duration-700">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle " />
-        <div className="drawer-content w-full overflow-hidden lg:drawer-open dark:bg-white">
+        <div className="drawer-content w-full overflow-hidden lg:drawer-open ">
           {/* <!-- Page content here --> */}
 
           <label

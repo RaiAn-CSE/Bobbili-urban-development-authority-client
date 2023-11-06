@@ -98,24 +98,24 @@ const DraftApplication = () => {
   const isStepperVisible = allSteps.includes(location.pathname); // Check if current route is in the list of routes with the stepper
 
   let btnClass =
-    "btn btn-md hover:text-[#fff] rounded-lg transition-all duration-500 cursor-pointer nm_Container hover:bg-normalViolet";
+    "btn btn-md hover:text-[#fff] text-black rounded-lg transition-all duration-500 cursor-pointer hover:bg-normalViolet bg-bgColor ";
 
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
   const stepClasses = (index) => {
     if (index === currentStep) {
-      return "step step-neutral";
+      return "step step-primary";
     } else if (index < currentStep) {
-      return "step step-neutral";
+      return "step step-primary";
     } else {
-      return "step";
+      return "";
     }
   };
   const completeBtn = (index) => {
     if (index === currentStep) {
-      return `nm_Container bg-normalViolet text-white border-0 `;
+      return `nm_Container bg-normalViolet shadow-none text-white border-0 `;
     } else if (index < currentStep) {
-      return `nm_Container bg-normalViolet text-white border-0 `;
+      return `nm_Container bg-normalViolet shadow-none text-white border-0 `;
     }
   };
 
@@ -166,14 +166,14 @@ const DraftApplication = () => {
               {cameFrom === "approved" && (
                 <>
                   <button
-                    className={`btn btn-sm text-xs ${gradientColor} transition-all duration-700 text-white me-5 dark:border-none`}
+                    className={`btn btn-sm nm_Container text-xs bg-normalViolet hover:text-[#510BC4] transition-all duration-700 text-white me-5 dark:border-none`}
                   >
                     <HiOutlineClipboardDocumentList className="text-lg" />{" "}
                     <span>Proceeding</span>
                   </button>
 
                   <button
-                    className={`btn btn-sm text-xs ${gradientColor} transition-all duration-700 text-white me-5 dark:border-none`}
+                    className={`btn btn-sm text-xs nm_Container bg-normalViolet hover:text-[#510BC4] transition-all duration-700 text-white me-5 dark:border-none`}
                   >
                     <HiOutlineClipboardDocumentList className="text-lg" />{" "}
                     <span>Drawing</span>
@@ -184,7 +184,7 @@ const DraftApplication = () => {
               {cameFrom === "shortfall" && (
                 <>
                   <button
-                    className={`btn btn-sm text-xs ${gradientColor} transition-all duration-700 text-white me-5 dark:border-none`}
+                    className={`btn btn-sm text-xs nm_Container bg-normalViolet hover:text-[#510BC4] transition-all duration-700 text-white me-5 dark:border-none`}
                   >
                     <HiOutlineClipboardDocumentList className="text-lg" />{" "}
                     <span>Resubmit</span>
@@ -194,7 +194,7 @@ const DraftApplication = () => {
                     onClick={() =>
                       document.getElementById("my_modal_2").showModal()
                     }
-                    className={`btn btn-sm me-5 text-xs ${gradientColor} transition-all duration-700 text-white dark:border-none`}
+                    className={`btn btn-sm me-5 text-xs bg-normalViolet hover:text-[#510BC4] transition-all duration-700 text-white dark:border-none`}
                   >
                     <HiOutlineClipboardDocumentList className="text-lg" />{" "}
                     <span className="text-xs uppercase">Endorsement</span>
@@ -206,7 +206,7 @@ const DraftApplication = () => {
                 applicationButtonForApprovedOrShortfallApplication) && (
                 <button
                   onClick={() => setOpenApplication(true)}
-                  className={`btn btn-sm text-xs ${gradientColor} transition-all duration-700 text-white dark:border-none`}
+                  className={`btn btn-sm text-xs nm_Container bg-normalViolet hover:text-[#510BC4] transition-all duration-700 text-white dark:border-none`}
                 >
                   <HiOutlineClipboardDocumentList className="text-lg" />{" "}
                   <span>Application</span>
@@ -234,7 +234,7 @@ const DraftApplication = () => {
                     <span
                       className={`${btnClass} ${completeBtn(
                         index
-                      )} w-[300px] lg:w-fit text-sm `}
+                      )} w-[300px] lg:w-fit text-sm border-0 nm_Container `}
                     >
                       {role !== "PS" && icons[index]}
                       {step}
