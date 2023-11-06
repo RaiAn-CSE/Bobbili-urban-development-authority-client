@@ -236,7 +236,7 @@ const ShowCharts = () => {
     <>
       <form className="flex justify-around items-center font-sans my-16 z-[10]">
         {/* district  */}
-        <div className="basis-1/5 z-[10]">
+        <div className="nm_Container  basis-1/5 z-[10] bg-bgColor p-3">
           <label
             htmlFor="district"
             className="block mb-2 text-base font-bold text-gray-900"
@@ -264,7 +264,7 @@ const ShowCharts = () => {
 
         {/* mandal */}
 
-        <div className="basis-1/5 z-[10]">
+        <div className="nm_Container basis-1/5 z-[10] bg-bgColor p-3">
           <label
             htmlFor="mandal"
             className="block mb-2 text-base font-bold text-gray-900"
@@ -291,7 +291,7 @@ const ShowCharts = () => {
           </select>
         </div>
         {/* gram panchayat  */}
-        <div className="basis-1/5 z-[10]">
+        <div className="nm_Container basis-1/5 z-[10] bg-bgColor p-3">
           <label
             htmlFor="panchayat"
             className="block mb-2 text-base font-bold text-gray-900"
@@ -316,7 +316,7 @@ const ShowCharts = () => {
 
         {/* week month year filter  */}
         {!path.includes("/statistics") && (
-          <div className="basis-1/5 z-[10]">
+          <div className="basis-1/5 z-[10] bg-bgColor p-3">
             <label
               htmlFor="date"
               className="block mb-2 text-base font-bold text-gray-900"
@@ -344,11 +344,11 @@ const ShowCharts = () => {
         )}
       </form>
       <div className="flex justify-between items-center p-0 dark:text-white z-[10]">
-        <div className="w-[45%] overflow-hidden z-[10]">
+        <div className="nm_Container bg-bgColor w-[45%] overflow-hidden z-[10] p-8">
           {serverData?.length !== 0 && <BarChart chartData={chartData} />}
         </div>
 
-        <div className="w-[45%] overflow-hidden z-[10]">
+        <div className="nm_Container bg-bgColor w-[45%] overflow-hidden z-[10] p-8">
           {serverData?.length !== 0 && <PieChart chartData={chartData} />}
         </div>
       </div>

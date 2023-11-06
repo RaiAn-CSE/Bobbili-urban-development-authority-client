@@ -54,9 +54,9 @@ const BarChart = ({ chartData }) => {
               title: {
                 display: true,
                 text: "Application type",
-                color: "#911",
+                color: "#1f1132",
                 font: {
-                  family: "Comic Sans MS",
+                  family: "Roboto Condensed, sans-serif",
                   size: 20,
                   weight: "bold",
                   lineHeight: 1.2,
@@ -67,7 +67,7 @@ const BarChart = ({ chartData }) => {
             y: {
               display: true,
               title: {
-                display: true,
+                display: false,
                 text: "Value",
                 color: "#191",
                 font: {

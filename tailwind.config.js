@@ -11,6 +11,7 @@ export default {
         violetDark: "#6a39a1",
         normalViolet: "#8B5BF6",
         black: "#1f1132",
+        bgColor: "#E8EAEC",
       },
       fontFamily: {
         sofadi: ["Sofadi One", "cursive"],
