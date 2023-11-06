@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
-import UserImg from "../../assets/images//user.png";
+import UserImg from "../../assets/images//man.png";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { FiSun } from "react-icons/fi";
 import { MdOutlineDarkMode } from "react-icons/md";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { useForm } from "react-hook-form";
-import userAvatar from "../../assets/images/user1.png";
+import userAvatar from "../../assets/images/man.png";
 import useGetUser from "../CustomHook/useGetUser";
 import toast from "react-hot-toast";
 import { useQueryClient } from "react-query";
@@ -87,11 +87,11 @@ const Navbar = () => {
   const user = JSON.parse(localStorage.getItem("loggedUser"));
 
   return (
-    <div className="navbar bg-base-100 sticky top-0 z-50 shadow-md dark:bg-white">
+    <div className="navbar nm_Container sticky top-0 z-50 shadow-md bg-bgColor">
       <div className="flex-1 ">
         <Link to="/dashboard" className="font-bold normal-case text-xl">
           {/* <img className="h-full" src={Logo} alt="The logo of the website" /> */}
-          <p className="hidden lg:block font-sofadi">
+          <p className="hidden lg:block css-3d-text font-sofadi">
             Bobbili Urban Development Authority
           </p>
         </Link>
@@ -99,20 +99,22 @@ const Navbar = () => {
 
       <div className="me-3 flex flex-col font-roboto">
         <p className="font-semibold md:text-lg text-black">{user?.name}</p>
-        <small className="font-medium md:text-base">({user?.role})</small>
+        <small className="font-medium md:text-base text-[#9FA4A6]">
+          ({user?.role})
+        </small>
       </div>
       <div className="dropdown dropdown-end me-5 ">
         <label
           tabIndex={0}
           className="btn btn-ghost btn-circle avatar shadow-sm"
         >
-          <div className="w-10 rounded-full">
+          <div className="nm_Container w-10 rounded-full">
             <img src={UserImg} alt="An image of user icon" />
           </div>
         </label>
         <ul
           tabIndex={0}
-          className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 dark:bg-black "
+          className="nm_Container bg-bgColor menu menu-sm dropdown-content mt-3 z-[1] p-2 rounded-box w-52"
         >
           <li>
             <Link
@@ -120,7 +122,6 @@ const Navbar = () => {
               to="/dashboard/profile"
             >
               Profile
-              <span className="badge">New</span>
             </Link>
           </li>
           <li>
