@@ -49,7 +49,7 @@ const Drawing = () => {
       if (Object.keys(res?.drawing).length) {
         const drawingDataFromDB = res?.drawing;
         setApprovedConfirmation(res?.psDrawingPageObservation.approved);
-        setRecommendationMessage(res?.psDrawingPageObservation.message)
+        setRecommendationMessage(res?.psDrawingPageObservation.message);
         setImageId(drawingDataFromDB);
       }
     });
@@ -150,8 +150,7 @@ const Drawing = () => {
         applicationNo,
         drawing,
         approved: approvedConfirmation,
-        message: recomendationMessage
-
+        message: recomendationMessage,
       });
     }
   };
@@ -256,7 +255,7 @@ const Drawing = () => {
                   type="file"
                   accept=".dwg, .zip, .pdf, .png, .jpg"
                   onChange={(event) => handleFileChange(event, "AutoCAD")}
-                  className="file-input file-input-bordered file-input-md w-full max-w-xs text-gray-400"
+                  className="file-input file-input-bordered file-input-md w-full max-w-xs text-gray-400 bg-white dark:text-black"
                 />
               </label>
             )}
@@ -282,7 +281,7 @@ const Drawing = () => {
                   type="file"
                   accept=".dwg, .zip, .pdf,.png,.jpg"
                   onChange={(event) => handleFileChange(event, "Drawing")}
-                  className="file-input file-input-bordered file-input-md w-full max-w-xs text-gray-400"
+                  className="file-input file-input-bordered file-input-md w-full max-w-xs text-gray-400 bg-white dark:text-black"
                 />
               </label>
             )}
@@ -298,7 +297,9 @@ const Drawing = () => {
             )}
           </div>
           {role === "LTP" && (
-            <p className="text-red-500 mt-2 text-sm">Note: Upload A3 file</p>
+            <p className="text-red-500 mt-2 font-bold text-sm">
+              Note: Upload A3 file
+            </p>
           )}
         </div>
       </form>

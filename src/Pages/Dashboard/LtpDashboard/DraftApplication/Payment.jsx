@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import InputField from "../../../Components/InputField";
 import { GiMoneyStack } from "react-icons/gi";
+import { FaCcAmazonPay, FaMoneyCheckAlt, FaWallet } from "react-icons/fa";
 import UDAChargeImg from "../../../../assets/images/mobile-transfer.png";
 import GramChargeImg from "../../../../assets/images/pay-per-click.png";
 import LabourChargeImg from "../../../../assets/images/payment-method.png";
@@ -11,7 +12,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import SaveData from "./SaveData";
 import { Link } from "react-router-dom";
-import { MdReceiptLong } from "react-icons/md";
+import { MdOutlinePayments, MdReceiptLong } from "react-icons/md";
 import Application from "./Application";
 import Modal from "./Modal";
 
@@ -87,7 +88,7 @@ const Payment = () => {
         generalInformation?.natureOfTheSite === "Approved Layout" ||
         generalInformation?.natureOfTheSite === "Regularised under LRS" ||
         generalInformation?.natureOfTheSite ===
-        "Congested/ Gramakanta/ Old Built-up area" ||
+          "Congested/ Gramakanta/ Old Built-up area" ||
         generalInformation?.natureOfTheSite === "Newly Developed/ Built up area"
       ) {
         setCondition(1);
@@ -281,9 +282,9 @@ const Payment = () => {
     const labourCessComponentUnitRate1 = 1400; // per Sq.ft.
     const labourCessCompo1Charged = Math.round(
       labourCessComponentUnitRate1 *
-      BuiltUp_area_SquareFeet *
-      10.76 *
-      (0.01 * 0.98)
+        BuiltUp_area_SquareFeet *
+        10.76 *
+        (0.01 * 0.98)
     );
 
     setCalculatedData({
@@ -503,12 +504,13 @@ const Payment = () => {
       >
         <div>
           <div className="flex items-center">
-            <img
+            {/* <img
               src={UDAChargeImg}
               alt="Image icon for uda charge section"
               className="h-10 me-3"
-            />
-            <h3 className="font-bold text-xl text-gray-900">UDA Charge</h3>
+            /> */}
+            <FaCcAmazonPay size={30} className="text-normalViolet" />
+            <h3 className="font-bold text-xl text-gray-900 ml-3">UDA Charge</h3>
           </div>
           <div className="divider m-0"></div>
 
@@ -568,7 +570,7 @@ const Payment = () => {
             {role === "LTP" && (
               <div>
                 <button
-                  className={`btn btn-md text-sm px-3 mt-10 ml-3 border-none text-white shadow-md transition-all duration-500 ${gradientColor}`}
+                  className={`btn btn-md text-sm px-3 mt-10 ml-3 border-none text-white shadow-md transition-all duration-500 nm_Container bg-normalViolet dark:bg-normalViolet hover:bg-normalViolet}`}
                 >
                   <GiMoneyStack size={25} /> pay now
                 </button>
@@ -700,12 +702,14 @@ const Payment = () => {
 
         <div className="my-5">
           <div className="flex items-center">
-            <img
+            {/* <img
               src={GramChargeImg}
               alt="Image icon for Grama Panchayat fee section"
               className="h-10 me-3"
-            />
-            <h3 className="font-bold text-xl text-gray-900">
+            /> */}
+
+            <MdOutlinePayments size={30} className="text-normalViolet" />
+            <h3 className="font-bold text-xl text-gray-900 ml-3">
               Grama Panchayat fee
             </h3>
           </div>
@@ -807,7 +811,7 @@ const Payment = () => {
               {role === "LTP" && (
                 <input
                   type="file"
-                  className="file-input file-input-bordered w-full max-w-xs text-gray-400"
+                  className="file-input file-input-bordered w-full max-w-xs text-gray-400 bg-white dark:text-black"
                   id="gramaBankReceipt"
                   onChange={(e) => handleFileChange(e, "gramaBankReceipt")}
                 />
@@ -828,12 +832,14 @@ const Payment = () => {
 
         <div>
           <div className="flex items-center">
-            <img
+            {/* <img
               src={LabourChargeImg}
               alt="Image icon for labour charge section"
               className="h-10 me-3"
-            />
-            <h3 className="font-bold text-xl text-gray-900">
+            /> */}
+
+            <FaMoneyCheckAlt size={30} className="text-normalViolet" />
+            <h3 className="font-bold text-xl text-gray-900 ml-3">
               Labour cess charge
             </h3>
           </div>
@@ -900,7 +906,7 @@ const Payment = () => {
               {role === "LTP" && (
                 <input
                   type="file"
-                  className="file-input file-input-bordered w-full max-w-xs text-gray-400"
+                  className="file-input file-input-bordered w-full max-w-xs text-gray-400 bg-white dark:text-black"
                   id="labourCessBankReceipt"
                   onChange={(e) => handleFileChange(e, "labourCessBankReceipt")}
                 />
@@ -909,27 +915,28 @@ const Payment = () => {
 
             {applicationData?.payment?.labourCessCharge
               ?.labourCessBankReceipt && (
-                <Link
-                  to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
-                  target="_blank"
-                  className="flex justify-center items-center ms-10 px-6 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
-                >
-                  <MdReceiptLong className="me-1" />
-                  View Challan
-                </Link>
-              )}
+              <Link
+                to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
+                target="_blank"
+                className="flex justify-center items-center ms-10 px-6 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
+              >
+                <MdReceiptLong className="me-1" />
+                View Challan
+              </Link>
+            )}
           </div>
         </div>
 
         {/* Green fee charge  */}
         <div className="mt-5 mb-8">
           <div className="flex items-center">
-            <img
+            {/* <img
               src={GreenChargeImg}
               alt="Image icon for green charge section"
               className="h-10 me-3"
-            />
-            <h3 className="font-bold text-xl text-gray-900">
+            /> */}
+            <FaWallet size={30} className="text-normalViolet" />
+            <h3 className="font-bold text-xl text-gray-900 ml-3">
               Green fee charge
             </h3>
           </div>
@@ -998,7 +1005,7 @@ const Payment = () => {
             {role === "LTP" && (
               <input
                 type="file"
-                className="file-input file-input-bordered w-full max-w-xs text-gray-400"
+                className="file-input file-input-bordered w-full max-w-xs text-gray-400 bg-white dark:text-black"
                 id="greenFeeBankReceipt"
                 onChange={(e) => handleFileChange(e, "greenFeeBankReceipt")}
               />
