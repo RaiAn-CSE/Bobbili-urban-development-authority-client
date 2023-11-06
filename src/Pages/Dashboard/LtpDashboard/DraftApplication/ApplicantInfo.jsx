@@ -7,6 +7,8 @@ import { useOutletContext } from "react-router";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import SaveData from "./SaveData";
 import useGetUser from "../../../CustomHook/useGetUser";
+import { BiSolidUserDetail } from "react-icons/bi";
+import { FaBuildingUser } from "react-icons/fa6";
 
 const ApplicantInfo = () => {
   const stepperData = useOutletContext();
@@ -179,12 +181,8 @@ const ApplicantInfo = () => {
       {/* LTP’s Details  */}
       <div className="divide-y-2 divide-gray-200 mb-[60px]">
         <div className="flex items-center">
-          <img
-            src={LTPImg}
-            alt="Image icon for the LTP detail section"
-            className="h-10 me-3"
-          />
-          <h3 className="font-bold text-xl">LTP’s Details</h3>
+          <BiSolidUserDetail size={30} className="text-normalViolet" />
+          <h3 className="font-bold text-xl ml-3">LTP’s Details</h3>
         </div>
 
         <div className="lg:flex mt-2">
@@ -273,12 +271,13 @@ const ApplicantInfo = () => {
       {/* Owner’s Details  */}
       <div className="divide-y-2 divide-gray-200">
         <div className="flex items-center">
-          <img
+          {/* <img
             src={OwnerImg}
             alt="An icon of the applicant section"
             className="h-10 me-3"
-          />
-          <h3 className="font-bold text-xl">Owner’s Details</h3>
+          /> */}
+          <FaBuildingUser size={30} className="text-normalViolet" />
+          <h3 className="font-bold text-xl ml-3">Owner’s Details</h3>
         </div>
         {/* <div className="divider m-0"></div> */}
 

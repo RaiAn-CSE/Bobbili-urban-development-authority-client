@@ -28,7 +28,7 @@ const OwnerDetail = ({
 
   return (
     <div>
-      <p className="text-xl font-bold mt-5">{`${ownerSerial[index]} Owner Details :`}</p>
+      <p className="text-xl font-bold mt-5">{`${ownerSerial[index]} Person:`}</p>
       <div className="lg:flex">
         <div className="basis-[75%] grid grid-cols-2 lg:grid-cols-3">
           <InputField
@@ -64,10 +64,7 @@ const OwnerDetail = ({
           />
 
           <div className="my-4 mx-3">
-            <label
-              htmlFor="ltpPhoneNo"
-              className={labelClass}
-            >
+            <label htmlFor="ltpPhoneNo" className={labelClass}>
               Phone no.
             </label>
             <input
