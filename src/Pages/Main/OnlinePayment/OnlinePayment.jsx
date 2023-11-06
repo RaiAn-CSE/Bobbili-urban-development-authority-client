@@ -49,7 +49,7 @@ const OnlinePayment = () => {
 
   console.log(filteredData, "FILTERED DATA");
   return (
-    <div className="h-full font-lg w-full px-4 mt-5 font-roboto">
+    <div className="h-full font-lg w-full px-4 mt-5 font-roboto bg-[#E8EAEC]">
       <div className={HomeCss.searchInputContainer}>
         <input
           placeholder="Application no. or owner name"
@@ -62,7 +62,7 @@ const OnlinePayment = () => {
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
-          className={HomeCss.searchIcon}
+          className={`${HomeCss.searchIcon} nm_Container`}
         >
           <g strokeWidth="0" id="SVGRepo_bgCarrier"></g>
           <g

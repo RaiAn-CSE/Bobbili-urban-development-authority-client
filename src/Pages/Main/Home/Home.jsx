@@ -19,7 +19,7 @@ const Home = () => {
       <Link
         to="/"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm border-b border-gray-200 rounded-t-lg ${hoverGradientColor} ${
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-base border-b border-gray-200 rounded-t-lg ${hoverGradientColor} ${
           path.length === 1 && path.includes("/") ? active : ""
         }`}
       >
@@ -28,7 +28,7 @@ const Home = () => {
       <Link
         to="/onlinePayment"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm border-b border-gray-200  ${hoverGradientColor} ${
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-base border-b border-gray-200  ${hoverGradientColor} ${
           path.includes("onlinePayment") ? active : ""
         }`}
       >
@@ -37,7 +37,7 @@ const Home = () => {
       <Link
         to="/listOfLTP"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm  border-b border-gray-200 ${hoverGradientColor} ${
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-base  border-b border-gray-200 ${hoverGradientColor} ${
           path.includes("listOfLTP") ? active : ""
         }`}
       >
@@ -46,7 +46,7 @@ const Home = () => {
       <Link
         to="/demoVideos"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm border-b ${hoverGradientColor} ${
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-base border-b ${hoverGradientColor} ${
           path.includes("demoVideos") ? active : ""
         }`}
       >
@@ -55,7 +55,7 @@ const Home = () => {
       <Link
         to="/privacyPolicy"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm  border-b ${hoverGradientColor} ${
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-base  border-b ${hoverGradientColor} ${
           path.includes("privacyPolicy") ? active : ""
         }`}
       >
@@ -64,7 +64,7 @@ const Home = () => {
       <Link
         to="/defaultDrawingFormat"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-sm border-b ${hoverGradientColor} ${
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-base border-b ${hoverGradientColor} ${
           path.includes("defaultDrawingFormat") ? active : ""
         }`}
       >
@@ -72,7 +72,7 @@ const Home = () => {
       </Link>
       <Link
         type="button"
-        className="relative inline-flex items-center w-full h-full px-4 py-2 text-sm font-medium rounded-b-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white"
+        className="relative inline-flex items-center w-full h-full px-4 py-2 text-base font-medium rounded-b-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white"
       >
         Menu Item
       </Link>

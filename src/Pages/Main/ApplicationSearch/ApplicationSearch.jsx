@@ -57,8 +57,8 @@ const ApplicationSearch = () => {
   const titleClass = "basis-[50%] text-lg pl-3 font-semibold text-gray-900";
 
   return (
-    <div className=" h-full font-roboto w-full px-4 bg-[#E8EAEC]">
-      <div className={`${HomeCss.searchInputContainer} mt-6`}>
+    <div className=" h-full font-roboto w-full px-4 mt-5 bg-[#E8EAEC]">
+      <div className={`${HomeCss.searchInputContainer} `}>
         <input
           placeholder="Application no. or owner name"
           className={`${HomeCss.searchInput} text-gray-900 focus:border-violet-500 focus:outline-none focus:ring-2 ring-violet-100`}
@@ -121,7 +121,7 @@ const ApplicationSearch = () => {
       </form> */}
 
       {/* Location details  */}
-      <div className=" divide-y-2 divide-gray-200 mt-9">
+      <div className=" divide-y-2 divide-gray-200 mt-7">
         <div className="flex mb-1">
           <h3 className={titleClass}>Location details</h3>
           <h3 className={titleClass}>Building info</h3>
