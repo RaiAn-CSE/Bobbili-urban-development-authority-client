@@ -245,16 +245,20 @@ const ShowCharts = () => {
           </label>
           <select
             id="district"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            className="nm_Inset bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             defaultValue={selectedDistrict}
             onChange={(e) => detectSelectOfDistrict(e)}
           >
-            <option value="" disabled>
+            <option className="text-base" value="" disabled>
               Select an option
             </option>
             {allDistricts.map((eachDistrict) => {
               return (
-                <option key={eachDistrict} value={eachDistrict}>
+                <option
+                  className="text-base"
+                  key={eachDistrict}
+                  value={eachDistrict}
+                >
                   {eachDistrict}
                 </option>
               );
@@ -273,17 +277,21 @@ const ShowCharts = () => {
           </label>
           <select
             id="mandal"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            className="nm_Inset bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             defaultValue={selectedMandal}
             onChange={(e) => detectChangeOfMandals(e)}
             disabled={allMandal?.length === 0}
           >
-            <option value="" disabled>
+            <option className="text-base" value="" disabled>
               Select an option
             </option>
             {allMandal?.map((eachMandal, index) => {
               return (
-                <option key={index} value={eachMandal?.name}>
+                <option
+                  className="text-base"
+                  key={index}
+                  value={eachMandal?.name}
+                >
                   {eachMandal?.name}
                 </option>
               );
@@ -300,16 +308,20 @@ const ShowCharts = () => {
           </label>
           <select
             id="panchayat"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            className="nm_Inset bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             defaultValue={selectedPanchayat}
             disabled={allPanchayat?.length === 0}
             onChange={(e) => detectChangeOfPanchayat(e)}
           >
-            <option value="" disabled>
+            <option className="text-base" value="" disabled>
               Select an option
             </option>
             {allPanchayat?.map((eachPanchayt, index) => {
-              return <option key={index}>{eachPanchayt}</option>;
+              return (
+                <option className="text-base" key={index}>
+                  {eachPanchayt}
+                </option>
+              );
             })}
           </select>
         </div>
@@ -325,20 +337,29 @@ const ShowCharts = () => {
             </label>
             <select
               id="date"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              className="nm_Inset bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               defaultValue={selectedDate}
               disabled={selectedPanchayat?.length === 0}
               onChange={(e) => detectChangeOfDate(e)}
             >
-              <option value="" disabled>
+              <option className="text-base" value="" disabled>
                 Select an option
               </option>
-              <option value="7 days">1 week</option>
-              <option value="1 months" className={`${!isLtpOrPs && "hidden"}`}>
+              <option className="text-base" value="7 days">
+                1 week
+              </option>
+              <option
+                value="1 months"
+                className={`${!isLtpOrPs && "hidden text-base"}`}
+              >
                 1 months
               </option>
-              <option value="6 months">6 months</option>
-              <option value="1 year">1 year</option>
+              <option className="text-base" value="6 months">
+                6 months
+              </option>
+              <option className="text-base" value="1 year">
+                1 year
+              </option>
             </select>
           </div>
         )}

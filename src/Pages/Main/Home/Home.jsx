@@ -87,7 +87,7 @@ const Home = () => {
 
       {/* Scrollable content */}
       <div
-        className={`${customScroll.customScrolling} nm_Container h-[400px]   rounded-lg mx-4 z-[10] flex items-center bg-[#E8EAEC]`}
+        className={`${customScroll.customScrolling} nm_Container h-[400px] rounded-lg mx-4 z-[10] flex items-center bg-[#E8EAEC]`}
       >
         <Outlet />
       </div>

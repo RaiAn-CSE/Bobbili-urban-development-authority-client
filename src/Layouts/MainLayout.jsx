@@ -71,7 +71,7 @@ const MainLayout = () => {
           <div className="basis-[20%] z-[10] flex justify-end items-center space-x-6 dark:text-black">
             <Link
               to="/"
-              className={`w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center  ${
+              className={`nm_Container w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center  ${
                 path === "/" ||
                 path === "/onlinePayment" ||
                 path === "/listOfLTP" ||
@@ -86,7 +86,7 @@ const MainLayout = () => {
             </Link>
             <Link
               to="/statistics"
-              className={`w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center ${
+              className={`nm_Container w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center ${
                 path.includes("/statistics") ? active : ` ${notActive}`
               }`}
             >

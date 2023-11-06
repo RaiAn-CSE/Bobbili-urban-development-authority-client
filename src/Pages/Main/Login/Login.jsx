@@ -266,13 +266,13 @@ const Login = () => {
           </form>
         </div>
       </div>
-      <div className=" absolute bottom-[2%] right-[2%] w-[15vw] h-[15vw] md:w-[12vw] md:h-[12vw] lg:w-[5vw] lg:h-[5vw] rounded-full cursor-pointer">
+      {/* <div className=" absolute bottom-[2%] right-[2%] w-[15vw] h-[15vw] md:w-[12vw] md:h-[12vw] lg:w-[5vw] lg:h-[5vw] rounded-full cursor-pointer">
         <img
           className="object-cover"
           src={SupportIcon}
           alt="Customer support icon"
         />
-      </div>
+      </div> */}
     </div>
   );
 };
