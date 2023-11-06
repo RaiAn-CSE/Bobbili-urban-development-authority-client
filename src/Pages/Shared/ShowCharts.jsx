@@ -328,7 +328,7 @@ const ShowCharts = () => {
 
         {/* week month year filter  */}
         {!path.includes("/statistics") && (
-          <div className="basis-1/5 z-[10] bg-bgColor p-3">
+          <div className="nm_Container basis-1/5 z-[10] bg-bgColor p-3">
             <label
               htmlFor="date"
               className="block mb-2 text-base font-bold text-gray-900"
@@ -364,8 +364,12 @@ const ShowCharts = () => {
           </div>
         )}
       </form>
-      <div className="flex justify-between items-center p-0 dark:text-white z-[10]">
-        <div className="nm_Container bg-bgColor w-[45%] overflow-hidden z-[10] p-8">
+      <div
+        className={`${
+          path.includes("/dashboard") && "px-4"
+        } flex justify-between items-center p-0 dark:text-white z-[10]`}
+      >
+        <div className="nm_Container bg-bgColor w-[45%]  overflow-hidden z-[10] p-8">
           {serverData?.length !== 0 && <BarChart chartData={chartData} />}
         </div>
 

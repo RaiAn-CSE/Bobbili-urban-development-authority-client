@@ -15,7 +15,7 @@ const DashboardLayout = () => {
     "dark:bg-gradient-to-b dark:from-violet-500 dark:to-fuchsia-500";
 
   return (
-    <>
+    <div className="bg-bgColor">
       <Navbar />
       <div className="drawer dark:bg-grad lg:drawer-open min-h-[calc(100vh-69px)] relative transition-all duration-700">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle " />
@@ -54,7 +54,7 @@ const DashboardLayout = () => {
           </ul>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
