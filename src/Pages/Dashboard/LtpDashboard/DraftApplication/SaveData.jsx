@@ -16,7 +16,7 @@ const SaveData = ({
   refetch,
 }) => {
   let btnClass =
-    "btn btn-md text-[#000000] hover:text-[#fff] rounded-lg transition-all duration-500 cursor-pointer hover:bg-emerald-400";
+    "btn btn-md text-[#000000] hover:text-[#fff] rounded-lg transition-all duration-500 cursor-pointer hover:bg-[#510BC4]";
 
   // console.log(collectInputFieldData);
   const { userInfoFromLocalStorage, getSubmitApplicationData } =
@@ -90,7 +90,7 @@ const SaveData = ({
           {role === "LTP" &&
             (currentStep !== steps.length - 1 ? (
               <button
-                className={`${btnClass} text-white ${gradientColor} font-roboto shadow-md shadow-violetDark border-none  `}
+                className={`${btnClass} nm_Container text-white bg-normalViolet font-roboto  border-none  `}
                 type="submit"
                 // onClick={() =>
                 //   // currentStep < steps.length - 1 &&

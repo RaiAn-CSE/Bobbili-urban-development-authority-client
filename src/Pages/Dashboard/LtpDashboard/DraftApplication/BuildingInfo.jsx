@@ -1,15 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import InputField from "../../../Components/InputField";
 import { FaHandPointRight } from "react-icons/fa";
+import { HiInformationCircle } from "react-icons/hi";
+import { PiWall } from "react-icons/pi";
 import generalInfoImage from "../../../../assets/images/general-information.png";
 import plotImage from "../../../../assets/images/land.png";
 import wallImage from "../../../../assets/images/gate.png";
 import { useOutletContext, useLocation } from "react-router";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
-// import allDistrictData from "../../../../assets/buildingInfo.json";
 import SaveData from "./SaveData";
 import FloorDetails from "./FloorDetails";
 import { motion, spring } from "framer-motion";
+import { AiOutlineAreaChart } from "react-icons/ai";
 
 const BuildingInfo = () => {
   const stepperData = useOutletContext();
@@ -636,13 +638,15 @@ const BuildingInfo = () => {
 
   return (
     <>
-      <div className="grid my-5 mx-5 lg:my-0 lg:p-2 text-gray-900">
+      <div className="grid my-5 mx-5 lg:my-0  text-gray-900">
         {/* general information */}
-        <div className="divide-y-2 divide-gray-200 mb-10">
+        <div className="nm_Container mt-3 p-2 divide-y-2 divide-gray-200 mb-10">
           {/* heading  */}
           <div className="flex items-center">
-            <img src={generalInfoImage} alt="" className="h-10 me-3" />
-            <h3 className="font-bold text-xl">General Information</h3>
+            <div className=" text-normalViolet">
+              <HiInformationCircle size={25} />
+            </div>
+            <h3 className="font-bold text-xl ml-2">General Information</h3>
           </div>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 mt-2 mb-5">
@@ -985,30 +989,30 @@ const BuildingInfo = () => {
 
             {selectedNatureOfTheSite ===
               "Plot port of RLP/IPLP but not regularised" && (
-                <motion.div
-                  initial={{ x: "-100vw" }}
-                  animate={{ x: 0 }}
-                  transition={{ delay: 0.2, type: "spring", stiffness: 110 }}
-                >
-                  <InputField
-                    id="IplpNo"
-                    name="IplpNo"
-                    label="RLP/IPLP no."
-                    placeholder="RLP/IPLP no."
-                    type="number"
-                    ltpDetails={iplpNo}
-                  />
-                </motion.div>
-              )}
+              <motion.div
+                initial={{ x: "-100vw" }}
+                animate={{ x: 0 }}
+                transition={{ delay: 0.2, type: "spring", stiffness: 110 }}
+              >
+                <InputField
+                  id="IplpNo"
+                  name="IplpNo"
+                  label="RLP/IPLP no."
+                  placeholder="RLP/IPLP no."
+                  type="number"
+                  ltpDetails={iplpNo}
+                />
+              </motion.div>
+            )}
             {/*===================== Conditional Input Field End =====================*/}
           </div>
         </div>
 
         {/* plot details  */}
-        <div className="divide-y-2 divide-gray-200 mb-10">
+        <div className="nm_Container mt-3 p-2 divide-y-2 divide-gray-200 mb-10">
           <div className="flex items-center">
-            <img src={plotImage} alt="" className="h-10 me-3" />
-            <h3 className="font-bold text-xl">Plot Details</h3>
+            <AiOutlineAreaChart size={30} className="text-normalViolet" />
+            <h3 className="font-bold text-xl ml-2">Plot Details</h3>
           </div>
 
           <div className="mt-2">
@@ -1428,10 +1432,10 @@ const BuildingInfo = () => {
         </div>
 
         {/* schedule boundaries  */}
-        <div className="divide-y-2 divide-gray-200">
+        <div className="nm_Container mt-3 p-2 divide-y-2 divide-gray-200">
           <div className="flex items-center">
-            <img src={wallImage} alt="A image of wall" className="h-8 me-3" />
-            <h3 className="font-bold text-xl">Schedule of Boundaries</h3>
+            <PiWall size={30} className="text-normalViolet" />
+            <h3 className="font-bold text-xl ml-3">Schedule of Boundaries</h3>
           </div>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 items-center mt-2">

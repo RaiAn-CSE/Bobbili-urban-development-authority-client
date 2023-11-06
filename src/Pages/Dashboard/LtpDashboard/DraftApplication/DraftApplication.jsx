@@ -113,9 +113,9 @@ const DraftApplication = () => {
   };
   const completeBtn = (index) => {
     if (index === currentStep) {
-      return `nm_Container bg-normalViolet text-white shadow-sm shadow-black border-0 `;
+      return `nm_Container bg-normalViolet text-white border-0 `;
     } else if (index < currentStep) {
-      return `nm_Container bg-normalViolet text-white shadow-md shadow-black border-0 `;
+      return `nm_Container bg-normalViolet text-white border-0 `;
     }
   };
 
@@ -156,7 +156,7 @@ const DraftApplication = () => {
         <>
           <div className="flex justify-between items-center mx-5">
             <p
-              className={`nm_Container p-2 my-8 font-roboto font-semibold text-xl ${gradientColor} text-transparent bg-clip-text`}
+              className={`nm_Container p-2 my-8 font-roboto font-semibold text-lg ${gradientColor} text-transparent bg-clip-text`}
             >
               <span className="text-black">Application No:</span>{" "}
               {applicationNo}
