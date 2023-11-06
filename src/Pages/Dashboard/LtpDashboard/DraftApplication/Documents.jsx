@@ -12,30 +12,52 @@ import DynamicDocument from "./DynamicDocument";
 import PsDocument from "./PsDocument";
 
 const DocumentUpload = () => {
-  const [UpdatedDefaultData, setUpdatedDefaultData] = useState([...DefaultDocumentData]);
-  const [DynamicAppChecklistDocument, setDynamicAppChecklistDocument] = useState([]);
+  const [UpdatedDefaultData, setUpdatedDefaultData] = useState([
+    ...DefaultDocumentData,
+  ]);
+  const [DynamicAppChecklistDocument, setDynamicAppChecklistDocument] =
+    useState([]);
   const [UpdatedDynamicData, setUpdatedDynamictData] = useState([]);
-  const [PreviousDefaultDocumentData, setPreviousDefaultDocumentData] = useState([]);
-  const [PreviousDynamicDocumentData, setPreviousDynamicDocumentData] = useState([]);
+  const [PreviousDefaultDocumentData, setPreviousDefaultDocumentData] =
+    useState([]);
+  const [PreviousDynamicDocumentData, setPreviousDynamicDocumentData] =
+    useState([]);
 
   const [imageId, setImageId] = useState({});
   const [approvedConfirmation, setApprovedConfirmation] = useState("");
   const [recomendationMessage, setRecommendationMessage] = useState("");
   const stepperData = useOutletContext();
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
-  const [psSendingDocument, setPsSendingDocument] = useState({ dynamic: [], default: [] });
-  const [sendingDocument, setSendingDocument] = useState({ dynamic: [], default: [] });
+  const [psSendingDocument, setPsSendingDocument] = useState({
+    dynamic: [],
+    default: [],
+  });
+  const [sendingDocument, setSendingDocument] = useState({
+    dynamic: [],
+    default: [],
+  });
   const [defaultData, setDefaultData] = useState([]);
   const [dynamicData, setDynamicData] = useState([]);
-  const { confirmAlert, sendUserDataIntoDB, getApplicationData, userInfoFromLocalStorage } = useContext(AuthContext);
+  const {
+    confirmAlert,
+    sendUserDataIntoDB,
+    getApplicationData,
+    userInfoFromLocalStorage,
+  } = useContext(AuthContext);
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
   const cameFrom = JSON.parse(localStorage.getItem("page"));
   const role = userInfoFromLocalStorage().role;
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
   const [defaultImageData, setDefaultImageData] = useState([]);
   const [dynamicImageData, setDynamicImageData] = useState([]);
-  const [sendingImageId, setSendingImageId] = useState({ dynamic: [], default: [] });
-  const [imageIdFromDB, setImageIdFromDB] = useState({ default: [], dynamic: [] });
+  const [sendingImageId, setSendingImageId] = useState({
+    dynamic: [],
+    default: [],
+  });
+  const [imageIdFromDB, setImageIdFromDB] = useState({
+    default: [],
+    dynamic: [],
+  });
 
   // Ltp File uploading Data handeling
   const handleFileChange = (event, id, uploadedFile, type, uploadId) => {
@@ -88,7 +110,7 @@ const DocumentUpload = () => {
       let updatedDynamicDocumentsToAdd = [];
       const applicationData = await getApplicationData(applicationNo, cameFrom);
       const applicationCheckList = applicationData.applicationCheckList;
-      console.log(applicationCheckList,"Checklist Data")
+      console.log(applicationCheckList, "Checklist Data");
       role === "LTP" &&
         setPreviousDefaultDocumentData(
           applicationData?.document?.data?.default
@@ -131,15 +153,21 @@ const DocumentUpload = () => {
         });
       }
       setDynamicAppChecklistDocument(updatedDynamicDocumentsToAdd);
-      
     };
     gettingData();
   }, []);
 
-  console.log(DynamicAppChecklistDocument,"Dynamic checklist Data")
+  console.log(DynamicAppChecklistDocument, "Dynamic checklist Data");
 
-  console.log({ UpdatedDefaultData }, "Document Page combined Data")
-  console.log({ PreviousDefaultDocumentData, PreviousDynamicDocumentData, approvedConfirmation, recomendationMessage, }, "PS Saved Data"
+  console.log({ UpdatedDefaultData }, "Document Page combined Data");
+  console.log(
+    {
+      PreviousDefaultDocumentData,
+      PreviousDynamicDocumentData,
+      approvedConfirmation,
+      recomendationMessage,
+    },
+    "PS Saved Data"
   );
 
   // file send into the database
@@ -269,7 +297,7 @@ const DocumentUpload = () => {
       psDocumentPageObservation: PSData,
     });
   };
-  toast.success("Rendered")
+  // toast.success("Rendered")
   return (
     <div className="text-black">
       <form
@@ -278,7 +306,7 @@ const DocumentUpload = () => {
         }}
         className="text-black p-4 font-roboto dark:text-black"
       >
-        <div className="w-full text-[17px] px-2 py-5 rounded">
+        <div className="w-full text-[17px] px-2 rounded">
           <DefaultDocument
             role={role}
             PreviousDefaultDocumentData={PreviousDefaultDocumentData}
@@ -288,7 +316,7 @@ const DocumentUpload = () => {
             gradientColor={gradientColor}
             defaultImageFromDB={imageIdFromDB?.default}
             setApprovedConfirmation={setApprovedConfirmation}
-          // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
+            // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
           />
           <DynamicDocument
             role={role}
@@ -301,7 +329,7 @@ const DocumentUpload = () => {
             gradientColor={gradientColor}
             dynamicImageFromDB={imageIdFromDB?.dynamic}
             setApprovedConfirmation={setApprovedConfirmation}
-          // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
+            // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
           />
         </div>
       </form>

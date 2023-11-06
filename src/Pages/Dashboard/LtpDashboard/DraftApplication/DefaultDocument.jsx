@@ -3,42 +3,54 @@ import DefaultDocumentData from "../../../../assets/DefaultDocument.json";
 import PsDocument from "./PsDocument";
 import { Link } from "react-router-dom";
 
-function DefaultDocument({ UpdatedDefaultData, PreviousDefaultDocumentData, setUpdatedDefaultData, role, handleFileChange, gradientColor, defaultImageFromDB }) {
+function DefaultDocument({
+  UpdatedDefaultData,
+  PreviousDefaultDocumentData,
+  setUpdatedDefaultData,
+  role,
+  handleFileChange,
+  gradientColor,
+  defaultImageFromDB,
+}) {
   const [selectedFiles, setSelectedFiles] = useState([]);
-  const [latestUpdatedDefaultData, setLatestUpdatedDefaultData] = useState([...UpdatedDefaultData])
+  const [latestUpdatedDefaultData, setLatestUpdatedDefaultData] = useState([
+    ...UpdatedDefaultData,
+  ]);
 
   // This useEffect runs only on the initial render
   useEffect(() => {
     if (PreviousDefaultDocumentData?.length) {
-      const updatedData = latestUpdatedDefaultData.map(mainItem => {
-        const matchedPrevItem = PreviousDefaultDocumentData?.find(prevItem => prevItem.id === mainItem.id);
+      const updatedData = latestUpdatedDefaultData.map((mainItem) => {
+        const matchedPrevItem = PreviousDefaultDocumentData?.find(
+          (prevItem) => prevItem.id === mainItem.id
+        );
 
         if (matchedPrevItem) {
           return {
             id: mainItem.id,
             question: mainItem.question,
             upload: mainItem.upload,
-            approved: matchedPrevItem.approved
+            approved: matchedPrevItem.approved,
           };
         } else {
-          return mainItem
+          return mainItem;
         }
       });
       // Update the state with the new data
       setLatestUpdatedDefaultData(updatedData);
-      setUpdatedDefaultData(updatedData)
+      setUpdatedDefaultData(updatedData);
     }
   }, [PreviousDefaultDocumentData]);
 
   // This function updates the data with handleDefaultStatus
   const handleDefaultStatus = (data) => {
-    const updatedDocument = latestUpdatedDefaultData.map(item => ({
+    const updatedDocument = latestUpdatedDefaultData.map((item) => ({
       ...item,
-      approved: item.id === data.id ? data.approved : item.approved
+      approved: item.id === data.id ? data.approved : item.approved,
     }));
 
     setLatestUpdatedDefaultData(updatedDocument);
-    setUpdatedDefaultData(updatedDocument)
+    setUpdatedDefaultData(updatedDocument);
   };
 
   useEffect(() => {
@@ -60,7 +72,7 @@ function DefaultDocument({ UpdatedDefaultData, PreviousDefaultDocumentData, setU
           (eachFile, i) => eachFile.id === id
         );
         return (
-          <div key={id} className="w-full px-2 py-5 rounded mb-8">
+          <div key={id} className="w-full px-2  rounded mb-8">
             <p className="pb-4 font-bold">
               {id}. {question}
             </p>
