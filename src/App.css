@@ -135,3 +135,16 @@ table tbody tr:hover {
   letter-spacing: -4px;
   color: #6fb374;
 }
+
+/* select:focus,
+select:valid,
+input:focus,
+input:valid {
+  box-shadow: inset -3px -3px 7px #ffffffb0,
+    inset 3px 3px 5px rgba(94, 104, 121, 0.692);
+} */
+
+/* select,
+input {
+  box-shadow: 4px 4px 8px rgb(189 200 213), -4px -4px 8px rgb(255 255 255);
+} */

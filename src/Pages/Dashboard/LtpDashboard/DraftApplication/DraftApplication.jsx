@@ -166,14 +166,14 @@ const DraftApplication = () => {
               {cameFrom === "approved" && (
                 <>
                   <button
-                    className={`btn btn-sm nm_Container text-xs bg-normalViolet hover:text-[#510BC4] transition-all duration-700 text-white me-5 dark:border-none`}
+                    className={`btn btn-sm nm_Container text-xs bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white me-5 dark:border-none`}
                   >
                     <HiOutlineClipboardDocumentList className="text-lg" />{" "}
                     <span>Proceeding</span>
                   </button>
 
                   <button
-                    className={`btn btn-sm text-xs nm_Container bg-normalViolet hover:text-[#510BC4] transition-all duration-700 text-white me-5 dark:border-none`}
+                    className={`btn btn-sm text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white me-5 dark:border-none`}
                   >
                     <HiOutlineClipboardDocumentList className="text-lg" />{" "}
                     <span>Drawing</span>
@@ -184,7 +184,7 @@ const DraftApplication = () => {
               {cameFrom === "shortfall" && (
                 <>
                   <button
-                    className={`btn btn-sm text-xs nm_Container bg-normalViolet hover:text-[#510BC4] transition-all duration-700 text-white me-5 dark:border-none`}
+                    className={`btn btn-sm text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white me-5  dark:border-none`}
                   >
                     <HiOutlineClipboardDocumentList className="text-lg" />{" "}
                     <span>Resubmit</span>
@@ -194,7 +194,7 @@ const DraftApplication = () => {
                     onClick={() =>
                       document.getElementById("my_modal_2").showModal()
                     }
-                    className={`btn btn-sm me-5 text-xs bg-normalViolet hover:text-[#510BC4] transition-all duration-700 text-white dark:border-none`}
+                    className={`btn btn-sm me-5 text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white dark:border-none`}
                   >
                     <HiOutlineClipboardDocumentList className="text-lg" />{" "}
                     <span className="text-xs uppercase">Endorsement</span>
@@ -206,7 +206,7 @@ const DraftApplication = () => {
                 applicationButtonForApprovedOrShortfallApplication) && (
                 <button
                   onClick={() => setOpenApplication(true)}
-                  className={`btn btn-sm text-xs nm_Container bg-normalViolet hover:text-[#510BC4] transition-all duration-700 text-white dark:border-none`}
+                  className={`btn btn-sm text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white dark:border-none`}
                 >
                   <HiOutlineClipboardDocumentList className="text-lg" />{" "}
                   <span>Application</span>

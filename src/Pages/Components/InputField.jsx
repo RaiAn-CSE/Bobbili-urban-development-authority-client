@@ -7,14 +7,13 @@ const InputField = ({ id, name, placeholder, type, label, ltpDetails }) => {
 
   const { userInfoFromLocalStorage } = useContext(AuthContext);
   const role = userInfoFromLocalStorage().role;
-  const isReadOnly = role === 'PS';
+  const isReadOnly = role === "PS";
+
+  console.log(ltpDetails, "LTP details", id);
 
   return (
     <div className="my-4 mx-3 flex flex-col justify-between">
-      <label
-        htmlFor={id}
-        className="block mb-1 font-semibold text-gray-600"
-      >
+      <label htmlFor={id} className="block mb-1 font-semibold text-gray-600">
         {label}
       </label>
       <input

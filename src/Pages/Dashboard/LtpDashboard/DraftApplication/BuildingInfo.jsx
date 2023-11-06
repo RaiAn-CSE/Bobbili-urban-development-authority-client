@@ -634,7 +634,7 @@ const BuildingInfo = () => {
   // classes for this component:
   const labelClass = "block mb-1 font-semibold text-gray-600";
   const inputClass =
-    "w-full px-3 py-[10px] border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-violet-500 focus:outline-none focus:ring-2 ring-violet-100";
+    "w-full px-3 py-[10px] border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-violet-500 focus:outline-none  ring-violet-100";
 
   return (
     <>
@@ -642,9 +642,9 @@ const BuildingInfo = () => {
         {/* general information */}
         <div className="nm_Container mt-3 p-2 divide-y-2 divide-gray-200 mb-10">
           {/* heading  */}
-          <div className="flex items-center">
+          <div className="pl-2 pt-3 flex items-center">
             <div className=" text-normalViolet">
-              <HiInformationCircle size={25} />
+              <HiInformationCircle size={30} />
             </div>
             <h3 className="font-bold text-xl ml-2">General Information</h3>
           </div>
@@ -1010,7 +1010,7 @@ const BuildingInfo = () => {
 
         {/* plot details  */}
         <div className="nm_Container mt-3 p-2 divide-y-2 divide-gray-200 mb-10">
-          <div className="flex items-center">
+          <div className="pl-2 pt-3 flex items-center">
             <AiOutlineAreaChart size={30} className="text-normalViolet" />
             <h3 className="font-bold text-xl ml-2">Plot Details</h3>
           </div>
@@ -1433,7 +1433,7 @@ const BuildingInfo = () => {
 
         {/* schedule boundaries  */}
         <div className="nm_Container mt-3 p-2 divide-y-2 divide-gray-200">
-          <div className="flex items-center">
+          <div className="pl-2 pt-3 flex items-center">
             <PiWall size={30} className="text-normalViolet" />
             <h3 className="font-bold text-xl ml-3">Schedule of Boundaries</h3>
           </div>
@@ -1445,7 +1445,7 @@ const BuildingInfo = () => {
               </label>
               <select
                 id="north"
-                className={inputClass}
+                className={`${inputClass}`}
                 value={northValue}
                 onChange={handleNorthChange}
                 disabled={isReadOnly}
