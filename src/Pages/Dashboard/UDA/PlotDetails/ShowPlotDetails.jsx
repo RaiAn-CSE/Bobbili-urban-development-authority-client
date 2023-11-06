@@ -95,7 +95,7 @@ const ShowPlotDetails = ({ serialNo, applicationData }) => {
           <span
             aria-hidden
             className={`absolute inset-0  ${
-              (status?.toLowerCase()?.includes("pending") && "bg-orange-200") ||
+              (status?.toLowerCase()?.includes("pending") && "bg-violet-200") ||
               (status?.toLowerCase()?.includes("approved") && "bg-green-200") ||
               (status?.toLowerCase()?.includes("shortfall") &&
                 "bg-[#fad390]") ||
