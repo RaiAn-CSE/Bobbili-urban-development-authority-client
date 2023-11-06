@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import { MdOutlinePayments, MdReceiptLong } from "react-icons/md";
 import Application from "./Application";
 import Modal from "./Modal";
+import { HiCurrencyRupee } from "react-icons/hi2";
 
 const Payment = () => {
   const [openApplication, setOpenApplication] = useState(false);
@@ -935,7 +936,7 @@ const Payment = () => {
               alt="Image icon for green charge section"
               className="h-10 me-3"
             /> */}
-            <FaWallet size={30} className="text-normalViolet" />
+            <HiCurrencyRupee size={30} className="text-normalViolet" />
             <h3 className="font-bold text-xl text-gray-900 ml-3">
               Green fee charge
             </h3>

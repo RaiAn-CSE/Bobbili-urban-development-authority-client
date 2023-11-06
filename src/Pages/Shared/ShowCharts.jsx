@@ -234,7 +234,10 @@ const ShowCharts = () => {
 
   return (
     <>
-      <form className="flex justify-around items-center font-sans my-16 z-[10]">
+      <p className="text-2xl font-bold font-roboto ml-6 mt-5 text-black">
+        Dashboard
+      </p>
+      <form className="flex justify-around items-center font-sans my-8 z-[10]">
         {/* district  */}
         <div className="nm_Container  basis-1/5 z-[10] bg-bgColor p-3">
           <label

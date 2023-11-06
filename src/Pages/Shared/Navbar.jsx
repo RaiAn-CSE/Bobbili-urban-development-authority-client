@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { FiSun } from "react-icons/fi";
 import { MdOutlineDarkMode } from "react-icons/md";
+import { LuSettings } from "react-icons/lu";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { useForm } from "react-hook-form";
 import userAvatar from "../../assets/images/man.png";
@@ -103,13 +104,14 @@ const Navbar = () => {
           ({user?.role})
         </small>
       </div>
-      <div className="dropdown dropdown-end me-5 ">
+      <div className="dropdown dropdown-end me-5">
         <label
           tabIndex={0}
           className="btn btn-ghost btn-circle avatar shadow-sm"
         >
-          <div className="nm_Container w-10 rounded-full">
+          <div className="w-10 flex justify-center items-center rounded-full">
             <img src={UserImg} alt="An image of user icon" />
+            {/* <LuSettings size={30} className="text-black cursor-pointer" /> */}
           </div>
         </label>
         <ul
@@ -118,7 +120,7 @@ const Navbar = () => {
         >
           <li>
             <Link
-              className="justify-between dark:text-white"
+              className="justify-between dark:text-black"
               to="/dashboard/profile"
             >
               Profile
@@ -126,7 +128,7 @@ const Navbar = () => {
           </li>
           <li>
             <a
-              className="dark:text-white"
+              className="dark:text-black"
               onClick={() => handleLogOut(navigate)}
             >
               Logout
