@@ -178,7 +178,7 @@ const AddUser = () => {
   };
   return (
     <div className="mt-10 text-black">
-      <h1 className="text-xl lg:text-3xl text-center font-roboto roboto-bold text-black">
+      <h1 className="text-xl lg:text-3xl text-center font-roboto font-bold text-black">
         Add a New User
       </h1>
 
@@ -456,7 +456,7 @@ const AddUser = () => {
         <div className="flex justify-center my-10">
           <input
             type="submit"
-            className={`text-white ${gradientColor} cursor-pointer font-bold rounded-full text-base  sm:w-auto px-10  py-2.5 text-center`}
+            className={`text-white ${gradientColor} nm_Container cursor-pointer font-bold rounded-full text-base  sm:w-auto px-10  py-2.5 text-center`}
             value="ADD"
           />
         </div>

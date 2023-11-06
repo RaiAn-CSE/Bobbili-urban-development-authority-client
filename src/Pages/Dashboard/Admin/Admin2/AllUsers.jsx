@@ -185,7 +185,7 @@ const AllUsers = () => {
             <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
               <table className="min-w-full leading-normal text-center">
                 {/* head */}
-                <thead className="bg-[#303952]">
+                <thead className="bg-normalViolet">
                   <tr>
                     <th className="p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider">
                       Name

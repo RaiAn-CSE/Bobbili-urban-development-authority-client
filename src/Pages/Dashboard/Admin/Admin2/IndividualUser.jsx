@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 
-import userIcon from "../../../../assets/images/user.png";
+import userIcon from "../../../../assets/images/man.png";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { GrUpdate } from "react-icons/gr";
