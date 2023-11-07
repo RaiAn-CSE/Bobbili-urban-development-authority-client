@@ -18,22 +18,22 @@ const UpdateProfile = () => {
     defaultValues: useMemo(() => {
       console.log("User has changed");
 
-      let keysToKeep;
-      if (role === "LTP") {
-        keysToKeep = ["contactEmail", "address", "adharNo", "phone"];
-      } else {
-        keysToKeep = ["contactEmail", "address", "phone"];
-      }
-      const newObj = {};
+      // let keysToKeep;
+      // if (role === "LTP") {
+      //   keysToKeep = ["contactEmail", "address", "adharNo", "phone"];
+      // } else {
+      //   keysToKeep = ["contactEmail", "address", "phone"];
+      // }
+      // const newObj = {};
 
-      for (const key of keysToKeep) {
-        if (data && key in data) {
-          newObj[key] = data[key];
-        }
-      }
+      // for (const key of keysToKeep) {
+      //   if (data && key in data) {
+      //     newObj[key] = data[key];
+      //   }
+      // }
 
-      console.log(newObj, "NEW OBJ");
-      return { ...newObj };
+      // console.log(newObj, "NEW OBJ");
+      return { ...data };
     }, [data]),
   });
 
@@ -43,68 +43,69 @@ const UpdateProfile = () => {
 
   const onSubmit = (formValue) => {
     console.log(formValue, "Formvalue");
-    let keysToKeep;
-    if (role === "LTP") {
-      keysToKeep = [
-        "department",
-        "townPlaning",
-        "designation",
-        "registrationNo",
-        "qualification",
 
-        "contactEmail",
-        "mobileNo",
-        "phone",
-        "fax",
+    delete formValue["_id"];
+    // let keysToKeep;
+    // if (role === "LTP") {
+    //   keysToKeep = [
+    //     "department",
+    //     "townPlaning",
+    //     "designation",
+    //     "registrationNo",
+    //     "qualification",
 
-        "address",
-        "city",
-        "country",
-        "aadharNo",
-        "state",
-        "zip",
+    //     "contactEmail",
+    //     "mobileNo",
+    //     "phone",
+    //     "fax",
 
-        // "engineer",
-        // "email",
-        // "address",
-        // "adharNo",
-        // "phone"
-      ];
-    } else {
-      keysToKeep = ["contactEmail", "address", "phone"];
-    }
-    const newObj = {};
+    //     "address",
+    //     "city",
+    //     "country",
+    //     "aadharNo",
+    //     "state",
+    //     "zip",
 
-    for (const key of keysToKeep) {
-      if (formValue && key in formValue) {
-        newObj[key] = formValue[key];
-      }
-    }
+    //     // "engineer",
+    //     // "email",
+    //     // "address",
+    //     // "adharNo",
+    //     // "phone"
+    //   ];
+    // } else {
+    //   keysToKeep = ["contactEmail", "address", "phone"];
+    // }
+    // const newObj = {};
 
-    console.log(newObj, "FOrm r value");
-
-    // fetch(
-    //   `http://localhost:5000/updateUserInfo/${userInfoFromLocalStorage()._id}`,
-    //   {
-    //     method: "PATCH",
-    //     headers: { "content-type": "application/json" },
-    //     body: JSON.stringify(newObj),
+    // for (const key of keysToKeep) {
+    //   if (formValue && key in formValue) {
+    //     newObj[key] = formValue[key];
     //   }
-    // )
-    //   .then((res) => res.json())
-    //   .then(async (result) => {
-    //     console.log(result);
-    //     if (result.acknowledged) {
-    //       refetch();
+    // }
 
-    //       toast.success("Update successfully");
-    //     } else {
-    //       toast.error("Failed to update");
-    //     }
-    //   })
-    //   .catch(() => {
-    //     toast.error("Server error");
-    //   });
+    console.log(formValue, "FOrm r value");
+
+    fetch(
+      `http://localhost:5000/updateUserInfo/${userInfoFromLocalStorage()._id}`,
+      {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(formValue),
+      }
+    )
+      .then((res) => res.json())
+      .then(async (result) => {
+        console.log(result);
+        if (result.acknowledged) {
+          refetch();
+          toast.success("Update successfully");
+        } else {
+          toast.error("Failed to update");
+        }
+      })
+      .catch(() => {
+        toast.error("Server error");
+      });
   };
 
   return (

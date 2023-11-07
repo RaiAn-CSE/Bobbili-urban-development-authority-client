@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
+import { FaRegCalendarAlt } from "react-icons/fa";
 
 const AddUser = () => {
   const { register, handleSubmit, resetField } = useForm();
@@ -323,7 +324,7 @@ const AddUser = () => {
             <div>
               <label
                 htmlFor="licenseNo"
-                className="block mb-2 text-base font-bold text-gray-900 dark:text-white"
+                className="block mb-2 text-base font-bold text-gray-900"
               >
                 License No
               </label>
@@ -331,7 +332,7 @@ const AddUser = () => {
                 type="text"
                 {...register("licenseNo", { required: true })}
                 id="licenseNo"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 placeholder="Enter license no"
                 required
               />
@@ -340,7 +341,7 @@ const AddUser = () => {
             <div>
               <label
                 htmlFor="adharNo"
-                className="block mb-2 text-base font-bold '' text-gray-900 dark:text-white"
+                className="block mb-2 text-base font-bold text-gray-900"
               >
                 Adhar no
               </label>
@@ -348,7 +349,7 @@ const AddUser = () => {
                 type="text"
                 {...register("adharNo", { required: true })}
                 id="adharNo"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 placeholder="Enter phone no"
                 required
               />
@@ -356,7 +357,7 @@ const AddUser = () => {
             <div>
               <label
                 htmlFor="validity"
-                className="block mb-2 text-base font-bold '' text-gray-900 dark:text-white"
+                className="block mb-2 text-base font-bold text-gray-900"
               >
                 Validity
               </label>
@@ -364,8 +365,9 @@ const AddUser = () => {
                 type="date"
                 {...register("validity", { required: true })}
                 id="validity"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="bg-violet border border-gray-300 text-black text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-400 dark:text-white"
               />
+              {/* <FaRegCalendarAlt className="absolute bottom-[15%] right-[5%] bg-transparent" /> */}
             </div>
           </div>
         )}

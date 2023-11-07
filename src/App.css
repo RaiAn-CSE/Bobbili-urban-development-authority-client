@@ -209,3 +209,11 @@ input {
   border-color: #8b5bf6;
   /* box-shadow: 0 0 10px #8b5bf6; */
 }
+
+/* date input icon color make black in dark mode  */
+@media (prefers-color-scheme: dark) {
+  input[type="date"] {
+    /* Change the icon color to black */
+    --webkit-calendar-picker-indicator: black;
+  }
+}
