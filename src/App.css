@@ -213,7 +213,7 @@ input {
 
 /* create new application button design  */
 
-.create-application-text {
+/* .create-application-text {
   max-height: 25px;
   max-width: 0px;
   overflow: hidden;
@@ -225,7 +225,7 @@ input {
   max-width: 1000px;
   opacity: 1;
   transition: max-width 6s, opacity 2s;
-}
+} */
 
 .star-btn {
   position: relative;
