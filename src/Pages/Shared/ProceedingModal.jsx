@@ -3,12 +3,6 @@ import customScroll from "../../Style/Scrollbar.module.css";
 
 const ProceedingModal = () => {
 
-    const questionList = [
-        { description: 'How to render list in React?', key: 0 },
-        { description: 'Do you like JS?', key: 1 },
-        { description: 'Do you know CSS?', key: 2 }
-    ];
-
     return (
         <div className='dark:bg-white'>
             <dialog id="proceedingModal" className="modal">
@@ -89,15 +83,79 @@ const ProceedingModal = () => {
                     </p>
                     <p className='mt-3'>ఆంధ్ర ప్రదేశ్ మహానగర ప్రాంతం మరియు పట్టణాభివృద్ధి చట్టము, 2016 నందలి సెక్షన్ 7(1) (హెచ్) అనుసరించి, సూచిక 2 నందు వైస్-చైర్మన్, బొబ్బిలి పట్టణాభివృద్ధి సంస్థ, బొబ్బిలి వారు జారీ చేసిన అధికార బదలాయింపు ఉత్తర్వులను అనుసరించి, సూచిక 3 నందలి ప్రభుత్వ ఉత్తర్వులలో జారీ చేయబడిన భవన నియమాలకు లోబడి, మీరు దరఖాస్తు చేసుకొనిన భవన నిర్మాణ దరఖాస్తును షరతులతో కూడిన అనుమతులు జారీ చేయడం జరుగుతున్నది.</p>
 
-
-
-                    <ol>
-                        {questionList.map(question => {
-                            return (
-                                <li key={question.key}>{question.description}</li>
-                            );
-                        })}
-                    </ol>
+                    <table className='min-w-full'>
+                        <thead className='border border-gray-900 '>
+                            <tr>
+                                <th className='border-r border-neutral-500 p-2 text-center'>A</th>
+                                <th colSpan={4} className='p-2 text-center'>దరఖాస్తు దారులు మరియు ఎల్.టి.పి వివరములు</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className='border border-gray-900'>
+                                <td className='p-2 border-r border-neutral-500 text-center'>1</td>
+                                <td className='p-2 border-r border-neutral-500 text-center'>దరఖాస్తుదారులు</td>
+                                <td colSpan={3} className='text-center'>Owner name</td>
+                            </tr>
+                            <tr className='border border-gray-900'>
+                                <td className='p-2 border-r border-neutral-500 text-center'>2</td>
+                                <td className='p-2 border-r border-neutral-500 text-center'>లైసెన్సుడ్ టెక్నికల్ పర్సన్</td>
+                                <td className='p-2 border-r border-neutral-500 text-center'>Ltp name</td>
+                                <td className='p-2 border-r border-neutral-500 text-center'>లైసెన్స్ నెం</td>
+                                <td className='p-2 border-r border-neutral-500 text-center'>Lic no & validity</td>
+                            </tr>
+                            <tr className='border border-gray-900'>
+                                <th className='p-2 border-r border-neutral-500 text-center'>B</th>
+                                <td colSpan={4} className='border-r border-neutral-500 text-center font-semibold'>స్థల వివరములు</td>
+                            </tr>
+                            <tr className='p-2 border border-gray-900'>
+                                <td className='p-2 border-r border-neutral-500 text-center'>1</td>
+                                <td className='p-2 border-r border-neutral-500 text-center'>సర్వే నెం.</td>
+                                <td colSpan={3} className='p-2 border-r border-neutral-500'>Survey no</td>
+                            </tr>
+                            <tr className='p-2 border border-gray-900'>
+                                <td className='p-2 border-r border-neutral-500 text-center'>2</td>
+                                <td className='p-2 border-r border-neutral-500 text-center'>డోర్ నెం.</td>
+                                <td colSpan={3} className='p-2 border-r border-neutral-500'>Door no</td>
+                            </tr>
+                            <tr className='p-2 border border-gray-900'>
+                                <td className='p-2 border-r border-neutral-500 text-center'>3</td>
+                                <td className='p-2 border-r border-neutral-500 text-center'>ప్లాట్ నెం.</td>
+                                <td colSpan={3} className='p-2 border-r border-neutral-500'>Plot no (confusion)</td>
+                            </tr>
+                            <tr className='p-2 border border-gray-900'>
+                                <td className='p-2 border-r border-neutral-500 text-center'>4</td>
+                                <td className='p-2 border-r border-neutral-500 text-center'>గ్రామము</td>
+                                <td colSpan={3} className='p-2 border-r border-neutral-500'>Village name</td>
+                            </tr>
+                            <tr className='p-2 border border-gray-900'>
+                                <td className='p-2 border-r border-neutral-500 text-center'>5</td>
+                                <td className='p-2 border-r border-neutral-500 text-center'>గ్రామ పంచాయతీ</td>
+                                <td colSpan={3} className='p-2 border-r border-neutral-500'>Grama panchayat name</td>
+                            </tr>
+                            <tr className='p-2 border border-gray-900'>
+                                <td className='p-2 border-r border-neutral-500 text-center'>6</td>
+                                <td className='p-2 border-r border-neutral-500 text-center'>మండలం</td>
+                                <td colSpan={3} className='p-2 border-r border-neutral-500'>Mandal name</td>
+                            </tr>
+                            <tr className='p-2 border border-gray-900'>
+                                <td className='p-2 border-r border-neutral-500 text-center'>7</td>
+                                <td className='p-2 border-r border-neutral-500 text-center'>జిల్లా</td>
+                                <td colSpan={3} className='p-2 border-r border-neutral-500'>District name</td>
+                            </tr>
+                            <tr className='border border-gray-900'>
+                                <th className='p-2 border-r border-neutral-500 text-center'>C</th>
+                                <td colSpan={5} className='border-r border-neutral-500 text-center font-semibold'>అనుమతి వివరములు</td>
+                            </tr>
+                            <tr className='p-2 border border-gray-900'>
+                                <td className='p-2 border-r border-neutral-500 text-center'>1</td>
+                                <td rowSpan={2} className='p-2 border-r border-neutral-500 text-center'>సెట్-బాక్స్ (మీ)</td>
+                                <td className='p-2 border-r border-neutral-500'>ముందు</td>
+                                <td className='p-2 border-r border-neutral-500'>ముందు</td>
+                                <td className='p-2 border-r border-neutral-500'>ముందు</td>
+                                <td className='p-2 border-r border-neutral-500'>ముందు</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
 
                 <form method="dialog" className="modal-backdrop">
