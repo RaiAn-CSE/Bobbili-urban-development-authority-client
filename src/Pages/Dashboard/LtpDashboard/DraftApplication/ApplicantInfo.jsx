@@ -129,6 +129,10 @@ const ApplicantInfo = () => {
   const [isDataGet, setIsDataGet] = useState(0);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     const getData = async () => {
       const applicationData = await getApplicationData(applicationNo, cameFrom);
       const ltpDetailsData = applicationData.applicantInfo.ltpDetails;

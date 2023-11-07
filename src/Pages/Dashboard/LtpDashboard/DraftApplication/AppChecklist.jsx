@@ -32,6 +32,10 @@ function AppChecklist() {
   const cameFrom = JSON.parse(localStorage.getItem("page"));
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     const gettingData = async () => {
       const applicationData = await getApplicationData(applicationNo, cameFrom);
       const applicationCheckList = applicationData.applicationCheckList;

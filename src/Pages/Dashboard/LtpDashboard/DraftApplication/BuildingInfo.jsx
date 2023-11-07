@@ -99,6 +99,10 @@ const BuildingInfo = () => {
     "Second Floor",
   ]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   // const [floorTrack, setFloorTrack] = useState([
   //   "Stilt / Parking Floor",
   //   "Ground Floor",

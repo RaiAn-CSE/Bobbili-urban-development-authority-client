@@ -56,6 +56,10 @@ const Payment = () => {
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     getApplicationData(applicationNo, cameFrom).then((applicationData) => {
       setApplicationData(applicationData);
       const generalInformation =
