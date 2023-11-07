@@ -498,14 +498,14 @@ const BuildingInfo = () => {
       "buildingExcludeStilt"
     ).value;
 
-    const compoundingWallProposed =
-      document.querySelector('input[name="radio-4"]:checked')?.value || "";
+    // const compoundingWallProposed =
+    //   document.querySelector('input[name="radio-4"]:checked')?.value || "";
     // runningMeter
     const runningMeterData = document.getElementById("runningMeter");
     const runningMeter = runningMeterData ? runningMeterData.value : "";
 
-    const siteRegistered =
-      document.querySelector('input[name="radio-5"]:checked')?.value || "";
+    // const siteRegistered =
+    //   document.querySelector('input[name="radio-5"]:checked')?.value || "";
     const north = document.getElementById("north").value; // ==========================<<<(Schedule of Boundaries)>>>:
     const south = document.getElementById("south").value;
     const east = document.getElementById("east").value;
@@ -552,9 +552,9 @@ const BuildingInfo = () => {
       side1Setback,
       side2Setback,
       buildingExcludeStilt,
-      compoundingWallProposed,
+      compoundingWallProposed: radio4,
       runningMeter,
-      siteRegistered,
+      siteRegistered: radio5,
     };
 
     const scheduleBoundaries = {
@@ -1462,7 +1462,7 @@ const BuildingInfo = () => {
                       Compounding wall proposed?
                     </p>
                   </div>
-                  <label className="inline-flex items-center ml-3">
+                  {/* <label className="inline-flex items-center ml-3">
                     <input
                       type="radio"
                       name="radio-4"
@@ -1485,7 +1485,41 @@ const BuildingInfo = () => {
                       disabled={isReadOnly}
                     />
                     <span className="ml-2 text-base">No</span>
-                  </label>
+                  </label> */}
+
+                  <div class="radio-button-container ml-3">
+                    <div class="radio-button">
+                      <input
+                        type="radio"
+                        className="radio-button__input"
+                        id="yesWallProposed"
+                        name="yesWallProposed"
+                        value="yes"
+                        checked={radio4 === "yes"}
+                        onChange={handleRadio4}
+                        disabled={isReadOnly}
+                      />
+                      <label class="radio-button__label" for="yesWallProposed">
+                        <span class="radio-button__custom"></span>
+                        Yes
+                      </label>
+                    </div>
+                    <div class="radio-button">
+                      <input
+                        type="radio"
+                        className="radio-button__input"
+                        id="noWallProposed"
+                        value="no"
+                        checked={radio4 === "no"}
+                        onChange={handleRadio4}
+                        disabled={isReadOnly}
+                      />
+                      <label class="radio-button__label" for="noWallProposed">
+                        <span class="radio-button__custom"></span>
+                        No
+                      </label>
+                    </div>
+                  </div>
                 </div>
                 <div className="basis-[30%]">
                   {radio4 === "yes" ? (
@@ -1518,7 +1552,7 @@ const BuildingInfo = () => {
                     18-01-2006?
                   </p>
                 </div>
-                <label className="inline-flex items-center ml-3">
+                {/* <label className="inline-flex items-center ml-3">
                   <input
                     type="radio"
                     name="radio-5"
@@ -1541,7 +1575,41 @@ const BuildingInfo = () => {
                     disabled={isReadOnly}
                   />
                   <span className="ml-2 text-base">No</span>
-                </label>
+                </label> */}
+
+                <div class="radio-button-container ml-3">
+                  <div class="radio-button">
+                    <input
+                      type="radio"
+                      className="radio-button__input"
+                      id="yesSiteRegistered"
+                      name="yesSiteRegistered"
+                      value="yes"
+                      checked={radio5 === "yes"}
+                      onChange={handleRadio5}
+                      disabled={isReadOnly}
+                    />
+                    <label class="radio-button__label" for="yesSiteRegistered">
+                      <span class="radio-button__custom"></span>
+                      Yes
+                    </label>
+                  </div>
+                  <div class="radio-button">
+                    <input
+                      type="radio"
+                      className="radio-button__input"
+                      id="noSiteRegistered"
+                      value="no"
+                      checked={radio5 === "no"}
+                      onChange={handleRadio5}
+                      disabled={isReadOnly}
+                    />
+                    <label class="radio-button__label" for="noSiteRegistered">
+                      <span class="radio-button__custom"></span>
+                      No
+                    </label>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
