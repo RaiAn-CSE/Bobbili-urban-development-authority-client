@@ -228,7 +228,8 @@ const Payment = () => {
         vacantAreaDevelopmentCharged +
         TotalPenalizationCharged +
         TotalOpenSpaceCharged +
-        TotalLabourCessComp2Charged;
+        TotalLabourCessComp2Charged+
+        userCharged;
       return Math.round(UDATotalCharged);
     };
     // =====UDA Total Charged=====

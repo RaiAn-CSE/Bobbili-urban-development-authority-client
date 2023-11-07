@@ -50,14 +50,8 @@ const DocumentUpload = () => {
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
   const [defaultImageData, setDefaultImageData] = useState([]);
   const [dynamicImageData, setDynamicImageData] = useState([]);
-  const [sendingImageId, setSendingImageId] = useState({
-    dynamic: [],
-    default: [],
-  });
-  const [imageIdFromDB, setImageIdFromDB] = useState({
-    default: [],
-    dynamic: [],
-  });
+  const [sendingImageId, setSendingImageId] = useState({dynamic: [],default: []});
+  const [imageIdFromDB, setImageIdFromDB] = useState({default: [],dynamic: []});
 
   // Ltp File uploading Data handeling
   const handleFileChange = (event, id, uploadedFile, type, uploadId) => {
