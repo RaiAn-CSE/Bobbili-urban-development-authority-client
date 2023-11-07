@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 
 function AppChecklist() {
   const [openApplication, setOpenApplication] = useState(false);
-  const [questions, setQuestions] = useState(ChecklistQuestions.Questions);
+  const [questions, setQuestions] = useState([...ChecklistQuestions.Questions]);
   const stepperData = useOutletContext();
   const [isStepperVisible, currentStep, steps] = stepperData;
   const {
@@ -19,11 +19,13 @@ function AppChecklist() {
     getApplicationData,
     userInfoFromLocalStorage,
   } = useContext(AuthContext);
+
   // after select question firing here
   const handleAnswer = (event, questionNo) => {
+    toast.success(`Clicked: ${questionNo}, Value: ${event.target.value}`)
     const updatedQuestions = questions.map((question) => ({
       ...question,
-      answer: question.id === questionNo ? event.target.value : question.answer,
+      answer: (question.id || question.no) === questionNo ? event.target.value : question.answer,
     }));
     setQuestions(updatedQuestions);
   };
@@ -34,7 +36,8 @@ function AppChecklist() {
   useEffect(() => {
     const gettingData = async () => {
       const applicationData = await getApplicationData(applicationNo, cameFrom);
-      const applicationCheckList = applicationData.applicationCheckList;
+      const applicationCheckList = applicationData?.applicationCheckList;
+      console.log(applicationCheckList, "applicationChecklist")
       if (applicationCheckList.length) {
         setQuestions(applicationCheckList);
       }
@@ -52,6 +55,7 @@ function AppChecklist() {
   const btn =
     "btn btn-md text-sm px-6 bg-Primary transition duration-700 hover:bg-btnHover hover:shadow-md";
   const role = userInfoFromLocalStorage().role;
+
   return (
     <div className="px-3 text-sm py-1 relative font-roboto">
       <div className="space-y-5">
@@ -95,7 +99,7 @@ function AppChecklist() {
                   disabled={role === "PS"}
                 />
                 <span>No</span>
-              </label> */}
+              </label>  */}
 
               <div className="radio-button-container ml-3">
                 <div className="radio-button">

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import ApplicationHeader from "./ApplicationHeader";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
+import {RxCross2} from "react-icons/rx"
 
 function Application({ setOpenApplication }) {
   const { getApplicationData } = useContext(AuthContext);
@@ -17,13 +18,13 @@ function Application({ setOpenApplication }) {
       modal.showModal();
     }
 
-    // Add an event listener to close the modal when clicking outside
-    modal.addEventListener("click", handleModalClick);
+    // // Add an event listener to close the modal when clicking outside
+    // modal.addEventListener("click", handleModalClick);
 
-    // Cleanup the event listener when the component unmounts
-    return () => {
-      modal.removeEventListener("click", handleModalClick);
-    };
+    // // Cleanup the event listener when the component unmounts
+    // return () => {
+    //   modal.removeEventListener("click", handleModalClick);
+    // };
   }, []);
 
   const handleModalClick = () => {
@@ -150,7 +151,7 @@ function Application({ setOpenApplication }) {
   };
 
   return (
-    <div className="w-full h-full text-black">
+    <div className="relative w-full h-full text-black">
       <dialog id="my_modal_5" className="modal">
         <div className="modal-box w-full max-w-4xl p-14 bg-white">
           {/* Header */}
@@ -361,16 +362,17 @@ function Application({ setOpenApplication }) {
               </tbody>
             </table>
           </div>
-          <form method="dialog" className="mt-5">
-            <button
+        </div>
+            <form method="dialog" className="absolute top-16 right-[22%] z-50">
+             <button
               onClick={() => setOpenApplication(false)}
-              className={`btn btn-md text-sm px-3 mt-10 ml-3 border-none text-white shadow-md transition-all duration-500 ${gradientColor} hover:shadow-lg hover:shadow-violetDark hover:bg-gradient-to-bl`}
+              className={`text-red-600`}
             >
-              Close
+              <RxCross2 className="text-4xl"/>
             </button>
           </form>
-        </div>
       </dialog>
+  
     </div>
   );
 }

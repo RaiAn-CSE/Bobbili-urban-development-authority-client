@@ -95,14 +95,6 @@ const DocumentUpload = () => {
     });
   }, [UpdatedDefaultData, UpdatedDynamicData]);
 
-  // // PS Page Recomendation Message and Approved
-  // const handleRecomendationMessage = (e) => {
-  //   const RecomdMessage = e.target.value;
-  //   setRecommendationMessage(RecomdMessage);
-  // };
-  // const handleConfirmation = (data) => {
-  //   setApprovedConfirmation(data)
-  // };
 
   // Adding checklist Data to Document from server data && Updating Data from server Data
   useEffect(() => {
