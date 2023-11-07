@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import ApplicationHeader from "./ApplicationHeader";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
-import {RxCross2} from "react-icons/rx"
+import { RxCross2 } from "react-icons/rx"
 
 function Application({ setOpenApplication }) {
   const { getApplicationData } = useContext(AuthContext);
@@ -10,21 +10,13 @@ function Application({ setOpenApplication }) {
   const [plotDetails, setPlotDetails] = useState({});
   const [ltpDetailsData, setLtpDetailsData] = useState({});
   const [applicantDetailsData, setApplicantDetailsData] = useState({});
-  const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
+
   useEffect(() => {
     // Opening the modal when the component mounts
     const modal = document.getElementById("my_modal_5");
     if (modal) {
       modal.showModal();
     }
-
-    // // Add an event listener to close the modal when clicking outside
-    // modal.addEventListener("click", handleModalClick);
-
-    // // Cleanup the event listener when the component unmounts
-    // return () => {
-    //   modal.removeEventListener("click", handleModalClick);
-    // };
   }, []);
 
   const handleModalClick = () => {
@@ -34,12 +26,11 @@ function Application({ setOpenApplication }) {
   useEffect(() => {
     const gettingData = async () => {
       const applicationData = await getApplicationData(applicationNo);
+      console.log(applicationData, "ApplicationData")
       setGeneralInformation(applicationData?.buildingInfo?.generalInformation);
       setPlotDetails(applicationData?.buildingInfo?.plotDetails);
       setLtpDetailsData(applicationData?.applicantInfo?.ltpDetails);
-      setApplicantDetailsData(
-        applicationData?.applicantInfo?.applicantDetails[0]
-      );
+      setApplicantDetailsData(applicationData?.applicantInfo?.applicantDetails);
     };
     gettingData();
   }, []);
@@ -63,6 +54,8 @@ function Application({ setOpenApplication }) {
     surveyNo,
     village,
   } = generalInformation || {};
+
+  console.log(generalInformation,getApplicationData, "generalInformation")
 
   // Plot Details
   const { proposedPlotAreaCal, roadWideningAreaCal, netPlotAreaCal } =
@@ -115,6 +108,7 @@ function Application({ setOpenApplication }) {
 
   // Part01 && Part02 Keys and Values
   const renderCol = (data, index, type) => {
+    console.log(data, "data")
     const keys = type === "keys";
     const isArray = Array.isArray(data);
     if (isArray) {
@@ -363,16 +357,16 @@ function Application({ setOpenApplication }) {
             </table>
           </div>
         </div>
-            <form method="dialog" className="absolute top-16 right-[22%] z-50">
-             <button
-              onClick={() => setOpenApplication(false)}
-              className={`text-red-600`}
-            >
-              <RxCross2 className="text-4xl"/>
-            </button>
-          </form>
+        <form method="dialog" className="absolute top-16 right-[22%] z-50">
+          <button
+            onClick={() => setOpenApplication(false)}
+            className={`text-red-600`}
+          >
+            <RxCross2 className="text-4xl" />
+          </button>
+        </form>
       </dialog>
-  
+
     </div>
   );
 }
