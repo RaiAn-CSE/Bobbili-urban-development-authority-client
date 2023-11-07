@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import ChecklistQuestions from "../../../../assets/AppChecklist.json";
 import { Link, useLocation } from "react-router-dom";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
-import Application from "./Application";
 import { useOutletContext } from "react-router-dom";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import SaveData from "./SaveData";
@@ -46,15 +45,17 @@ function AppChecklist() {
   }, []);
 
   const sendAppChecklistData = async (url) => {
-    console.log(questions);
+    console.log(questions,"Question_All")
     return await sendUserDataIntoDB(url, "PATCH", {
       applicationNo: applicationNo,
       applicationCheckList: questions,
     });
+  
   };
   const btn =
     "btn btn-md text-sm px-6 bg-Primary transition duration-700 hover:bg-btnHover hover:shadow-md";
   const role = userInfoFromLocalStorage().role;
+
 
   return (
     <div className="px-3 text-sm py-1 relative font-roboto">
