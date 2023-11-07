@@ -109,7 +109,7 @@ const Navbar = () => {
           tabIndex={0}
           className="btn btn-ghost btn-circle avatar shadow-sm"
         >
-          <div className="w-10 flex justify-center items-center rounded-full">
+          <div className="w-10 flex justify-center items-center rounded-full nm_Container">
             <img src={UserImg} alt="An image of user icon" />
             {/* <LuSettings size={30} className="text-black cursor-pointer" /> */}
           </div>

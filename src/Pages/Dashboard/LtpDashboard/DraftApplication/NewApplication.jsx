@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import AllDraftApplication from "./AllDraftApplication";
 import Swal from "sweetalert2";
 import TableLayout from "../../../Components/TableLayout";
+import StarIcon from "./StarIcon";
 
 const NewApplication = () => {
   const {
@@ -205,16 +206,43 @@ const NewApplication = () => {
   // );
 
   return (
-    <div className=" my-3">
+    <div className=" my-3 transition-all duration-700">
       {/* test  */}
 
-      <div className="flex justify-end mt-10 mr-3">
-        <button
+      <div className="flex justify-end mt-10 mr-10">
+        {/* <button
           className={`btn flex font-roboto dark:border-none transition-all duration-700 bg-normalViolet text-white hover:bg-[#510BC4]`}
           onClick={showConfirmModal}
         >
           <span className="text-sm">Create a new application</span>
           <BsPlusLg size={20} />
+        </button> */}
+
+        <button className="star-btn font-roboto" onClick={showConfirmModal}>
+          <div className="flex justify-center items-center">
+            <BsPlusLg size={20} />
+            <span className="text-lg ml-2 create-application-text">
+              Create a new application
+            </span>
+          </div>
+          <div class="star-1">
+            <StarIcon />
+          </div>
+          <div class="star-2">
+            <StarIcon />
+          </div>
+          <div class="star-3">
+            <StarIcon />
+          </div>
+          <div class="star-4">
+            <StarIcon />
+          </div>
+          <div class="star-5">
+            <StarIcon />
+          </div>
+          <div class="star-6">
+            <StarIcon />
+          </div>
         </button>
       </div>
 
