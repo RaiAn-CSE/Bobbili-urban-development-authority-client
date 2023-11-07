@@ -13,8 +13,12 @@ function AppChecklist() {
   const [questions, setQuestions] = useState(ChecklistQuestions.Questions);
   const stepperData = useOutletContext();
   const [isStepperVisible, currentStep, steps] = stepperData;
-  const { confirmAlert, sendUserDataIntoDB, getApplicationData, userInfoFromLocalStorage } =
-    useContext(AuthContext);
+  const {
+    confirmAlert,
+    sendUserDataIntoDB,
+    getApplicationData,
+    userInfoFromLocalStorage,
+  } = useContext(AuthContext);
   // after select question firing here
   const handleAnswer = (event, questionNo) => {
     const updatedQuestions = questions.map((question) => ({
@@ -39,7 +43,7 @@ function AppChecklist() {
   }, []);
 
   const sendAppChecklistData = async (url) => {
-    console.log(questions)
+    console.log(questions);
     return await sendUserDataIntoDB(url, "PATCH", {
       applicationNo: applicationNo,
       applicationCheckList: questions,
@@ -59,8 +63,8 @@ function AppChecklist() {
             <p className="flex-1 text-black rounded mb-5 text-base md:text-lg lg:mb-0 lg:pr-4">
               {id}. {question}
             </p>
-            <div className="space-x-10 mt-2 lg:pr-2 text-base md:text-lg">
-              <label
+            <div className="space-x-10 mt-2 lg:pr-2 lg:mt-0 text-base md:text-lg">
+              {/* <label
                 className={`ml-2 inline-flex items-center space-x-1 text-black ${
                   answer === "yes" && "font-extrabold text-violetDark"
                 }`}
@@ -91,7 +95,48 @@ function AppChecklist() {
                   disabled={role === "PS"}
                 />
                 <span>No</span>
-              </label>
+              </label> */}
+
+              <div className="radio-button-container ml-3">
+                <div className="radio-button">
+                  <input
+                    type="radio"
+                    className="radio-button__input"
+                    id={`yes${id}`}
+                    name={id}
+                    value="yes"
+                    checked={answer === "yes"}
+                    onChange={(event) => handleAnswer(event, id)}
+                    disabled={role === "PS"}
+                  />
+                  <label
+                    className="radio-button__label text-base "
+                    htmlFor={`yes${id}`}
+                  >
+                    <span className="radio-button__custom"></span>
+                    Yes
+                  </label>
+                </div>
+                <div className="radio-button">
+                  <input
+                    type="radio"
+                    id={`no${id}`}
+                    className="radio-button__input"
+                    name={id}
+                    value="no"
+                    checked={answer === "no"}
+                    onChange={(event) => handleAnswer(event, id)}
+                    disabled={role === "PS"}
+                  />
+                  <label
+                    className="radio-button__label text-base"
+                    htmlFor={`no${id}`}
+                  >
+                    <span className="radio-button__custom"></span>
+                    No
+                  </label>
+                </div>
+              </div>
             </div>
           </div>
         ))}

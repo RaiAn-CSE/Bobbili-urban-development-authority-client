@@ -722,8 +722,8 @@ const BuildingInfo = () => {
                 </label>
               </div> */}
 
-              <div class="radio-button-container">
-                <div class="radio-button">
+              <div className="radio-button-container">
+                <div className="radio-button">
                   <input
                     type="radio"
                     className="radio-button__input"
@@ -738,15 +738,15 @@ const BuildingInfo = () => {
                     onChange={handleRadio1}
                     disabled={isReadOnly}
                   />
-                  <label class="radio-button__label" for="private">
-                    <span class="radio-button__custom"></span>
+                  <label className="radio-button__label" htmlFor="private">
+                    <span className="radio-button__custom"></span>
                     Private
                   </label>
                 </div>
-                <div class="radio-button">
+                <div className="radio-button">
                   <input
                     type="radio"
-                    class="radio-button__input"
+                    className="radio-button__input"
                     id="radio2"
                     name="radio-1"
                     value="Govt. Land"
@@ -758,8 +758,8 @@ const BuildingInfo = () => {
                     onChange={handleRadio1}
                     disabled={isReadOnly}
                   />
-                  <label class="radio-button__label" for="radio2">
-                    <span class="radio-button__custom"></span>
+                  <label className="radio-button__label" htmlFor="radio2">
+                    <span className="radio-button__custom"></span>
                     Govt. Land
                   </label>
                 </div>
@@ -1189,8 +1189,8 @@ const BuildingInfo = () => {
                     <span className="ml-2 text-base">No</span>
                   </label> */}
 
-                  <div class="radio-button-container ml-3">
-                    <div class="radio-button">
+                  <div className="radio-button-container ml-3">
+                    <div className="radio-button">
                       <input
                         type="radio"
                         className="radio-button__input"
@@ -1201,12 +1201,15 @@ const BuildingInfo = () => {
                         onChange={handleRadio2}
                         disabled={isReadOnly}
                       />
-                      <label class="radio-button__label" for="yesRoadExist">
-                        <span class="radio-button__custom"></span>
+                      <label
+                        className="radio-button__label"
+                        htmlFor="yesRoadExist"
+                      >
+                        <span className="radio-button__custom"></span>
                         Yes
                       </label>
                     </div>
-                    <div class="radio-button">
+                    <div className="radio-button">
                       <input
                         type="radio"
                         className="radio-button__input"
@@ -1216,8 +1219,11 @@ const BuildingInfo = () => {
                         onChange={handleRadio2}
                         disabled={isReadOnly}
                       />
-                      <label class="radio-button__label" for="noRoadExist">
-                        <span class="radio-button__custom"></span>
+                      <label
+                        className="radio-button__label"
+                        htmlFor="noRoadExist"
+                      >
+                        <span className="radio-button__custom"></span>
                         No
                       </label>
                     </div>
@@ -1264,8 +1270,8 @@ const BuildingInfo = () => {
                   <span className="ml-2 text-base">Private</span>
                 </label> */}
 
-                <div class="radio-button-container ml-3">
-                  <div class="radio-button">
+                <div className="radio-button-container ml-3">
+                  <div className="radio-button">
                     <input
                       type="radio"
                       id="publicStatusRoad"
@@ -1275,12 +1281,15 @@ const BuildingInfo = () => {
                       onChange={handleRadio3}
                       disabled={isReadOnly}
                     />
-                    <label class="radio-button__label" for="publicStatusRoad">
-                      <span class="radio-button__custom"></span>
+                    <label
+                      className="radio-button__label"
+                      htmlFor="publicStatusRoad"
+                    >
+                      <span className="radio-button__custom"></span>
                       Public
                     </label>
                   </div>
-                  <div class="radio-button">
+                  <div className="radio-button">
                     <input
                       type="radio"
                       className="radio-button__input"
@@ -1290,8 +1299,11 @@ const BuildingInfo = () => {
                       onChange={handleRadio3}
                       disabled={isReadOnly}
                     />
-                    <label class="radio-button__label" for="privateStatusRoad">
-                      <span class="radio-button__custom"></span>
+                    <label
+                      className="radio-button__label"
+                      htmlFor="privateStatusRoad"
+                    >
+                      <span className="radio-button__custom"></span>
                       Private
                     </label>
                   </div>
@@ -1487,8 +1499,8 @@ const BuildingInfo = () => {
                     <span className="ml-2 text-base">No</span>
                   </label> */}
 
-                  <div class="radio-button-container ml-3">
-                    <div class="radio-button">
+                  <div className="radio-button-container ml-3">
+                    <div className="radio-button">
                       <input
                         type="radio"
                         className="radio-button__input"
@@ -1499,12 +1511,15 @@ const BuildingInfo = () => {
                         onChange={handleRadio4}
                         disabled={isReadOnly}
                       />
-                      <label class="radio-button__label" for="yesWallProposed">
-                        <span class="radio-button__custom"></span>
+                      <label
+                        className="radio-button__label"
+                        htmlFor="yesWallProposed"
+                      >
+                        <span className="radio-button__custom"></span>
                         Yes
                       </label>
                     </div>
-                    <div class="radio-button">
+                    <div className="radio-button">
                       <input
                         type="radio"
                         className="radio-button__input"
@@ -1514,8 +1529,11 @@ const BuildingInfo = () => {
                         onChange={handleRadio4}
                         disabled={isReadOnly}
                       />
-                      <label class="radio-button__label" for="noWallProposed">
-                        <span class="radio-button__custom"></span>
+                      <label
+                        className="radio-button__label"
+                        htmlFor="noWallProposed"
+                      >
+                        <span className="radio-button__custom"></span>
                         No
                       </label>
                     </div>
@@ -1577,8 +1595,8 @@ const BuildingInfo = () => {
                   <span className="ml-2 text-base">No</span>
                 </label> */}
 
-                <div class="radio-button-container ml-3">
-                  <div class="radio-button">
+                <div className="radio-button-container ml-3">
+                  <div className="radio-button">
                     <input
                       type="radio"
                       className="radio-button__input"
@@ -1589,12 +1607,15 @@ const BuildingInfo = () => {
                       onChange={handleRadio5}
                       disabled={isReadOnly}
                     />
-                    <label class="radio-button__label" for="yesSiteRegistered">
-                      <span class="radio-button__custom"></span>
+                    <label
+                      className="radio-button__label"
+                      htmlFor="yesSiteRegistered"
+                    >
+                      <span className="radio-button__custom"></span>
                       Yes
                     </label>
                   </div>
-                  <div class="radio-button">
+                  <div className="radio-button">
                     <input
                       type="radio"
                       className="radio-button__input"
@@ -1604,8 +1625,11 @@ const BuildingInfo = () => {
                       onChange={handleRadio5}
                       disabled={isReadOnly}
                     />
-                    <label class="radio-button__label" for="noSiteRegistered">
-                      <span class="radio-button__custom"></span>
+                    <label
+                      className="radio-button__label"
+                      htmlFor="noSiteRegistered"
+                    >
+                      <span className="radio-button__custom"></span>
                       No
                     </label>
                   </div>
