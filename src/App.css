@@ -230,10 +230,10 @@ input {
 .star-btn {
   position: relative;
   padding: 12px 25px;
-  background: #b67eee;
+  /* background: #b67eee; */
   /* font-size: 17px; */
   font-weight: 600;
-  color: #fff;
+  color: #8b5bf6;
 
   border-radius: 8px;
   /* box-shadow: 0 0 5px #8b5bf6; */
