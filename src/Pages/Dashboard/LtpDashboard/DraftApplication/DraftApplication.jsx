@@ -9,6 +9,7 @@ import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import Application from "./Application";
 import EndorsementModal from "../../../Shared/EndorsementModal";
 import Resubmit from "../../../Shared/Resubmit";
+import ProceedingModal from "../../../Shared/ProceedingModal";
 
 const DraftApplication = () => {
   const navigate = useNavigate();
@@ -167,6 +168,9 @@ const DraftApplication = () => {
               {cameFrom === "approved" && (
                 <>
                   <button
+                    onClick={() =>
+                      document.getElementById("proceedingModal").showModal()
+                    }
                     className={`btn btn-sm nm_Container text-xs bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white me-5 dark:border-none`}
                   >
                     <HiOutlineClipboardDocumentList className="text-lg" />{" "}
@@ -256,6 +260,8 @@ const DraftApplication = () => {
       <Outlet
         context={[isStepperVisible, currentStep, steps, handleStepClick]}
       />
+      {/* proceedingModal modal info  */}
+      <ProceedingModal />
       {/* my_modal_1 modal info : */}
       <Resubmit />
       {/* my_modal_2 modal info : */}

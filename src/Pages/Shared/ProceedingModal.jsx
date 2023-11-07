@@ -1,10 +1,10 @@
 import React from 'react';
 import customScroll from "../../Style/Scrollbar.module.css";
 
-const Resubmit = () => {
+const ProceedingModal = () => {
     return (
         <div className='dark:bg-white'>
-            <dialog id="my_modal_1" className="modal">
+            <dialog id="proceedingModal" className="modal">
                 {/* divide-y-2 divide-gray-200 */}
                 <div className={`${customScroll.customScrolling} rounded-lg modal-box py-10 bg-white text-gray-900  mb-10 w-11/12 max-w-5xl divide-y-2 divide-gray-200 relative`}>
                     <form method="dialog">
@@ -26,4 +26,4 @@ const Resubmit = () => {
     );
 };
 
-export default Resubmit;
+export default ProceedingModal;
