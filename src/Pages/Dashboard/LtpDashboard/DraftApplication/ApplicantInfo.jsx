@@ -179,13 +179,13 @@ const ApplicantInfo = () => {
   return (
     <div className="grid my-5 mx-5 lg:my-0 lg:p-2 text-gray-900">
       {/* LTP’s Details  */}
-      <div className="divide-y-2 divide-gray-200 mb-[60px]">
-        <div className="flex items-center">
+      <div className=" divide-y-2 divide-gray-200 mb-[60px]">
+        <div className="flex items-center mb-5">
           <BiSolidUserDetail size={30} className="text-normalViolet" />
           <h3 className="font-bold text-xl ml-3">LTP’s Details</h3>
         </div>
 
-        <div className="lg:flex mt-2">
+        <div className="nm_Container lg:flex mt-2 p-5">
           <div className="grid grid-cols-2 lg:grid-cols-3 basis-[75%]">
             <InputField
               id="ltpType"

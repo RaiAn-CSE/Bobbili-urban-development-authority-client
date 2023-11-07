@@ -27,8 +27,8 @@ const OwnerDetail = ({
   console.log(applicantDetails, "applicantDetails");
 
   return (
-    <div>
-      <p className="text-xl font-bold mt-5">{`${ownerSerial[index]} Person:`}</p>
+    <div className="nm_Container p-5 mt-4 mb-8">
+      <p className="text-xl font-bold">{`${ownerSerial[index]} Person:`}</p>
       <div className="lg:flex">
         <div className="basis-[75%] grid grid-cols-2 lg:grid-cols-3">
           <InputField
@@ -106,7 +106,7 @@ const OwnerDetail = ({
           />
         </div>
 
-        <div className="flex basis-[25%] justify-center my-5 lg:my-5">
+        <div className="flex basis-[25%] justify-center items-end my-5 lg:my-5">
           {/* <div className="my-4 mx-3 basis-3/4">
             <label
               htmlFor="message"
@@ -127,7 +127,7 @@ const OwnerDetail = ({
           {index === length - 1 && index < 4 && (
             <div className="flex justify-center items-center">
               <button
-                className="text-xl mx-2 rounded-full w-[30px] h-[30px] bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white cursor-pointer shadow-lg shadow-violetDark transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold"
+                className="nm_Container text-xl rounded-full w-[30px] h-[30px] text-normalViolet cursor-pointer transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold"
                 onClick={increaseApplicantNo}
               >
                 +
@@ -138,7 +138,7 @@ const OwnerDetail = ({
           {index === length - 1 && index > 0 && index <= 4 && (
             <div className="flex justify-center items-center">
               <button
-                className="text-xl mx-2 rounded-full w-[30px] h-[30px] bg-gradient-to-r from-fuchsia-500 to-red-500 text-white cursor-pointer shadow-lg shadow-violetDark transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold"
+                className="nm_Container text-xl mx-2 rounded-full text-red-500 w-[30px] h-[30px]  transition-all duration-500 font-bold"
                 onClick={decreaseApplicationNo}
               >
                 -
