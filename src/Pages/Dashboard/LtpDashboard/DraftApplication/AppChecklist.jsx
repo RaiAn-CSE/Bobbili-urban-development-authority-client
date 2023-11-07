@@ -68,38 +68,6 @@ function AppChecklist() {
               {id}. {question}
             </p>
             <div className="space-x-10 mt-2 lg:pr-2 lg:mt-0 text-base md:text-lg">
-              {/* <label
-                className={`ml-2 inline-flex items-center space-x-1 text-black ${
-                  answer === "yes" && "font-extrabold text-violetDark"
-                }`}
-              >
-                <input
-                  type="radio"
-                  name={id}
-                  value="yes"
-                  className="radio radio-sm checked:bg-violetDark border-violetLight mr-3 lg:mr-0"
-                  checked={answer === "yes"}
-                  onChange={(event) => handleAnswer(event, id)}
-                  disabled={role === "PS"}
-                />
-                <span>Yes</span>
-              </label>
-              <label
-                className={`ml-2 inline-flex items-center space-x-1 text-black ${
-                  answer === "no" && "font-extrabold text-violetDark"
-                }`}
-              >
-                <input
-                  type="radio"
-                  name={id}
-                  value="no"
-                  className="radio radio-sm border checked:bg-violetDark border-violetLight mr-3 lg:mr-0"
-                  checked={answer === "no"}
-                  onChange={(event) => handleAnswer(event, id)}
-                  disabled={role === "PS"}
-                />
-                <span>No</span>
-              </label>  */}
 
               <div className="radio-button-container ml-3">
                 <div className="radio-button">
@@ -114,7 +82,7 @@ function AppChecklist() {
                     disabled={role === "PS"}
                   />
                   <label
-                    className="radio-button__label text-base "
+                    className={`radio-button__label text-base ${answer === "yes"?"":""}` }
                     htmlFor={`yes${id}`}
                   >
                     <span className="radio-button__custom"></span>
