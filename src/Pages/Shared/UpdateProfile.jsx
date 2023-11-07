@@ -33,7 +33,13 @@ const UpdateProfile = () => {
       // }
 
       // console.log(newObj, "NEW OBJ");
-      return { ...data };
+      return {
+        department: "Town Planning",
+        designation: "Engineer",
+        country: "India",
+        state: "Andhra Pradesh",
+        ...data,
+      };
     }, [data]),
   });
 
@@ -137,14 +143,14 @@ const UpdateProfile = () => {
               type="text"
               register={register}
             />
-            <UpdateProfileInput
+            {/* <UpdateProfileInput
               id="townPlaning"
               name="townPlaning"
               label="Town Planing"
               placeholder="Town Planing"
               type="text"
               register={register}
-            />
+            /> */}
             <UpdateProfileInput
               id="designation"
               name="designation"
@@ -153,14 +159,14 @@ const UpdateProfile = () => {
               type="text"
               register={register}
             />
-            <UpdateProfileInput
+            {/* <UpdateProfileInput
               id="engineer"
               name="engineer"
               label="Engineer"
               placeholder="Engineer"
               type="text"
               register={register}
-            />
+            /> */}
             <UpdateProfileInput
               id="registrationNo"
               name="registrationNo"
