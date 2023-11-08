@@ -3,10 +3,12 @@ import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import TableLayout from "../../../Components/TableLayout";
 import ShowPlotDetails from "./ShowPlotDetails";
 import MISReportTableLayout from "../../../Components/MISReportTableLayout";
+import Loading from "../../../Shared/Loading";
 
 const PlotDetails = () => {
   const { fetchDataFromTheDb } = useContext(AuthContext);
   const [tableData, setTableData] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const tableHeader = [
     "S.NO",
@@ -33,12 +35,15 @@ const PlotDetails = () => {
   ];
 
   useEffect(() => {
+    setLoading(true);
+
     (async function () {
       const applicationData = await fetchDataFromTheDb(
         "http://localhost:5000/totalApplications"
       );
       console.log(applicationData, "AD");
       if (Object.keys(applicationData)?.length) {
+        setLoading(false);
         const approvedApplications =
           applicationData?.applications?.approvedApplications;
         const shortfallApplications =
@@ -69,6 +74,10 @@ const PlotDetails = () => {
   }, []);
 
   console.log(tableData, "TABLE DATA");
+
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <div>
       <MISReportTableLayout tableData={tableData} Component={ShowPlotDetails} />
