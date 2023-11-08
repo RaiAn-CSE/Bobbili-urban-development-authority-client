@@ -375,7 +375,7 @@ const UpdateProfile = () => {
             type="submit"
             className="text-white transition-all duration-700 shadow-md hover:shadow-violetDark bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:bg-gradient-to-l font-bold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
           >
-            Submit
+            Update
           </button>
         </div>
       </form>
