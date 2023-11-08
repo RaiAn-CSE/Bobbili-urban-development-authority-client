@@ -74,6 +74,8 @@ const PlotDetails = () => {
             };
             return { ...prev, ...newValue };
           });
+        } else {
+          setLoading(false);
         }
       } catch (err) {
         console.log(err.message);
