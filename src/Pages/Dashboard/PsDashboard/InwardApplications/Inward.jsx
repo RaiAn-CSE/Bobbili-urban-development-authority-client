@@ -135,8 +135,11 @@ const Inward = () => {
   return (
     <div>
       {path.includes("searchApplication") && (
-        <form className="max-w-lg my-3 px-3" onSubmit={handleSubmit(onSubmit)}>
-          <label
+        <form
+          className="max-w-lg mt-10 mb-[-10px] px-3"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          {/* <label
             htmlFor="default-search"
             className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
           >
@@ -173,6 +176,39 @@ const Inward = () => {
               type="submit"
               value="Search"
               className="text-[#fff] font-semibold absolute right-2.5 bottom-2.5 focus:ring-2 focus:outline-none focus:ring-fuchsia-200 rounded-lg text-sm px-4 py-2 bg-gradient-to-r from-violet-500 to-fuchsia-500"
+            />
+          </div> */}
+
+          <div class="search-box">
+            <button
+              class="btn-search bg-normalViolet flex justify-center items-center"
+              type="submit"
+            >
+              <svg
+                className="w-4 h-4 text-white"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                />
+              </svg>
+            </button>
+            <input
+              type="text"
+              // class="input-search"
+              id="default-search"
+              {...register("search")}
+              onChange={detectChange}
+              className="input-search font-roboto"
+              placeholder="Application no. or owner name"
+              required
             />
           </div>
         </form>
