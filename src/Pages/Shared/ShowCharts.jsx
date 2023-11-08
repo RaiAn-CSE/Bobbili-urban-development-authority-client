@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import Lottie from "lottie-react";
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import Data from "../../assets/Data.json";
@@ -8,6 +9,8 @@ import PieChart from "./PieChart";
 // import { district } from "../../assets/buildingInfo.json";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import toast from "react-hot-toast";
+import Loading from "../Shared/Loading";
+import ErrorAnimation from "../../assets/ServerError.json";
 
 Chart.register(CategoryScale);
 
@@ -34,17 +37,26 @@ const ShowCharts = () => {
   const [serverData, setServerData] = useState([]);
 
   const [selectedDate, setSelectedDate] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     (async function () {
-      const locationData = await fetchDataFromTheDb(
-        "http://localhost:5000/getDistricts"
-      );
-      console.log(locationData, "LOC");
-      const extractsDataFromDB = locationData[0]?.district;
-      setAllLocationData(extractsDataFromDB);
-      const districts = extractsDataFromDB?.map((each) => each?.name);
-      setAllDistricts(districts);
+      setLoading(true);
+      try {
+        const locationData = await fetchDataFromTheDb(
+          "http://localhost:5000/getDistricts"
+        );
+        console.log(locationData, "LOC");
+        const extractsDataFromDB = locationData[0]?.district;
+        setAllLocationData(extractsDataFromDB);
+        const districts = extractsDataFromDB?.map((each) => each?.name);
+        setAllDistricts(districts);
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
     })();
   }, []);
 
@@ -123,6 +135,7 @@ const ShowCharts = () => {
 
   useEffect(() => {
     if (selectedDistrict.length) {
+      setLoading(true);
       const data = { district: "", mandal: "", panchayat: "", date: "" };
 
       selectedDistrict?.length && (data["district"] = selectedDistrict);
@@ -140,11 +153,16 @@ const ShowCharts = () => {
         .then((result) => {
           console.log(result);
           setServerData(result?.totalApplication);
+        })
+        .catch((err) => {
+          setLoading(false);
+          setError(err?.message);
         });
 
       console.log(data, "Data");
     } else {
       console.log("all");
+      setLoading(true);
       fetch(
         `http://localhost:5000/totalApplications?data=${JSON.stringify(
           userInfoFromLocalStorage()
@@ -154,6 +172,10 @@ const ShowCharts = () => {
         .then((result) => {
           console.log(result);
           setServerData(result?.totalApplication);
+        })
+        .catch((err) => {
+          setLoading(false);
+          setError(err?.message);
         });
     }
   }, [selectedDistrict, selectedMandal, selectedPanchayat, selectedDate]);
@@ -232,154 +254,173 @@ const ShowCharts = () => {
     // });
   }, [serverData]);
 
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <>
       <p className="text-2xl font-bold font-roboto ml-6 mt-5 text-black">
         Dashboard
       </p>
-      <form className="flex justify-around items-center font-sans my-8 z-[10]">
-        {/* district  */}
-        <div className="nm_Container  basis-1/5 z-[10] bg-bgColor p-3">
-          <label
-            htmlFor="district"
-            className="block mb-2 text-base font-bold text-gray-900"
-          >
-            District
-          </label>
-          <select
-            id="district"
-            className="nm_Inset bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            defaultValue={selectedDistrict}
-            onChange={(e) => detectSelectOfDistrict(e)}
-          >
-            <option className="text-base" value="" disabled>
-              Select an option
-            </option>
-            {allDistricts.map((eachDistrict) => {
-              return (
-                <option
-                  className="text-base"
-                  key={eachDistrict}
-                  value={eachDistrict}
-                >
-                  {eachDistrict}
-                </option>
-              );
-            })}
-          </select>
+      {error?.length !== 0 ? (
+        <div className="flex flex-col justify-center items-center min-h-[calc(100vh - 10%)]">
+          <Lottie
+            animationData={ErrorAnimation}
+            loop={true}
+            className="w-[40%] h-[40%]"
+          />
+          <p className="text-red-500 font-bold text-lg uppercase">
+            {error} data
+          </p>
         </div>
-
-        {/* mandal */}
-
-        <div className="nm_Container basis-1/5 z-[10] bg-bgColor p-3">
-          <label
-            htmlFor="mandal"
-            className="block mb-2 text-base font-bold text-gray-900"
-          >
-            Mandal
-          </label>
-          <select
-            id="mandal"
-            className="nm_Inset bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            defaultValue={selectedMandal}
-            onChange={(e) => detectChangeOfMandals(e)}
-            disabled={allMandal?.length === 0}
-          >
-            <option className="text-base" value="" disabled>
-              Select an option
-            </option>
-            {allMandal?.map((eachMandal, index) => {
-              return (
-                <option
-                  className="text-base"
-                  key={index}
-                  value={eachMandal?.name}
-                >
-                  {eachMandal?.name}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-        {/* gram panchayat  */}
-        <div className="nm_Container basis-1/5 z-[10] bg-bgColor p-3">
-          <label
-            htmlFor="panchayat"
-            className="block mb-2 text-base font-bold text-gray-900"
-          >
-            Grama Panchayat
-          </label>
-          <select
-            id="panchayat"
-            className="nm_Inset bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            defaultValue={selectedPanchayat}
-            disabled={allPanchayat?.length === 0}
-            onChange={(e) => detectChangeOfPanchayat(e)}
-          >
-            <option className="text-base" value="" disabled>
-              Select an option
-            </option>
-            {allPanchayat?.map((eachPanchayt, index) => {
-              return (
-                <option className="text-base" key={index}>
-                  {eachPanchayt}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-
-        {/* week month year filter  */}
-        {!path.includes("/statistics") && (
-          <div className="nm_Container basis-1/5 z-[10] bg-bgColor p-3">
-            <label
-              htmlFor="date"
-              className="block mb-2 text-base font-bold text-gray-900"
-            >
-              Date
-            </label>
-            <select
-              id="date"
-              className="nm_Inset bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              defaultValue={selectedDate}
-              disabled={selectedPanchayat?.length === 0}
-              onChange={(e) => detectChangeOfDate(e)}
-            >
-              <option className="text-base" value="" disabled>
-                Select an option
-              </option>
-              <option className="text-base" value="7 days">
-                1 week
-              </option>
-              <option
-                value="1 months"
-                className={`${!isLtpOrPs && "hidden text-base"}`}
+      ) : (
+        <>
+          <form className="flex justify-around items-center font-sans my-8 z-[10]">
+            {/* district  */}
+            <div className="nm_Container  basis-1/5 z-[10] bg-bgColor p-3">
+              <label
+                htmlFor="district"
+                className="block mb-2 text-base font-bold text-gray-900"
               >
-                1 months
-              </option>
-              <option className="text-base" value="6 months">
-                6 months
-              </option>
-              <option className="text-base" value="1 year">
-                1 year
-              </option>
-            </select>
-          </div>
-        )}
-      </form>
-      <div
-        className={`${
-          path.includes("/dashboard") && "px-4"
-        } flex justify-between items-center p-0 dark:text-white z-[10]`}
-      >
-        <div className="nm_Container bg-bgColor w-[45%]  overflow-hidden z-[10] p-8">
-          {serverData?.length !== 0 && <BarChart chartData={chartData} />}
-        </div>
+                District
+              </label>
+              <select
+                id="district"
+                className="nm_Inset bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                defaultValue={selectedDistrict}
+                onChange={(e) => detectSelectOfDistrict(e)}
+              >
+                <option className="text-base" value="" disabled>
+                  Select an option
+                </option>
+                {allDistricts.map((eachDistrict) => {
+                  return (
+                    <option
+                      className="text-base"
+                      key={eachDistrict}
+                      value={eachDistrict}
+                    >
+                      {eachDistrict}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
 
-        <div className="nm_Container bg-bgColor w-[45%] overflow-hidden z-[10] p-8">
-          {serverData?.length !== 0 && <PieChart chartData={chartData} />}
-        </div>
-      </div>
+            {/* mandal */}
+
+            <div className="nm_Container basis-1/5 z-[10] bg-bgColor p-3">
+              <label
+                htmlFor="mandal"
+                className="block mb-2 text-base font-bold text-gray-900"
+              >
+                Mandal
+              </label>
+              <select
+                id="mandal"
+                className="nm_Inset bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                defaultValue={selectedMandal}
+                onChange={(e) => detectChangeOfMandals(e)}
+                disabled={allMandal?.length === 0}
+              >
+                <option className="text-base" value="" disabled>
+                  Select an option
+                </option>
+                {allMandal?.map((eachMandal, index) => {
+                  return (
+                    <option
+                      className="text-base"
+                      key={index}
+                      value={eachMandal?.name}
+                    >
+                      {eachMandal?.name}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            {/* gram panchayat  */}
+            <div className="nm_Container basis-1/5 z-[10] bg-bgColor p-3">
+              <label
+                htmlFor="panchayat"
+                className="block mb-2 text-base font-bold text-gray-900"
+              >
+                Grama Panchayat
+              </label>
+              <select
+                id="panchayat"
+                className="nm_Inset bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                defaultValue={selectedPanchayat}
+                disabled={allPanchayat?.length === 0}
+                onChange={(e) => detectChangeOfPanchayat(e)}
+              >
+                <option className="text-base" value="" disabled>
+                  Select an option
+                </option>
+                {allPanchayat?.map((eachPanchayt, index) => {
+                  return (
+                    <option className="text-base" key={index}>
+                      {eachPanchayt}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+
+            {/* week month year filter  */}
+            {!path.includes("/statistics") && (
+              <div className="nm_Container basis-1/5 z-[10] bg-bgColor p-3">
+                <label
+                  htmlFor="date"
+                  className="block mb-2 text-base font-bold text-gray-900"
+                >
+                  Date
+                </label>
+                <select
+                  id="date"
+                  className="nm_Inset bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  defaultValue={selectedDate}
+                  disabled={selectedPanchayat?.length === 0}
+                  onChange={(e) => detectChangeOfDate(e)}
+                >
+                  <option className="text-base" value="" disabled>
+                    Select an option
+                  </option>
+                  <option className="text-base" value="7 days">
+                    1 week
+                  </option>
+                  <option
+                    value="1 months"
+                    className={`${!isLtpOrPs && "hidden text-base"}`}
+                  >
+                    1 months
+                  </option>
+                  <option className="text-base" value="6 months">
+                    6 months
+                  </option>
+                  <option className="text-base" value="1 year">
+                    1 year
+                  </option>
+                </select>
+              </div>
+            )}
+          </form>
+          <div
+            className={`${
+              path.includes("/dashboard") && "px-4"
+            } flex justify-between items-center p-0 dark:text-white z-[10]`}
+          >
+            <div className="nm_Container bg-bgColor w-[45%]  overflow-hidden z-[10] p-8">
+              {serverData?.length !== 0 && <BarChart chartData={chartData} />}
+            </div>
+
+            <div className="nm_Container bg-bgColor w-[45%] overflow-hidden z-[10] p-8">
+              {serverData?.length !== 0 && <PieChart chartData={chartData} />}
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 };
