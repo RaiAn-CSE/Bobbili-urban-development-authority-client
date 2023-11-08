@@ -179,11 +179,10 @@ function DrawingTable({
 
   return (
     <div>
-      <div className="overflow-x-auto mb-16 w-full px-4">
+      <div className="overflow-x-auto mb-3 w-full px-4">
         <p className="font-bold text-lg ml-5">Drawing Scrutiny report</p>
-
         <div className="container mx-auto px-4 font-roboto ">
-          <div className="py-4">
+          <div className="py-2">
             <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4">
               <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
                 <table className="min-w-full leading-normal text-center">
