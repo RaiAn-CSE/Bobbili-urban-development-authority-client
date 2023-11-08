@@ -564,7 +564,7 @@ input {
 }
 
 .pay-btn:hover .svg-wrapper {
-  background-color: #6c5ce7;
+  background: linear-gradient(to bottom, #a29bfe 0%, #6c5ce7 100%);
   width: 54px;
   height: 54px;
 }
