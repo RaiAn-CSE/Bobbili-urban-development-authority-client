@@ -90,8 +90,8 @@ const SaveData = ({
           {role === "LTP" &&
             (currentStep !== steps.length - 1 ? (
               <button
-                className={`${btnClass} nm_Container text-white bg-normalViolet font-roboto  border-none  `}
-                type="submit"
+                className={`fancy-button mt-8`}
+                // type="submit"
                 // onClick={() =>
                 //   // currentStep < steps.length - 1 &&
                 //   // handleStepClick(currentStep + 1)
