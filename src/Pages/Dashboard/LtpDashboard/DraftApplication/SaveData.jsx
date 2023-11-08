@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import { IoSaveSharp } from "react-icons/io5";
 import { MdOutlineSaveAs } from "react-icons/md";
+import ArrowIcon from "../../../Components/ArrowIcon";
 
 const SaveData = ({
   isStepperVisible,
@@ -85,6 +86,8 @@ const SaveData = ({
     "hidden";
 
   console.log(isApproved, "approved");
+
+  console.log(sentData, "Sentdata");
   return (
     <>
       {isStepperVisible && ( // Render the stepper only when isStepperVisible is true
@@ -104,7 +107,7 @@ const SaveData = ({
                 Save and Continue
               </button>
             ) : (
-              <div>
+              <div className="flex justify-between items-center space-x-[500px] mt-10">
                 <button
                   className={`save-btn bg-gradient-to-b from-[#a29bfe] to-[#6c5ce7] mr-4`}
                   // type="submit"
@@ -126,7 +129,7 @@ const SaveData = ({
                     Save
                   </span>
                 </button>
-                <button
+                {/* <button
                   className={`btn btn-md text-white rounded-lg shadow-md border-0 mt-6  transition-all duration-500 cursor-pointer ${
                     sentData === 1 && gradientColor
                   } ${sentData === 1 && "shadow-violetDark"}`}
@@ -139,6 +142,31 @@ const SaveData = ({
                   }
                 >
                   Sent to department
+                </button> */}
+
+                <button
+                  className="sent-department"
+                  disabled={sentData === 0}
+                  onClick={() =>
+                    sentToPS(
+                      JSON.parse(localStorage.getItem("CurrentAppNo")),
+                      navigate
+                    )
+                  }
+                >
+                  {/* <span
+                    className={`${
+                      sentData === 0
+                        ? "absolute top-[-80%] left-[25%] bg-[#6225e6] p-1 text-xs"
+                        : "hidden"
+                    }`}
+                  >
+                    Click on save button
+                  </span> */}
+                  <span className="span">Sent to department</span>
+                  <span className="second">
+                    <ArrowIcon />
+                  </span>
                 </button>
               </div>
             ))}
