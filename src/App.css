@@ -151,13 +151,13 @@ input {
 } */
 
 /* radio .pay-btn design  */
-.radio-.pay-btn-container {
+.radio-button-container {
   display: flex;
   align-items: center;
   gap: 24px;
 }
 
-.radio-.pay-btn {
+.radio-button {
   display: inline-block;
   position: relative;
   cursor: pointer;
@@ -381,11 +381,11 @@ input {
 }
 
 /* fancy save and continue btn  */
-.fancy-.pay-btn {
+.fancy-button {
   display: inline-block;
   padding: 12px 20px;
   border: none;
-  background-color: #b67eee;
+  background: linear-gradient(to bottom, #a29bfe 0%, #6c5ce7 100%);
   color: #fff;
   font-size: 15px;
   font-weight: bold;
@@ -399,7 +399,7 @@ input {
   cursor: pointer;
 }
 
-.fancy-.pay-btn:before {
+.fancy-button:before {
   content: "";
   position: absolute;
   top: 0;
@@ -411,11 +411,11 @@ input {
   transition: left 0.3s ease-in-out;
 }
 
-.fancy-.pay-btn:hover {
+.fancy-button:hover {
   transform: scale(1.1);
 }
 
-.fancy-.pay-btn:hover:before {
+.fancy-button:hover:before {
   left: 100%;
 }
 
@@ -720,19 +720,19 @@ input {
   margin-right: 45px;
 }
 
-.second {
+.sent-department .second {
   width: 20px;
   margin-left: 5px;
   position: relative;
   top: 12%;
 }
 
-.one {
+.sent-department .one {
   transition: 0.4s;
   transform: translateX(-60%);
 }
 
-.two {
+.sent-department .two {
   transition: 0.5s;
   transform: translateX(-30%);
 }
