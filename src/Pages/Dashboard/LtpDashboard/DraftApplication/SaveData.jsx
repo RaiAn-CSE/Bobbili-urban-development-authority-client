@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
+import { IoSaveSharp } from "react-icons/io5";
 
 const SaveData = ({
   isStepperVisible,
@@ -104,8 +105,8 @@ const SaveData = ({
             ) : (
               <div>
                 <button
-                  className={`${btnClass} me-10 px-6 bg-normalViolet text-white font-roboto shadow-md shadow-violetDark border-none hover:bg-violetDark`}
-                  type="submit"
+                  className={`save-btn nm_Container mr-4`}
+                  // type="submit"
                   // onClick={() =>
                   //   // currentStep < steps.length - 1 &&
                   //   // handleStepClick(currentStep + 1)
@@ -118,7 +119,11 @@ const SaveData = ({
                     });
                   }}
                 >
-                  Save
+                  <span className="flex">
+                    {" "}
+                    <IoSaveSharp size={20} className="mr-3" />
+                    Save
+                  </span>
                 </button>
                 <button
                   className={`btn btn-md text-white rounded-lg shadow-md border-0 mt-6  transition-all duration-500 cursor-pointer ${
