@@ -261,7 +261,7 @@ const ShowCharts = () => {
   return (
     <>
       <p className="text-2xl font-bold font-roboto ml-6 mt-5 text-black">
-        Dashboard
+        Dashboard:
       </p>
       {error?.length !== 0 ? (
         <div className="flex flex-col justify-center items-center min-h-[calc(100vh - 10%)]">
