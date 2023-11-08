@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import { IoSaveSharp } from "react-icons/io5";
+import { MdOutlineSaveAs } from "react-icons/md";
 
 const SaveData = ({
   isStepperVisible,
@@ -105,7 +106,7 @@ const SaveData = ({
             ) : (
               <div>
                 <button
-                  className={`save-btn nm_Container mr-4`}
+                  className={`save-btn bg-gradient-to-b from-[#a29bfe] to-[#6c5ce7] mr-4`}
                   // type="submit"
                   // onClick={() =>
                   //   // currentStep < steps.length - 1 &&
@@ -119,9 +120,9 @@ const SaveData = ({
                     });
                   }}
                 >
-                  <span className="flex">
+                  <span className="flex justify-center items-center">
                     {" "}
-                    <IoSaveSharp size={20} className="mr-3" />
+                    <MdOutlineSaveAs size={20} className="mr-2" />
                     Save
                   </span>
                 </button>
