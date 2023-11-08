@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import AllDraftApplication from "./AllDraftApplication";
 import Swal from "sweetalert2";
 import TableLayout from "../../../Components/TableLayout";
-import StarIcon from "./StarIcon";
+import StarIcon from "../../../Components/StarIcon";
 
 const NewApplication = () => {
   const {

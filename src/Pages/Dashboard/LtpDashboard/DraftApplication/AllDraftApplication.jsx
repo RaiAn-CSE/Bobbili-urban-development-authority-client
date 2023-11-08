@@ -5,6 +5,7 @@ import { RiDeleteBin5Fill } from "react-icons/ri";
 import { AiFillPlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
 import { BiSolidDownArrow, BiSolidRightArrow } from "react-icons/bi";
 import { CiEdit } from "react-icons/ci";
+import DeleteIcon from "../../../Components/DeleteIcon";
 
 const AllDraftApplication = ({
   serialNo,
@@ -86,12 +87,13 @@ const AllDraftApplication = ({
         </td>
         <td className="px-3 py-[7px] text-sm ">
           <button
-            className={`btn btn-sm flex items-center border-none bg-[#ffd7d7] hover:bg-[#f6c7c7] text-red-400 hover:text-red-500 bg-transparent`}
+            className={`delete-btn`}
             onClick={() =>
               alertToConfirmDelete(applicationNo, removeDraftApplication)
             }
           >
-            <RiDeleteBin5Fill size={19} />
+            {/* <RiDeleteBin5Fill size={19} /> */}
+            <DeleteIcon />
           </button>
         </td>
       </tr>
