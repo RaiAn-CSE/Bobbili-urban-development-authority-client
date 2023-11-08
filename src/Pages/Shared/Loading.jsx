@@ -1,6 +1,6 @@
 import React from "react";
-import Lottie from "lottie-react";
-import LoadingAnimation from "../../assets/loading.json";
+// import Lottie from "lottie-react";
+// import LoadingAnimation from "../../assets/loading.json";
 
 const Loading = () => {
   return (
@@ -25,13 +25,13 @@ const Loading = () => {
             <span className="word">colors</span>
           </div>
         </div>
-        <div class="typing-indicator">
-          <div class="typing-circle"></div>
-          <div class="typing-circle"></div>
-          <div class="typing-circle"></div>
-          <div class="typing-shadow"></div>
-          <div class="typing-shadow"></div>
-          <div class="typing-shadow"></div>
+        <div className="typing-indicator">
+          <div className="typing-circle"></div>
+          <div className="typing-circle"></div>
+          <div className="typing-circle"></div>
+          <div className="typing-shadow"></div>
+          <div className="typing-shadow"></div>
+          <div className="typing-shadow"></div>
         </div>
       </div>
     </>
