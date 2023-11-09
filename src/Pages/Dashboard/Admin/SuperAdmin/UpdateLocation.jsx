@@ -24,6 +24,8 @@ const UpdateLocation = () => {
   const [allDistricts, setAllDistricts] = useState([]);
   const [allMandal, setAllMandal] = useState([]);
   const [allVillage, setAllVillage] = useState([]);
+  const [mandalNames, setMandalNames] = useState([]);
+  const [villageNames, setVillageNames] = useState([]);
 
   const [districtSuggest, setDistrictSuggest] = useState("");
   const [mandalSuggest, setMandalSuggest] = useState("");
@@ -145,6 +147,10 @@ const UpdateLocation = () => {
 
   const setDistrictInputValue = (e) => {
     setDistrictSuggest(e.target.value);
+  };
+
+  const setMandalInputValue = (e) => {
+    setMandalSuggest(e.target.value);
   };
 
   const setSearchItem = (item, searchLabel) => {
@@ -284,15 +290,41 @@ const UpdateLocation = () => {
                         type="checkbox"
                         id="mandal"
                         className="transition-all duration-700"
-                        onClick={() =>
-                          setToggleValue(isMandalNeed, setIsMandalNeed)
-                        }
+                        onClick={() => {
+                          setToggleValue(isMandalNeed, setIsMandalNeed);
+                          console.log(isMandalNeed, "Is mandal need");
+                          if (isMandalNeed === 0) {
+                            console.log(allLocationData, "MandalNeed");
+                            console.log(districtSuggest, "districtSuggest");
+                            if (districtSuggest?.length) {
+                              allLocationData?.filter((item) => {
+                                if (
+                                  item?.name?.toLowerCase() ===
+                                  districtSuggest.toLocaleLowerCase()
+                                ) {
+                                  setAllMandal(item?.mandal);
+                                  const mandalNames = item?.mandal?.map(
+                                    (item) => item?.name
+                                  );
+
+                                  setMandalNames((prev) => {
+                                    return [...prev, ...mandalNames];
+                                  });
+                                }
+                              });
+                            } else {
+                              toast.info(
+                                "Enter district name to see autosuggestion"
+                              );
+                            }
+                          }
+                        }}
                       />
                       <label htmlFor="mandal"></label>
                     </div>
                   </div>
                   {isMandalNeed === 1 && (
-                    <div className={`relative mb-6 `}>
+                    <div className={`relative mb-6 h-fit`}>
                       <div className="absolute inset-y-0 left-0 flex items-center p-3 pointer-events-none">
                         <img
                           className="w-full h-full"
@@ -306,8 +338,35 @@ const UpdateLocation = () => {
                         name="mandal"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-10 p-2.5 transition-all duration-700 nm_Inset focus:outline-none"
                         placeholder="Enter mandal name"
+                        value={mandalSuggest}
+                        onChange={setMandalInputValue}
                         required={isMandalNeed && "required"}
                       />
+                      <div className="bg-normalViolet absolute text-white w-[100%] z-[10]">
+                        {isMandalNeed &&
+                          mandalNames
+                            ?.filter((mandal) => {
+                              const searchItem = mandalSuggest.toLowerCase();
+                              const mandalName = mandal?.toLowerCase();
+                              console.log(mandal, "MANDAL");
+                              return (
+                                searchItem &&
+                                mandalName.startsWith(searchItem) &&
+                                searchItem !== mandalName
+                              );
+                            })
+                            .map((item) => {
+                              return (
+                                <div
+                                  className="py-1 px-2 border-3 border-b-white"
+                                  key={item}
+                                  onClick={() => setSearchItem(item, "m")}
+                                >
+                                  {item}
+                                </div>
+                              );
+                            })}
+                      </div>
                     </div>
                   )}
                 </div>
