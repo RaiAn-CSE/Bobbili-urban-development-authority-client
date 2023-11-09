@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Lottie from "lottie-react";
 import {
   MdOutlineAddLocationAlt,
@@ -10,13 +10,24 @@ import districtImage from "../../../../assets/images/district.png";
 import cityImage from "../../../../assets/images/city.png";
 import villageImage from "../../../../assets/images/village.png";
 import LocationStyle from "./LocationPageStyle.module.css";
+import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 
 const UpdateLocation = () => {
+  const { fetchDataFromTheDb } = useContext(AuthContext);
   const [isAddOption, setIsAddOption] = useState(1);
 
   const [isMandalNeed, setIsMandalNeed] = useState(0);
 
   const [isVillageNeed, setIsVillageNeed] = useState(0);
+
+  const [allLocationData, setAllLocationData] = useState([]);
+  const [allDistricts, setAllDistricts] = useState([]);
+  const [allMandal, setAllMandal] = useState([]);
+  const [allVillage, setAllVillage] = useState([]);
+
+  const [districtSuggest, setDistrictSuggest] = useState("");
+  const [mandalSuggest, setMandalSuggest] = useState("");
+  const [villageSuggest, setVillageSuggest] = useState("");
 
   const setToggleValue = (prevValue, setNewValue) => {
     prevValue === 0 ? setNewValue(1) : setNewValue(0);
@@ -34,6 +45,23 @@ const UpdateLocation = () => {
   };
 
   console.log(isAddOption, "IS EDIT OPTION");
+
+  useEffect(() => {
+    (async function () {
+      try {
+        const locationData = await fetchDataFromTheDb(
+          "http://localhost:5000/getDistricts"
+        );
+        console.log(locationData, "LOC");
+        const extractsDataFromDB = locationData[0]?.district;
+        setAllLocationData(extractsDataFromDB);
+        const districts = extractsDataFromDB?.map((each) => each?.name);
+        setAllDistricts(districts);
+      } catch (err) {
+        toast.error("Server Error");
+      }
+    })();
+  }, []);
 
   const makeFirstCharacterCapital = (str) => {
     const splitStr = str.split("");
@@ -97,23 +125,44 @@ const UpdateLocation = () => {
       url = `http://localhost:5000/removeLocation?data=${JSON.stringify(data)}`;
     }
 
-    fetch(url, {
-      method: "PATCH",
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        console.log(result);
+    // fetch(url, {
+    //   method: "PATCH",
+    // })
+    //   .then((res) => res.json())
+    //   .then((result) => {
+    //     console.log(result);
 
-        if (result?.response?.acknowledged) {
-          toast.success(result?.msg);
-        } else {
-          toast.error(result?.msg);
-        }
-      })
-      .catch(() => {
-        toast.error("Server Failed");
-      });
+    //     if (result?.response?.acknowledged) {
+    //       toast.success(result?.msg);
+    //     } else {
+    //       toast.error(result?.msg);
+    //     }
+    //   })
+    //   .catch(() => {
+    //     toast.error("Server Failed");
+    //   });
   };
+
+  const setDistrictInputValue = (e) => {
+    setDistrictSuggest(e.target.value);
+  };
+
+  const setSearchItem = (item, searchLabel) => {
+    switch (searchLabel) {
+      case "d":
+        setDistrictSuggest(item);
+        break;
+      case "m":
+        setMandalSuggest(item);
+        break;
+      case "v":
+        setVillageSuggest(item);
+        break;
+    }
+  };
+
+  console.log(districtSuggest, "District suggest");
+  console.log(allDistricts, "All district");
 
   return (
     <>
@@ -159,7 +208,7 @@ const UpdateLocation = () => {
                 onSubmit={(e, isAddOption) => updateLocation(e, isAddOption)}
               >
                 {/* district */}
-                <div>
+                <div className="relative">
                   <label
                     htmlFor="district"
                     className="block mb-2 text-base text-black"
@@ -178,10 +227,36 @@ const UpdateLocation = () => {
                       type="text"
                       id="district"
                       name="district"
+                      value={districtSuggest}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-10 p-2.5 nm_Inset focus:outline-none"
                       placeholder="Enter district name"
+                      onChange={setDistrictInputValue}
                       required
                     />
+                  </div>
+
+                  <div className="bg-normalViolet absolute bottom-[-42%] text-white w-[100%] z-[10]">
+                    {allDistricts
+                      ?.filter((district) => {
+                        const searchItem = districtSuggest.toLowerCase();
+
+                        return (
+                          searchItem &&
+                          district.toLowerCase().startsWith(searchItem) &&
+                          searchItem !== district.toLowerCase()
+                        );
+                      })
+                      .map((item) => {
+                        return (
+                          <div
+                            className="py-1 px-2 border-3 border-b-white"
+                            key={item}
+                            onClick={() => setSearchItem(item, "d")}
+                          >
+                            {item}
+                          </div>
+                        );
+                      })}
                   </div>
                 </div>
 
