@@ -88,21 +88,25 @@ const ShowPlotDetails = ({ serialNo, applicationData }) => {
         <p className="text-gray-900 ">{submitDate ?? "N/A"}</p>
       </td>
       <td className="p-3 text-sm">
-        <p className="text-gray-900 ">{submitDate ?? "N/A"}</p>
+        <p className="text-gray-900 ">
+          {submitDate?.split("-")[submitDate?.split("-").length - 1] ?? "N/A"}
+        </p>
       </td>
       <td className="p-3  border-b border-gray-200 text-xs">
-        <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+        <span className="relative inline-block px-3 py-1 font-semibold  leading-tight">
           <span
             aria-hidden
             className={`absolute inset-0  ${
-              (status?.toLowerCase()?.includes("pending") && "bg-violet-200") ||
-              (status?.toLowerCase()?.includes("approved") && "bg-green-200") ||
+              (status?.toLowerCase()?.includes("pending") && "bg-violet-400") ||
+              (status?.toLowerCase()?.includes("approved") && "bg-green-400") ||
               (status?.toLowerCase()?.includes("shortfall") &&
                 "bg-[#fad390]") ||
-              (status?.toLowerCase()?.includes("rejected") && "bg-red-200")
+              (status?.toLowerCase()?.includes("rejected") && "bg-red-400")
             } opacity-50 rounded-full`}
           ></span>
-          <span className="relative capitalize">{status ?? "N/A"}</span>
+          <span className="relative capitalize">
+            {status.split(" ")[0] ?? "N/A"}
+          </span>
         </span>
       </td>
     </tr>
