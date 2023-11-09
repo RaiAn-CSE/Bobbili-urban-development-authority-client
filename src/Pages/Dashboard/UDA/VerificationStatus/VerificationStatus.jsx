@@ -1,6 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
+import Loading from "../../../Shared/Loading";
 
 const VerificationStatus = () => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <div className="container mx-auto px-4 font-roboto ">
       <div className="py-4">
