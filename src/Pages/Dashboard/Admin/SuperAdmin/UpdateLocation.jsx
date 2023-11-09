@@ -148,10 +148,30 @@ const UpdateLocation = () => {
 
   const setDistrictInputValue = (e) => {
     setDistrictSuggest(e.target.value);
+    if (e.target.value.length === 0) {
+      setIsMandalNeed(0);
+      setAllMandal([]);
+      setMandalNames([]);
+      setMandalSuggest("");
+      if (document.getElementById("mandal")) {
+        document.getElementById("mandal").value = "";
+      }
+
+      setIsVillageNeed(0);
+      setAllVillage([]);
+      setVillageSuggest("");
+      if (document.getElementById("village")) {
+        document.getElementById("village").value = "";
+      }
+    }
   };
 
   const setMandalInputValue = (e) => {
     setMandalSuggest(e.target.value);
+  };
+
+  const setVillageInputValue = (e) => {
+    setVillageSuggest(e.target.value);
   };
 
   const setSearchItem = (item, searchLabel) => {
@@ -268,163 +288,234 @@ const UpdateLocation = () => {
                 </div>
 
                 {/* mandal  */}
-                <div>
-                  {/* <label
-                  htmlFor="mandal"
-                  className="flex items-center mb-2 text-base text-black"
-                >
-                  <input
-                    type="checkbox"
-                    className="toggle toggle-sm me-2"
-                    onClick={() =>
-                      setToggleValue(isMandalNeed, setIsMandalNeed)
-                    }
-                  />
-                  Mandal
-                </label> */}
-                  <div className={`${LocationStyle.switchHolder}`}>
-                    <div className={`${LocationStyle.switchLabel}`}>
-                      <span className="text-black">Mandal</span>
-                    </div>
-                    <div className={`${LocationStyle.switchToggle}`}>
-                      <input
-                        type="checkbox"
-                        id="mandal"
-                        className="transition-all duration-700"
-                        onClick={() => {
-                          console.log(isMandalNeed, "Is mandal need");
-                          setToggleValue(isMandalNeed, setIsMandalNeed);
-                          if (isMandalNeed === 0) {
-                            console.log(allLocationData, "MandalNeed");
-                            console.log(districtSuggest, "districtSuggest");
-                            if (districtSuggest?.length) {
-                              allLocationData?.filter((item) => {
-                                if (
-                                  item?.name?.toLowerCase() ===
-                                  districtSuggest.toLocaleLowerCase()
-                                ) {
-                                  setAllMandal(item?.mandal);
-                                  const mandalNames = item?.mandal?.map(
-                                    (item) => item?.name
-                                  );
+                {districtSuggest?.length !== 0 && (
+                  <div>
+                    {/* <label
+                    htmlFor="mandal"
+                    className="flex items-center mb-2 text-base text-black"
+                  >
+                    <input
+                      type="checkbox"
+                      className="toggle toggle-sm me-2"
+                      onClick={() =>
+                        setToggleValue(isMandalNeed, setIsMandalNeed)
+                      }
+                    />
+                    Mandal
+                  </label> */}
+                    <div className={`${LocationStyle.switchHolder}`}>
+                      <div className={`${LocationStyle.switchLabel}`}>
+                        <span className="text-black">Mandal</span>
+                      </div>
+                      <div className={`${LocationStyle.switchToggle}`}>
+                        <input
+                          type="checkbox"
+                          id="mandal"
+                          className="transition-all duration-700"
+                          disabled={districtSuggest?.length === 0}
+                          onClick={() => {
+                            console.log(isMandalNeed, "Is mandal need");
+                            setToggleValue(isMandalNeed, setIsMandalNeed);
+                            if (isMandalNeed === 0) {
+                              console.log(allLocationData, "MandalNeed");
+                              console.log(districtSuggest, "districtSuggest");
+                              if (districtSuggest?.length) {
+                                allLocationData?.filter((item) => {
+                                  if (
+                                    item?.name?.toLowerCase() ===
+                                    districtSuggest.toLocaleLowerCase()
+                                  ) {
+                                    setAllMandal(item?.mandal);
+                                    const mandalNames = item?.mandal?.map(
+                                      (item) => item?.name
+                                    );
 
-                                  setMandalNames((prev) => {
-                                    return [...mandalNames];
-                                  });
-                                }
-                              });
+                                    setMandalNames((prev) => {
+                                      return [...mandalNames];
+                                    });
+                                  }
+                                });
+                              } else {
+                                toast.error(
+                                  "Enter district name to see autosuggestion"
+                                );
+                              }
                             } else {
-                              toast.error(
-                                "Enter district name to see autosuggestion"
-                              );
+                              setAllMandal([]);
+                              setMandalNames([]);
+                              setMandalSuggest("");
+                              document.getElementById("mandal").value = "";
+                              setIsVillageNeed(0);
+                              setAllVillage([]);
+                              setVillageSuggest("");
                             }
-                          } else {
-                            setMandalSuggest("");
-                            document.getElementById("mandal").value = "";
-                          }
-                        }}
-                      />
-                      <label htmlFor="mandal"></label>
-                    </div>
-                  </div>
-                  {isMandalNeed === 1 && (
-                    <div className={`relative mb-6 h-fit`}>
-                      <div className="absolute inset-y-0 left-0 flex items-center p-3 pointer-events-none">
-                        <img
-                          className="w-full h-full"
-                          src={cityImage}
-                          alt="An image which is representing district"
+                          }}
                         />
-                      </div>
-                      <input
-                        type="text"
-                        id="mandal"
-                        name="mandal"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-10 p-2.5 transition-all duration-700 nm_Inset focus:outline-none"
-                        placeholder="Enter mandal name"
-                        value={mandalSuggest}
-                        onChange={setMandalInputValue}
-                        required={isMandalNeed && "required"}
-                      />
-                      <div className="bg-normalViolet absolute text-white w-[100%] z-[10]">
-                        {mandalNames
-                          ?.filter((mandal) => {
-                            const searchItem = mandalSuggest.toLowerCase();
-                            const mandalName = mandal?.toLowerCase();
-                            console.log(mandal, "MANDAL");
-                            return (
-                              searchItem &&
-                              mandalName.startsWith(searchItem) &&
-                              searchItem !== mandalName
-                            );
-                          })
-                          .slice(0, 5)
-                          .map((item) => {
-                            return (
-                              <div
-                                className="py-1 px-2 border-3 border-b-white"
-                                key={item}
-                                onClick={() => setSearchItem(item, "m")}
-                              >
-                                {item}
-                              </div>
-                            );
-                          })}
+                        <label htmlFor="mandal"></label>
                       </div>
                     </div>
-                  )}
-                </div>
+                    {isMandalNeed === 1 && (
+                      <div className={`relative mb-6 h-fit`}>
+                        <div className="absolute inset-y-0 left-0 flex items-center p-3 pointer-events-none">
+                          <img
+                            className="w-full h-full"
+                            src={cityImage}
+                            alt="An image which is representing district"
+                          />
+                        </div>
+                        <input
+                          type="text"
+                          id="mandal"
+                          name="mandal"
+                          disabled={districtSuggest?.length === 0}
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-10 p-2.5 transition-all duration-700 nm_Inset focus:outline-none"
+                          placeholder="Enter mandal name"
+                          value={mandalSuggest}
+                          onChange={setMandalInputValue}
+                          required={isMandalNeed && "required"}
+                        />
+                        <div className="bg-normalViolet absolute text-white w-[100%] z-[10]">
+                          {mandalNames
+                            ?.filter((mandal) => {
+                              const searchItem = mandalSuggest.toLowerCase();
+                              const mandalName = mandal?.toLowerCase();
+                              console.log(mandal, "MANDAL");
+                              return (
+                                searchItem &&
+                                mandalName.startsWith(searchItem) &&
+                                searchItem !== mandalName
+                              );
+                            })
+                            .slice(0, 5)
+                            .map((item) => {
+                              return (
+                                <div
+                                  className="py-1 px-2 border-3 border-b-white"
+                                  key={item}
+                                  onClick={() => setSearchItem(item, "m")}
+                                >
+                                  {item}
+                                </div>
+                              );
+                            })}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
 
                 {/* vilage  */}
-                <div>
-                  {/* <label
-                  htmlFor="village"
-                  className="flex items-center mb-2 text-base text-black "
-                >
-                  <input
-                    type="checkbox"
-                    className="toggle toggle-sm me-2"
-                    onClick={() =>
-                      setToggleValue(isVillageNeed, setIsVillageNeed)
-                    }
-                  />
-                  Village
-                </label> */}
-                  <div className={`${LocationStyle.switchHolder}`}>
-                    <div className={`${LocationStyle.switchLabel}`}>
-                      <span className="text-black">Village</span>
-                    </div>
-                    <div className={`${LocationStyle.switchToggle}`}>
-                      <input
-                        type="checkbox"
-                        id="village"
-                        onClick={() =>
-                          setToggleValue(isVillageNeed, setIsVillageNeed)
-                        }
-                      />
-                      <label htmlFor="village"></label>
-                    </div>
-                  </div>
-                  {isVillageNeed === 1 && (
-                    <div className={`relative mb-6 `}>
-                      <div className="absolute inset-y-0 left-0 flex items-center p-3 pointer-events-none">
-                        <img
-                          className="w-full h-full"
-                          src={villageImage}
-                          alt="An image which is representing district"
-                        />
+                {isMandalNeed === 1 && (
+                  <div>
+                    {/* <label
+                    htmlFor="village"
+                    className="flex items-center mb-2 text-base text-black "
+                  >
+                    <input
+                      type="checkbox"
+                      className="toggle toggle-sm me-2"
+                      onClick={() =>
+                        setToggleValue(isVillageNeed, setIsVillageNeed)
+                      }
+                    />
+                    Village
+                  </label> */}
+                    <div className={`${LocationStyle.switchHolder}`}>
+                      <div className={`${LocationStyle.switchLabel}`}>
+                        <span className="text-black">Village</span>
                       </div>
-                      <input
-                        type="text"
-                        id="village"
-                        name="village"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-10 p-2.5 transition-all duration-700 nm_Inset focus:outline-none"
-                        placeholder="Enter village name"
-                        required={isVillageNeed === 1 && "required"}
-                      />
+                      <div className={`${LocationStyle.switchToggle}`}>
+                        <input
+                          type="checkbox"
+                          id="village"
+                          disabled={
+                            districtSuggest?.length === 0 ||
+                            mandalSuggest?.length === 0
+                          }
+                          onClick={() => {
+                            setToggleValue(isVillageNeed, setIsVillageNeed);
+                            console.log(isVillageNeed, "Is village need");
+                            if (isVillageNeed === 0) {
+                              console.log(allLocationData, "MandalNeed V");
+                              console.log(districtSuggest, "districtSuggest V");
+                              console.log(mandalSuggest, "mandalSuggest V");
+                              console.log(allMandal, "All mandal v");
+
+                              if (mandalSuggest?.length) {
+                                allMandal?.forEach((item) => {
+                                  if (
+                                    item?.name?.toLowerCase() ===
+                                    mandalSuggest.toLowerCase()
+                                  ) {
+                                    setAllVillage(item?.village);
+                                  }
+                                });
+                              } else {
+                                toast.error(
+                                  "Enter mandal name to see autosuggestion"
+                                );
+                              }
+                            } else {
+                              setVillageSuggest("");
+                              document.getElementById("village").value = "";
+                            }
+                          }}
+                        />
+                        <label htmlFor="village"></label>
+                      </div>
                     </div>
-                  )}
-                </div>
+                    {isVillageNeed === 1 && (
+                      <div className={`relative mb-6 `}>
+                        <div className="absolute inset-y-0 left-0 flex items-center p-3 pointer-events-none">
+                          <img
+                            className="w-full h-full"
+                            src={villageImage}
+                            alt="An image which is representing district"
+                          />
+                        </div>
+                        <input
+                          type="text"
+                          id="village"
+                          name="village"
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-10 p-2.5 transition-all duration-700 nm_Inset focus:outline-none"
+                          placeholder="Enter village name"
+                          value={villageSuggest}
+                          onChange={setVillageInputValue}
+                          disabled={
+                            districtSuggest?.length === 0 ||
+                            mandalSuggest?.length === 0
+                          }
+                          required={isVillageNeed === 1 && "required"}
+                        />
+                        <div className="bg-normalViolet absolute text-white w-[100%] z-[10]">
+                          {allVillage
+                            ?.filter((village) => {
+                              const searchItem = villageSuggest.toLowerCase();
+                              const villageName = village?.toLowerCase();
+                              console.log(searchItem, "village");
+                              return (
+                                searchItem &&
+                                villageName.startsWith(searchItem) &&
+                                searchItem !== villageName
+                              );
+                            })
+                            .slice(0, 5)
+                            .map((item) => {
+                              return (
+                                <div
+                                  className="py-1 px-2 border-3 border-b-white"
+                                  key={item}
+                                  onClick={() => setSearchItem(item, "v")}
+                                >
+                                  {item}
+                                </div>
+                              );
+                            })}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
 
                 {/* submit button  */}
 
