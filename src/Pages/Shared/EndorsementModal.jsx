@@ -1,7 +1,35 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import customScroll from "../../Style/Scrollbar.module.css";
+import { AuthContext } from '../../AuthProvider/AuthProvider';
 
 const EndorsementModal = () => {
+
+    const {
+        getApplicationData,
+    } = useContext(AuthContext);
+
+    const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
+    const cameFrom = JSON.parse(localStorage.getItem("page"));
+
+    const [gramaPanchayat, setGramaPanchayat] = useState('');
+    const [applicationNumber, setApplicationNumber] = useState('');
+    const [surveyNo, setSurveyNo] = useState('');
+    const [ownerName, setOwnerName] = useState('');
+
+    useEffect(() => {
+        const getData = async () => {
+            const applicationData = await getApplicationData(applicationNo, cameFrom);
+            console.log(applicationData, "All info ApplicationData");
+            console.log(applicationData?.applicantInfo?.applicantDetails?.[0]?.name, "ApplicationData raian");
+            setGramaPanchayat(applicationData?.buildingInfo?.generalInformation?.gramaPanchayat);
+            setApplicationNumber(applicationData?.applicationNo);
+            setSurveyNo(applicationData?.buildingInfo?.generalInformation?.surveyNo);
+            setOwnerName(applicationData?.applicantInfo?.applicantDetails?.[0]?.name);
+        };
+        getData();
+    }, [])
+
+
     return (
         <div className='dark:bg-white px-10'>
             <dialog id="my_modal_2" className="modal">
@@ -19,9 +47,9 @@ const EndorsementModal = () => {
                             <h2>Date:05/23/2023</h2>
                         </div>
                         <div className='flex flex-col py-4'>
-                            <p className='text-start'>Sub: - BUILDINGS - ___________ Grama panchayat - required compliances - Endorsement issued - Regarding</p>
-                            <p>Ref: - Application of Sri/Smt/Kum ______________</p>
-                            <p className='text-start'>With reference to your application for building permission vide B.A.No ____________________  for construction of Residential/ Individual Residential Building building in Survey .No. _______</p>
+                            <p className='text-start'>Sub: - BUILDINGS - <span className='underline'>{gramaPanchayat}</span> Grama panchayat - required compliances - Endorsement issued - Regarding</p>
+                            <p>Ref: - Application of Sri/Smt/Kum <span className='underline'>{ownerName}</span></p>
+                            <p className='text-start'>With reference to your application for building permission vide B.A.No <span className='underline'>{applicationNumber}</span> for construction of Residential/ Individual Residential Building building in Survey .No. <span className='underline'>{surveyNo}</span></p>
                             <p className='font-semibold'>Objections found in Primary Documents:-</p>
                         </div>
                         <div className={`overflow-x-auto overflow-y-auto ${customScroll.customScrolling}`}>
