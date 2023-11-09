@@ -44,6 +44,12 @@ const NewApplication = () => {
   console.log(data, "Query");
 
   useEffect(() => {
+    return () => {
+      localStorage.removeItem("currentStep");
+    };
+  }, []);
+
+  useEffect(() => {
     if (isError) {
       console.log("ERROR");
       setError("Failed to fetch data");
@@ -52,10 +58,6 @@ const NewApplication = () => {
       setLoading(false);
       setError("");
     }
-
-    return () => {
-      localStorage.removeItem("currentStep");
-    };
   }, [isError]);
 
   useEffect(() => {
