@@ -4,7 +4,9 @@ import { AuthContext } from '../../AuthProvider/AuthProvider';
 
 const ProceedingModal = () => {
 
-    const { getApplicationData, fetchDataFromTheDb } = useContext(AuthContext);
+    const { getApplicationData, calculateNoOfFloors } = useContext(AuthContext);
+
+    const { } = calculateNoOfFloors;
 
     const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
     const cameFrom = JSON.parse(localStorage.getItem("page"));
@@ -22,16 +24,6 @@ const ProceedingModal = () => {
         };
         getData();
     }, []);
-
-    // useEffect(() => {
-    //     const getData = async () => {
-    //         const appNo = JSON.stringify({ appNo: applicationNo })
-    //         const applicationData = await fetchDataFromTheDb(`http//:localhost5000/getSpecificApprovedApplication?appNo=${appNo}`);
-    //         console.log(applicationData, "All info ApplicationData");
-    //         setAllInfo(applicationData);
-    //     };
-    //     getData();
-    // }, []);
 
 
     return (
@@ -125,14 +117,14 @@ const ProceedingModal = () => {
                             <tr className='border border-gray-900'>
                                 <td className='p-2 border-r border-neutral-500 text-center'>1</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>దరఖాస్తుదారులు</td>
-                                <td colSpan={4} className='text-center'><span className='underline'>{allInfo?.applicantInfo?.applicantDetails?.[0]?.name}</span></td>
+                                <td colSpan={4} className='text-center'>{allInfo?.applicantInfo?.applicantDetails?.[0]?.name}</td>
                             </tr>
                             <tr className='border border-gray-900'>
                                 <td className='p-2 border-r border-neutral-500 text-center'>2</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>లైసెన్సుడ్ టెక్నికల్ పర్సన్</td>
-                                <td className='p-2 border-r border-neutral-500 text-center'>Ltp name</td>
+                                <td className='p-2 border-r border-neutral-500 text-center'>{allInfo?.applicantInfo?.ltpDetails?.name}</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>లైసెన్స్ నెం</td>
-                                <td className='p-2 border-r border-neutral-500 text-center'>Lic no & validity</td>
+                                <td colSpan={2} className='p-2 border-r border-neutral-500 text-center'>{allInfo?.applicantInfo?.ltpDetails?.licenseNo} & <span>{allInfo?.applicantInfo?.ltpDetails?.validity}</span></td>
                             </tr>
                             <tr className='border border-gray-900'>
                                 <th className='p-2 border-r border-neutral-500 text-center'>B</th>
@@ -141,12 +133,12 @@ const ProceedingModal = () => {
                             <tr className='p-2 border border-gray-900'>
                                 <td className='p-2 border-r border-neutral-500 text-center'>1</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>సర్వే నెం.</td>
-                                <td colSpan={4} className='p-2 border-r border-neutral-500'>Survey no</td>
+                                <td colSpan={4} className='p-2 border-r border-neutral-500'>{allInfo?.buildingInfo?.generalInformation?.surveyNo}</td>
                             </tr>
                             <tr className='p-2 border border-gray-900'>
                                 <td className='p-2 border-r border-neutral-500 text-center'>2</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>డోర్ నెం.</td>
-                                <td colSpan={4} className='p-2 border-r border-neutral-500'>Door no</td>
+                                <td colSpan={4} className='p-2 border-r border-neutral-500'>{allInfo?.applicantInfo?.applicantDetails[0]?.ownerDoorNo}</td>
                             </tr>
                             <tr className='p-2 border border-gray-900'>
                                 <td className='p-2 border-r border-neutral-500 text-center'>3</td>
@@ -156,22 +148,22 @@ const ProceedingModal = () => {
                             <tr className='p-2 border border-gray-900'>
                                 <td className='p-2 border-r border-neutral-500 text-center'>4</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>గ్రామము</td>
-                                <td colSpan={4} className='p-2 border-r border-neutral-500'>Village name</td>
+                                <td colSpan={4} className='p-2 border-r border-neutral-500'>{allInfo?.buildingInfo?.generalInformation?.village}</td>
                             </tr>
                             <tr className='p-2 border border-gray-900'>
                                 <td className='p-2 border-r border-neutral-500 text-center'>5</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>గ్రామ పంచాయతీ</td>
-                                <td colSpan={4} className='p-2 border-r border-neutral-500'>Grama panchayat name</td>
+                                <td colSpan={4} className='p-2 border-r border-neutral-500'>{allInfo?.buildingInfo?.generalInformation?.gramaPanchayat}</td>
                             </tr>
                             <tr className='p-2 border border-gray-900'>
                                 <td className='p-2 border-r border-neutral-500 text-center'>6</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>మండలం</td>
-                                <td colSpan={4} className='p-2 border-r border-neutral-500'>Mandal name</td>
+                                <td colSpan={4} className='p-2 border-r border-neutral-500'>{allInfo?.buildingInfo?.generalInformation?.mandal}</td>
                             </tr>
                             <tr className='p-2 border border-gray-900'>
                                 <td className='p-2 border-r border-neutral-500 text-center'>7</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>జిల్లా</td>
-                                <td colSpan={4} className='p-2 border-r border-neutral-500'>District name</td>
+                                <td colSpan={4} className='p-2 border-r border-neutral-500'>{allInfo?.buildingInfo?.generalInformation?.district}</td>
                             </tr>
                             <tr className='border border-gray-900'>
                                 <th className='p-2 border-r border-neutral-500 text-center'>C</th>
@@ -186,35 +178,35 @@ const ProceedingModal = () => {
                                 <td className='p-2 border-r border-neutral-500 text-center'>ప్రక్క  II</td>
                             </tr>
                             <tr className='p-2 border border-gray-900'>
-                                <td className='p-2 border-r border-neutral-500 text-center'>Front</td>
-                                <td className='p-2 border-r border-neutral-500 text-center'>rare</td>
-                                <td className='p-2 border-r border-neutral-500 text-center'>Side 1</td>
-                                <td className='p-2 border-r border-neutral-500 text-center'>Side 2</td>
+                                <td className='p-2 border-r border-neutral-500 text-center'>{allInfo?.buildingInfo?.plotDetails?.frontSetback}</td>
+                                <td className='p-2 border-r border-neutral-500 text-center'>{allInfo?.buildingInfo?.plotDetails?.rareSetback}</td>
+                                <td className='p-2 border-r border-neutral-500 text-center'>{allInfo?.buildingInfo?.plotDetails?.side1Setback}</td>
+                                <td className='p-2 border-r border-neutral-500 text-center'>{allInfo?.buildingInfo?.plotDetails?.side2Setback}</td>
                             </tr>
                             <tr className='p-2 border border-gray-900'>
                                 <td className='p-2 border-r border-neutral-500 text-center'>2</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>స్థల వైశాల్యం  (మీ2)</td>
-                                <td colSpan={4} className='p-2 border-r border-neutral-500'>Total site area</td>
+                                <td colSpan={4} className='p-2 border-r border-neutral-500'>Total site area (Can't find)</td>
                             </tr>
                             <tr className='p-2 border border-gray-900'>
                                 <td className='p-2 border-r border-neutral-500 text-center'>3</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>రోడ్ ప్రభావము గల వైశాల్యం  (మీ2)</td>
-                                <td colSpan={4} className='p-2 border-r border-neutral-500'>Road widening area</td>
+                                <td colSpan={4} className='p-2 border-r border-neutral-500'>{allInfo?.buildingInfo?.plotDetails?.roadWideningAreaCal}</td>
                             </tr>
                             <tr className='p-2 border border-gray-900'>
                                 <td className='p-2 border-r border-neutral-500 text-center'>4</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>పూర్తి వైశాల్యం  (మీ2)</td>
-                                <td colSpan={4} className='p-2 border-r border-neutral-500'>Net site area</td>
+                                <td colSpan={4} className='p-2 border-r border-neutral-500'>Net site area (Can't find)</td>
                             </tr>
                             <tr className='p-2 border border-gray-900'>
                                 <td className='p-2 border-r border-neutral-500 text-center'>5</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>అంతస్తుల మొత్తము</td>
-                                <td colSpan={4} className='p-2 border-r border-neutral-500'>No of floors [ (Ground +1) if one floor] stilt+ground+1 (if stilt parking/floor)</td>
+                                <td colSpan={4} className='p-2 border-r border-neutral-500'>{calculateNoOfFloors(allInfo?.floorDetails)}</td>
                             </tr>
                             <tr className='p-2 border border-gray-900'>
                                 <td className='p-2 border-r border-neutral-500 text-center'>6</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>నిర్మాణ స్థలం మొత్తము</td>
-                                <td colSpan={4} className='p-2 border-r border-neutral-500'>Total built up area</td>
+                                <td colSpan={4} className='p-2 border-r border-neutral-500'>{allInfo?.buildingInfo?.plotDetails?.totalBuiltUpArea}</td>
                             </tr>
                             <tr className='border border-gray-900'>
                                 <th className='p-2 border-r border-neutral-500 text-center'>D</th>
@@ -223,23 +215,23 @@ const ProceedingModal = () => {
                             <tr className='p-2 border border-gray-900'>
                                 <td className='p-2 border-r border-neutral-500 text-center'>1</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>డెవలప్మెంట్ చార్జెస్ (బిల్డుప్ ఏరియా )</td>
-                                <td className='p-2 border-r border-neutral-500 text-center'>Development charges (built up area)</td>
+                                <td className='p-2 border-r border-neutral-500 text-center'>{allInfo?.payment?.udaCharge?.builtUpArea}</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>8</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>గ్రీన్ ఫీజు</td>
-                                <td className='p-2 border-r border-neutral-500 text-center'>Green fee charges</td>
+                                <td className='p-2 border-r border-neutral-500 text-center'>{allInfo?.payment?.greenFeeCharge?.greenFee}</td>
                             </tr>
                             <tr className='p-2 border border-gray-900'>
                                 <td className='p-2 border-r border-neutral-500 text-center'>2</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>డెవలప్మెంట్ చార్జెస్ (వేకేంట్ ల్యాండ్)</td>
-                                <td className='p-2 border-r border-neutral-500 text-center'>Development charges (vacant land)</td>
+                                <td className='p-2 border-r border-neutral-500 text-center'>{allInfo?.payment?.udaCharge?.vacantArea}</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>9</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>బిల్డింగ్ పర్మిట్ ఫీజు</td>
-                                <td className='p-2 border-r border-neutral-500 text-center'>Building permit charges</td>
+                                <td className='p-2 border-r border-neutral-500 text-center'>{allInfo?.payment?.gramaPanchayatFee?.buildingPermitFees}</td>
                             </tr>
                             <tr className='p-2 border border-gray-900'>
                                 <td className='p-2 border-r border-neutral-500 text-center'>3</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>బెట్టేర్మేంట్ చార్జెస్:</td>
-                                <td className='p-2 border-r border-neutral-500 text-center'>Betterment charges</td>
+                                <td className='p-2 border-r border-neutral-500 text-center'>{allInfo?.payment?.gramaPanchayatFee?.bettermentCharged}</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>10</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>సైట్ అప్రూవల్ చార్జెస్</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>Site approval charges</td>
@@ -250,7 +242,7 @@ const ProceedingModal = () => {
                                 <td className='p-2 border-r border-neutral-500 text-center'>14% open spaced charge</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>11</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>పేపర్ పబ్లికేషన్ చార్జెస్</td>
-                                <td className='p-2 border-r border-neutral-500 text-center'>Paper publication charges</td>
+                                <td className='p-2 border-r border-neutral-500 text-center'>{allInfo?.payment?.gramaPanchayatFee?.paperPublicationFee}</td>
                             </tr>
                             <tr className='p-2 border border-gray-900'>
                                 <td className='p-2 border-r border-neutral-500 text-center'>5</td>
@@ -258,15 +250,15 @@ const ProceedingModal = () => {
                                 <td className='p-2 border-r border-neutral-500 text-center'>33% penalization charges</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>12</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>ప్రోసెసింగ్ ఫీజు</td>
-                                <td className='p-2 border-r border-neutral-500 text-center'>Processing fee</td>
+                                <td className='p-2 border-r border-neutral-500 text-center'>{allInfo?.payment?.gramaPanchayatFee?.processingFee}</td>
                             </tr>
                             <tr className='p-2 border border-gray-900'>
                                 <td className='p-2 border-r border-neutral-500 text-center'>6</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>లేబర్ చెస్ కాంపౌండ్ 1</td>
-                                <td className='p-2 border-r border-neutral-500 text-center'>Labour cess component 1</td>
+                                <td className='p-2 border-r border-neutral-500 text-center'>{allInfo?.payment?.labourCessCharge?.labourCessOne}</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>13</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>లేబర్ చెస్ కాంపౌండ్ 2</td>
-                                <td className='p-2 border-r border-neutral-500 text-center'>Labour cess component 2</td>
+                                <td className='p-2 border-r border-neutral-500 text-center'>{allInfo?.payment?.udaCharge?.labourCessTwo}</td>
                             </tr>
                             <tr className='p-2 border border-gray-900'>
                                 <td className='p-2 border-r border-neutral-500 text-center'>7</td>

@@ -21,7 +21,7 @@ const EndorsementModal = () => {
             setGramaPanchayat(applicationData?.buildingInfo?.generalInformation?.gramaPanchayat);
             setApplicationNumber(applicationData?.applicationNo);
             setSurveyNo(applicationData?.buildingInfo?.generalInformation?.surveyNo);
-            setOwnerName(applicationData?.applicantInfo?.applicantDetails?.[0]?.name);
+            setOwnerName(applicationData?.applicantInfo?.applicantDetails[0]?.name);
         };
         getData();
     }, [])
