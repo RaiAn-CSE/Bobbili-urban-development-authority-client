@@ -1,7 +1,28 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import customScroll from "../../Style/Scrollbar.module.css";
+import { AuthContext } from '../../AuthProvider/AuthProvider';
 
 const ProceedingModal = () => {
+
+    const { getApplicationData } = useContext(AuthContext);
+
+    const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
+    const cameFrom = JSON.parse(localStorage.getItem("page"));
+
+    const [allInfo, setAllInfo] = useState('');
+
+    console.log(allInfo, "All info ApplicationData");
+    console.log(allInfo?.buildingInfo?.generalInformation?.mandal, "All info ApplicationData");
+
+    useEffect(() => {
+        const getData = async () => {
+            const applicationData = await getApplicationData(applicationNo, cameFrom);
+            console.log(applicationData, "All info ApplicationData");
+            setAllInfo(applicationData);
+        };
+        getData();
+    }, [])
+
 
     return (
         <div className='dark:bg-white'>
@@ -13,14 +34,14 @@ const ProceedingModal = () => {
                         <button className="btn btn-sm text-white hover:bg-violet-600 btn-circle btn-ghost absolute top-2 right-2 bg-violet-500">✕</button>
                     </form>
                     <div>
-                        <p>_____mandal______మండలం, ____gramap._______ గ్రామ పంచాయతి కార్యదర్శి వారి ఉత్తర్వులు ప్రస్తుతము శ్రీ _________ownerN.__________</p>
-                        <h1 className='font-bold text-xl underline text-center mt-5'>భవన నిర్మాణ ఉత్తర్వులు </h1>
+                        <p><span className='underline'>{allInfo?.buildingInfo?.generalInformation?.mandal}</span> మండలం, <span className='underline'>{allInfo?.buildingInfo?.generalInformation?.gramaPanchayat}</span> గ్రామ పంచాయతి కార్యదర్శి వారి ఉత్తర్వులు ప్రస్తుతము శ్రీ <span className='underline'>{allInfo?.applicantInfo?.applicantDetails?.[0]?.name}</span></p>
+                        <h1 className='font-bold text-xl underline text-center mt-5'>భవన నిర్మాణ ఉత్తర్వులు</h1>
                         <p className='font-semibold text-sm'>వరకు,</p>
                         <div className='flex mt-5'>
                             <div className='basis-[40%]  mr-5'>
                                 <table className='min-w-full border border-gray-900 h-20'>
                                     <td className='p-2'>
-                                        భవన యజమాని వివరములు owner address
+                                        భవన యజమాని వివరములు <span className='underline'>{allInfo?.applicantInfo?.applicantDetails?.[0]?.name}</span>
                                     </td>
                                 </table>
                             </div>
@@ -32,7 +53,7 @@ const ProceedingModal = () => {
                                                 బి. ఎ.నెం.
                                             </th>
                                             <th colSpan={8} className='p-2 text-center'>
-                                                App. no
+                                                <span className='underline'>{allInfo?.applicationNo}</span>
                                             </th>
                                         </tr>
                                     </thead>
@@ -94,7 +115,7 @@ const ProceedingModal = () => {
                             <tr className='border border-gray-900'>
                                 <td className='p-2 border-r border-neutral-500 text-center'>1</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>దరఖాస్తుదారులు</td>
-                                <td colSpan={4} className='text-center'>Owner name</td>
+                                <td colSpan={4} className='text-center'><span className='underline'>{allInfo?.applicantInfo?.applicantDetails?.[0]?.name}</span></td>
                             </tr>
                             <tr className='border border-gray-900'>
                                 <td className='p-2 border-r border-neutral-500 text-center'>2</td>

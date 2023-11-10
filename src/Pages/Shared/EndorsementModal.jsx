@@ -4,9 +4,7 @@ import { AuthContext } from '../../AuthProvider/AuthProvider';
 
 const EndorsementModal = () => {
 
-    const {
-        getApplicationData,
-    } = useContext(AuthContext);
+    const { getApplicationData } = useContext(AuthContext);
 
     const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
     const cameFrom = JSON.parse(localStorage.getItem("page"));
@@ -19,8 +17,7 @@ const EndorsementModal = () => {
     useEffect(() => {
         const getData = async () => {
             const applicationData = await getApplicationData(applicationNo, cameFrom);
-            console.log(applicationData, "All info ApplicationData");
-            console.log(applicationData?.applicantInfo?.applicantDetails?.[0]?.name, "ApplicationData raian");
+            // console.log(applicationData, "All info ApplicationData");
             setGramaPanchayat(applicationData?.buildingInfo?.generalInformation?.gramaPanchayat);
             setApplicationNumber(applicationData?.applicationNo);
             setSurveyNo(applicationData?.buildingInfo?.generalInformation?.surveyNo);
