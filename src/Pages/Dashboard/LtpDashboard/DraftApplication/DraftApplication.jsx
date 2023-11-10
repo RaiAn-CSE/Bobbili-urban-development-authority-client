@@ -10,7 +10,6 @@ import { VscDebugContinue, VscReferences } from "react-icons/vsc";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import Application from "./Application";
 import EndorsementModal from "../../../Shared/EndorsementModal";
-import Resubmit from "../../../Shared/Resubmit";
 import ProceedingModal from "../../../Shared/ProceedingModal";
 import { AiFillPieChart } from "react-icons/ai";
 
@@ -196,9 +195,9 @@ const DraftApplication = () => {
                 <>
                   <button
                     // Open the modal using document.getElementById('ID').showModal() method
-                    onClick={() =>
-                      document.getElementById("my_modal_1").showModal()
-                    }
+                    // onClick={() =>
+                    //   document.getElementById("my_modal_1").showModal()
+                    // }
                     className={`btn btn-sm text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white me-5  dark:border-none`}
                     onClick={navigateToResubmitPage}
                   >
@@ -268,8 +267,6 @@ const DraftApplication = () => {
       />
       {/* proceedingModal modal info  */}
       <ProceedingModal />
-      {/* my_modal_1 modal info : */}
-      <Resubmit />
       {/* my_modal_2 modal info : */}
       <EndorsementModal />
     </>

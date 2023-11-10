@@ -4,7 +4,7 @@ import { AuthContext } from '../../AuthProvider/AuthProvider';
 
 const ProceedingModal = () => {
 
-    const { getApplicationData } = useContext(AuthContext);
+    const { getApplicationData, fetchDataFromTheDb } = useContext(AuthContext);
 
     const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
     const cameFrom = JSON.parse(localStorage.getItem("page"));
@@ -21,7 +21,17 @@ const ProceedingModal = () => {
             setAllInfo(applicationData);
         };
         getData();
-    }, [])
+    }, []);
+
+    // useEffect(() => {
+    //     const getData = async () => {
+    //         const appNo = JSON.stringify({ appNo: applicationNo })
+    //         const applicationData = await fetchDataFromTheDb(`http//:localhost5000/getSpecificApprovedApplication?appNo=${appNo}`);
+    //         console.log(applicationData, "All info ApplicationData");
+    //         setAllInfo(applicationData);
+    //     };
+    //     getData();
+    // }, []);
 
 
     return (
