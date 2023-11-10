@@ -12,6 +12,8 @@ function DynamicDocument({
   handleFileChange,
   gradientColor,
   dynamicImageFromDB,
+  setRemarkText,
+  remarkText
 }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
 
@@ -197,6 +199,8 @@ function DynamicDocument({
                           uploadId={uploadId}
                           handleDynamicStatus={handleDynamicStatus}
                           type="dynamic"
+                          setRemarkText={setRemarkText}
+                          remarkText={remarkText}
                         />
                       )}
                     </div>

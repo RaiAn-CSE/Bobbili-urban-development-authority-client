@@ -52,7 +52,8 @@ const DocumentUpload = () => {
   const [dynamicImageData, setDynamicImageData] = useState([]);
   const [sendingImageId, setSendingImageId] = useState({dynamic: [],default: []});
   const [imageIdFromDB, setImageIdFromDB] = useState({default: [],dynamic: []});
-
+  const [remarkText,setRemarkText]=useState([]);
+console.log(remarkText,"remarkText")
   // Ltp File uploading Data handeling
   const handleFileChange = (event, id, uploadedFile, type, uploadId) => {
     const { files, name } = event.target;
@@ -294,6 +295,8 @@ const DocumentUpload = () => {
             gradientColor={gradientColor}
             defaultImageFromDB={imageIdFromDB?.default}
             setApprovedConfirmation={setApprovedConfirmation}
+            setRemarkText={setRemarkText}
+            remarkText={remarkText}
             // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
           />
           <DynamicDocument
@@ -307,6 +310,8 @@ const DocumentUpload = () => {
             gradientColor={gradientColor}
             dynamicImageFromDB={imageIdFromDB?.dynamic}
             setApprovedConfirmation={setApprovedConfirmation}
+            setRemarkText={setRemarkText}
+            remarkText={remarkText}
             // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
           />
         </div>

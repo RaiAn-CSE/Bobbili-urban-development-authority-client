@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 
-function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, handleDynamicStatus }) {
+function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, handleDynamicStatus, setRemarkText,remarkText }) {
 
     const handleDocumentStatus = (event, id, uploadId, type) => {
         const data = event?.target?.value;
@@ -21,10 +21,10 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
 
     return (
         <div className='dark:text-white'>
-            <div className="flex items-center mt-6">
+            <div className="md:flex items-center mt-6">
                 {/* Approved Button */}
                 {role === "PS" && (
-                    <div className="flex space-x-10 mt-2 ms-4 lg:pr-2">
+                    <div className="md:flex space-y-4 md:space-x-10 md:space-y-0 mt-2 ms-4 lg:pr-2">
                         <div>
                             <input
                                 id={type === "dynamic" ? `approved${uploadId}` : `approved${id}`}
@@ -64,7 +64,17 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
                         </div>
                         <div className="">
                             <p className="text-black font-bold" htmlFor="textarea">Remark:</p>
-                            <textarea className="textarea mt-2 bg-transparent border border-black text-black" name="" id="textarea" cols="30" rows="1"></textarea>
+                            <textarea className="textarea mt-2 bg-transparent border border-black text-black" id="textarea"
+                                name={type === "dynamic" ? `${id}_${uploadId}` : `${id}`}
+                                value={type === "Dynamic" ? (id === remarkText.id && uploadId === remarkText.uploadId) ? remarkText.value : "" : (id === remarkText.id) ? remarkText.value : ""}
+
+                                cols="30" rows="1"
+                                onBlur={(event) => setRemarkText((prev) => {
+                                    const { name, value } = event.target;
+                                    return [...prev, { [type]: { id, uploadId, value } }];
+
+                                })}
+                            ></textarea>
                         </div>
                     </div>
                 )}
