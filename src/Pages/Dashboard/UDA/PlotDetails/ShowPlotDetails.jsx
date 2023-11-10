@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 
 const ShowPlotDetails = ({ serialNo, applicationData }) => {
   const {
@@ -13,6 +14,7 @@ const ShowPlotDetails = ({ serialNo, applicationData }) => {
 
   const { generalInformation, plotDetails } = buildingInfo;
   const { applicantDetails, ltpDetails } = applicantInfo;
+  const { calculateNoOfFloors } = useContext(AuthContext);
 
   return (
     <tr className="border-b border-gray-200 dark:text-black hidden md:table-row">
@@ -70,7 +72,7 @@ const ShowPlotDetails = ({ serialNo, applicationData }) => {
       </td>
       <td className="p-3 text-sm">
         <p className="text-gray-900 ">
-          {plotDetails?.floorDetails?.length ?? "0"}
+          {calculateNoOfFloors(plotDetails?.floorDetails) ?? "N/A"}
         </p>
       </td>
       <td className="p-3 text-sm">

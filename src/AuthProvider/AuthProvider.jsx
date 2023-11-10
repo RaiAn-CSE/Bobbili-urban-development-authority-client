@@ -416,6 +416,8 @@ const AuthProvider = ({ children }) => {
 
     const totalFloors = floorNames?.length;
 
+    console.log(floorNames, totalFloors, "FLOOR CALCULATION");
+
     const isParkingAreaExist = floorNames?.findIndex((floorName) =>
       floorName.includes("Stilt")
     );
@@ -423,7 +425,11 @@ const AuthProvider = ({ children }) => {
     if (isParkingAreaExist !== -1) {
       return `ground+stilt+${totalFloors - 2}`;
     } else {
-      return `ground+${totalFloors - 1}`;
+      if (totalFloors - 1 === 0) {
+        return `ground`;
+      } else {
+        return `ground+${totalFloors - 1}`;
+      }
     }
   };
 
