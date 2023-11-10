@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 
-function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, handleDynamicStatus, setRemarkText,remarkText }) {
+function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, handleDynamicStatus, setRemarkText, remarkText }) {
 
     const handleDocumentStatus = (event, id, uploadId, type) => {
         const data = event?.target?.value;
@@ -18,6 +18,30 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
     useEffect(() => {
         // Your previous useEffect dependencies here
     }, [approved, uploadId]);
+
+    const handleRemarkText = (event) => {
+        const { value } = event?.target;
+        if (!value.trim()) {
+            return toast.error("No value");
+        }
+
+        setRemarkText((prev) => {
+            const existingIndex = prev.findIndex((item) => item[type].id == id || (item[type].id == id && item[type].uploadId == uploadId)
+            );
+            const existingObject = prev.some((item) => item[type].id == id || (item[type].id == id && item[type].uploadId == uploadId)
+            );
+            console.log({ existingIndex,existingObject })
+            if (existingObject) {
+                // If the value already exists, update the existing object with the new value
+                const updatedArray = [...prev];
+                updatedArray[existingIndex][type].value = value;
+                return updatedArray;
+            }
+            return [...prev, { [type]: { id, uploadId, value } }];
+
+        });
+    };
+
 
     return (
         <div className='dark:text-white'>
@@ -66,14 +90,10 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
                             <p className="text-black font-bold" htmlFor="textarea">Remark:</p>
                             <textarea className="textarea mt-2 bg-transparent border border-black text-black" id="textarea"
                                 name={type === "dynamic" ? `${id}_${uploadId}` : `${id}`}
-                                value={type === "Dynamic" ? (id === remarkText.id && uploadId === remarkText.uploadId) ? remarkText.value : "" : (id === remarkText.id) ? remarkText.value : ""}
+                                defaultValue={type === "Dynamic" ? (id === remarkText.id && uploadId === remarkText.uploadId) ? remarkText.value : "" : (id === remarkText.id) ? remarkText.value : ""}
 
                                 cols="30" rows="1"
-                                onBlur={(event) => setRemarkText((prev) => {
-                                    const { name, value } = event.target;
-                                    return [...prev, { [type]: { id, uploadId, value } }];
-
-                                })}
+                                onBlur={(event) => handleRemarkText(event)}
                             ></textarea>
                         </div>
                     </div>
