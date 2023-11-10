@@ -34,8 +34,7 @@ const Inward = () => {
     ["allInwardApplications"],
     async () => {
       const response = await fetch(
-        `http://localhost:5000/submitApplications?userId=${
-          userInfoFromLocalStorage()?._id
+        `http://localhost:5000/submitApplications?userId=${userInfoFromLocalStorage()?._id
         }`
       );
       return await response.json();
@@ -202,9 +201,9 @@ const Inward = () => {
               />
             </div> */}
 
-              <div class="search-box">
+              <div className="search-box">
                 <button
-                  class="btn-search bg-normalViolet flex justify-center items-center"
+                  className="btn-search bg-normalViolet flex justify-center items-center"
                   type="submit"
                 >
                   <svg
@@ -225,7 +224,7 @@ const Inward = () => {
                 </button>
                 <input
                   type="text"
-                  // class="input-search"
+                  // className="input-search"
                   id="default-search"
                   {...register("search")}
                   onChange={detectChange}

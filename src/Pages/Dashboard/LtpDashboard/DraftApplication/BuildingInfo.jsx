@@ -655,7 +655,7 @@ const BuildingInfo = () => {
     <>
       <div className="grid my-5 mx-5 lg:my-0  text-gray-900">
         {/* general information */}
-        <div className="nm_Container mt-3 p-2 divide-y-2 divide-gray-200 mb-10">
+        <div className="nm_Container mt-3 p-2 divide-y-2 divide-violet-300 mb-10">
           {/* heading  */}
           <div className="pl-2 pt-3 flex items-center">
             <div className=" text-normalViolet">
@@ -1067,7 +1067,7 @@ const BuildingInfo = () => {
         </div>
 
         {/* plot details  */}
-        <div className="nm_Container mt-3 p-2 divide-y-2 divide-gray-200 mb-10">
+        <div className="nm_Container mt-3 p-2 divide-y-2 divide-gray-300 mb-10">
           <div className="pl-2 pt-3 flex items-center">
             <AiOutlineAreaChart size={30} className="text-normalViolet" />
             <h3 className="font-bold text-xl ml-2">Plot Details</h3>
@@ -1650,7 +1650,7 @@ const BuildingInfo = () => {
         </div>
 
         {/* schedule boundaries  */}
-        <div className="nm_Container mt-3 p-2 divide-y-2 divide-gray-200">
+        <div className="nm_Container mt-3 p-2 divide-y-2 divide-gray-300">
           <div className="pl-2 pt-3 flex items-center">
             <PiWall size={30} className="text-normalViolet" />
             <h3 className="font-bold text-xl ml-3">Schedule of Boundaries</h3>

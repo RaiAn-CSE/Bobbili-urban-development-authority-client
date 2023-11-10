@@ -62,7 +62,7 @@ const MainLayout = () => {
             >
               Residential Building Plan Approval
             </p>
-            {/* <div class="content mb-10">
+            {/* <div className="content mb-10">
               <h2>Residential Building Plan Approval</h2>
               <h2>Residential Building Plan Approval</h2>
             </div> */}

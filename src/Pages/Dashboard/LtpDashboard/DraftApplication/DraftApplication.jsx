@@ -235,8 +235,8 @@ const DraftApplication = () => {
               ""
             )}
           </div>
-          <div className="mt-3 mb-5 font-roboto">
-            <ul className="w-full steps steps-vertical lg:steps-horizontal  rounded-lg">
+          <div className="mb-5 font-roboto">
+            <ul className="w-full steps steps-vertical lg:steps-horizontal rounded-lg pt-4">
               {stepsContent.map((step, index) => (
                 <li
                   key={index}
