@@ -405,10 +405,28 @@ const AuthProvider = ({ children }) => {
     return isActive;
   };
 
+  // fetch data from the database by passing the url
   const fetchDataFromTheDb = async (url) => {
     const response = await fetch(url);
     return await response.json();
   };
+
+  const calculateNoOfFloors = (floors) => {
+    const floorNames = floors?.map((floor) => floor?.name);
+
+    const totalFloors = floorNames?.length;
+
+    const isParkingAreaExist = floorNames?.findIndex((floorName) =>
+      floorName.includes("Stilt")
+    );
+
+    if (isParkingAreaExist !== -1) {
+      return `ground+stilt+${totalFloors - 2}`;
+    } else {
+      return `ground+${totalFloors - 1}`;
+    }
+  };
+
   //   create a object to transfer data into various components
   const userInfo = {
     updateUserInfoInLocalStorage,
@@ -430,6 +448,7 @@ const AuthProvider = ({ children }) => {
     findWhichMenuIsActiveForLtpSideBar,
     findWhichMenuIsActiveForPsSideBar,
     fetchDataFromTheDb,
+    calculateNoOfFloors,
     handleLogOut,
   };
 
