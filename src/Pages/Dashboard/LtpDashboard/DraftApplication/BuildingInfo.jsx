@@ -35,9 +35,15 @@ const BuildingInfo = () => {
 
   const { _id: id } = userInfoFromLocalStorage();
 
-  const role = userInfoFromLocalStorage().role;
+  const role = userInfoFromLocalStorage()?.role;
 
-  const isReadOnly = role === "PS";
+  const page = JSON.parse(localStorage.getItem("page"));
+
+  const isReadOnly =
+    role === "PS" ||
+    page === "submit" ||
+    page === "approved" ||
+    page === "shortfall";
 
   // Here declared all variables initial value in the use state
 

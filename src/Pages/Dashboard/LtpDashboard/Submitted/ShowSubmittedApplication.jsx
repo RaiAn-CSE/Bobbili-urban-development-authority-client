@@ -77,9 +77,9 @@ const ShowSubmittedApplication = ({
           <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
             <span
               aria-hidden
-              className={`absolute inset-0 bg-violet-200 opacity-50 rounded-full`}
+              className={`absolute inset-0 bg-violet-400 font-white opacity-50 rounded-full`}
             ></span>
-            <span className="relative">{status ?? "N/A"}</span>
+            <span className="relative">{status.split(" ")[0] ?? "N/A"}</span>
           </span>
           {/* <p className="text-gray-900 break-words">{status ?? "N/A"}</p> */}
         </td>
