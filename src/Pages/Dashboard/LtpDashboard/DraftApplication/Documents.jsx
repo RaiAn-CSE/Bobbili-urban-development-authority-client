@@ -270,6 +270,7 @@ console.log(remarkText,"remarkText")
       data: psSendingDocument,
       approved: approvedConfirmation ?? "",
       message: recomendationMessage ?? "",
+      remarkText
     };
 
     return await sendUserDataIntoDB(url, "PATCH", {

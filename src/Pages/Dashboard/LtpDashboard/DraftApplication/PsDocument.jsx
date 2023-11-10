@@ -22,7 +22,7 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
     const handleRemarkText = (event) => {
         const { value } = event?.target;
         if (!value.trim()) {
-            return toast.error("No value");
+            return toast.success("No value");
         }
 
         setRemarkText((prev) => {
@@ -41,8 +41,6 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
 
         });
     };
-
-
     return (
         <div className='dark:text-white'>
             <div className="md:flex items-center mt-6">
