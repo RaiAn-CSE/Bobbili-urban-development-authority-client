@@ -85,6 +85,11 @@ const SaveData = ({
       path.includes("applicationChecklist")) &&
     "hidden";
 
+  const page = JSON.parse(localStorage.getItem("page"));
+
+  const hideSaveAndContinueBtn =
+    page === "submit" || page === "approved" || page === "shortfall";
+
   console.log(isApproved, "approved");
 
   console.log(sentData, "Sentdata");
@@ -95,7 +100,9 @@ const SaveData = ({
           {role === "LTP" &&
             (currentStep !== steps.length - 1 ? (
               <button
-                className={`fancy-button mt-8`}
+                className={`fancy-button mt-8 ${
+                  hideSaveAndContinueBtn && "hidden"
+                }`}
                 // type="submit"
                 // onClick={() =>
                 //   // currentStep < steps.length - 1 &&

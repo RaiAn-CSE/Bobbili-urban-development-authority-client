@@ -180,7 +180,7 @@ const AuthProvider = ({ children }) => {
           console.log("Asci");
           const [, currentStep, steps, handleStepClick] = stepperData;
           console.log(currentStep < steps.length - 1);
-          currentStep < steps.length - 1 && handleStepClick(currentStep + 1);
+          // currentStep < steps.length - 1 && handleStepClick(currentStep + 1);
         }
 
         if (pageWiseAction?.page === "PS site inspection data save") {

@@ -1,13 +1,21 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 
-const InputField = ({ id, name, placeholder, type, label, ltpDetails }) => {
+const InputField = ({
+  id,
+  name,
+  placeholder,
+  type,
+  label,
+  ltpDetails,
+  isAlwaysHide,
+}) => {
   // Define default values for type and placeholder if not provided
   const inputType = type || "text";
 
   const { userInfoFromLocalStorage } = useContext(AuthContext);
   const role = userInfoFromLocalStorage().role;
-  const isReadOnly = role === "PS";
+  const isReadOnly = role === "PS" || isAlwaysHide;
 
   // console.log(ltpDetails, "LTP details", id);
 
