@@ -40,7 +40,7 @@ function AppChecklist() {
     const gettingData = async () => {
       const applicationData = await getApplicationData(applicationNo, cameFrom);
       const applicationCheckList = applicationData?.applicationCheckList;
-      console.log(applicationCheckList, "applicationChecklist")
+      console.log(applicationCheckList, "applicationChecklist from yes filtering")
       if (applicationCheckList.length) {
         setQuestions(applicationCheckList);
       }

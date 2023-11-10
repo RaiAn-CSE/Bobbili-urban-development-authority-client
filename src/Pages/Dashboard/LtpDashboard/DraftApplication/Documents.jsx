@@ -99,8 +99,8 @@ const DocumentUpload = () => {
     const gettingData = async () => {
       let updatedDynamicDocumentsToAdd = [];
       const applicationData = await getApplicationData(applicationNo, cameFrom);
-      const applicationCheckList = applicationData.applicationCheckList;
-      console.log(applicationCheckList, "Checklist Data");
+      const applicationCheckList = applicationData?.applicationCheckList;
+      console.log(applicationCheckList, "APplication Checklist From Document");
       role === "LTP" &&
         setPreviousDefaultDocumentData(
           applicationData?.document?.data?.default
@@ -147,18 +147,6 @@ const DocumentUpload = () => {
     gettingData();
   }, []);
 
-  console.log(DynamicAppChecklistDocument, "Dynamic checklist Data");
-
-  console.log({ UpdatedDefaultData }, "Document Page combined Data");
-  console.log(
-    {
-      PreviousDefaultDocumentData,
-      PreviousDynamicDocumentData,
-      approvedConfirmation,
-      recomendationMessage,
-    },
-    "PS Saved Data"
-  );
 
   // file send into the database
   const handleFileUpload = async (url) => {
