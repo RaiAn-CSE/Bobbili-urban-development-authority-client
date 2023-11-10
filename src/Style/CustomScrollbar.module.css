@@ -1,0 +1,24 @@
+.mainBody {
+  background-color: transparent;
+  /* padding: 24px; */
+  overflow: scroll;
+  /* border: 2px solid #000; */
+}
+.mainBody::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+.mainBody::-webkit-scrollbar:vertical {
+  width: 6px;
+}
+.mainBody::-webkit-scrollbar:horizontal {
+  height: 6px;
+}
+.mainBody::-webkit-scrollbar-thumb {
+  border-radius: 12px;
+  border: 2px solid white; /* should match background, can't be transparent */
+  background-color: #706fd3;
+}
+.mainBody::-webkit-scrollbar-track {
+  background-color: #fff;
+  border-radius: 8px;
+}

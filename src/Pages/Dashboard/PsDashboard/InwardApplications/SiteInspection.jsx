@@ -856,7 +856,7 @@ const SiteInspection = () => {
 
       {/* Radio Button  */}
       <div className="grid-cols-1 lg:grid-cols-2 items-center my-5">
-        <label className="inline-flex items-center">
+        {/* <label className="inline-flex items-center">
           <input
             type="radio"
             name="radioPs"
@@ -877,7 +877,38 @@ const SiteInspection = () => {
             onChange={handleRadioPs}
           />
           <span className="ml-2 text-base">Shortfall</span>
-        </label>
+        </label> */}
+
+        <div className="radio-button-container ml-3">
+          <div className="radio-button">
+            <input
+              type="radio"
+              className="radio-button__input"
+              id="approved"
+              value="Approved"
+              checked={radioPs === "Approved"}
+              onChange={handleRadioPs}
+            />
+            <label className="radio-button__label" htmlFor="approved">
+              <span className="radio-button__custom"></span>
+              Approved
+            </label>
+          </div>
+          <div className="radio-button">
+            <input
+              type="radio"
+              className="radio-button__input"
+              id="shortfall"
+              value="Shortfall"
+              checked={radioPs === "Shortfall"}
+              onChange={handleRadioPs}
+            />
+            <label className="radio-button__label" htmlFor="shortfall">
+              <span className="radio-button__custom"></span>
+              Shortfall
+            </label>
+          </div>
+        </div>
       </div>
 
       {/* Comment Box  */}

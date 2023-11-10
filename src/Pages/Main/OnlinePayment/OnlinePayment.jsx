@@ -115,8 +115,8 @@ const OnlinePayment = () => {
       {/* Application details  */}
       <div className="divide-y-2 divide-gray-200 mt-7">
         <div className="mb-1">
-          <h3 className="w-fit basis-[50%] text-lg  pl-3 font-semibold ">
-            Application details
+          <h3 className="w-fit basis-[50%] text-black text-lg  pl-3 font-semibold ">
+            Application details:
           </h3>
         </div>
         <div className="flex">
@@ -184,7 +184,7 @@ const OnlinePayment = () => {
       <div className="divide-y-2 divide-gray-200 mt-9">
         <div className="flex mb-1">
           <h3 className="basis-[50%] text-lg pl-3 font-semibold text-gray-900">
-            Fees details
+            Fees details:
           </h3>
         </div>
         <div className="flex">

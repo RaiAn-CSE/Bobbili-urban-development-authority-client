@@ -15,6 +15,8 @@ const OwnerDetail = ({
 }) => {
   const ownerSerial = ["First", "Second", "Third", "Fourth", "Fifth"];
 
+  const { role } = JSON.parse(localStorage.getItem("loggedUser"));
+
   const handleInputPhone = (e) => {
     // Remove non-numeric characters
     const inputValue = e.target.value.replace(/[^0-9]/g, "");
@@ -106,8 +108,9 @@ const OwnerDetail = ({
           />
         </div>
 
-        <div className="flex basis-[25%] justify-center items-end my-5 lg:my-5">
-          {/* <div className="my-4 mx-3 basis-3/4">
+        {role.toLowerCase() === "ltp" && (
+          <div className="flex basis-[25%] justify-center items-end my-5 lg:my-5">
+            {/* <div className="my-4 mx-3 basis-3/4">
             <label
               htmlFor="message"
               className="block text-gray-600 mb-1 font-semibold dark:text-gray-100"
@@ -124,28 +127,29 @@ const OwnerDetail = ({
             ></textarea>
           </div> */}
 
-          {index === length - 1 && index < 4 && (
-            <div className="flex justify-center items-center">
-              <button
-                className="nm_Container text-xl rounded-full w-[30px] h-[30px] text-normalViolet cursor-pointer transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold"
-                onClick={increaseApplicantNo}
-              >
-                +
-              </button>
-            </div>
-          )}
+            {index === length - 1 && index < 4 && (
+              <div className="flex justify-center items-center">
+                <button
+                  className="nm_Container text-xl rounded-full w-[30px] h-[30px] text-normalViolet cursor-pointer transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold"
+                  onClick={increaseApplicantNo}
+                >
+                  +
+                </button>
+              </div>
+            )}
 
-          {index === length - 1 && index > 0 && index <= 4 && (
-            <div className="flex justify-center items-center">
-              <button
-                className="nm_Container text-xl mx-2 rounded-full text-red-500 w-[30px] h-[30px]  transition-all duration-500 font-bold"
-                onClick={decreaseApplicationNo}
-              >
-                -
-              </button>
-            </div>
-          )}
-        </div>
+            {index === length - 1 && index > 0 && index <= 4 && (
+              <div className="flex justify-center items-center">
+                <button
+                  className="nm_Container text-xl mx-2 rounded-full text-red-500 w-[30px] h-[30px]  transition-all duration-500 font-bold"
+                  onClick={decreaseApplicationNo}
+                >
+                  -
+                </button>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

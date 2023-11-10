@@ -5,6 +5,7 @@ import ShowAllRejectedApplications from "./ShowAllRejectedApplications";
 
 const RejectedApplications = () => {
   const [tableData, setTableData] = useState([]);
+  const [data, setData] = useState([]);
 
   const { userInfoFromLocalStorage, fetchDataFromTheDb } =
     useContext(AuthContext);
@@ -30,6 +31,7 @@ const RejectedApplications = () => {
         `http://localhost:5000/getRejectedApplications?userId=${id}`
       );
       if (applicationData?.length) {
+        setData(applicationData);
         console.log(applicationData);
 
         setTableData((prev) => {
@@ -51,6 +53,11 @@ const RejectedApplications = () => {
         tableData={tableData}
         Component={ShowAllRejectedApplications}
       />
+      {data?.length === 0 && (
+        <p className="text-lg text-center my-4 font-bold text-error">
+          No Application Found
+        </p>
+      )}
     </div>
   );
 };

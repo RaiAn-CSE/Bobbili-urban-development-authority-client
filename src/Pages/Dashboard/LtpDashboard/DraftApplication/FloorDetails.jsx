@@ -19,6 +19,8 @@ const FloorDetails = ({
 }) => {
   const [floorChange, setFloorChange] = useState("select");
 
+  const { role } = JSON.parse(localStorage.getItem("loggedUser"));
+
   const [selectedFloor, setSelectedFloor] = useState("");
 
   useEffect(() => {
@@ -145,29 +147,31 @@ const FloorDetails = ({
         />
       </div>
 
-      <div className="flex justify-start items-center ml-3 mt-6">
-        {index === length - 1 && index < 3 && (
-          <div className="flex justify-center items-center">
-            <button
-              className="nm_Container text-xl rounded-full w-[30px] h-[30px] text-normalViolet cursor-pointer transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold"
-              onClick={increaseFloorNo}
-            >
-              +
-            </button>
-          </div>
-        )}
+      {role.toLowerCase() === "ltp" && (
+        <div className="flex justify-start items-center ml-3 mt-6">
+          {index === length - 1 && index < 3 && (
+            <div className="flex justify-center items-center">
+              <button
+                className="nm_Container text-xl rounded-full w-[30px] h-[30px] text-normalViolet cursor-pointer transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold"
+                onClick={increaseFloorNo}
+              >
+                +
+              </button>
+            </div>
+          )}
 
-        {index === length - 1 && index > 0 && index <= 3 && (
-          <div className="flex justify-center items-center">
-            <button
-              className="nm_Container text-xl mx-2 rounded-full text-red-500 w-[30px] h-[30px]  transition-all duration-500 font-bold"
-              onClick={decreaseFloorNo}
-            >
-              -
-            </button>
-          </div>
-        )}
-      </div>
+          {index === length - 1 && index > 0 && index <= 3 && (
+            <div className="flex justify-center items-center">
+              <button
+                className="nm_Container text-xl mx-2 rounded-full text-red-500 w-[30px] h-[30px]  transition-all duration-500 font-bold"
+                onClick={decreaseFloorNo}
+              >
+                -
+              </button>
+            </div>
+          )}
+        </div>
+      )}
     </>
   );
 };

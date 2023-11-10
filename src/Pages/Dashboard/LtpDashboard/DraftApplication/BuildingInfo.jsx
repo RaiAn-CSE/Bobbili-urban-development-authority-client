@@ -35,9 +35,15 @@ const BuildingInfo = () => {
 
   const { _id: id } = userInfoFromLocalStorage();
 
-  const role = userInfoFromLocalStorage().role;
+  const role = userInfoFromLocalStorage()?.role;
 
-  const isReadOnly = role === "PS";
+  const page = JSON.parse(localStorage.getItem("page"));
+
+  const isReadOnly =
+    role === "PS" ||
+    page === "submit" ||
+    page === "approved" ||
+    page === "shortfall";
 
   // Here declared all variables initial value in the use state
 
@@ -98,6 +104,10 @@ const BuildingInfo = () => {
     "First Floor",
     "Second Floor",
   ]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   // const [floorTrack, setFloorTrack] = useState([
   //   "Stilt / Parking Floor",

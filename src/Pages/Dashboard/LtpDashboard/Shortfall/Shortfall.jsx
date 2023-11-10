@@ -78,6 +78,12 @@ const Shortfall = () => {
         tableComponentProps={tableComponentProps}
       />
 
+      {data?.length === 0 && (
+        <p className="text-lg text-center my-4 font-bold text-error">
+          No Application Found
+        </p>
+      )}
+
       {error && (
         <p className="text-lg text-center my-4 font-bold text-error">{error}</p>
       )}

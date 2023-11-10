@@ -113,9 +113,9 @@ const DraftApplication = () => {
   };
   const completeBtn = (index) => {
     if (index === currentStep) {
-      return `nm_Container bg-normalViolet shadow-none text-white border-0 `;
+      return `nm_Container bg-gradient-to-b from-[#a29bfe] to-[#6c5ce7] shadow-none text-white border-0 `;
     } else if (index < currentStep) {
-      return `nm_Container bg-normalViolet shadow-none text-white border-0 `;
+      return `nm_Container bg-gradient-to-b from-[#a29bfe] to-[#6c5ce7]  shadow-none text-white border-0 `;
     }
   };
 
@@ -150,6 +150,10 @@ const DraftApplication = () => {
     !path.includes("siteInspection") &&
     (cameFrom === "approved" || cameFrom === "shortfall");
 
+  const navigateToResubmitPage = () => {
+    const appNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
+    navigate("/dashboard/resubmitApplication", { state: { appNo } });
+  };
   return (
     <>
       {isStepperVisible && ( // Render the stepper only when isStepperVisible is true
@@ -185,6 +189,7 @@ const DraftApplication = () => {
                 <>
                   <button
                     className={`btn btn-sm text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white me-5  dark:border-none`}
+                    onClick={navigateToResubmitPage}
                   >
                     <HiOutlineClipboardDocumentList className="text-lg" />{" "}
                     <span>Resubmit</span>

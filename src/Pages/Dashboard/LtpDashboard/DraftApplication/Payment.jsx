@@ -20,6 +20,7 @@ import {
 import Application from "./Application";
 import Modal from "./Modal";
 import { HiCurrencyRupee } from "react-icons/hi2";
+import SendIcon from "../../../Components/SendIcon";
 
 const Payment = () => {
   const [openApplication, setOpenApplication] = useState(false);
@@ -54,6 +55,10 @@ const Payment = () => {
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
   const cameFrom = JSON.parse(localStorage.getItem("page"));
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     getApplicationData(applicationNo, cameFrom).then((applicationData) => {
@@ -586,11 +591,14 @@ const Payment = () => {
               ltpDetails={calculatedData?.UDATotalCharged}
             />
             {role === "LTP" && (
-              <div>
-                <button
-                  className={`btn btn-md text-sm px-3 mt-10 ml-3 border-none text-white shadow-md transition-all duration-500 nm_Container bg-normalViolet dark:bg-normalViolet hover:bg-normalViolet}`}
-                >
-                  <GiMoneyStack size={25} /> pay now
+              <div className="flex ms-5 items-center">
+                <button className="pay-btn mt-3">
+                  <div class="svg-wrapper-1">
+                    <div class="svg-wrapper">
+                      <SendIcon />
+                    </div>
+                  </div>
+                  <span>Pay now</span>
                 </button>
               </div>
             )}

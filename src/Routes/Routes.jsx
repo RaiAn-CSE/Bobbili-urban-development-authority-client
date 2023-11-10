@@ -37,6 +37,7 @@ import UpdateLocation from "../Pages/Dashboard/Admin/SuperAdmin/UpdateLocation";
 import PlotDetails from "../Pages/Dashboard/UDA/PlotDetails/PlotDetails";
 import RevenueReport from "../Pages/Dashboard/UDA/RevenueReport/RevenueReport";
 import VerificationStatus from "../Pages/Dashboard/UDA/VerificationStatus/VerificationStatus";
+import ResubmitApplication from "../Pages/Dashboard/LtpDashboard/Resubmit/ResubmitApplication";
 
 const router = createBrowserRouter([
   {
@@ -226,6 +227,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <RejectedApplications />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/resubmitApplication",
+        element: (
+          <PrivateRoute>
+            <ResubmitApplication />
           </PrivateRoute>
         ),
       },

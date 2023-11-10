@@ -3,10 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import { BsPlusLg } from "react-icons/bs";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
+import Lottie from "lottie-react";
 import toast from "react-hot-toast";
 import AllDraftApplication from "./AllDraftApplication";
 import Swal from "sweetalert2";
 import TableLayout from "../../../Components/TableLayout";
+import StarIcon from "../../../Components/StarIcon";
+import Loading from "../../../Shared/Loading";
+import ErrorAnimation from "../../../../assets/ServerError.json";
 
 const NewApplication = () => {
   const {
@@ -20,6 +24,7 @@ const NewApplication = () => {
 
   const { _id: userID } = userInfoFromLocalStorage();
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const date = new Date();
 
@@ -39,15 +44,34 @@ const NewApplication = () => {
   console.log(data, "Query");
 
   useEffect(() => {
+    return () => {
+      localStorage.removeItem("currentStep");
+    };
+  }, []);
+
+  useEffect(() => {
     if (isError) {
       console.log("ERROR");
-      setError("No data found");
+      setError("Failed to fetch data");
+      setLoading(false);
     } else {
+      setLoading(false);
       setError("");
     }
-
-    localStorage.removeItem("currentStep");
   }, [isError]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      setError("");
+      setLoading(false);
+    }
+  }, [isSuccess]);
+
+  useEffect(() => {
+    if (!data) {
+      setError("Failed to fetch data");
+    }
+  }, [data]);
 
   const removeDraftApplication = (applicationNo) => {
     console.log(applicationNo, "DELTE APP NO");
@@ -204,31 +228,81 @@ const NewApplication = () => {
   //   />
   // );
 
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
-    <div className=" my-3">
+    <div className=" my-3 transition-all duration-700">
       {/* test  */}
 
-      <div className="flex justify-end mt-10 mr-3">
-        <button
+      <div className="flex justify-end mt-10 mr-10">
+        {/* <button
           className={`btn flex font-roboto dark:border-none transition-all duration-700 bg-normalViolet text-white hover:bg-[#510BC4]`}
           onClick={showConfirmModal}
         >
           <span className="text-sm">Create a new application</span>
           <BsPlusLg size={20} />
+        </button> */}
+
+        <button className="star-btn font-roboto" onClick={showConfirmModal}>
+          <div className="flex justify-center items-center">
+            <BsPlusLg size={20} />
+            <span className="text-lg ml-2 create-application-text">
+              Create a new application
+            </span>
+          </div>
+          <div className="star-1">
+            <StarIcon />
+          </div>
+          <div className="star-2">
+            <StarIcon />
+          </div>
+          <div className="star-3">
+            <StarIcon />
+          </div>
+          <div className="star-4">
+            <StarIcon />
+          </div>
+          <div className="star-5">
+            <StarIcon />
+          </div>
+          <div className="star-6">
+            <StarIcon />
+          </div>
         </button>
       </div>
 
-      <TableLayout
-        tableData={tableData}
-        Component={AllDraftApplication}
-        tableComponentProps={tableComponentProps}
-      />
+      {error?.length !== 0 ? (
+        <div className="flex flex-col justify-center items-center min-h-[calc(100vh - 10%)]">
+          <Lottie
+            animationData={ErrorAnimation}
+            loop={true}
+            className="w-[40%] h-[40%]"
+          />
+          <p className="text-red-500 font-bold text-lg uppercase">{error}</p>
+        </div>
+      ) : (
+        <div>
+          <TableLayout
+            tableData={tableData}
+            Component={AllDraftApplication}
+            tableComponentProps={tableComponentProps}
+          />
 
-      {error && (
-        <p className="text-lg text-center my-4 font-bold text-error">{error}</p>
+          {data?.length === 0 && (
+            <p className="text-lg text-center my-4 font-bold text-error">
+              No Application Found
+            </p>
+          )}
+
+          {error && (
+            <p className="text-lg text-center my-4 font-bold text-error">
+              {error}
+            </p>
+          )}
+        </div>
       )}
-
-      {isLoading && <p>Loading...</p>}
     </div>
   );
 };

@@ -75,6 +75,10 @@ const DocumentUpload = () => {
     }
   };
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   // LTP Sending Document Updating when handleChange
   useEffect(() => {
     setSendingDocument({ default: defaultData, dynamic: dynamicData });

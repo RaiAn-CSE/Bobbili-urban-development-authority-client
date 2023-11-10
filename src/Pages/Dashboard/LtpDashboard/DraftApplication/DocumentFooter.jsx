@@ -17,7 +17,7 @@ function DocumentFooter({
       <div className="lg:ml-6">
         {/* Approved Buttons */}
         <div className="space-x-14 mb-7">
-          <label
+          {/* <label
             className={`ml-2 text-lg inline-flex items-center space-x-1 text-black"}`}
           >
             <input
@@ -46,7 +46,44 @@ function DocumentFooter({
               onClick={() => handleConfirm("false")}
             />
             <span className="text-gray-900">Shortfall</span>
-          </label>
+          </label> */}
+
+          <div className="radio-button-container ml-3">
+            <div className="radio-button">
+              <input
+                type="radio"
+                id="approved"
+                name="finalApproved"
+                className="radio-button__input"
+                value="approved"
+                defaultChecked={
+                  approvedConfirmation && approvedConfirmation === "true"
+                }
+                onClick={() => handleConfirm("true")}
+              />
+              <label className="radio-button__label" htmlFor="approved">
+                <span className="radio-button__custom"></span>
+                Approve
+              </label>
+            </div>
+            <div className="radio-button">
+              <input
+                type="radio"
+                id="noSiteRegistered"
+                className="radio-button__input"
+                name="finalApproved"
+                value="shortfall"
+                defaultChecked={
+                  approvedConfirmation && approvedConfirmation === "false"
+                }
+                onClick={() => handleConfirm("false")}
+              />
+              <label className="radio-button__label" htmlFor="noSiteRegistered">
+                <span className="radio-button__custom"></span>
+                Shortfall
+              </label>
+            </div>
+          </div>
         </div>
         {/* Recomendation */}
         <div className="my-4 mx-3 ">

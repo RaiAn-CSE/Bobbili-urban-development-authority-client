@@ -129,6 +129,10 @@ const ApplicantInfo = () => {
   const [isDataGet, setIsDataGet] = useState(0);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     const getData = async () => {
       const applicationData = await getApplicationData(applicationNo, cameFrom);
       const ltpDetailsData = applicationData.applicantInfo.ltpDetails;
@@ -220,7 +224,6 @@ const ApplicantInfo = () => {
                 name="validity"
                 className={inputClass}
                 defaultValue={validity}
-                disabled={isReadOnly}
               />
             </div>
 
@@ -237,7 +240,6 @@ const ApplicantInfo = () => {
                 onChange={(e) => setPhoneNoLimit(e, setLtpPhone)}
                 className={inputClass}
                 maxLength={10}
-                readOnly={isReadOnly}
               />
             </div>
 
@@ -248,7 +250,6 @@ const ApplicantInfo = () => {
               placeholder="xxxx@gmail.com"
               type="email"
               ltpDetails={email}
-              readOnly={isReadOnly}
             />
           </div>
           <div className="my-4 mx-3 basis-[25%]">
@@ -262,7 +263,6 @@ const ApplicantInfo = () => {
               className={inputClass}
               defaultValue={address}
               placeholder="Dr. no., Street, Village, Mandal, Dist."
-              disabled={isReadOnly}
             ></textarea>
           </div>
         </div>
