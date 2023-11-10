@@ -60,7 +60,6 @@ function Application({ setOpenApplication }) {
   // Plot Details
   const { proposedPlotAreaCal, roadWideningAreaCal, netPlotAreaCal } =
     plotDetails || {};
-
   // LTP Details
   const {
     type,
