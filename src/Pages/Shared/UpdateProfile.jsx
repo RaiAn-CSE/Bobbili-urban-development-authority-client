@@ -2,8 +2,11 @@ import React, { useContext, useEffect, useMemo } from "react";
 import useGetUser from "../CustomHook/useGetUser";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
+import { BiSolidUserRectangle } from "react-icons/bi";
 import toast from "react-hot-toast";
 import UpdateProfileInput from "./UpdateProfileInput";
+import { MdContactPhone } from "react-icons/md";
+import { FaAddressCard } from "react-icons/fa";
 
 const UpdateProfile = () => {
   const { userInfoFromLocalStorage } = useContext(AuthContext);
@@ -15,22 +18,28 @@ const UpdateProfile = () => {
     defaultValues: useMemo(() => {
       console.log("User has changed");
 
-      let keysToKeep;
-      if (role === "LTP") {
-        keysToKeep = ["contactEmail", "address", "adharNo", "phone"];
-      } else {
-        keysToKeep = ["contactEmail", "address", "phone"];
-      }
-      const newObj = {};
+      // let keysToKeep;
+      // if (role === "LTP") {
+      //   keysToKeep = ["contactEmail", "address", "adharNo", "phone"];
+      // } else {
+      //   keysToKeep = ["contactEmail", "address", "phone"];
+      // }
+      // const newObj = {};
 
-      for (const key of keysToKeep) {
-        if (data && key in data) {
-          newObj[key] = data[key];
-        }
-      }
+      // for (const key of keysToKeep) {
+      //   if (data && key in data) {
+      //     newObj[key] = data[key];
+      //   }
+      // }
 
-      console.log(newObj, "NEW OBJ");
-      return { ...newObj };
+      // console.log(newObj, "NEW OBJ");
+      return {
+        department: "Town Planning",
+        designation: "Engineer",
+        country: "India",
+        state: "Andhra Pradesh",
+        ...data,
+      };
     }, [data]),
   });
 
@@ -40,68 +49,69 @@ const UpdateProfile = () => {
 
   const onSubmit = (formValue) => {
     console.log(formValue, "Formvalue");
-    let keysToKeep;
-    if (role === "LTP") {
-      keysToKeep = [
-        "department",
-        "townPlaning",
-        "designation",
-        "registrationNo",
-        "qualification",
 
-        "contactEmail",
-        "mobileNo",
-        "phone",
-        "fax",
+    delete formValue["_id"];
+    // let keysToKeep;
+    // if (role === "LTP") {
+    //   keysToKeep = [
+    //     "department",
+    //     "townPlaning",
+    //     "designation",
+    //     "registrationNo",
+    //     "qualification",
 
-        "address",
-        "city",
-        "country",
-        "aadharNo",
-        "state",
-        "zip",
+    //     "contactEmail",
+    //     "mobileNo",
+    //     "phone",
+    //     "fax",
 
-        // "engineer",
-        // "email",
-        // "address",
-        // "adharNo",
-        // "phone"
-      ];
-    } else {
-      keysToKeep = ["contactEmail", "address", "phone"];
-    }
-    const newObj = {};
+    //     "address",
+    //     "city",
+    //     "country",
+    //     "aadharNo",
+    //     "state",
+    //     "zip",
 
-    for (const key of keysToKeep) {
-      if (formValue && key in formValue) {
-        newObj[key] = formValue[key];
-      }
-    }
+    //     // "engineer",
+    //     // "email",
+    //     // "address",
+    //     // "adharNo",
+    //     // "phone"
+    //   ];
+    // } else {
+    //   keysToKeep = ["contactEmail", "address", "phone"];
+    // }
+    // const newObj = {};
 
-    console.log(newObj, "FOrm r value");
-
-    // fetch(
-    //   `http://localhost:5000/updateUserInfo/${userInfoFromLocalStorage()._id}`,
-    //   {
-    //     method: "PATCH",
-    //     headers: { "content-type": "application/json" },
-    //     body: JSON.stringify(newObj),
+    // for (const key of keysToKeep) {
+    //   if (formValue && key in formValue) {
+    //     newObj[key] = formValue[key];
     //   }
-    // )
-    //   .then((res) => res.json())
-    //   .then(async (result) => {
-    //     console.log(result);
-    //     if (result.acknowledged) {
-    //       refetch();
+    // }
 
-    //       toast.success("Update successfully");
-    //     } else {
-    //       toast.error("Failed to update");
-    //     }
-    //   })
-    //   .catch(() => {
-    //     toast.error("Server error");
-    //   });
+    console.log(formValue, "FOrm r value");
+
+    fetch(
+      `http://localhost:5000/updateUserInfo/${userInfoFromLocalStorage()._id}`,
+      {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(formValue),
+      }
+    )
+      .then((res) => res.json())
+      .then(async (result) => {
+        console.log(result);
+        if (result.acknowledged) {
+          refetch();
+          toast.success("Update successfully");
+        } else {
+          toast.error("Failed to update");
+        }
+      })
+      .catch(() => {
+        toast.error("Server error");
+      });
   };
 
   return (
@@ -117,11 +127,14 @@ const UpdateProfile = () => {
 
         {/* Basic Information  */}
         <div className="divide-y-2 divide-gray-200 mb-[60px]">
-          <div className="flex items-center bg-gradient-to-t from-gray-200 to-gray-50">
-            <h3 className="font-bold text-xl px-5">Basic Information</h3>
+          <div className="flex items-center ">
+            <h3 className="font-bold text-xl px-5 mb-4 ml-1 flex justify-center items-center">
+              <BiSolidUserRectangle size={30} className="mr-2" />
+              <span>Basic Information</span>
+            </h3>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 px-5">
+          <div className="grid grid-cols-2 lg:grid-cols-4 px-5 nm_Container mx-6">
             <UpdateProfileInput
               id="department"
               name="department"
@@ -130,14 +143,14 @@ const UpdateProfile = () => {
               type="text"
               register={register}
             />
-            <UpdateProfileInput
+            {/* <UpdateProfileInput
               id="townPlaning"
               name="townPlaning"
               label="Town Planing"
               placeholder="Town Planing"
               type="text"
               register={register}
-            />
+            /> */}
             <UpdateProfileInput
               id="designation"
               name="designation"
@@ -146,14 +159,14 @@ const UpdateProfile = () => {
               type="text"
               register={register}
             />
-            <UpdateProfileInput
+            {/* <UpdateProfileInput
               id="engineer"
               name="engineer"
               label="Engineer"
               placeholder="Engineer"
               type="text"
               register={register}
-            />
+            /> */}
             <UpdateProfileInput
               id="registrationNo"
               name="registrationNo"
@@ -175,11 +188,14 @@ const UpdateProfile = () => {
 
         {/* Contact Information  */}
         <div className="divide-y-2 divide-gray-200 mb-[60px]">
-          <div className="flex items-center bg-gradient-to-t from-gray-200 to-gray-50">
-            <h3 className="font-bold text-xl px-5">Contact Information</h3>
+          <div className="flex items-center mb-4 ml-1">
+            <h3 className="font-bold text-xl px-5 flex justify-center items-center">
+              <MdContactPhone size={30} className="mr-2" />
+              <span>Contact Information</span>
+            </h3>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 px-5">
+          <div className="grid grid-cols-2 lg:grid-cols-4 px-5 nm_Container mx-6">
             <UpdateProfileInput
               id="contactEmail"
               name="contactEmail"
@@ -217,11 +233,14 @@ const UpdateProfile = () => {
 
         {/* Address Information  */}
         <div className="divide-y-2 divide-gray-200 mb-[60px]">
-          <div className="flex items-center bg-gradient-to-t from-gray-200 to-gray-50">
-            <h3 className="font-bold text-xl px-5">Address Information</h3>
+          <div className="flex items-center">
+            <h3 className="font-bold text-xl px-5 mb-4 ml-1 flex justify-center items-center">
+              <FaAddressCard size={30} className="mr-2" />
+              <span>Address Information</span>
+            </h3>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 px-5">
+          <div className="grid grid-cols-2 lg:grid-cols-4 px-5 nm_Container mx-5">
             <UpdateProfileInput
               id="address"
               name="address"
@@ -356,7 +375,7 @@ const UpdateProfile = () => {
             type="submit"
             className="text-white transition-all duration-700 shadow-md hover:shadow-violetDark bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:bg-gradient-to-l font-bold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
           >
-            Submit
+            Update
           </button>
         </div>
       </form>

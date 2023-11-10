@@ -41,6 +41,10 @@ const Drawing = () => {
   const [imageFromDB, setImageFromDB] = useState({});
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     localStorage.setItem("selectedFiles", JSON.stringify(["", ""]));
     getApplicationData(applicationNo, cameFrom).then((res) => {
       console.log(res);

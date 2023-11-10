@@ -67,45 +67,50 @@ const Login = () => {
     console.log(userInfo);
 
     // fetch user information from the databaase
-    getUserData(id).then((result) => {
-      if (result.status) {
-        console.log(1);
+    getUserData(id)
+      .then((result) => {
+        if (result?.status) {
+          console.log(1);
 
-        const { userInfo } = result;
+          const { userInfo } = result;
 
-        // checking whether password is matching or not
-        if (userInfo.password === password) {
-          console.log("1");
+          // checking whether password is matching or not
+          if (userInfo.password === password) {
+            console.log("1");
 
-          console.log(userInfo, "LOGIN");
-          // set information to localstorage to stay logged in
-          localStorage.setItem("loggedUser", JSON.stringify(userInfo));
+            console.log(userInfo, "LOGIN");
+            // set information to localstorage to stay logged in
+            localStorage.setItem("loggedUser", JSON.stringify(userInfo));
 
-          console.log(localStorage.getItem("loggedUser"));
+            console.log(localStorage.getItem("loggedUser"));
 
-          // set information to cookie to implement remember me functionality
+            // set information to cookie to implement remember me functionality
 
-          if (checkbox) {
-            console.log(checkbox);
-            document.cookie = "userId=" + id + ";path=http://localhost:5173/";
-            document.cookie =
-              "password=" + password + ";path=http://localhost:5173/";
+            if (checkbox) {
+              console.log(checkbox);
+              document.cookie = "userId=" + id + ";path=http://localhost:5173/";
+              document.cookie =
+                "password=" + password + ";path=http://localhost:5173/";
+            }
+
+            // move to another page after successfully login
+            setLoading(false);
+            localStorage.setItem("theme", "light");
+            toast.success("Login successfully");
+            navigate(from, { replace: true });
+          } else {
+            setLoading(false);
+            toast.error("Password is wrong");
           }
-
-          // move to another page after successfully login
-          setLoading(false);
-          localStorage.setItem("theme", "light");
-          toast.success("Login successfully");
-          navigate(from, { replace: true });
         } else {
           setLoading(false);
-          toast.error("Password is wrong");
+          toast.error("No information found!");
         }
-      } else {
+      })
+      .catch((err) => {
         setLoading(false);
-        toast.error("No information found!");
-      }
-    });
+        toast.error("Server Failed");
+      });
   };
 
   //password hide and show functionality

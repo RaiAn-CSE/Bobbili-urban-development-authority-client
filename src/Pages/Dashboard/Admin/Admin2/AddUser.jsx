@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
+import { FaRegCalendarAlt } from "react-icons/fa";
+import Style from "../../../../Style/AddUserStyle.module.css";
 
 const AddUser = () => {
   const { register, handleSubmit, resetField } = useForm();
@@ -12,7 +14,7 @@ const AddUser = () => {
   const {
     userInfoFromLocalStorage,
     checkLicenseExpirationOfLtp,
-    getLocationInfo,
+    fetchDataFromTheDb,
   } = useContext(AuthContext);
 
   const userRole = userInfoFromLocalStorage().role;
@@ -32,7 +34,9 @@ const AddUser = () => {
 
   useEffect(() => {
     (async function () {
-      const locationData = await getLocationInfo();
+      const locationData = await fetchDataFromTheDb(
+        "http://localhost:5000/getDistricts"
+      );
       console.log(locationData, "LOC");
       const extractsDataFromDB = locationData[0]?.district;
       setAllLocationData(extractsDataFromDB);
@@ -142,32 +146,32 @@ const AddUser = () => {
 
       console.log(userInfo, "USER INFO");
 
-      if (userInfo) {
-        // store users data in the database
-        fetch("http://localhost:5000/addUser", {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json",
-          },
-          body: JSON.stringify(userInfo),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            console.log(data);
+      // if (userInfo) {
+      //   // store users data in the database
+      //   fetch("http://localhost:5000/addUser", {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-type": "application/json",
+      //     },
+      //     body: JSON.stringify(userInfo),
+      //   })
+      //     .then((res) => res.json())
+      //     .then((data) => {
+      //       console.log(data);
 
-            if (data.acknowledged) {
-              toast.success("User added successfully");
-              navigate("/dashboard/allUser");
-            }
-            if (data?.result === 0) {
-              console.log(data.message);
-              toast.error(data.message);
-            }
-          })
-          .catch(() => {
-            toast.error("Server is not responded");
-          });
-      }
+      //       if (data.acknowledged) {
+      //         toast.success("User added successfully");
+      //         navigate("/dashboard/allUser");
+      //       }
+      //       if (data?.result === 0) {
+      //         console.log(data.message);
+      //         toast.error(data.message);
+      //       }
+      //     })
+      //     .catch(() => {
+      //       toast.error("Server is not responded");
+      //     });
+      // }
     }
   };
 
@@ -323,7 +327,7 @@ const AddUser = () => {
             <div>
               <label
                 htmlFor="licenseNo"
-                className="block mb-2 text-base font-bold text-gray-900 dark:text-white"
+                className="block mb-2 text-base font-bold text-gray-900"
               >
                 License No
               </label>
@@ -331,7 +335,7 @@ const AddUser = () => {
                 type="text"
                 {...register("licenseNo", { required: true })}
                 id="licenseNo"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 placeholder="Enter license no"
                 required
               />
@@ -340,7 +344,7 @@ const AddUser = () => {
             <div>
               <label
                 htmlFor="adharNo"
-                className="block mb-2 text-base font-bold '' text-gray-900 dark:text-white"
+                className="block mb-2 text-base font-bold text-gray-900"
               >
                 Adhar no
               </label>
@@ -348,7 +352,7 @@ const AddUser = () => {
                 type="text"
                 {...register("adharNo", { required: true })}
                 id="adharNo"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 placeholder="Enter phone no"
                 required
               />
@@ -356,7 +360,7 @@ const AddUser = () => {
             <div>
               <label
                 htmlFor="validity"
-                className="block mb-2 text-base font-bold '' text-gray-900 dark:text-white"
+                className="block mb-2 text-base font-bold text-gray-900"
               >
                 Validity
               </label>
@@ -364,8 +368,9 @@ const AddUser = () => {
                 type="date"
                 {...register("validity", { required: true })}
                 id="validity"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="bg-violet border border-gray-300 text-black text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-400 dark:text-white"
               />
+              {/* <FaRegCalendarAlt className="absolute bottom-[15%] right-[5%] bg-transparent" /> */}
             </div>
           </div>
         )}
@@ -454,11 +459,34 @@ const AddUser = () => {
         )}
 
         <div className="flex justify-center my-10">
-          <input
+          {/* <input
             type="submit"
             className={`text-white ${gradientColor} nm_Container cursor-pointer font-bold rounded-full text-base  sm:w-auto px-10  py-2.5 text-center`}
             value="ADD"
-          />
+          /> */}
+          <button
+            type="submit"
+            className={`${Style.addButton} bg-gradient-to-b from-[#a29bfe] to-[#6c5ce7]`}
+          >
+            <span className={`${Style.button__text}`}>Add User</span>
+            <span className={`${Style.button__icon}`}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                viewBox="0 0 24 24"
+                strokeWidth="2"
+                strokeLinejoin="round"
+                strokeLinecap="round"
+                stroke="currentColor"
+                height="24"
+                fill="none"
+                className="svg"
+              >
+                <line y2="19" y1="5" x2="12" x1="12"></line>
+                <line y2="12" y1="12" x2="19" x1="5"></line>
+              </svg>
+            </span>
+          </button>
         </div>
       </form>
     </div>

@@ -1,17 +1,20 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import IndividualUser from "./IndividualUser";
+import Lottie from "lottie-react";
 import { useQuery } from "react-query";
-import Loading from "../../../Shared/Loading";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import TableLayout from "../../../Components/TableLayout";
+import Loading from "../../../Shared/Loading";
+import ErrorAnimation from "../../../../assets/ServerError.json";
 
 const AllUsers = () => {
   const [records, setRecords] = useState([]);
   const [userInfo, setUserInfo] = useState([]);
   const [showModal, setShowModal] = useState(true);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
@@ -29,10 +32,15 @@ const AllUsers = () => {
 
   useEffect(() => {
     if (isSuccess) {
+      setError("");
+      setLoading(false);
       console.log("success");
       console.log(data);
 
       setRecords([...data]);
+    } else {
+      setLoading(false);
+      setError("Failed to fetch data");
     }
   }, [isSuccess, data]);
 
@@ -149,298 +157,313 @@ const AllUsers = () => {
     document.getElementById("update_user").showModal();
   };
 
-  if (isLoading) {
+  if (loading) {
     return <Loading />;
   }
 
   return (
-    <div className="text-black">
-      {/* <h1 className="mt-10 text-center text-3xl font-bold Roboto">All Users</h1> */}
-
-      {/* input box for search users  */}
-      <div className="form-control mt-5 w-1/2 mx-auto  max-w-xs">
-        <div>
-          <label
-            htmlFor="search"
-            className="block mb-2 text-base font-roboto font-bold text-gray-900 "
-          >
-            Search User
-          </label>
-          <input
-            type="text"
-            id="search"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            placeholder="John"
-            onChange={filter}
-            required
+    <>
+      {error?.length !== 0 ? (
+        <div className="flex flex-col justify-center items-center min-h-[calc(100vh - 10%)]">
+          <Lottie
+            animationData={ErrorAnimation}
+            loop={true}
+            className="w-[40%] h-[40%]"
           />
+          <p className="text-red-500 font-bold text-lg uppercase">{error}</p>
         </div>
-      </div>
+      ) : (
+        <>
+          <div className="text-black">
+            {/* <h1 className="mt-10 text-center text-3xl font-bold Roboto">All Users</h1> */}
 
-      {/* display users  */}
-
-      <div className="w-3/4 mx-auto px-4 font-roboto ">
-        <div className="py-4">
-          <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4">
-            <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
-              <table className="min-w-full leading-normal text-center">
-                {/* head */}
-                <thead className="bg-normalViolet">
-                  <tr>
-                    <th className="p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider">
-                      Name
-                    </th>
-                    <th className="p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider">
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="text-center">
-                  {records?.map((user) => (
-                    <IndividualUser
-                      key={user?._id}
-                      user={user}
-                      deleteUser={deleteUser}
-                      updateUser={updateUser}
-                    />
-                  ))}
-                </tbody>
-              </table>
+            {/* input box for search users  */}
+            <div className="form-control mt-5 w-1/2 mx-auto  max-w-xs">
+              <div>
+                <label
+                  htmlFor="search"
+                  className="block mb-2 text-base font-roboto font-bold text-gray-900 "
+                >
+                  Search User
+                </label>
+                <input
+                  type="text"
+                  id="search"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  placeholder="John"
+                  onChange={filter}
+                  required
+                />
+              </div>
             </div>
-          </div>
-        </div>
-      </div>
 
-      {records?.length === 0 && (
-        <p className="font-roboto font-bold text-red-500 text-xl mt-7 text-center">
-          No data found
-        </p>
-      )}
+            {/* display users  */}
 
-      {/* dialog box for update User  */}
-      {/* Open the modal using document.getElementById('ID').showModal() method */}
+            <div className="w-3/4 mx-auto px-4 font-roboto ">
+              <div className="py-4">
+                <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4">
+                  <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
+                    <table className="min-w-full leading-normal text-center">
+                      {/* head */}
+                      <thead className="bg-normalViolet">
+                        <tr>
+                          <th className="p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider">
+                            Name
+                          </th>
+                          <th className="p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider">
+                            Actions
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="text-center">
+                        {records?.map((user) => (
+                          <IndividualUser
+                            key={user?._id}
+                            user={user}
+                            deleteUser={deleteUser}
+                            updateUser={updateUser}
+                          />
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-      {showModal && (
-        <dialog
-          id="update_user"
-          className="modal modal-top h-full font-roboto transition-all duration-500"
-        >
-          <div className="modal-box dark:bg-black ">
-            <h3 className="font-bold text-center my-10 text-2xl dark:text-white">
-              Update Profile
-            </h3>
-            {/* close the modal  */}
-            <form method="dialog">
-              <button
-                className="btn btn-sm btn-circle btn-ghost fixed right-2 top-2 dark:text-white"
-                htmlFor="update_user"
+            {records?.length === 0 && (
+              <p className="font-roboto font-bold text-red-500 text-xl mt-7 text-center">
+                No data found
+              </p>
+            )}
+
+            {/* dialog box for update User  */}
+            {/* Open the modal using document.getElementById('ID').showModal() method */}
+
+            {showModal && (
+              <dialog
+                id="update_user"
+                className="modal modal-top h-full font-roboto transition-all duration-500"
               >
-                ✕
-              </button>
+                <div className="modal-box dark:bg-black ">
+                  <h3 className="font-bold text-center my-10 text-2xl dark:text-white">
+                    Update Profile
+                  </h3>
+                  {/* close the modal  */}
+                  <form method="dialog">
+                    <button
+                      className="btn btn-sm btn-circle btn-ghost fixed right-2 top-2 dark:text-white"
+                      htmlFor="update_user"
+                    >
+                      ✕
+                    </button>
 
-              {/* <button className="absolute bottom-6 right-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    {/* <button className="absolute bottom-6 right-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 Close
               </button> */}
-            </form>
+                  </form>
 
-            {/* user information  */}
-            <div className="modal-action justify-center">
-              <form onSubmit={handleSubmit(onSubmit)}>
-                {/* if there is a button in form, it will close the modal */}
+                  {/* user information  */}
+                  <div className="modal-action justify-center">
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                      {/* if there is a button in form, it will close the modal */}
 
-                {/* form input boxes  */}
+                      {/* form input boxes  */}
 
-                <div className="grid gap-6 mb-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                  <div>
-                    <label
-                      htmlFor="name"
-                      className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
-                    >
-                      Name
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      placeholder="John"
-                      {...register("name")}
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="user_id"
-                      className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
-                    >
-                      User ID
-                    </label>
-                    <input
-                      type="text"
-                      id="user_id"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      placeholder="Doe"
-                      {...register("userId")}
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="password"
-                      className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
-                    >
-                      Password
-                    </label>
-                    <input
-                      type="text"
-                      id="password"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      placeholder="*****"
-                      {...register("password")}
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="role"
-                      className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
-                    >
-                      Role
-                    </label>
-                    <input
-                      type="tel"
-                      id="role"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      placeholder="role"
-                      {...register("role")}
-                      required
-                    />
+                      <div className="grid gap-6 mb-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                        <div>
+                          <label
+                            htmlFor="name"
+                            className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
+                          >
+                            Name
+                          </label>
+                          <input
+                            type="text"
+                            id="name"
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="John"
+                            {...register("name")}
+                            required
+                          />
+                        </div>
+                        <div>
+                          <label
+                            htmlFor="user_id"
+                            className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
+                          >
+                            User ID
+                          </label>
+                          <input
+                            type="text"
+                            id="user_id"
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Doe"
+                            {...register("userId")}
+                            required
+                          />
+                        </div>
+                        <div>
+                          <label
+                            htmlFor="password"
+                            className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
+                          >
+                            Password
+                          </label>
+                          <input
+                            type="text"
+                            id="password"
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="*****"
+                            {...register("password")}
+                            required
+                          />
+                        </div>
+                        <div>
+                          <label
+                            htmlFor="role"
+                            className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
+                          >
+                            Role
+                          </label>
+                          <input
+                            type="tel"
+                            id="role"
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="role"
+                            {...register("role")}
+                            required
+                          />
+                        </div>
+                      </div>
+
+                      <div className="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div>
+                          <label
+                            htmlFor="email"
+                            className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
+                          >
+                            Email
+                          </label>
+                          <input
+                            type="text"
+                            {...register("email", { required: true })}
+                            id="email"
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="test@gmail.com"
+                            required
+                          />
+                        </div>
+
+                        <div>
+                          <label
+                            htmlFor="phone"
+                            className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
+                          >
+                            Phone no
+                          </label>
+                          <input
+                            type="text"
+                            {...register("phone", { required: true })}
+                            id="phone"
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Enter phone no"
+                            maxLength={10}
+                            required
+                          />
+                        </div>
+
+                        <div>
+                          <label
+                            htmlFor="address"
+                            className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
+                          >
+                            Address
+                          </label>
+                          <textarea
+                            id="address"
+                            rows="2"
+                            {...register("address", { required: true })}
+                            className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Enter address..."
+                          ></textarea>
+                        </div>
+                      </div>
+
+                      {userInfo?.role === "LTP" && (
+                        <div className="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                          <div>
+                            <label
+                              htmlFor="licenseNo"
+                              className="block mb-2 text-base font-bold text-gray-900 dark:text-white"
+                            >
+                              License No
+                            </label>
+                            <input
+                              type="text"
+                              {...register("licenseNo", { required: true })}
+                              id="licenseNo"
+                              className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              placeholder="Enter license no"
+                              required
+                            />
+                          </div>
+
+                          <div>
+                            <label
+                              htmlFor="adharNo"
+                              className="block mb-2 text-base font-bold '' text-gray-900 dark:text-white"
+                            >
+                              Aadhar no
+                            </label>
+                            <input
+                              type="text"
+                              {...register("adharNo", { required: true })}
+                              id="adharNo"
+                              className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              placeholder="Enter Aadhar No"
+                              required
+                            />
+                          </div>
+                          <div>
+                            <label
+                              htmlFor="validity"
+                              className="block mb-2 text-base font-bold '' text-gray-900 dark:text-white"
+                            >
+                              Validity
+                            </label>
+                            <input
+                              type="text"
+                              {...register("validity", { required: true })}
+                              id="validity"
+                              placeholder="DD-MM-YYYY"
+                              className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            />
+                          </div>
+                        </div>
+                      )}
+
+                      {error.length !== 0 && (
+                        <p className="text-red-500 text-center my-6">{error}</p>
+                      )}
+
+                      <div className="flex justify-center">
+                        <button
+                          type="submit"
+                          className="text-white transition-all duration-700 shadow-md hover:shadow-violetDark bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:bg-gradient-to-l font-bold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        >
+                          Submit
+                        </button>
+                      </div>
+                    </form>
                   </div>
                 </div>
-
-                <div className="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
-                    >
-                      Email
-                    </label>
-                    <input
-                      type="text"
-                      {...register("email", { required: true })}
-                      id="email"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      placeholder="test@gmail.com"
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="phone"
-                      className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
-                    >
-                      Phone no
-                    </label>
-                    <input
-                      type="text"
-                      {...register("phone", { required: true })}
-                      id="phone"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      placeholder="Enter phone no"
-                      maxLength={10}
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="address"
-                      className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
-                    >
-                      Address
-                    </label>
-                    <textarea
-                      id="address"
-                      rows="2"
-                      {...register("address", { required: true })}
-                      className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      placeholder="Enter address..."
-                    ></textarea>
-                  </div>
-                </div>
-
-                {userInfo?.role === "LTP" && (
-                  <div className="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <div>
-                      <label
-                        htmlFor="licenseNo"
-                        className="block mb-2 text-base font-bold text-gray-900 dark:text-white"
-                      >
-                        License No
-                      </label>
-                      <input
-                        type="text"
-                        {...register("licenseNo", { required: true })}
-                        id="licenseNo"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Enter license no"
-                        required
-                      />
-                    </div>
-
-                    <div>
-                      <label
-                        htmlFor="adharNo"
-                        className="block mb-2 text-base font-bold '' text-gray-900 dark:text-white"
-                      >
-                        Aadhar no
-                      </label>
-                      <input
-                        type="text"
-                        {...register("adharNo", { required: true })}
-                        id="adharNo"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Enter Aadhar No"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label
-                        htmlFor="validity"
-                        className="block mb-2 text-base font-bold '' text-gray-900 dark:text-white"
-                      >
-                        Validity
-                      </label>
-                      <input
-                        type="text"
-                        {...register("validity", { required: true })}
-                        id="validity"
-                        placeholder="DD-MM-YYYY"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      />
-                    </div>
-                  </div>
-                )}
-
-                {error.length !== 0 && (
-                  <p className="text-red-500 text-center my-6">{error}</p>
-                )}
-
-                <div className="flex justify-center">
-                  <button
-                    type="submit"
-                    className="text-white transition-all duration-700 shadow-md hover:shadow-violetDark bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:bg-gradient-to-l font-bold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                  >
-                    Submit
-                  </button>
-                </div>
-              </form>
-            </div>
+              </dialog>
+            )}
           </div>
-        </dialog>
+        </>
       )}
-    </div>
+    </>
   );
 };
 

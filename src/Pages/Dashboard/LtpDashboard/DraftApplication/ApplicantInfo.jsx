@@ -129,6 +129,10 @@ const ApplicantInfo = () => {
   const [isDataGet, setIsDataGet] = useState(0);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     const getData = async () => {
       const applicationData = await getApplicationData(applicationNo, cameFrom);
       const ltpDetailsData = applicationData.applicantInfo.ltpDetails;
@@ -179,13 +183,13 @@ const ApplicantInfo = () => {
   return (
     <div className="grid my-5 mx-5 lg:my-0 lg:p-2 text-gray-900">
       {/* LTP’s Details  */}
-      <div className="divide-y-2 divide-gray-200 mb-[60px]">
-        <div className="flex items-center">
+      <div className=" divide-y-2 divide-gray-200 mb-[60px]">
+        <div className="flex items-center mb-5">
           <BiSolidUserDetail size={30} className="text-normalViolet" />
           <h3 className="font-bold text-xl ml-3">LTP’s Details</h3>
         </div>
 
-        <div className="lg:flex mt-2">
+        <div className="nm_Container lg:flex mt-2 p-5">
           <div className="grid grid-cols-2 lg:grid-cols-3 basis-[75%]">
             <InputField
               id="ltpType"
@@ -220,7 +224,6 @@ const ApplicantInfo = () => {
                 name="validity"
                 className={inputClass}
                 defaultValue={validity}
-                disabled={isReadOnly}
               />
             </div>
 
@@ -237,7 +240,6 @@ const ApplicantInfo = () => {
                 onChange={(e) => setPhoneNoLimit(e, setLtpPhone)}
                 className={inputClass}
                 maxLength={10}
-                readOnly={isReadOnly}
               />
             </div>
 
@@ -248,7 +250,6 @@ const ApplicantInfo = () => {
               placeholder="xxxx@gmail.com"
               type="email"
               ltpDetails={email}
-              readOnly={isReadOnly}
             />
           </div>
           <div className="my-4 mx-3 basis-[25%]">
@@ -262,7 +263,6 @@ const ApplicantInfo = () => {
               className={inputClass}
               defaultValue={address}
               placeholder="Dr. no., Street, Village, Mandal, Dist."
-              disabled={isReadOnly}
             ></textarea>
           </div>
         </div>

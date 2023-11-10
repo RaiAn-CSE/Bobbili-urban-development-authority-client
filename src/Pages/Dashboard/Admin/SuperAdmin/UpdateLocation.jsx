@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Lottie from "lottie-react";
 import {
   MdOutlineAddLocationAlt,
@@ -9,13 +9,27 @@ import toast from "react-hot-toast";
 import districtImage from "../../../../assets/images/district.png";
 import cityImage from "../../../../assets/images/city.png";
 import villageImage from "../../../../assets/images/village.png";
+import LocationStyle from "./LocationPageStyle.module.css";
+import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 
 const UpdateLocation = () => {
+  const { fetchDataFromTheDb } = useContext(AuthContext);
   const [isAddOption, setIsAddOption] = useState(1);
 
   const [isMandalNeed, setIsMandalNeed] = useState(0);
 
   const [isVillageNeed, setIsVillageNeed] = useState(0);
+
+  const [allLocationData, setAllLocationData] = useState([]);
+  const [allDistricts, setAllDistricts] = useState([]);
+  const [allMandal, setAllMandal] = useState([]);
+  const [allVillage, setAllVillage] = useState([]);
+  const [mandalNames, setMandalNames] = useState([]);
+  const [villageNames, setVillageNames] = useState([]);
+
+  const [districtSuggest, setDistrictSuggest] = useState("");
+  const [mandalSuggest, setMandalSuggest] = useState("");
+  const [villageSuggest, setVillageSuggest] = useState("");
 
   const setToggleValue = (prevValue, setNewValue) => {
     prevValue === 0 ? setNewValue(1) : setNewValue(0);
@@ -24,16 +38,32 @@ const UpdateLocation = () => {
   // const inputClass =
   //   "bg-gradient-to-r from-violet-500 to-fuchsia-500 px-6 py-2 font-bold text-white rounded-full cursor-pointer hover:shadow-md hover:shadow-darkViolet hover:bg-gradient-to-l transition-all duration-700";
   const inputClass =
-    "bg-gradient-to-r from-violet-500 to-fuchsia-500 px-6 py-2 font-bold text-white rounded-full cursor-pointer shadow-lg hover:shadow-darkViolet hover:bg-gradient-to-l transition-all duration-700";
+    "nm_Container bg-gradient-to-r from-violet-500 to-fuchsia-500 px-6 py-2 font-bold text-white rounded-full cursor-pointer  transition-all duration-700";
 
-  const activeTabClass =
-    "bg-gradient-to-r from-teal-400 to-yellow-200 text-black";
+  const activeTabClass = "text-normalViolet text-base  border-b-normalViolet";
 
   const swapTheTab = (tabValue) => {
     setIsAddOption(tabValue);
   };
 
   console.log(isAddOption, "IS EDIT OPTION");
+
+  useEffect(() => {
+    (async function () {
+      try {
+        const locationData = await fetchDataFromTheDb(
+          "http://localhost:5000/getDistricts"
+        );
+        console.log(locationData, "LOC");
+        const extractsDataFromDB = locationData[0]?.district;
+        setAllLocationData(extractsDataFromDB);
+        const districts = extractsDataFromDB?.map((each) => each?.name);
+        setAllDistricts(districts);
+      } catch (err) {
+        toast.error("Server Error");
+      }
+    })();
+  }, []);
 
   const makeFirstCharacterCapital = (str) => {
     const splitStr = str.split("");
@@ -42,23 +72,24 @@ const UpdateLocation = () => {
   };
 
   const getInputFieldValue = () => {
-    const districtElement = document.getElementById("district");
-    const mandalElement = document.getElementById("mandal");
-    const villageElement = document.getElementById("village");
+    // const districtElement = document.getElementById("district");
+    // const mandalElement = document.getElementById("mandal");
+    // const villageElement = document.getElementById("village");
 
-    const districtValue = makeFirstCharacterCapital(districtElement?.value);
+    const districtValue = makeFirstCharacterCapital(districtSuggest);
     console.log(districtValue, "District Value");
 
     // check mandal is available or not
 
-    console.log(mandalElement, "Mandal Element");
-    if (mandalElement) {
-      const mandalValue = makeFirstCharacterCapital(mandalElement?.value);
+    console.log(mandalSuggest, "Mandal Element");
+
+    if (mandalSuggest?.length) {
+      const mandalValue = makeFirstCharacterCapital(mandalSuggest);
       console.log(mandalValue, "Mandal");
 
-      if (villageElement) {
+      if (villageSuggest?.length) {
         // Check whether the village value is given or not
-        const villageValue = makeFirstCharacterCapital(villageElement?.value);
+        const villageValue = makeFirstCharacterCapital(villageSuggest);
         console.log(villageValue);
 
         // sent district and village value
@@ -97,182 +128,420 @@ const UpdateLocation = () => {
       url = `http://localhost:5000/removeLocation?data=${JSON.stringify(data)}`;
     }
 
-    fetch(url, {
-      method: "PATCH",
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        console.log(result);
+    // fetch(url, {
+    //   method: "PATCH",
+    // })
+    //   .then((res) => res.json())
+    //   .then((result) => {
+    //     console.log(result);
 
-        if (result?.response?.acknowledged) {
-          toast.success(result?.msg);
-        } else {
-          toast.error(result?.msg);
-        }
-      })
-      .catch(() => {
-        toast.error("Server Failed");
-      });
+    //     if (result?.response?.acknowledged) {
+    //       toast.success(result?.msg);
+    //     } else {
+    //       toast.error(result?.msg);
+    //     }
+    //   })
+    //   .catch(() => {
+    //     toast.error("Server Failed");
+    //   });
   };
 
+  const setDistrictInputValue = (e) => {
+    setDistrictSuggest(e.target.value);
+    if (e.target.value.length === 0) {
+      setIsMandalNeed(0);
+      setAllMandal([]);
+      setMandalNames([]);
+      setMandalSuggest("");
+      if (document.getElementById("mandal")) {
+        document.getElementById("mandal").value = "";
+      }
+
+      setIsVillageNeed(0);
+      setAllVillage([]);
+      setVillageSuggest("");
+      if (document.getElementById("village")) {
+        document.getElementById("village").value = "";
+      }
+    }
+  };
+
+  const setMandalInputValue = (e) => {
+    setMandalSuggest(e.target.value);
+  };
+
+  const setVillageInputValue = (e) => {
+    setVillageSuggest(e.target.value);
+  };
+
+  const setSearchItem = (item, searchLabel) => {
+    switch (searchLabel) {
+      case "d":
+        setDistrictSuggest(item);
+        break;
+      case "m":
+        setMandalSuggest(item);
+        break;
+      case "v":
+        setVillageSuggest(item);
+        break;
+    }
+  };
+
+  console.log(districtSuggest, "District suggest");
+  console.log(allDistricts, "All district");
+
   return (
-    <div className="flex justify-center items-center font-roboto h-[calc(100vh-70px)] transition-all duration-1000">
-      {/* container of main div  */}
-      <div className="flex min-h-[70%] w-[80%] bg-white shadow-lg">
-        {/* left side  */}
-        <div className="basis-1/2 bg-gray-100 min-h-full shadow-lg">
-          <div>
-            {/* tab part  */}
-            <ul className="flex text-base font-medium text-center text-gray-500 dark:text-gray-400 bg-gray-100 shadow-md">
-              <li
-                className={`basis-1/2 ${isAddOption === 1 && activeTabClass}`}
-                onClick={() => swapTheTab(1)}
-              >
-                <button className="inline-flex items-center justify-center text-lg font-bold p-4 border-b-2 border-transparent rounded-t-lg">
-                  <MdOutlineAddLocationAlt className="me-2" size={20} />
-                  Add
-                </button>
-              </li>
-              <li
-                className={`basis-1/2 ${isAddOption === 0 && activeTabClass}`}
-                onClick={() => swapTheTab(0)}
-              >
-                <button className="inline-flex items-center justify-center text-lg font-bold p-4 ">
-                  <MdOutlineWrongLocation className="me-2" size={20} />
-                  Delete
-                </button>
-              </li>
-            </ul>
-
-            {/* content part  */}
-
-            <form
-              className="p-6 "
-              onSubmit={(e, isAddOption) => updateLocation(e, isAddOption)}
-            >
-              {/* district */}
-              <div>
-                <label
-                  htmlFor="district"
-                  className="block mb-2 text-base font-bold text-gray-900 dark:text-white"
+    <>
+      <p className="text-black text-2xl font-roboto font-bold ml-3 mt-3">
+        Location:
+      </p>
+      <div className="flex justify-center items-center font-roboto h-[calc(100vh-150px)] transition-all duration-1000">
+        {/* container of main div  */}
+        <div className="flex min-h-[70%] w-[80%]  nm_Container">
+          {/* left side  */}
+          <div className="basis-1/2 bg-bgColor min-h-full ">
+            <div>
+              {/* tab part  */}
+              <ul className="flex text-center text-[#ab9ba0]">
+                <li
+                  className={`basis-1/2 ${
+                    isAddOption === 1 ? activeTabClass : "border-b-white"
+                  } border-2`}
+                  onClick={() => swapTheTab(1)}
                 >
-                  District
-                </label>
-                <div className="relative mb-6">
-                  <div className="absolute inset-y-0 left-0 flex items-center p-3 pointer-events-none">
-                    <img
-                      className="w-full h-full"
-                      src={districtImage}
-                      alt="An image which is representing district"
+                  <button className="inline-flex items-center justify-center text-base p-4 ">
+                    <MdOutlineAddLocationAlt className="me-2" size={20} />
+                    Add
+                  </button>
+                </li>
+                <li
+                  className={`basis-1/2  border-2 ${
+                    isAddOption === 0 ? activeTabClass : "border-b-white"
+                  }`}
+                  onClick={() => swapTheTab(0)}
+                >
+                  <button className="inline-flex items-center justify-center text-base p-4">
+                    <MdOutlineWrongLocation className="me-2" size={20} />
+                    Delete
+                  </button>
+                </li>
+              </ul>
+
+              {/* content part  */}
+
+              <form
+                className="p-6 "
+                onSubmit={(e, isAddOption) => updateLocation(e, isAddOption)}
+              >
+                {/* district */}
+                <div className="relative">
+                  <label
+                    htmlFor="district"
+                    className="block mb-2 text-base text-black"
+                  >
+                    District
+                  </label>
+                  <div className="relative mb-6">
+                    <div className="absolute inset-y-0 left-0 flex items-center p-3 pointer-events-none">
+                      <img
+                        className="w-full h-full"
+                        src={districtImage}
+                        alt="An image which is representing district"
+                      />
+                    </div>
+                    <input
+                      type="text"
+                      id="district"
+                      name="district"
+                      value={districtSuggest}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-10 p-2.5 nm_Inset focus:outline-none"
+                      placeholder="Enter district name"
+                      onChange={setDistrictInputValue}
+                      required
                     />
                   </div>
+
+                  <div className="bg-normalViolet absolute bottom-[-42%] text-white w-[100%] z-[10]">
+                    {allDistricts
+                      ?.filter((district) => {
+                        const searchItem = districtSuggest.toLowerCase();
+
+                        return (
+                          searchItem &&
+                          district.toLowerCase().startsWith(searchItem) &&
+                          searchItem !== district.toLowerCase()
+                        );
+                      })
+                      .map((item) => {
+                        return (
+                          <div
+                            className="py-1 px-2 border-3 border-b-white"
+                            key={item}
+                            onClick={() => setSearchItem(item, "d")}
+                          >
+                            {item}
+                          </div>
+                        );
+                      })}
+                  </div>
+                </div>
+
+                {/* mandal  */}
+                {districtSuggest?.length !== 0 && (
+                  <div>
+                    {/* <label
+                    htmlFor="mandal"
+                    className="flex items-center mb-2 text-base text-black"
+                  >
+                    <input
+                      type="checkbox"
+                      className="toggle toggle-sm me-2"
+                      onClick={() =>
+                        setToggleValue(isMandalNeed, setIsMandalNeed)
+                      }
+                    />
+                    Mandal
+                  </label> */}
+                    <div className={`${LocationStyle.switchHolder}`}>
+                      <div className={`${LocationStyle.switchLabel}`}>
+                        <span className="text-black">Mandal</span>
+                      </div>
+                      <div className={`${LocationStyle.switchToggle}`}>
+                        <input
+                          type="checkbox"
+                          id="mandal"
+                          className="transition-all duration-700"
+                          disabled={districtSuggest?.length === 0}
+                          onClick={() => {
+                            console.log(isMandalNeed, "Is mandal need");
+                            setToggleValue(isMandalNeed, setIsMandalNeed);
+                            if (isMandalNeed === 0) {
+                              console.log(allLocationData, "MandalNeed");
+                              console.log(districtSuggest, "districtSuggest");
+                              if (districtSuggest?.length) {
+                                allLocationData?.filter((item) => {
+                                  if (
+                                    item?.name?.toLowerCase() ===
+                                    districtSuggest.toLocaleLowerCase()
+                                  ) {
+                                    setAllMandal(item?.mandal);
+                                    const mandalNames = item?.mandal?.map(
+                                      (item) => item?.name
+                                    );
+
+                                    setMandalNames((prev) => {
+                                      return [...mandalNames];
+                                    });
+                                  }
+                                });
+                              } else {
+                                toast.error(
+                                  "Enter district name to see autosuggestion"
+                                );
+                              }
+                            } else {
+                              setAllMandal([]);
+                              setMandalNames([]);
+                              setMandalSuggest("");
+                              document.getElementById("mandal").value = "";
+                              setIsVillageNeed(0);
+                              setAllVillage([]);
+                              setVillageSuggest("");
+                            }
+                          }}
+                        />
+                        <label htmlFor="mandal"></label>
+                      </div>
+                    </div>
+                    {isMandalNeed === 1 && (
+                      <div className={`relative mb-6 h-fit`}>
+                        <div className="absolute inset-y-0 left-0 flex items-center p-3 pointer-events-none">
+                          <img
+                            className="w-full h-full"
+                            src={cityImage}
+                            alt="An image which is representing district"
+                          />
+                        </div>
+                        <input
+                          type="text"
+                          id="mandal"
+                          name="mandal"
+                          disabled={districtSuggest?.length === 0}
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-10 p-2.5 transition-all duration-700 nm_Inset focus:outline-none"
+                          placeholder="Enter mandal name"
+                          value={mandalSuggest}
+                          onChange={setMandalInputValue}
+                          required={isMandalNeed && "required"}
+                        />
+                        <div className="bg-normalViolet absolute text-white w-[100%] z-[10]">
+                          {mandalNames
+                            ?.filter((mandal) => {
+                              const searchItem = mandalSuggest.toLowerCase();
+                              const mandalName = mandal?.toLowerCase();
+                              console.log(mandal, "MANDAL");
+                              return (
+                                searchItem &&
+                                mandalName.startsWith(searchItem) &&
+                                searchItem !== mandalName
+                              );
+                            })
+                            .slice(0, 5)
+                            .map((item) => {
+                              return (
+                                <div
+                                  className="py-1 px-2 border-3 border-b-white"
+                                  key={item}
+                                  onClick={() => setSearchItem(item, "m")}
+                                >
+                                  {item}
+                                </div>
+                              );
+                            })}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* vilage  */}
+                {isMandalNeed === 1 && (
+                  <div>
+                    {/* <label
+                    htmlFor="village"
+                    className="flex items-center mb-2 text-base text-black "
+                  >
+                    <input
+                      type="checkbox"
+                      className="toggle toggle-sm me-2"
+                      onClick={() =>
+                        setToggleValue(isVillageNeed, setIsVillageNeed)
+                      }
+                    />
+                    Village
+                  </label> */}
+                    <div className={`${LocationStyle.switchHolder}`}>
+                      <div className={`${LocationStyle.switchLabel}`}>
+                        <span className="text-black">Village</span>
+                      </div>
+                      <div className={`${LocationStyle.switchToggle}`}>
+                        <input
+                          type="checkbox"
+                          id="village"
+                          disabled={
+                            districtSuggest?.length === 0 ||
+                            mandalSuggest?.length === 0
+                          }
+                          onClick={() => {
+                            setToggleValue(isVillageNeed, setIsVillageNeed);
+                            console.log(isVillageNeed, "Is village need");
+                            if (isVillageNeed === 0) {
+                              console.log(allLocationData, "MandalNeed V");
+                              console.log(districtSuggest, "districtSuggest V");
+                              console.log(mandalSuggest, "mandalSuggest V");
+                              console.log(allMandal, "All mandal v");
+
+                              if (mandalSuggest?.length) {
+                                allMandal?.forEach((item) => {
+                                  if (
+                                    item?.name?.toLowerCase() ===
+                                    mandalSuggest.toLowerCase()
+                                  ) {
+                                    setAllVillage(item?.village);
+                                  }
+                                });
+                              } else {
+                                toast.error(
+                                  "Enter mandal name to see autosuggestion"
+                                );
+                              }
+                            } else {
+                              setVillageSuggest("");
+                              document.getElementById("village").value = "";
+                            }
+                          }}
+                        />
+                        <label htmlFor="village"></label>
+                      </div>
+                    </div>
+                    {isVillageNeed === 1 && (
+                      <div className={`relative mb-6 `}>
+                        <div className="absolute inset-y-0 left-0 flex items-center p-3 pointer-events-none">
+                          <img
+                            className="w-full h-full"
+                            src={villageImage}
+                            alt="An image which is representing district"
+                          />
+                        </div>
+                        <input
+                          type="text"
+                          id="village"
+                          name="village"
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-10 p-2.5 transition-all duration-700 nm_Inset focus:outline-none"
+                          placeholder="Enter village name"
+                          value={villageSuggest}
+                          onChange={setVillageInputValue}
+                          disabled={
+                            districtSuggest?.length === 0 ||
+                            mandalSuggest?.length === 0
+                          }
+                          required={isVillageNeed === 1 && "required"}
+                        />
+                        <div className="bg-normalViolet absolute text-white w-[100%] z-[10]">
+                          {allVillage
+                            ?.filter((village) => {
+                              const searchItem = villageSuggest.toLowerCase();
+                              const villageName = village?.toLowerCase();
+                              console.log(searchItem, "village");
+                              return (
+                                searchItem &&
+                                villageName.startsWith(searchItem) &&
+                                searchItem !== villageName
+                              );
+                            })
+                            .slice(0, 5)
+                            .map((item) => {
+                              return (
+                                <div
+                                  className="py-1 px-2 border-3 border-b-white"
+                                  key={item}
+                                  onClick={() => setSearchItem(item, "v")}
+                                >
+                                  {item}
+                                </div>
+                              );
+                            })}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* submit button  */}
+
+                <div className="flex justify-center">
                   <input
-                    type="text"
-                    id="district"
-                    name="district"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-10 p-2.5"
-                    placeholder="Enter district name"
-                    required
+                    type="submit"
+                    name="submit"
+                    value={isAddOption === 1 ? "Add" : "Delete"}
+                    className={`${inputClass} hover:bg-gradient-to-l`}
                   />
                 </div>
-              </div>
+              </form>
+            </div>
+          </div>
 
-              {/* mandal  */}
-              <div>
-                <label
-                  htmlFor="mandal"
-                  className="flex items-center mb-2  text-base font-bold text-gray-900 dark:text-white"
-                >
-                  <input
-                    type="checkbox"
-                    className="toggle toggle-sm me-2"
-                    onClick={() =>
-                      setToggleValue(isMandalNeed, setIsMandalNeed)
-                    }
-                  />
-                  Mandal
-                </label>
-                {isMandalNeed === 1 && (
-                  <div className={`relative mb-6 `}>
-                    <div className="absolute inset-y-0 left-0 flex items-center p-3 pointer-events-none">
-                      <img
-                        className="w-full h-full"
-                        src={cityImage}
-                        alt="An image which is representing district"
-                      />
-                    </div>
-                    <input
-                      type="text"
-                      id="mandal"
-                      name="mandal"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-10 p-2.5"
-                      placeholder="Enter mandal name"
-                      required={isMandalNeed && "required"}
-                    />
-                  </div>
-                )}
-              </div>
-
-              {/* vilage  */}
-              <div>
-                <label
-                  htmlFor="village"
-                  className="flex items-center mb-2 text-base font-bold text-gray-900 dark:text-white"
-                >
-                  <input
-                    type="checkbox"
-                    className="toggle toggle-sm me-2"
-                    onClick={() =>
-                      setToggleValue(isVillageNeed, setIsVillageNeed)
-                    }
-                  />
-                  Village
-                </label>
-                {isVillageNeed === 1 && (
-                  <div className={`relative mb-6 `}>
-                    <div className="absolute inset-y-0 left-0 flex items-center p-3 pointer-events-none">
-                      <img
-                        className="w-full h-full"
-                        src={villageImage}
-                        alt="An image which is representing district"
-                      />
-                    </div>
-                    <input
-                      type="text"
-                      id="village"
-                      name="village"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-10 p-2.5"
-                      placeholder="Enter village name"
-                      required={isVillageNeed === 1 && "required"}
-                    />
-                  </div>
-                )}
-              </div>
-
-              {/* submit button  */}
-
-              <div className="flex justify-center">
-                <input
-                  type="submit"
-                  name="submit"
-                  value={isAddOption === 1 ? "Add" : "Delete"}
-                  className={`${inputClass}`}
-                />
-              </div>
-            </form>
+          {/* right side  */}
+          <div className="basis-1/2 bg-bgColor">
+            <Lottie
+              animationData={mapAnimation}
+              loop={true}
+              className="w-full h-full"
+            />
           </div>
         </div>
-
-        {/* right side  */}
-        <div className="basis-1/2 ">
-          <Lottie
-            animationData={mapAnimation}
-            loop={true}
-            className="w-full h-full"
-          />
-        </div>
       </div>
-    </div>
+    </>
   );
 };
 
