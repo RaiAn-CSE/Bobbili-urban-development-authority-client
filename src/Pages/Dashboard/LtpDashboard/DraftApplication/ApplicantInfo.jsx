@@ -120,6 +120,8 @@ const ApplicantInfo = () => {
       applicantDetails: ownerDetail,
     };
 
+    console.log(applicantInfo, "Applicant info");
+
     return await sendUserDataIntoDB(url, "PATCH", {
       applicationNo,
       applicantInfo,
@@ -197,6 +199,7 @@ const ApplicantInfo = () => {
               label="LTP Type"
               placeholder="Licensed Engineer"
               ltpDetails={type}
+              isAlwaysHide={1}
             />
             <InputField
               id="ltpName"
@@ -204,6 +207,7 @@ const ApplicantInfo = () => {
               label="LTP Name"
               placeholder="xxxxxxxxxxxxxxxxx"
               ltpDetails={name}
+              isAlwaysHide={1}
             />
             <InputField
               id="licenseNo"
@@ -212,6 +216,7 @@ const ApplicantInfo = () => {
               placeholder="xx/xxxxx"
               type="text"
               ltpDetails={licenseNo}
+              isAlwaysHide={1}
             />
 
             <div className="my-4 mx-3">
@@ -224,6 +229,7 @@ const ApplicantInfo = () => {
                 name="validity"
                 className={inputClass}
                 defaultValue={validity}
+                readOnly={true}
               />
             </div>
 
@@ -240,6 +246,7 @@ const ApplicantInfo = () => {
                 onChange={(e) => setPhoneNoLimit(e, setLtpPhone)}
                 className={inputClass}
                 maxLength={10}
+                readOnly={true}
               />
             </div>
 
@@ -250,6 +257,7 @@ const ApplicantInfo = () => {
               placeholder="xxxx@gmail.com"
               type="email"
               ltpDetails={email}
+              isAlwaysHide={1}
             />
           </div>
           <div className="my-4 mx-3 basis-[25%]">
@@ -263,6 +271,7 @@ const ApplicantInfo = () => {
               className={inputClass}
               defaultValue={address}
               placeholder="Dr. no., Street, Village, Mandal, Dist."
+              readOnly={true}
             ></textarea>
           </div>
         </div>
