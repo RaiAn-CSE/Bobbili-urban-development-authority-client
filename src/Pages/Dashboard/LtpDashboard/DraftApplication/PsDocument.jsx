@@ -79,7 +79,7 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
                                 checked={approved === "shortfall"}
                             />
                             <label
-                                className={`radio-button__label text-base ${approved === "shortfall" ? "" : "font-thin"}`}
+                                className={`radio-button__label text-base ${approved === "shortfall" ? "" : ""}`}
                                 htmlFor={type === "dynamic" ? `shortfall${uploadId}` : `shortfall${id}`}
                             >
                                 <span className="radio-button__custom"></span>
