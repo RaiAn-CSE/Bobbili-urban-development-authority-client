@@ -223,7 +223,8 @@ const Payment = () => {
     const TotalLabourCessComp2Charged = laboutCessCompo2Calculation(
       BuiltUp_area_SquareFeet
     );
-
+    // ====== User Charges======
+    const userCharged = 1000;
     // =====UDA Total=====
     const UDATotal = () => {
       // Calculate UDA Total Charged
@@ -232,7 +233,8 @@ const Payment = () => {
         vacantAreaDevelopmentCharged +
         TotalPenalizationCharged +
         TotalOpenSpaceCharged +
-        TotalLabourCessComp2Charged;
+        TotalLabourCessComp2Charged+
+        userCharged;
       return Math.round(UDATotalCharged);
     };
     // =====UDA Total Charged=====
@@ -303,6 +305,7 @@ const Payment = () => {
       builtUpAreaDevelopmentCharged,
       labourCessCompo1Charged,
       TotalLabourCessComp2Charged,
+      userCharged,
       vacantAreaDevelopmentCharged,
       builtup_Area,
       nature_of_site,
@@ -404,6 +407,7 @@ const Payment = () => {
     )?.value;
     const builtUpArea = document.getElementById("builtUpArea")?.value;
     const labourCessTwo = document.getElementById("labourCess02")?.value;
+    const userCharges = document.getElementById("userCharges")?.value;
     const UDATotalCharged = document.getElementById("UDATotalCharged")?.value;
 
     // grama panchayat fee
@@ -461,6 +465,7 @@ const Payment = () => {
       TotalOpenSpaceCharged: TotalOpenSpaceCharged ?? "",
       labourCessTwo: labourCessTwo ?? "",
       builtUpArea: builtUpArea ?? "",
+      userCharges: userCharges ?? "",
       UDATotalCharged: UDATotalCharged ?? "",
     };
 
@@ -568,6 +573,14 @@ const Payment = () => {
               placeholder="000"
               type="number"
               ltpDetails={calculatedData?.TotalLabourCessComp2Charged}
+            />
+            <InputField
+              id="userCharges"
+              name="userCharges"
+              label="User Charges"
+              placeholder="000"
+              type="number"
+              ltpDetails={calculatedData?.userCharged}
             />
             <InputField
               id="UDATotalCharged"

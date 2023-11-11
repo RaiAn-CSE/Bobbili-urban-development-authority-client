@@ -11,6 +11,8 @@ function DefaultDocument({
   handleFileChange,
   gradientColor,
   defaultImageFromDB,
+  setRemarkText,
+  remarkText
 }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [latestUpdatedDefaultData, setLatestUpdatedDefaultData] = useState([
@@ -100,6 +102,8 @@ function DefaultDocument({
               approved={approved}
               handleDefaultStatus={handleDefaultStatus}
               type="default"
+              setRemarkText={setRemarkText}
+              remarkText={remarkText}
             />
           </div>
         );

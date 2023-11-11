@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 
-function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, handleDynamicStatus }) {
+function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, handleDynamicStatus, setRemarkText, remarkText }) {
 
     const handleDocumentStatus = (event, id, uploadId, type) => {
         const data = event?.target?.value;
@@ -19,45 +19,85 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
         // Your previous useEffect dependencies here
     }, [approved, uploadId]);
 
+    const handleRemarkText = (event) => {
+        const { value } = event?.target;
+        if (!value.trim()) {
+            return toast.success("No value");
+        }
+
+        setRemarkText((prev) => {
+            const existingIndex = prev.findIndex((item) => item[type].id == id || (item[type].id == id && item[type].uploadId == uploadId)
+            );
+            const existingObject = prev.some((item) => item[type].id == id || (item[type].id == id && item[type].uploadId == uploadId)
+            );
+            console.log({ existingIndex,existingObject })
+            if (existingObject) {
+                // If the value already exists, update the existing object with the new value
+                const updatedArray = [...prev];
+                updatedArray[existingIndex][type].value = value;
+                return updatedArray;
+            }
+            return [...prev, { [type]: { id, uploadId, value } }];
+
+        });
+    };
     return (
         <div className='dark:text-white'>
-            <div className="flex items-center mt-6">
+            <div className="md:flex items-center mt-6">
                 {/* Approved Button */}
                 {role === "PS" && (
-                    <div className="space-x-10 mt-2 ms-4 lg:pr-2">
-                        <label
-                            className={`ml-2 inline-flex items-center space-x-1 text-black 
-                            `}
-                        >
+                    <div className="md:flex space-y-4 md:space-x-10 md:space-y-0 mt-2 ms-4 lg:pr-2">
+                        <div>
                             <input
-                                id={id}
+                                id={type === "dynamic" ? `approved${uploadId}` : `approved${id}`}
                                 type="radio"
                                 name={type === "dynamic" ? uploadId + id : id}
                                 value="approved"
-                                className="radio radio-sm radio-success mr-3 lg:mr-0"
+                                className="radio radio-sm radio-button__input mr-3 lg:mr-0"
                                 onChange={(event) => handleDocumentStatus(event, id, uploadId, type)}
                                 checked={approved === "approved"}
                             />
-                            <span>Approve</span>
-                        </label>
-                        <label
-                            className={`ml-2 inline-flex items-center space-x-1 text-black 
-                           `}
-                        >
+                            <label
+                                className={`radio-button__label text-base ${approved === "approved" ? "" : ""}`}
+                                htmlFor={type === "dynamic" ? `approved${uploadId}` : `approved${id}`}
+                            >
+                                <span className="radio-button__custom"></span>
+                                Approved
+                            </label>
+                        </div>
+
+                        <div>
                             <input
-                                id={type === "dynamic" ? uploadId : id}
+                                id={type === "dynamic" ? `shortfall${uploadId}` : `shortfall${id}`}
                                 type="radio"
                                 name={type === "dynamic" ? uploadId + id : id}
                                 value="shortfall"
-                                className="radio radio-sm radio-success mr-3 lg:mr-0"
+                                className="radio radio-sm radio-button__input mr-3 lg:mr-0"
                                 onChange={(event) => handleDocumentStatus(event, id, uploadId, type)}
                                 checked={approved === "shortfall"}
                             />
-                            <span>Shortfall</span>
-                        </label>
+                            <label
+                                className={`radio-button__label text-base ${approved === "shortfall" ? "" : ""}`}
+                                htmlFor={type === "dynamic" ? `shortfall${uploadId}` : `shortfall${id}`}
+                            >
+                                <span className="radio-button__custom"></span>
+                                Shortfall
+                            </label>
+                        </div>
+                        <div className="">
+                            <p className="text-black font-bold" htmlFor="textarea">Remark:</p>
+                            <textarea className="textarea mt-2 bg-transparent border border-black text-black" id="textarea"
+                                name={type === "dynamic" ? `${id}_${uploadId}` : `${id}`}
+                                defaultValue={type === "Dynamic" ? (id === remarkText.id && uploadId === remarkText.uploadId) ? remarkText.value : "" : (id === remarkText.id) ? remarkText.value : ""}
+
+                                cols="30" rows="1"
+                                onBlur={(event) => handleRemarkText(event)}
+                            ></textarea>
+                        </div>
                     </div>
                 )}
             </div>
+
         </div>
     )
 }
