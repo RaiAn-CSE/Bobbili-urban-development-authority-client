@@ -27,19 +27,19 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
 		}
 
 		setRemarkText((prev) => {
-			const existingIndex = prev.findIndex((item) => item[type].id == id || (item[type].id == id && item[type].uploadId == uploadId)
-			);
-			const existingObject = prev.some((item) => item[type].id == id || (item[type].id == id && item[type].uploadId == uploadId)
-			);
-			console.log({ existingIndex, existingObject })
-			if (existingObject) {
-				// If the value already exists, update the existing object with the new value
-				const updatedArray = [...prev];
-				updatedArray[existingIndex][type].value = value;
-				return updatedArray;
+			const existingIndex = prev.findIndex((item) => item[type]?.id === id || (item[type]?.id === id && item[type]?.uploadId === uploadId));
+		
+			const existingObject = existingIndex !== -1;
+		
+			if (!existingObject) {
+				// If the value does not exist, added a new object to the array
+				return [...prev, { [type]: { id, uploadId, value } }];
 			}
-			return [...prev, { [type]: { id, uploadId, value } }];
-
+		
+			// If the value already exists, updated the existing object with the new value
+			const updatedArray = [...prev];
+			updatedArray[existingIndex][type].value = value;
+			return updatedArray;
 		});
 	};
 	return (

@@ -14,22 +14,51 @@ function DynamicDocument({ DynamicAppChecklistDocument, setDynamicAppChecklistDo
     handleFileChange(event, id, selectedFiles, "dynamic", uploadId);
   };
 
+  // const handleDynamicStatus = ({ value: data, id, uploadId, type }) => {
+  //   if (!data) {
+  //     return;
+  //   }
+
+  // const updatedDynamicAppChecklist = DynamicAppChecklistDocument.map(checkListData => {
+  //   // first condition
+  //   if (checkListData.id === id) {
+  //     // Second condition
+  //     const updatedRequirements = checkListData.requirements.map(item => {
+  //       if (item.uploadId === uploadId) {
+  //         return { ...item, approved: data };
+  //       }
+  //       return item;
+  //     });
+  //     // if two conditoin matched
+  //     return { ...checkListData, requirements: updatedRequirements };
+  //   }
+  //   return checkListData;
+  // });
+
+  //   console.log({ DynamicAppChecklistDocument, updatedDynamicAppChecklist }, "DynamicAppChecklistDocument");
+  //   setDynamicAppChecklistDocument(updatedDynamicAppChecklist);
+  // };
+
+
   const handleDynamicStatus = ({ value: data, id, uploadId, type }) => {
     if (!data) {
       return;
     }
+    const updatedDynamicAppChecklist = DynamicAppChecklistDocument.map(checkListData => (
+      checkListData.id === id
+        ? {
+          ...checkListData,
+          requirements: checkListData.requirements.map(item =>
+            item.uploadId === uploadId ? { ...item, approved: data } : item
+          )
+        }
+        : checkListData
+    ));
 
-    const clickedEvent = DynamicAppChecklistDocument.find(checkListData => {
-      const condition01 = checkListData.id === id;
-      const condition02 = checkListData.requirements.some(item => item.uploadId === uploadId)
-      const findMatchedIndex = checkListData.requirements.findIndex(item => item.uploadId === uploadId);
-      if (condition01 && condition02) {
-        return checkListData.requirements[findMatchedIndex].approved = data;
-      }
-    })
-    console.log({ DynamicAppChecklistDocument, clickedEvent }, "DynamicAppChecklistDocument");
-    setDynamicAppChecklistDocument(previousCheckList => [...previousCheckList, clickedEvent])
-  }
+    console.log({ DynamicAppChecklistDocument, updatedDynamicAppChecklist }, "DynamicAppChecklistDocument");
+    setDynamicAppChecklistDocument(updatedDynamicAppChecklist);
+  };
+
 
 
   useEffect(() => {
@@ -42,7 +71,7 @@ function DynamicDocument({ DynamicAppChecklistDocument, setDynamicAppChecklistDo
       {DynamicAppChecklistDocument?.map((document, index) => {
         const { id, question, requirements } = document;
         return (
-          <div key={index+1} className="w-full px-2 py-5 rounded">
+          <div key={index + 1} className="w-full px-2 py-5 rounded">
             <div className="text-[17px]">
               <p className="pb-4 font-bold">
                 {id}. {question}
