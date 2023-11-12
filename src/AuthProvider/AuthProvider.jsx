@@ -433,6 +433,36 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  const ownerNamePattern = (ownerDetails) => {
+    const totalOwner = ownerDetails?.length;
+
+    const ownerNames = ownerDetails?.map((owner) => owner.name);
+
+    let ownerNamePattern = "";
+
+    if (ownerNames?.length) {
+      switch (totalOwner) {
+        case 1:
+          ownerNamePattern = `${ownerNames[0]}`;
+          break;
+
+        case 2:
+          ownerNamePattern = `${ownerNames[0]},${ownerNames[1]}`;
+          break;
+        case 3:
+          ownerNamePattern = `${ownerNames[0]},${ownerNames[1]},${ownerNames[3]}`;
+          break;
+        default:
+          ownerNamePattern = `${ownerNames[0]},${ownerNames[1]},${
+            ownerNames[3]
+          } and ${totalOwner - 3} others`;
+          break;
+      }
+    }
+
+    return ownerNamePattern;
+  };
+
   //   create a object to transfer data into various components
   const userInfo = {
     updateUserInfoInLocalStorage,
@@ -455,6 +485,7 @@ const AuthProvider = ({ children }) => {
     findWhichMenuIsActiveForPsSideBar,
     fetchDataFromTheDb,
     calculateNoOfFloors,
+    ownerNamePattern,
     handleLogOut,
   };
 

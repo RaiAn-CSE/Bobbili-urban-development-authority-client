@@ -12,11 +12,11 @@ const ProceedingModal = () => {
   const [approvedDate, setApprovedDate] = useState([]);
   const [validProceedingDate, setValidProceedingDate] = useState([]);
 
-  console.log(allInfo, "All info ApplicationData");
-  console.log(
-    allInfo?.buildingInfo?.generalInformation?.mandal,
-    "All info ApplicationData"
-  );
+  // console.log(allInfo, "All info ApplicationData");
+  // console.log(
+  //   allInfo?.buildingInfo?.generalInformation?.mandal,
+  //   "All info ApplicationData"
+  // );
 
   useEffect(() => {
     const getData = async () => {
@@ -28,15 +28,15 @@ const ProceedingModal = () => {
   }, []);
 
   const dateArray = (date) => {
-    return date?.split("").filter((item) => item !== "-");
+    return date?.split("")?.filter((item) => item !== "-");
   };
 
   useEffect(() => {
     console.log(allInfo, "ALL info");
-    if (Object.keys(allInfo)?.length) {
+    if (allInfo && Object.keys(allInfo)?.length) {
       const psSubmitDate = allInfo?.psSubmitDate;
 
-      if (psSubmitDate) {
+      if (psSubmitDate?.length) {
         const splitSubmitDateOfPs = dateArray(psSubmitDate);
         setApprovedDate(splitSubmitDateOfPs);
 
@@ -141,16 +141,17 @@ const ProceedingModal = () => {
                       <td className="border-r p-2 border-neutral-500 text-base text-center">
                         {approvedDate[7] ?? "N/A"}
                       </td> */}
-                      {approvedDate?.map((item, index) => {
-                        return (
-                          <td
-                            key={index}
-                            className="border-r p-2 border-neutral-500 text-base text-center"
-                          >
-                            {item ?? "N/A"}
-                          </td>
-                        );
-                      })}
+                      {approvedDate?.length === 1 &&
+                        approvedDate?.map((item, index) => {
+                          return (
+                            <td
+                              key={index}
+                              className="border-r p-2 border-neutral-500 text-base text-center"
+                            >
+                              {item ?? "N/A"}
+                            </td>
+                          );
+                        })}
                     </tr>
                   </tbody>
                 </table>
@@ -571,7 +572,7 @@ const ProceedingModal = () => {
                   className="p-2 border-r border-neutral-500 text-center"
                   colSpan={4}
                 >
-                  1500
+                  1000
                 </td>
                 {/* <td className='p-2 border-r border-neutral-500 text-center'>13</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>లేబర్ చెస్ కాంపౌండ్ 2</td>
@@ -585,32 +586,34 @@ const ProceedingModal = () => {
                 భవన నిర్మాణం ప్రారంభమునకు తేది <br />
                 proceeding date (Confusion)
               </th>
-              {approvedDate?.map((item, index) => {
-                return (
-                  <td
-                    key={index}
-                    className="border-r p-2 border-neutral-500 text-base text-center"
-                  >
-                    {item ?? "N/A"}
-                  </td>
-                );
-              })}
+              {approvedDate?.length === 1 &&
+                approvedDate?.map((item, index) => {
+                  return (
+                    <td
+                      key={index}
+                      className="border-r p-2 border-neutral-500 text-base text-center"
+                    >
+                      {item ?? "N/A"}
+                    </td>
+                  );
+                })}
             </tr>
             <tr className="border-t border-neutral-500">
               <th className="border-r p-2 border-neutral-500 text-base text-center">
                 భవన నిర్మాణం పూర్తి కావలసిన తేది <br />
                 Proceeding date + 3years
               </th>
-              {validProceedingDate?.map((item, index) => {
-                return (
-                  <td
-                    key={index}
-                    className="border-r p-2 border-neutral-500 text-base text-center"
-                  >
-                    {item ?? "N/A"}
-                  </td>
-                );
-              })}
+              {validProceedingDate?.length === 1 &&
+                validProceedingDate?.map((item, index) => {
+                  return (
+                    <td
+                      key={index}
+                      className="border-r p-2 border-neutral-500 text-base text-center"
+                    >
+                      {item ?? "N/A"}
+                    </td>
+                  );
+                })}
             </tr>
           </table>
           <div className="mt-10">

@@ -3,7 +3,7 @@ import customScroll from "../../Style/Scrollbar.module.css";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const EndorsementModal = () => {
-  const { getApplicationData } = useContext(AuthContext);
+  const { getApplicationData, ownerNamePattern } = useContext(AuthContext);
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
   const cameFrom = JSON.parse(localStorage.getItem("page"));
@@ -12,11 +12,13 @@ const EndorsementModal = () => {
   const [applicationNumber, setApplicationNumber] = useState("");
   const [surveyNo, setSurveyNo] = useState("");
   const [ownerName, setOwnerName] = useState("");
+  const [dataFromDb, getDataFromDb] = useState({});
 
   useEffect(() => {
     const getData = async () => {
       const applicationData = await getApplicationData(applicationNo, cameFrom);
       // console.log(applicationData, "All info ApplicationData");
+      getDataFromDb(applicationData);
       setGramaPanchayat(
         applicationData?.buildingInfo?.generalInformation?.gramaPanchayat
       );
@@ -64,7 +66,11 @@ const EndorsementModal = () => {
               </p>
               <p>
                 Ref: - Application of Sri/Smt/Kum{" "}
-                <span className="underline">{ownerName}</span>
+                <span className="underline">
+                  {ownerNamePattern(
+                    getDataFromDb?.applicantInfo?.applicantDetails
+                  ) ?? "N/A"}
+                </span>
               </p>
               <p className="text-start">
                 With reference to your application for building permission vide
@@ -83,8 +89,8 @@ const EndorsementModal = () => {
               <p className="font-bold">
                 You are requested to comply the shortfalls raised in documents:
               </p>
-              <table className="min-w-full border text-center text-sm font-light border-neutral-500">
-                <thead className="border-b font-medium border-neutral-500">
+              <table className="w-full border text-center text-sm font-light border-neutral-500">
+                <thead className="border-b font-medium border-neutral-500 ">
                   <tr>
                     <th
                       scope="col"
