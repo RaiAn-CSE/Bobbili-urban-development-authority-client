@@ -1,8 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react';
 import customScroll from "../../Style/Scrollbar.module.css";
 import { AuthContext } from '../../AuthProvider/AuthProvider';
+import TableLayout from './../Components/TableLayout';
 
 const EndorsementModal = () => {
+
+    const tableHeader = [
+        "Sl.no.",
+        "Application no.",
+        "Owner name",
+        "Phone no.",
+        "Case type",
+        "Village",
+        "Mandal",
+        "Approved date",
+    ];
 
     const { getApplicationData } = useContext(AuthContext);
 
@@ -49,70 +61,66 @@ const EndorsementModal = () => {
                             <p className='text-start'>With reference to your application for building permission vide B.A.No <span className='underline'>{applicationNumber}</span> for construction of Residential/ Individual Residential Building building in Survey .No. <span className='underline'>{surveyNo}</span></p>
                             <p className='font-semibold'>Objections found in Primary Documents:-</p>
                         </div>
-                        <div className={`overflow-x-auto overflow-y-auto ${customScroll.customScrolling}`}>
-                            <p className='font-bold'>You are requested to comply the shortfalls raised in documents:</p>
-                            <table className="min-w-full border text-center text-sm font-light border-neutral-500">
-                                <thead className="border-b font-medium border-neutral-500">
-                                    <tr>
-                                        <th
-                                            scope="col"
-                                            className="border-r px-6 py-4 border-neutral-500  bg-gray-200"
-                                        >
-                                            #
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="border-r px-6 py-4 border-neutral-500  bg-gray-200"
-                                        >
-                                            Name of the Document
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="border-r px-6 py-4 border-neutral-500  bg-gray-200"
-                                        >
-                                            Remarks
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {/* Ground Position  */}
-                                    <tr className="border-b border-neutral-500">
-                                        <td rowSpan="" className="whitespace-nowrap border-r px-6 py-4 border-neutral-500">
-                                            1
-                                        </td>
-                                        <td
-                                            colSpan=""
-                                            className={`whitespace-nowrap border-r px-6 py-4 border-neutral-500 text-base`}
-                                        >
-                                            Latest Encumbrance Certificate issued by Registration Department.
-                                        </td>
-                                        <td
-                                            colSpan=""
-                                            className={`whitespace-nowrap border-r px-6 py-4 border-neutral-500 text-base`}
-                                        >
-                                            ,
-                                        </td>
-                                    </tr>
-                                    <tr className="border-b border-neutral-500">
-                                        <td rowSpan="" className="whitespace-nowrap border-r px-6 py-4 border-neutral-500">
-                                            2
-                                        </td>
-                                        <td
-                                            colSpan=""
-                                            className={`whitespace-nowrap border-r px-6 py-4 border-neutral-500 text-base`}
-                                        >
-                                            Self-Attested copies of Ownership Documents-lease-deed/sale deed etc.giving the physical description of the plot/property.giving the physical description of the plot/property.
-                                        </td>
-                                        <td
-                                            colSpan=""
-                                            className={`whitespace-nowrap border-r px-6 py-4 border-neutral-500 text-base`}
-                                        >
-                                            ,
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+
+
+                        <p className='font-bold'>You are requested to comply the shortfalls raised in documents:</p>
+                        <table className="border text-sm font-light border-neutral-500">
+                            <thead className="border-b font-medium border-neutral-500">
+                                <tr>
+                                    <th
+                                        scope="col"
+                                        className="border-r px-6 py-4 border-neutral-500 bg-gray-200"
+                                    >
+                                        #
+                                    </th>
+                                    <th
+                                        scope="col"
+                                        className="border-r px-6 py-4 border-neutral-500 bg-gray-200"
+                                    >
+                                        Name of the Document
+                                    </th>
+                                    <th
+                                        scope="col"
+                                        className="border-r px-6 py-4 border-neutral-500 bg-gray-200"
+                                    >
+                                        Remarks
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {/* Ground Position  */}
+                                <tr className="border-b border-neutral-500">
+                                    <td rowSpan="" className="break-words border-r px-6 py-4 border-neutral-500">
+                                        1
+                                    </td>
+                                    <td
+                                        className={`break-words border-r px-6 py-4 border-neutral-500 text-base`}
+                                    >
+                                        Latest Encumbrance Certificate issued by Registration Department.
+                                    </td>
+                                    <td
+                                        className={`break-words border-r px-6 py-4 border-neutral-500 text-base`}
+                                    >
+                                        Self-Attested copies of Ownership Self-Attested copies of Ownership
+                                    </td>
+                                </tr>
+                                <tr className="border-b border-neutral-500">
+                                    <td rowSpan="" className="break-words border-r px-6 py-4 border-neutral-500">
+                                        2
+                                    </td>
+                                    <td
+                                        className={`break-words border-r px-6 py-4 border-neutral-500 text-base`}
+                                    >
+                                        Self-Attested copies of Ownership Documents-lease-deed/sale deed etc.giving the physical description of the plot/property.
+                                    </td>
+                                    <td
+                                        className={`break-words border-r px-6 py-4 border-neutral-500 text-base`}
+                                    >
+                                        Self-Attested copies of Ownership
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
 
                         <div className='mt-10'>
                             <p className='font-bold'>Drawing Plan Remarks and Recommendation: Shortfall</p>
