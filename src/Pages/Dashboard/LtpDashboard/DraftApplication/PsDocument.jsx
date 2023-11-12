@@ -84,7 +84,7 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
                                 Shortfall
                             </label>
                         </div>
-                        <div className="">
+                        <div className={`${approved === "shortfall"?"block":"hidden"}`}>
                             <p className="text-black font-bold" htmlFor="textarea">Remark:</p>
                             <textarea className="textarea mt-2 bg-transparent border border-black text-black" id="textarea"
                                 name={type === "dynamic" ? `${id}_${uploadId}` : `${id}`}
