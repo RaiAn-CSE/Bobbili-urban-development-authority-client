@@ -7,7 +7,7 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
 		const data = event?.target?.value;
 		if (type === "dynamic") {
 			// handleStatus({ approved: data, id, uploadId, type });
-			handleDynamicStatus({ approved: data, id, uploadId, type })
+			handleDynamicStatus({ value: data, id, uploadId, type })
 			toast.success(`${data}, ${uploadId}, ${id}`);
 		} else {
 			// handleStatus({ approved: data, id, type });
@@ -18,7 +18,6 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
 
 	useEffect(() => {
 		// Your previous useEffect dependencies here
-		console.log({ id, approved, uploadId }, "Approved+Id+UploadedId")
 	}, [approved, uploadId]);
 
 	const handleRemarkText = (event) => {

@@ -14,11 +14,27 @@ function DynamicDocument({ DynamicAppChecklistDocument, setDynamicAppChecklistDo
     handleFileChange(event, id, selectedFiles, "dynamic", uploadId);
   };
 
-  const handleDynamicStatus = () => {
-    toast.success("Clicked")
-  }
-  console.log({ DynamicAppChecklistDocument }, "DynamicAppChecklistDocument")
+  const handleDynamicStatus = ({ value: data, id, uploadId, type }) => {
+    if (!data) {
+      return;
+    }
 
+    const clickedEvent = DynamicAppChecklistDocument.find(checkListData => {
+      const condition01 = checkListData.id === id;
+      const condition02 = checkListData.requirements.some(item => item.uploadId === uploadId)
+      const findMatchedIndex = checkListData.requirements.findIndex(item => item.uploadId === uploadId);
+      if (condition01 && condition02) {
+        return checkListData.requirements[findMatchedIndex].approved = data;
+      }
+    })
+    console.log({ DynamicAppChecklistDocument, clickedEvent }, "DynamicAppChecklistDocument");
+    setDynamicAppChecklistDocument(previousCheckList => [...previousCheckList, clickedEvent])
+  }
+
+
+  useEffect(() => {
+
+  }, [DynamicAppChecklistDocument])
 
   const page = JSON.parse(localStorage?.getItem("page"));
   return (
@@ -26,7 +42,7 @@ function DynamicDocument({ DynamicAppChecklistDocument, setDynamicAppChecklistDo
       {DynamicAppChecklistDocument?.map((document, index) => {
         const { id, question, requirements } = document;
         return (
-          <div key={id} className="w-full px-2 py-5 rounded">
+          <div key={index+1} className="w-full px-2 py-5 rounded">
             <div className="text-[17px]">
               <p className="pb-4 font-bold">
                 {id}. {question}

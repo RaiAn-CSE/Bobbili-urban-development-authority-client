@@ -17,7 +17,6 @@ const DocumentUpload = () => {
   ]);
   const [DynamicAppChecklistDocument, setDynamicAppChecklistDocument] =
     useState([]);
-  const [UpdatedDynamicData, setUpdatedDynamictData] = useState([]);
 
   const [PreviousDefaultDocumentData, setPreviousDefaultDocumentData] =
     useState([]);
@@ -93,9 +92,9 @@ const DocumentUpload = () => {
   useEffect(() => {
     setPsSendingDocument({
       default: UpdatedDefaultData,
-      dynamic: UpdatedDynamicData,
+      dynamic: DynamicAppChecklistDocument,
     });
-  }, [UpdatedDefaultData, UpdatedDynamicData]);
+  }, [UpdatedDefaultData, DynamicAppChecklistDocument]);
 
 
   // Adding checklist Data to Document from server data && Updating Data from server Data
@@ -293,11 +292,8 @@ const DocumentUpload = () => {
           />
           <DynamicDocument
             role={role}
-            PreviousDynamicDocumentData={PreviousDynamicDocumentData}
             DynamicAppChecklistDocument={DynamicAppChecklistDocument}
             setDynamicAppChecklistDocument={setDynamicAppChecklistDocument}
-            UpdatedDynamicData={UpdatedDynamicData}
-            setUpdatedDynamictData={setUpdatedDynamictData}
             handleFileChange={handleFileChange}
             gradientColor={gradientColor}
             dynamicImageFromDB={imageIdFromDB?.dynamic}
