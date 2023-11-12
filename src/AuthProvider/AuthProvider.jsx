@@ -465,6 +465,15 @@ const AuthProvider = ({ children }) => {
     return ownerNamePattern;
   };
 
+  const needToHideElementBasedOnPage = () => {
+    const page = JSON.parse(localStorage.getItem("page"));
+
+    const hideBtnPageWise =
+      page === "submit" || page === "approved" || page === "shortfall";
+
+    return hideBtnPageWise;
+  };
+
   //   create a object to transfer data into various components
   const userInfo = {
     updateUserInfoInLocalStorage,
@@ -488,6 +497,7 @@ const AuthProvider = ({ children }) => {
     fetchDataFromTheDb,
     calculateNoOfFloors,
     ownerNamePattern,
+    needToHideElementBasedOnPage,
     handleLogOut,
   };
 

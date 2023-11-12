@@ -13,7 +13,7 @@ function DynamicDocument({
   gradientColor,
   dynamicImageFromDB,
   setRemarkText,
-  remarkText
+  remarkText,
 }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
 
@@ -125,6 +125,8 @@ function DynamicDocument({
     "Dyamic Document && combined Document"
   );
 
+  const page = JSON.parse(localStorage?.getItem("page"));
+
   return (
     <div className="dark:text-black">
       {combinedDynamicAppChecklistDocument?.map((document, index) => {
@@ -169,7 +171,7 @@ function DynamicDocument({
                         {requirement}
                       </div>
 
-                      {role === "LTP" && (
+                      {role === "LTP" && page === "draft" && (
                         <input
                           name={id}
                           type="file"

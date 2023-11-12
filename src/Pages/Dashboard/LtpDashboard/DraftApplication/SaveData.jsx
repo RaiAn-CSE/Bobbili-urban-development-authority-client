@@ -22,8 +22,11 @@ const SaveData = ({
     "btn btn-md text-[#000000] hover:text-[#fff] rounded-lg transition-all duration-500 cursor-pointer hover:bg-[#510BC4]";
 
   // console.log(collectInputFieldData);
-  const { userInfoFromLocalStorage, getSubmitApplicationData } =
-    useContext(AuthContext);
+  const {
+    userInfoFromLocalStorage,
+    getSubmitApplicationData,
+    needToHideElementBasedOnPage,
+  } = useContext(AuthContext);
 
   const role = userInfoFromLocalStorage().role;
 
@@ -85,11 +88,6 @@ const SaveData = ({
       path.includes("applicationChecklist")) &&
     "hidden";
 
-  const page = JSON.parse(localStorage.getItem("page"));
-
-  const hideBtnPageWise =
-    page === "submit" || page === "approved" || page === "shortfall";
-
   console.log(isApproved, "approved");
 
   console.log(sentData, "Sentdata");
@@ -100,7 +98,9 @@ const SaveData = ({
           {role === "LTP" &&
             (currentStep !== steps.length - 1 ? (
               <button
-                className={`fancy-button mt-8 ${hideBtnPageWise && "hidden"}`}
+                className={`fancy-button mt-8 ${
+                  needToHideElementBasedOnPage() && "hidden"
+                }`}
                 // type="submit"
                 // onClick={() =>
                 //   // currentStep < steps.length - 1 &&
@@ -114,7 +114,7 @@ const SaveData = ({
             ) : (
               <div
                 className={`${
-                  hideBtnPageWise && "hidden"
+                  needToHideElementBasedOnPage() && "hidden"
                 } flex justify-between items-center w-full mt-10`}
               >
                 <button

@@ -21,10 +21,13 @@ function AppChecklist() {
 
   // after select question firing here
   const handleAnswer = (event, questionNo) => {
-    toast.success(`Clicked: ${questionNo}, Value: ${event.target.value}`)
+    toast.success(`Clicked: ${questionNo}, Value: ${event.target.value}`);
     const updatedQuestions = questions.map((question) => ({
       ...question,
-      answer: (question.id || question.no) === questionNo ? event.target.value : question.answer,
+      answer:
+        (question.id || question.no) === questionNo
+          ? event.target.value
+          : question.answer,
     }));
     setQuestions(updatedQuestions);
   };
@@ -40,7 +43,10 @@ function AppChecklist() {
     const gettingData = async () => {
       const applicationData = await getApplicationData(applicationNo, cameFrom);
       const applicationCheckList = applicationData?.applicationCheckList;
-      console.log(applicationCheckList, "applicationChecklist from yes filtering")
+      console.log(
+        applicationCheckList,
+        "applicationChecklist from yes filtering"
+      );
       if (applicationCheckList.length) {
         setQuestions(applicationCheckList);
       }
@@ -49,17 +55,15 @@ function AppChecklist() {
   }, []);
 
   const sendAppChecklistData = async (url) => {
-    console.log(questions,"Question_All")
+    console.log(questions, "Question_All");
     return await sendUserDataIntoDB(url, "PATCH", {
       applicationNo: applicationNo,
       applicationCheckList: questions,
     });
-  
   };
   const btn =
     "btn btn-md text-sm px-6 bg-Primary transition duration-700 hover:bg-btnHover hover:shadow-md";
   const role = userInfoFromLocalStorage().role;
-
 
   return (
     <div className="px-3 text-sm py-1 relative font-roboto">
@@ -73,7 +77,6 @@ function AppChecklist() {
               {id}. {question}
             </p>
             <div className="space-x-10 mt-2 lg:pr-2 lg:mt-0 text-base md:text-lg">
-
               <div className="radio-button-container ml-3">
                 <div className="radio-button">
                   <input
@@ -84,10 +87,12 @@ function AppChecklist() {
                     value="yes"
                     checked={answer === "yes"}
                     onChange={(event) => handleAnswer(event, id)}
-                    disabled={role === "PS"}
+                    disabled={role === "PS" || cameFrom !== "draft"}
                   />
                   <label
-                    className={`radio-button__label text-base ${answer === "yes"?"":""}` }
+                    className={`radio-button__label text-base ${
+                      answer === "yes" ? "" : ""
+                    }`}
                     htmlFor={`yes${id}`}
                   >
                     <span className="radio-button__custom"></span>
@@ -103,7 +108,7 @@ function AppChecklist() {
                     value="no"
                     checked={answer === "no"}
                     onChange={(event) => handleAnswer(event, id)}
-                    disabled={role === "PS"}
+                    disabled={role === "PS" || cameFrom !== "draft"}
                   />
                   <label
                     className="radio-button__label text-base"
