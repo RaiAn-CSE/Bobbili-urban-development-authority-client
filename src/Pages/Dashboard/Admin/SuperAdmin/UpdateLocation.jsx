@@ -524,7 +524,7 @@ const UpdateLocation = () => {
                     type="submit"
                     name="submit"
                     value={isAddOption === 1 ? "Add" : "Delete"}
-                    className={`${inputClass}`}
+                    className={`${inputClass} hover:bg-gradient-to-l`}
                   />
                 </div>
               </form>

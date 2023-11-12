@@ -1,15 +1,29 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 
-const InputField = ({ id, name, placeholder, type, label, ltpDetails }) => {
+const InputField = ({
+  id,
+  name,
+  placeholder,
+  type,
+  label,
+  ltpDetails,
+  isAlwaysHide,
+}) => {
   // Define default values for type and placeholder if not provided
   const inputType = type || "text";
 
   const { userInfoFromLocalStorage } = useContext(AuthContext);
   const role = userInfoFromLocalStorage().role;
-  const isReadOnly = role === "PS";
+  const page = JSON.parse(localStorage.getItem("page"));
+  const isReadOnly =
+    role === "PS" ||
+    isAlwaysHide ||
+    page === "submit" ||
+    page === "approved" ||
+    page === "shortfall";
 
-  console.log(ltpDetails, "LTP details", id);
+  // console.log(ltpDetails, "LTP details", id);
 
   return (
     <div className="my-4 mx-3 flex flex-col justify-between">

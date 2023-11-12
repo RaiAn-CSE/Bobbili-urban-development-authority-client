@@ -98,7 +98,7 @@ const Payment = () => {
         generalInformation?.natureOfTheSite === "Approved Layout" ||
         generalInformation?.natureOfTheSite === "Regularised under LRS" ||
         generalInformation?.natureOfTheSite ===
-        "Congested/ Gramakanta/ Old Built-up area" ||
+          "Congested/ Gramakanta/ Old Built-up area" ||
         generalInformation?.natureOfTheSite === "Newly Developed/ Built up area"
       ) {
         setCondition(1);
@@ -295,9 +295,9 @@ const Payment = () => {
     const labourCessComponentUnitRate1 = 1400; // per Sq.ft.
     const labourCessCompo1Charged = Math.round(
       labourCessComponentUnitRate1 *
-      BuiltUp_area_SquareFeet *
-      10.76 *
-      (0.01 * 0.98)
+        BuiltUp_area_SquareFeet *
+        10.76 *
+        (0.01 * 0.98)
     );
 
     setCalculatedData({
@@ -595,11 +595,11 @@ const Payment = () => {
               type="number"
               ltpDetails={calculatedData?.UDATotalCharged}
             />
-            {role === "LTP" && (
-              <div className="flex ms-5 items-center">
+            {role === "LTP" && cameFrom === "draft" && (
+              <div className="flex ms-5 items-center pay-btn-container">
                 <button className="pay-btn mt-3">
-                  <div class="svg-wrapper-1">
-                    <div class="svg-wrapper">
+                  <div className="svg-wrapper-1">
+                    <div className="svg-wrapper">
                       <SendIcon />
                     </div>
                   </div>
@@ -848,7 +848,7 @@ const Payment = () => {
           </div>
           <div className="px-3 mb-8 flex justify-end">
             <div className="form-control w-full max-w-xs">
-              {role === "LTP" && (
+              {role === "LTP" && cameFrom === "draft" && (
                 <input
                   type="file"
                   className="file-input file-input-bordered w-full max-w-xs text-gray-400 bg-white dark:text-black"
@@ -943,7 +943,7 @@ const Payment = () => {
           </div>
           <div className="px-3 mb-4 flex justify-end">
             <div className="form-control w-full max-w-xs">
-              {role === "LTP" && (
+              {role === "LTP" && cameFrom === "draft" && (
                 <input
                   type="file"
                   className="file-input file-input-bordered w-full max-w-xs text-gray-400 bg-white dark:text-black"
@@ -955,15 +955,15 @@ const Payment = () => {
 
             {applicationData?.payment?.labourCessCharge
               ?.labourCessBankReceipt && (
-                <Link
-                  to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
-                  target="_blank"
-                  className="flex justify-center items-center ms-10 px-6 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
-                >
-                  <MdReceiptLong className="me-1" />
-                  View Challan
-                </Link>
-              )}
+              <Link
+                to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
+                target="_blank"
+                className="flex justify-center items-center ms-10 px-6 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
+              >
+                <MdReceiptLong className="me-1" />
+                View Challan
+              </Link>
+            )}
           </div>
         </div>
 
@@ -1042,7 +1042,7 @@ const Payment = () => {
 
         <div className="px-3 mb-4 flex justify-end">
           <div className="form-control w-full max-w-xs">
-            {role === "LTP" && (
+            {role === "LTP" && cameFrom === "draft" && (
               <input
                 type="file"
                 className="file-input file-input-bordered w-full max-w-xs text-gray-400 bg-white dark:text-black"

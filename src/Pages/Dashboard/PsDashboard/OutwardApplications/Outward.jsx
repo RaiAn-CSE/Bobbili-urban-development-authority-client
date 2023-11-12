@@ -179,11 +179,11 @@ function Outward() {
                                     (applicationData?.status
                                       ?.toLowerCase()
                                       ?.includes("pending") &&
-                                      "bg-violet-200") ||
+                                      "bg-violet-400") ||
                                     (applicationData?.status
                                       ?.toLowerCase()
                                       ?.includes("approved") &&
-                                      "bg-green-200") ||
+                                      "bg-green-400") ||
                                     (applicationData?.status
                                       ?.toLowerCase()
                                       ?.includes("shortfall") &&
@@ -191,11 +191,12 @@ function Outward() {
                                     (applicationData?.status
                                       ?.toLowerCase()
                                       ?.includes("rejected") &&
-                                      "bg-red-200")
+                                      "bg-red-400")
                                   } opacity-50 rounded-full`}
                                 ></span>
                                 <span className="relative">
-                                  {applicationData?.status ?? "N/A"}
+                                  {applicationData?.status.split(" ")[0] ??
+                                    "N/A"}
                                 </span>
                               </span>
                             </td>

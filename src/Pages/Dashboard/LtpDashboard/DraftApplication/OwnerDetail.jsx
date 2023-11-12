@@ -27,6 +27,12 @@ const OwnerDetail = ({
   };
 
   console.log(applicantDetails, "applicantDetails");
+  const page = JSON.parse(localStorage.getItem("page"));
+  const hideBtn =
+    page === "submit" ||
+    page === "approved" ||
+    page === "shortfall" ||
+    role.toLowerCase() === "ps";
 
   return (
     <div className="nm_Container p-5 mt-4 mb-8">
@@ -130,7 +136,9 @@ const OwnerDetail = ({
             {index === length - 1 && index < 4 && (
               <div className="flex justify-center items-center">
                 <button
-                  className="nm_Container text-xl rounded-full w-[30px] h-[30px] text-normalViolet cursor-pointer transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold"
+                  className={`nm_Container text-xl rounded-full w-[30px] h-[30px] text-normalViolet cursor-pointer transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold ${
+                    hideBtn && "hidden"
+                  }`}
                   onClick={increaseApplicantNo}
                 >
                   +
@@ -141,7 +149,9 @@ const OwnerDetail = ({
             {index === length - 1 && index > 0 && index <= 4 && (
               <div className="flex justify-center items-center">
                 <button
-                  className="nm_Container text-xl mx-2 rounded-full text-red-500 w-[30px] h-[30px]  transition-all duration-500 font-bold"
+                  className={`nm_Container text-xl mx-2 rounded-full text-red-500 w-[30px] h-[30px]  transition-all duration-500 font-bold ${
+                    hideBtn && "hidden"
+                  }`}
                   onClick={decreaseApplicationNo}
                 >
                   -

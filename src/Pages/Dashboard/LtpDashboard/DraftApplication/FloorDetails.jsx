@@ -69,6 +69,14 @@ const FloorDetails = ({
 
   // console.log(selectedFloor?.length ? selectedFloor : floorChange, "SELECTED");
 
+  const page = JSON.parse(localStorage.getItem("page"));
+
+  const hideBtn =
+    page === "submit" ||
+    page === "approved" ||
+    page === "shortfall" ||
+    role.toLowerCase() === "ps";
+
   return (
     <>
       <div className="flex flex-col justify-center mx-3">
@@ -152,7 +160,9 @@ const FloorDetails = ({
           {index === length - 1 && index < 3 && (
             <div className="flex justify-center items-center">
               <button
-                className="nm_Container text-xl rounded-full w-[30px] h-[30px] text-normalViolet cursor-pointer transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold"
+                className={`nm_Container text-xl rounded-full w-[30px] h-[30px] text-normalViolet cursor-pointer transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold ${
+                  hideBtn && "hidden"
+                }`}
                 onClick={increaseFloorNo}
               >
                 +
@@ -163,7 +173,9 @@ const FloorDetails = ({
           {index === length - 1 && index > 0 && index <= 3 && (
             <div className="flex justify-center items-center">
               <button
-                className="nm_Container text-xl mx-2 rounded-full text-red-500 w-[30px] h-[30px]  transition-all duration-500 font-bold"
+                className={`nm_Container text-xl mx-2 rounded-full text-red-500 w-[30px] h-[30px]  transition-all duration-500 font-bold ${
+                  hideBtn && "hidden"
+                }`}
                 onClick={decreaseFloorNo}
               >
                 -

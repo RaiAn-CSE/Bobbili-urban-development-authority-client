@@ -2,12 +2,16 @@ import React, { useContext, useEffect, useState } from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { FaBuildingColumns } from "react-icons/fa6";
 import { GoChecklist } from "react-icons/go";
+import { FiRefreshCcw } from "react-icons/fi";
 import { BsHouseCheck, BsInfoCircle } from "react-icons/bs";
 import { RiSecurePaymentLine } from "react-icons/ri";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
+import { VscDebugContinue, VscReferences } from "react-icons/vsc";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import Application from "./Application";
 import EndorsementModal from "../../../Shared/EndorsementModal";
+import ProceedingModal from "../../../Shared/ProceedingModal";
+import { AiFillPieChart } from "react-icons/ai";
 
 const DraftApplication = () => {
   const navigate = useNavigate();
@@ -170,17 +174,19 @@ const DraftApplication = () => {
               {cameFrom === "approved" && (
                 <>
                   <button
+                    onClick={() =>
+                      document.getElementById("proceedingModal").showModal()
+                    }
                     className={`btn btn-sm nm_Container text-xs bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white me-5 dark:border-none`}
                   >
-                    <HiOutlineClipboardDocumentList className="text-lg" />{" "}
+                    <VscDebugContinue className="text-lg" />{" "}
                     <span>Proceeding</span>
                   </button>
 
                   <button
                     className={`btn btn-sm text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white me-5 dark:border-none`}
                   >
-                    <HiOutlineClipboardDocumentList className="text-lg" />{" "}
-                    <span>Drawing</span>
+                    <AiFillPieChart className="text-lg" /> <span>Drawing</span>
                   </button>
                 </>
               )}
@@ -188,11 +194,14 @@ const DraftApplication = () => {
               {cameFrom === "shortfall" && (
                 <>
                   <button
+                    // Open the modal using document.getElementById('ID').showModal() method
+                    // onClick={() =>
+                    //   document.getElementById("my_modal_1").showModal()
+                    // }
                     className={`btn btn-sm text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white me-5  dark:border-none`}
                     onClick={navigateToResubmitPage}
                   >
-                    <HiOutlineClipboardDocumentList className="text-lg" />{" "}
-                    <span>Resubmit</span>
+                    <FiRefreshCcw className="text-lg" /> <span>Resubmit</span>
                   </button>
                   <button
                     // Open the modal using document.getElementById('ID').showModal() method
@@ -201,7 +210,7 @@ const DraftApplication = () => {
                     }
                     className={`btn btn-sm me-5 text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white dark:border-none`}
                   >
-                    <HiOutlineClipboardDocumentList className="text-lg" />{" "}
+                    <VscReferences className="text-lg" />{" "}
                     <span className="text-xs uppercase">Endorsement</span>
                   </button>
                 </>
@@ -218,16 +227,9 @@ const DraftApplication = () => {
                 </button>
               )}
             </div>
-
-            {/* Application Modal */}
-            {openApplication ? (
-              <Application setOpenApplication={setOpenApplication} />
-            ) : (
-              ""
-            )}
           </div>
-          <div className="mt-3 mb-5 font-roboto">
-            <ul className="w-full steps steps-vertical lg:steps-horizontal  rounded-lg">
+          <div className="mb-5 font-roboto">
+            <ul className="w-full steps steps-vertical lg:steps-horizontal rounded-lg pt-4">
               {stepsContent.map((step, index) => (
                 <li
                   key={index}
@@ -256,8 +258,17 @@ const DraftApplication = () => {
       <Outlet
         context={[isStepperVisible, currentStep, steps, handleStepClick]}
       />
+      {/* proceedingModal modal info  */}
+      {/* <ProceedingModal /> */}
+      {/* my_modal_2 modal info : */}
+      {/* <EndorsementModal /> */}
 
-      <EndorsementModal />
+      {/* Application Modal */}
+      {openApplication ? (
+        <Application setOpenApplication={setOpenApplication} />
+      ) : (
+        ""
+      )}
     </>
   );
 };

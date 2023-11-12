@@ -180,7 +180,7 @@ const AuthProvider = ({ children }) => {
           console.log("Asci");
           const [, currentStep, steps, handleStepClick] = stepperData;
           console.log(currentStep < steps.length - 1);
-          currentStep < steps.length - 1 && handleStepClick(currentStep + 1);
+          // currentStep < steps.length - 1 && handleStepClick(currentStep + 1);
         }
 
         if (pageWiseAction?.page === "PS site inspection data save") {
@@ -433,6 +433,47 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  const ownerNamePattern = (ownerDetails) => {
+    console.log(ownerDetails, "Owner details");
+    const totalOwner = ownerDetails?.length;
+
+    const ownerNames = ownerDetails?.map((owner) => owner.name);
+
+    console.log(ownerNames, "ON");
+    let ownerNamePattern = "";
+
+    if (ownerNames?.length) {
+      switch (totalOwner) {
+        case 1:
+          ownerNamePattern = `${ownerNames[0]}`;
+          break;
+
+        case 2:
+          ownerNamePattern = `${ownerNames[0]},${ownerNames[1]}`;
+          break;
+        case 3:
+          ownerNamePattern = `${ownerNames[0]},${ownerNames[1]},${ownerNames[2]}`;
+          break;
+        default:
+          ownerNamePattern = `${ownerNames[0]},${ownerNames[1]},${
+            ownerNames[2]
+          } and ${totalOwner - 3} others`;
+          break;
+      }
+    }
+    console.log(ownerNamePattern, "PT");
+    return ownerNamePattern;
+  };
+
+  const needToHideElementBasedOnPage = () => {
+    const page = JSON.parse(localStorage.getItem("page"));
+
+    const hideBtnPageWise =
+      page === "submit" || page === "approved" || page === "shortfall";
+
+    return hideBtnPageWise;
+  };
+
   //   create a object to transfer data into various components
   const userInfo = {
     updateUserInfoInLocalStorage,
@@ -455,6 +496,8 @@ const AuthProvider = ({ children }) => {
     findWhichMenuIsActiveForPsSideBar,
     fetchDataFromTheDb,
     calculateNoOfFloors,
+    ownerNamePattern,
+    needToHideElementBasedOnPage,
     handleLogOut,
   };
 

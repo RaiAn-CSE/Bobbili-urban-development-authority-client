@@ -22,8 +22,11 @@ const SaveData = ({
     "btn btn-md text-[#000000] hover:text-[#fff] rounded-lg transition-all duration-500 cursor-pointer hover:bg-[#510BC4]";
 
   // console.log(collectInputFieldData);
-  const { userInfoFromLocalStorage, getSubmitApplicationData } =
-    useContext(AuthContext);
+  const {
+    userInfoFromLocalStorage,
+    getSubmitApplicationData,
+    needToHideElementBasedOnPage,
+  } = useContext(AuthContext);
 
   const role = userInfoFromLocalStorage().role;
 
@@ -95,7 +98,9 @@ const SaveData = ({
           {role === "LTP" &&
             (currentStep !== steps.length - 1 ? (
               <button
-                className={`fancy-button mt-8`}
+                className={`fancy-button mt-8 ${
+                  needToHideElementBasedOnPage() && "hidden"
+                }`}
                 // type="submit"
                 // onClick={() =>
                 //   // currentStep < steps.length - 1 &&
@@ -107,7 +112,11 @@ const SaveData = ({
                 Save and Continue
               </button>
             ) : (
-              <div className="flex justify-between items-center space-x-[500px] mt-10">
+              <div
+                className={`${
+                  needToHideElementBasedOnPage() && "hidden"
+                } flex justify-between items-center w-full mt-10`}
+              >
                 <button
                   className={`save-btn bg-gradient-to-b from-[#a29bfe] to-[#6c5ce7] mr-4`}
                   // type="submit"

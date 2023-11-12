@@ -150,7 +150,7 @@ input {
   box-shadow: 4px 4px 8px rgb(189 200 213), -4px -4px 8px rgb(255 255 255);
 } */
 
-/* radio .pay-btn design  */
+/* radio btn design  */
 .radio-button-container {
   display: flex;
   align-items: center;
@@ -211,7 +211,7 @@ input {
   /* box-shadow: 0 0 10px #8b5bf6; */
 }
 
-/* create new application .pay-btn design  */
+/* create new application btn design  */
 
 /* .create-application-text {
   max-height: 25px;
@@ -461,7 +461,7 @@ input {
   top: -160%;
 }
 
-/* save .pay-btn  */
+/* save btn  */
 .save-btn {
   position: relative;
   text-decoration: none;
@@ -527,8 +527,9 @@ input {
   cursor: pointer;
 }
 
-.pay-btn:active {
+.pay-btn-container:hover .pay-btn {
   transform: scale(0.95);
+  padding: 0;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
@@ -538,11 +539,11 @@ input {
   transition: all 0.3s;
 }
 
-.pay-btn:hover span {
+.pay-btn-container:hover span {
   scale: 0;
   font-size: 0%;
   opacity: 0;
-  transition: all 0.5s;
+  /* transition: all 0.5s; */
 }
 
 .pay-btn svg {
@@ -563,13 +564,13 @@ input {
   transition: all 0.3s;
 }
 
-.pay-btn:hover .svg-wrapper {
+.pay-btn-container:hover .svg-wrapper {
   background: linear-gradient(to bottom, #a29bfe 0%, #6c5ce7 100%);
   width: 54px;
   height: 54px;
 }
 
-.pay-btn:hover svg {
+.pay-btn-container:hover svg {
   width: 20px;
   height: 20px;
   margin-right: 5px;

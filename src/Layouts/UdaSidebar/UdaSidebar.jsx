@@ -9,7 +9,7 @@ const UdaSidebar = () => {
   const gradientColor =
     "text-normalViolet nm_Inset border-4 border-r-normalViolet";
 
-  const hoverGradientColor = "hover:bg-normalViolet hover:text-white";
+  const hoverGradientColor = " hover:text-normalViolet";
   return (
     <>
       <li

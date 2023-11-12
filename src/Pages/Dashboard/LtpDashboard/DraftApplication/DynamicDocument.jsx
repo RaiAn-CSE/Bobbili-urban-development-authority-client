@@ -112,6 +112,8 @@ function DynamicDocument({ PreviousDynamicDocumentData, setDynamicAppChecklistDo
 
 
 
+  const page = JSON.parse(localStorage?.getItem("page"));
+
   return (
     <div className="dark:text-black">
       {combinedDynamicAppChecklistDocument?.map((document, index) => {
@@ -145,7 +147,7 @@ function DynamicDocument({ PreviousDynamicDocumentData, setDynamicAppChecklistDo
                         {requirement}
                       </div>
 
-                      {role === "LTP" && (
+                      {role === "LTP" && page === "draft" && (
                         <input
                           name={id}
                           type="file"
