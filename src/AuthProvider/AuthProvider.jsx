@@ -434,10 +434,12 @@ const AuthProvider = ({ children }) => {
   };
 
   const ownerNamePattern = (ownerDetails) => {
+    console.log(ownerDetails, "Owner details");
     const totalOwner = ownerDetails?.length;
 
     const ownerNames = ownerDetails?.map((owner) => owner.name);
 
+    console.log(ownerNames, "ON");
     let ownerNamePattern = "";
 
     if (ownerNames?.length) {

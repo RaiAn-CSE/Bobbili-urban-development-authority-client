@@ -12,13 +12,13 @@ const EndorsementModal = () => {
   const [applicationNumber, setApplicationNumber] = useState("");
   const [surveyNo, setSurveyNo] = useState("");
   const [ownerName, setOwnerName] = useState("");
-  const [dataFromDb, getDataFromDb] = useState({});
+  const [dataFromDb, setDataFromDb] = useState({});
 
   useEffect(() => {
     const getData = async () => {
       const applicationData = await getApplicationData(applicationNo, cameFrom);
       // console.log(applicationData, "All info ApplicationData");
-      getDataFromDb(applicationData);
+      setDataFromDb(applicationData);
       setGramaPanchayat(
         applicationData?.buildingInfo?.generalInformation?.gramaPanchayat
       );
@@ -29,6 +29,7 @@ const EndorsementModal = () => {
     getData();
   }, []);
 
+  console.log(dataFromDb, "GDD");
   const date = new Date();
   const currentDate = date
     .toISOString()
@@ -68,7 +69,7 @@ const EndorsementModal = () => {
                 Ref: - Application of Sri/Smt/Kum{" "}
                 <span className="underline">
                   {ownerNamePattern(
-                    getDataFromDb?.applicantInfo?.applicantDetails
+                    dataFromDb?.applicantInfo?.applicantDetails
                   ) ?? "N/A"}
                 </span>
               </p>
