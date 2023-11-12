@@ -365,10 +365,10 @@ const SiteInspection = () => {
   };
 
   const tableDataClass =
-    "whitespace-nowrap border-r px-6 py-4 border-neutral-500";
+    "break-words border-r px-6 py-4 border-neutral-500";
   const inputClass =
     "input rounded-none w-full focus:outline-none bg-gray-50 hover:bg-gray-200 bg-gray-100";
-  const inputTableDataClass = "whitespace-nowrap border-r border-neutral-500";
+  const inputTableDataClass = "break-words border-r border-neutral-500";
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -380,7 +380,7 @@ const SiteInspection = () => {
       <div className="overflow-x-auto">
         <div className="inline-block min-w-full">
           <div className="overflow-hidden p-4">
-            <table className="min-w-full border text-center text-sm font-light border-neutral-500">
+            <table className="min-w-full border text-sm font-light border-neutral-500">
               <thead className="border-b font-medium border-neutral-500">
                 <tr>
                   <th
@@ -415,7 +415,7 @@ const SiteInspection = () => {
                   </td>
                   <td
                     colSpan="3"
-                    className={`${tableDataClass} text-base font-semibold bg-gray-200`}
+                    className={`${tableDataClass} text-center text-base font-semibold bg-gray-200`}
                   >
                     Ground Position
                   </td>
@@ -514,14 +514,14 @@ const SiteInspection = () => {
                   </td>
                   <td
                     colSpan="3"
-                    className={`${tableDataClass} text-base font-semibold bg-gray-200`}
+                    className={`${tableDataClass} text-center text-base font-semibold bg-gray-200`}
                   >
                     Site Boundaries
                   </td>
                 </tr>
                 <tr className="border-b border-neutral-500">
                   <td className={tableDataClass}>North</td>
-                  <td className="whitespace-nowrap border-r border-neutral-500">
+                  <td className="border-r border-neutral-500">
                     <ImageUploadInput
                       id="northApp"
                       onFileChange={handleFileChange}
@@ -597,11 +597,9 @@ const SiteInspection = () => {
                 </tr>
                 <tr className="border-b border-neutral-500">
                   <td className={tableDataClass}>
-                    Whether the above physical
-                    <br />
-                    feature are talking / Not talking
-                    <br />
-                    with the schedule of the Documents.
+                    Whether the above physical feature are<br />
+                    talking / Not talking with the schedule of<br />
+                    the Documents.
                   </td>
                   <td className={inputTableDataClass}>
                     <input
@@ -630,7 +628,7 @@ const SiteInspection = () => {
                   </td>
                   <td
                     colSpan="3"
-                    className={`${tableDataClass} text-base font-semibold bg-gray-200`}
+                    className={`${tableDataClass} text-center text-base font-semibold bg-gray-200`}
                   >
                     Access Road
                   </td>
@@ -755,7 +753,7 @@ const SiteInspection = () => {
                   </td>
                   <td
                     colSpan="3"
-                    className={`${tableDataClass} text-base font-semibold bg-gray-200`}
+                    className={`${tableDataClass} text-center text-base font-semibold bg-gray-200`}
                   >
                     Land Use
                   </td>
@@ -856,30 +854,8 @@ const SiteInspection = () => {
 
       {/* Radio Button  */}
       <div className="grid-cols-1 lg:grid-cols-2 items-center my-5">
-        {/* <label className="inline-flex items-center">
-          <input
-            type="radio"
-            name="radioPs"
-            className="radio border border-[#10AC84] h-4 w-4"
-            value="Approved"
-            checked={radioPs === "Approved"}
-            onChange={handleRadioPs}
-          />
-          <span className="ml-2 text-base">Approved</span>
-        </label>
-        <label className="inline-flex items-center md:ml-3">
-          <input
-            type="radio"
-            name="radioPs"
-            className="radio border border-[#10AC84] h-4 w-4"
-            value="Shortfall"
-            checked={radioPs === "Shortfall"}
-            onChange={handleRadioPs}
-          />
-          <span className="ml-2 text-base">Shortfall</span>
-        </label> */}
 
-        <div className="radio-button-container ml-3">
+        <div className="radio-button-container px-4">
           <div className="radio-button">
             <input
               type="radio"
@@ -912,7 +888,7 @@ const SiteInspection = () => {
       </div>
 
       {/* Comment Box  */}
-      <div className="flex items-center">
+      <div className="flex items-center px-4">
         <div className="my-4 basis-[50%]">
           <label
             htmlFor="ltpAddress"
