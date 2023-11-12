@@ -19,6 +19,8 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
         // Your previous useEffect dependencies here
     }, [approved, uploadId]);
 
+    console.log(remarkText,"Remark Text from database ps Document")
+
     const handleRemarkText = (event) => {
         const { value } = event?.target;
         if (!value.trim()) {
@@ -88,8 +90,7 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
                             <p className="text-black font-bold" htmlFor="textarea">Remark:</p>
                             <textarea className="textarea mt-2 bg-transparent border border-black text-black" id="textarea"
                                 name={type === "dynamic" ? `${id}_${uploadId}` : `${id}`}
-                                defaultValue={type === "Dynamic" ? (id === remarkText.id && uploadId === remarkText.uploadId) ? remarkText.value : "" : (id === remarkText.id) ? remarkText.value : ""}
-
+                                defaultValue={remarkText}
                                 cols="30" rows="1"
                                 onBlur={(event) => handleRemarkText(event)}
                             ></textarea>

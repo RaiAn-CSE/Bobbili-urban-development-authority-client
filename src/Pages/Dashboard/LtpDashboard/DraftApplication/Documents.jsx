@@ -101,7 +101,6 @@ console.log(remarkText,"remarkText")
       let updatedDynamicDocumentsToAdd = [];
       const applicationData = await getApplicationData(applicationNo, cameFrom);
       const applicationCheckList = applicationData?.applicationCheckList;
-      console.log(applicationCheckList, "APplication Checklist From Document");
       role === "LTP" &&
         setPreviousDefaultDocumentData(
           applicationData?.document?.data?.default
@@ -127,6 +126,10 @@ console.log(remarkText,"remarkText")
         setRecommendationMessage(
           applicationData?.psDocumentPageObservation?.message
         );
+      role === "PS" &&
+        setRemarkText(
+          applicationData?.psDocumentPageObservation?.remarkText
+        );
 
       // Checklist "yes" Data integrating to Dynamic Document
       if (applicationCheckList?.length) {
@@ -148,6 +151,7 @@ console.log(remarkText,"remarkText")
     gettingData();
   }, []);
 
+ 
 
   // file send into the database
   const handleFileUpload = async (url) => {

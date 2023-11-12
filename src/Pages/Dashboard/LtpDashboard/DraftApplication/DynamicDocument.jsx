@@ -146,22 +146,10 @@ function DynamicDocument({
                       eachFile?.id === index + 9 &&
                       eachFile?.uploadId === uploadId
                   );
-                  const letters = [
-                    "a",
-                    "b",
-                    "c",
-                    "d",
-                    "e",
-                    "f",
-                    "g",
-                    "h",
-                    "i",
-                    "j",
-                    "k",
-                    "l",
-                    "m",
-                    "n",
-                  ];
+                  const letters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n"];
+                  const FindRemarkText = remarkText?.find((item) => item["dynamic"].id === id && item["dynamic"].uploadId === uploadId);
+                  const matchedText = FindRemarkText?.["dynamic"].value;
+                  
                   return (
                     <div key={ind + 1} className="mb-8 ">
                       <div className="mb-3">
@@ -200,7 +188,7 @@ function DynamicDocument({
                           handleDynamicStatus={handleDynamicStatus}
                           type="dynamic"
                           setRemarkText={setRemarkText}
-                          remarkText={remarkText}
+                          remarkText={matchedText}
                         />
                       )}
                     </div>
