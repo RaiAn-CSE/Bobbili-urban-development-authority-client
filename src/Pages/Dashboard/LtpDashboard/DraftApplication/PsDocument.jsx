@@ -8,6 +8,8 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
         if (type === "dynamic") {
             // handleStatus({ approved: data, id, uploadId, type });
             handleDynamicStatus({ approved: data, id, uploadId, type })
+            // handleDynamicStatus({ data, id, uploadId, type })
+            toast.success("Dynamic Clicked")
         } else {
             // handleStatus({ approved: data, id, type });
             handleDefaultStatus({ approved: data, id, type })
@@ -19,7 +21,7 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
         // Your previous useEffect dependencies here
     }, [approved, uploadId]);
 
-    console.log(remarkText,"Remark Text from database ps Document")
+    console.log(remarkText, "Remark Text from database ps Document")
 
     const handleRemarkText = (event) => {
         const { value } = event?.target;
@@ -32,7 +34,7 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
             );
             const existingObject = prev.some((item) => item[type].id == id || (item[type].id == id && item[type].uploadId == uploadId)
             );
-            console.log({ existingIndex,existingObject })
+            console.log({ existingIndex, existingObject })
             if (existingObject) {
                 // If the value already exists, update the existing object with the new value
                 const updatedArray = [...prev];
@@ -60,7 +62,7 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
                                 checked={approved === "approved"}
                             />
                             <label
-                                className={`radio-button__label text-base ${approved === "approved" ? "" : ""}`}
+                                className={`radio-button__label text-base`}
                                 htmlFor={type === "dynamic" ? `approved${uploadId}` : `approved${id}`}
                             >
                                 <span className="radio-button__custom"></span>
@@ -79,14 +81,14 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
                                 checked={approved === "shortfall"}
                             />
                             <label
-                                className={`radio-button__label text-base ${approved === "shortfall" ? "" : ""}`}
+                                className={`radio-button__label text-base`}
                                 htmlFor={type === "dynamic" ? `shortfall${uploadId}` : `shortfall${id}`}
                             >
                                 <span className="radio-button__custom"></span>
                                 Shortfall
                             </label>
                         </div>
-                        <div className={`${approved === "shortfall"?"block":"hidden"}`}>
+                        <div className={`${approved === "shortfall" ? "block" : "hidden"}`}>
                             <p className="text-black font-bold" htmlFor="textarea">Remark:</p>
                             <textarea className="textarea mt-2 bg-transparent border border-black text-black" id="textarea"
                                 name={type === "dynamic" ? `${id}_${uploadId}` : `${id}`}

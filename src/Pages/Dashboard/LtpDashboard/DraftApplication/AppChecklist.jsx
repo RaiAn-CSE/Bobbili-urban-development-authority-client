@@ -49,7 +49,6 @@ function AppChecklist() {
   }, []);
 
   const sendAppChecklistData = async (url) => {
-    console.log(questions,"Question_All")
     return await sendUserDataIntoDB(url, "PATCH", {
       applicationNo: applicationNo,
       applicationCheckList: questions,

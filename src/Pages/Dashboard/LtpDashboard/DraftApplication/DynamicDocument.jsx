@@ -4,29 +4,18 @@ import RootDynamicDocument from "./../../../../assets/DynamicDocument.json";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 
-function DynamicDocument({
-  PreviousDynamicDocumentData,
-  setDynamicAppChecklistDocument,
-  DynamicAppChecklistDocument,
-  role,
-  handleFileChange,
-  gradientColor,
-  dynamicImageFromDB,
-  setRemarkText,
-  remarkText
+function DynamicDocument({ PreviousDynamicDocumentData, setDynamicAppChecklistDocument, DynamicAppChecklistDocument, role, handleFileChange, gradientColor, dynamicImageFromDB, setRemarkText, remarkText
 }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
 
-  const [
-    combinedDynamicAppChecklistDocument,
-    setCombinedDynamicAppChecklistDocument,
-  ] = useState([]);
+  const [combinedDynamicAppChecklistDocument, setCombinedDynamicAppChecklistDocument] = useState([]);
 
   const someEventHandler = (event, id, uploadId) => {
     const file = event?.target.files[0];
     selectedFiles[id] = file;
     handleFileChange(event, id, selectedFiles, "dynamic", uploadId);
   };
+
   useEffect(() => {
     toast.success(role);
     if (role !== "PS") {
@@ -71,10 +60,12 @@ function DynamicDocument({
     setDynamicAppChecklistDocument(
       combinedRootDocument?.filter((finalData) => finalData)
     );
-  }, [PreviousDynamicDocumentData]);
+  }, []);
 
   console.log({ combinedDynamicAppChecklistDocument });
+
   const handleDynamicStatus = (data) => {
+    console.log(data,"data")
     const updatedRequirements = combinedDynamicAppChecklistDocument.map(
       (mainItem) => {
         const matchedUpload = mainItem.requirements.find(
@@ -119,11 +110,7 @@ function DynamicDocument({
     // Your previous useEffect dependencies here
   }, [combinedDynamicAppChecklistDocument]);
 
-  console.log(
-    PreviousDynamicDocumentData,
-    combinedDynamicAppChecklistDocument,
-    "Dyamic Document && combined Document"
-  );
+
 
   return (
     <div className="dark:text-black">
@@ -146,10 +133,11 @@ function DynamicDocument({
                       eachFile?.id === index + 9 &&
                       eachFile?.uploadId === uploadId
                   );
-                  const letters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n"];
-                  const FindRemarkText = remarkText?.find((item) => item["dynamic"].id === id && item["dynamic"].uploadId === uploadId);
-                  const matchedText = FindRemarkText?.["dynamic"].value;
-                  
+                  const letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n"];
+
+                  // const FindRemarkText = remarkText?.find((item) => item["dynamic"].id === id && item["dynamic"].uploadId === uploadId);
+                  // const matchedText = FindRemarkText?.["dynamic"].value;
+
                   return (
                     <div key={ind + 1} className="mb-8 ">
                       <div className="mb-3">
@@ -188,7 +176,7 @@ function DynamicDocument({
                           handleDynamicStatus={handleDynamicStatus}
                           type="dynamic"
                           setRemarkText={setRemarkText}
-                          remarkText={matchedText}
+                        // remarkText={}
                         />
                       )}
                     </div>
