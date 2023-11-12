@@ -375,11 +375,11 @@ const SiteInspection = () => {
   }
 
   return (
-    <div className="flex flex-col px-6 lg:px-8 text-gray-900">
+    <div className="flex flex-col m-4 nm_Container text-gray-900">
       {/* <input type="submit" value="get" onClick={get} /> */}
       <div className="overflow-x-auto">
-        <div className="inline-block min-w-full py-2">
-          <div className="overflow-hidden nm_Container p-4">
+        <div className="inline-block min-w-full">
+          <div className="overflow-hidden p-4">
             <table className="min-w-full border text-center text-sm font-light border-neutral-500">
               <thead className="border-b font-medium border-neutral-500">
                 <tr>
