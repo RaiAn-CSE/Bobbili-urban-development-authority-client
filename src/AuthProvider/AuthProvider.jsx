@@ -452,16 +452,16 @@ const AuthProvider = ({ children }) => {
           ownerNamePattern = `${ownerNames[0]},${ownerNames[1]}`;
           break;
         case 3:
-          ownerNamePattern = `${ownerNames[0]},${ownerNames[1]},${ownerNames[3]}`;
+          ownerNamePattern = `${ownerNames[0]},${ownerNames[1]},${ownerNames[2]}`;
           break;
         default:
           ownerNamePattern = `${ownerNames[0]},${ownerNames[1]},${
-            ownerNames[3]
+            ownerNames[2]
           } and ${totalOwner - 3} others`;
           break;
       }
     }
-
+    console.log(ownerNamePattern, "PT");
     return ownerNamePattern;
   };
 
