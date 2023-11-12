@@ -25,7 +25,7 @@ const DocumentUpload = () => {
 
   const [imageId, setImageId] = useState({});
   const [approvedConfirmation, setApprovedConfirmation] = useState("");
-  const [recomendationMessage, setRecommendationMessage] = useState("");
+  const [recommendationMessage, setRecommendationMessage] = useState("");
   const stepperData = useOutletContext();
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
   const [psSendingDocument, setPsSendingDocument] = useState({
@@ -148,12 +148,21 @@ const DocumentUpload = () => {
           });
         });
       }
-      setDynamicAppChecklistDocument(CombinedChecklistData);
+
+      const updatedDynamicAppChecklist = CombinedChecklistData.map(combinedItem => {
+        const matchingItem = PreviousDynamicDocumentData.find(prevItem => (
+          prevItem.id === combinedItem.id && prevItem.uploadId === combinedItem.uploadId
+        ));
+
+        return matchingItem ? { ...combinedItem, ...matchingItem } : prevItem;
+      });
+
+      setDynamicAppChecklistDocument(updatedDynamicAppChecklist);
     };
     gettingData();
-  }, []);
+  }, [PreviousDynamicDocumentData]);
 
-  console.log({ DynamicAppChecklistDocument,remarkText })
+  console.log({ DynamicAppChecklistDocument, remarkText })
 
   // file send into the database
   const handleFileUpload = async (url) => {
@@ -259,7 +268,7 @@ const DocumentUpload = () => {
     const PSData = {
       data: psSendingDocument,
       approved: approvedConfirmation ?? "",
-      message: recomendationMessage ?? "",
+      message: recommendationMessage ?? "",
       remarkText
     };
 
@@ -285,7 +294,6 @@ const DocumentUpload = () => {
             handleFileChange={handleFileChange}
             gradientColor={gradientColor}
             defaultImageFromDB={imageIdFromDB?.default}
-            setApprovedConfirmation={setApprovedConfirmation}
             setRemarkText={setRemarkText}
             remarkText={remarkText}
           // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
@@ -297,7 +305,6 @@ const DocumentUpload = () => {
             handleFileChange={handleFileChange}
             gradientColor={gradientColor}
             dynamicImageFromDB={imageIdFromDB?.dynamic}
-            setApprovedConfirmation={setApprovedConfirmation}
             setRemarkText={setRemarkText}
             remarkText={remarkText}
           // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
@@ -308,9 +315,9 @@ const DocumentUpload = () => {
       {role === "PS" ? (
         <DocumentFooter
           approvedConfirmation={approvedConfirmation}
-          recomendationMessage={recomendationMessage}
           setApprovedConfirmation={setApprovedConfirmation}
           setRecommendationMessage={setRecommendationMessage}
+          recommendationMessage={recommendationMessage}
         />
       ) : (
         ""

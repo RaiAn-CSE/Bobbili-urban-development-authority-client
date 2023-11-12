@@ -44,7 +44,6 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
 			updatedArray[existingIndex][type].value = value;
 			return updatedArray;
 		  });
-		  
 	};
 	return (
 		<div className='dark:text-white'>

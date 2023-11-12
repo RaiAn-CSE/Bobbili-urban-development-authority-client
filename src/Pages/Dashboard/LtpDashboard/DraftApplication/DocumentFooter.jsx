@@ -1,7 +1,7 @@
 function DocumentFooter({
   approvedConfirmation,
-  recomendationMessage,
   setApprovedConfirmation,
+  recommendationMessage,
   setRecommendationMessage,
 }) {
   const handleMessage = (event) => {
@@ -11,7 +11,7 @@ function DocumentFooter({
     setApprovedConfirmation(data);
   };
 
-  // console.log(approvedConfirmation && approvedConfirmation === "true", "Checking");
+  console.log(approvedConfirmation && approvedConfirmation === "true", "Checking");
   return (
     <div className="dark:text-white font-roboto">
       <div className="lg:ml-6">
@@ -56,8 +56,8 @@ function DocumentFooter({
                 name="finalApproved"
                 className="radio-button__input"
                 value="approved"
-                defaultChecked={
-                  approvedConfirmation && approvedConfirmation === "true"
+                checked={
+                  approvedConfirmation === "true"
                 }
                 onClick={() => handleConfirm("true")}
               />
@@ -73,8 +73,8 @@ function DocumentFooter({
                 className="radio-button__input"
                 name="finalApproved"
                 value="shortfall"
-                defaultChecked={
-                  approvedConfirmation && approvedConfirmation === "false"
+                checked={
+                  approvedConfirmation === "false"
                 }
                 onClick={() => handleConfirm("false")}
               />
@@ -98,7 +98,7 @@ function DocumentFooter({
             name="recomendation"
             rows={6}
             className="w-full md:w-3/4 px-3 py-2 border rounded-lg  border-gray-300 text-gray-900 bg-gray-50 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200"
-            defaultValue={recomendationMessage && recomendationMessage}
+            defaultValue={recommendationMessage && recommendationMessage}
             placeholder="Recommendation"
             onChange={(event) => handleMessage(event)}
           ></textarea>
