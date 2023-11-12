@@ -143,7 +143,6 @@ const DocumentUpload = () => {
           applicationCheckList.forEach((CheckListData) => {
             const condition01 = data.question === CheckListData.question;
             const condition02 = CheckListData.answer === "yes";
-            console.log({ condition01, condition02 })
             if (condition01 && condition02) {
               CombinedChecklistData.push(data);
             }

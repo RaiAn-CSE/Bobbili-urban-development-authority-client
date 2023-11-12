@@ -4,11 +4,9 @@ import RootDynamicDocument from "./../../../../assets/DynamicDocument.json";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 
-function DynamicDocument({ PreviousDynamicDocumentData, setDynamicAppChecklistDocument, DynamicAppChecklistDocument, role, handleFileChange, gradientColor, dynamicImageFromDB, setRemarkText, remarkText
+function DynamicDocument({ DynamicAppChecklistDocument, setDynamicAppChecklistDocument, role, handleFileChange, gradientColor, dynamicImageFromDB, remarkText, setRemarkText
 }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
-
-  const [combinedDynamicAppChecklistDocument, setCombinedDynamicAppChecklistDocument] = useState([]);
 
   const someEventHandler = (event, id, uploadId) => {
     const file = event?.target.files[0];
@@ -16,114 +14,22 @@ function DynamicDocument({ PreviousDynamicDocumentData, setDynamicAppChecklistDo
     handleFileChange(event, id, selectedFiles, "dynamic", uploadId);
   };
 
-  useEffect(() => {
-    toast.success(role);
-    if (role !== "PS") {
-      return setCombinedDynamicAppChecklistDocument(
-        DynamicAppChecklistDocument
-      );
-    }
-    const combinedRootDocument = RootDynamicDocument.map((mainItem) => {
-      const matchedIdData = PreviousDynamicDocumentData?.filter(
-        (data) => data.id === mainItem.id
-      );
-      // console.log(mainItem.id, mainItem.requirements, "Each MainItems Requirement")
-      const matchedUploadIdData = PreviousDynamicDocumentData?.filter(
-        (data) => {
-          if (data.id === mainItem.id) {
-            const matchingRequirement = mainItem.requirements.find(
-              (MainReqData) => MainReqData.uploadId === data.uploadId
-            );
-            if (matchingRequirement) {
-              data.requirement = matchingRequirement.requirement;
-              return true;
-            }
-          }
-          return false;
-        }
-      );
-      if (matchedIdData?.length > 0) {
-        return {
-          id: mainItem.id,
-          question: mainItem.question,
-          requirements: matchedUploadIdData.sort(
-            (a, b) => a.uploadId - b.uploadId
-          ),
-        };
-      }
-    });
-    // Update the state with the new data
-    // Assuming you have a state variable like setDynamicAppChecklistDocument
-    setCombinedDynamicAppChecklistDocument(
-      combinedRootDocument?.filter((finalData) => finalData)
-    );
-    setDynamicAppChecklistDocument(
-      combinedRootDocument?.filter((finalData) => finalData)
-    );
-  }, []);
-
-  console.log({ combinedDynamicAppChecklistDocument });
-
-  const handleDynamicStatus = (data) => {
-    console.log(data,"data")
-    const updatedRequirements = combinedDynamicAppChecklistDocument.map(
-      (mainItem) => {
-        const matchedUpload = mainItem.requirements.find(
-          (reqItem) =>
-            mainItem.id == data.id && reqItem.uploadId == data.uploadId
-        );
-        const unmatchedUploads = mainItem.requirements.filter(
-          (reqItem) =>
-            mainItem.id == data.id && reqItem.uploadId !== data.uploadId
-        );
-
-        if (matchedUpload) {
-          const updated = { ...matchedUpload, approved: data.approved };
-
-          const updatedSortingRequirements = [
-            ...(unmatchedUploads || []),
-            updated,
-          ].sort((a, b) => parseInt(a.uploadId) - parseInt(b.uploadId));
-
-          return {
-            ...mainItem,
-            requirements: updatedSortingRequirements,
-          };
-        } else {
-          return mainItem;
-        }
-      }
-    );
-
-    toast.success(`Clicked Radio ${data.uploadId}`);
-    console.log(updatedRequirements, "Updated Requirements");
-
-    // Update the state with the new requirements
-    setCombinedDynamicAppChecklistDocument(updatedRequirements);
-    setDynamicAppChecklistDocument(updatedRequirements);
-  };
-
-  useEffect(() => {
-    if (role !== "PS") {
-      return;
-    }
-    // Your previous useEffect dependencies here
-  }, [combinedDynamicAppChecklistDocument]);
-
+  const handleDynamicStatus = () => {
+    toast.success("Clicked")
+  }
+  console.log({ DynamicAppChecklistDocument }, "DynamicAppChecklistDocument")
 
 
   const page = JSON.parse(localStorage?.getItem("page"));
-
   return (
     <div className="dark:text-black">
-      {combinedDynamicAppChecklistDocument?.map((document, index) => {
-        const { id, question, requirements } = document || {};
-        // console.log(document, "From Dynamic")
+      {DynamicAppChecklistDocument?.map((document, index) => {
+        const { id, question, requirements } = document;
         return (
           <div key={id} className="w-full px-2 py-5 rounded">
             <div className="text-[17px]">
               <p className="pb-4 font-bold">
-                {index + 9}. {question}
+                {id}. {question}
               </p>
               <div className="ml-6">
                 {requirements?.map((RequireData, ind) => {
@@ -132,17 +38,21 @@ function DynamicDocument({ PreviousDynamicDocumentData, setDynamicAppChecklistDo
 
                   const isMatch = dynamicImageFromDB?.find(
                     (eachFile, i) =>
-                      eachFile?.id === index + 9 &&
+                      eachFile?.id === id &&
                       eachFile?.uploadId === uploadId
                   );
                   const letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n"];
 
-                  // const FindRemarkText = remarkText?.find((item) => item["dynamic"].id === id && item["dynamic"].uploadId === uploadId);
-                  // const matchedText = FindRemarkText?.["dynamic"].value;
+                  const FindRemarkText = remarkText?.find((item) => {
+                    if (item["dynamic"]) {
+                      return (item["dynamic"].id === id) && (item["dynamic"].uploadId === uploadId)
+                    }
+                  });
+                  const matchedText = FindRemarkText?.["dynamic"].value;
 
                   return (
-                    <div key={ind + 1} className="mb-8 ">
-                      <div className="mb-3">
+                    <div key={uploadId} className="mb-8 ">
+                      <div className="mb-3 font-bold">
                         <span className="font-bold">{letters[ind]}. </span>
                         {requirement}
                       </div>
@@ -178,7 +88,7 @@ function DynamicDocument({ PreviousDynamicDocumentData, setDynamicAppChecklistDo
                           handleDynamicStatus={handleDynamicStatus}
                           type="dynamic"
                           setRemarkText={setRemarkText}
-                        // remarkText={}
+                          remarkText={matchedText}
                         />
                       )}
                     </div>

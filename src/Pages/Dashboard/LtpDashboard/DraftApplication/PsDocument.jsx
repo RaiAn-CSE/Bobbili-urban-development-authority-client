@@ -8,20 +8,18 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
         if (type === "dynamic") {
             // handleStatus({ approved: data, id, uploadId, type });
             handleDynamicStatus({ approved: data, id, uploadId, type })
-            // handleDynamicStatus({ data, id, uploadId, type })
-            toast.success("Dynamic Clicked")
+            toast.success(`${data}, ${uploadId}, ${id}`);
         } else {
             // handleStatus({ approved: data, id, type });
             handleDefaultStatus({ approved: data, id, type })
         }
-        toast.success(`${data, uploadId, id}`);
+
     }
 
     useEffect(() => {
         // Your previous useEffect dependencies here
+        console.log({ id, approved, uploadId }, "Approved+Id+UploadedId")
     }, [approved, uploadId]);
-
-    console.log(remarkText, "Remark Text from database ps Document")
 
     const handleRemarkText = (event) => {
         const { value } = event?.target;
@@ -53,9 +51,10 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
                     <div className="md:flex space-y-4 md:space-x-10 md:space-y-0 mt-2 ms-4 lg:pr-2">
                         <div>
                             <input
-                                id={type === "dynamic" ? `approved${uploadId}` : `approved${id}`}
+                                id={type === "dynamic" ? `approved${id + uploadId}` : `approved${id}`}
                                 type="radio"
-                                name={type === "dynamic" ? uploadId + id : id}
+                                title={id+uploadId}
+                                // name={type === "dynamic" ? `${id + uploadId}` : id}
                                 value="approved"
                                 className="radio radio-sm radio-button__input mr-3 lg:mr-0"
                                 onChange={(event) => handleDocumentStatus(event, id, uploadId, type)}
@@ -63,7 +62,8 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
                             />
                             <label
                                 className={`radio-button__label text-base`}
-                                htmlFor={type === "dynamic" ? `approved${uploadId}` : `approved${id}`}
+                                title={id+uploadId}
+                                htmlFor={type === "dynamic" ? `approved${id + uploadId}` : `approved${id}`}
                             >
                                 <span className="radio-button__custom"></span>
                                 Approved
@@ -72,9 +72,10 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
 
                         <div>
                             <input
-                                id={type === "dynamic" ? `shortfall${uploadId}` : `shortfall${id}`}
+                                id={type === "dynamic" ? `shortfall${id + uploadId}` : `shortfall${id}`}
                                 type="radio"
-                                name={type === "dynamic" ? uploadId + id : id}
+                                title={id+uploadId}
+                                // name={type === "dynamic" ? `${id + uploadId}` : id}
                                 value="shortfall"
                                 className="radio radio-sm radio-button__input mr-3 lg:mr-0"
                                 onChange={(event) => handleDocumentStatus(event, id, uploadId, type)}
@@ -82,12 +83,14 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
                             />
                             <label
                                 className={`radio-button__label text-base`}
-                                htmlFor={type === "dynamic" ? `shortfall${uploadId}` : `shortfall${id}`}
+                                htmlFor={type === "dynamic" ? `shortfall${id + uploadId}` : `shortfall${id}`}
+                                title={id+uploadId}
                             >
                                 <span className="radio-button__custom"></span>
                                 Shortfall
                             </label>
                         </div>
+
                         <div className={`${approved === "shortfall" ? "block" : "hidden"}`}>
                             <p className="text-black font-bold" htmlFor="textarea">Remark:</p>
                             <textarea className="textarea mt-2 bg-transparent border border-black text-black" id="textarea"
