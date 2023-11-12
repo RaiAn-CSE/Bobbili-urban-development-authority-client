@@ -28,7 +28,7 @@ const ImageUploadInput = ({
                 {siteBoundariesImageFiles[id].name.slice(0, 10) + "..."}
               </p>
             ) : (
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-gray-500 dark:text-gray-400 py-4">
                 <span className="font-semibold">Click to upload</span> or drag
                 and drop
               </p>
