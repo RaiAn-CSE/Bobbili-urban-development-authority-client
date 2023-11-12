@@ -27,20 +27,24 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
 		}
 
 		setRemarkText((prev) => {
-			const existingIndex = prev.findIndex((item) => item[type]?.id === id || (item[type]?.id === id && item[type]?.uploadId === uploadId));
-		
+			const isDynamic = type === "dynamic";
+			const existingIndex = prev.findIndex((item) => (
+			  item[type]?.id === id && (isDynamic ? item[type]?.uploadId === uploadId : true)
+			));
+		  
 			const existingObject = existingIndex !== -1;
-		
+		  
 			if (!existingObject) {
-				// If the value does not exist, added a new object to the array
-				return [...prev, { [type]: { id, uploadId, value } }];
+			  // If the value does not exist, add a new object to the array
+			  return [...prev, { [type]: { id, uploadId, value } }];
 			}
-		
-			// If the value already exists, updated the existing object with the new value
+		  
+			// If the value already exists, update the existing object with the new value
 			const updatedArray = [...prev];
 			updatedArray[existingIndex][type].value = value;
 			return updatedArray;
-		});
+		  });
+		  
 	};
 	return (
 		<div className='dark:text-white'>

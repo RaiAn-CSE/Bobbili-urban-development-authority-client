@@ -153,7 +153,7 @@ const DocumentUpload = () => {
     gettingData();
   }, []);
 
-  console.log({ DynamicAppChecklistDocument })
+  console.log({ DynamicAppChecklistDocument,remarkText })
 
   // file send into the database
   const handleFileUpload = async (url) => {
