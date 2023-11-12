@@ -87,7 +87,7 @@ const SaveData = ({
 
   const page = JSON.parse(localStorage.getItem("page"));
 
-  const hideSaveAndContinueBtn =
+  const hideBtnPageWise =
     page === "submit" || page === "approved" || page === "shortfall";
 
   console.log(isApproved, "approved");
@@ -100,9 +100,7 @@ const SaveData = ({
           {role === "LTP" &&
             (currentStep !== steps.length - 1 ? (
               <button
-                className={`fancy-button mt-8 ${
-                  hideSaveAndContinueBtn && "hidden"
-                }`}
+                className={`fancy-button mt-8 ${hideBtnPageWise && "hidden"}`}
                 // type="submit"
                 // onClick={() =>
                 //   // currentStep < steps.length - 1 &&
@@ -114,7 +112,11 @@ const SaveData = ({
                 Save and Continue
               </button>
             ) : (
-              <div className="flex justify-between items-center space-x-[500px] mt-10">
+              <div
+                className={`${
+                  hideBtnPageWise && "hidden"
+                } flex justify-between items-center w-full mt-10`}
+              >
                 <button
                   className={`save-btn bg-gradient-to-b from-[#a29bfe] to-[#6c5ce7] mr-4`}
                   // type="submit"
