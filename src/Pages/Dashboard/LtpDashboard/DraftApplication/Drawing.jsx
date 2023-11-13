@@ -5,7 +5,7 @@ import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import axios from "axios";
 import SaveData from "./SaveData";
 import Application from "./Application";
-import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
+import { TbSlideshow } from "react-icons/tb";
 import DrawingTable from "./DrawingTable";
 
 const Drawing = () => {
@@ -267,8 +267,9 @@ const Drawing = () => {
               <Link
                 to={`https://drive.google.com/file/d/${savedData?.drawing?.AutoCAD}/view?usp=sharing`}
                 target="_blank"
-                className={`${gradientColor} text-white hover:underline  py-2 px-5 rounded-full`}
+                className={`${gradientColor} flex items-center text-white hover:underline py-2 px-5 rounded-full shadow-lg`}
               >
+                <TbSlideshow size={20} className="me-1" />
                 View
               </Link>
             )}
@@ -294,8 +295,9 @@ const Drawing = () => {
               <Link
                 to={`https://drive.google.com/file/d/${savedData?.drawing?.Drawing}/view?usp=sharing`}
                 target="_blank"
-                className={`${gradientColor} text-white hover:underline py-2 px-5 rounded-full`}
+                className={`${gradientColor} text-white hover:underline flex items-center py-2 px-5 rounded-full shadow-lg`}
               >
+                <TbSlideshow size={20} className="me-1" />
                 View
               </Link>
             )}

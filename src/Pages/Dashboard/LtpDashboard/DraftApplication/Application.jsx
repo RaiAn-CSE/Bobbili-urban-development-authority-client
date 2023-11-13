@@ -89,7 +89,7 @@ function Application({ setOpenApplication }) {
   const Part01 = [
     { "Name(in full)": ownerNamePattern(applicantDetailsData) },
     {
-      "Address.": `${applicantDetailsData[0]?.ownerDoorNo}, ${applicantDetailsData[0]?.ownerStreetNo}`,
+      Address: `${applicantDetailsData[0]?.ownerDoorNo}, ${applicantDetailsData[0]?.ownerStreetNo}`,
     },
     { "Phone / Mobile No.": applicantDetailsData[0]?.phone },
     { "E-mail": applicantDetailsData[0]?.email },
@@ -164,12 +164,11 @@ function Application({ setOpenApplication }) {
               <table className="table bg-white table-sm cursor-default">
                 {/* Part01 head */}
                 <thead className="bg-gray-400 border border-black text-black dark:text-white">
-                  <tr>
+                  <tr className="text-lg font-bold text-black uppercase">
                     <th className="border border-black text-center">A</th>
-                    <th className="border border-black text-center">
-                      ADDRESS OF THE APPLICANT
+                    <th colSpan={5} className="border border-black">
+                      Address of the Applicant
                     </th>
-                    <th className="border border-black"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -190,20 +189,19 @@ function Application({ setOpenApplication }) {
                   })}
                 </tbody>
               </table>
-            </div>
+            </div >
             {/* Part02 */}
-            <div className="overflow-x-auto mt-10 text-black">
+            < div className="overflow-x-auto mt-10 text-black" >
               <table className="table bg-white table-sm">
                 {/* Part02 head */}
                 <thead className="bg-gray-400 border border-black text-black uppercase">
-                  <tr>
+                  <tr className="text-lg font-bold text-black uppercase">
                     <th className="border border-black">B</th>
-                    <th className="border border-black">
-                      LOCATION OF THE PROPOSED SITE
+                    <th colSpan={5} className="border border-black">
+                      Location of the Proposed Site
                     </th>
-                    <th className="border border-black"></th>
-                  </tr>
-                </thead>
+                  </tr >
+                </thead >
                 <tbody>
                   {/* row 1 */}
                   {Part02.map((item, index) => {
@@ -221,21 +219,60 @@ function Application({ setOpenApplication }) {
                     );
                   })}
                 </tbody>
-              </table>
-            </div>
-          </div>
+              </table >
+            </div >
+          </div >
           {/* Part 03 */}
-          <div className="overflow-x-auto mt-10">
+          < div >
+            <table className="mt-7 w-full">
+              <thead className="text-center">
+                <tr className="bg-gray-400 border border-black text-lg text-black font-bold uppercase">
+                  <td>C</td>
+                  <td colSpan="5" className="border border-black p-1">
+                    Details of Licensed Technical Person
+                  </td>
+                </tr>
+                <tr className="border border-black">
+                  <td className="border border-black p-2 font-bold">#</td>
+                  <td className="border border-black p-2 font-bold">Name</td>
+                  <td className="border border-black p-2 font-bold">Address</td>
+                  <td className="border border-black p-2 font-bold">
+                    License No.
+                  </td>
+                  <td className="border border-black p-2 font-bold">
+                    Validity
+                  </td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border border-black text-center">
+                  <td className="border border-black p-2">01</td>
+                  <td className="border border-black p-2">
+                    {ltpDetailsData?.name}
+                  </td>
+                  <td className="border border-black p-2">
+                    {ltpDetailsData?.address}
+                  </td>
+                  <td className="border border-black p-2">
+                    {ltpDetailsData?.licenseNo}
+                  </td>
+                  <td className="border border-black p-2">
+                    {ltpDetailsData?.validity}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div >
+          {/* Part 04 */}
+          < div className="overflow-x-auto mt-10" >
             <table className="table bg-white table-sm">
-              {/* Part 03 head */}
+              {/* Part 04 head */}
               <thead className="bg-gray-400 text-black dark:text-white">
-                <tr>
+                <tr className="text-lg font-bold text-black uppercase">
                   <th className="border border-black w-[10%]">D</th>
-                  <th className="border border-black uppercase">
-                    DETAILS OF THE PROPOSED CONSTRUCTION
+                  <th colSpan={5} className="border border-black">
+                    Details of the Proposed Construction
                   </th>
-                  <th className="border border-black"></th>
-                  <th className="border border-black"></th>
                 </tr>
               </thead>
               <tbody className="text-start">
@@ -384,7 +421,7 @@ function Application({ setOpenApplication }) {
                 </tr>
               </tbody>
             </table>
-          </div>
+          </div >
           <div className="mt-7">
             <p className="font-bold">Primary</p>
             <p>
@@ -395,11 +432,11 @@ function Application({ setOpenApplication }) {
           </div>
           <div>
             <table className="mt-7 w-full">
-              <thead>
-                <tr>
-                  <th className="border border-black p-1"></th>
-                  <th className="border border-black p-1">Signature</th>
-                  <th className="border border-black p-1"></th>
+              <thead className="bg-gray-400">
+                <tr className="text-lg font-bold text-black uppercase">
+                  <th colSpan={5} className="border border-black p-1">
+                    Signature
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -450,9 +487,9 @@ function Application({ setOpenApplication }) {
               <RxCross2 className="text-3xl" />
             </button>
           </form>
-        </div>
-      </dialog>
-    </div>
+        </div >
+      </dialog >
+    </div >
   );
 }
 

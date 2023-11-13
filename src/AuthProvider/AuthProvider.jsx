@@ -414,22 +414,26 @@ const AuthProvider = ({ children }) => {
   const calculateNoOfFloors = (floors) => {
     const floorNames = floors?.map((floor) => floor?.name);
 
-    const totalFloors = floorNames?.length;
+    if (floorNames) {
+      const totalFloors = floorNames?.length;
 
-    console.log(floorNames, totalFloors, "FLOOR CALCULATION");
+      console.log(floorNames, totalFloors, "FLOOR CALCULATION");
 
-    const isParkingAreaExist = floorNames?.findIndex((floorName) =>
-      floorName.includes("Stilt")
-    );
+      const isParkingAreaExist = floorNames?.findIndex((floorName) =>
+        floorName.includes("Stilt")
+      );
 
-    if (isParkingAreaExist !== -1) {
-      return `ground+stilt+${totalFloors - 2}`;
-    } else {
-      if (totalFloors - 1 === 0) {
-        return `ground`;
+      if (isParkingAreaExist !== -1) {
+        return `ground+stilt+${totalFloors - 2}`;
       } else {
-        return `ground+${totalFloors - 1}`;
+        if (totalFloors - 1 === 0) {
+          return `ground`;
+        } else {
+          return `ground+${totalFloors - 1}`;
+        }
       }
+    } else {
+      return "N/A";
     }
   };
 

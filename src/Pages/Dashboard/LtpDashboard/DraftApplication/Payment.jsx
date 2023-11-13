@@ -98,7 +98,7 @@ const Payment = () => {
         generalInformation?.natureOfTheSite === "Approved Layout" ||
         generalInformation?.natureOfTheSite === "Regularised under LRS" ||
         generalInformation?.natureOfTheSite ===
-          "Congested/ Gramakanta/ Old Built-up area" ||
+        "Congested/ Gramakanta/ Old Built-up area" ||
         generalInformation?.natureOfTheSite === "Newly Developed/ Built up area"
       ) {
         setCondition(1);
@@ -130,12 +130,12 @@ const Payment = () => {
     // General Informatin
     const { natureOfTheSite } = generalInformation;
 
-    const builtup_Area = Number(totalBuiltUpArea) || 1;
-    const vacant_area = Number(vacantLand) || 1;
-    const net_Plot_Area = Number(netPlotAreaCal) || 1;
-    const market_value = Number(marketValueSqym) || 1;
+    const builtup_Area = Number(totalBuiltUpArea) || 0;
+    const vacant_area = Number(vacantLand) || 0;
+    const net_Plot_Area = Number(netPlotAreaCal) || 0;
+    const market_value = Number(marketValueSqym) || 0;
     const nature_of_site = natureOfTheSite;
-    const BuiltUp_area_SquareFeet = Number(builtup_Area * 10.7639104) || 1;
+    const BuiltUp_area_SquareFeet = Number(builtup_Area * 10.7639104) || 0;
 
     console.log(typeof builtup_Area, "builtup_Area");
 
@@ -267,14 +267,15 @@ const Payment = () => {
     // ====Building Permit====
     const buildingPermitUnitRate = 20; //per Sqm.
     const buildingPermitFees = buildingPermitUnitRate * builtup_Area;
-
+    const gramaSiteApprovalCharged = 10 * net_Plot_Area;
     // =====Grama Panchayet Total=====
     const gramaPanchayetTotal = () => {
       return (
         bettermentCharged +
         paperPublicationCharged +
         processingFees +
-        buildingPermitFees
+        buildingPermitFees +
+        gramaSiteApprovalCharged
       );
     };
     // =====Grama Panchayet Total Charged=====
@@ -294,9 +295,9 @@ const Payment = () => {
     const labourCessComponentUnitRate1 = 1400; // per Sq.ft.
     const labourCessCompo1Charged = Math.round(
       labourCessComponentUnitRate1 *
-        BuiltUp_area_SquareFeet *
-        10.76 *
-        (0.01 * 0.98)
+      BuiltUp_area_SquareFeet *
+      10.76 *
+      (0.01 * 0.98)
     );
 
     setCalculatedData({
@@ -316,6 +317,7 @@ const Payment = () => {
       processingFees,
       paperPublicationCharged,
       buildingPermitFees,
+      gramaSiteApprovalCharged,
     });
   };
 
@@ -422,6 +424,9 @@ const Payment = () => {
 
     const buildingPermitFee =
       document.getElementById("buildingPermitFees")?.value;
+    const gramaSiteApprovalCharges = document.getElementById(
+      "gramaSiteApprovalCharges"
+    )?.value;
 
     const GramaPanchayetTotalCharged = document.getElementById(
       "GramaPanchayetTotalCharged"
@@ -474,6 +479,7 @@ const Payment = () => {
       processingFee: processingFee ?? "",
       buildingPermitFees: buildingPermitFee ?? "",
       bettermentCharged: bettermentCharged ?? "",
+      gramaSiteApprovalCharged: gramaSiteApprovalCharges ?? "",
       GramaPanchayetTotalCharged: GramaPanchayetTotalCharged ?? "",
       gramaChallanNo: gramaChallanNo ?? "",
       gramaChallanDate: gramaChallanDate ?? "",
@@ -777,6 +783,14 @@ const Payment = () => {
               type="number"
               ltpDetails={calculatedData?.buildingPermitFees}
             />
+            <InputField
+              id="gramaSiteApprovalCharges"
+              name="gramaSiteApprovalCharges"
+              label="Site Approval Charges"
+              placeholder="000"
+              type="number"
+              ltpDetails={calculatedData?.gramaSiteApprovalCharged}
+            />
 
             <InputField
               id="GramaPanchayetTotalCharged"
@@ -848,7 +862,7 @@ const Payment = () => {
               <Link
                 to={`https://drive.google.com/file/d/${applicationData?.payment?.gramaPanchayatFee?.gramaBankReceipt}/view?usp=sharing`}
                 target="_blank"
-                className="flex justify-center items-center ms-10 px-6  hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
+                className="flex justify-center items-center ms-10 px-4 py-2 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
               >
                 <MdReceiptLong className="me-1" />
                 View Challan
@@ -942,15 +956,15 @@ const Payment = () => {
 
             {applicationData?.payment?.labourCessCharge
               ?.labourCessBankReceipt && (
-              <Link
-                to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
-                target="_blank"
-                className="flex justify-center items-center ms-10 px-6 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
-              >
-                <MdReceiptLong className="me-1" />
-                View Challan
-              </Link>
-            )}
+                <Link
+                  to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
+                  target="_blank"
+                  className="flex justify-center items-center ms-10 px-4 py-2 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
+                >
+                  <MdReceiptLong className="me-1" />
+                  View Challan
+                </Link>
+              )}
           </div>
         </div>
 
@@ -1042,7 +1056,7 @@ const Payment = () => {
             <Link
               to={`https://drive.google.com/file/d/${applicationData?.payment?.greenFeeCharge?.greenFeeBankReceipt}/view?usp=sharing`}
               target="_blank"
-              className="flex justify-center items-center ms-10 px-6 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
+              className="flex justify-center items-center ms-10 px-4 py-2 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
             >
               <MdReceiptLong className="me-1" />
               View Challan

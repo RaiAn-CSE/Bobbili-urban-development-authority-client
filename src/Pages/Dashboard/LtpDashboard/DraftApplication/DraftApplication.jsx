@@ -21,9 +21,6 @@ const DraftApplication = () => {
 
   const [openProceeding, setOpenProceeding] = useState(false);
 
-  // useEffect(() => {
-  //   console.log(openProceeding);
-  // }, [setOpenProceeding])
 
 
   // const { applicationNo } = location.state;
@@ -267,7 +264,7 @@ const DraftApplication = () => {
 
       {
         openProceeding ?
-          <ProceedingModal setOpenProceeding={setOpenProceeding} />
+          <ProceedingModal modalProceeding={{ setOpenProceeding, openProceeding }} />
           : ""
       }
 

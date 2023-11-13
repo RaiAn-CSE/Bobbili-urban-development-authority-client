@@ -75,6 +75,13 @@ function DefaultDocument({
         const isMatch = defaultImageFromDB?.find(
           (eachFile, i) => eachFile.id === id
         );
+        const FindRemarkText = remarkText?.find((item) => {
+          if (item["default"]) {
+            return (item["default"].id === id)
+          }
+        });
+        const matchedText = FindRemarkText?.["default"].value;
+
         return (
           <div key={id} className="w-full px-2  rounded mb-8">
             <p className="pb-4 font-bold">
@@ -105,7 +112,7 @@ function DefaultDocument({
               handleDefaultStatus={handleDefaultStatus}
               type="default"
               setRemarkText={setRemarkText}
-              remarkText={remarkText}
+              remarkText={matchedText}
             />
           </div>
         );
