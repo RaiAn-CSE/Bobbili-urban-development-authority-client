@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 function DynamicDocument({ DynamicAppChecklistDocument, setDynamicAppChecklistDocument, role, handleFileChange, gradientColor, dynamicImageFromDB, remarkText, setRemarkText
 }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const [render, setRender] = useState(false);
 
   const someEventHandler = (event, id, uploadId) => {
     const file = event?.target.files[0];
@@ -41,27 +42,27 @@ function DynamicDocument({ DynamicAppChecklistDocument, setDynamicAppChecklistDo
 
 
   const handleDynamicStatus = ({ value: data, id, uploadId, type }) => {
+    toast.success(data)
     if (!data) {
       return;
     }
     const updatedDynamicAppChecklist = DynamicAppChecklistDocument.map(checkListData => (
       checkListData.id === id
         ? {
-          ...checkListData,
-          requirements: checkListData.requirements.map(item =>
-            item.uploadId === uploadId ? { ...item, approved: data } : item
+          ...checkListData, requirements: checkListData.requirements.map(item =>
+            item.uploadId === uploadId && { ...item, approved: data }
           )
         }
         : checkListData
     ));
 
-    console.log({ DynamicAppChecklistDocument, updatedDynamicAppChecklist }, "DynamicAppChecklistDocument");
     setDynamicAppChecklistDocument(updatedDynamicAppChecklist);
+    setRender(true)
   };
 
   useEffect(() => {
 
-  }, [DynamicAppChecklistDocument])
+  }, [DynamicAppChecklistDocument, render])
 
   const page = JSON.parse(localStorage?.getItem("page"));
   return (

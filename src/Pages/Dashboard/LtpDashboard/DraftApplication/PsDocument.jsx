@@ -12,7 +12,8 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
 			handleDefaultStatus({ approved: data, id, type })
 		}
 	}
-console.log({role, id, approved, uploadId, type})
+
+
 	useEffect(() => {
 		// Your previous useEffect dependencies here
 	}, [approved, uploadId, id]);

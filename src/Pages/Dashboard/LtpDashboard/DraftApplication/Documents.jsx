@@ -105,9 +105,6 @@ const DocumentUpload = () => {
       const applicationData = await getApplicationData(applicationNo, cameFrom);
       const applicationCheckList = applicationData?.applicationCheckList;
 
-      // setPreviousDefaultDocumentData(applicationData?.document?.data?.default );
-      // setPreviousDynamicDocumentData(applicationData?.document?.data?.dynamic);
-
       setPreviousDefaultDocumentData(applicationData?.psDocumentPageObservation?.data?.default)
       setPreviousDynamicDocumentData(applicationData?.psDocumentPageObservation?.data?.dynamic)
 
@@ -144,13 +141,6 @@ const DocumentUpload = () => {
       if (role === "LTP") {
         setDynamicAppChecklistDocument(CombinedChecklistData)
       } else {
-        // PS Previous and ChecklistData Combinding;
-        // // If Previous Dynamic Document doesn't exists
-        // if (role === "PS" && PreviousDynamicData.length > 0) {
-        //   setDynamicAppChecklistDocument(applicationData?.psDocumentPageObservation?.data?.dynamic);
-        //   return setRender(true);
-        // }
-
         if (role === "PS" && CombinedChecklistData.length > 0) {
           const combinedArray = [...PreviousDynamicData || [], ...CombinedChecklistData];
           const uniqueCombinedArray = [];
