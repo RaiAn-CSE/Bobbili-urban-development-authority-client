@@ -200,7 +200,7 @@ const ShowCharts = () => {
     const ctx = canvas.getContext("2d");
     const gradient1 = ctx.createLinearGradient(0, 0, 300, 0);
     gradient1.addColorStop(0, "#ffaf40");
-    gradient1.addColorStop(1, "#EEDC82");
+    gradient1.addColorStop(1, "#FAFAD2");
     // gradient1.addColorStop(1, "rgb(107, 33, 168)");
 
     const gradient2 = ctx.createLinearGradient(0, 0, 300, 0);
