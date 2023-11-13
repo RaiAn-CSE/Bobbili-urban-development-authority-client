@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import customScroll from "../../Style/Scrollbar.module.css";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 
-const EndorsementModal = () => {
+const EndorsementModal = ({ modalEndorsement }) => {
+  const { openEndorsement, setOpenEndorsement } = modalEndorsement;
   const { getApplicationData, ownerNamePattern } = useContext(AuthContext);
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
@@ -13,6 +14,13 @@ const EndorsementModal = () => {
   const [surveyNo, setSurveyNo] = useState("");
   const [ownerName, setOwnerName] = useState("");
   const [dataFromDb, setDataFromDb] = useState({});
+
+  useEffect(() => {
+    const modal = document.getElementById('endorsementModal');
+    if (openEndorsement) {
+      modal.showModal();
+    }
+  }, []);
 
   useEffect(() => {
     const getData = async () => {
@@ -40,14 +48,14 @@ const EndorsementModal = () => {
 
   return (
     <div className="dark:bg-white">
-      <dialog id="my_modal_2" className="modal">
+      <dialog id="endorsementModal" className="modal">
         {/* divide-y-2 divide-gray-200 */}
         <div
           className={`${customScroll.customScrolling} rounded-lg modal-box py-10 px-12 bg-white text-gray-900 w-11/12 max-w-5xl divide-y-2 divide-gray-200 relative`}
         >
           <form method="dialog">
             {/* if there is a button in form, it will close the modal */}
-            <button className="btn btn-sm text-white hover:bg-violet-600 btn-circle btn-ghost absolute top-2 right-2 bg-violet-500">
+            <button onClick={() => setOpenEndorsement(false)} className="btn btn-sm text-white hover:bg-violet-600 btn-circle btn-ghost absolute top-2 right-2 bg-violet-500">
               ✕
             </button>
             <h3 className="font-bold text-lg text-center">ENDORSEMENT!</h3>
@@ -195,7 +203,7 @@ const EndorsementModal = () => {
         </div>
 
         <form method="dialog" className="modal-backdrop">
-          <button>close</button>
+          <button onClick={() => setOpenEndorsement(false)}>close</button>
         </form>
       </dialog>
     </div>

@@ -18,8 +18,8 @@ const DraftApplication = () => {
   const location = useLocation();
   const [currentStep, setCurrentStep] = useState(0);
   const [openApplication, setOpenApplication] = useState(false);
-
   const [openProceeding, setOpenProceeding] = useState(false);
+  const [openEndorsement, setOpenEndorsement] = useState(false);
 
 
 
@@ -206,8 +206,10 @@ const DraftApplication = () => {
                   </button>
                   <button
                     // Open the modal using document.getElementById('ID').showModal() method
-                    onClick={() =>
-                      document.getElementById("my_modal_2").showModal()
+                    onClick={() => {
+                      // document.getElementById("my_modal_2").showModal();
+                      setOpenEndorsement(true)
+                    }
                     }
                     className={`btn btn-sm me-5 text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white dark:border-none`}
                   >
@@ -260,8 +262,8 @@ const DraftApplication = () => {
       <Outlet
         context={[isStepperVisible, currentStep, steps, handleStepClick]}
       />
-      {/* proceedingModal modal info  */}
 
+      {/* proceedingModal modal info  */}
       {
         openProceeding ?
           <ProceedingModal modalProceeding={{ setOpenProceeding, openProceeding }} />
@@ -269,7 +271,11 @@ const DraftApplication = () => {
       }
 
       {/* my_modal_2 modal info : */}
-      <EndorsementModal />
+      {
+        openEndorsement ?
+          <EndorsementModal modalEndorsement={{ setOpenEndorsement, openEndorsement }} />
+          : ""
+      }
 
       {/* Application Modal */}
       {
