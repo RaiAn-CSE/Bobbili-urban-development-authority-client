@@ -12,6 +12,7 @@ import DynamicDocument from "./DynamicDocument";
 import PsDocument from "./PsDocument";
 
 const DocumentUpload = () => {
+  const [render, setRender] = useState(false)
   const [UpdatedDefaultData, setUpdatedDefaultData] = useState([
     ...DefaultDocumentData,
   ]);
@@ -144,8 +145,9 @@ const DocumentUpload = () => {
       } else {
         // PS Previous and ChecklistData Combinding;
         // If Previous Dynamic Document doesn't exists
-        if (PreviousDynamicDocumentData.length > 0) {
-          return setDynamicAppChecklistDocument(PreviousDynamicDocumentData);
+        if (role === "PS") {
+          setDynamicAppChecklistDocument(applicationData?.psDocumentPageObservation?.data?.dynamic);
+          return setRender(true);
         }
 
         // if (role === "PS" && CombinedChecklistData.length > 0) {
@@ -159,7 +161,9 @@ const DocumentUpload = () => {
 
     };
     gettingData();
-  }, []);
+  }, [render]);
+
+  useEffect(() => { }, [render])
 
   console.log({ DynamicAppChecklistDocument, PreviousDynamicDocumentData, remarkText });
 
