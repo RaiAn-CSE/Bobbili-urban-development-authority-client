@@ -51,13 +51,15 @@ const BarChart = ({ chartData }) => {
           scales: {
             x: {
               display: true,
+              fontSize: 25,
               title: {
-                display: true,
+                display: false,
                 text: "Application type",
                 color: "#1f1132",
                 font: {
                   family: "Roboto Condensed, sans-serif",
-                  size: 20,
+                  size: 16,
+
                   weight: "bold",
                   lineHeight: 1.2,
                 },
@@ -72,7 +74,7 @@ const BarChart = ({ chartData }) => {
                 color: "#191",
                 font: {
                   family: "Times",
-                  size: 20,
+                  size: 25,
                   style: "normal",
                   lineHeight: 1.2,
                 },

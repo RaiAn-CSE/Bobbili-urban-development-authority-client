@@ -11,6 +11,14 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 import toast from "react-hot-toast";
 import Loading from "../Shared/Loading";
 import ErrorAnimation from "../../assets/ServerError.json";
+import { FaTreeCity } from "react-icons/fa6";
+import {
+  MdForest,
+  MdLocationCity,
+  MdLocationOn,
+  MdOutlineLocationCity,
+} from "react-icons/md";
+import { BsCalendar3 } from "react-icons/bs";
 
 Chart.register(CategoryScale);
 
@@ -151,6 +159,7 @@ const ShowCharts = () => {
       )
         .then((res) => res.json())
         .then((result) => {
+          setLoading(false);
           console.log(result);
           setServerData(result?.totalApplication);
         })
@@ -170,6 +179,7 @@ const ShowCharts = () => {
       )
         .then((res) => res.json())
         .then((result) => {
+          setLoading(false);
           console.log(result);
           setServerData(result?.totalApplication);
         })
@@ -189,19 +199,19 @@ const ShowCharts = () => {
   const getData = (canvas, labels, data) => {
     const ctx = canvas.getContext("2d");
     const gradient1 = ctx.createLinearGradient(0, 0, 300, 0);
-    gradient1.addColorStop(0, "#ffecd2");
-    gradient1.addColorStop(1, "#fcb69f");
+    gradient1.addColorStop(0, "#ffaf40");
+    gradient1.addColorStop(1, "#EEDC82");
     // gradient1.addColorStop(1, "rgb(107, 33, 168)");
 
     const gradient2 = ctx.createLinearGradient(0, 0, 300, 0);
     gradient2.addColorStop(0, "#d4fc79");
-    gradient2.addColorStop(1, "#96e6a1");
+    gradient2.addColorStop(1, "#2ed573");
     // gradient2.addColorStop(1, "rgb(34, 197, 94)");
     const gradient3 = ctx.createLinearGradient(0, 0, 300, 0);
     gradient3.addColorStop(0, "#f78ca0");
     gradient3.addColorStop(0.19, "#f9748f");
     gradient3.addColorStop(0.5, "#fd868c");
-    gradient3.addColorStop(1, "#fe9a8b");
+    gradient3.addColorStop(1, "#ff4757");
 
     return {
       labels,
@@ -254,15 +264,17 @@ const ShowCharts = () => {
     // });
   }, [serverData]);
 
-  if (loading) {
-    return <Loading />;
-  }
+  // if (loading) {
+  //   return <Loading />;
+  // }
 
   return (
     <>
-      <p className="text-2xl font-bold font-roboto ml-6 mt-5 text-black">
-        Dashboard:
-      </p>
+      {!path.includes("/statistics") && (
+        <p className="text-2xl font-bold font-roboto ml-6 mt-5 text-black">
+          Dashboard:
+        </p>
+      )}
       {error?.length !== 0 ? (
         <div className="flex flex-col justify-center items-center min-h-[calc(100vh - 10%)]">
           <Lottie
@@ -276,18 +288,21 @@ const ShowCharts = () => {
         </div>
       ) : (
         <>
-          <form className="flex justify-around items-center font-sans my-8 z-[10]">
+          <form className="flex justify-between items-center font-roboto my-8 z-[10] px-10">
             {/* district  */}
-            <div className="nm_Container  basis-1/5 z-[10] bg-bgColor p-3">
+            <div className="bg-gradient-to-r from-[#8e2de2] to-[#4a00e0] basis-[23%] z-[10]  p-3 rounded-lg py-6 shadow-lg">
               <label
                 htmlFor="district"
-                className="block mb-2 text-base font-bold text-gray-900"
+                className="flex items-center mb-4 text-xl font-bold text-white"
               >
-                District
+                <span className="bg-[#B67EEE] inline-flex justify-center items-center w-[40px] h-[40px] rounded-full mr-2">
+                  <MdLocationCity size={25} />
+                </span>
+                <span>District</span>
               </label>
               <select
                 id="district"
-                className="nm_Inset bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                className="nm_Inset bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ouline-noneblock w-full p-2.5"
                 defaultValue={selectedDistrict}
                 onChange={(e) => detectSelectOfDistrict(e)}
               >
@@ -309,17 +324,21 @@ const ShowCharts = () => {
             </div>
 
             {/* mandal */}
+            {/* background: linear-gradient(to right, rgb(127, 0, 255), rgb(225, 0, 255)); */}
 
-            <div className="nm_Container basis-1/5 z-[10] bg-bgColor p-3">
+            <div className="bg-gradient-to-r from-[#7f00ff] to-[#e100ff] basis-[23%] z-[10]  p-3 py-6 rounded-lg shadow-lg">
               <label
                 htmlFor="mandal"
-                className="block mb-2 text-base font-bold text-gray-900"
+                className="flex items-center mb-5 text-lg font-bold text-white"
               >
-                Mandal
+                <span className="bg-[#B67EEE] inline-flex justify-center items-center w-[40px] h-[40px] rounded-full mr-2">
+                  <FaTreeCity size={25} />
+                </span>
+                <span>Mandal</span>
               </label>
               <select
                 id="mandal"
-                className="nm_Inset bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                className="nm_Inset bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ouline-noneblock w-full p-2.5"
                 defaultValue={selectedMandal}
                 onChange={(e) => detectChangeOfMandals(e)}
                 disabled={allMandal?.length === 0}
@@ -340,17 +359,22 @@ const ShowCharts = () => {
                 })}
               </select>
             </div>
+
+            {/* background: linear-gradient(to right, #ff00cc, #333399); */}
             {/* gram panchayat  */}
-            <div className="nm_Container basis-1/5 z-[10] bg-bgColor p-3">
+            <div className="bg-gradient-to-r from-[#ff00cc] to-[#333399] basis-[23%] z-[10]  p-3 py-6 rounded-lg shadow-lg">
               <label
                 htmlFor="panchayat"
-                className="block mb-2 text-base font-bold text-gray-900"
+                className="flex items-center mb-5 text-lg font-bold text-white"
               >
-                Grama Panchayat
+                <span className="bg-[#F06ADD] inline-flex justify-center items-center w-[40px] h-[40px] rounded-full mr-2">
+                  <MdForest size={20} />
+                </span>
+                <span>Grama Panchayat</span>
               </label>
               <select
                 id="panchayat"
-                className="nm_Inset bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                className="nm_Inset bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ouline-noneblock w-full p-2.5"
                 defaultValue={selectedPanchayat}
                 disabled={allPanchayat?.length === 0}
                 onChange={(e) => detectChangeOfPanchayat(e)}
@@ -369,17 +393,21 @@ const ShowCharts = () => {
             </div>
 
             {/* week month year filter  */}
+            {/* background: linear-gradient(to right, #8e2de2, #4a00e0); */}
             {!path.includes("/statistics") && (
-              <div className="nm_Container basis-1/5 z-[10] bg-bgColor p-3">
+              <div className="bg-gradient-to-r to-[#810be7] from-[#de12de] basis-[23%] z-[10]  p-3 py-6 rounded-lg shadow-lg">
                 <label
                   htmlFor="date"
-                  className="block mb-2 text-base font-bold text-gray-900"
+                  className="flex items-center mb-5 text-lg font-bold text-white"
                 >
-                  Date
+                  <span className="bg-[#fb5efd] inline-flex justify-center items-center w-[40px] h-[40px] rounded-full mr-2">
+                    <BsCalendar3 size={20} />
+                  </span>
+                  <span>Date</span>
                 </label>
                 <select
                   id="date"
-                  className="nm_Inset bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  className="nm_Inset bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ouline-noneblock w-full p-2.5"
                   defaultValue={selectedDate}
                   disabled={selectedPanchayat?.length === 0}
                   onChange={(e) => detectChangeOfDate(e)}
@@ -406,19 +434,24 @@ const ShowCharts = () => {
               </div>
             )}
           </form>
-          <div
-            className={`${
-              path.includes("/dashboard") && "px-4"
-            } flex justify-between items-center p-0 dark:text-white z-[10]`}
-          >
-            <div className="nm_Container bg-bgColor w-[45%]  overflow-hidden z-[10] p-8">
-              {serverData?.length !== 0 && <BarChart chartData={chartData} />}
-            </div>
+          {loading ? (
+            <Loading />
+          ) : (
+            <div
+              className={`${
+                path.includes("/dashboard") && "px-4"
+              } flex justify-between items-center  p-0 z-[10]`}
+            >
+              {/* background: linear-gradient(to right, rgb(142, 45, 226), rgb(74, 0, 224)); */}
+              <div className="  w-[45%]  overflow-hidden z-[10] p-8">
+                {serverData?.length !== 0 && <BarChart chartData={chartData} />}
+              </div>
 
-            <div className="nm_Container bg-bgColor w-[45%] overflow-hidden z-[10] p-8">
-              {serverData?.length !== 0 && <PieChart chartData={chartData} />}
+              <div className=" w-[45%] overflow-hidden  z-[10] p-8">
+                {serverData?.length !== 0 && <PieChart chartData={chartData} />}
+              </div>
             </div>
-          </div>
+          )}
         </>
       )}
     </>
