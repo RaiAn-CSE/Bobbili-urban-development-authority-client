@@ -139,34 +139,35 @@ const DocumentUpload = () => {
           });
         });
       }
+      const PreviousDynamicData = applicationData?.psDocumentPageObservation?.data?.dynamic;
 
       if (role === "LTP") {
         setDynamicAppChecklistDocument(CombinedChecklistData)
       } else {
         // PS Previous and ChecklistData Combinding;
-        // If Previous Dynamic Document doesn't exists
-        if (role === "PS") {
-          setDynamicAppChecklistDocument(applicationData?.psDocumentPageObservation?.data?.dynamic);
-          return setRender(true);
-        }
-
-        // if (role === "PS" && CombinedChecklistData.length > 0) {
-        //   const updatedDynamicAppChecklist = DynamicAppChecklistDocument.map(combinedItem => {
-        //     const matchingItem = PreviousDynamicDocumentData.find(prevItem => prevItem.id === combinedItem.id);
-        //     return matchingItem ? { ...combinedItem, ...matchingItem } : combinedItem;
-        //   });
-        //   setDynamicAppChecklistDocument(updatedDynamicAppChecklist);
+        // // If Previous Dynamic Document doesn't exists
+        // if (role === "PS" && PreviousDynamicData.length > 0) {
+        //   setDynamicAppChecklistDocument(applicationData?.psDocumentPageObservation?.data?.dynamic);
+        //   return setRender(true);
         // }
-      }
 
+        if (role === "PS" && CombinedChecklistData.length > 0) {
+          const combinedArray = [...PreviousDynamicData || [], ...CombinedChecklistData];
+          const uniqueCombinedArray = [];
+
+          combinedArray.forEach(item => {
+            const exists = uniqueCombinedArray.some(existingItem => existingItem.id === item.id);
+            if (!exists) {
+              uniqueCombinedArray.push(item);
+            }
+          });
+          setDynamicAppChecklistDocument(uniqueCombinedArray);
+          setRender(true)
+        }
+      }
     };
     gettingData();
   }, [render]);
-
-  useEffect(() => { }, [render])
-
-  console.log({ DynamicAppChecklistDocument, PreviousDynamicDocumentData, remarkText });
-
 
   // file send into the database
   const handleFileUpload = async (url) => {

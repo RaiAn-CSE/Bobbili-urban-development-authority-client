@@ -6,19 +6,16 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
 	const handleDocumentStatus = (event, id, uploadId, type) => {
 		const data = event?.target?.value;
 		if (type === "dynamic") {
-			// handleStatus({ approved: data, id, uploadId, type });
 			handleDynamicStatus({ value: data, id, uploadId, type })
 			toast.success(`${data}, ${uploadId}, ${id}`);
 		} else {
-			// handleStatus({ approved: data, id, type });
 			handleDefaultStatus({ approved: data, id, type })
 		}
-
 	}
-
+console.log({role, id, approved, uploadId, type})
 	useEffect(() => {
 		// Your previous useEffect dependencies here
-	}, [approved, uploadId]);
+	}, [approved, uploadId, id]);
 
 	const handleRemarkText = (event) => {
 		const { value } = event?.target;
@@ -29,21 +26,21 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
 		setRemarkText((prev) => {
 			const isDynamic = type === "dynamic";
 			const existingIndex = prev.findIndex((item) => (
-			  item[type]?.id === id && (isDynamic ? item[type]?.uploadId === uploadId : true)
+				item[type]?.id === id && (isDynamic ? item[type]?.uploadId === uploadId : true)
 			));
-		  
+
 			const existingObject = existingIndex !== -1;
-		  
+
 			if (!existingObject) {
-			  // If the value does not exist, add a new object to the array
-			  return [...prev, { [type]: { id, uploadId, value } }];
+				// If the value does not exist, add a new object to the array
+				return [...prev, { [type]: { id, uploadId, value } }];
 			}
-		  
+
 			// If the value already exists, update the existing object with the new value
 			const updatedArray = [...prev];
 			updatedArray[existingIndex][type].value = value;
 			return updatedArray;
-		  });
+		});
 	};
 	return (
 		<div className='dark:text-white'>
@@ -60,7 +57,7 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
 								value="approved"
 								className="radio radio-sm radio-button__input mr-3 lg:mr-0"
 								onChange={(event) => handleDocumentStatus(event, id, uploadId, type)}
-								checked={approved === "approved"}
+								defaultChecked={approved === "approved"}
 							/>
 							<label
 								className={`radio-button__label text-base`}
@@ -81,7 +78,7 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
 								value="shortfall"
 								className="radio radio-sm radio-button__input mr-3 lg:mr-0"
 								onChange={(event) => handleDocumentStatus(event, id, uploadId, type)}
-								checked={approved === "shortfall"}
+								defaultChecked={approved === "shortfall"}
 							/>
 							<label
 								className={`radio-button__label text-base`}
