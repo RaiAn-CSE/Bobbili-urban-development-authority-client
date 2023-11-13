@@ -103,23 +103,13 @@ const DocumentUpload = () => {
       let CombinedChecklistData = [];
       const applicationData = await getApplicationData(applicationNo, cameFrom);
       const applicationCheckList = applicationData?.applicationCheckList;
-      role === "LTP" &&
-        setPreviousDefaultDocumentData(
-          applicationData?.document?.data?.default
-        );
-      role === "LTP" &&
-        setPreviousDynamicDocumentData(
-          applicationData?.document?.data?.dynamic
-        );
 
-      role === "PS" &&
-        setPreviousDefaultDocumentData(
-          applicationData?.psDocumentPageObservation?.data?.default
-        );
-      role === "PS" &&
-        setPreviousDynamicDocumentData(
-          applicationData?.psDocumentPageObservation?.data?.dynamic
-        );
+      // setPreviousDefaultDocumentData(applicationData?.document?.data?.default );
+      // setPreviousDynamicDocumentData(applicationData?.document?.data?.dynamic);
+
+      setPreviousDefaultDocumentData(applicationData?.psDocumentPageObservation?.data?.default)
+      setPreviousDynamicDocumentData(applicationData?.psDocumentPageObservation?.data?.dynamic)
+
       role === "PS" &&
         setApprovedConfirmation(
           applicationData?.psDocumentPageObservation?.approved
@@ -140,7 +130,7 @@ const DocumentUpload = () => {
 
         DynamicDocuments.forEach((data, index) => {
           applicationCheckList.forEach((CheckListData) => {
-            const condition01 = data.question === CheckListData.question;
+            const condition01 = data.question.toLowerCase() === CheckListData.question.toLowerCase();
             const condition02 = CheckListData.answer === "yes";
             if (condition01 && condition02) {
               CombinedChecklistData.push(data);
@@ -149,20 +139,30 @@ const DocumentUpload = () => {
         });
       }
 
-      const updatedDynamicAppChecklist = CombinedChecklistData.map(combinedItem => {
-        const matchingItem = PreviousDynamicDocumentData.find(prevItem => (
-          prevItem.id === combinedItem.id && prevItem.uploadId === combinedItem.uploadId
-        ));
+      if (role === "LTP") {
+        setDynamicAppChecklistDocument(CombinedChecklistData)
+      } else {
+        // PS Previous and ChecklistData Combinding;
+        // If Previous Dynamic Document doesn't exists
+        if (PreviousDynamicDocumentData.length > 0) {
+          return setDynamicAppChecklistDocument(PreviousDynamicDocumentData);
+        }
 
-        return matchingItem ? { ...combinedItem, ...matchingItem } : prevItem;
-      });
+        // if (role === "PS" && CombinedChecklistData.length > 0) {
+        //   const updatedDynamicAppChecklist = DynamicAppChecklistDocument.map(combinedItem => {
+        //     const matchingItem = PreviousDynamicDocumentData.find(prevItem => prevItem.id === combinedItem.id);
+        //     return matchingItem ? { ...combinedItem, ...matchingItem } : combinedItem;
+        //   });
+        //   setDynamicAppChecklistDocument(updatedDynamicAppChecklist);
+        // }
+      }
 
-      setDynamicAppChecklistDocument(updatedDynamicAppChecklist);
     };
     gettingData();
-  }, [PreviousDynamicDocumentData]);
+  }, []);
 
-  console.log({ DynamicAppChecklistDocument, remarkText })
+  console.log({ DynamicAppChecklistDocument, PreviousDynamicDocumentData, remarkText });
+
 
   // file send into the database
   const handleFileUpload = async (url) => {
