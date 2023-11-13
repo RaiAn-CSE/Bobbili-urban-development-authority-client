@@ -17,7 +17,7 @@ const DocumentUpload = () => {
   ]);
   const [DynamicAppChecklistDocument, setDynamicAppChecklistDocument] =
     useState([]);
-  const [UpdatedDynamicData, setUpdatedDynamictData] = useState([]);
+
   const [PreviousDefaultDocumentData, setPreviousDefaultDocumentData] =
     useState([]);
   const [PreviousDynamicDocumentData, setPreviousDynamicDocumentData] =
@@ -25,7 +25,7 @@ const DocumentUpload = () => {
 
   const [imageId, setImageId] = useState({});
   const [approvedConfirmation, setApprovedConfirmation] = useState("");
-  const [recomendationMessage, setRecommendationMessage] = useState("");
+  const [recommendationMessage, setRecommendationMessage] = useState("");
   const stepperData = useOutletContext();
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
   const [psSendingDocument, setPsSendingDocument] = useState({
@@ -44,16 +44,18 @@ const DocumentUpload = () => {
     getApplicationData,
     userInfoFromLocalStorage,
   } = useContext(AuthContext);
+
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
   const cameFrom = JSON.parse(localStorage.getItem("page"));
   const role = userInfoFromLocalStorage().role;
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
   const [defaultImageData, setDefaultImageData] = useState([]);
   const [dynamicImageData, setDynamicImageData] = useState([]);
-  const [sendingImageId, setSendingImageId] = useState({dynamic: [],default: []});
-  const [imageIdFromDB, setImageIdFromDB] = useState({default: [],dynamic: []});
-  const [remarkText,setRemarkText]=useState([]);
-console.log(remarkText,"remarkText")
+  const [sendingImageId, setSendingImageId] = useState({ dynamic: [], default: [] });
+  const [imageIdFromDB, setImageIdFromDB] = useState({ default: [], dynamic: [] });
+  const [remarkText, setRemarkText] = useState([]);
+
+
   // Ltp File uploading Data handeling
   const handleFileChange = (event, id, uploadedFile, type, uploadId) => {
     const { files, name } = event.target;
@@ -90,18 +92,17 @@ console.log(remarkText,"remarkText")
   useEffect(() => {
     setPsSendingDocument({
       default: UpdatedDefaultData,
-      dynamic: UpdatedDynamicData,
+      dynamic: DynamicAppChecklistDocument,
     });
-  }, [UpdatedDefaultData, UpdatedDynamicData]);
+  }, [UpdatedDefaultData, DynamicAppChecklistDocument]);
 
 
   // Adding checklist Data to Document from server data && Updating Data from server Data
   useEffect(() => {
     const gettingData = async () => {
-      let updatedDynamicDocumentsToAdd = [];
+      let CombinedChecklistData = [];
       const applicationData = await getApplicationData(applicationNo, cameFrom);
       const applicationCheckList = applicationData?.applicationCheckList;
-      console.log(applicationCheckList, "APplication Checklist From Document");
       role === "LTP" &&
         setPreviousDefaultDocumentData(
           applicationData?.document?.data?.default
@@ -127,27 +128,41 @@ console.log(remarkText,"remarkText")
         setRecommendationMessage(
           applicationData?.psDocumentPageObservation?.message
         );
+      role === "PS" &&
+        setRemarkText(
+          applicationData?.psDocumentPageObservation?.remarkText
+        );
 
       // Checklist "yes" Data integrating to Dynamic Document
       if (applicationCheckList?.length) {
         const documents = applicationData?.documents;
-        console.log(documents, "Documents");
         setImageIdFromDB({ ...documents });
-        DynamicDocuments?.forEach((data, index) => {
-          applicationCheckList.forEach((document) => {
-            const condition01 = data.question === document.question;
-            const condition02 = document.answer === "yes";
+
+        DynamicDocuments.forEach((data, index) => {
+          applicationCheckList.forEach((CheckListData) => {
+            const condition01 = data.question === CheckListData.question;
+            const condition02 = CheckListData.answer === "yes";
             if (condition01 && condition02) {
-              updatedDynamicDocumentsToAdd.push(data);
+              CombinedChecklistData.push(data);
             }
           });
         });
       }
-      setDynamicAppChecklistDocument(updatedDynamicDocumentsToAdd);
+
+      const updatedDynamicAppChecklist = CombinedChecklistData.map(combinedItem => {
+        const matchingItem = PreviousDynamicDocumentData.find(prevItem => (
+          prevItem.id === combinedItem.id && prevItem.uploadId === combinedItem.uploadId
+        ));
+
+        return matchingItem ? { ...combinedItem, ...matchingItem } : prevItem;
+      });
+
+      setDynamicAppChecklistDocument(updatedDynamicAppChecklist);
     };
     gettingData();
-  }, []);
+  }, [PreviousDynamicDocumentData]);
 
+  console.log({ DynamicAppChecklistDocument, remarkText })
 
   // file send into the database
   const handleFileUpload = async (url) => {
@@ -159,14 +174,10 @@ console.log(remarkText,"remarkText")
 
     const loopTimes = [defaultImages, dynamicImages];
 
-    console.log(defaultImages, dynamicImages, "ALL files");
-
     for (let lt = 0; lt < loopTimes.length; lt++) {
       // another loop
 
       for (let i = 0; i < loopTimes[lt].length; i++) {
-        console.log(loopTimes[lt][i].file, "File CHECK");
-
         const formData = new FormData();
 
         formData.append("file", loopTimes[lt][i].file);
@@ -181,7 +192,6 @@ console.log(remarkText,"remarkText")
             }
           );
 
-          console.log(response, "Response");
           // Handle success or display a success message to the user
           if (response?.data.msg === "Successfully uploaded") {
             const documentImageId = response?.data?.fileId;
@@ -195,8 +205,6 @@ console.log(remarkText,"remarkText")
             }
           }
         } catch (error) {
-          console.log(error, "ERROR");
-          // Handle errors, e.g., show an error message to the user
           toast.error("Error to upload documents");
         }
       }
@@ -205,12 +213,6 @@ console.log(remarkText,"remarkText")
     }
 
     if (fileCheckToUpload === loopTimes.length) {
-      console.log(setImageId, "Image id");
-      console.log({
-        default: [...imageIdFromDB?.default, ...sendingImageId?.default],
-        dynamic: [...imageIdFromDB?.dynamic, ...sendingImageId?.dynamic],
-      });
-
       const documents = {
         default: [],
         dynamic: [],
@@ -254,9 +256,6 @@ console.log(remarkText,"remarkText")
       } else {
         documents.dynamic = [...dbDynamic];
       }
-
-      console.log(documents, "Documents");
-
       return await sendUserDataIntoDB(url, "PATCH", {
         applicationNo,
         documents,
@@ -269,7 +268,7 @@ console.log(remarkText,"remarkText")
     const PSData = {
       data: psSendingDocument,
       approved: approvedConfirmation ?? "",
-      message: recomendationMessage ?? "",
+      message: recommendationMessage ?? "",
       remarkText
     };
 
@@ -295,25 +294,20 @@ console.log(remarkText,"remarkText")
             handleFileChange={handleFileChange}
             gradientColor={gradientColor}
             defaultImageFromDB={imageIdFromDB?.default}
-            setApprovedConfirmation={setApprovedConfirmation}
             setRemarkText={setRemarkText}
             remarkText={remarkText}
-            // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
+          // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
           />
           <DynamicDocument
             role={role}
-            PreviousDynamicDocumentData={PreviousDynamicDocumentData}
             DynamicAppChecklistDocument={DynamicAppChecklistDocument}
             setDynamicAppChecklistDocument={setDynamicAppChecklistDocument}
-            UpdatedDynamicData={UpdatedDynamicData}
-            // setUpdatedDynamictData={setUpdatedDynamictData}
             handleFileChange={handleFileChange}
             gradientColor={gradientColor}
             dynamicImageFromDB={imageIdFromDB?.dynamic}
-            setApprovedConfirmation={setApprovedConfirmation}
             setRemarkText={setRemarkText}
             remarkText={remarkText}
-            // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
+          // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
           />
         </div>
       </form>
@@ -321,9 +315,9 @@ console.log(remarkText,"remarkText")
       {role === "PS" ? (
         <DocumentFooter
           approvedConfirmation={approvedConfirmation}
-          recomendationMessage={recomendationMessage}
           setApprovedConfirmation={setApprovedConfirmation}
           setRecommendationMessage={setRecommendationMessage}
+          recommendationMessage={recommendationMessage}
         />
       ) : (
         ""

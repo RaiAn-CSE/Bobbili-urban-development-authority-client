@@ -130,12 +130,12 @@ const Payment = () => {
     // General Informatin
     const { natureOfTheSite } = generalInformation;
 
-    const builtup_Area = Number(totalBuiltUpArea) || 1;
-    const vacant_area = Number(vacantLand) || 1;
-    const net_Plot_Area = Number(netPlotAreaCal) || 1;
-    const market_value = Number(marketValueSqym) || 1;
+    const builtup_Area = Number(totalBuiltUpArea) || 0;
+    const vacant_area = Number(vacantLand) || 0;
+    const net_Plot_Area = Number(netPlotAreaCal) || 0;
+    const market_value = Number(marketValueSqym) || 0;
     const nature_of_site = natureOfTheSite;
-    const BuiltUp_area_SquareFeet = Number(builtup_Area * 10.7639104) || 1;
+    const BuiltUp_area_SquareFeet = Number(builtup_Area * 10.7639104) || 0;
 
     console.log(typeof builtup_Area, "builtup_Area");
 
@@ -267,14 +267,15 @@ const Payment = () => {
     // ====Building Permit====
     const buildingPermitUnitRate = 20; //per Sqm.
     const buildingPermitFees = buildingPermitUnitRate * builtup_Area;
-
+    const gramaSiteApprovalCharged = 10 * net_Plot_Area;
     // =====Grama Panchayet Total=====
     const gramaPanchayetTotal = () => {
       return (
         bettermentCharged +
         paperPublicationCharged +
         processingFees +
-        buildingPermitFees
+        buildingPermitFees+
+        gramaSiteApprovalCharged
       );
     };
     // =====Grama Panchayet Total Charged=====
@@ -316,6 +317,7 @@ const Payment = () => {
       processingFees,
       paperPublicationCharged,
       buildingPermitFees,
+      gramaSiteApprovalCharged
     });
   };
 
@@ -422,6 +424,8 @@ const Payment = () => {
 
     const buildingPermitFee =
       document.getElementById("buildingPermitFees")?.value;
+    const gramaSiteApprovalCharges =
+      document.getElementById("gramaSiteApprovalCharges")?.value;
 
     const GramaPanchayetTotalCharged = document.getElementById(
       "GramaPanchayetTotalCharged"
@@ -474,6 +478,7 @@ const Payment = () => {
       processingFee: processingFee ?? "",
       buildingPermitFees: buildingPermitFee ?? "",
       bettermentCharged: bettermentCharged ?? "",
+      gramaSiteApprovalCharged:gramaSiteApprovalCharges??"",
       GramaPanchayetTotalCharged: GramaPanchayetTotalCharged ?? "",
       gramaChallanNo: gramaChallanNo ?? "",
       gramaChallanDate: gramaChallanDate ?? "",
@@ -776,6 +781,14 @@ const Payment = () => {
               placeholder="000"
               type="number"
               ltpDetails={calculatedData?.buildingPermitFees}
+            />
+            <InputField
+              id="gramaSiteApprovalCharges"
+              name="gramaSiteApprovalCharges"
+              label="Site Approval Charges"
+              placeholder="000"
+              type="number"
+              ltpDetails={calculatedData?.gramaSiteApprovalCharged}
             />
 
             <InputField
