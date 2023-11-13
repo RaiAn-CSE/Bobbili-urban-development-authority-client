@@ -141,7 +141,7 @@ const ProceedingModal = () => {
                       <td className="border-r p-2 border-neutral-500 text-base text-center">
                         {approvedDate[7] ?? "N/A"}
                       </td> */}
-                      {approvedDate?.length === 1 &&
+                      {approvedDate?.length &&
                         approvedDate?.map((item, index) => {
                           return (
                             <td
@@ -589,7 +589,7 @@ const ProceedingModal = () => {
                 భవన నిర్మాణం ప్రారంభమునకు తేది <br />
                 proceeding date (Confusion)
               </th>
-              {approvedDate?.length === 1 &&
+              {approvedDate?.length &&
                 approvedDate?.map((item, index) => {
                   return (
                     <td
@@ -606,7 +606,7 @@ const ProceedingModal = () => {
                 భవన నిర్మాణం పూర్తి కావలసిన తేది <br />
                 Proceeding date + 3years
               </th>
-              {validProceedingDate?.length === 1 &&
+              {validProceedingDate?.length &&
                 validProceedingDate?.map((item, index) => {
                   return (
                     <td
