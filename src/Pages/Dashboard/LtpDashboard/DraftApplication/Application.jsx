@@ -122,17 +122,15 @@ function Application({ setOpenApplication }) {
     if (isArray) {
       return (
         <td
-          className={`bg-white border border-black ${
-            type === "keys" && "w-1/3"
-          } p-0`}
+          className={`bg-white border border-black ${type === "keys" && "w-1/3"
+            } p-0`}
         >
           <div className="flex">
             {data?.map((e, i) => (
               <p
                 key={i}
-                className={`flex items-center p-2 border-l border-black h-12 ${
-                  i === 0 && "w-1/2 border-l-0 bg-white"
-                }`}
+                className={`flex items-center p-2 border-l border-black h-12 ${i === 0 && "w-1/2 border-l-0 bg-white"
+                  }`}
               >
                 {(keys ? Object.keys(data[i]) : Object.values(data[i])) || e}
               </p>
@@ -143,9 +141,8 @@ function Application({ setOpenApplication }) {
     } else {
       return (
         <td
-          className={`bg-white border border-black ${
-            type === "keys" && "w-1/3"
-          } p-0`}
+          className={`bg-white border border-black ${type === "keys" && "w-1/3"
+            } p-0`}
         >
           <p className="h-12 p-2 flex items-center">
             {keys ? Object.keys(data) : Object.values(data)}
@@ -448,7 +445,7 @@ function Application({ setOpenApplication }) {
           <form method="dialog" className="absolute top-16 right-0 z-50">
             <button
               onClick={() => setOpenApplication(false)}
-              // className={`text-red-600`}
+            // className={`text-red-600`}
             >
               <RxCross2 className="text-3xl" />
             </button>

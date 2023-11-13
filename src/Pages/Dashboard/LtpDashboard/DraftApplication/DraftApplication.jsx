@@ -19,6 +19,13 @@ const DraftApplication = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [openApplication, setOpenApplication] = useState(false);
 
+  const [openProceeding, setOpenProceeding] = useState(false);
+
+  // useEffect(() => {
+  //   console.log(openProceeding);
+  // }, [setOpenProceeding])
+
+
   // const { applicationNo } = location.state;
   // console.log(
   //   JSON.parse(localStorage.getItem("CurrentAppNo")),
@@ -174,9 +181,10 @@ const DraftApplication = () => {
               {cameFrom === "approved" && (
                 <>
                   <button
-                    onClick={() =>
-                      document.getElementById("proceedingModal").showModal()
-                    }
+                    onClick={() => {
+                      // document.getElementById("proceedingModal").showModal();
+                      setOpenProceeding(true);
+                    }}
                     className={`btn btn-sm nm_Container text-xs bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white me-5 dark:border-none`}
                   >
                     <VscDebugContinue className="text-lg" />{" "}
@@ -248,23 +256,32 @@ const DraftApplication = () => {
             </ul>
           </div>
         </>
-      )}
+      )
+      }
 
       {/* content  */}
       <Outlet
         context={[isStepperVisible, currentStep, steps, handleStepClick]}
       />
       {/* proceedingModal modal info  */}
-      <ProceedingModal />
+
+      {
+        openProceeding ?
+          <ProceedingModal setOpenProceeding={setOpenProceeding} />
+          : ""
+      }
+
       {/* my_modal_2 modal info : */}
       <EndorsementModal />
 
       {/* Application Modal */}
-      {openApplication ? (
-        <Application setOpenApplication={setOpenApplication} />
-      ) : (
-        ""
-      )}
+      {
+        openApplication ? (
+          <Application setOpenApplication={setOpenApplication} />
+        ) : (
+          ""
+        )
+      }
     </>
   );
 };

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import customScroll from "../../Style/Scrollbar.module.css";
 import { AuthContext } from '../../AuthProvider/AuthProvider';
 
-const ProceedingModal = () => {
+const ProceedingModal = ({ setOpenProceeding }) => {
 
     const { getApplicationData, calculateNoOfFloors } = useContext(AuthContext);
 
@@ -25,6 +25,14 @@ const ProceedingModal = () => {
         getData();
     }, []);
 
+    useEffect(() => {
+        // Opening the modal when the component mounts
+        const modal = document.getElementById("proceedingModal");
+        if (modal) {
+            modal.showModal();
+        }
+    }, []);
+
 
     return (
         <div className='dark:bg-white'>
@@ -33,7 +41,7 @@ const ProceedingModal = () => {
                 <div className={`${customScroll.customScrolling} rounded-lg modal-box px-12 py-10 text-gray-900 w-11/12 max-w-5xl relative bg-[#E8EAEC]`}>
                     <form method="dialog">
                         {/* if there is a button in form, it will close the modal */}
-                        <button className="btn btn-sm text-white hover:bg-violet-600 btn-circle btn-ghost absolute top-2 right-2 bg-violet-500">✕</button>
+                        <button onClick={() => setOpenProceeding(false)} className="btn btn-sm text-white hover:bg-violet-600 btn-circle btn-ghost absolute top-2 right-2 bg-violet-500">✕</button>
                     </form>
                     <div>
                         <h1 className='font-bold text-xl underline text-center mt-5'>భవన నిర్మాణ ఉత్తర్వులు</h1>
@@ -42,8 +50,8 @@ const ProceedingModal = () => {
                             <p className='mt-5'><span className='underline'>{allInfo?.buildingInfo?.generalInformation?.mandal}</span> మండలం, <span className='underline'>{allInfo?.buildingInfo?.generalInformation?.gramaPanchayat}</span> గ్రామ పంచాయతి కార్యదర్శి వారి ఉత్తర్వులు ప్రస్తుతము శ్రీ <span className='underline'>{allInfo?.applicantInfo?.applicantDetails?.[0]?.name}</span></p>
 
                             <div className='basis-[40%] flex flex-col items-end'>
-                                <h3>బి. ఎ.నెం: <span className='ml-1 border p-1 bg-[#E8EAEC] rounded-md border-gray-600'>{allInfo?.applicationNo}</span></h3>
-                                <h3 className='mt-4'>తేది: <span className='ml-1 border p-1 bg-[#E8EAEC] rounded-md border-gray-600'>దిది/మామా/సంసం(approved date)</span></h3>
+                                <h3>బి. ఎ.నెం: <span className='ml-1 border p-1 bg-[#E8EAEC] rounded-sm border-gray-600'>{allInfo?.applicationNo}</span></h3>
+                                <h3 className='mt-4'>తేది: <span className='ml-1 border p-1 bg-[#E8EAEC] rounded-sm border-gray-600'>దిది/మామా/సంసం(approved date)</span></h3>
                             </div>
                         </div>
 
@@ -383,7 +391,7 @@ const ProceedingModal = () => {
                 </div>
 
                 <form method="dialog" className="modal-backdrop">
-                    <button>close</button>
+                    <button onClick={() => setOpenProceeding(false)}>close</button>
                 </form>
             </dialog >
         </div >
