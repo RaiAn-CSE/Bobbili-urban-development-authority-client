@@ -30,14 +30,23 @@ const ProceedingModal = () => {
         <div className='dark:bg-white'>
             <dialog id="proceedingModal" className="modal">
                 {/* divide-y-2 divide-gray-200 */}
-                <div className={`${customScroll.customScrolling} rounded-lg modal-box py-10 bg-white text-gray-900  mb-10 w-11/12 max-w-5xl relative`}>
+                <div className={`${customScroll.customScrolling} rounded-lg modal-box px-12 py-10 text-gray-900 mb-10 w-11/12 max-w-5xl relative bg-[#E8EAEC]`}>
                     <form method="dialog">
                         {/* if there is a button in form, it will close the modal */}
                         <button className="btn btn-sm text-white hover:bg-violet-600 btn-circle btn-ghost absolute top-2 right-2 bg-violet-500">✕</button>
                     </form>
                     <div>
-                        <p><span className='underline'>{allInfo?.buildingInfo?.generalInformation?.mandal}</span> మండలం, <span className='underline'>{allInfo?.buildingInfo?.generalInformation?.gramaPanchayat}</span> గ్రామ పంచాయతి కార్యదర్శి వారి ఉత్తర్వులు ప్రస్తుతము శ్రీ <span className='underline'>{allInfo?.applicantInfo?.applicantDetails?.[0]?.name}</span></p>
                         <h1 className='font-bold text-xl underline text-center mt-5'>భవన నిర్మాణ ఉత్తర్వులు</h1>
+
+                        <div className='flex justify-between'>
+                            <p className='mt-5'><span className='underline'>{allInfo?.buildingInfo?.generalInformation?.mandal}</span> మండలం, <span className='underline'>{allInfo?.buildingInfo?.generalInformation?.gramaPanchayat}</span> గ్రామ పంచాయతి కార్యదర్శి వారి ఉత్తర్వులు ప్రస్తుతము శ్రీ <span className='underline'>{allInfo?.applicantInfo?.applicantDetails?.[0]?.name}</span></p>
+
+                            <div className='basis-[40%] flex flex-col items-end'>
+                                <h3>బి. ఎ.నెం: <span className='border p-1 bg-[#E8EAEC] nm_Container'>{allInfo?.applicationNo}</span></h3>
+                                <h3 className='mt-4'>తేది(approved date): <span className='border p-1 bg-[#E8EAEC] nm_Container'>{allInfo?.applicationNo}</span></h3>
+                            </div>
+                        </div>
+
                         <p className='font-semibold text-sm'>వరకు,</p>
                         <div className='flex mt-5'>
                             <div className='basis-[40%]  mr-5'>
@@ -109,7 +118,7 @@ const ProceedingModal = () => {
                     <table className='min-w-full'>
                         <thead className='border border-gray-900 '>
                             <tr>
-                                <th className='border-r border-neutral-500 p-2 text-center'>A</th>
+                                <th className='border-r border-neutral-500 p-2 text-center w-16'>A</th>
                                 <th colSpan={4} className='p-2 text-center'>దరఖాస్తు దారులు మరియు ఎల్.టి.పి వివరములు</th>
                             </tr>
                         </thead>
@@ -214,15 +223,15 @@ const ProceedingModal = () => {
                             </tr>
                             <tr className='p-2 border border-gray-900'>
                                 <td className='p-2 border-r border-neutral-500 text-center'>1</td>
-                                <td className='p-2 border-r border-neutral-500 text-center'>డెవలప్మెంట్ చార్జెస్ (బిల్డుప్ ఏరియా )</td>
+                                <td className='p-2 border-r border-neutral-500 text-center break-words'>డెవలప్మెంట్ చార్జెస్ (బిల్డుప్ ఏరియా )</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>{allInfo?.payment?.udaCharge?.builtUpArea}</td>
-                                <td className='p-2 border-r border-neutral-500 text-center'>8</td>
+                                <td className='p-2 border-r border-neutral-500 text-center w-5'>8</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>గ్రీన్ ఫీజు</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>{allInfo?.payment?.greenFeeCharge?.greenFee}</td>
                             </tr>
                             <tr className='p-2 border border-gray-900'>
                                 <td className='p-2 border-r border-neutral-500 text-center'>2</td>
-                                <td className='p-2 border-r border-neutral-500 text-center'>డెవలప్మెంట్ చార్జెస్ (వేకేంట్ ల్యాండ్)</td>
+                                <td className='p-2 border-r border-neutral-500 text-center break-words'>డెవలప్మెంట్ చార్జెస్ (వేకేంట్ ల్యాండ్)</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>{allInfo?.payment?.udaCharge?.vacantArea}</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>9</td>
                                 <td className='p-2 border-r border-neutral-500 text-center'>బిల్డింగ్ పర్మిట్ ఫీజు</td>
