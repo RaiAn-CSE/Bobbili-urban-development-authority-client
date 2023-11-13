@@ -91,9 +91,11 @@ const ProceedingModal = ({ modalProceeding }) => {
                 {allInfo?.applicantInfo?.applicantDetails?.[0]?.name}
               </span>
             </p>
-            <h1 className="font-bold text-xl underline text-center mt-5">
+
+            <h1 className="font-bold text-xl text-center mt-5">
               భవన నిర్మాణ ఉత్తర్వులు
             </h1>
+
             <p className="font-semibold text-sm">వరకు,</p>
             <div className="flex mt-5">
               <div className="basis-[40%]  mr-5">
