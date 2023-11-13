@@ -259,9 +259,9 @@ const DraftApplication = () => {
         context={[isStepperVisible, currentStep, steps, handleStepClick]}
       />
       {/* proceedingModal modal info  */}
-      {/* <ProceedingModal /> */}
+      <ProceedingModal />
       {/* my_modal_2 modal info : */}
-      {/* <EndorsementModal /> */}
+      <EndorsementModal />
 
       {/* Application Modal */}
       {openApplication ? (

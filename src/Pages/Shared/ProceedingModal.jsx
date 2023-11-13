@@ -495,7 +495,10 @@ const ProceedingModal = () => {
                   సైట్ అప్రూవల్ చార్జెస్
                 </td>
                 <td className="p-2 border-r border-neutral-500 text-center">
-                  Site approval charges
+                  {
+                    allInfo?.payment?.gramaPanchayatFee
+                      ?.gramaSiteApprovalCharged
+                  }
                 </td>
               </tr>
               <tr className="p-2 border border-gray-900">
