@@ -18,6 +18,10 @@ const DraftApplication = () => {
   const location = useLocation();
   const [currentStep, setCurrentStep] = useState(0);
   const [openApplication, setOpenApplication] = useState(false);
+  const [openProceeding, setOpenProceeding] = useState(false);
+  const [openEndorsement, setOpenEndorsement] = useState(false);
+
+
 
   // const { applicationNo } = location.state;
   // console.log(
@@ -147,7 +151,7 @@ const DraftApplication = () => {
 
   console.log(
     applicationButtonForDraftApplication &&
-      (cameFrom === "draft" || cameFrom === "submit")
+    (cameFrom === "draft" || cameFrom === "submit")
   );
 
   const applicationButtonForApprovedOrShortfallApplication =
@@ -174,9 +178,10 @@ const DraftApplication = () => {
               {cameFrom === "approved" && (
                 <>
                   <button
-                    onClick={() =>
-                      document.getElementById("proceedingModal").showModal()
-                    }
+                    onClick={() => {
+                      // document.getElementById("proceedingModal").showModal();
+                      setOpenProceeding(true);
+                    }}
                     className={`btn btn-sm nm_Container text-xs bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white me-5 dark:border-none`}
                   >
                     <VscDebugContinue className="text-lg" />{" "}
@@ -194,10 +199,6 @@ const DraftApplication = () => {
               {cameFrom === "shortfall" && (
                 <>
                   <button
-                    // Open the modal using document.getElementById('ID').showModal() method
-                    // onClick={() =>
-                    //   document.getElementById("my_modal_1").showModal()
-                    // }
                     className={`btn btn-sm text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white me-5  dark:border-none`}
                     onClick={navigateToResubmitPage}
                   >
@@ -205,8 +206,10 @@ const DraftApplication = () => {
                   </button>
                   <button
                     // Open the modal using document.getElementById('ID').showModal() method
-                    onClick={() =>
-                      document.getElementById("my_modal_2").showModal()
+                    onClick={() => {
+                      // document.getElementById("my_modal_2").showModal();
+                      setOpenEndorsement(true)
+                    }
                     }
                     className={`btn btn-sm me-5 text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white dark:border-none`}
                   >
@@ -218,14 +221,14 @@ const DraftApplication = () => {
 
               {(applicationButtonForDraftApplication ||
                 applicationButtonForApprovedOrShortfallApplication) && (
-                <button
-                  onClick={() => setOpenApplication(true)}
-                  className={`btn btn-sm text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white dark:border-none`}
-                >
-                  <HiOutlineClipboardDocumentList className="text-lg" />{" "}
-                  <span>Application</span>
-                </button>
-              )}
+                  <button
+                    onClick={() => setOpenApplication(true)}
+                    className={`btn btn-sm text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white dark:border-none`}
+                  >
+                    <HiOutlineClipboardDocumentList className="text-lg" />{" "}
+                    <span>Application</span>
+                  </button>
+                )}
             </div>
           </div>
           <div className="mb-5 font-roboto">
@@ -252,23 +255,36 @@ const DraftApplication = () => {
             </ul>
           </div>
         </>
-      )}
+      )
+      }
 
       {/* content  */}
       <Outlet
         context={[isStepperVisible, currentStep, steps, handleStepClick]}
       />
+
       {/* proceedingModal modal info  */}
-      <ProceedingModal />
+      {
+        openProceeding ?
+          <ProceedingModal modalProceeding={{ setOpenProceeding, openProceeding }} />
+          : ""
+      }
+
       {/* my_modal_2 modal info : */}
-      <EndorsementModal />
+      {
+        openEndorsement ?
+          <EndorsementModal modalEndorsement={{ setOpenEndorsement, openEndorsement }} />
+          : ""
+      }
 
       {/* Application Modal */}
-      {openApplication ? (
-        <Application setOpenApplication={setOpenApplication} />
-      ) : (
-        ""
-      )}
+      {
+        openApplication ? (
+          <Application setOpenApplication={setOpenApplication} />
+        ) : (
+          ""
+        )
+      }
     </>
   );
 };

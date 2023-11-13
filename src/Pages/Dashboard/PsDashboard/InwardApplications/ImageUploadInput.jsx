@@ -15,20 +15,20 @@ const ImageUploadInput = ({
   };
 
   return (
-    <div className="flex items-center justify-center bg-gray-50">
+    <div className="flex items-center justify-center">
       <div className="basis-[80%] w-full">
         <label
           htmlFor={id}
-          className="flex flex-col items-center justify-center w-full cursor-pointer bg-gray-50 hover:bg-gray-200"
+          className="flex flex-col items-center justify-center w-full cursor-pointer"
         >
-          <div className="flex flex-col items-center justify-center p-[10px]">
+          <div className="flex flex-col items-center justify-center">
             {siteBoundariesImageFiles && siteBoundariesImageFiles[id] ? (
-              <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-gray-500 dark:text-gray-400">
                 <span className="font-semibold">Uploaded file: </span>
                 {siteBoundariesImageFiles[id].name.slice(0, 10) + "..."}
               </p>
             ) : (
-              <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-gray-500 dark:text-gray-400 py-4">
                 <span className="font-semibold">Click to upload</span> or drag
                 and drop
               </p>

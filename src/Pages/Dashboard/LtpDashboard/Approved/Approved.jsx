@@ -60,6 +60,8 @@ const Approved = () => {
       return { ...prev, ...newValue };
     });
   }, []);
+
+
   return (
     <>
       <TableLayout

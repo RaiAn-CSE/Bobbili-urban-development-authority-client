@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import customScroll from "../../Style/Scrollbar.module.css";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 
-const EndorsementModal = () => {
+const EndorsementModal = ({ modalEndorsement }) => {
+  const { openEndorsement, setOpenEndorsement } = modalEndorsement;
   const { getApplicationData, ownerNamePattern } = useContext(AuthContext);
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
@@ -13,6 +14,13 @@ const EndorsementModal = () => {
   const [surveyNo, setSurveyNo] = useState("");
   const [ownerName, setOwnerName] = useState("");
   const [dataFromDb, setDataFromDb] = useState({});
+
+  useEffect(() => {
+    const modal = document.getElementById('endorsementModal');
+    if (openEndorsement) {
+      modal.showModal();
+    }
+  }, []);
 
   useEffect(() => {
     const getData = async () => {
@@ -39,21 +47,21 @@ const EndorsementModal = () => {
     .join("-");
 
   return (
-    <div className="dark:bg-white px-10">
-      <dialog id="my_modal_2" className="modal">
+    <div className="dark:bg-white">
+      <dialog id="endorsementModal" className="modal">
         {/* divide-y-2 divide-gray-200 */}
         <div
-          className={`${customScroll.customScrolling} rounded-lg modal-box py-10 px-10 bg-white text-gray-900 mb-10 w-11/12 max-w-5xl divide-y-2 divide-gray-200 relative`}
+          className={`${customScroll.customScrolling} rounded-lg modal-box py-10 px-12 bg-white text-gray-900 w-11/12 max-w-5xl divide-y-2 divide-gray-200 relative`}
         >
           <form method="dialog">
             {/* if there is a button in form, it will close the modal */}
-            <button className="btn btn-sm text-white hover:bg-violet-600 btn-circle btn-ghost absolute top-2 right-2 bg-violet-500">
+            <button onClick={() => setOpenEndorsement(false)} className="btn btn-sm text-white hover:bg-violet-600 btn-circle btn-ghost absolute top-2 right-2 bg-violet-500">
               ✕
             </button>
             <h3 className="font-bold text-lg text-center">ENDORSEMENT!</h3>
           </form>
 
-          <div className="py-5 pt-2">
+          <div className="pt-5">
             <div className="flex justify-between">
               <h2>Letter No.:1112/4232/21</h2>
               <h2>Date:{currentDate}</h2>
@@ -90,24 +98,24 @@ const EndorsementModal = () => {
               <p className="font-bold">
                 You are requested to comply the shortfalls raised in documents:
               </p>
-              <table className="w-full border text-center text-sm font-light border-neutral-500">
-                <thead className="border-b font-medium border-neutral-500 ">
+              <table className="border text-sm font-light border-neutral-500">
+                <thead className="border-b font-medium border-neutral-500">
                   <tr>
                     <th
                       scope="col"
-                      className="border-r px-6 py-4 border-neutral-500  bg-gray-200"
+                      className="border-r px-6 py-4 border-neutral-500 bg-gray-200"
                     >
                       #
                     </th>
                     <th
                       scope="col"
-                      className="border-r px-6 py-4 border-neutral-500  bg-gray-200"
+                      className="border-r px-6 py-4 border-neutral-500 bg-gray-200"
                     >
                       Name of the Document
                     </th>
                     <th
                       scope="col"
-                      className="border-r px-6 py-4 border-neutral-500  bg-gray-200"
+                      className="border-r px-6 py-4 border-neutral-500 bg-gray-200"
                     >
                       Remarks
                     </th>
@@ -116,47 +124,33 @@ const EndorsementModal = () => {
                 <tbody>
                   {/* Ground Position  */}
                   <tr className="border-b border-neutral-500">
-                    <td
-                      rowSpan=""
-                      className="whitespace-nowrap border-r px-6 py-4 border-neutral-500"
-                    >
+                    <td rowSpan="" className="break-words border-r px-6 py-4 border-neutral-500">
                       1
                     </td>
                     <td
-                      colSpan=""
-                      className={`whitespace-nowrap border-r px-6 py-4 border-neutral-500 text-base`}
+                      className={`break-words border-r px-6 py-4 border-neutral-500 text-base`}
                     >
-                      Latest Encumbrance Certificate issued by Registration
-                      Department.
+                      Latest Encumbrance Certificate issued by Registration Department.
                     </td>
                     <td
-                      colSpan=""
-                      className={`whitespace-nowrap border-r px-6 py-4 border-neutral-500 text-base`}
+                      className={`break-words border-r px-6 py-4 border-neutral-500 text-base`}
                     >
-                      ,
+                      Self-Attested copies of Ownership Self-Attested copies of Ownership
                     </td>
                   </tr>
                   <tr className="border-b border-neutral-500">
-                    <td
-                      rowSpan=""
-                      className="whitespace-nowrap border-r px-6 py-4 border-neutral-500"
-                    >
+                    <td rowSpan="" className="break-words border-r px-6 py-4 border-neutral-500">
                       2
                     </td>
                     <td
-                      colSpan=""
-                      className={`whitespace-nowrap border-r px-6 py-4 border-neutral-500 text-base`}
+                      className={`break-words border-r px-6 py-4 border-neutral-500 text-base`}
                     >
-                      Self-Attested copies of Ownership
-                      Documents-lease-deed/sale deed etc.giving the physical
-                      description of the plot/property.giving the physical
-                      description of the plot/property.
+                      Self-Attested copies of Ownership Documents-lease-deed/sale deed etc.giving the physical description of the plot/property.
                     </td>
                     <td
-                      colSpan=""
-                      className={`whitespace-nowrap border-r px-6 py-4 border-neutral-500 text-base`}
+                      className={`break-words border-r px-6 py-4 border-neutral-500 text-base`}
                     >
-                      ,
+                      Self-Attested copies of Ownership
                     </td>
                   </tr>
                 </tbody>
@@ -209,7 +203,7 @@ const EndorsementModal = () => {
         </div>
 
         <form method="dialog" className="modal-backdrop">
-          <button>close</button>
+          <button onClick={() => setOpenEndorsement(false)}>close</button>
         </form>
       </dialog>
     </div>

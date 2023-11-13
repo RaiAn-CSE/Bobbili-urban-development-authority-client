@@ -122,17 +122,15 @@ function Application({ setOpenApplication }) {
     if (isArray) {
       return (
         <td
-          className={`bg-white border border-black ${
-            type === "keys" && "w-1/3"
-          } p-0`}
+          className={`bg-white border border-black ${type === "keys" && "w-1/3"
+            } p-0`}
         >
           <div className="flex">
             {data?.map((e, i) => (
               <p
                 key={i}
-                className={`flex items-center p-2 border-l border-black h-12 ${
-                  i === 0 && "w-1/2 border-l-0 bg-white"
-                }`}
+                className={`flex items-center p-2 border-l border-black h-12 ${i === 0 && "w-1/2 border-l-0 bg-white"
+                  }`}
               >
                 {(keys ? Object.keys(data[i]) : Object.values(data[i])) || e}
               </p>
@@ -143,9 +141,8 @@ function Application({ setOpenApplication }) {
     } else {
       return (
         <td
-          className={`bg-white border border-black ${
-            type === "keys" && "w-1/3"
-          } p-0`}
+          className={`bg-white border border-black ${type === "keys" && "w-1/3"
+            } p-0`}
         >
           <p className="h-12 p-2 flex items-center">
             {keys ? Object.keys(data) : Object.values(data)}
@@ -192,9 +189,9 @@ function Application({ setOpenApplication }) {
                   })}
                 </tbody>
               </table>
-            </div>
+            </div >
             {/* Part02 */}
-            <div className="overflow-x-auto mt-10 text-black">
+            < div className="overflow-x-auto mt-10 text-black" >
               <table className="table bg-white table-sm">
                 {/* Part02 head */}
                 <thead className="bg-gray-400 border border-black text-black uppercase">
@@ -203,8 +200,8 @@ function Application({ setOpenApplication }) {
                     <th colSpan={5} className="border border-black">
                       Location of the Proposed Site
                     </th>
-                  </tr>
-                </thead>
+                  </tr >
+                </thead >
                 <tbody>
                   {/* row 1 */}
                   {Part02.map((item, index) => {
@@ -222,11 +219,11 @@ function Application({ setOpenApplication }) {
                     );
                   })}
                 </tbody>
-              </table>
-            </div>
-          </div>
+              </table >
+            </div >
+          </div >
           {/* Part 03 */}
-          <div>
+          < div >
             <table className="mt-7 w-full">
               <thead className="text-center">
                 <tr className="bg-gray-400 border border-black text-lg text-black font-bold uppercase">
@@ -265,9 +262,9 @@ function Application({ setOpenApplication }) {
                 </tr>
               </tbody>
             </table>
-          </div>
+          </div >
           {/* Part 04 */}
-          <div className="overflow-x-auto mt-10">
+          < div className="overflow-x-auto mt-10" >
             <table className="table bg-white table-sm">
               {/* Part 04 head */}
               <thead className="bg-gray-400 text-black dark:text-white">
@@ -424,7 +421,7 @@ function Application({ setOpenApplication }) {
                 </tr>
               </tbody>
             </table>
-          </div>
+          </div >
           <div className="mt-7">
             <p className="font-bold">Primary</p>
             <p>
@@ -482,20 +479,17 @@ function Application({ setOpenApplication }) {
               </tbody>
             </table>
           </div>
-          <form
-            method="dialog"
-            className="absolute top-16 right-2 text-red-600 z-50"
-          >
+          <form method="dialog" className="absolute top-16 right-0 z-50">
             <button
               onClick={() => setOpenApplication(false)}
-              // className={`text-red-600`}
+            // className={`text-red-600`}
             >
               <RxCross2 className="text-3xl" />
             </button>
           </form>
-        </div>
-      </dialog>
-    </div>
+        </div >
+      </dialog >
+    </div >
   );
 }
 
