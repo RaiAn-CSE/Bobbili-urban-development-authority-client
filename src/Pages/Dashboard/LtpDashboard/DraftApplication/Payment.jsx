@@ -274,7 +274,7 @@ const Payment = () => {
         bettermentCharged +
         paperPublicationCharged +
         processingFees +
-        buildingPermitFees+
+        buildingPermitFees +
         gramaSiteApprovalCharged
       );
     };
@@ -317,7 +317,7 @@ const Payment = () => {
       processingFees,
       paperPublicationCharged,
       buildingPermitFees,
-      gramaSiteApprovalCharged
+      gramaSiteApprovalCharged,
     });
   };
 
@@ -424,8 +424,9 @@ const Payment = () => {
 
     const buildingPermitFee =
       document.getElementById("buildingPermitFees")?.value;
-    const gramaSiteApprovalCharges =
-      document.getElementById("gramaSiteApprovalCharges")?.value;
+    const gramaSiteApprovalCharges = document.getElementById(
+      "gramaSiteApprovalCharges"
+    )?.value;
 
     const GramaPanchayetTotalCharged = document.getElementById(
       "GramaPanchayetTotalCharged"
@@ -478,7 +479,7 @@ const Payment = () => {
       processingFee: processingFee ?? "",
       buildingPermitFees: buildingPermitFee ?? "",
       bettermentCharged: bettermentCharged ?? "",
-      gramaSiteApprovalCharged:gramaSiteApprovalCharges??"",
+      gramaSiteApprovalCharged: gramaSiteApprovalCharges ?? "",
       GramaPanchayetTotalCharged: GramaPanchayetTotalCharged ?? "",
       gramaChallanNo: gramaChallanNo ?? "",
       gramaChallanDate: gramaChallanDate ?? "",
@@ -861,7 +862,7 @@ const Payment = () => {
               <Link
                 to={`https://drive.google.com/file/d/${applicationData?.payment?.gramaPanchayatFee?.gramaBankReceipt}/view?usp=sharing`}
                 target="_blank"
-                className="flex justify-center items-center ms-10 px-6  hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
+                className="flex justify-center items-center ms-10 px-4 py-2 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
               >
                 <MdReceiptLong className="me-1" />
                 View Challan
@@ -958,7 +959,7 @@ const Payment = () => {
               <Link
                 to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
                 target="_blank"
-                className="flex justify-center items-center ms-10 px-6 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
+                className="flex justify-center items-center ms-10 px-4 py-2 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
               >
                 <MdReceiptLong className="me-1" />
                 View Challan
@@ -1055,7 +1056,7 @@ const Payment = () => {
             <Link
               to={`https://drive.google.com/file/d/${applicationData?.payment?.greenFeeCharge?.greenFeeBankReceipt}/view?usp=sharing`}
               target="_blank"
-              className="flex justify-center items-center ms-10 px-6 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
+              className="flex justify-center items-center ms-10 px-4 py-2 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
             >
               <MdReceiptLong className="me-1" />
               View Challan
