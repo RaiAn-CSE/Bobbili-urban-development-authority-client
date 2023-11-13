@@ -11,6 +11,7 @@ import cityImage from "../../../../assets/images/city.png";
 import villageImage from "../../../../assets/images/village.png";
 import LocationStyle from "./LocationPageStyle.module.css";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
+import IndiaMapImg from "../../../../assets/images/india.jpg";
 
 const UpdateLocation = () => {
   const { fetchDataFromTheDb } = useContext(AuthContext);
@@ -38,7 +39,7 @@ const UpdateLocation = () => {
   // const inputClass =
   //   "bg-gradient-to-r from-violet-500 to-fuchsia-500 px-6 py-2 font-bold text-white rounded-full cursor-pointer hover:shadow-md hover:shadow-darkViolet hover:bg-gradient-to-l transition-all duration-700";
   const inputClass =
-    "nm_Container bg-gradient-to-r from-violet-500 to-fuchsia-500 px-6 py-2 font-bold text-white rounded-full cursor-pointer  transition-all duration-700";
+    "nm_Container bg-gradient-to-b from-[#9870F7] to-[#5B4395]  rounded-full px-6 py-2 font-bold text-white rounded-full cursor-pointer  transition-all duration-700";
 
   const activeTabClass = "text-normalViolet text-base  border-b-normalViolet";
 
@@ -193,35 +194,35 @@ const UpdateLocation = () => {
 
   return (
     <>
-      <p className="text-black text-2xl font-roboto font-bold ml-3 mt-3">
-        Location:
-      </p>
-      <div className="flex justify-center items-center font-roboto h-[calc(100vh-150px)] transition-all duration-1000">
+      <div className="flex justify-center items-center font-roboto h-[calc(100vh-12vh)] transition-all duration-1000">
         {/* container of main div  */}
         <div className="flex min-h-[70%] w-[80%]  nm_Container">
           {/* left side  */}
           <div className="basis-1/2 bg-bgColor min-h-full ">
+            <p className="text-black text-2xl font-roboto font-bold ml-6 my-3">
+              Location
+            </p>
             <div>
               {/* tab part  */}
-              <ul className="flex text-center text-[#ab9ba0]">
-                <li
-                  className={`basis-1/2 ${
-                    isAddOption === 1 ? activeTabClass : "border-b-white"
-                  } border-2`}
-                  onClick={() => swapTheTab(1)}
-                >
-                  <button className="inline-flex items-center justify-center text-base p-4 ">
+              <ul className="flex text-center text-white bg-[#1A1B27] mx-6 rounded-lg p-1">
+                <li className={`basis-1/2`} onClick={() => swapTheTab(1)}>
+                  <button
+                    className={`inline-flex items-center justify-center text-base py-2 w-full ${
+                      isAddOption === 1 &&
+                      "bg-gradient-to-b from-[#9870F7] to-[#5B4395]  rounded-lg"
+                    }`}
+                  >
                     <MdOutlineAddLocationAlt className="me-2" size={20} />
                     Add
                   </button>
                 </li>
-                <li
-                  className={`basis-1/2  border-2 ${
-                    isAddOption === 0 ? activeTabClass : "border-b-white"
-                  }`}
-                  onClick={() => swapTheTab(0)}
-                >
-                  <button className="inline-flex items-center justify-center text-base p-4">
+                <li className={`basis-1/2 `} onClick={() => swapTheTab(0)}>
+                  <button
+                    className={`w-full inline-flex items-center justify-center text-base py-2 ${
+                      isAddOption === 0 &&
+                      "bg-gradient-to-b from-[#9870F7] to-[#5B4395]  rounded-lg"
+                    }`}
+                  >
                     <MdOutlineWrongLocation className="me-2" size={20} />
                     Delete
                   </button>
@@ -532,11 +533,17 @@ const UpdateLocation = () => {
           </div>
 
           {/* right side  */}
-          <div className="basis-1/2 bg-bgColor">
-            <Lottie
+          <div className="basis-1/2 bg-bgColor h-full">
+            {/* <Lottie
               animationData={mapAnimation}
               loop={true}
               className="w-full h-full"
+            /> */}
+            {/* <IndiaMap /> */}
+            <img
+              src={IndiaMapImg}
+              alt="A 3d map of india"
+              className="w-full h-full rounded-lg"
             />
           </div>
         </div>

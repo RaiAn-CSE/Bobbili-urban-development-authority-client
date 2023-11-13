@@ -11,6 +11,8 @@ function DefaultDocument({
   handleFileChange,
   gradientColor,
   defaultImageFromDB,
+  setRemarkText,
+  remarkText,
 }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [latestUpdatedDefaultData, setLatestUpdatedDefaultData] = useState([
@@ -63,6 +65,8 @@ function DefaultDocument({
     handleFileChange(event, id, selectedFiles, "default");
   };
 
+  const page = JSON.parse(localStorage.getItem("page"));
+
   return (
     <div className="dark:text-black">
       {latestUpdatedDefaultData.map((data, index) => {
@@ -76,7 +80,7 @@ function DefaultDocument({
             <p className="pb-4 font-bold">
               {id}. {question}
             </p>
-            {role === "LTP" && (
+            {role === "LTP" && page === "draft" && (
               <input
                 name={id}
                 type="file"
@@ -100,6 +104,8 @@ function DefaultDocument({
               approved={approved}
               handleDefaultStatus={handleDefaultStatus}
               type="default"
+              setRemarkText={setRemarkText}
+              remarkText={remarkText}
             />
           </div>
         );

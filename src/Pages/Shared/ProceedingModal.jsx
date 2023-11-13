@@ -30,7 +30,7 @@ const ProceedingModal = () => {
         <div className='dark:bg-white'>
             <dialog id="proceedingModal" className="modal">
                 {/* divide-y-2 divide-gray-200 */}
-                <div className={`${customScroll.customScrolling} rounded-lg modal-box px-12 py-10 text-gray-900 mb-10 w-11/12 max-w-5xl relative bg-[#E8EAEC]`}>
+                <div className={`${customScroll.customScrolling} rounded-lg modal-box px-12 py-10 text-gray-900 w-11/12 max-w-5xl relative bg-[#E8EAEC]`}>
                     <form method="dialog">
                         {/* if there is a button in form, it will close the modal */}
                         <button className="btn btn-sm text-white hover:bg-violet-600 btn-circle btn-ghost absolute top-2 right-2 bg-violet-500">✕</button>
@@ -42,21 +42,18 @@ const ProceedingModal = () => {
                             <p className='mt-5'><span className='underline'>{allInfo?.buildingInfo?.generalInformation?.mandal}</span> మండలం, <span className='underline'>{allInfo?.buildingInfo?.generalInformation?.gramaPanchayat}</span> గ్రామ పంచాయతి కార్యదర్శి వారి ఉత్తర్వులు ప్రస్తుతము శ్రీ <span className='underline'>{allInfo?.applicantInfo?.applicantDetails?.[0]?.name}</span></p>
 
                             <div className='basis-[40%] flex flex-col items-end'>
-                                <h3>బి. ఎ.నెం: <span className='border p-1 bg-[#E8EAEC] nm_Container'>{allInfo?.applicationNo}</span></h3>
-                                <h3 className='mt-4'>తేది(approved date): <span className='border p-1 bg-[#E8EAEC] nm_Container'>{allInfo?.applicationNo}</span></h3>
+                                <h3>బి. ఎ.నెం: <span className='ml-1 border p-1 bg-[#E8EAEC] rounded-md border-gray-600'>{allInfo?.applicationNo}</span></h3>
+                                <h3 className='mt-4'>తేది: <span className='ml-1 border p-1 bg-[#E8EAEC] rounded-md border-gray-600'>దిది/మామా/సంసం(approved date)</span></h3>
                             </div>
                         </div>
 
-                        <p className='font-semibold text-sm'>వరకు,</p>
-                        <div className='flex mt-5'>
-                            <div className='basis-[40%]  mr-5'>
-                                <table className='min-w-full border border-gray-900 h-20'>
-                                    <td className='p-2'>
-                                        భవన యజమాని వివరములు <span className='underline'>{allInfo?.applicantInfo?.applicantDetails?.[0]?.name}</span>
-                                    </td>
-                                </table>
+                        <p className='font-semibold text-sm mt-5'>వరకు,</p>
+
+                        <div className='flex mt-2'>
+                            <div className='nm_Container'>
+                                <p className='p-4'>భవన యజమాని వివరములు <span className=''>{allInfo?.applicantInfo?.applicantDetails?.[0]?.name}</span></p>
                             </div>
-                            <div className='basis-[60%]'>
+                            {/* <div className='basis-[60%]'>
                                 <table className='min-w-full border border-gray-900 h-20'>
                                     <thead>
                                         <tr>
@@ -100,25 +97,29 @@ const ProceedingModal = () => {
                                         </tr>
                                     </tbody>
                                 </table>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
+
                     <p className='mt-5'>విషయము : భవన అనుమతులు  - వ్యక్తిగత నివాస భవన నిర్మాణము  -  అనుమతులు  - ఇచ్చుట - గురించి.</p>
-                    <p className='mt-5'>
-                        సూచిక :
-                        <ol className='px-10 list-decimal'>
-                            <li className='mt-3'>జి. ఓ. యం. ఎస్. నెం. 61, తేది. 12.02.2019 పురపాలక మరియు పట్టణాభివృద్ధి శాఖ, ఆంధ్రప్రదేశ్ వారి ఉత్తర్వులు.</li>
-                            <li className='mt-3'>ఆర్. ఓ. సి. నెం.</li>
-                            <li className='mt-3'>జి. ఓ. యం. ఎస్. నెం. 119, తేది. 10.07.2017 పురపాలక మరియు పట్టణాభివృద్ధి శాఖ, ఆంధ్రప్రదేశ్ వారి ఉత్తర్వులు.</li>
-                            <li className='mt-3'>దరఖాస్తు చేసుకొనిన తేది: ………digital sign date………….</li>
-                        </ol>
-                    </p>
-                    <p className='mt-3'>ఆంధ్ర ప్రదేశ్ మహానగర ప్రాంతం మరియు పట్టణాభివృద్ధి చట్టము, 2016 నందలి సెక్షన్ 7(1) (హెచ్) అనుసరించి, సూచిక 2 నందు వైస్-చైర్మన్, బొబ్బిలి పట్టణాభివృద్ధి సంస్థ, బొబ్బిలి వారు జారీ చేసిన అధికార బదలాయింపు ఉత్తర్వులను అనుసరించి, సూచిక 3 నందలి ప్రభుత్వ ఉత్తర్వులలో జారీ చేయబడిన భవన నియమాలకు లోబడి, మీరు దరఖాస్తు చేసుకొనిన భవన నిర్మాణ దరఖాస్తును షరతులతో కూడిన అనుమతులు జారీ చేయడం జరుగుతున్నది.</p>
+
+                    <div className='nm_Container mb-5'>
+                        <p className='mt-5 p-4'>
+                            సూచిక :
+                            <ol className='px-10 list-decimal'>
+                                <li className='mt-2'>జి. ఓ. యం. ఎస్. నెం. 61, తేది. 12.02.2019 పురపాలక మరియు పట్టణాభివృద్ధి శాఖ, ఆంధ్రప్రదేశ్ వారి ఉత్తర్వులు.</li>
+                                <li className='mt-2'>ఆర్. ఓ. సి. నెం.</li>
+                                <li className='mt-2'>జి. ఓ. యం. ఎస్. నెం. 119, తేది. 10.07.2017 పురపాలక మరియు పట్టణాభివృద్ధి శాఖ, ఆంధ్రప్రదేశ్ వారి ఉత్తర్వులు.</li>
+                                <li className='mt-2'>దరఖాస్తు చేసుకొనిన తేది: ………digital sign date………….</li>
+                            </ol>
+                        </p>
+                        <p className='px-4 pb-4'>ఆంధ్ర ప్రదేశ్ మహానగర ప్రాంతం మరియు పట్టణాభివృద్ధి చట్టము, 2016 నందలి సెక్షన్ 7(1) (హెచ్) అనుసరించి, సూచిక 2 నందు వైస్-చైర్మన్, బొబ్బిలి పట్టణాభివృద్ధి సంస్థ, బొబ్బిలి వారు జారీ చేసిన అధికార బదలాయింపు ఉత్తర్వులను అనుసరించి, సూచిక 3 నందలి ప్రభుత్వ ఉత్తర్వులలో జారీ చేయబడిన భవన నియమాలకు లోబడి, మీరు దరఖాస్తు చేసుకొనిన భవన నిర్మాణ దరఖాస్తును షరతులతో కూడిన అనుమతులు జారీ చేయడం జరుగుతున్నది.</p>
+                    </div>
 
                     <table className='min-w-full'>
                         <thead className='border border-gray-900 '>
                             <tr>
-                                <th className='border-r border-neutral-500 p-2 text-center w-16'>A</th>
+                                <th className='border-r border-neutral-500 p-2 text-center w-[68px]'>A</th>
                                 <th colSpan={4} className='p-2 text-center'>దరఖాస్తు దారులు మరియు ఎల్.టి.పి వివరములు</th>
                             </tr>
                         </thead>
@@ -279,6 +280,7 @@ const ProceedingModal = () => {
                             </tr>
                         </tbody>
                     </table>
+
                     <table className='min-w-full border border-gray-900 mt-5'>
                         <tr className='border-t border-neutral-500'>
                             <th className='border-r p-2 border-neutral-500 text-base text-center'>
@@ -341,7 +343,8 @@ const ProceedingModal = () => {
                             </td>
                         </tr>
                     </table>
-                    <div className='mt-10'>
+
+                    <div className='mt-10 nm_Container p-4'>
                         <h4 className='font-semibold text-md'>షరతులు:</h4>
                         <ol className='px-10 list-decimal'>
                             <li className='mt-3'>ఈ ఉత్తర్వులతో జత చేయబడిన ఆమోదించబడిన  ప్లాను ప్రకారము భవన నియమాలకు లోబడి మాత్రమే భవన నిర్మాణము జరపవలెను.</li>

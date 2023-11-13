@@ -50,15 +50,10 @@ const DocumentUpload = () => {
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
   const [defaultImageData, setDefaultImageData] = useState([]);
   const [dynamicImageData, setDynamicImageData] = useState([]);
-  const [sendingImageId, setSendingImageId] = useState({
-    dynamic: [],
-    default: [],
-  });
-  const [imageIdFromDB, setImageIdFromDB] = useState({
-    default: [],
-    dynamic: [],
-  });
-
+  const [sendingImageId, setSendingImageId] = useState({dynamic: [],default: []});
+  const [imageIdFromDB, setImageIdFromDB] = useState({default: [],dynamic: []});
+  const [remarkText,setRemarkText]=useState([]);
+console.log(remarkText,"remarkText")
   // Ltp File uploading Data handeling
   const handleFileChange = (event, id, uploadedFile, type, uploadId) => {
     const { files, name } = event.target;
@@ -99,22 +94,14 @@ const DocumentUpload = () => {
     });
   }, [UpdatedDefaultData, UpdatedDynamicData]);
 
-  // // PS Page Recomendation Message and Approved
-  // const handleRecomendationMessage = (e) => {
-  //   const RecomdMessage = e.target.value;
-  //   setRecommendationMessage(RecomdMessage);
-  // };
-  // const handleConfirmation = (data) => {
-  //   setApprovedConfirmation(data)
-  // };
 
   // Adding checklist Data to Document from server data && Updating Data from server Data
   useEffect(() => {
     const gettingData = async () => {
       let updatedDynamicDocumentsToAdd = [];
       const applicationData = await getApplicationData(applicationNo, cameFrom);
-      const applicationCheckList = applicationData.applicationCheckList;
-      console.log(applicationCheckList, "Checklist Data");
+      const applicationCheckList = applicationData?.applicationCheckList;
+      console.log(applicationCheckList, "APplication Checklist From Document");
       role === "LTP" &&
         setPreviousDefaultDocumentData(
           applicationData?.document?.data?.default
@@ -161,18 +148,6 @@ const DocumentUpload = () => {
     gettingData();
   }, []);
 
-  console.log(DynamicAppChecklistDocument, "Dynamic checklist Data");
-
-  console.log({ UpdatedDefaultData }, "Document Page combined Data");
-  console.log(
-    {
-      PreviousDefaultDocumentData,
-      PreviousDynamicDocumentData,
-      approvedConfirmation,
-      recomendationMessage,
-    },
-    "PS Saved Data"
-  );
 
   // file send into the database
   const handleFileUpload = async (url) => {
@@ -295,6 +270,7 @@ const DocumentUpload = () => {
       data: psSendingDocument,
       approved: approvedConfirmation ?? "",
       message: recomendationMessage ?? "",
+      remarkText
     };
 
     return await sendUserDataIntoDB(url, "PATCH", {
@@ -320,6 +296,8 @@ const DocumentUpload = () => {
             gradientColor={gradientColor}
             defaultImageFromDB={imageIdFromDB?.default}
             setApprovedConfirmation={setApprovedConfirmation}
+            setRemarkText={setRemarkText}
+            remarkText={remarkText}
             // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
           />
           <DynamicDocument
@@ -333,6 +311,8 @@ const DocumentUpload = () => {
             gradientColor={gradientColor}
             dynamicImageFromDB={imageIdFromDB?.dynamic}
             setApprovedConfirmation={setApprovedConfirmation}
+            setRemarkText={setRemarkText}
+            remarkText={remarkText}
             // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
           />
         </div>

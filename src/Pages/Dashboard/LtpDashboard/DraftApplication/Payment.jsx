@@ -98,7 +98,7 @@ const Payment = () => {
         generalInformation?.natureOfTheSite === "Approved Layout" ||
         generalInformation?.natureOfTheSite === "Regularised under LRS" ||
         generalInformation?.natureOfTheSite ===
-        "Congested/ Gramakanta/ Old Built-up area" ||
+          "Congested/ Gramakanta/ Old Built-up area" ||
         generalInformation?.natureOfTheSite === "Newly Developed/ Built up area"
       ) {
         setCondition(1);
@@ -223,7 +223,8 @@ const Payment = () => {
     const TotalLabourCessComp2Charged = laboutCessCompo2Calculation(
       BuiltUp_area_SquareFeet
     );
-
+    // ====== User Charges======
+    const userCharged = 1000;
     // =====UDA Total=====
     const UDATotal = () => {
       // Calculate UDA Total Charged
@@ -232,7 +233,8 @@ const Payment = () => {
         vacantAreaDevelopmentCharged +
         TotalPenalizationCharged +
         TotalOpenSpaceCharged +
-        TotalLabourCessComp2Charged;
+        TotalLabourCessComp2Charged +
+        userCharged;
       return Math.round(UDATotalCharged);
     };
     // =====UDA Total Charged=====
@@ -292,9 +294,9 @@ const Payment = () => {
     const labourCessComponentUnitRate1 = 1400; // per Sq.ft.
     const labourCessCompo1Charged = Math.round(
       labourCessComponentUnitRate1 *
-      BuiltUp_area_SquareFeet *
-      10.76 *
-      (0.01 * 0.98)
+        BuiltUp_area_SquareFeet *
+        10.76 *
+        (0.01 * 0.98)
     );
 
     setCalculatedData({
@@ -303,6 +305,7 @@ const Payment = () => {
       builtUpAreaDevelopmentCharged,
       labourCessCompo1Charged,
       TotalLabourCessComp2Charged,
+      userCharged,
       vacantAreaDevelopmentCharged,
       builtup_Area,
       nature_of_site,
@@ -404,6 +407,7 @@ const Payment = () => {
     )?.value;
     const builtUpArea = document.getElementById("builtUpArea")?.value;
     const labourCessTwo = document.getElementById("labourCess02")?.value;
+    const userCharges = document.getElementById("userCharges")?.value;
     const UDATotalCharged = document.getElementById("UDATotalCharged")?.value;
 
     // grama panchayat fee
@@ -461,6 +465,7 @@ const Payment = () => {
       TotalOpenSpaceCharged: TotalOpenSpaceCharged ?? "",
       labourCessTwo: labourCessTwo ?? "",
       builtUpArea: builtUpArea ?? "",
+      userCharges: userCharges ?? "",
       UDATotalCharged: UDATotalCharged ?? "",
     };
 
@@ -570,6 +575,14 @@ const Payment = () => {
               ltpDetails={calculatedData?.TotalLabourCessComp2Charged}
             />
             <InputField
+              id="userCharges"
+              name="userCharges"
+              label="User Charges"
+              placeholder="000"
+              type="number"
+              ltpDetails={calculatedData?.userCharged}
+            />
+            <InputField
               id="UDATotalCharged"
               name="UDATotalCharged"
               label="Total"
@@ -577,7 +590,7 @@ const Payment = () => {
               type="number"
               ltpDetails={calculatedData?.UDATotalCharged}
             />
-            {role === "LTP" && (
+            {role === "LTP" && cameFrom === "draft" && (
               <div className="flex ms-5 items-center pay-btn-container">
                 <button className="pay-btn mt-3">
                   <div className="svg-wrapper-1">
@@ -822,7 +835,7 @@ const Payment = () => {
           </div>
           <div className="px-3 mb-8 flex justify-end">
             <div className="form-control w-full max-w-xs">
-              {role === "LTP" && (
+              {role === "LTP" && cameFrom === "draft" && (
                 <input
                   type="file"
                   className="file-input file-input-bordered w-full max-w-xs text-gray-400 bg-white dark:text-black"
@@ -917,7 +930,7 @@ const Payment = () => {
           </div>
           <div className="px-3 mb-4 flex justify-end">
             <div className="form-control w-full max-w-xs">
-              {role === "LTP" && (
+              {role === "LTP" && cameFrom === "draft" && (
                 <input
                   type="file"
                   className="file-input file-input-bordered w-full max-w-xs text-gray-400 bg-white dark:text-black"
@@ -929,15 +942,15 @@ const Payment = () => {
 
             {applicationData?.payment?.labourCessCharge
               ?.labourCessBankReceipt && (
-                <Link
-                  to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
-                  target="_blank"
-                  className="flex justify-center items-center ms-10 px-6 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
-                >
-                  <MdReceiptLong className="me-1" />
-                  View Challan
-                </Link>
-              )}
+              <Link
+                to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
+                target="_blank"
+                className="flex justify-center items-center ms-10 px-6 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
+              >
+                <MdReceiptLong className="me-1" />
+                View Challan
+              </Link>
+            )}
           </div>
         </div>
 
@@ -1016,7 +1029,7 @@ const Payment = () => {
 
         <div className="px-3 mb-4 flex justify-end">
           <div className="form-control w-full max-w-xs">
-            {role === "LTP" && (
+            {role === "LTP" && cameFrom === "draft" && (
               <input
                 type="file"
                 className="file-input file-input-bordered w-full max-w-xs text-gray-400 bg-white dark:text-black"

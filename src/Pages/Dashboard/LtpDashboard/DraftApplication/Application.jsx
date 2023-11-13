@@ -1,29 +1,24 @@
 import React, { useContext, useEffect, useState } from "react";
 import ApplicationHeader from "./ApplicationHeader";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
+import { RxCross2 } from "react-icons/rx";
 
 function Application({ setOpenApplication }) {
-  const { getApplicationData } = useContext(AuthContext);
+  const { getApplicationData, ownerNamePattern, calculateNoOfFloors } =
+    useContext(AuthContext);
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
+  const page = JSON.parse(localStorage.getItem("page"));
   const [generalInformation, setGeneralInformation] = useState({});
   const [plotDetails, setPlotDetails] = useState({});
   const [ltpDetailsData, setLtpDetailsData] = useState({});
-  const [applicantDetailsData, setApplicantDetailsData] = useState({});
-  const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
+  const [applicantDetailsData, setApplicantDetailsData] = useState([]);
+
   useEffect(() => {
     // Opening the modal when the component mounts
     const modal = document.getElementById("my_modal_5");
     if (modal) {
       modal.showModal();
     }
-
-    // Add an event listener to close the modal when clicking outside
-    modal.addEventListener("click", handleModalClick);
-
-    // Cleanup the event listener when the component unmounts
-    return () => {
-      modal.removeEventListener("click", handleModalClick);
-    };
   }, []);
 
   const handleModalClick = () => {
@@ -32,102 +27,112 @@ function Application({ setOpenApplication }) {
 
   useEffect(() => {
     const gettingData = async () => {
-      const applicationData = await getApplicationData(applicationNo);
+      const applicationData = await getApplicationData(applicationNo, page);
+      console.log(applicationData, "ApplicationData");
       setGeneralInformation(applicationData?.buildingInfo?.generalInformation);
       setPlotDetails(applicationData?.buildingInfo?.plotDetails);
       setLtpDetailsData(applicationData?.applicantInfo?.ltpDetails);
-      setApplicantDetailsData(
-        applicationData?.applicantInfo?.applicantDetails[0]
-      );
+      setApplicantDetailsData(applicationData?.applicantInfo?.applicantDetails);
     };
     gettingData();
   }, []);
 
   // General Information
-  const {
-    applicationType,
-    bpsApprovedNoServer,
-    caseType,
-    district,
-    gramaPanchayat,
-    iplpNo,
-    lpNo,
-    lrsNo,
-    mandal,
-    natureOfPermission,
-    natureOfTheSite,
-    plotNo,
-    plotNo2,
-    previewsApprovedFileNo,
-    surveyNo,
-    village,
-  } = generalInformation || {};
+  // const {
+  //   applicationType,
+  //   bpsApprovedNoServer,
+  //   caseType,
+  //   district,
+  //   gramaPanchayat,
+  //   iplpNo,
+  //   lpNo,
+  //   lrsNo,
+  //   mandal,
+  //   natureOfPermission,
+  //   natureOfTheSite,
+  //   plotNo,
+  //   plotNo2,
+  //   previewsApprovedFileNo,
+  //   surveyNo,
+  //   village,
+  // } = generalInformation || {};
 
-  // Plot Details
-  const { proposedPlotAreaCal, roadWideningAreaCal, netPlotAreaCal } =
-    plotDetails || {};
+  // console.log(generalInformation, getApplicationData, "generalInformation");
 
-  // LTP Details
-  const {
-    type,
-    name,
-    address: ltpAddress,
-    email: ltpEmail,
-    licenseNo,
-    phoneNo: ltpPhone,
-    validity,
-  } = ltpDetailsData || {};
+  // // Plot Details
+  // const { proposedPlotAreaCal, roadWideningAreaCal, netPlotAreaCal } =
+  //   plotDetails || {};
+  // // LTP Details
+  // const {
+  //   type,
+  //   name,
+  //   address: ltpAddress,
+  //   email: ltpEmail,
+  //   licenseNo,
+  //   phoneNo: ltpPhone,
+  //   validity,
+  // } = ltpDetailsData || {};
 
-  // Applicant Details
-  const {
-    name: ApplicantName,
-    identity,
-    phone: applicantPhone,
-    email: AppEmail,
-    adharNo,
-    pinCode,
-    address: applicantAddress,
-  } = applicantDetailsData || {};
+  // // Applicant Details
+  // const {
+  //   name: ApplicantName,
+  //   identity,
+  //   phone: applicantPhone,
+  //   email: AppEmail,
+  //   adharNo,
+  //   pinCode,
+  //   address: applicantAddress,
+  //   ownerDoorNo,
+  // } = applicantDetailsData || {};
 
   // ====Applicant Info
   const Part01 = [
-    { "Name(in full)": ApplicantName },
-    { "Door No/Flat No.": adharNo },
-    { "Road/Street": roadWideningAreaCal },
-    { Village: village },
-    { Mandal: mandal },
-    { District: district },
-    { "PIN Code": pinCode },
-    { "Phone No": applicantPhone },
-    { "E-mail": AppEmail },
+    { "Name(in full)": ownerNamePattern(applicantDetailsData) },
+    {
+      "Address.": `${applicantDetailsData[0]?.ownerDoorNo}, ${applicantDetailsData[0]?.ownerStreetNo}`,
+    },
+    { "Phone / Mobile No.": applicantDetailsData[0]?.phone },
+    { "E-mail": applicantDetailsData[0]?.email },
   ];
 
   const Part02 = [
-    { "Survey No": surveyNo },
-    { "L.P Mo./LRS No.": lrsNo },
-    { "Plot No": plotNo },
-    { Village: village },
-    { "Grama Panchayat": gramaPanchayat },
-    { Mandal: gramaPanchayat },
-    { District: district },
+    { "Survey No": generalInformation?.surveyNo },
+    { "L.P Mo./LRS No.": generalInformation.lrsNo },
+    { "Plot No": generalInformation?.plotNo },
+    { Village: generalInformation?.village },
+    { "Grama Panchayat": generalInformation?.gramaPanchayat },
+    { Mandal: generalInformation?.mandal },
+    { District: generalInformation?.district },
   ];
+
+  const extractFloorInfo = (allFloors, searchFloor) => {
+    console.log(allFloors, searchFloor, "Search floor");
+    const findFloorInfo = allFloors?.find((floor) =>
+      floor?.name?.includes(searchFloor)
+    );
+    console.log(findFloorInfo, "FFI");
+    return findFloorInfo;
+  };
 
   // Part01 && Part02 Keys and Values
   const renderCol = (data, index, type) => {
+    console.log(data, "data");
     const keys = type === "keys";
     const isArray = Array.isArray(data);
     if (isArray) {
       return (
         <td
-          className={`bg-white border border-black ${type === "keys" && "w-1/3"
-            } p-0`}
+          className={`bg-white border border-black ${
+            type === "keys" && "w-1/3"
+          } p-0`}
         >
           <div className="flex">
             {data?.map((e, i) => (
               <p
                 key={i}
-                className={`flex items-center p-2 border-l border-black h-12 ${i === 0 && "w-1/2 border-l-0 bg-white"
-                  }`}
+                className={`flex items-center p-2 border-l border-black h-12 ${
+                  i === 0 && "w-1/2 border-l-0 bg-white"
+                }`}
               >
                 {(keys ? Object.keys(data[i]) : Object.values(data[i])) || e}
               </p>
@@ -138,8 +143,9 @@ function Application({ setOpenApplication }) {
     } else {
       return (
         <td
-          className={`bg-white border border-black ${type === "keys" && "w-1/3"
-            } p-0`}
+          className={`bg-white border border-black ${
+            type === "keys" && "w-1/3"
+          } p-0`}
         >
           <p className="h-12 p-2 flex items-center">
             {keys ? Object.keys(data) : Object.values(data)}
@@ -150,21 +156,20 @@ function Application({ setOpenApplication }) {
   };
 
   return (
-    <div className="w-full h-full text-black">
+    <div className="relative w-full h-full text-black">
       <dialog id="my_modal_5" className="modal">
-        <div className="modal-box w-full max-w-4xl p-14 bg-white relative">
+        <div className="modal-box w-full max-w-4xl p-14 bg-white">
           {/* Header */}
           <ApplicationHeader />
           <div>
-
             {/* Part01 */}
             <div className="overflow-x-auto">
               <table className="table bg-white table-sm cursor-default">
                 {/* Part01 head */}
                 <thead className="bg-gray-400 border border-black text-black dark:text-white">
                   <tr>
-                    <th className="border border-black">A</th>
-                    <th className="border border-black text-end">
+                    <th className="border border-black text-center">A</th>
+                    <th className="border border-black text-center">
                       ADDRESS OF THE APPLICANT
                     </th>
                     <th className="border border-black"></th>
@@ -174,9 +179,9 @@ function Application({ setOpenApplication }) {
                   {/* row 1 */}
                   {Part01.map((item, index) => {
                     return (
-                      <tr key={index + 1} className="bg-white">
+                      <tr key={index + 1} className="bg-white text-center">
                         {/* col-01 */}
-                        <th className="bg-white border border-black w-[10%]">
+                        <th className="bg-white border border-black w-[10%] text-center">
                           {index + 1}
                         </th>
                         {/* col-02 */}
@@ -196,7 +201,9 @@ function Application({ setOpenApplication }) {
                 <thead className="bg-gray-400 border border-black text-black uppercase">
                   <tr>
                     <th className="border border-black">B</th>
-                    <th className="border border-black">LOCATION OF THE PROPOSED SITE</th>
+                    <th className="border border-black">
+                      LOCATION OF THE PROPOSED SITE
+                    </th>
                     <th className="border border-black"></th>
                   </tr>
                 </thead>
@@ -251,12 +258,14 @@ function Application({ setOpenApplication }) {
                   </td>
                   <td className="p-0 border-0 border-y border-black">
                     <td className="border-0 border-b border-black w-full block">
-                      As per Document
+                      {plotDetails?.totalPlotDocument}
                     </td>
                     <td className="border-0 border-b border-black w-full block">
-                      As on Ground
+                      {plotDetails?.totalPlotGround}
                     </td>
-                    <td className="border-0 w-full block">As on Proposed</td>
+                    <td className="border-0 w-full block">
+                      {plotDetails?.proposedPlotAreaCal}
+                    </td>
                   </td>
                 </tr>
                 <tr className="border border-black">
@@ -264,7 +273,9 @@ function Application({ setOpenApplication }) {
                   <td className="border border-black">
                     Total Number of floors
                   </td>
-                  <td className="border border-black"></td>
+                  <td className="border border-black text-center" colSpan={2}>
+                    {calculateNoOfFloors(plotDetails?.floorDetails)}
+                  </td>
                 </tr>
                 <tr className="border border-black">
                   <td className="border border-black"></td>
@@ -274,45 +285,105 @@ function Application({ setOpenApplication }) {
                 </tr>
                 <tr className="border border-black">
                   <td className="border border-black">a</td>
-                  <td className="border border-black">Site floor (sq. mtr.)</td>
-                  <td className="border border-black"></td>
+                  <td className="border border-black">
+                    Stilt Floor (sq. mtr.)
+                  </td>
+                  <td className="border border-black text-center">
+                    {
+                      extractFloorInfo(plotDetails?.floorDetails, "Stilt")
+                        ?.builtUpArea
+                    }
+                  </td>
+                  <td className="border border-black text-center">
+                    {
+                      extractFloorInfo(plotDetails?.floorDetails, "Stilt")
+                        ?.parkingArea
+                    }
+                  </td>
                 </tr>
                 <tr className="border border-black">
                   <td className="border border-black">b</td>
                   <td className="border border-black">
                     Ground floor (sq.mtr.)
                   </td>
-                  <td className="border border-black"></td>
+                  <td className="border border-black text-center">
+                    {" "}
+                    {
+                      extractFloorInfo(plotDetails?.floorDetails, "Ground")
+                        ?.builtUpArea
+                    }
+                  </td>
+                  <td className="border border-black text-center">
+                    {" "}
+                    {
+                      extractFloorInfo(plotDetails?.floorDetails, "Ground")
+                        ?.parkingArea
+                    }
+                  </td>
                 </tr>
                 <tr className="border border-black">
                   <td className="border border-black">c</td>
                   <td className="border border-black">First floor (sq.mtr.)</td>
-                  <td className="border border-black"></td>
+                  <td className="border border-black text-center">
+                    {" "}
+                    {
+                      extractFloorInfo(plotDetails?.floorDetails, "First")
+                        ?.builtUpArea
+                    }
+                  </td>
+                  <td className="border border-black text-center">
+                    {" "}
+                    {
+                      extractFloorInfo(plotDetails?.floorDetails, "First")
+                        ?.parkingArea
+                    }
+                  </td>
                 </tr>
                 <tr className="border border-black">
                   <td className="border border-black">d</td>
                   <td className="border border-black">
                     Second floor (sq.mtr.)
                   </td>
-                  <td className="border border-black"></td>
+                  <td className="border border-black text-center">
+                    {" "}
+                    {
+                      extractFloorInfo(plotDetails?.floorDetails, "Second")
+                        ?.builtUpArea
+                    }
+                  </td>
+                  <td className="border border-black text-center">
+                    {" "}
+                    {
+                      extractFloorInfo(plotDetails?.floorDetails, "Second")
+                        ?.parkingArea
+                    }
+                  </td>
                 </tr>
                 <tr className="border border-black">
                   <td className="border border-black">03</td>
                   <td className="border border-black">
                     Total Built-up area and parking area (sq.mtr.)
                   </td>
-                  <td className="border border-black"></td>
-                  <td className="border border-black"></td>
+                  <td className="border border-black text-center">
+                    {plotDetails?.totalBuiltUpArea}
+                  </td>
+                  <td className="border border-black text-center">
+                    {plotDetails?.totalParkingArea}
+                  </td>
                 </tr>
                 <tr className="border border-black">
                   <td className="border border-black">04</td>
                   <td className="border border-black">Numbers Of Units</td>
-                  <td className="border-0"></td>
+                  <td className="border-0 text-center" colSpan={2}>
+                    {plotDetails?.noOfUnits}
+                  </td>
                 </tr>
                 <tr className="border border-black">
                   <td className="border border-black">05</td>
                   <td className="border border-black">Vacant site area</td>
-                  <td className="border-0"></td>
+                  <td className="border-0 text-center" colSpan={2}>
+                    {plotDetails?.vacantLand}
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -336,10 +407,16 @@ function Application({ setOpenApplication }) {
               </thead>
               <tbody>
                 <tr className="border border-black">
-                  <td className="border border-black p-1" style={{ width: "10%" }}>
+                  <td
+                    className="border border-black p-1"
+                    style={{ width: "10%" }}
+                  >
                     01
                   </td>
-                  <td className="border border-black p-1" style={{ width: "40%" }}>
+                  <td
+                    className="border border-black p-1"
+                    style={{ width: "40%" }}
+                  >
                     Signature of owner
                   </td>
                   <td
@@ -348,10 +425,16 @@ function Application({ setOpenApplication }) {
                   ></td>
                 </tr>
                 <tr className="border border-black">
-                  <td className="border border-black p-1" style={{ width: "10%" }}>
+                  <td
+                    className="border border-black p-1"
+                    style={{ width: "10%" }}
+                  >
                     02
                   </td>
-                  <td className="border border-black p-1" style={{ width: "40%" }}>
+                  <td
+                    className="border border-black p-1"
+                    style={{ width: "40%" }}
+                  >
                     Signature of the LTP
                   </td>
                   <td
@@ -362,12 +445,12 @@ function Application({ setOpenApplication }) {
               </tbody>
             </table>
           </div>
-          <form method="dialog" className="mt-5">
+          <form method="dialog" className="absolute top-16 right-0 z-50">
             <button
               onClick={() => setOpenApplication(false)}
-              className={`btn btn-md text-sm px-3 mt-10 ml-3 border-none text-white shadow-md transition-all duration-500 ${gradientColor} hover:shadow-lg hover:shadow-violetDark hover:bg-gradient-to-bl`}
+              // className={`text-red-600`}
             >
-              Close
+              <RxCross2 className="text-3xl" />
             </button>
           </form>
         </div>

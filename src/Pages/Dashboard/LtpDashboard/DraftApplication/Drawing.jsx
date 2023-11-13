@@ -253,7 +253,7 @@ const Drawing = () => {
         <div className="text-lg px-2 mb-16">
           <p className="pr-3 font-bold text-black">1. AutoCAD Drawing</p>
           <div className="flex items-center mt-5">
-            {role === "LTP" && (
+            {role === "LTP" && cameFrom === "draft" && (
               <label className="relative cursor-pointer mr-6">
                 <input
                   type="file"
@@ -279,7 +279,7 @@ const Drawing = () => {
         <div className="text-lg px-2 mb-10">
           <p className="pr-3 font-bold text-black">2. Drawing PDF</p>
           <div className="flex items-center mt-5">
-            {role === "LTP" && (
+            {role === "LTP" && cameFrom === "draft" && (
               <label className="relative cursor-pointer mr-6">
                 <input
                   type="file"
@@ -300,7 +300,7 @@ const Drawing = () => {
               </Link>
             )}
           </div>
-          {role === "LTP" && (
+          {role === "LTP" && cameFrom === "draft" && (
             <p className="text-red-500 mt-2 font-bold text-sm">
               Note: Upload A3 file
             </p>

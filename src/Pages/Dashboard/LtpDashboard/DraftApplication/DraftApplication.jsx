@@ -194,10 +194,6 @@ const DraftApplication = () => {
               {cameFrom === "shortfall" && (
                 <>
                   <button
-                    // Open the modal using document.getElementById('ID').showModal() method
-                    // onClick={() =>
-                    //   document.getElementById("my_modal_1").showModal()
-                    // }
                     className={`btn btn-sm text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white me-5  dark:border-none`}
                     onClick={navigateToResubmitPage}
                   >
@@ -227,13 +223,6 @@ const DraftApplication = () => {
                   </button>
                 )}
             </div>
-
-            {/* Application Modal */}
-            {openApplication ? (
-              <Application setOpenApplication={setOpenApplication} />
-            ) : (
-              ""
-            )}
           </div>
           <div className="mb-5 font-roboto">
             <ul className="w-full steps steps-vertical lg:steps-horizontal rounded-lg pt-4">
@@ -269,6 +258,13 @@ const DraftApplication = () => {
       <ProceedingModal />
       {/* my_modal_2 modal info : */}
       <EndorsementModal />
+
+      {/* Application Modal */}
+      {openApplication ? (
+        <Application setOpenApplication={setOpenApplication} />
+      ) : (
+        ""
+      )}
     </>
   );
 };

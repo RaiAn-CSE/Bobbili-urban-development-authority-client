@@ -15,7 +15,13 @@ const InputField = ({
 
   const { userInfoFromLocalStorage } = useContext(AuthContext);
   const role = userInfoFromLocalStorage().role;
-  const isReadOnly = role === "PS" || isAlwaysHide;
+  const page = JSON.parse(localStorage.getItem("page"));
+  const isReadOnly =
+    role === "PS" ||
+    isAlwaysHide ||
+    page === "submit" ||
+    page === "approved" ||
+    page === "shortfall";
 
   // console.log(ltpDetails, "LTP details", id);
 
