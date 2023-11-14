@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import Lottie from "lottie-react";
 import TableLayout from "../../../Components/TableLayout";
+import { useDownloadExcel } from "react-export-table-to-excel";
 import { TfiExport } from "react-icons/tfi";
 import ShowPlotDetails from "./ShowPlotDetails";
 import MISReportTableLayout from "../../../Components/MISReportTableLayout";
@@ -113,6 +114,7 @@ const PlotDetails = () => {
         </div>
       ) : (
         <>
+          <button onClick={onDownload}>Download</button>
           <MISReportTableLayout
             tableData={tableData}
             Component={ShowPlotDetails}

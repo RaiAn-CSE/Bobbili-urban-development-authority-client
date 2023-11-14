@@ -1,16 +1,18 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Lottie from "lottie-react";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import MISReportTableLayout from "../../../Components/MISReportTableLayout";
 import ShowRevenueReports from "./ShowRevenueReports";
 import Loading from "../../../Shared/Loading";
 import ErrorAnimation from "../../../../assets/ServerError.json";
+import { useDownloadExcel } from "react-export-table-to-excel";
 
 const RevenueReport = () => {
   const { fetchDataFromTheDb } = useContext(AuthContext);
   const [tableData, setTableData] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const revenueTableRef = useRef(null);
 
   const tableHeader = [
     "S.NO",
@@ -93,6 +95,12 @@ const RevenueReport = () => {
     })();
   }, []);
 
+  const { onDownload } = useDownloadExcel({
+    currentTableRef: revenueTableRef.current,
+    filename: "RevenueReport",
+    sheet: "RevenueReport",
+  });
+
   console.log(tableData, "TABLE DATA");
   if (loading) {
     return <Loading />;
@@ -111,10 +119,14 @@ const RevenueReport = () => {
           </p>
         </div>
       ) : (
-        <MISReportTableLayout
-          tableData={tableData}
-          Component={ShowRevenueReports}
-        />
+        <>
+          <button onClick={onDownload}>Download</button>
+          <MISReportTableLayout
+            tableData={tableData}
+            Component={ShowRevenueReports}
+            tableRef={revenueTableRef}
+          />
+        </>
       )}
     </>
   );
