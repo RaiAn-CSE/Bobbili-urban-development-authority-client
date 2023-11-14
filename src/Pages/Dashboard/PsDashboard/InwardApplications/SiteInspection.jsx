@@ -367,7 +367,7 @@ const SiteInspection = () => {
   const tableDataClass =
     "break-words border bg-[#E8EAEC] px-6 py-4 border-neutral-500";
   const inputClass =
-    "input rounded-none w-full focus:outline-none bg-gray-50 hover:bg-gray-200 bg-gray-100";
+    "block w-full h-12 bg-white hover:bg-white pl-4 focus:outline-0";
   const inputTableDataClass = "break-words border-r border-neutral-500";
 
   if (isLoading) {
@@ -432,7 +432,7 @@ const SiteInspection = () => {
                         id="natureOfSiteApp"
                         defaultValue={groundPosition?.natureOfSite?.[0]}
                         placeholder="Yes/No"
-                        className={`block w-full h-12 bg-white hover:bg-white pl-4 focus:outline-0 focus:border-0 `}
+                        className={`${inputClass} focus:border-0`}
                       />
                     </td>
                     <td
@@ -443,7 +443,7 @@ const SiteInspection = () => {
                         defaultValue={groundPosition?.natureOfSite?.[1]}
                         type="text"
                         placeholder="Yes/No"
-                        className={`block w-full h-12 bg-white hover:bg-white pl-4 focus:outline-0 focus:border-0 `}
+                        className={`${inputClass} focus:border-0`}
                       />
                     </td>
                   </tr>
@@ -457,7 +457,7 @@ const SiteInspection = () => {
                         type="text"
                         defaultValue={groundPosition?.siteLevel?.[0]}
                         placeholder="Yes/No"
-                        className={`block w-full h-12 bg-white hover:bg-white pl-4 focus:outline-0 focus:border-0 `}
+                        className={`${inputClass} focus:border-0 `}
                       />
                     </td>
                     <td
@@ -468,7 +468,7 @@ const SiteInspection = () => {
                         type="text"
                         defaultValue={groundPosition?.siteLevel?.[1]}
                         placeholder="Yes/No"
-                        className={`block w-full h-12 bg-white hover:bg-white pl-4 focus:outline-0 focus:border-0`}
+                        className={`${inputClass} focus:border-0`}
                       />
                     </td>
                   </tr>
@@ -482,7 +482,7 @@ const SiteInspection = () => {
                         type="text"
                         defaultValue={groundPosition?.totalAreaAsOnGround?.[0]}
                         placeholder="Yes/No"
-                        className={`block w-full h-12 bg-white hover:bg-white pl-4 focus:outline-0 focus:border-0 `}
+                        className={`${inputClass} focus:border-0 `}
                       />
                     </td>
                     <td
@@ -493,7 +493,7 @@ const SiteInspection = () => {
                         type="text"
                         defaultValue={groundPosition?.totalAreaAsOnGround?.[1]}
                         placeholder="Yes/No"
-                        className={`block w-full h-12 bg-white hover:bg-white pl-4 focus:outline-0 focus:border-0 `}
+                        className={`${inputClass} focus:border-0 `}
                       />
                     </td>
                   </tr>
@@ -507,7 +507,7 @@ const SiteInspection = () => {
                         type="text"
                         defaultValue={groundPosition?.workCommented?.[0]}
                         placeholder="Yes/No"
-                        className={`block w-full h-12 bg-white hover:bg-white pl-4 focus:outline-0 focus:border-0 `}
+                        className={`${inputClass} focus:border-0 `}
                       />
                     </td>
                     <td
@@ -518,7 +518,7 @@ const SiteInspection = () => {
                         type="text"
                         defaultValue={groundPosition?.workCommented?.[1]}
                         placeholder="Yes/No"
-                        className={`block w-full h-12 bg-white hover:bg-white pl-4 focus:outline-0 focus:border-0 `}
+                        className={`${inputClass} focus:border-0 `}
                       />
                     </td>
                   </tr>
@@ -533,7 +533,7 @@ const SiteInspection = () => {
                     </td>
                     <td
                       colSpan="3"
-                      className={`${tableDataClass} text-center text-base font-semibold bg-gray-200`}
+                      className={`${tableDataClass} text-center text-base font-semibold bg-gray-200 border-r-0`}
                     >
                       Site Boundaries
                     </td>
@@ -542,7 +542,7 @@ const SiteInspection = () => {
                     <td className={`${tableDataClass} font-bold bg-white`}>
                       North
                     </td>
-                    <td className="border-r border-neutral-500">
+                    <td className="border-r border-neutral-500 bg-white">
                       <ImageUploadInput
                         id="northApp"
                         onFileChange={handleFileChange}
@@ -550,7 +550,7 @@ const SiteInspection = () => {
                         imageId={siteBoundariesImageFilesId?.northApp}
                       />
                     </td>
-                    <td className={`${inputTableDataClass} p-0 bg-white`}>
+                    <td className={`${inputTableDataClass} p-0 bg-white border-r-0`}>
                       <ImageUploadInput
                         id="northObs"
                         onFileChange={handleFileChange}
@@ -571,7 +571,7 @@ const SiteInspection = () => {
                         imageId={siteBoundariesImageFilesId?.southApp}
                       />
                     </td>
-                    <td className={`${inputTableDataClass} p-0 bg-white`}>
+                    <td className={`${inputTableDataClass} p-0 bg-white border-r-0`}>
                       <ImageUploadInput
                         id="southObs"
                         onFileChange={handleFileChange}
@@ -592,7 +592,7 @@ const SiteInspection = () => {
                         imageId={siteBoundariesImageFilesId?.eastApp}
                       />
                     </td>
-                    <td className={`${inputTableDataClass} p-0 bg-white`}>
+                    <td className={`${inputTableDataClass} p-0 bg-white border-r-0`}>
                       <ImageUploadInput
                         id="eastObs"
                         onFileChange={handleFileChange}
@@ -613,7 +613,7 @@ const SiteInspection = () => {
                         imageId={siteBoundariesImageFilesId?.westApp}
                       />
                     </td>
-                    <td className={`${inputTableDataClass} p-0 bg-white`}>
+                    <td className={`${inputTableDataClass} p-0 bg-white border-r-0`}>
                       <ImageUploadInput
                         id="westObs"
                         onFileChange={handleFileChange}
@@ -630,7 +630,7 @@ const SiteInspection = () => {
                       <br />
                       the Documents.
                     </td>
-                    <td className={`${inputTableDataClass} p-0 bg-white`}>
+                    <td className={`${inputTableDataClass} p-0 bg-white hover:bg-white`}>
                       <input
                         id="scheduleOfTheDocumentsApp"
                         type="text"
@@ -638,10 +638,10 @@ const SiteInspection = () => {
                           siteBoundaries?.scheduleOfTheDocuments?.[0]
                         }
                         placeholder="Yes/No"
-                        className="h-[105px] px-4 rounded-none w-full focus:outline-none bg-gray-100 hover:bg-gray-200"
+                        className="h-[105px] px-4 rounded-none w-full focus:outline-none bg-white hover:bg-white"
                       />
                     </td>
-                    <td className={`${inputTableDataClass} p-0 bg-white`}>
+                    <td className={`${inputTableDataClass} p-0 bg-white hover:bg-white border-r-0`}>
                       <input
                         id="scheduleOfTheDocumentsObs"
                         type="text"
@@ -649,51 +649,51 @@ const SiteInspection = () => {
                           siteBoundaries?.scheduleOfTheDocuments?.[1]
                         }
                         placeholder="Yes/No"
-                        className="h-[105px] px-4 rounded-none w-full focus:outline-none bg-gray-100 hover:bg-gray-200"
+                        className="h-[105px] px-4 rounded-none w-full focus:outline-none bg-white hover:bg-white"
                       />
                     </td>
                   </tr>
 
                   {/* Access Road  */}
                   <tr className="border-b border-neutral-500">
-                    <td rowSpan="5" className={tableDataClass}>
+                    <td rowSpan="5" className={`${tableDataClass} border-l-0`}>
                       3
                     </td>
                     <td
                       colSpan="3"
-                      className={`${tableDataClass} text-center text-base font-semibold bg-gray-200`}
+                      className={`${tableDataClass} text-center text-base font-semibold bg-gray-200 border-r-0`}
                     >
                       Access Road
                     </td>
                   </tr>
                   <tr className="border-b border-neutral-500">
-                    <td className={tableDataClass}>Nature of Road</td>
+                    <td className={`${tableDataClass} font-bold bg-white`}>Nature of Road</td>
                     <td className={`${inputTableDataClass} p-0 bg-white`}>
                       <input
                         id="natureOfRoadApp"
                         type="text"
                         defaultValue={accessRoad?.natureOfRoad?.[0]}
                         placeholder="Yes/No"
-                        className={`block w-full h-12 bg-white hover:bg-white pl-4 focus:outline-0 focus:border-0 `}
+                        className={`${inputClass} focus:border-0 `}
                       />
                     </td>
-                    <td className={`${inputTableDataClass} p-0 bg-white`}>
+                    <td className={`${inputTableDataClass} p-0 bg-white border-r-0`}>
                       <input
                         id="natureOfRoadObs"
                         type="text"
                         defaultValue={accessRoad?.natureOfRoad?.[1]}
                         placeholder="Yes/No"
-                        className={`block w-full h-12 bg-white hover:bg-white pl-4 focus:outline-0 focus:border-0 `}
+                        className={`${inputClass} focus:border-0 `}
                       />
                     </td>
                   </tr>
                   <tr className="border-b border-neutral-500">
-                    <td className={tableDataClass}>Status of Approach Road</td>
+                    <td className={`${tableDataClass} font-bold bg-white`}>Status of Approach Road</td>
                     <td className={`${inputTableDataClass} p-0 bg-white`}>
                       <div className="flex flex-col justify-center">
                         <select
                           id="approachRoadApp"
-                          className="input rounded-none w-full focus:outline-none bg-gray-100 hover:bg-gray-200"
+                          className="input rounded-none w-full focus:outline-none"
                           value={
                             approachRoadApp
                               ? approachRoadApp
@@ -706,18 +706,11 @@ const SiteInspection = () => {
                         </select>
                       </div>
                     </td>
-                    <td className={`${inputTableDataClass} p-0 bg-white`}>
-                      {/* <input
-                      id="approachRoadObs"
-                      type="text"
-                      defaultValue={accessRoad?.approachRoad?.[1]}
-                      placeholder="Public/Private"
-                       className={`block w-full h-12 bg-white hover:bg-white pl-4 focus:outline-0 focus:border-0 `}
-                    /> */}
+                    <td className={`${inputTableDataClass} p-0 bg-white border-r-0`}>
                       <div className="flex flex-col justify-center">
                         <select
                           id="approachRoadObs"
-                          className="input rounded-none w-full focus:outline-none bg-gray-100 hover:bg-gray-200"
+                          className="input rounded-none w-full focus:outline-none"
                           value={
                             approachRoadObs
                               ? approachRoadObs
@@ -735,28 +728,28 @@ const SiteInspection = () => {
                     </td>
                   </tr>
                   <tr className="border-b border-neutral-500">
-                    <td className={tableDataClass}>Road Width</td>
+                    <td className={`${tableDataClass} font-bold bg-white`}>Road Width</td>
                     <td className={`${inputTableDataClass} p-0 bg-white`}>
                       <input
                         id="roadWidthApp"
                         type="text"
                         defaultValue={accessRoad?.accessRoadWidth?.[0]}
                         placeholder="Yes/No"
-                        className={`block w-full h-12 bg-white hover:bg-white pl-4 focus:outline-0 focus:border-0 `}
+                        className={`${inputClass} focus:border-0 `}
                       />
                     </td>
-                    <td className={`${inputTableDataClass} p-0 bg-white`}>
+                    <td className={`${inputTableDataClass} p-0 bg-white border-r-0`}>
                       <input
                         id="roadWidthObs"
                         type="text"
                         defaultValue={accessRoad?.accessRoadWidth?.[1]}
                         placeholder="Yes/No"
-                        className={`block w-full h-12 bg-white hover:bg-white pl-4 focus:outline-0 focus:border-0 `}
+                        className={`${inputClass} focus:border-0 `}
                       />
                     </td>
                   </tr>
                   <tr className="border-b border-neutral-500">
-                    <td className={tableDataClass}>
+                    <td className={`${tableDataClass} font-bold bg-white`}>
                       Scope of Road Widening in Mts.
                     </td>
                     <td className={`${inputTableDataClass} p-0 bg-white`}>
@@ -765,34 +758,34 @@ const SiteInspection = () => {
                         type="text"
                         defaultValue={accessRoad?.scopeOfRoad?.[0]}
                         placeholder="0"
-                        className={`block w-full h-12 bg-white hover:bg-white pl-4 focus:outline-0 focus:border-0 `}
+                        className={`${inputClass} focus:border-0 `}
                       />
                     </td>
-                    <td className={`${inputTableDataClass} p-0 bg-white`}>
+                    <td className={`${inputTableDataClass} p-0 bg-white border-r-0`}>
                       <input
                         id="scopeOfRoadObs"
                         defaultValue={accessRoad?.scopeOfRoad?.[1]}
                         type="text"
                         placeholder="0"
-                        className={`block w-full h-12 bg-white hover:bg-white pl-4 focus:outline-0 focus:border-0 `}
+                        className={`${inputClass} focus:border-0 `}
                       />
                     </td>
                   </tr>
 
                   {/* Land Use  */}
-                  <tr className="border-b border-neutral-500">
-                    <td rowSpan="5" className={tableDataClass}>
+                  <tr className="">
+                    <td rowSpan="5" className={`${tableDataClass} border-l-0 border-b-0`}>
                       4
                     </td>
                     <td
                       colSpan="3"
-                      className={`${tableDataClass} text-center text-base font-semibold bg-gray-200`}
+                      className={`${tableDataClass} text-center text-base font-semibold bg-gray-200 border-r-0`}
                     >
                       Land Use
                     </td>
                   </tr>
                   <tr className="border-b border-neutral-500">
-                    <td className={tableDataClass}>
+                    <td className={`${tableDataClass} font-bold bg-white`}>
                       Land Use as per Master Plan
                     </td>
                     <td className={`${inputTableDataClass} p-0 bg-white`}>
@@ -801,63 +794,63 @@ const SiteInspection = () => {
                         type="text"
                         defaultValue={landUse?.landUse?.[0]}
                         placeholder="Yes/No"
-                        className={`block w-full h-12 bg-white hover:bg-white pl-4 focus:outline-0 focus:border-0 `}
+                        className={`${inputClass} focus:border-0 `}
                       />
                     </td>
-                    <td className={`${inputTableDataClass} p-0 bg-white`}>
+                    <td className={`${inputTableDataClass} p-0 bg-white border-r-0`}>
                       <input
                         id="landUseObs"
                         type="text"
                         defaultValue={landUse?.landUse?.[1]}
                         placeholder="Yes/No"
-                        className={`block w-full h-12 bg-white hover:bg-white pl-4 focus:outline-0 focus:border-0 `}
+                        className={`${inputClass} focus:border-0 `}
                       />
                     </td>
                   </tr>
                   <tr className="border-b border-neutral-500">
-                    <td className={tableDataClass}>Proposed activity</td>
+                    <td className={`${tableDataClass} font-bold bg-white`}>Proposed activity</td>
                     <td className={`${inputTableDataClass} p-0 bg-white`}>
                       <input
                         id="proposedActivityApp"
                         type="text"
                         defaultValue={landUse?.proposedActivity?.[0]}
                         placeholder="Yes/No"
-                        className={`block w-full h-12 bg-white hover:bg-white pl-4 focus:outline-0 focus:border-0 `}
+                        className={`${inputClass} focus:border-0 `}
                       />
                     </td>
-                    <td className={`${inputTableDataClass} p-0 bg-white`}>
+                    <td className={`${inputTableDataClass} p-0 bg-white border-r-0`}>
                       <input
                         id="proposedActivityObs"
                         type="text"
                         defaultValue={landUse?.proposedActivity?.[1]}
                         placeholder="Yes/No"
-                        className={`block w-full h-12 bg-white hover:bg-white pl-4 focus:outline-0 focus:border-0 `}
+                        className={`${inputClass} focus:border-0 `}
                       />
                     </td>
                   </tr>
                   <tr className="border-b border-neutral-500">
-                    <td className={tableDataClass}>Road Width</td>
+                    <td className={`${tableDataClass} font-bold bg-white`}>Road Width</td>
                     <td className={`${inputTableDataClass} p-0 bg-white`}>
                       <input
                         id="landRoadWidthApp"
                         type="text"
                         defaultValue={landUse?.landRoadWidth?.[0]}
                         placeholder="Yes/No"
-                        className={`block w-full h-12 bg-white hover:bg-white pl-4 focus:outline-0 focus:border-0 `}
+                        className={`${inputClass} focus:border-0 `}
                       />
                     </td>
-                    <td className={`${inputTableDataClass} p-0 bg-white`}>
+                    <td className={`${inputTableDataClass} p-0 bg-white border-r-0`}>
                       <input
                         id="landRoadWidthObs"
                         type="text"
                         defaultValue={landUse?.landRoadWidth?.[1]}
                         placeholder="Yes/No"
-                        className={`block w-full h-12 bg-white hover:bg-white pl-4 focus:outline-0 focus:border-0 `}
+                        className={`${inputClass} focus:border-0 `}
                       />
                     </td>
                   </tr>
-                  <tr className="border-b border-neutral-500">
-                    <td className={tableDataClass}>
+                  <tr>
+                    <td className={`${tableDataClass} font-bold bg-white border-b-0`}>
                       Whether permission as per Zoning Regulations
                     </td>
                     <td className={`${inputTableDataClass} p-0 bg-white`}>
@@ -866,16 +859,16 @@ const SiteInspection = () => {
                         type="text"
                         defaultValue={landUse?.whetherPermission?.[0]}
                         placeholder="Yes/No"
-                        className={`block w-full h-12 bg-white hover:bg-white pl-4 focus:outline-0 focus:border-0 `}
+                        className={`${inputClass} focus:border-0 `}
                       />
                     </td>
-                    <td className={`${inputTableDataClass} p-0 bg-white`}>
+                    <td className={`${inputTableDataClass} p-0 bg-white border-r-0`}>
                       <input
                         id="whetherPermissionObs"
                         type="text"
                         defaultValue={landUse?.whetherPermission?.[1]}
                         placeholder="Yes/No"
-                        className={`block w-full h-12 bg-white hover:bg-white pl-4 focus:outline-0 focus:border-0 `}
+                        className={`${inputClass} focus:border-0 `}
                       />
                     </td>
                   </tr>
