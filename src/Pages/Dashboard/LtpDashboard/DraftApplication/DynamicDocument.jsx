@@ -47,7 +47,7 @@ console.log(render,"render")
           <div key={index + 1} className="w-full px-2 py-5 rounded">
             <div className="text-[17px]">
               <p className="pb-4 font-bold">
-                {id}. {question}
+                {index+8}. {question}
               </p>
               <div className="ml-6">
                 {requirements?.map((RequireData, ind) => {
