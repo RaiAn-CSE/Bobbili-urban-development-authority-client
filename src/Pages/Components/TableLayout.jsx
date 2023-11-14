@@ -7,15 +7,16 @@ const TableLayout = ({ tableData, Component, tableComponentProps }) => {
       <div className="py-4">
         <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4">
           <div className="inline-block min-w-full nm_Container rounded-lg overflow-hidden">
-            <table className=" min-w-full leading-normal text-center ">
+            <table className="min-w-full leading-normal text-center">
               <thead className="bg-normalViolet">
                 <tr className="hidden md:table-row">
                   {tableData?.tableHeader?.map((headerName) => {
                     return (
                       <th
                         key={headerName}
-                        className={`p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider ${headerName === "Application no." && "w-48"
-                          }`}
+                        className={`p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider ${
+                          headerName === "Application no." && "w-48"
+                        }`}
                       >
                         {headerName}
                       </th>

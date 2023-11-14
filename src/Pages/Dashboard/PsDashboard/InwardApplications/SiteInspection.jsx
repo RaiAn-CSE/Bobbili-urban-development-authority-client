@@ -364,8 +364,7 @@ const SiteInspection = () => {
     return await response.json();
   };
 
-  const tableDataClass =
-    "break-words border-r px-6 py-4 border-neutral-500";
+  const tableDataClass = "break-words border-r px-6 py-4 border-neutral-500";
   const inputClass =
     "input rounded-none w-full focus:outline-none bg-gray-50 hover:bg-gray-200 bg-gray-100";
   const inputTableDataClass = "break-words border-r border-neutral-500";
@@ -379,13 +378,13 @@ const SiteInspection = () => {
       {/* <input type="submit" value="get" onClick={get} /> */}
       <div className="overflow-x-auto">
         <div className="inline-block min-w-full">
-          <div className="overflow-hidden p-4">
-            <table className="min-w-full border text-sm font-light border-neutral-500">
-              <thead className="border-b font-medium border-neutral-500">
-                <tr>
+          <div className="overflow-hidden rounded-lg m-4 border-[2px] border-neutral-400 z-10">
+            <table className="min-w-full text-sm font-light ">
+              <thead className="border-b font-medium border-neutral-500 ">
+                <tr className="bg-purple-500 text-white">
                   <th
                     scope="col"
-                    className="border-r px-6 py-4 border-neutral-500"
+                    className="border-r px-6 py-4 border-neutral-500 "
                   >
                     {" "}
                     Sl. No.
@@ -597,8 +596,10 @@ const SiteInspection = () => {
                 </tr>
                 <tr className="border-b border-neutral-500">
                   <td className={tableDataClass}>
-                    Whether the above physical feature are<br />
-                    talking / Not talking with the schedule of<br />
+                    Whether the above physical feature are
+                    <br />
+                    talking / Not talking with the schedule of
+                    <br />
                     the Documents.
                   </td>
                   <td className={inputTableDataClass}>
@@ -854,7 +855,6 @@ const SiteInspection = () => {
 
       {/* Radio Button  */}
       <div className="grid-cols-1 lg:grid-cols-2 items-center my-5">
-
         <div className="radio-button-container px-4">
           <div className="radio-button">
             <input

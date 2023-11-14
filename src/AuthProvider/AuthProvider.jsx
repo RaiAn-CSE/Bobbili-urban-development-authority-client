@@ -424,12 +424,12 @@ const AuthProvider = ({ children }) => {
       );
 
       if (isParkingAreaExist !== -1) {
-        return `ground+stilt+${totalFloors - 2}`;
+        return `Ground+Stilt+${totalFloors - 2}`;
       } else {
         if (totalFloors - 1 === 0) {
-          return `ground`;
+          return `Ground`;
         } else {
-          return `ground+${totalFloors - 1}`;
+          return `Ground+${totalFloors - 1}`;
         }
       }
     } else {
@@ -459,8 +459,9 @@ const AuthProvider = ({ children }) => {
           ownerNamePattern = `${ownerNames[0]},${ownerNames[1]},${ownerNames[2]}`;
           break;
         default:
-          ownerNamePattern = `${ownerNames[0]},${ownerNames[1]},${ownerNames[2]
-            } and ${totalOwner - 3} others`;
+          ownerNamePattern = `${ownerNames[0]},${ownerNames[1]},${
+            ownerNames[2]
+          } and ${totalOwner - 3} others`;
           break;
       }
     }

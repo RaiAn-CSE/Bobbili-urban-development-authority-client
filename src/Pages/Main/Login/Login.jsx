@@ -234,7 +234,7 @@ const Login = () => {
                   id="remember"
                   type="checkbox"
                   {...register("checkbox")}
-                  className="nm_Inset checkbox w-5 h-5 checked:checkbox-primary"
+                  className="nm_Inset checkbox checked:border-none w-5 h-5 checked:checkbox-primary"
                 />
               </div>
               <label
