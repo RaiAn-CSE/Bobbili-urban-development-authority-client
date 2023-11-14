@@ -124,7 +124,7 @@ const DocumentUpload = () => {
 
       // Default document Combinding, set & update useState
       if (role === "LTP") {
-        setUpdatedDefaultData(DefaultDocumentData);
+        setUpdatedDefaultData([...DefaultDocumentData]);
       } else {
         const combinedArray = [...PreviousDefaultData || [], ...DefaultDocumentData];
         const uniqueCombinedArray = [];
@@ -134,7 +134,7 @@ const DocumentUpload = () => {
             uniqueCombinedArray.push(item);
           }
         });
-        // Default  document Combinding Updated
+        // Default document Combinding Updated
         setUpdatedDefaultData(uniqueCombinedArray);
       }
 
@@ -160,8 +160,6 @@ const DocumentUpload = () => {
     };
     gettingData();
   }, []);
-
-  // useEffect(() => { }, [DynamicAppChecklistDocument])
 
   // file send into the database
   const handleFileUpload = async (url) => {

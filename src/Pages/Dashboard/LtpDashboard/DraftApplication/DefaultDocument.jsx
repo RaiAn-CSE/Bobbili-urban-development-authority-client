@@ -14,7 +14,7 @@ function DefaultDocument({
   remarkText,
 }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
-  const [render, setRender] = useState(false);
+  // const [render, setRender] = useState(false);
 
   // This function updates the data when user Clicked radio btn
   const handleDefaultStatus = ({ value: data, id, type }) => {
@@ -23,13 +23,13 @@ function DefaultDocument({
       approved: item.id === id ? data : item.approved,
     }));
     setUpdatedDefaultData(updatedDocument);
-    setRender(updatedDocument)
+    // setRender(updatedDocument)
   };
 
   useEffect(() => {
     // Your previous useEffect dependencies here
-    console.log(render,"Default Render")
-  }, [UpdatedDefaultData,render]);
+  }, [UpdatedDefaultData]);
+  console.log(UpdatedDefaultData,"UpdatedDefaultData")
 
   const someEventHandler = (event, id) => {
     const file = event?.target.files[0];
@@ -77,7 +77,7 @@ function DefaultDocument({
                 View
               </Link>
             )}
-            <PsDocument
+            {role === "PS" && <PsDocument
               role={role}
               id={id}
               approved={approved}
@@ -85,7 +85,7 @@ function DefaultDocument({
               type="default"
               setRemarkText={setRemarkText}
               remarkText={matchedText}
-            />
+            />}
           </div>
         );
       })}

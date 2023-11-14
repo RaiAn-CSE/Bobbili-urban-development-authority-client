@@ -1,7 +1,8 @@
 import toast from "react-hot-toast";
 
 function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, handleDynamicStatus, setRemarkText, remarkText }) {
-console.log(approved,type,id,"approved")
+	console.log(approved, type, id,"from PS Document");
+
 	const handleDocumentStatus = (event, id, uploadId, type) => {
 		const data = event?.target?.value;
 		if (type === "dynamic") {
@@ -52,7 +53,7 @@ console.log(approved,type,id,"approved")
 								value="approved"
 								className="radio radio-sm radio-button__input mr-3 lg:mr-0"
 								onClick={(event) => handleDocumentStatus(event, id, uploadId, type)}
-								defaultChecked={approved === "approved"}
+								checked={approved === "approved"}
 							/>
 							<label
 								className={`radio-button__label text-base`}
@@ -73,7 +74,7 @@ console.log(approved,type,id,"approved")
 								value="shortfall"
 								className="radio radio-sm radio-button__input mr-3 lg:mr-0"
 								onClick={(event) => handleDocumentStatus(event, id, uploadId, type)}
-								defaultChecked={approved === "shortfall"}
+								checked={approved === "shortfall"}
 							/>
 							<label
 								className={`radio-button__label text-base`}
