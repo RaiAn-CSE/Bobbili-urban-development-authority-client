@@ -51,7 +51,7 @@ const EndorsementModal = ({ modalEndorsement }) => {
       <dialog id="endorsementModal" className="modal">
         {/* divide-y-2 divide-gray-200 */}
         <div
-          className={`${customScroll.customScrolling} rounded-lg modal-box py-10 px-12 bg-white text-gray-900 w-11/12 max-w-5xl relative`}
+          className={`${customScroll.customScrolling} rounded-lg modal-box py-10 px-12 bg-white text-gray-900 w-full max-w-4xl relative`}
         >
           <form method="dialog">
             {/* if there is a button in form, it will close the modal */}
