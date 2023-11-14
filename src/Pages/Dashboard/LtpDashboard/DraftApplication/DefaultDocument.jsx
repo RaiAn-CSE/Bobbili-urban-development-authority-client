@@ -4,7 +4,6 @@ import PsDocument from "./PsDocument";
 import { Link } from "react-router-dom";
 
 function DefaultDocument({
-  PreviousDefaultDocumentData,
   UpdatedDefaultData,
   setUpdatedDefaultData,
   role,
@@ -16,20 +15,6 @@ function DefaultDocument({
 }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [render, setRender] = useState(false);
-  // PreviousDefault Document and DefaultDocument combinding
-  useEffect(() => {
-    const combinedArray = [...PreviousDefaultDocumentData || [], ...DefaultDocumentData];
-    const uniqueCombinedArray = [];
-
-    combinedArray.forEach(item => {
-      const exists = uniqueCombinedArray.some(existingItem => existingItem.id === item.id);
-      if (!exists) {
-        uniqueCombinedArray.push(item);
-      }
-    });
-    setUpdatedDefaultData(uniqueCombinedArray);
-    setRender(uniqueCombinedArray)
-  }, [PreviousDefaultDocumentData,render]);
 
   // This function updates the data when user Clicked radio btn
   const handleDefaultStatus = ({ value: data, id, type }) => {

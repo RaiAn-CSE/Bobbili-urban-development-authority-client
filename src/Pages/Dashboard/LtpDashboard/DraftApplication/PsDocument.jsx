@@ -1,7 +1,7 @@
 import toast from "react-hot-toast";
 
 function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, handleDynamicStatus, setRemarkText, remarkText }) {
-console.log(approved,"approved")
+console.log(approved,type,id,"approved")
 	const handleDocumentStatus = (event, id, uploadId, type) => {
 		const data = event?.target?.value;
 		if (type === "dynamic") {

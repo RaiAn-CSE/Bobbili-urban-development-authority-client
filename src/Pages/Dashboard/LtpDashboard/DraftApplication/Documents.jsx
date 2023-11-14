@@ -12,9 +12,7 @@ import DynamicDocument from "./DynamicDocument";
 import PsDocument from "./PsDocument";
 
 const DocumentUpload = () => {
-  const [render, setRender] = useState(false)
   const [UpdatedDefaultData, setUpdatedDefaultData] = useState([...DefaultDocumentData]);
-  const [PreviousDefaultDocumentData, setPreviousDefaultDocumentData] = useState([]);
   const [DynamicAppChecklistDocument, setDynamicAppChecklistDocument] = useState([]);
 
   const [imageId, setImageId] = useState({});
@@ -92,8 +90,6 @@ const DocumentUpload = () => {
       const applicationData = await getApplicationData(applicationNo, cameFrom);
       const applicationCheckList = applicationData?.applicationCheckList;
 
-      setPreviousDefaultDocumentData(applicationData?.psDocumentPageObservation?.data?.default)
-
       role === "PS" &&
         setApprovedConfirmation(
           applicationData?.psDocumentPageObservation?.approved
@@ -122,11 +118,31 @@ const DocumentUpload = () => {
           });
         });
       }
-      const PreviousDynamicData = applicationData?.psDocumentPageObservation?.data?.dynamic;
 
+      const PreviousDynamicData = applicationData?.psDocumentPageObservation?.data?.dynamic;
+      const PreviousDefaultData = applicationData?.psDocumentPageObservation?.data?.default;
+
+      // Default document Combinding, set & update useState
+      if (role === "LTP") {
+        setUpdatedDefaultData(DefaultDocumentData);
+      } else {
+        const combinedArray = [...PreviousDefaultData || [], ...DefaultDocumentData];
+        const uniqueCombinedArray = [];
+        combinedArray.forEach(item => {
+          const exists = uniqueCombinedArray.some(existingItem => existingItem.id === item.id);
+          if (!exists) {
+            uniqueCombinedArray.push(item);
+          }
+        });
+        // Default  document Combinding Updated
+        setUpdatedDefaultData(uniqueCombinedArray);
+      }
+
+      // Dynamic document combinding, set & updating UseState
       if (role === "LTP") {
         setDynamicAppChecklistDocument(CombinedChecklistData)
       } else {
+        // Dynamic document Combinding
         if (role === "PS" && CombinedChecklistData.length > 0) {
           const combinedArray = [...PreviousDynamicData || [], ...CombinedChecklistData];
           const uniqueCombinedArray = [];
@@ -137,15 +153,15 @@ const DocumentUpload = () => {
               uniqueCombinedArray.push(item);
             }
           });
+          // Dynamic document Combinding Updated
           setDynamicAppChecklistDocument(uniqueCombinedArray);
-          setRender(true)
         }
       }
     };
     gettingData();
   }, []);
 
-  useEffect(() => { }, [DynamicAppChecklistDocument])
+  // useEffect(() => { }, [DynamicAppChecklistDocument])
 
   // file send into the database
   const handleFileUpload = async (url) => {
@@ -271,7 +287,6 @@ const DocumentUpload = () => {
         <div className="w-full text-[17px] px-2 rounded">
           <DefaultDocument
             role={role}
-            PreviousDefaultDocumentData={PreviousDefaultDocumentData}
             UpdatedDefaultData={UpdatedDefaultData}
             setUpdatedDefaultData={setUpdatedDefaultData}
             handleFileChange={handleFileChange}
