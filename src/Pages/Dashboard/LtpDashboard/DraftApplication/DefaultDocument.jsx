@@ -15,6 +15,7 @@ function DefaultDocument({
   remarkText,
 }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
+  
   const [latestUpdatedDefaultData, setLatestUpdatedDefaultData] = useState([
     ...UpdatedDefaultData,
   ]);

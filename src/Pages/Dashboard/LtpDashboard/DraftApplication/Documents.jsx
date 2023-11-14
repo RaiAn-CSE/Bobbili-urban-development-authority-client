@@ -157,7 +157,9 @@ const DocumentUpload = () => {
       }
     };
     gettingData();
-  }, [render]);
+  }, []);
+
+  useEffect(()=>{},[DynamicAppChecklistDocument])
 
   // file send into the database
   const handleFileUpload = async (url) => {

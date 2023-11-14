@@ -13,10 +13,9 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
 		}
 	}
 
-
-	useEffect(() => {
-		// Your previous useEffect dependencies here
-	}, [approved, uploadId, id]);
+	// useEffect(() => {
+	// 	// Your previous useEffect dependencies here
+	// }, [approved]);
 
 	const handleRemarkText = (event) => {
 		const { value } = event?.target;
@@ -51,19 +50,19 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
 					<div className="md:flex space-y-4 md:space-x-10 md:space-y-0 mt-2 ms-4 lg:pr-2">
 						<div>
 							<input
-								id={type === "dynamic" ? `approved${id} + ${uploadId}` : `approved${id}`}
+								id={type === "dynamic" ? `approved${id}_${uploadId}` : `approved${id}`}
 								type="radio"
 								title={id}
-								// name={type === "dynamic" ? `${id + uploadId}` : id}
+								name={type === "dynamic" ? `${id + uploadId}` : id}
 								value="approved"
 								className="radio radio-sm radio-button__input mr-3 lg:mr-0"
-								onChange={(event) => handleDocumentStatus(event, id, uploadId, type)}
+								onClick={(event) => handleDocumentStatus(event, id, uploadId, type)}
 								defaultChecked={approved === "approved"}
 							/>
 							<label
 								className={`radio-button__label text-base`}
 								title={id}
-								htmlFor={type === "dynamic" ? `approved${id} + ${uploadId}` : `approved${id}`}
+								htmlFor={type === "dynamic" ? `approved${id}_${uploadId}` : `approved${id}`}
 							>
 								<span className="radio-button__custom"></span>
 								Approved
@@ -72,18 +71,18 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
 
 						<div>
 							<input
-								id={type === "dynamic" ? `shortfall${id} + ${uploadId}` : `shortfall${id}`}
+								id={type === "dynamic" ? `shortfall${id}_${uploadId}` : `shortfall${id}`}
 								type="radio"
 								title={id}
-								// name={type === "dynamic" ? `${id + uploadId}` : id}
+								name={type === "dynamic" ? `${id + uploadId}` : id}
 								value="shortfall"
 								className="radio radio-sm radio-button__input mr-3 lg:mr-0"
-								onChange={(event) => handleDocumentStatus(event, id, uploadId, type)}
+								onClick={(event) => handleDocumentStatus(event, id, uploadId, type)}
 								defaultChecked={approved === "shortfall"}
 							/>
 							<label
 								className={`radio-button__label text-base`}
-								htmlFor={type === "dynamic" ? `shortfall${id} + ${uploadId}` : `shortfall${id}`}
+								htmlFor={type === "dynamic" ? `shortfall${id}_${uploadId}` : `shortfall${id}`}
 								title={id}
 							>
 								<span className="radio-button__custom"></span>
