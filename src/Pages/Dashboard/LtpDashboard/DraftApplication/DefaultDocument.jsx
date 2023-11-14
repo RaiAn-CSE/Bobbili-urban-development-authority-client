@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 
 function DefaultDocument({
   UpdatedDefaultData,
-  PreviousDefaultDocumentData,
   setUpdatedDefaultData,
   role,
   handleFileChange,
@@ -15,49 +14,22 @@ function DefaultDocument({
   remarkText,
 }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
-  const [latestUpdatedDefaultData, setLatestUpdatedDefaultData] = useState([
-    ...UpdatedDefaultData,
-  ]);
+  // const [render, setRender] = useState(false);
 
-  // This useEffect runs only on the initial render
-  useEffect(() => {
-    if (PreviousDefaultDocumentData?.length) {
-      const updatedData = latestUpdatedDefaultData.map((mainItem) => {
-        const matchedPrevItem = PreviousDefaultDocumentData?.find(
-          (prevItem) => prevItem.id === mainItem.id
-        );
-
-        if (matchedPrevItem) {
-          return {
-            id: mainItem.id,
-            question: mainItem.question,
-            upload: mainItem.upload,
-            approved: matchedPrevItem.approved,
-          };
-        } else {
-          return mainItem;
-        }
-      });
-      // Update the state with the new data
-      setLatestUpdatedDefaultData(updatedData);
-      setUpdatedDefaultData(updatedData);
-    }
-  }, [PreviousDefaultDocumentData]);
-
-  // This function updates the data with handleDefaultStatus
-  const handleDefaultStatus = (data) => {
-    const updatedDocument = latestUpdatedDefaultData.map((item) => ({
+  // This function updates the data when user Clicked radio btn
+  const handleDefaultStatus = ({ value: data, id, type }) => {
+    const updatedDocument = UpdatedDefaultData.map((item) => ({
       ...item,
-      approved: item.id === data.id ? data.approved : item.approved,
+      approved: item.id === id ? data : item.approved,
     }));
-
-    setLatestUpdatedDefaultData(updatedDocument);
     setUpdatedDefaultData(updatedDocument);
+    // setRender(updatedDocument)
   };
 
   useEffect(() => {
     // Your previous useEffect dependencies here
-  }, [latestUpdatedDefaultData]);
+  }, [UpdatedDefaultData]);
+  console.log(UpdatedDefaultData,"UpdatedDefaultData")
 
   const someEventHandler = (event, id) => {
     const file = event?.target.files[0];
@@ -69,7 +41,7 @@ function DefaultDocument({
 
   return (
     <div className="dark:text-black">
-      {latestUpdatedDefaultData.map((data, index) => {
+      {UpdatedDefaultData.map((data, index) => {
         let { id, question, approved, upload } = data;
 
         const isMatch = defaultImageFromDB?.find(
@@ -105,7 +77,7 @@ function DefaultDocument({
                 View
               </Link>
             )}
-            <PsDocument
+            {role === "PS" && <PsDocument
               role={role}
               id={id}
               approved={approved}
@@ -113,7 +85,7 @@ function DefaultDocument({
               type="default"
               setRemarkText={setRemarkText}
               remarkText={matchedText}
-            />
+            />}
           </div>
         );
       })}

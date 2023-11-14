@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import PsDocument from "./PsDocument";
-import RootDynamicDocument from "./../../../../assets/DynamicDocument.json";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 
 function DynamicDocument({ DynamicAppChecklistDocument, setDynamicAppChecklistDocument, role, handleFileChange, gradientColor, dynamicImageFromDB, remarkText, setRemarkText
 }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const [render, setRender] = useState(false);
 
   const someEventHandler = (event, id, uploadId) => {
     const file = event?.target.files[0];
@@ -14,56 +14,29 @@ function DynamicDocument({ DynamicAppChecklistDocument, setDynamicAppChecklistDo
     handleFileChange(event, id, selectedFiles, "dynamic", uploadId);
   };
 
-  // const handleDynamicStatus = ({ value: data, id, uploadId, type }) => {
-  //   if (!data) {
-  //     return;
-  //   }
-
-  // const updatedDynamicAppChecklist = DynamicAppChecklistDocument.map(checkListData => {
-  //   // first condition
-  //   if (checkListData.id === id) {
-  //     // Second condition
-  //     const updatedRequirements = checkListData.requirements.map(item => {
-  //       if (item.uploadId === uploadId) {
-  //         return { ...item, approved: data };
-  //       }
-  //       return item;
-  //     });
-  //     // if two conditoin matched
-  //     return { ...checkListData, requirements: updatedRequirements };
-  //   }
-  //   return checkListData;
-  // });
-
-  //   console.log({ DynamicAppChecklistDocument, updatedDynamicAppChecklist }, "DynamicAppChecklistDocument");
-  //   setDynamicAppChecklistDocument(updatedDynamicAppChecklist);
-  // };
-
-
   const handleDynamicStatus = ({ value: data, id, uploadId, type }) => {
     if (!data) {
       return;
     }
-    const updatedDynamicAppChecklist = DynamicAppChecklistDocument.map(checkListData => (
-      checkListData.id === id
-        ? {
-          ...checkListData,
-          requirements: checkListData.requirements.map(item =>
-            item.uploadId === uploadId ? { ...item, approved: data } : item
-          )
-        }
-        : checkListData
-    ));
+    const updatedDynamicAppChecklist = DynamicAppChecklistDocument.map(checkListData => {
+      const condition01 = checkListData.id === id;
+      const isExistUploadId = checkListData.requirements.find(reqData => reqData.uploadId === uploadId);
+      const uploadIdIndex = checkListData.requirements.findIndex(reqData => reqData.uploadId === uploadId);
 
-    console.log({ DynamicAppChecklistDocument, updatedDynamicAppChecklist }, "DynamicAppChecklistDocument");
-    setDynamicAppChecklistDocument(updatedDynamicAppChecklist);
+      if (condition01 && isExistUploadId) {
+        checkListData.requirements[uploadIdIndex].approved = data
+        return checkListData;
+      } else {
+        return checkListData;
+      }
+    });
+    setDynamicAppChecklistDocument(updatedDynamicAppChecklist)
+    setRender(updatedDynamicAppChecklist);
   };
 
-
-
   useEffect(() => {
-
-  }, [DynamicAppChecklistDocument])
+console.log(render,"render")
+  }, [DynamicAppChecklistDocument, render])
 
   const page = JSON.parse(localStorage?.getItem("page"));
   return (
@@ -79,7 +52,7 @@ function DynamicDocument({ DynamicAppChecklistDocument, setDynamicAppChecklistDo
               <div className="ml-6">
                 {requirements?.map((RequireData, ind) => {
                   const { uploadId, requirement, approved, upload } =
-                    RequireData || {};
+                    RequireData;
 
                   const isMatch = dynamicImageFromDB?.find(
                     (eachFile, i) =>
