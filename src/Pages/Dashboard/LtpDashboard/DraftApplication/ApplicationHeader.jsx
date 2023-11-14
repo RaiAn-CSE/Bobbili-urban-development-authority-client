@@ -9,19 +9,16 @@ function ApplicationHeader() {
   return (
     <div className="my-5">
       <div className="text-center font-extrabold ">
-        <h2 className="mt-3 underline text-2xl">
-          BUILDING PERMISSION APPLICATION
-        </h2>
+        <h2 className="mb-10 text-2xl">BUILDING PERMISSION APPLICATION</h2>
       </div>
       <div className="mt-6 flex justify-between">
-        <p className="font-bold">
-          Application No.{" "}
-          <span className="text-green-600">{applicationNo}</span>
+        <p className="font-bold text-base">
+          Application No. <span className="">{applicationNo}</span>
         </p>
-        <p>
+        <p className="text-base font-bold">
           {" "}
-          <span className="font-bold">Date of Submission:</span>{" "}
-          <span className="text-green-600 font-bold">{`${day}-${month}-${year}`}</span>
+          <span>Date of Submission:</span>{" "}
+          <span>{`${day}-${month}-${year}`}</span>
         </p>
       </div>
       <div className="mt-5 font-bold">
