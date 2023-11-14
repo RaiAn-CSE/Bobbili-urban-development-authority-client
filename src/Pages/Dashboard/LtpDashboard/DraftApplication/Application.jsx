@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import ApplicationHeader from "./ApplicationHeader";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import { RxCross2 } from "react-icons/rx";
+import CustomScroll from "../../../../Style/Scrollbar.module.css";
 
 function Application({ setOpenApplication }) {
   const { getApplicationData, ownerNamePattern, calculateNoOfFloors } =
@@ -156,9 +157,11 @@ function Application({ setOpenApplication }) {
   };
 
   return (
-    <div className="relative w-full h-full text-black">
+    <div className={`$ relative w-full h-full text-black`}>
       <dialog id="my_modal_5" className="modal">
-        <div className="modal-box w-full max-w-4xl p-14 bg-white">
+        <div
+          className={`${CustomScroll.customScrolling} modal-box w-full max-w-4xl p-14 bg-white`}
+        >
           {/* Header */}
           <ApplicationHeader />
           <div>
