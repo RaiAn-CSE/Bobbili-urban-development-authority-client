@@ -1130,3 +1130,21 @@ input[type="number"]::-webkit-outer-spin-button {
   border-style: solid;
   border-image-source: url("../src/assets/images/frame2.png");
 }
+
+/* list number design  */
+
+/* using The Counter-increment CSS property */
+
+ol > li {
+  margin: 0;
+  padding: 0 0 0 2em;
+  text-indent: -2em;
+  list-style-type: none;
+  counter-increment: item;
+}
+
+ol > li:before {
+  padding-right: 0.5em;
+  font-weight: bold;
+  content: counter(item) ".";
+}

@@ -68,7 +68,7 @@ const ProceedingModal = ({ modalProceeding }) => {
     <div className="dark:bg-white">
       <dialog id="proceedingModal" className="modal">
         <div
-          className={`${customScroll.customScrolling} rounded-lg modal-box py-10 px-12 text-gray-900 w-full max-w-4xl relative bg-[#E8EAEC]`}
+          className={`${customScroll.customScrolling} rounded-lg modal-box py-10 px-12 text-gray-900 w-full max-w-4xl relative bg-white`}
         >
           <form method="dialog">
             {/* if there is a button in form, it will close the modal */}
@@ -118,9 +118,7 @@ const ProceedingModal = ({ modalProceeding }) => {
                         బి. ఎ.నెం.
                       </th>
                       <th colSpan={8} className="p-2">
-                        <span className="underline">
-                          {allInfo?.applicationNo}
-                        </span>
+                        <span className="">{allInfo?.applicationNo}</span>
                       </th>
                     </tr>
                   </thead>
@@ -170,28 +168,32 @@ const ProceedingModal = ({ modalProceeding }) => {
               </div>
             </div>
           </div>
-          <p className="mt-5">
-            <span className="font-semibold">విషయము:</span> భవన అనుమతులు - వ్యక్తిగత నివాస భవన నిర్మాణము - అనుమతులు -
-            ఇచ్చుట - గురించి.
-          </p>
-          <p className="mt-5">
-            <span className="font-semibold">సూచిక:</span>
-            <ol className="px-10 list-decimal">
-              <li className="mt-1">
-                జి. ఓ. యం. ఎస్. నెం. 61, తేది. 12.02.2019 పురపాలక మరియు
-                పట్టణాభివృద్ధి శాఖ, ఆంధ్రప్రదేశ్ వారి ఉత్తర్వులు.
+
+          <div className="mt-5 px-20">
+            <span className="font-semibold ">విషయము : </span> భవన అనుమతులు -
+            వ్యక్తిగత నివాస భవన నిర్మాణము - అనుమతులు - ఇచ్చుట - గురించి.
+          </div>
+
+          <div className="mt-5 flex ms-20">
+            <p className="font-semibold mr-2">సూచిక:</p>
+            <ol className="">
+              <li className="">
+                జి. ఓ. యం. ఎస్. నెం. <span className="font-bold">61,</span>{" "}
+                తేది. <span className="font-bold">12.02.2019</span> పురపాలక
+                మరియు పట్టణాభివృద్ధి శాఖ, ఆంధ్రప్రదేశ్ వారి ఉత్తర్వులు.
               </li>
               <li className="mt-3">ఆర్. ఓ. సి. నెం.</li>
               <li className="mt-3">
-                జి. ఓ. యం. ఎస్. నెం. 119, తేది. 10.07.2017 పురపాలక మరియు
-                పట్టణాభివృద్ధి శాఖ, ఆంధ్రప్రదేశ్ వారి ఉత్తర్వులు.
+                జి. ఓ. యం. ఎస్. నెం. <span className="font-bold">119,</span>{" "}
+                తేది. <span className="font-bold">10.07.2017</span> పురపాలక
+                మరియు పట్టణాభివృద్ధి శాఖ, ఆంధ్రప్రదేశ్ వారి ఉత్తర్వులు.
               </li>
               <li className="mt-3">
                 దరఖాస్తు చేసుకొనిన తేది: ………digital sign date………….
               </li>
             </ol>
-          </p>
-          <p className="mt-3">
+          </div>
+          <p className="mt-3 text-justify indent-14">
             ఆంధ్ర ప్రదేశ్ మహానగర ప్రాంతం మరియు పట్టణాభివృద్ధి చట్టము, 2016 నందలి
             సెక్షన్ 7(1) (హెచ్) అనుసరించి, సూచిక 2 నందు వైస్-చైర్మన్, బొబ్బిలి
             పట్టణాభివృద్ధి సంస్థ, బొబ్బిలి వారు జారీ చేసిన అధికార బదలాయింపు
@@ -200,12 +202,10 @@ const ProceedingModal = ({ modalProceeding }) => {
             దరఖాస్తును షరతులతో కూడిన అనుమతులు జారీ చేయడం జరుగుతున్నది.
           </p>
 
-          <table className="min-w-full mt-4">
+          <table className="min-w-full mt-6">
             <thead className="border border-gray-900 ">
               <tr>
-                <th className="border-r border-neutral-500 p-2 w-16">
-                  A
-                </th>
+                <th className="border-r border-neutral-500 p-2 w-16">A</th>
                 <th colSpan={4} className="p-2">
                   దరఖాస్తు దారులు మరియు ఎల్.టి.పి వివరములు
                 </th>
@@ -219,7 +219,7 @@ const ProceedingModal = ({ modalProceeding }) => {
                 <td className="p-2 border-r border-neutral-500">
                   దరఖాస్తుదారులు
                 </td>
-                <td colSpan={4}>
+                <td colSpan={4} className="p-2">
                   {allInfo?.applicantInfo?.applicantDetails?.[0]?.name}
                 </td>
               </tr>
@@ -236,18 +236,13 @@ const ProceedingModal = ({ modalProceeding }) => {
                 <td className="p-2 border-r border-neutral-500">
                   లైసెన్స్ నెం
                 </td>
-                <td
-                  colSpan={2}
-                  className="p-2 border-r border-neutral-500"
-                >
+                <td colSpan={2} className="p-2 border-r border-neutral-500">
                   {allInfo?.applicantInfo?.ltpDetails?.licenseNo} &{" "}
                   <span>{allInfo?.applicantInfo?.ltpDetails?.validity}</span>
                 </td>
               </tr>
               <tr className="border border-gray-900">
-                <th className="p-2 border-r border-neutral-500">
-                  B
-                </th>
+                <th className="p-2 border-r border-neutral-500">B</th>
                 <td
                   colSpan={5}
                   className="border-r border-neutral-500 font-semibold text-center"
@@ -259,9 +254,7 @@ const ProceedingModal = ({ modalProceeding }) => {
                 <td className="p-2 border-r border-neutral-500 text-center font-semibold">
                   1
                 </td>
-                <td className="p-2 border-r border-neutral-500">
-                  సర్వే నెం.
-                </td>
+                <td className="p-2 border-r border-neutral-500">సర్వే నెం.</td>
                 <td colSpan={4} className="p-2 border-r border-neutral-500">
                   {allInfo?.buildingInfo?.generalInformation?.surveyNo}
                 </td>
@@ -270,9 +263,7 @@ const ProceedingModal = ({ modalProceeding }) => {
                 <td className="p-2 border-r border-neutral-500 text-center font-semibold">
                   2
                 </td>
-                <td className="p-2 border-r border-neutral-500">
-                  డోర్ నెం.
-                </td>
+                <td className="p-2 border-r border-neutral-500">డోర్ నెం.</td>
                 <td colSpan={4} className="p-2 border-r border-neutral-500">
                   {allInfo?.applicantInfo?.applicantDetails[0]?.ownerDoorNo}
                 </td>
@@ -281,9 +272,7 @@ const ProceedingModal = ({ modalProceeding }) => {
                 <td className="p-2 border-r border-neutral-500 text-center font-semibold">
                   3
                 </td>
-                <td className="p-2 border-r border-neutral-500">
-                  ప్లాట్ నెం.
-                </td>
+                <td className="p-2 border-r border-neutral-500">ప్లాట్ నెం.</td>
                 <td colSpan={4} className="p-2 border-r border-neutral-500">
                   {allInfo?.buildingInfo?.generalInformation?.plotNo ?? "N/A"}
                 </td>
@@ -292,9 +281,7 @@ const ProceedingModal = ({ modalProceeding }) => {
                 <td className="p-2 border-r border-neutral-500 text-center font-semibold">
                   4
                 </td>
-                <td className="p-2 border-r border-neutral-500">
-                  గ్రామము
-                </td>
+                <td className="p-2 border-r border-neutral-500">గ్రామము</td>
                 <td colSpan={4} className="p-2 border-r border-neutral-500">
                   {allInfo?.buildingInfo?.generalInformation?.village}
                 </td>
@@ -314,9 +301,7 @@ const ProceedingModal = ({ modalProceeding }) => {
                 <td className="p-2 border-r border-neutral-500 text-center font-semibold">
                   6
                 </td>
-                <td className="p-2 border-r border-neutral-500">
-                  మండలం
-                </td>
+                <td className="p-2 border-r border-neutral-500">మండలం</td>
                 <td colSpan={4} className="p-2 border-r border-neutral-500">
                   {allInfo?.buildingInfo?.generalInformation?.mandal}
                 </td>
@@ -325,17 +310,13 @@ const ProceedingModal = ({ modalProceeding }) => {
                 <td className="p-2 border-r border-neutral-500 text-center font-semibold">
                   7
                 </td>
-                <td className="p-2 border-r border-neutral-500">
-                  జిల్లా
-                </td>
+                <td className="p-2 border-r border-neutral-500">జిల్లా</td>
                 <td colSpan={4} className="p-2 border-r border-neutral-500">
                   {allInfo?.buildingInfo?.generalInformation?.district}
                 </td>
               </tr>
               <tr className="border border-gray-900">
-                <th className="p-2 border-r border-neutral-500">
-                  C
-                </th>
+                <th className="p-2 border-r border-neutral-500">C</th>
                 <td
                   colSpan={5}
                   className="border-r border-neutral-500 font-semibold text-center"
@@ -350,10 +331,7 @@ const ProceedingModal = ({ modalProceeding }) => {
                 >
                   1
                 </td>
-                <td
-                  rowSpan={2}
-                  className="p-2 border-r border-neutral-500"
-                >
+                <td rowSpan={2} className="p-2 border-r border-neutral-500">
                   సెట్-బాక్స్ (మీ)
                 </td>
                 <td className="p-2 border-r border-neutral-500 text-center">
@@ -371,18 +349,24 @@ const ProceedingModal = ({ modalProceeding }) => {
               </tr>
               <tr className="p-2 border border-gray-900">
                 <td className="p-2 border-r border-neutral-500 text-center">
-                  {
-                    allInfo?.buildingInfo?.plotDetails?.frontSetback ? allInfo?.buildingInfo?.plotDetails?.frontSetback : 'N/A'
-                  }
+                  {allInfo?.buildingInfo?.plotDetails?.frontSetback
+                    ? allInfo?.buildingInfo?.plotDetails?.frontSetback
+                    : "N/A"}
                 </td>
                 <td className="p-2 border-r border-neutral-500 text-center">
-                  {allInfo?.buildingInfo?.plotDetails?.rareSetback ? allInfo?.buildingInfo?.plotDetails?.rareSetback : 'N/A'}
+                  {allInfo?.buildingInfo?.plotDetails?.rareSetback
+                    ? allInfo?.buildingInfo?.plotDetails?.rareSetback
+                    : "N/A"}
                 </td>
                 <td className="p-2 border-r border-neutral-500 text-center">
-                  {allInfo?.buildingInfo?.plotDetails?.side1Setback ? allInfo?.buildingInfo?.plotDetails?.side1Setback : 'N/A'}
+                  {allInfo?.buildingInfo?.plotDetails?.side1Setback
+                    ? allInfo?.buildingInfo?.plotDetails?.side1Setback
+                    : "N/A"}
                 </td>
                 <td className="p-2 border-r border-neutral-500 text-center">
-                  {allInfo?.buildingInfo?.plotDetails?.side2Setback ? allInfo?.buildingInfo?.plotDetails?.side2Setback : 'N/A'}
+                  {allInfo?.buildingInfo?.plotDetails?.side2Setback
+                    ? allInfo?.buildingInfo?.plotDetails?.side2Setback
+                    : "N/A"}
                 </td>
               </tr>
               <tr className="p-2 border border-gray-900">
@@ -442,9 +426,7 @@ const ProceedingModal = ({ modalProceeding }) => {
                 </td>
               </tr>
               <tr className="border border-gray-900">
-                <th className="p-2 border-r border-neutral-500">
-                  D
-                </th>
+                <th className="p-2 border-r border-neutral-500">D</th>
                 <td
                   colSpan={5}
                   className="border-r border-neutral-500 font-semibold text-center"
@@ -465,9 +447,7 @@ const ProceedingModal = ({ modalProceeding }) => {
                 <td className="p-2 border-r border-neutral-500 w-5 text-center font-semibold">
                   8
                 </td>
-                <td className="p-2 border-r border-neutral-500">
-                  గ్రీన్ ఫీజు
-                </td>
+                <td className="p-2 border-r border-neutral-500">గ్రీన్ ఫీజు</td>
                 <td className="p-2 border-r border-neutral-500">
                   {allInfo?.payment?.greenFeeCharge?.greenFee}
                 </td>
@@ -585,10 +565,7 @@ const ProceedingModal = ({ modalProceeding }) => {
                 <td className="p-2 border-r border-neutral-500">
                   వినియోగదారు ఛార్జీలు
                 </td>
-                <td
-                  className="p-2 border-r border-neutral-500"
-                  colSpan={4}
-                >
+                <td className="p-2 border-r border-neutral-500" colSpan={4}>
                   1000
                 </td>
                 {/* <td className='p-2 border-r border-neutral-500'>13</td>
@@ -643,8 +620,8 @@ const ProceedingModal = ({ modalProceeding }) => {
             </tbody>
           </table>
           <div className="mt-10 nm_Container p-4">
-            <h4 className="font-semibold text-md">షరతులు:</h4>
-            <ol className="px-10 list-decimal">
+            <h4 className="font-semibold underline text-md">షరతులు:</h4>
+            <ol className="px-10 text-justify leading-10">
               <li className="mt-3">
                 ఈ ఉత్తర్వులతో జత చేయబడిన ఆమోదించబడిన ప్లాను ప్రకారము భవన
                 నియమాలకు లోబడి మాత్రమే భవన నిర్మాణము జరపవలెను.
@@ -767,7 +744,7 @@ const ProceedingModal = ({ modalProceeding }) => {
               </li>
             </ol>
           </div>
-          <div className="mt-20 flex flex-col items-end">
+          <div className="mt-20 flex flex-col items-end leading-10">
             <p className="font-semibold">పంచాయితీ కార్యదర్శి</p>
             <p>
               {allInfo?.buildingInfo?.generalInformation?.gramaPanchayat}
