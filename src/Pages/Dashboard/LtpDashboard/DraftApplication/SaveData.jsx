@@ -185,7 +185,7 @@ const SaveData = ({
           {role === "PS" && (
             <>
               <button
-                className={`btn btn-md nm_Container bg-normalViolet ${hiddenSaveButtonForPS} text-sm text-white px-8 mt-10 ml-3  hover:bg-bgColor hover:text-normalViolet border-0 transition-all duration-500`}
+                className={`btn btn-md nm_Container bg-normalViolet ${hiddenSaveButtonForPS} text-sm text-white px-8 mt-5 ml-3  hover:bg-bgColor hover:text-normalViolet border-0 transition-all duration-500`}
                 onClick={() => {
                   confirmAlert(undefined, collectInputFieldData, {
                     page: "PS site inspection data save",
@@ -198,7 +198,7 @@ const SaveData = ({
               {location.pathname.includes("siteInspection") &&
                 isApproved === 1 && (
                   <button
-                    className={`btn btn-md text-sm px-7 mt-10 ml-6 shadow-md hover:shadow-violetDark border-0 transition-all duration-500 bg-black hover:bg-black text-white`}
+                    className={`btn btn-md text-sm px-7 mt-5 ml-6 shadow-md hover:shadow-violetDark border-0 transition-all duration-500 bg-black hover:bg-black text-white`}
                     onClick={() => {
                       localStorage.setItem(
                         "PSDecision",
@@ -217,7 +217,7 @@ const SaveData = ({
                 isApproved === 0 && (
                   <>
                     <button
-                      className={`btn btn-md text-sm px-7 mt-10 ml-6 shadow-md hover:shadow-violetDark border-0 transition-all duration-500 bg-black hover:bg-black text-white`}
+                      className={`btn btn-md text-sm px-7 mt-5 ml-6 shadow-md hover:shadow-violetDark border-0 transition-all duration-500 bg-black hover:bg-black text-white`}
                       onClick={() => {
                         localStorage.setItem(
                           "PSDecision",

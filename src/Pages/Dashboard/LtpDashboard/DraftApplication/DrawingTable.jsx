@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import DocumentFooter from "./DocumentFooter";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 
 function DrawingTable({
   setApprovedConfirmation,
@@ -12,9 +13,11 @@ function DrawingTable({
 }) {
   console.log(applicationData, "Application data");
 
+  const { calculateNoOfFloors } = useContext(AuthContext);
+
   const plotDetails = applicationData?.plotDetails;
 
-  const numberOfFloors = plotDetails?.floorDetails?.length ?? 0;
+  // const numberOfFloors = plotDetails?.floorDetails?.length ?? 0;
 
   const [floorValue, setFloorValue] = useState({
     "Stilt / Parking Floor": "",
@@ -208,387 +211,428 @@ function DrawingTable({
                   </thead>
                   <tbody className="text-gray-900">
                     {/* 1st row  */}
-                    <tr>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">1</p>
+                    <tr className="bg-gray-200">
+                      <td className="p-3  border border-l-0 border-black  text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">1</p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">
+                      <td className="p-3  border border-black  text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
                           Proposed Site / Plot area
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base"></td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">
+                      <td className="p-3  border border-black  text-base bg-gray-200"></td>
+                      <td className="p-3  border border-black  text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
                           {plotDetails?.proposedPlotAreaCal ?? ""}
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base">
+                      <td className="border border-r-0 border-black  text-base bg-white">
                         <input
                           id="proposedSiteObs"
                           type="text"
-                          className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
+                          className="w-full h-14 px-3 py-2  max-w-xs dark:text-black focus:outline-none bg-gray-50"
                           defaultValue={
                             submitData?.drawingTableObs?.proposedSiteObs
                           }
+                          placeholder="Write Your Comment Here ..."
                           // onChange={handleRoadWideningAreaChange}
                         />
                       </td>
                     </tr>
 
                     <tr>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">2</p>
+                      <td className="p-3 border border-l-0 border-black  text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">2</p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">
+                      <td className="p-3  border border-black  text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
                           Access Road Width
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base"></td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">
+                      <td className="p-3  border border-black  text-base bg-gray-200"></td>
+                      <td className="p-3  border border-black  text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
                           {plotDetails?.roadWideningAreaCal ?? ""}
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base">
+                      <td className="border border-r-0 border-black  text-base bg-white">
                         <input
                           id="accessRoadWidthObs"
                           type="text"
-                          className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
+                          className="w-full px-3 py-2 h-14 max-w-xs dark:text-black focus:outline-none bg-gray-50"
                           defaultValue={
                             submitData?.drawingTableObs?.accessRoadWidthObs
                           }
+                          placeholder="Write Your Comment Here ..."
                           // onChange={handleRoadWideningAreaChange}
                         />
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">3</p>
+                      <td className="p-3 border border-l-0 border-black  text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">3</p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">
+                      <td className="p-3  border border-black  text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
                           Scope of Road windening
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base"></td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">
+                      <td className="p-3  border border-black  text-base bg-gray-200"></td>
+                      <td className="p-3  border border-black  text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
                           {plotDetails?.roadWideningAreaCal ?? ""}
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base">
+                      <td className=" border border-r-0 border-black  text-base bg-white">
                         <input
                           id="scopeRoadWideObs"
                           type="text"
-                          className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
+                          className="w-full px-3 py-2 h-14 max-w-xs dark:text-black focus:outline-none bg-gray-50"
                           defaultValue={
                             submitData?.drawingTableObs?.scopeOfRoadWideningObs
                           }
+                          placeholder="Write Your Comment Here ..."
                           // onChange={handleRoadWideningAreaChange}
                         />
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">4</p>
+                      <td className="p-3 border border-l-0 border-black text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">4</p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">
+                      <td className="p-3  border border-black  text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
                           Net Site / Plot area
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base"></td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">
+                      <td className="p-3  border border-black  text-base bg-gray-200"></td>
+                      <td className="p-3  border border-black  text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
                           {plotDetails?.netPlotAreaCal ?? ""}
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base">
+                      <td className="border border-r-0 border-black text-base bg-white">
                         <input
                           id="netSiteObs"
                           type="text"
-                          className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
+                          className="w-full h-14 px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
                           defaultValue={
                             submitData?.drawingTableObs?.netPlotAreaObs
                           }
+                          placeholder="Write Your Comment Here ..."
                           // onChange={handleRoadWideningAreaChange}
                         />
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">5</p>
+                      <td className="p-3 border border-black border-l-0 text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">5</p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">
+                      <td className="p-3  border border-black  text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
                           Building Height
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base"></td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">
+                      <td className="p-3  border border-black  text-base bg-gray-200"></td>
+                      <td className="p-3  border border-black  text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
                           {plotDetails?.buildingExcludeStilt ?? ""}
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base">
+                      <td className="border border-black border-r-0 text-base bg-gray-200">
                         <input
                           id="buildingHeightObs"
                           type="text"
-                          className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
+                          className="w-full px-3 h-14 max-w-xs dark:text-black focus:outline-none bg-gray-50"
                           defaultValue={
                             submitData?.drawingTableObs?.buildingHeightObs
                           }
+                          placeholder="Write Your Comment Here ..."
                           // onChange={handleRoadWideningAreaChange}
                         />
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">6</p>
+                      <td
+                        className="p-3  border border-black border-l-0 text-base bg-gray-200"
+                        rowSpan={5}
+                      >
+                        <p className="text-gray-900 break-words font-bold">6</p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">Setbacks</p>
+                      <td
+                        className="p-3 border border-black border-r-0 text-base bg-gray-200"
+                        colSpan={4}
+                      >
+                        <p className="text-gray-900 break-words font-bold">
+                          Setbacks
+                        </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base"></td>
-                      <td className="p-3  border-b border-gray-200 text-base"></td>
-                      <td className="p-3  border-b border-gray-200 text-base">
+                      {/* <td className="p-3  border border-black  text-base bg-gray-200"></td>
+                      <td className="p-3  border border-black  text-base bg-gray-200"></td>
+                      <td className="border border-black  text-base bg-gray-200">
                         <input
                           id="setBacksObs"
                           type="text"
-                          className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
+                          className="w-full px-3 h-14 max-w-xs dark:text-black focus:outline-none bg-gray-50"
                           defaultValue={
                             submitData?.drawingTableObs?.setBacksObs
                           }
+                          placeholder="Write Your Comment Here ..."
                           // onChange={handleRoadWideningAreaChange}
                         />
-                      </td>
+                      </td> */}
                     </tr>
                     <tr>
-                      <td className="p-3  border-b border-gray-200 text-base"></td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">Front</p>
+                      <td className="p-3  border border-black  text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
+                          Front
+                        </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">
+                      <td className="p-3  border border-black  text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
                           {preDeterminedValue?.front}
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">
+                      <td className="p-3  border border-black  text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
                           {plotDetails?.frontSetback ?? ""}
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base">
+                      <td className="border border-black border-r-0 text-base bg-gray-200">
                         <input
                           id="frontObs"
                           type="text"
-                          className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
+                          className="w-full px-3 h-14 dark:text-black focus:outline-none bg-gray-50"
                           defaultValue={submitData?.drawingTableObs?.fontObs}
+                          placeholder="Write Your Comment Here ..."
                           // onChange={handleRoadWideningAreaChange}
                         />
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-3  border-b border-gray-200 text-base"></td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">Rare</p>
+                      {/* <td className="p-3  border border-black  text-base bg-gray-200"></td> */}
+                      <td className="p-3  border border-black  text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
+                          Rare
+                        </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">
+                      <td className="p-3  border border-black  text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
                           {preDeterminedValue?.rare}
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">
+                      <td className="p-3  border border-black  text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
                           {plotDetails?.rareSetback ?? ""}
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base">
+                      <td className="border border-black border-r-0 text-base bg-gray-200">
                         <input
                           id="rareObs"
                           type="text"
-                          className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
+                          className="w-full px-3 h-14 max-w-xs dark:text-black focus:outline-none bg-gray-50"
                           defaultValue={submitData?.drawingTableObs?.rareObs}
+                          placeholder="Write Your Comment Here ..."
                           // onChange={handleRoadWideningAreaChange}
                         />
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-3  border-b border-gray-200 text-base"></td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">Side 1</p>
+                      {/* <td className="p-3  border border-black  text-base bg-gray-200"></td> */}
+                      <td className="p-3  border border-black  text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
+                          Side 1
+                        </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">
+                      <td className="p-3  border border-black  text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
                           {preDeterminedValue?.side1}
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">
+                      <td className="p-3  border border-black  text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
                           {plotDetails?.side1Setback ?? ""}
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base">
+                      <td className="border border-black border-r-0 text-base bg-gray-200">
                         <input
                           id="sideOneObs"
                           type="text"
-                          className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
+                          className="w-full px-3 h-14 max-w-xs dark:text-black focus:outline-none bg-gray-50"
                           defaultValue={submitData?.drawingTableObs?.sideOneObs}
+                          placeholder="Write Your Comment Here ..."
                           // onChange={handleRoadWideningAreaChange}
                         />
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-3  border-b border-gray-200 text-base"></td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">Side 2</p>
+                      {/* <td className="p-3  border border-black  text-base bg-gray-200"></td> */}
+                      <td className="p-3 border border-black text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
+                          Side 2
+                        </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">
+                      <td className="p-3 border border-black  text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
                           {preDeterminedValue?.side2}
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">
+                      <td className="p-3 border border-black text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
                           {plotDetails?.side2Setback}
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base">
+                      <td className="border border-black border-r-0 text-base bg-gray-200">
                         <input
                           id="sideTwoObs"
                           type="text"
-                          className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
+                          className="w-full px-3 h-14 max-w-xs dark:text-black focus:outline-none bg-gray-50"
                           defaultValue={submitData?.drawingTableObs?.sideTwoObs}
+                          placeholder="Write Your Comment Here ..."
                           // onChange={handleRoadWideningAreaChange}
                         />
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">7</p>
+                      <td
+                        className="p-3 border border-black border-l-0 text-base bg-gray-200"
+                        rowSpan={5}
+                      >
+                        <p className="text-gray-900 break-words font-bold">7</p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">
+                      <td className="p-3  border border-black  text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
                           Number of floors
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base"></td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">
-                          {numberOfFloors ?? 0}
+                      <td className="p-3  border border-black  text-base bg-gray-200"></td>
+                      <td className="p-3  border border-black  text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
+                          {calculateNoOfFloors(plotDetails?.floorDetails)}
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base">
+                      <td className="border border-black border-r-0 text-base bg-gray-200">
                         <input
                           id="numberOfFloorsObs"
                           type="text"
-                          className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
+                          className="w-full px-3 h-14 max-w-xs dark:text-black focus:outline-none bg-gray-50"
                           defaultValue={submitData?.drawingTableObs?.floorObs}
+                          placeholder="Write Your Comment Here ..."
                           // onChange={handleRoadWideningAreaChange}
                         />
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-3  border-b border-gray-200 text-base"></td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">Stilt Floor</p>
+                      {/* <td className="p-3  border border-black  text-base bg-gray-200"></td> */}
+                      <td className="p-3  border border-black  text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
+                          Stilt Floor
+                        </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base"></td>
-                      <td className="p-3  border-b border-gray-200 text-base"></td>
-                      <td className="p-3  border-b border-gray-200 text-base">
+                      <td className="p-3  border border-black  text-base bg-gray-200"></td>
+                      <td className="p-3  border border-black  text-base bg-gray-200"></td>
+                      <td className="border border-black border-r-0 text-base bg-gray-200">
                         <input
                           id="stiltFloorObs"
                           type="text"
-                          className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
+                          className="w-full px-3 h-14 max-w-xs dark:text-black focus:outline-none bg-gray-50"
                           defaultValue={
                             submitData?.drawingTableObs?.stiltFloorObs
                           }
+                          placeholder="Write Your Comment Here ..."
                           // onChange={handleRoadWideningAreaChange}
                         />
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-3  border-b border-gray-200 text-base"></td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">
+                      {/* <td className="p-3  border border-black  text-base bg-gray-200"></td> */}
+                      <td className="p-3  border border-black  text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
                           Ground Floor
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base"></td>
-                      <td className="p-3  border-b border-gray-200 text-base"></td>
-                      <td className="p-3  border-b border-gray-200 text-base">
+                      <td className="p-3  border border-black  text-base bg-gray-200"></td>
+                      <td className="p-3  border border-black  text-base bg-gray-200"></td>
+                      <td className="border border-black border-r-0 text-base bg-gray-200">
                         <input
                           id="groundFloorObs"
                           type="text"
-                          className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
+                          className="w-full px-3 h-14 max-w-xs dark:text-black focus:outline-none bg-gray-50"
                           defaultValue={
                             submitData?.drawingTableObs?.groundFloorObs
                           }
+                          placeholder="Write Your Comment Here ..."
                           // onChange={handleRoadWideningAreaChange}
                         />
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-3  border-b border-gray-200 text-base"></td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">First Floor</p>
+                      {/* <td className="p-3  border border-black  text-base bg-gray-200"></td> */}
+                      <td className="p-3  border border-black  text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
+                          First Floor
+                        </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base"></td>
-                      <td className="p-3  border-b border-gray-200 text-base"></td>
-                      <td className="p-3  border-b border-gray-200 text-base">
+                      <td className="p-3  border border-black  text-base bg-gray-200"></td>
+                      <td className="p-3  border border-black  text-base bg-gray-200"></td>
+                      <td className="border border-black border-r-0 text-base bg-gray-200">
                         <input
                           id="firstFloorObs"
                           type="text"
-                          className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
+                          className="w-full px-3 h-14 max-w-xs dark:text-black focus:outline-none bg-gray-50"
                           defaultValue={
                             submitData?.drawingTableObs?.firstFloorObs
                           }
+                          placeholder="Write Your Comment Here ..."
                           // onChange={handleRoadWideningAreaChange}
                         />
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-3  border-b border-gray-200 text-base"></td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">
+                      {/* <td className="p-3  border border-black  text-base bg-gray-200"></td> */}
+                      <td className="p-3  border border-black  text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
                           Second Floor
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base"></td>
-                      <td className="p-3  border-b border-gray-200 text-base"></td>
-                      <td className="p-3  border-b border-gray-200 text-base">
+                      <td className="p-3  border border-black  text-base bg-gray-200"></td>
+                      <td className="p-3  border border-black  text-base bg-gray-200"></td>
+                      <td className="border border-black border-r-0 text-base bg-gray-200">
                         <input
                           id="secondFloorObs"
                           type="text"
-                          className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
+                          className="w-full px-3 h-14 max-w-xs dark:text-black focus:outline-none bg-gray-50"
                           defaultValue={
                             submitData?.drawingTableObs?.secondFloorObs
                           }
+                          placeholder="Write Your Comment Here ..."
                           // onChange={handleRoadWideningAreaChange}
                         />
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">8</p>
+                      <td className="p-3  border border-black border-l-0 text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">8</p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">Green Strip</p>
+                      <td className="p-3  border border-black  text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
+                          Green Strip
+                        </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">
+                      <td className="p-3  border border-black  text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
                           1mtr wide required
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">Yes</p>
+                      <td className="p-3  border border-black  text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
+                          Yes
+                        </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base">
+                      <td className="p-3 border border-black border-r-0 text-base bg-gray-200">
                         <select
                           id="greenStripObs"
-                          className=" w-1/6 outline-none bg-gray-50"
+                          className=" w-1/6 outline-none bg-gray-200"
                           defaultValue={
                             submitData?.drawingTableObs?.greenStripObs ?? ""
                           }
@@ -599,57 +643,61 @@ function DrawingTable({
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">9</p>
+                      <td className="p-3 border border-black border-l-0 text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">9</p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">
+                      <td className="p-3  border border-black  text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
                           Staircase width
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">
+                      <td className="p-3  border border-black  text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
                           Minimum 2.00 mtr
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base"></td>
-                      <td className="p-3  border-b border-gray-200 text-base">
+                      <td className="p-3  border border-black  text-base bg-gray-200"></td>
+                      <td className="border border-black border-r-0 text-base bg-gray-200">
                         <input
                           id="stairCaseWidthObs"
                           type="text"
-                          className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
+                          className="w-full px-3 h-14 max-w-xs dark:text-black focus:outline-none bg-gray-50"
                           defaultValue={
                             submitData?.drawingTableObs?.stairCaseWidthObs
                           }
+                          placeholder="Write Your Comment Here ..."
                           // onChange={handleRoadWideningAreaChange}
                         />
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">10</p>
+                      <td className="p-3  border border-black border-l-0 border-b-0 text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
+                          10
+                        </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">
+                      <td className="p-3  border border-black border-b-0 text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
                           No. of Units
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">
+                      <td className="p-3  border border-black border-b-0  text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
                           Maximum 4 no.
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base">
-                        <p className="text-gray-900 break-words">
+                      <td className="p-3  border border-black border-b-0 text-base bg-gray-200">
+                        <p className="text-gray-900 break-words font-bold">
                           {plotDetails?.noOfUnits ?? ""}
                         </p>
                       </td>
-                      <td className="p-3  border-b border-gray-200 text-base">
+                      <td className="border border-black border-b-0 border-r-0 text-base bg-gray-200">
                         <input
                           id="unitObs"
                           type="text"
-                          className="w-full px-3 py-2  rounded-lg max-w-xs dark:text-black focus:outline-none bg-gray-50"
+                          className="w-full px-3 h-14 max-w-xs dark:text-black focus:outline-none bg-gray-50"
                           defaultValue={submitData?.drawingTableObs?.unitsObs}
+                          placeholder="Write Your Comment Here ..."
                           // onChange={handleRoadWideningAreaChange}
                         />
                       </td>

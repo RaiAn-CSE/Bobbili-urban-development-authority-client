@@ -11,12 +11,18 @@ function DocumentFooter({
     setApprovedConfirmation(data);
   };
 
-  console.log(approvedConfirmation && approvedConfirmation === "true", "Checking");
+  console.log(
+    approvedConfirmation && approvedConfirmation === "true",
+    "Checking"
+  );
   return (
-    <div className="dark:text-white font-roboto">
+    <div className="nm_Container mx-10 pt-10 pb-6 font-roboto">
+      <p className="text-center font-bold text-[22px] mb-5">
+        Submit Your Final Decision
+      </p>
       <div className="lg:ml-6">
         {/* Approved Buttons */}
-        <div className="space-x-14 mb-7">
+        <div className="space-x-14 mb-7 ">
           {/* <label
             className={`ml-2 text-lg inline-flex items-center space-x-1 text-black"}`}
           >
@@ -56,12 +62,13 @@ function DocumentFooter({
                 name="finalApproved"
                 className="radio-button__input"
                 value="approved"
-                checked={
-                  approvedConfirmation === "true"
-                }
+                checked={approvedConfirmation === "true"}
                 onClick={() => handleConfirm("true")}
               />
-              <label className="radio-button__label" htmlFor="approved">
+              <label
+                className="radio-button__label text-base"
+                htmlFor="approved"
+              >
                 <span className="radio-button__custom"></span>
                 Approve
               </label>
@@ -73,12 +80,13 @@ function DocumentFooter({
                 className="radio-button__input"
                 name="finalApproved"
                 value="shortfall"
-                checked={
-                  approvedConfirmation === "false"
-                }
+                checked={approvedConfirmation === "false"}
                 onClick={() => handleConfirm("false")}
               />
-              <label className="radio-button__label" htmlFor="noSiteRegistered">
+              <label
+                className="radio-button__label text-base"
+                htmlFor="noSiteRegistered"
+              >
                 <span className="radio-button__custom"></span>
                 Shortfall
               </label>
@@ -89,7 +97,7 @@ function DocumentFooter({
         <div className="my-4 mx-3 ">
           <label
             htmlFor="recomendation"
-            className="block mb-2 font-semibold text-lg text-gray-600"
+            className="block mb-2 font-semibold text-lg text-black"
           >
             Recommendation
           </label>
@@ -97,7 +105,7 @@ function DocumentFooter({
             id="recomendation"
             name="recomendation"
             rows={6}
-            className="w-full md:w-3/4 px-3 py-2 border rounded-lg  border-gray-300 text-gray-900 bg-gray-50 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200"
+            className="w-full md:w-3/4 px-3 py-2 border rounded-lg  border-gray-300 text-black bg-gray-50 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200"
             defaultValue={recommendationMessage && recommendationMessage}
             placeholder="Recommendation"
             onChange={(event) => handleMessage(event)}
