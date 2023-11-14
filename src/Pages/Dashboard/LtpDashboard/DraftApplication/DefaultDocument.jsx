@@ -4,8 +4,8 @@ import PsDocument from "./PsDocument";
 import { Link } from "react-router-dom";
 
 function DefaultDocument({
-  UpdatedDefaultData,
   PreviousDefaultDocumentData,
+  UpdatedDefaultData,
   setUpdatedDefaultData,
   role,
   handleFileChange,
@@ -15,50 +15,35 @@ function DefaultDocument({
   remarkText,
 }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
-  
-  const [latestUpdatedDefaultData, setLatestUpdatedDefaultData] = useState([
-    ...UpdatedDefaultData,
-  ]);
-
-  // This useEffect runs only on the initial render
+  const [render, setRender] = useState(false);
+  // PreviousDefault Document and DefaultDocument combinding
   useEffect(() => {
-    if (PreviousDefaultDocumentData?.length) {
-      const updatedData = latestUpdatedDefaultData.map((mainItem) => {
-        const matchedPrevItem = PreviousDefaultDocumentData?.find(
-          (prevItem) => prevItem.id === mainItem.id
-        );
+    const combinedArray = [...PreviousDefaultDocumentData || [], ...DefaultDocumentData];
+    const uniqueCombinedArray = [];
 
-        if (matchedPrevItem) {
-          return {
-            id: mainItem.id,
-            question: mainItem.question,
-            upload: mainItem.upload,
-            approved: matchedPrevItem.approved,
-          };
-        } else {
-          return mainItem;
-        }
-      });
-      // Update the state with the new data
-      setLatestUpdatedDefaultData(updatedData);
-      setUpdatedDefaultData(updatedData);
-    }
+    combinedArray.forEach(item => {
+      const exists = uniqueCombinedArray.some(existingItem => existingItem.id === item.id);
+      if (!exists) {
+        uniqueCombinedArray.push(item);
+      }
+    });
+    setUpdatedDefaultData(uniqueCombinedArray);
   }, [PreviousDefaultDocumentData]);
 
-  // This function updates the data with handleDefaultStatus
-  const handleDefaultStatus = (data) => {
-    const updatedDocument = latestUpdatedDefaultData.map((item) => ({
+  // This function updates the data when user Clicked radio btn
+  const handleDefaultStatus = ({ value: data, id, type }) => {
+    const updatedDocument = UpdatedDefaultData.map((item) => ({
       ...item,
-      approved: item.id === data.id ? data.approved : item.approved,
+      approved: item.id === id ? data : item.approved,
     }));
-
-    setLatestUpdatedDefaultData(updatedDocument);
     setUpdatedDefaultData(updatedDocument);
+    setRender(updatedDocument)
   };
 
   useEffect(() => {
     // Your previous useEffect dependencies here
-  }, [latestUpdatedDefaultData]);
+    console.log(render,"Default Render")
+  }, [UpdatedDefaultData,render]);
 
   const someEventHandler = (event, id) => {
     const file = event?.target.files[0];
@@ -70,7 +55,7 @@ function DefaultDocument({
 
   return (
     <div className="dark:text-black">
-      {latestUpdatedDefaultData.map((data, index) => {
+      {UpdatedDefaultData.map((data, index) => {
         let { id, question, approved, upload } = data;
 
         const isMatch = defaultImageFromDB?.find(

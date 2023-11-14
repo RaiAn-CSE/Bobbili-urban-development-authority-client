@@ -1,21 +1,16 @@
-import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 
 function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, handleDynamicStatus, setRemarkText, remarkText }) {
-
+console.log(approved,"approved")
 	const handleDocumentStatus = (event, id, uploadId, type) => {
 		const data = event?.target?.value;
 		if (type === "dynamic") {
 			handleDynamicStatus({ value: data, id, uploadId, type })
 			toast.success(`${data}, ${uploadId}, ${id}`);
 		} else {
-			handleDefaultStatus({ approved: data, id, type })
+			handleDefaultStatus({ value: data, id, type })
 		}
 	}
-
-	// useEffect(() => {
-	// 	// Your previous useEffect dependencies here
-	// }, [approved]);
 
 	const handleRemarkText = (event) => {
 		const { value } = event?.target;

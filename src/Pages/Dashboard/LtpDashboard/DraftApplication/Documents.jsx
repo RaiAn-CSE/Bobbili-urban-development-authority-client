@@ -13,16 +13,9 @@ import PsDocument from "./PsDocument";
 
 const DocumentUpload = () => {
   const [render, setRender] = useState(false)
-  const [UpdatedDefaultData, setUpdatedDefaultData] = useState([
-    ...DefaultDocumentData,
-  ]);
-  const [DynamicAppChecklistDocument, setDynamicAppChecklistDocument] =
-    useState([]);
-
-  const [PreviousDefaultDocumentData, setPreviousDefaultDocumentData] =
-    useState([]);
-  const [PreviousDynamicDocumentData, setPreviousDynamicDocumentData] =
-    useState([]);
+  const [UpdatedDefaultData, setUpdatedDefaultData] = useState([...DefaultDocumentData]);
+  const [PreviousDefaultDocumentData, setPreviousDefaultDocumentData] = useState([]);
+  const [DynamicAppChecklistDocument, setDynamicAppChecklistDocument] = useState([]);
 
   const [imageId, setImageId] = useState({});
   const [approvedConfirmation, setApprovedConfirmation] = useState("");
@@ -39,13 +32,7 @@ const DocumentUpload = () => {
   });
   const [defaultData, setDefaultData] = useState([]);
   const [dynamicData, setDynamicData] = useState([]);
-  const {
-    confirmAlert,
-    sendUserDataIntoDB,
-    getApplicationData,
-    userInfoFromLocalStorage,
-  } = useContext(AuthContext);
-
+  const { confirmAlert, sendUserDataIntoDB, getApplicationData, userInfoFromLocalStorage } = useContext(AuthContext);
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
   const cameFrom = JSON.parse(localStorage.getItem("page"));
   const role = userInfoFromLocalStorage().role;
@@ -106,7 +93,6 @@ const DocumentUpload = () => {
       const applicationCheckList = applicationData?.applicationCheckList;
 
       setPreviousDefaultDocumentData(applicationData?.psDocumentPageObservation?.data?.default)
-      setPreviousDynamicDocumentData(applicationData?.psDocumentPageObservation?.data?.dynamic)
 
       role === "PS" &&
         setApprovedConfirmation(
@@ -159,7 +145,7 @@ const DocumentUpload = () => {
     gettingData();
   }, []);
 
-  useEffect(()=>{},[DynamicAppChecklistDocument])
+  useEffect(() => { }, [DynamicAppChecklistDocument])
 
   // file send into the database
   const handleFileUpload = async (url) => {
@@ -273,7 +259,7 @@ const DocumentUpload = () => {
       psDocumentPageObservation: PSData,
     });
   };
-  // toast.success("Rendered")
+
   return (
     <div className="text-black">
       <form

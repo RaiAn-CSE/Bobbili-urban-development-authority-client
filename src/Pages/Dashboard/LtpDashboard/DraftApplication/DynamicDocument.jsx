@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import PsDocument from "./PsDocument";
-import RootDynamicDocument from "./../../../../assets/DynamicDocument.json";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 
@@ -14,32 +13,6 @@ function DynamicDocument({ DynamicAppChecklistDocument, setDynamicAppChecklistDo
     selectedFiles[id] = file;
     handleFileChange(event, id, selectedFiles, "dynamic", uploadId);
   };
-
-  // const handleDynamicStatus = ({ value: data, id, uploadId, type }) => {
-  //   if (!data) {
-  //     return;
-  //   }
-
-  // const updatedDynamicAppChecklist = DynamicAppChecklistDocument.map(checkListData => {
-  //   // first condition
-  //   if (checkListData.id === id) {
-  //     // Second condition
-  //     const updatedRequirements = checkListData.requirements.map(item => {
-  //       if (item.uploadId === uploadId) {
-  //         return { ...item, approved: data };
-  //       }
-  //       return item;
-  //     });
-  //     // if two conditoin matched
-  //     return { ...checkListData, requirements: updatedRequirements };
-  //   }
-  //   return checkListData;
-  // });
-
-  //   console.log({ DynamicAppChecklistDocument, updatedDynamicAppChecklist }, "DynamicAppChecklistDocument");
-  //   setDynamicAppChecklistDocument(updatedDynamicAppChecklist);
-  // };
-
 
   const handleDynamicStatus = ({ value: data, id, uploadId, type }) => {
     if (!data) {
