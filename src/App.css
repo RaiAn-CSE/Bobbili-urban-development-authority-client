@@ -1123,7 +1123,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 /* border image  */
 .border-image-frame {
-  border-image-slice: 50 52 52 49;
+  border-image-slice: 55 59 52 57;
   border-image-width: 20px 20px 20px 20px;
   border-image-outset: 0px 0px 0px 0px;
   border-image-repeat: stretch stretch;
