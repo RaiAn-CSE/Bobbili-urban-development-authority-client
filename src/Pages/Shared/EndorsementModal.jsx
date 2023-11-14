@@ -16,7 +16,7 @@ const EndorsementModal = ({ modalEndorsement }) => {
   const [dataFromDb, setDataFromDb] = useState({});
 
   useEffect(() => {
-    const modal = document.getElementById('endorsementModal');
+    const modal = document.getElementById("endorsementModal");
     if (openEndorsement) {
       modal.showModal();
     }
@@ -55,50 +55,60 @@ const EndorsementModal = ({ modalEndorsement }) => {
         >
           <form method="dialog">
             {/* if there is a button in form, it will close the modal */}
-            <button onClick={() => setOpenEndorsement(false)} className="btn btn-sm text-white hover:bg-violet-600 btn-circle btn-ghost absolute top-2 right-2 bg-violet-500">
+            <button
+              onClick={() => setOpenEndorsement(false)}
+              className="btn btn-sm text-white hover:bg-violet-600 btn-circle btn-ghost absolute top-2 right-2 bg-violet-500"
+            >
               ✕
             </button>
-            <h3 className="font-bold text-xl text-center">ENDORSEMENT!</h3>
           </form>
 
           <div className="pt-4">
-            <div className="flex justify-between font-semibold">
-              <h4>Letter No.:1112/4232/21</h4>
-              <h4>Date:{currentDate}</h4>
+            <h3 className="font-bold text-2xl text-center mb-8">
+              ENDORSEMENT!
+            </h3>
+            <div className="flex justify-between font-semibold text-lg">
+              <h4>Letter No: 1112/4232/21</h4>
+              <h4>Date: {currentDate}</h4>
             </div>
-            <div className="flex flex-col pt-3">
+            <div className="flex flex-col pt-3 text-base">
               <p className="text-start">
-                <span className="font-semibold">Sub:</span> BUILDINGS -{" "}
-                <span className="underline">{gramaPanchayat}</span> Grama
-                panchayat - required compliances - Endorsement issued -
-                Regarding.
+                <span className="font-bold">Sub:</span> BUILDINGS -{" "}
+                <span className="underline">{gramaPanchayat}</span>{" "}
+                <span className="font-bold">Grama panchayat</span> - required
+                compliances - Endorsement issued - Regarding.
               </p>
               <p>
-                <span className="font-semibold">Ref:</span> Application of Sri/Smt/Kum{" "}
+                <span className="font-bold">Ref:</span> Application of
+                Sri/Smt/Kum{" "}
                 <span className="underline">
                   {ownerNamePattern(
                     dataFromDb?.applicantInfo?.applicantDetails
                   ) ?? "N/A"}
-                </span>.
+                </span>
+                .
               </p>
-              <p className="text-start">
+              <p className="indent-10 mt-3">
                 With reference to your application for building permission vide
                 B.A.No <span className="underline">{applicationNumber}</span>{" "}
-                for construction of Residential/ Individual Residential Building
+                for construction of{" "}
+                <span className="font-bold me-1">
+                  Residential/ Individual Residential Building
+                </span>
                 building in Survey .No.{" "}
                 <span className="underline">{surveyNo}</span>.
               </p>
-              <p className="font-semibold text-lg mt-3">
-                Objections found in Primary Documents:
+              <p className="font-semibold text-center text-xl mt-8 mb-3">
+                Objections Found in Primary Document
               </p>
             </div>
             <div className="mt-1">
-              <p className="font-bold">
+              <p className="font-bold text-base">
                 You are requested to comply the shortfalls raised in documents:
               </p>
               <table className="border text-sm font-light border-neutral-500">
                 <thead className="border-b font-medium border-neutral-500">
-                  <tr>
+                  <tr className="text-base">
                     <th
                       scope="col"
                       className="border-r px-6 py-4 border-neutral-500 bg-gray-200"
@@ -119,31 +129,41 @@ const EndorsementModal = ({ modalEndorsement }) => {
                     </th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody className="text-[15px]">
                   {/* Ground Position  */}
                   <tr className="border-b border-neutral-500">
-                    <td rowSpan="" className="break-words border-r px-6 py-4 border-neutral-500">
+                    <td
+                      rowSpan=""
+                      className="break-words border-r px-6 py-4 border-neutral-500"
+                    >
                       1
                     </td>
                     <td
                       className={`break-words border-r px-6 py-4 border-neutral-500`}
                     >
-                      Latest Encumbrance Certificate issued by Registration Department.
+                      Latest Encumbrance Certificate issued by Registration
+                      Department.
                     </td>
                     <td
                       className={`break-words border-r px-6 py-4 border-neutral-500`}
                     >
-                      Self-Attested copies of Ownership Self-Attested copies of Ownership.
+                      Self-Attested copies of Ownership Self-Attested copies of
+                      Ownership.
                     </td>
                   </tr>
                   <tr className="border-b border-neutral-500">
-                    <td rowSpan="" className="break-words border-r px-6 py-4 border-neutral-500">
+                    <td
+                      rowSpan=""
+                      className="break-words border-r px-6 py-4 border-neutral-500"
+                    >
                       2
                     </td>
                     <td
                       className={`break-words border-r px-6 py-4 border-neutral-500`}
                     >
-                      Self-Attested copies of Ownership Documents-lease-deed/sale deed etc.giving the physical description of the plot/property.
+                      Self-Attested copies of Ownership
+                      Documents-lease-deed/sale deed etc.giving the physical
+                      description of the plot/property.
                     </td>
                     <td
                       className={`break-words border-r px-6 py-4 border-neutral-500`}
@@ -155,7 +175,7 @@ const EndorsementModal = ({ modalEndorsement }) => {
               </table>
             </div>
 
-            <div className="mt-3">
+            <div className="my-6">
               <p className="font-bold">
                 Drawing Plan Remarks and Recommendation: Shortfall
               </p>
@@ -163,11 +183,13 @@ const EndorsementModal = ({ modalEndorsement }) => {
                 <td
                   scope="col"
                   className="border-r px-6 py-10 border-neutral-500"
-                ></td>
+                >
+                  {dataFromDb?.psDrawingPageObservation?.message}
+                </td>
               </table>
             </div>
 
-            <div className="mt-3">
+            <div className="my-6">
               <p className="font-bold">
                 Documents Remarks and Recommendation: Shortfall
               </p>
@@ -175,7 +197,9 @@ const EndorsementModal = ({ modalEndorsement }) => {
                 <td
                   scope="col"
                   className="border-r px-6 py-10 border-neutral-500"
-                ></td>
+                >
+                  {dataFromDb?.psDocumentPageObservation?.message}
+                </td>
               </table>
             </div>
 
@@ -187,7 +211,9 @@ const EndorsementModal = ({ modalEndorsement }) => {
                 <td
                   scope="col"
                   className="border-r px-6 py-10 border-neutral-500"
-                ></td>
+                >
+                  {dataFromDb?.siteInspection?.recommendations}
+                </td>
               </table>
             </div>
 
