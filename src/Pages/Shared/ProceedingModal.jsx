@@ -98,8 +98,8 @@ const ProceedingModal = ({ modalProceeding }) => {
               భవన నిర్మాణ ఉత్తర్వులు
             </h1>
 
-            <p className="font-semibold text-sm">వరకు,</p>
-            <div className="flex mt-5">
+            <p className="font-semibold text-sm mt-4">వరకు,</p>
+            <div className="flex mt-1">
               <div className="basis-[40%]  mr-5">
                 <table className="min-w-full border border-gray-900 h-20">
                   <td className="p-2">
@@ -127,7 +127,7 @@ const ProceedingModal = ({ modalProceeding }) => {
                   <tbody>
                     <tr className="border-t border-neutral-500">
                       <th className="border-r p-2 border-neutral-500 text-base text-center">
-                        తేది(approved date)
+                        తేది
                       </th>
                       {/* <td className="border-r p-2 border-neutral-500 text-base text-center">
                         {approvedDate[0] ?? "N/A"}
@@ -177,7 +177,7 @@ const ProceedingModal = ({ modalProceeding }) => {
           <p className="mt-5">
             సూచిక :
             <ol className="px-10 list-decimal">
-              <li className="mt-3">
+              <li className="mt-1">
                 జి. ఓ. యం. ఎస్. నెం. 61, తేది. 12.02.2019 పురపాలక మరియు
                 పట్టణాభివృద్ధి శాఖ, ఆంధ్రప్రదేశ్ వారి ఉత్తర్వులు.
               </li>
@@ -200,7 +200,7 @@ const ProceedingModal = ({ modalProceeding }) => {
             దరఖాస్తును షరతులతో కూడిన అనుమతులు జారీ చేయడం జరుగుతున్నది.
           </p>
 
-          <table className="min-w-full">
+          <table className="min-w-full mt-4">
             <thead className="border border-gray-900 ">
               <tr>
                 <th className="border-r border-neutral-500 p-2 text-center w-16">
