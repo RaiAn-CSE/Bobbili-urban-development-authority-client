@@ -51,50 +51,48 @@ const EndorsementModal = ({ modalEndorsement }) => {
       <dialog id="endorsementModal" className="modal">
         {/* divide-y-2 divide-gray-200 */}
         <div
-          className={`${customScroll.customScrolling} rounded-lg modal-box py-10 px-12 bg-white text-gray-900 w-11/12 max-w-5xl divide-y-2 divide-gray-200 relative`}
+          className={`${customScroll.customScrolling} rounded-lg modal-box py-10 px-12 bg-white text-gray-900 w-11/12 max-w-5xl relative`}
         >
           <form method="dialog">
             {/* if there is a button in form, it will close the modal */}
             <button onClick={() => setOpenEndorsement(false)} className="btn btn-sm text-white hover:bg-violet-600 btn-circle btn-ghost absolute top-2 right-2 bg-violet-500">
               ✕
             </button>
-            <h3 className="font-bold text-lg text-center">ENDORSEMENT!</h3>
+            <h3 className="font-bold text-xl text-center">ENDORSEMENT!</h3>
           </form>
 
-          <div className="pt-5">
-            <div className="flex justify-between">
-              <h2>Letter No.:1112/4232/21</h2>
-              <h2>Date:{currentDate}</h2>
+          <div className="pt-4">
+            <div className="flex justify-between font-semibold">
+              <h4>Letter No.:1112/4232/21</h4>
+              <h4>Date:{currentDate}</h4>
             </div>
-            <div className="flex flex-col py-4">
+            <div className="flex flex-col pt-3">
               <p className="text-start">
-                Sub: - BUILDINGS -{" "}
+                <span className="font-semibold">Sub:</span> BUILDINGS -{" "}
                 <span className="underline">{gramaPanchayat}</span> Grama
                 panchayat - required compliances - Endorsement issued -
-                Regarding
+                Regarding.
               </p>
               <p>
-                Ref: - Application of Sri/Smt/Kum{" "}
+                <span className="font-semibold">Ref:</span> Application of Sri/Smt/Kum{" "}
                 <span className="underline">
                   {ownerNamePattern(
                     dataFromDb?.applicantInfo?.applicantDetails
                   ) ?? "N/A"}
-                </span>
+                </span>.
               </p>
               <p className="text-start">
                 With reference to your application for building permission vide
                 B.A.No <span className="underline">{applicationNumber}</span>{" "}
                 for construction of Residential/ Individual Residential Building
                 building in Survey .No.{" "}
-                <span className="underline">{surveyNo}</span>
+                <span className="underline">{surveyNo}</span>.
               </p>
-              <p className="font-semibold">
-                Objections found in Primary Documents:-
+              <p className="font-semibold text-lg mt-3">
+                Objections found in Primary Documents:
               </p>
             </div>
-            <div
-              className={`overflow-x-auto overflow-y-auto ${customScroll.customScrolling}`}
-            >
+            <div className="mt-1">
               <p className="font-bold">
                 You are requested to comply the shortfalls raised in documents:
               </p>
@@ -128,14 +126,14 @@ const EndorsementModal = ({ modalEndorsement }) => {
                       1
                     </td>
                     <td
-                      className={`break-words border-r px-6 py-4 border-neutral-500 text-base`}
+                      className={`break-words border-r px-6 py-4 border-neutral-500`}
                     >
                       Latest Encumbrance Certificate issued by Registration Department.
                     </td>
                     <td
-                      className={`break-words border-r px-6 py-4 border-neutral-500 text-base`}
+                      className={`break-words border-r px-6 py-4 border-neutral-500`}
                     >
-                      Self-Attested copies of Ownership Self-Attested copies of Ownership
+                      Self-Attested copies of Ownership Self-Attested copies of Ownership.
                     </td>
                   </tr>
                   <tr className="border-b border-neutral-500">
@@ -143,21 +141,21 @@ const EndorsementModal = ({ modalEndorsement }) => {
                       2
                     </td>
                     <td
-                      className={`break-words border-r px-6 py-4 border-neutral-500 text-base`}
+                      className={`break-words border-r px-6 py-4 border-neutral-500`}
                     >
                       Self-Attested copies of Ownership Documents-lease-deed/sale deed etc.giving the physical description of the plot/property.
                     </td>
                     <td
-                      className={`break-words border-r px-6 py-4 border-neutral-500 text-base`}
+                      className={`break-words border-r px-6 py-4 border-neutral-500`}
                     >
-                      Self-Attested copies of Ownership
+                      Self-Attested copies of Ownership.
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
 
-            <div className="mt-10">
+            <div className="mt-3">
               <p className="font-bold">
                 Drawing Plan Remarks and Recommendation: Shortfall
               </p>
@@ -169,7 +167,7 @@ const EndorsementModal = ({ modalEndorsement }) => {
               </table>
             </div>
 
-            <div className="mt-10">
+            <div className="mt-3">
               <p className="font-bold">
                 Documents Remarks and Recommendation: Shortfall
               </p>
@@ -181,7 +179,7 @@ const EndorsementModal = ({ modalEndorsement }) => {
               </table>
             </div>
 
-            <div className="mt-10">
+            <div className="mt-3">
               <p className="font-bold">
                 Inspection Remarks and Recommendation : Shortfall
               </p>
@@ -193,8 +191,8 @@ const EndorsementModal = ({ modalEndorsement }) => {
               </table>
             </div>
 
-            <div className="mt-14 flex flex-col items-end">
-              <p>Panchayat Secretary</p>
+            <div className="mt-20 flex flex-col items-end">
+              <p className="font-semibold">Panchayat Secretary</p>
               <p>___________ Grama Panchayat</p>
               <p>__________Mandal</p>
               <p>______________ District</p>
