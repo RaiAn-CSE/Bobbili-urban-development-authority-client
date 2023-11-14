@@ -157,11 +157,22 @@ function Application({ setOpenApplication }) {
   };
 
   return (
-    <div className={`relative w-full h-full text-black`}>
+    <div
+      className={`relative w-full h-full text-black transition-all duration-1000`}
+    >
       <dialog id="my_modal_5" className="modal">
         <div
           className={`${CustomScroll.customScrolling} border-image-frame overflow-hidden modal-box w-full max-w-4xl p-14 bg-white`}
         >
+          <form method="dialog" className="absolute top-10 right-6 z-50">
+            <button
+              onClick={() => setOpenApplication(false)}
+              className={`outline outline-red-500 outline-offset-4 text-red-500 rounded-full hover:bg-red-500 hover:text-white hover:outline-offset-0 p-[1px] transition-all duration-1000`}
+            >
+              <RxCross2 className="text-2xl" />
+            </button>
+          </form>
+
           <div className="z-[10]">
             {/* Header */}
             <ApplicationHeader />
@@ -531,78 +542,93 @@ function Application({ setOpenApplication }) {
                 </div>
               </div>
             </div>
-            <div className="mt-7">
-              <p className="font-bold">Primary</p>
-              <p>
-                I hereby declare that I am the owner/ PAH in possession of the
-                plot on which the work is proposed and that the statement made
-                in this form is true and correct to the best of my knowledge.
-              </p>
-            </div>
-            <div>
-              <div className="container mx-auto px-4 font-roboto ">
-                <div className="py-4">
-                  <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4">
-                    <div className="inline-block min-w-full nm_Container rounded-lg overflow-hidden">
-                      <table className="min-w-full leading-normal text-center">
-                        <thead className="bg-normalViolet text-white">
-                          <tr className="text-base font-bold uppercase">
-                            <th colSpan={5} className="p-1">
-                              Signature
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr className="text-base">
-                            <td
-                              className="border-b border-black font-bold text-center p-1"
-                              style={{ width: "10%" }}
-                            >
-                              01
-                            </td>
-                            <td
-                              className="border border-black font-bold text-center p-1"
-                              style={{ width: "40%" }}
-                            >
-                              Signature of Owner
-                            </td>
-                            <td
-                              className="border-b border-black p-1"
-                              style={{ width: "50%" }}
-                            ></td>
-                          </tr>
-                          <tr className="text-base">
-                            <td
-                              className="font-bold text-center p-1"
-                              style={{ width: "10%" }}
-                            >
-                              02
-                            </td>
-                            <td
-                              className="border border-b-0 border-black font-bold text-center p-1"
-                              style={{ width: "40%" }}
-                            >
-                              Signature of the LTP
-                            </td>
-                            <td className="" style={{ width: "50%" }}></td>
-                          </tr>
-                        </tbody>
-                      </table>
+            <div className="p-4 ">
+              <div className="ps-4">
+                <p className="font-bold">Primary</p>
+                <p>
+                  I hereby declare that I am the owner/ PAH in possession of the
+                  plot on which the work is proposed and that the statement made
+                  in this form is true and correct to the best of my knowledge.
+                </p>
+              </div>
+              <div>
+                <div className="container mx-auto px-4 font-roboto ">
+                  <div className="py-4">
+                    <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4">
+                      <div className="inline-block min-w-full nm_Container rounded-lg overflow-hidden">
+                        <table className="min-w-full leading-normal text-center">
+                          <thead className="bg-normalViolet text-white">
+                            <tr className="text-base font-bold uppercase">
+                              <th colSpan={5} className="p-1">
+                                Signature
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr className="text-base">
+                              <td
+                                className="border-b border-black font-bold text-center p-1"
+                                style={{ width: "10%" }}
+                              >
+                                01
+                              </td>
+                              <td
+                                className="border border-black font-bold text-center p-1"
+                                style={{ width: "40%" }}
+                              >
+                                Signature of Owner
+                              </td>
+                              <td
+                                className="border-b border-black p-1"
+                                style={{ width: "50%" }}
+                              ></td>
+                            </tr>
+                            <tr className="text-base">
+                              <td
+                                className="font-bold text-center p-1"
+                                style={{ width: "10%" }}
+                              >
+                                02
+                              </td>
+                              <td
+                                className="border border-b-0 border-black font-bold text-center p-1"
+                                style={{ width: "40%" }}
+                              >
+                                Signature of the LTP
+                              </td>
+                              <td className="" style={{ width: "50%" }}></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <form method="dialog" className="absolute top-10 right-6 z-50">
+          <form
+            method="dialog"
+            className="flex justify-center items-center mt-6"
+          >
             <button
               onClick={() => setOpenApplication(false)}
-              className={`outline outline-red-500 outline-offset-4 text-red-500 rounded-full hover:bg-red-500 hover:text-white hover:outline-offset-0 p-[1px] transition-all duration-1000`}
+              className={`flex justify-center items-center hover:bg-white text-base rounded-full bg-red-500 text-white border-2 border-red-500 hover:text-red-500 px-4 py-2 transition-all duration-1000 font-bold`}
             >
-              <RxCross2 className="text-2xl" />
+              <span className="">Close</span>
+              {/* <RxCross2 className="text-xl ms-1 rounded-full" /> */}
             </button>
           </form>
         </div>
+        <form method="dialog" className="modal-backdrop">
+          <button
+            onClick={() => {
+              setOpenApplication(false);
+            }}
+          >
+            close
+          </button>
+        </form>
       </dialog>
     </div>
   );
