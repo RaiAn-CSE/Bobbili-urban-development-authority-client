@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { FaRegImage } from "react-icons/fa6";
+import { IoCloudUploadOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
 const ImageUploadInput = ({
@@ -23,14 +25,16 @@ const ImageUploadInput = ({
         >
           <div className="flex flex-col items-center justify-center">
             {siteBoundariesImageFiles && siteBoundariesImageFiles[id] ? (
-              <p className="text-sm text-gray-500 dark:text-gray-400">
-                <span className="font-semibold">Uploaded file: </span>
+              <p className="text-sm text-black font-bold flex justify-center items-center">
+                <span className="font-semibold text-normalViolet">
+                  Uploaded:
+                </span>
                 {siteBoundariesImageFiles[id].name.slice(0, 10) + "..."}
               </p>
             ) : (
-              <p className="text-sm text-gray-500 dark:text-gray-400 py-4">
-                <span className="font-semibold">Click to upload</span> or drag
-                and drop
+              <p className="text-sm flex text-black py-4">
+                <IoCloudUploadOutline size={20} />
+                <span className="font-semibold ml-2">Upload Image</span>
               </p>
             )}
           </div>
