@@ -28,7 +28,8 @@ function DefaultDocument({
       }
     });
     setUpdatedDefaultData(uniqueCombinedArray);
-  }, [PreviousDefaultDocumentData]);
+    setRender(uniqueCombinedArray)
+  }, [PreviousDefaultDocumentData,render]);
 
   // This function updates the data when user Clicked radio btn
   const handleDefaultStatus = ({ value: data, id, type }) => {
