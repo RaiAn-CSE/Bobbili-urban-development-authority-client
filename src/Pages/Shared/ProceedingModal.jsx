@@ -95,7 +95,7 @@ const ProceedingModal = ({ modalProceeding }) => {
               </span>
             </p>
 
-            <h1 className="font-bold text-xl mt-5 text-center">
+            <h1 className="font-bold text-xl my-7  text-center">
               భవన నిర్మాణ ఉత్తర్వులు
             </h1>
 
@@ -172,7 +172,10 @@ const ProceedingModal = ({ modalProceeding }) => {
 
           <div className="mt-5 px-20 flex">
             <span className="font-semibold mr-1">విషయము: </span>
-            <p>భవన అనుమతులు - వ్యక్తిగత నివాస భవన నిర్మాణము - అనుమతులు - ఇచ్చుట - గురించి.</p>
+            <p>
+              భవన అనుమతులు - వ్యక్తిగత నివాస భవన నిర్మాణము - అనుమతులు - ఇచ్చుట -
+              గురించి.
+            </p>
           </div>
 
           <div className="mt-5 flex ms-20">
@@ -578,10 +581,10 @@ const ProceedingModal = ({ modalProceeding }) => {
           <table className="min-w-full border border-gray-900 mt-5">
             <tbody>
               <tr className="border-t border-neutral-500">
-                <td className="border-r p-2 border-neutral-500 text-base w-16 text-center font-semibold">
+                <td className="border-r p-2 border-neutral-500 text-base w-[8%] text-center font-semibold">
                   E
                 </td>
-                <td className="p-2 border-r w-[373px] border-neutral-500 text-base">
+                <td className="p-2 border-r w-[39%] border-neutral-500 text-base">
                   భవన నిర్మాణం ప్రారంభమునకు తేది
                   {/* proceeding date (Confusion) */}
                 </td>
@@ -620,8 +623,10 @@ const ProceedingModal = ({ modalProceeding }) => {
               </tr>
             </tbody>
           </table>
-          <div className="mt-10 nm_Container p-4">
-            <h4 className="font-semibold underline text-md">షరతులు:</h4>
+          <div className="mt-10 border-image-frame p-4">
+            <h4 className="font-semibold underline text-md p-3 pb-0">
+              షరతులు:
+            </h4>
             <ol className="px-10 text-justify leading-8">
               <li className="mt-3">
                 ఈ ఉత్తర్వులతో జత చేయబడిన ఆమోదించబడిన ప్లాను ప్రకారము భవన

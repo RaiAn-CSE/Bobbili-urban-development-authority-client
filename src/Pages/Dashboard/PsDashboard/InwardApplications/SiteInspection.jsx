@@ -550,7 +550,9 @@ const SiteInspection = () => {
                         imageId={siteBoundariesImageFilesId?.northApp}
                       />
                     </td>
-                    <td className={`${inputTableDataClass} p-0 bg-white border-r-0`}>
+                    <td
+                      className={`${inputTableDataClass} p-0 bg-white border-r-0`}
+                    >
                       <ImageUploadInput
                         id="northObs"
                         onFileChange={handleFileChange}
@@ -571,7 +573,9 @@ const SiteInspection = () => {
                         imageId={siteBoundariesImageFilesId?.southApp}
                       />
                     </td>
-                    <td className={`${inputTableDataClass} p-0 bg-white border-r-0`}>
+                    <td
+                      className={`${inputTableDataClass} p-0 bg-white border-r-0`}
+                    >
                       <ImageUploadInput
                         id="southObs"
                         onFileChange={handleFileChange}
@@ -592,7 +596,9 @@ const SiteInspection = () => {
                         imageId={siteBoundariesImageFilesId?.eastApp}
                       />
                     </td>
-                    <td className={`${inputTableDataClass} p-0 bg-white border-r-0`}>
+                    <td
+                      className={`${inputTableDataClass} p-0 bg-white border-r-0`}
+                    >
                       <ImageUploadInput
                         id="eastObs"
                         onFileChange={handleFileChange}
@@ -613,7 +619,9 @@ const SiteInspection = () => {
                         imageId={siteBoundariesImageFilesId?.westApp}
                       />
                     </td>
-                    <td className={`${inputTableDataClass} p-0 bg-white border-r-0`}>
+                    <td
+                      className={`${inputTableDataClass} p-0 bg-white border-r-0`}
+                    >
                       <ImageUploadInput
                         id="westObs"
                         onFileChange={handleFileChange}
@@ -630,7 +638,9 @@ const SiteInspection = () => {
                       <br />
                       the Documents.
                     </td>
-                    <td className={`${inputTableDataClass} p-0 bg-white hover:bg-white`}>
+                    <td
+                      className={`${inputTableDataClass} p-0 bg-white hover:bg-white`}
+                    >
                       <input
                         id="scheduleOfTheDocumentsApp"
                         type="text"
@@ -641,7 +651,9 @@ const SiteInspection = () => {
                         className="h-[105px] px-4 rounded-none w-full focus:outline-none bg-white hover:bg-white"
                       />
                     </td>
-                    <td className={`${inputTableDataClass} p-0 bg-white hover:bg-white border-r-0`}>
+                    <td
+                      className={`${inputTableDataClass} p-0 bg-white hover:bg-white border-r-0`}
+                    >
                       <input
                         id="scheduleOfTheDocumentsObs"
                         type="text"
@@ -667,7 +679,9 @@ const SiteInspection = () => {
                     </td>
                   </tr>
                   <tr className="border-b border-neutral-500">
-                    <td className={`${tableDataClass} font-bold bg-white`}>Nature of Road</td>
+                    <td className={`${tableDataClass} font-bold bg-white`}>
+                      Nature of Road
+                    </td>
                     <td className={`${inputTableDataClass} p-0 bg-white`}>
                       <input
                         id="natureOfRoadApp"
@@ -677,7 +691,9 @@ const SiteInspection = () => {
                         className={`${inputClass} focus:border-0 `}
                       />
                     </td>
-                    <td className={`${inputTableDataClass} p-0 bg-white border-r-0`}>
+                    <td
+                      className={`${inputTableDataClass} p-0 bg-white border-r-0`}
+                    >
                       <input
                         id="natureOfRoadObs"
                         type="text"
@@ -688,12 +704,14 @@ const SiteInspection = () => {
                     </td>
                   </tr>
                   <tr className="border-b border-neutral-500">
-                    <td className={`${tableDataClass} font-bold bg-white`}>Status of Approach Road</td>
+                    <td className={`${tableDataClass} font-bold bg-white`}>
+                      Status of Approach Road
+                    </td>
                     <td className={`${inputTableDataClass} p-0 bg-white`}>
                       <div className="flex flex-col justify-center">
                         <select
                           id="approachRoadApp"
-                          className="input rounded-none w-full focus:outline-none"
+                          className="input rounded-none w-full bg-white focus:outline-none"
                           value={
                             approachRoadApp
                               ? approachRoadApp
@@ -706,11 +724,13 @@ const SiteInspection = () => {
                         </select>
                       </div>
                     </td>
-                    <td className={`${inputTableDataClass} p-0 bg-white border-r-0`}>
+                    <td
+                      className={`${inputTableDataClass} p-0 bg-white border-r-0`}
+                    >
                       <div className="flex flex-col justify-center">
                         <select
                           id="approachRoadObs"
-                          className="input rounded-none w-full focus:outline-none"
+                          className="input bg-white rounded-none w-full focus:outline-none"
                           value={
                             approachRoadObs
                               ? approachRoadObs
@@ -728,7 +748,9 @@ const SiteInspection = () => {
                     </td>
                   </tr>
                   <tr className="border-b border-neutral-500">
-                    <td className={`${tableDataClass} font-bold bg-white`}>Road Width</td>
+                    <td className={`${tableDataClass} font-bold bg-white`}>
+                      Road Width
+                    </td>
                     <td className={`${inputTableDataClass} p-0 bg-white`}>
                       <input
                         id="roadWidthApp"
@@ -738,7 +760,9 @@ const SiteInspection = () => {
                         className={`${inputClass} focus:border-0 `}
                       />
                     </td>
-                    <td className={`${inputTableDataClass} p-0 bg-white border-r-0`}>
+                    <td
+                      className={`${inputTableDataClass} p-0 bg-white border-r-0`}
+                    >
                       <input
                         id="roadWidthObs"
                         type="text"
@@ -761,7 +785,9 @@ const SiteInspection = () => {
                         className={`${inputClass} focus:border-0 `}
                       />
                     </td>
-                    <td className={`${inputTableDataClass} p-0 bg-white border-r-0`}>
+                    <td
+                      className={`${inputTableDataClass} p-0 bg-white border-r-0`}
+                    >
                       <input
                         id="scopeOfRoadObs"
                         defaultValue={accessRoad?.scopeOfRoad?.[1]}
@@ -774,7 +800,10 @@ const SiteInspection = () => {
 
                   {/* Land Use  */}
                   <tr className="">
-                    <td rowSpan="5" className={`${tableDataClass} border-l-0 border-b-0`}>
+                    <td
+                      rowSpan="5"
+                      className={`${tableDataClass} border-l-0 border-b-0`}
+                    >
                       4
                     </td>
                     <td
@@ -797,7 +826,9 @@ const SiteInspection = () => {
                         className={`${inputClass} focus:border-0 `}
                       />
                     </td>
-                    <td className={`${inputTableDataClass} p-0 bg-white border-r-0`}>
+                    <td
+                      className={`${inputTableDataClass} p-0 bg-white border-r-0`}
+                    >
                       <input
                         id="landUseObs"
                         type="text"
@@ -808,7 +839,9 @@ const SiteInspection = () => {
                     </td>
                   </tr>
                   <tr className="border-b border-neutral-500">
-                    <td className={`${tableDataClass} font-bold bg-white`}>Proposed activity</td>
+                    <td className={`${tableDataClass} font-bold bg-white`}>
+                      Proposed activity
+                    </td>
                     <td className={`${inputTableDataClass} p-0 bg-white`}>
                       <input
                         id="proposedActivityApp"
@@ -818,7 +851,9 @@ const SiteInspection = () => {
                         className={`${inputClass} focus:border-0 `}
                       />
                     </td>
-                    <td className={`${inputTableDataClass} p-0 bg-white border-r-0`}>
+                    <td
+                      className={`${inputTableDataClass} p-0 bg-white border-r-0`}
+                    >
                       <input
                         id="proposedActivityObs"
                         type="text"
@@ -829,7 +864,9 @@ const SiteInspection = () => {
                     </td>
                   </tr>
                   <tr className="border-b border-neutral-500">
-                    <td className={`${tableDataClass} font-bold bg-white`}>Road Width</td>
+                    <td className={`${tableDataClass} font-bold bg-white`}>
+                      Road Width
+                    </td>
                     <td className={`${inputTableDataClass} p-0 bg-white`}>
                       <input
                         id="landRoadWidthApp"
@@ -839,7 +876,9 @@ const SiteInspection = () => {
                         className={`${inputClass} focus:border-0 `}
                       />
                     </td>
-                    <td className={`${inputTableDataClass} p-0 bg-white border-r-0`}>
+                    <td
+                      className={`${inputTableDataClass} p-0 bg-white border-r-0`}
+                    >
                       <input
                         id="landRoadWidthObs"
                         type="text"
@@ -850,7 +889,9 @@ const SiteInspection = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td className={`${tableDataClass} font-bold bg-white border-b-0`}>
+                    <td
+                      className={`${tableDataClass} font-bold bg-white border-b-0`}
+                    >
                       Whether permission as per Zoning Regulations
                     </td>
                     <td className={`${inputTableDataClass} p-0 bg-white`}>
@@ -862,7 +903,9 @@ const SiteInspection = () => {
                         className={`${inputClass} focus:border-0 `}
                       />
                     </td>
-                    <td className={`${inputTableDataClass} p-0 bg-white border-r-0`}>
+                    <td
+                      className={`${inputTableDataClass} p-0 bg-white border-r-0`}
+                    >
                       <input
                         id="whetherPermissionObs"
                         type="text"

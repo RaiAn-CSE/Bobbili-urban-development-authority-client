@@ -169,7 +169,7 @@ const Drawing = () => {
     const netPlotAreaObs = document.getElementById("netSiteObs")?.value;
     const buildingHeightObs =
       document.getElementById("buildingHeightObs")?.value;
-    const setBacksObs = document.getElementById("setBacksObs")?.value;
+    // const setBacksObs = document.getElementById("setBacksObs")?.value;
     const fontObs = document.getElementById("frontObs")?.value;
     const rareObs = document.getElementById("rareObs")?.value;
     const sideOneObs = document.getElementById("sideOneObs")?.value;
@@ -193,7 +193,6 @@ const Drawing = () => {
         scopeOfRoadWideningObs,
         netPlotAreaObs,
         buildingHeightObs,
-        setBacksObs,
         fontObs,
         rareObs,
         sideOneObs,
