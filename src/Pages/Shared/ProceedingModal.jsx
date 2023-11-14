@@ -580,10 +580,10 @@ const ProceedingModal = ({ modalProceeding }) => {
           <table className="min-w-full border border-gray-900 mt-5">
             <tbody>
               <tr className="border-t border-neutral-500">
-                <td className="border-r p-2 border-neutral-500 text-base w-16 text-center font-semibold">
+                <td className="border-r p-2 border-neutral-500 text-base w-[8%] text-center font-semibold">
                   E
                 </td>
-                <td className="p-2 border-r w-[373px] border-neutral-500 text-base">
+                <td className="p-2 border-r w-[39%] border-neutral-500 text-base">
                   భవన నిర్మాణం ప్రారంభమునకు తేది
                   {/* proceeding date (Confusion) */}
                 </td>
