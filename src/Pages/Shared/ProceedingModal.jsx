@@ -68,7 +68,7 @@ const ProceedingModal = ({ modalProceeding }) => {
     <div className="dark:bg-white">
       <dialog id="proceedingModal" className="modal">
         <div
-          className={`${customScroll.customScrolling} rounded-lg modal-box py-10 px-12 text-gray-900 w-11/12 max-w-5xl relative bg-[#E8EAEC]`}
+          className={`${customScroll.customScrolling} rounded-lg modal-box py-10 px-12 text-gray-900 w-full max-w-4xl relative bg-[#E8EAEC]`}
         >
           <form method="dialog">
             {/* if there is a button in form, it will close the modal */}
