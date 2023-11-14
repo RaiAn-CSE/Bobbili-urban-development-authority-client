@@ -24,7 +24,7 @@ const UdaSidebar = () => {
           Dashboard
         </Link>
       </li>
-      <li
+      {/* <li
         className={`${
           path === "/dashboard/location" && gradientColor
         } mb-1 ps-3 flex items-center ${hoverGradientColor}`}
@@ -35,7 +35,7 @@ const UdaSidebar = () => {
         <Link className={`p-[10px] font-medium `} to="/dashboard/location">
           Location
         </Link>
-      </li>
+      </li> */}
       <li
         className={`${
           path === "/dashboard/plotDetails" && gradientColor

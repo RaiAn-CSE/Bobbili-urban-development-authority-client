@@ -290,27 +290,37 @@ function Application({ setOpenApplication }) {
                           </tr>
                         </thead>
                         <tbody>
-                          <tr className="text-sm">
-                            <td className="p-2 font-bold">#</td>
-                            <td className="p-2 font-bold">Name</td>
-                            <td className="p-2 font-bold">Address</td>
-                            <td className="p-2 font-bold">License No.</td>
-                            <td className="p-2 font-bold">Validity</td>
+                          <tr className="text-sm ">
+                            <td className="p-2 font-bold border border-l-0 border-black">
+                              #
+                            </td>
+                            <td className="p-2 font-bold border border-black">
+                              Name
+                            </td>
+                            <td className="p-2 font-bold border border-black">
+                              Address
+                            </td>
+                            <td className="p-2 font-bold border border-black">
+                              License No.
+                            </td>
+                            <td className="p-2 font-bold border border-r-0 border-black">
+                              Validity
+                            </td>
                           </tr>
                           <tr className="text-center">
-                            <td className="p-3  border-b border-gray-200 text-sm">
+                            <td className="p-3  border border-black border-b-0 border-l-0 text-sm">
                               01
                             </td>
-                            <td className="p-3  border-b border-gray-200 text-sm">
+                            <td className="p-3  border border-black border-b-0 text-sm">
                               {ltpDetailsData?.name}
                             </td>
-                            <td className="p-3  border-b border-gray-200 text-sm">
+                            <td className="p-3  border border-black border-b-0 text-sm">
                               {ltpDetailsData?.address}
                             </td>
-                            <td className="p-3  border-b border-gray-200 text-sm">
+                            <td className="p-3  border border-black border-b-0 text-sm">
                               {ltpDetailsData?.licenseNo}
                             </td>
-                            <td className="p-3  border-b border-gray-200 text-sm">
+                            <td className="p-3  border border-black border-r-0 border-b-0 text-sm">
                               {ltpDetailsData?.validity}
                             </td>
                           </tr>

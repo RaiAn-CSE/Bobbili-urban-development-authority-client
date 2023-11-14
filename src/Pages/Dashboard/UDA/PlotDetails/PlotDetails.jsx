@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import Lottie from "lottie-react";
 import TableLayout from "../../../Components/TableLayout";
+import { TfiExport } from "react-icons/tfi";
 import ShowPlotDetails from "./ShowPlotDetails";
 import MISReportTableLayout from "../../../Components/MISReportTableLayout";
 import Loading from "../../../Shared/Loading";
@@ -12,6 +13,7 @@ const PlotDetails = () => {
   const [tableData, setTableData] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const tableRef = useRef(null);
 
   const tableHeader = [
     "S.NO",
@@ -85,6 +87,12 @@ const PlotDetails = () => {
     })();
   }, []);
 
+  const { onDownload } = useDownloadExcel({
+    currentTableRef: tableRef.current,
+    filename: "PlotDetails",
+    sheet: "PlotDetails",
+  });
+
   console.log(tableData, "TABLE DATA");
 
   if (loading) {
@@ -104,10 +112,13 @@ const PlotDetails = () => {
           </p>
         </div>
       ) : (
-        <MISReportTableLayout
-          tableData={tableData}
-          Component={ShowPlotDetails}
-        />
+        <>
+          <MISReportTableLayout
+            tableData={tableData}
+            Component={ShowPlotDetails}
+            tableRef={tableRef}
+          />
+        </>
       )}
     </>
   );

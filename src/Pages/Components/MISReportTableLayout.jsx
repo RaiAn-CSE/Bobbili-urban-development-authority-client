@@ -1,7 +1,7 @@
 import React from "react";
 import CustomScroll from "../../Style/CustomScrollbar.module.css";
 
-const MISReportTableLayout = ({ tableData, Component }) => {
+const MISReportTableLayout = ({ tableData, Component, tableRef }) => {
   return (
     <div className="container mx-auto px-4 font-roboto ">
       <div className="py-4">
@@ -9,7 +9,10 @@ const MISReportTableLayout = ({ tableData, Component }) => {
           <div
             className={`${CustomScroll.mainBody} shadow-md rounded-lg overflow-scroll h-[calc(100vh-20vh)]`}
           >
-            <table className="min-w-full leading-normal text-center">
+            <table
+              className="min-w-full leading-normal text-center"
+              ref={tableRef}
+            >
               <thead className="bg-normalViolet sticky top-0 z-10">
                 <tr>
                   {tableData?.tableHeader?.map((headerName) => {
