@@ -1120,3 +1120,13 @@ input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
 }
+
+/* border image  */
+.border-image-frame {
+  border-image-slice: 50 52 52 49;
+  border-image-width: 20px 20px 20px 20px;
+  border-image-outset: 0px 0px 0px 0px;
+  border-image-repeat: stretch stretch;
+  border-style: solid;
+  border-image-source: url("../src/assets/images/frame2.png");
+}
