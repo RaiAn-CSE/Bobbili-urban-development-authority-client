@@ -169,9 +169,9 @@ const ProceedingModal = ({ modalProceeding }) => {
             </div>
           </div>
 
-          <div className="mt-5 px-20">
-            <span className="font-semibold ">విషయము : </span> భవన అనుమతులు -
-            వ్యక్తిగత నివాస భవన నిర్మాణము - అనుమతులు - ఇచ్చుట - గురించి.
+          <div className="mt-5 px-20 flex">
+            <span className="font-semibold mr-1">విషయము: </span>
+            <p>భవన అనుమతులు - వ్యక్తిగత నివాస భవన నిర్మాణము - అనుమతులు - ఇచ్చుట - గురించి.</p>
           </div>
 
           <div className="mt-5 flex ms-20">
@@ -193,7 +193,7 @@ const ProceedingModal = ({ modalProceeding }) => {
               </li>
             </ol>
           </div>
-          <p className="mt-3 text-justify indent-14">
+          <p className="mt-3 text-justify indent-14 leading-8">
             ఆంధ్ర ప్రదేశ్ మహానగర ప్రాంతం మరియు పట్టణాభివృద్ధి చట్టము, 2016 నందలి
             సెక్షన్ 7(1) (హెచ్) అనుసరించి, సూచిక 2 నందు వైస్-చైర్మన్, బొబ్బిలి
             పట్టణాభివృద్ధి సంస్థ, బొబ్బిలి వారు జారీ చేసిన అధికార బదలాయింపు
@@ -621,7 +621,7 @@ const ProceedingModal = ({ modalProceeding }) => {
           </table>
           <div className="mt-10 nm_Container p-4">
             <h4 className="font-semibold underline text-md">షరతులు:</h4>
-            <ol className="px-10 text-justify leading-10">
+            <ol className="px-10 text-justify leading-8">
               <li className="mt-3">
                 ఈ ఉత్తర్వులతో జత చేయబడిన ఆమోదించబడిన ప్లాను ప్రకారము భవన
                 నియమాలకు లోబడి మాత్రమే భవన నిర్మాణము జరపవలెను.
@@ -744,7 +744,7 @@ const ProceedingModal = ({ modalProceeding }) => {
               </li>
             </ol>
           </div>
-          <div className="mt-20 flex flex-col items-end leading-10">
+          <div className="mt-20 flex flex-col items-end leading-8">
             <p className="font-semibold">పంచాయితీ కార్యదర్శి</p>
             <p>
               {allInfo?.buildingInfo?.generalInformation?.gramaPanchayat}

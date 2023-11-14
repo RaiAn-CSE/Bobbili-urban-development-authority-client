@@ -1137,14 +1137,14 @@ input[type="number"]::-webkit-outer-spin-button {
 
 ol > li {
   margin: 0;
-  padding: 0 0 0 2em;
-  text-indent: -2em;
+  padding: 0 0 0 20px;
+  text-indent: -20px;
   list-style-type: none;
   counter-increment: item;
 }
 
 ol > li:before {
-  padding-right: 0.5em;
+  padding-right: 7px;
   font-weight: bold;
   content: counter(item) ".";
 }
