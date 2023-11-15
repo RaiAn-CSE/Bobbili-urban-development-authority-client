@@ -233,7 +233,7 @@ const EndorsementModal = ({ modalEndorsement }) => {
               <table className="min-w-full border text-center text-sm font-light border-neutral-500">
                 <td
                   scope="col"
-                  className="border-r px-6 py-10 border-neutral-500"
+                  className="border-r h-[100px] p-2 border-neutral-500"
                 >
                   {dataFromDb?.psDrawingPageObservation?.message}
                 </td>
@@ -247,7 +247,7 @@ const EndorsementModal = ({ modalEndorsement }) => {
               <table className="min-w-full border text-sm font-light border-neutral-500">
                 <td
                   scope="col"
-                  className="border-r px-6 py-10 border-neutral-500"
+                  className="border-r h-[100px] p-2 border-neutral-500"
                 >
                   {dataFromDb?.psDocumentPageObservation?.message}
                 </td>
@@ -261,7 +261,7 @@ const EndorsementModal = ({ modalEndorsement }) => {
               <table className="min-w-full border text-center text-sm font-light border-neutral-500">
                 <td
                   scope="col"
-                  className="border-r px-6 py-10 border-neutral-500"
+                  className="border-r h-[100px] p-2 border-neutral-500"
                 >
                   {dataFromDb?.siteInspection?.recommendations}
                 </td>
