@@ -1,0 +1,97 @@
+.customBtnForProceeding {
+  color: #fff;
+  border-radius: 5px;
+  padding: 12px 25px;
+  font-weight: 600;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: flex;
+  align-items: center;
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
+.publishEndorseBtn {
+  background: linear-gradient(0deg, #9288f8 0%, #8062d6 100%);
+  line-height: 42px;
+  padding: 0;
+  border: none;
+}
+
+.publishEndorseBtn span {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.publishEndorseBtn:before,
+.publishEndorseBtn:after {
+  position: absolute;
+  content: "";
+  right: 0;
+  bottom: 0;
+  background: #8062d6;
+  box-shadow: -7px -7px 20px 0px rgba(255, 255, 255, 0.9),
+    -4px -4px 5px 0px rgba(255, 255, 255, 0.9),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.2), 4px 4px 5px 0px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.publishEndorseBtn:before {
+  height: 0%;
+  width: 2px;
+}
+
+.publishEndorseBtn:after {
+  width: 0%;
+  height: 2px;
+}
+
+.publishEndorseBtn:hover {
+  color: #9288f8;
+  background: transparent;
+  transform: scale(1.02);
+}
+
+.publishEndorseBtn:hover:before {
+  height: 100%;
+}
+
+.publishEndorseBtn:hover:after {
+  width: 100%;
+}
+
+.publishEndorseBtn span:before,
+.publishEndorseBtn span:after {
+  position: absolute;
+  content: "";
+  left: 0;
+  top: 0;
+  background: #9288f8;
+  box-shadow: -7px -7px 20px 0px rgba(255, 255, 255, 0.9),
+    -4px -4px 5px 0px rgba(255, 255, 255, 0.9),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.2), 4px 4px 5px 0px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.publishEndorseBtn span:before {
+  width: 2px;
+  height: 0%;
+}
+
+.publishEndorseBtn span:after {
+  height: 2px;
+  width: 0%;
+}
+
+.publishEndorseBtn span:hover:before {
+  height: 100%;
+}
+
+.customBtn .publishEndorseBtn span:hover:after {
+  width: 100%;
+}

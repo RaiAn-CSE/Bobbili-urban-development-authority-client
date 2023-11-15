@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import DefaultDocumentData from "../../../../assets/DefaultDocument.json";
 import PsDocument from "./PsDocument";
 import { Link } from "react-router-dom";
+import { TbSlideshow } from "react-icons/tb";
 
 function DefaultDocument({
   UpdatedDefaultData,
@@ -74,8 +75,9 @@ function DefaultDocument({
                   <Link
                     to={`https://drive.google.com/file/d/${isMatch?.imageId}/view?usp=sharing`}
                     target="_blank"
-                    className={`${gradientColor} inline-block text-white hover:underline ml-5 py-2 px-5 rounded-full`}
+                    className={`${gradientColor} flex items-center text-white hover:underline py-2 px-5 rounded-full shadow-lg w-fit`}
                   >
+                    <TbSlideshow size={20} className="me-1" />
                     View
                   </Link>
                 </div>

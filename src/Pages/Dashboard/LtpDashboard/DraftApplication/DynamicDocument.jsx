@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import PsDocument from "./PsDocument";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import { TbSlideshow } from "react-icons/tb";
 
 function DynamicDocument({
   DynamicAppChecklistDocument,
@@ -125,8 +126,9 @@ function DynamicDocument({
                               to={`https://drive.google.com/file/d/${isMatch.imageId}/view?usp=sharing`}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className={`${gradientColor} text-white hover:underline ml-5 py-2 px-5 rounded-full`}
+                              className={`${gradientColor} flex items-center text-white hover:underline py-2 px-5 rounded-full shadow-lg w-fit`}
                             >
+                              <TbSlideshow size={20} className="me-1" />
                               View
                             </Link>
                           </div>

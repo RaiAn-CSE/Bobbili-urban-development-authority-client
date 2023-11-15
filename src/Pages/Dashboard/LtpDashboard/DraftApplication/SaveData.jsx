@@ -5,6 +5,9 @@ import { IoSaveSharp } from "react-icons/io5";
 import { MdOutlineSaveAs } from "react-icons/md";
 import ArrowIcon from "../../../Components/ArrowIcon";
 import BtnStyle from "../../../../Style/SaveBtnStyle.module.css";
+import { BsFillSaveFill } from "react-icons/bs";
+import { FaThumbsUp } from "react-icons/fa";
+import { TbFileLike } from "react-icons/tb";
 
 const SaveData = ({
   isStepperVisible,
@@ -187,7 +190,7 @@ const SaveData = ({
           {role === "PS" && (
             <>
               <button
-                className={`btn btn-md nm_Container bg-normalViolet ${hiddenSaveButtonForPS} text-sm text-white px-8 mt-5 ml-3  hover:bg-bgColor hover:text-normalViolet border-0 transition-all duration-500`}
+                className={`btn btn-md nm_Container bg-normalViolet ${hiddenSaveButtonForPS} text-sm text-white px-7 mt-5 ml-3  hover:bg-bgColor hover:text-normalViolet border-0 transition-all duration-500 `}
                 onClick={() => {
                   confirmAlert(undefined, collectInputFieldData, {
                     page: "PS site inspection data save",
@@ -195,6 +198,7 @@ const SaveData = ({
                   });
                 }}
               >
+                <BsFillSaveFill />
                 Save
               </button>
               {location.pathname.includes("siteInspection") &&
@@ -212,14 +216,14 @@ const SaveData = ({
                       });
                     }}
                   >
-                    Proceeding Issued
+                    <span>Proceeding Issued</span>
                   </button>
                 )}
               {location.pathname.includes("siteInspection") &&
                 isApproved === 0 && (
                   <>
                     <button
-                      className={`btn btn-md text-sm px-7 mt-5 ml-6 shadow-md hover:shadow-violetDark border-0 transition-all duration-500 bg-black hover:bg-black text-white`}
+                      className={`${BtnStyle.customBtnForProceeding} ${BtnStyle.publishEndorseBtn} text-[17px] px-7 mt-5 ml-6`}
                       onClick={() => {
                         localStorage.setItem(
                           "PSDecision",
@@ -231,6 +235,7 @@ const SaveData = ({
                         });
                       }}
                     >
+                      <TbFileLike size={25} className="me-1" />
                       Publish Endorsement
                     </button>
                     <button

@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import ImageUploadInput from "./ImageUploadInput";
 import axios from "axios";
 import { useQuery } from "react-query";
+import Loading from "../../../Shared/Loading";
 
 const SiteInspection = () => {
   const {
@@ -371,7 +372,7 @@ const SiteInspection = () => {
   const inputTableDataClass = "break-words border-r border-neutral-500";
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
 
   return (
