@@ -111,11 +111,11 @@ function PsDocument({
           Remark:
         </label>
         <textarea
-          className="w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-gray-500 focus:outline-none focus:ring-2 ring-violet-200"
+          className="min-w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-gray-500 focus:outline-none focus:ring-2 ring-violet-200"
           id="textarea"
           name={type === "dynamic" ? `${id}_${uploadId}` : `${id}`}
           defaultValue={remarkText}
-          cols="30"
+          //   cols="30"
           rows="2"
           onBlur={(event) => handleRemarkText(event)}
         ></textarea>

@@ -4,6 +4,7 @@ import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import { IoSaveSharp } from "react-icons/io5";
 import { MdOutlineSaveAs } from "react-icons/md";
 import ArrowIcon from "../../../Components/ArrowIcon";
+import BtnStyle from "../../../../Style/SaveBtnStyle.module.css";
 
 const SaveData = ({
   isStepperVisible,

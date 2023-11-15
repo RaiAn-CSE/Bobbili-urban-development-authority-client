@@ -655,14 +655,15 @@ const BuildingInfo = () => {
     <>
       <div className="grid my-5 mx-5 lg:my-0  text-gray-900">
         {/* general information */}
-        <div className="nm_Container mt-3 p-2 divide-y-2 divide-violet-300 mb-10">
+        <div className="nm_Container mt-3 p-2   mb-10">
           {/* heading  */}
-          <div className="pl-2 pt-3 flex items-center">
+          <div className="pl-2 pt-3  flex items-center">
             <div className=" text-normalViolet">
               <HiInformationCircle size={30} />
             </div>
             <h3 className="font-bold text-xl ml-2">General Information</h3>
           </div>
+          <hr className="w-[98%] h-[1.5px] inline-block ml-2 bg-gray-400" />
 
           <div className="grid grid-cols-2 lg:grid-cols-4 mt-2 mb-5">
             <div className="flex flex-col justify-center my-4 px-3">
@@ -1067,13 +1068,13 @@ const BuildingInfo = () => {
         </div>
 
         {/* plot details  */}
-        <div className="nm_Container mt-3 p-2 divide-y-2 divide-gray-300 mb-10">
+        <div className="nm_Container mt-3 p-2  mb-10">
           <div className="pl-2 pt-3 flex items-center">
             <AiOutlineAreaChart size={30} className="text-normalViolet" />
             <h3 className="font-bold text-xl ml-2">Plot Details</h3>
           </div>
-
-          <div className="mt-2">
+          <hr className="w-[98%] h-[1.5px] inline-block ml-2 bg-gray-400" />
+          <div className="mt-2 mb-4">
             <div className="grid grid-cols-2 lg:grid-cols-4">
               <InputField
                 type="number"
@@ -1650,12 +1651,12 @@ const BuildingInfo = () => {
         </div>
 
         {/* schedule boundaries  */}
-        <div className="nm_Container mt-3 p-2 divide-y-2 divide-gray-300">
+        <div className="nm_Container mt-3 p-2 ">
           <div className="pl-2 pt-3 flex items-center">
             <PiWall size={30} className="text-normalViolet" />
             <h3 className="font-bold text-xl ml-3">Schedule of Boundaries</h3>
           </div>
-
+          <hr className="w-[98%] h-[1.5px] inline-block ml-2 bg-gray-400" />
           <div className="grid grid-cols-2 lg:grid-cols-4 items-center mt-2">
             <div className="flex flex-col my-4 justify-center mx-3">
               <label className={labelClass}>
