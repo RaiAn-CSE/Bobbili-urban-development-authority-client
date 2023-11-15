@@ -8,6 +8,7 @@ import BtnStyle from "../../../../Style/SaveBtnStyle.module.css";
 import { BsFillSaveFill } from "react-icons/bs";
 import { FaThumbsUp } from "react-icons/fa";
 import { TbFileLike } from "react-icons/tb";
+import { TiCancel } from "react-icons/ti";
 
 const SaveData = ({
   isStepperVisible,
@@ -239,7 +240,7 @@ const SaveData = ({
                       Publish Endorsement
                     </button>
                     <button
-                      className={`btn btn-md text-sm px-7 mt-5 ml-6 shadow-md hover:shadow-violetDark border-0 transition-all duration-500 bg-black hover:bg-black text-white`}
+                      className={`${BtnStyle.rejectBtn} flex items-center font-bold text-base px-5 mt-5 ml-6 border-3 transition-all duration-1000 nm_Container border-red-500 bg-[#f53844] text-white`}
                       onClick={() => {
                         localStorage.setItem(
                           "PSDecision",
@@ -252,6 +253,7 @@ const SaveData = ({
                       }}
                     >
                       Reject
+                      <TiCancel size={20} className="ms-1" />
                     </button>
                   </>
                 )}
