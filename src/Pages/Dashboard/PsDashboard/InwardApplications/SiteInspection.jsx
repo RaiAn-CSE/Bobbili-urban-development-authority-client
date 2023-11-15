@@ -351,6 +351,7 @@ const SiteInspection = () => {
     const trackPSAction = JSON.parse(localStorage.getItem("PSDecision"));
 
     const data = {
+      psId: userInfoFromLocalStorage()?._id,
       applicationNo,
       trackPSAction,
     };
