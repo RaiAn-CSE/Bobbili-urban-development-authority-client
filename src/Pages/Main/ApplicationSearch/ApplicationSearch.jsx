@@ -10,10 +10,12 @@ import Application from "../../Dashboard/LtpDashboard/DraftApplication/Applicati
 
 const ApplicationSearch = () => {
   const [applicationData, setApplicationData] = useState([]);
-  const [filteredData, setFilteredData] = useState(null);
+  const [filteredData, setFilteredData] = useState({});
 
   const [openApplication, setOpenApplication] = useState(false);
   const [openProceeding, setOpenProceeding] = useState(false);
+
+  const [status, setStatus] = useState();
 
   // console.log(filteredData, 'filteredData');
 
@@ -48,6 +50,8 @@ const ApplicationSearch = () => {
         )
       );
 
+
+
       console.log(
         applicationData.find(
           (data) => data?.applicantInfo?.applicantDetails[0]?.name === value
@@ -55,6 +59,17 @@ const ApplicationSearch = () => {
       );
     }
   };
+
+
+  useEffect(() => {
+    setStatus(
+      filteredData?.status?.toLowerCase()
+    )
+  }, []);
+
+  // console.log(accept);
+
+  console.log(filteredData?.status?.toLowerCase().includes('approved'));
 
   console.log(filteredData, "filteredData");
 
@@ -193,7 +208,7 @@ const ApplicationSearch = () => {
               type="text"
               placeholder="xxxxxxx"
               ltpDetails={
-                filteredData?.applicantInfo.applicantDetails?.[0].name
+                filteredData?.applicantInfo?.applicantDetails?.[0]?.name
               }
             />
             <MainPageInput
@@ -202,7 +217,7 @@ const ApplicationSearch = () => {
               type="text"
               placeholder="xxxxxxx"
               ltpDetails={
-                filteredData?.applicantInfo.applicantDetails?.[0].ownerDoorNo
+                filteredData?.applicantInfo?.applicantDetails?.[0]?.ownerDoorNo
               }
             />
             <MainPageInput
@@ -211,7 +226,7 @@ const ApplicationSearch = () => {
               type="text"
               placeholder="xxxxxxx"
               ltpDetails={
-                filteredData?.applicantInfo.applicantDetails?.[0].ownerStreetNo
+                filteredData?.applicantInfo?.applicantDetails?.[0]?.ownerStreetNo
               }
             />
           </div>
@@ -222,14 +237,14 @@ const ApplicationSearch = () => {
               id="name2"
               type="text"
               placeholder="xxxxxxx"
-              ltpDetails={filteredData?.applicantInfo.ltpDetails?.name}
+              ltpDetails={filteredData?.applicantInfo?.ltpDetails?.name}
             />
             <MainPageInput
               label="Address :"
               id="address2"
               type="text"
               placeholder="xxxxxxx"
-              ltpDetails={filteredData?.applicantInfo.ltpDetails?.address}
+              ltpDetails={filteredData?.applicantInfo?.ltpDetails?.address}
             />
           </div>
         </div>
@@ -264,6 +279,7 @@ const ApplicationSearch = () => {
           </span>
           <h4 className="text-base font-semibold">Proceeding</h4>
         </button>
+
       </div>
 
       {/* Application Modal */}
@@ -277,9 +293,8 @@ const ApplicationSearch = () => {
 
       {/* proceedingModal modal info  */}
       {
-        openProceeding && filteredData ?
-          <ProceedingModal modalProceeding={{ setOpenProceeding, openProceeding, filteredData }} />
-          : null
+        (openProceeding && status?.includes('approved')) &&
+        <ProceedingModal modalProceeding={{ setOpenProceeding, openProceeding, filteredData }} />
       }
     </div>
   );

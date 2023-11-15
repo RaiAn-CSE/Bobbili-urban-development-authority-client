@@ -25,15 +25,18 @@ const ProceedingModal = ({ modalProceeding }) => {
     const getData = async () => {
       const applicationData = await getApplicationData(applicationNo, cameFrom);
       console.log(applicationData, "All info ApplicationData");
-      if (filteredData) {
-        setAllInfo(filteredData);
-      }
-      else {
-        setAllInfo(applicationData);
-      }
-      // setAllInfo(applicationData);
+      setAllInfo(applicationData);
     };
-    getData();
+
+    console.log(filteredData, "from precceding modal");
+
+    if (filteredData && Object.keys(filteredData)?.length) {
+      setAllInfo(filteredData);
+    }
+    else {
+      getData();
+    }
+
   }, []);
 
   const dateArray = (date) => {
