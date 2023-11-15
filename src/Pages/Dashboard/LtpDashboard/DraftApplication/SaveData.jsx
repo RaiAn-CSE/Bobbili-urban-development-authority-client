@@ -85,7 +85,8 @@ const SaveData = ({
   const hiddenSaveButtonForPS =
     (path.includes("buildingInfo") ||
       path.includes("applicantInfo") ||
-      path.includes("applicationChecklist")) &&
+      path.includes("applicationChecklist") ||
+      path.includes("payment")) &&
     "hidden";
 
   console.log(isApproved, "approved");
@@ -232,7 +233,7 @@ const SaveData = ({
                       Publish Endorsement
                     </button>
                     <button
-                      className={`btn btn-md text-sm px-7 mt-10 ml-6 shadow-md hover:shadow-violetDark border-0 transition-all duration-500 bg-black hover:bg-black text-white`}
+                      className={`btn btn-md text-sm px-7 mt-5 ml-6 shadow-md hover:shadow-violetDark border-0 transition-all duration-500 bg-black hover:bg-black text-white`}
                       onClick={() => {
                         localStorage.setItem(
                           "PSDecision",

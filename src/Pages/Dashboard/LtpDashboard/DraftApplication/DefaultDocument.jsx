@@ -29,7 +29,7 @@ function DefaultDocument({
   useEffect(() => {
     // Your previous useEffect dependencies here
   }, [UpdatedDefaultData]);
-  console.log(UpdatedDefaultData,"UpdatedDefaultData")
+  console.log(UpdatedDefaultData, "UpdatedDefaultData");
 
   const someEventHandler = (event, id) => {
     const file = event?.target.files[0];
@@ -49,7 +49,7 @@ function DefaultDocument({
         );
         const FindRemarkText = remarkText?.find((item) => {
           if (item["default"]) {
-            return (item["default"].id === id)
+            return item["default"].id === id;
           }
         });
         const matchedText = FindRemarkText?.["default"].value;
@@ -59,33 +59,39 @@ function DefaultDocument({
             <p className="pb-4 font-bold">
               {id}. {question}
             </p>
-            {role === "LTP" && page === "draft" && (
-              <input
-                name={id}
-                type="file"
-                accept=".pdf, image/*"
-                onChange={(event) => someEventHandler(event, id)}
-                className="file-input file-input-bordered w-full max-w-xs bg-white border border-gray-300"
-              />
-            )}
-            {isMatch && (
-              <Link
-                to={`https://drive.google.com/file/d/${isMatch?.imageId}/view?usp=sharing`}
-                target="_blank"
-                className={`${gradientColor} text-white hover:underline ms-5 py-2 px-5 rounded-full`}
-              >
-                View
-              </Link>
-            )}
-            {role === "PS" && <PsDocument
-              role={role}
-              id={id}
-              approved={approved}
-              handleDefaultStatus={handleDefaultStatus}
-              type="default"
-              setRemarkText={setRemarkText}
-              remarkText={matchedText}
-            />}
+            <div className="flex">
+              {role === "LTP" && page === "draft" && (
+                <input
+                  name={id}
+                  type="file"
+                  accept=".pdf, image/*"
+                  onChange={(event) => someEventHandler(event, id)}
+                  className="file-input file-input-bordered w-full max-w-xs bg-white border border-gray-300"
+                />
+              )}
+              {isMatch && (
+                <div className="basis-1/6">
+                  <Link
+                    to={`https://drive.google.com/file/d/${isMatch?.imageId}/view?usp=sharing`}
+                    target="_blank"
+                    className={`${gradientColor} inline-block text-white hover:underline ml-5 py-2 px-5 rounded-full`}
+                  >
+                    View
+                  </Link>
+                </div>
+              )}
+              {role === "PS" && (
+                <PsDocument
+                  role={role}
+                  id={id}
+                  approved={approved}
+                  handleDefaultStatus={handleDefaultStatus}
+                  type="default"
+                  setRemarkText={setRemarkText}
+                  remarkText={matchedText}
+                />
+              )}
+            </div>
           </div>
         );
       })}

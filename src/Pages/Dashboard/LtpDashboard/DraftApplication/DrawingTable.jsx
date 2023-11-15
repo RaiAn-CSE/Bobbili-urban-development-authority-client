@@ -632,7 +632,7 @@ function DrawingTable({
                       <td className="p-3 border border-black border-r-0 text-base bg-gray-200">
                         <select
                           id="greenStripObs"
-                          className=" w-1/6 outline-none bg-gray-200"
+                          className=" w-3/12 outline-none bg-gray-200"
                           defaultValue={
                             submitData?.drawingTableObs?.greenStripObs ?? ""
                           }

@@ -3,7 +3,15 @@ import PsDocument from "./PsDocument";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 
-function DynamicDocument({ DynamicAppChecklistDocument, setDynamicAppChecklistDocument, role, handleFileChange, gradientColor, dynamicImageFromDB, remarkText, setRemarkText
+function DynamicDocument({
+  DynamicAppChecklistDocument,
+  setDynamicAppChecklistDocument,
+  role,
+  handleFileChange,
+  gradientColor,
+  dynamicImageFromDB,
+  remarkText,
+  setRemarkText,
 }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [render, setRender] = useState(false);
@@ -18,25 +26,31 @@ function DynamicDocument({ DynamicAppChecklistDocument, setDynamicAppChecklistDo
     if (!data) {
       return;
     }
-    const updatedDynamicAppChecklist = DynamicAppChecklistDocument.map(checkListData => {
-      const condition01 = checkListData.id === id;
-      const isExistUploadId = checkListData.requirements.find(reqData => reqData.uploadId === uploadId);
-      const uploadIdIndex = checkListData.requirements.findIndex(reqData => reqData.uploadId === uploadId);
+    const updatedDynamicAppChecklist = DynamicAppChecklistDocument.map(
+      (checkListData) => {
+        const condition01 = checkListData.id === id;
+        const isExistUploadId = checkListData.requirements.find(
+          (reqData) => reqData.uploadId === uploadId
+        );
+        const uploadIdIndex = checkListData.requirements.findIndex(
+          (reqData) => reqData.uploadId === uploadId
+        );
 
-      if (condition01 && isExistUploadId) {
-        checkListData.requirements[uploadIdIndex].approved = data
-        return checkListData;
-      } else {
-        return checkListData;
+        if (condition01 && isExistUploadId) {
+          checkListData.requirements[uploadIdIndex].approved = data;
+          return checkListData;
+        } else {
+          return checkListData;
+        }
       }
-    });
-    setDynamicAppChecklistDocument(updatedDynamicAppChecklist)
+    );
+    setDynamicAppChecklistDocument(updatedDynamicAppChecklist);
     setRender(updatedDynamicAppChecklist);
   };
 
   useEffect(() => {
-console.log(render,"render")
-  }, [DynamicAppChecklistDocument, render])
+    console.log(render, "render");
+  }, [DynamicAppChecklistDocument, render]);
 
   const page = JSON.parse(localStorage?.getItem("page"));
   return (
@@ -47,7 +61,7 @@ console.log(render,"render")
           <div key={index + 1} className="w-full px-2 py-5 rounded">
             <div className="text-[17px]">
               <p className="pb-4 font-bold">
-                {index+8}. {question}
+                {index + 8}. {question}
               </p>
               <div className="ml-6">
                 {requirements?.map((RequireData, ind) => {
@@ -56,14 +70,31 @@ console.log(render,"render")
 
                   const isMatch = dynamicImageFromDB?.find(
                     (eachFile, i) =>
-                      eachFile?.id === id &&
-                      eachFile?.uploadId === uploadId
+                      eachFile?.id === id && eachFile?.uploadId === uploadId
                   );
-                  const letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n"];
+                  const letters = [
+                    "a",
+                    "b",
+                    "c",
+                    "d",
+                    "e",
+                    "f",
+                    "g",
+                    "h",
+                    "i",
+                    "j",
+                    "k",
+                    "l",
+                    "m",
+                    "n",
+                  ];
 
                   const FindRemarkText = remarkText?.find((item) => {
                     if (item["dynamic"]) {
-                      return (item["dynamic"].id === id) && (item["dynamic"].uploadId === uploadId)
+                      return (
+                        item["dynamic"].id === id &&
+                        item["dynamic"].uploadId === uploadId
+                      );
                     }
                   });
                   const matchedText = FindRemarkText?.["dynamic"].value;
@@ -75,40 +106,44 @@ console.log(render,"render")
                         {requirement}
                       </div>
 
-                      {role === "LTP" && page === "draft" && (
-                        <input
-                          name={id}
-                          type="file"
-                          accept=".pdf, image/*"
-                          onChange={(event) =>
-                            someEventHandler(event, id, uploadId)
-                          }
-                          className="file-input file-input-bordered w-full max-w-xs text-gray-400 bg-white dark:text-black"
-                        />
-                      )}
+                      <div className="flex">
+                        {role === "LTP" && page === "draft" && (
+                          <input
+                            name={id}
+                            type="file"
+                            accept=".pdf, image/*"
+                            onChange={(event) =>
+                              someEventHandler(event, id, uploadId)
+                            }
+                            className="file-input file-input-bordered w-full max-w-xs text-gray-400 bg-white dark:text-black"
+                          />
+                        )}
 
-                      {isMatch && (
-                        <Link
-                          to={`https://drive.google.com/file/d/${isMatch.imageId}/view?usp=sharing`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={`${gradientColor} text-white hover:underline ms-5 py-2 px-5 rounded-full`}
-                        >
-                          View
-                        </Link>
-                      )}
-                      {role === "PS" && (
-                        <PsDocument
-                          role={role}
-                          id={id}
-                          approved={approved}
-                          uploadId={uploadId}
-                          handleDynamicStatus={handleDynamicStatus}
-                          type="dynamic"
-                          setRemarkText={setRemarkText}
-                          remarkText={matchedText}
-                        />
-                      )}
+                        {isMatch && (
+                          <div className="basis-1/6">
+                            <Link
+                              to={`https://drive.google.com/file/d/${isMatch.imageId}/view?usp=sharing`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={`${gradientColor} text-white hover:underline ml-5 py-2 px-5 rounded-full`}
+                            >
+                              View
+                            </Link>
+                          </div>
+                        )}
+                        {role === "PS" && (
+                          <PsDocument
+                            role={role}
+                            id={id}
+                            approved={approved}
+                            uploadId={uploadId}
+                            handleDynamicStatus={handleDynamicStatus}
+                            type="dynamic"
+                            setRemarkText={setRemarkText}
+                            remarkText={matchedText}
+                          />
+                        )}
+                      </div>
                     </div>
                   );
                 })}
