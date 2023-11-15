@@ -224,8 +224,8 @@ const AuthProvider = ({ children }) => {
       setLoading(true);
       const query = JSON.stringify({
         appNo,
-        userId: userInfoFromLocalStorage()._id,
-        role: userInfoFromLocalStorage().role,
+        userId: userInfoFromLocalStorage()?._id,
+        role: userInfoFromLocalStorage()?.role,
         page,
       });
 
@@ -275,7 +275,7 @@ const AuthProvider = ({ children }) => {
 
   // logout function
   const handleLogOut = (navigate) => {
-    localStorage.removeItem("loggedUser");
+    localStorage.clear();
     toast.success("Logout successfully");
     setTimeout(() => {
       navigate("/");

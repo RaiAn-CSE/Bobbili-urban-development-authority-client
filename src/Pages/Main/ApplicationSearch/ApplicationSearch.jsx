@@ -13,10 +13,10 @@ const ApplicationSearch = () => {
 
   // console.log(filteredData, 'filteredData');
 
-  const { getAllDraftApplicationData } = useContext(AuthContext);
+  const { fetchDataFromTheDb } = useContext(AuthContext);
 
   useEffect(() => {
-    getAllDraftApplicationData().then((data) => {
+    fetchDataFromTheDb("http://localhost:5000/allApplications").then((data) => {
       console.log(data);
       setApplicationData(data);
     });
