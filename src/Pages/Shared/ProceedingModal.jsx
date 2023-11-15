@@ -4,7 +4,7 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { RxCross2 } from "react-icons/rx";
 
 const ProceedingModal = ({ modalProceeding }) => {
-  const { setOpenProceeding, openProceeding } = modalProceeding;
+  const { setOpenProceeding, openProceeding, filteredData } = modalProceeding;
   const { getApplicationData, calculateNoOfFloors } = useContext(AuthContext);
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
@@ -13,12 +13,6 @@ const ProceedingModal = ({ modalProceeding }) => {
   const [allInfo, setAllInfo] = useState("");
   const [approvedDate, setApprovedDate] = useState([]);
   const [validProceedingDate, setValidProceedingDate] = useState([]);
-
-  // console.log(allInfo, "All info ApplicationData");
-  // console.log(
-  //   allInfo?.buildingInfo?.generalInformation?.mandal,
-  //   "All info ApplicationData"
-  // );
 
   useEffect(() => {
     const modal = document.getElementById("proceedingModal");
@@ -31,7 +25,13 @@ const ProceedingModal = ({ modalProceeding }) => {
     const getData = async () => {
       const applicationData = await getApplicationData(applicationNo, cameFrom);
       console.log(applicationData, "All info ApplicationData");
-      setAllInfo(applicationData);
+      if (filteredData) {
+        setAllInfo(filteredData);
+      }
+      else {
+        setAllInfo(applicationData);
+      }
+      // setAllInfo(applicationData);
     };
     getData();
   }, []);
@@ -128,30 +128,6 @@ const ProceedingModal = ({ modalProceeding }) => {
                       <th className="border-r p-2 border-neutral-500 text-base">
                         తేది
                       </th>
-                      {/* <td className="border-r p-2 border-neutral-500 text-base">
-                        {approvedDate[0] ?? "N/A"}
-                      </td>
-                      <td className="border-r p-2 border-neutral-500 text-base">
-                        {approvedDate[1] ?? "N/A"}
-                      </td>
-                      <td className="border-r p-2 border-neutral-500 text-base">
-                        {approvedDate[2] ?? "N/A"}
-                      </td>
-                      <td className="border-r p-2 border-neutral-500 text-base">
-                        {approvedDate[3] ?? "N/A"}
-                      </td>
-                      <td className="border-r p-2 border-neutral-500 text-base">
-                        {approvedDate[4] ?? "N/A"}
-                      </td>
-                      <td className="border-r p-2 border-neutral-500 text-base">
-                        {approvedDate[5] ?? "N/A"}
-                      </td>
-                      <td className="border-r p-2 border-neutral-500 text-base">
-                        {approvedDate[6] ?? "N/A"}
-                      </td>
-                      <td className="border-r p-2 border-neutral-500 text-base">
-                        {approvedDate[7] ?? "N/A"}
-                      </td> */}
                       {approvedDate?.length &&
                         approvedDate?.map((item, index) => {
                           return (
@@ -572,9 +548,6 @@ const ProceedingModal = ({ modalProceeding }) => {
                 <td className="p-2 border-r border-neutral-500" colSpan={4}>
                   1000
                 </td>
-                {/* <td className='p-2 border-r border-neutral-500'>13</td>
-                  <td className='p-2 border-r border-neutral-500'>లేబర్ చెస్ కాంపౌండ్ 2</td>
-                  <td className='p-2 border-r border-neutral-500'>Labour cess component 2</td> */}
               </tr>
             </tbody>
           </table>

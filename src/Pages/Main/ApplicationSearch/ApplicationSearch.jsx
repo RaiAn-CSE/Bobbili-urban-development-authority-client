@@ -1,15 +1,19 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AiOutlineFileDone } from "react-icons/ai";
 import { BsHouses } from "react-icons/bs";
-import { MdOutlineNoteAlt } from "react-icons/md";
 import MainPageInput from "../MainPageInput";
 import { AuthContext } from "../../../AuthProvider/AuthProvider";
 import HomeCss from "../../../Style/Home.module.css";
-import { BiSearchAlt2 } from "react-icons/bi";
+import { VscDebugContinue } from "react-icons/vsc";
+import ProceedingModal from "../../Shared/ProceedingModal";
+import Application from "../../Dashboard/LtpDashboard/DraftApplication/Application";
 
 const ApplicationSearch = () => {
   const [applicationData, setApplicationData] = useState([]);
   const [filteredData, setFilteredData] = useState(null);
+
+  const [openApplication, setOpenApplication] = useState(false);
+  const [openProceeding, setOpenProceeding] = useState(false);
 
   // console.log(filteredData, 'filteredData');
 
@@ -89,36 +93,6 @@ const ApplicationSearch = () => {
           </g>
         </svg>
       </div>
-
-      {/* <form className="">
-        <div className="relative mt-2">
-          <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-            <svg
-              className="w-4 h-4 text-violet-900"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 20 20"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-              />
-            </svg>
-          </div>
-          <input
-            type="search"
-            id="default-search"
-            className="block w-full p-4 pl-10 text-base font-normal text-gray-900 border border-violet-400 focus:border-violet-500 focus:outline-none focus:ring-2 ring-violet-100 rounded-lg bg-gray-50"
-            placeholder="Application no. or owner name"
-            onChange={(e) => searchApplicationData(e)}
-            required
-          />
-        </div>
-      </form> */}
 
       {/* Location details  */}
       <div className=" divide-y-2 divide-gray-200 mt-7">
@@ -262,25 +236,51 @@ const ApplicationSearch = () => {
       </div>
 
       <div className="flex justify-center items-center mt-14 pb-9 space-x-10 dark:text-gray-600">
-        <div className="nm_Container w-[90px] h-[80px] flex flex-col justify-center items-center">
+
+        <button className="nm_Container w-[90px] h-[80px] flex flex-col justify-center items-center"
+          onClick={() => setOpenApplication(true)}
+        >
           <span className="grid justify-center items-center">
             <AiOutlineFileDone className="text-violet-500" size={25} />
           </span>
           <h4 className="text-base font-semibold">Application</h4>
-        </div>
+        </button>
+
         <div className="nm_Container w-[90px] h-[80px] flex flex-col justify-center items-center">
           <span className="grid justify-center items-center">
             <BsHouses className="text-violet-500" size={25} />
           </span>
           <h4 className="text-base font-semibold">Drawing</h4>
         </div>
-        <div className="nm_Container w-[90px] h-[80px] flex flex-col justify-center items-center">
+
+
+        <button className="nm_Container w-[90px] h-[80px] flex flex-col justify-center items-center"
+          onClick={() => {
+            setOpenProceeding(true);
+          }}
+        >
           <span className="grid justify-center items-center">
-            <MdOutlineNoteAlt className="text-violet-500" size={25} />
+            <VscDebugContinue className="text-violet-500" size={25} />
           </span>
           <h4 className="text-base font-semibold">Proceeding</h4>
-        </div>
+        </button>
       </div>
+
+      {/* Application Modal */}
+      {
+        openApplication && filteredData ? (
+          <Application setOpenApplication={setOpenApplication} filteredData={filteredData} />
+        ) : (
+          ""
+        )
+      }
+
+      {/* proceedingModal modal info  */}
+      {
+        openProceeding && filteredData ?
+          <ProceedingModal modalProceeding={{ setOpenProceeding, openProceeding, filteredData }} />
+          : null
+      }
     </div>
   );
 };

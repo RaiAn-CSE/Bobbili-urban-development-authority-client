@@ -4,7 +4,7 @@ import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import { RxCross2 } from "react-icons/rx";
 import CustomScroll from "../../../../Style/Scrollbar.module.css";
 
-function Application({ setOpenApplication }) {
+function Application({ setOpenApplication, filteredData }) {
   const { getApplicationData, ownerNamePattern, calculateNoOfFloors } =
     useContext(AuthContext);
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
@@ -28,7 +28,14 @@ function Application({ setOpenApplication }) {
 
   useEffect(() => {
     const gettingData = async () => {
-      const applicationData = await getApplicationData(applicationNo, page);
+
+      let applicationData;
+      if (filteredData) {
+        applicationData = filteredData;
+      } else {
+        applicationData = await getApplicationData(applicationNo, page);
+      }
+
       console.log(applicationData, "ApplicationData");
       setGeneralInformation(applicationData?.buildingInfo?.generalInformation);
       setPlotDetails(applicationData?.buildingInfo?.plotDetails);
@@ -36,55 +43,7 @@ function Application({ setOpenApplication }) {
       setApplicantDetailsData(applicationData?.applicantInfo?.applicantDetails);
     };
     gettingData();
-  }, []);
-
-  // General Information
-  // const {
-  //   applicationType,
-  //   bpsApprovedNoServer,
-  //   caseType,
-  //   district,
-  //   gramaPanchayat,
-  //   iplpNo,
-  //   lpNo,
-  //   lrsNo,
-  //   mandal,
-  //   natureOfPermission,
-  //   natureOfTheSite,
-  //   plotNo,
-  //   plotNo2,
-  //   previewsApprovedFileNo,
-  //   surveyNo,
-  //   village,
-  // } = generalInformation || {};
-
-  // console.log(generalInformation, getApplicationData, "generalInformation");
-
-  // // Plot Details
-  // const { proposedPlotAreaCal, roadWideningAreaCal, netPlotAreaCal } =
-  //   plotDetails || {};
-  // // LTP Details
-  // const {
-  //   type,
-  //   name,
-  //   address: ltpAddress,
-  //   email: ltpEmail,
-  //   licenseNo,
-  //   phoneNo: ltpPhone,
-  //   validity,
-  // } = ltpDetailsData || {};
-
-  // // Applicant Details
-  // const {
-  //   name: ApplicantName,
-  //   identity,
-  //   phone: applicantPhone,
-  //   email: AppEmail,
-  //   adharNo,
-  //   pinCode,
-  //   address: applicantAddress,
-  //   ownerDoorNo,
-  // } = applicantDetailsData || {};
+  }, [filteredData, applicationNo, page]);
 
   // ====Applicant Info
   const Part01 = [

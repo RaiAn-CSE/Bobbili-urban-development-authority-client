@@ -46,66 +46,63 @@ function PsDocument({ role, id, approved, uploadId, type, handleDefaultStatus, h
 		});
 	};
 	return (
-		<div className='dark:text-white'>
-			<div className="md:flex items-center mt-6">
-				{/* Approved Button */}
-				{role === "PS" && (
-					<div className="md:flex space-y-4 md:space-x-10 md:space-y-0 mt-2 ms-4 lg:pr-2">
-						<div>
-							<input
-								id={type === "dynamic" ? `approved${id} + ${uploadId}` : `approved${id}`}
-								type="radio"
-								title={id}
-								// name={type === "dynamic" ? `${id + uploadId}` : id}
-								value="approved"
-								className="radio radio-sm radio-button__input mr-3 lg:mr-0"
-								onChange={(event) => handleDocumentStatus(event, id, uploadId, type)}
-								checked={approved === "approved"}
-							/>
-							<label
-								className={`radio-button__label text-base`}
-								title={id}
-								htmlFor={type === "dynamic" ? `approved${id} + ${uploadId}` : `approved${id}`}
-							>
-								<span className="radio-button__custom"></span>
-								Approved
-							</label>
-						</div>
-
-						<div>
-							<input
-								id={type === "dynamic" ? `shortfall${id} + ${uploadId}` : `shortfall${id}`}
-								type="radio"
-								title={id}
-								// name={type === "dynamic" ? `${id + uploadId}` : id}
-								value="shortfall"
-								className="radio radio-sm radio-button__input mr-3 lg:mr-0"
-								onChange={(event) => handleDocumentStatus(event, id, uploadId, type)}
-								checked={approved === "shortfall"}
-							/>
-							<label
-								className={`radio-button__label text-base`}
-								htmlFor={type === "dynamic" ? `shortfall${id} + ${uploadId}` : `shortfall${id}`}
-								title={id}
-							>
-								<span className="radio-button__custom"></span>
-								Shortfall
-							</label>
-						</div>
-
-						<div className={`${approved === "shortfall" ? "block" : "hidden"}`}>
-							<p className="text-black font-bold" htmlFor="textarea">Remark:</p>
-							<textarea className="textarea mt-2 bg-transparent border border-black text-black" id="textarea"
-								name={type === "dynamic" ? `${id}_${uploadId}` : `${id}`}
-								defaultValue={remarkText}
-								cols="30" rows="1"
-								onBlur={(event) => handleRemarkText(event)}
-							></textarea>
-						</div>
+		<div className="md:flex items-center mt-6 text-gray-600">
+			{/* Approved Button */}
+			{role === "PS" && (
+				<div className="md:flex space-y-4 md:space-x-10 md:space-y-0 mt-2 ms-4 lg:pr-2">
+					<div>
+						<input
+							id={type === "dynamic" ? `approved${id} + ${uploadId}` : `approved${id}`}
+							type="radio"
+							title={id}
+							// name={type === "dynamic" ? `${id + uploadId}` : id}
+							value="approved"
+							className="radio radio-sm radio-button__input mr-3 lg:mr-0"
+							onChange={(event) => handleDocumentStatus(event, id, uploadId, type)}
+							checked={approved === "approved"}
+						/>
+						<label
+							className={`radio-button__label text-base`}
+							title={id}
+							htmlFor={type === "dynamic" ? `approved${id} + ${uploadId}` : `approved${id}`}
+						>
+							<span className="radio-button__custom"></span>
+							Approved
+						</label>
 					</div>
-				)}
-			</div>
 
+					<div>
+						<input
+							id={type === "dynamic" ? `shortfall${id} + ${uploadId}` : `shortfall${id}`}
+							type="radio"
+							title={id}
+							// name={type === "dynamic" ? `${id + uploadId}` : id}
+							value="shortfall"
+							className="radio radio-sm radio-button__input mr-3 lg:mr-0"
+							onChange={(event) => handleDocumentStatus(event, id, uploadId, type)}
+							checked={approved === "shortfall"}
+						/>
+						<label
+							className={`radio-button__label text-base`}
+							htmlFor={type === "dynamic" ? `shortfall${id} + ${uploadId}` : `shortfall${id}`}
+							title={id}
+						>
+							<span className="radio-button__custom"></span>
+							Shortfall
+						</label>
+					</div>
+
+					<div className={`${approved === "shortfall" ? "block" : "hidden"}`}>
+						<label className="block mb-1 font-semibold text-gray-600" htmlFor="textarea">Remark:</label>
+						<textarea className="w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-violet-500 focus:outline-none focus:ring-2 ring-violet-200" id="textarea"
+							name={type === "dynamic" ? `${id}_${uploadId}` : `${id}`}
+							defaultValue={remarkText}
+							cols="30" rows="1"
+							onBlur={(event) => handleRemarkText(event)}
+						></textarea>
+					</div>
+				</div>
+			)}
 		</div>
 	)
 }
