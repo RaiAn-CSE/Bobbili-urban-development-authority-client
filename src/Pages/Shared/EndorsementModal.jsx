@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import customScroll from "../../Style/Scrollbar.module.css";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
+import { RxCross2 } from "react-icons/rx";
 
 const EndorsementModal = ({ modalEndorsement }) => {
   const { openEndorsement, setOpenEndorsement } = modalEndorsement;
@@ -53,13 +54,13 @@ const EndorsementModal = ({ modalEndorsement }) => {
         <div
           className={`${customScroll.customScrolling} rounded-lg modal-box py-10 px-12 bg-white text-gray-900 w-full max-w-4xl relative`}
         >
-          <form method="dialog">
+          <form method="dialog" className="absolute top-6 right-6 z-50">
             {/* if there is a button in form, it will close the modal */}
             <button
               onClick={() => setOpenEndorsement(false)}
-              className="btn btn-sm text-white hover:bg-violet-600 btn-circle btn-ghost absolute top-2 right-2 bg-violet-500"
+              className={`outline outline-red-500 outline-offset-4 text-red-500 rounded-full hover:bg-red-500 hover:text-white hover:outline-offset-0 p-[1px] transition-all duration-1000`}
             >
-              ✕
+              <RxCross2 className="text-2xl" />
             </button>
           </form>
 
