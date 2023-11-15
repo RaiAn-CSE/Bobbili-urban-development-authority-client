@@ -2,10 +2,13 @@ import React, { useContext, useEffect, useState } from "react";
 import customScroll from "../../Style/Scrollbar.module.css";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { RxCross2 } from "react-icons/rx";
+import DefaultDocuments from "../../assets/DefaultDocument.json";
+import DynamicDocuments from "../../assets/DynamicDocument.json";
 
 const EndorsementModal = ({ modalEndorsement }) => {
   const { openEndorsement, setOpenEndorsement } = modalEndorsement;
-  const { getApplicationData, ownerNamePattern } = useContext(AuthContext);
+  const { getApplicationData, ownerNamePattern, fetchDataFromTheDb } =
+    useContext(AuthContext);
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
   const cameFrom = JSON.parse(localStorage.getItem("page"));
@@ -15,6 +18,9 @@ const EndorsementModal = ({ modalEndorsement }) => {
   const [surveyNo, setSurveyNo] = useState("");
   const [ownerName, setOwnerName] = useState("");
   const [dataFromDb, setDataFromDb] = useState({});
+  const [psInfo, setPsInfo] = useState({});
+
+  const [shortfallDocuments, setShortfallDocuments] = useState([]);
 
   useEffect(() => {
     const modal = document.getElementById("endorsementModal");
@@ -34,11 +40,72 @@ const EndorsementModal = ({ modalEndorsement }) => {
       setApplicationNumber(applicationData?.applicationNo);
       setSurveyNo(applicationData?.buildingInfo?.generalInformation?.surveyNo);
       setOwnerName(applicationData?.applicantInfo?.applicantDetails[0]?.name);
+
+      if (Object.keys(applicationData)?.length) {
+        console.log("asci");
+        setShortfallDocuments((prev) => {
+          const shortfallRemarks =
+            applicationData?.psDocumentPageObservation?.remarkText;
+
+          const extractIdQuestionWithRemarks = shortfallRemarks?.map((item) => {
+            if (item.hasOwnProperty("default")) {
+              const getQuestion = collectShortfallDocumentNameWithRemark(
+                item?.default?.id
+              );
+
+              console.log(getQuestion, "Default");
+              return {
+                id: item?.default?.id,
+                question: getQuestion,
+                remark: item?.default?.value,
+              };
+            } else if (item.hasOwnProperty("dynamic")) {
+              const getQuestion = collectShortfallDocumentNameWithRemark(
+                item?.dynamic?.id
+              );
+              console.log(getQuestion, "dynamic");
+              return {
+                id: item?.dynamic?.id,
+                question: getQuestion,
+                remark: item?.dynamic?.value,
+              };
+            }
+          });
+
+          return [...extractIdQuestionWithRemarks];
+        });
+      }
     };
     getData();
   }, []);
 
+  const collectShortfallDocumentNameWithRemark = (id) => {
+    let findQuestion;
+    [...DefaultDocuments, ...DynamicDocuments]?.forEach((document) => {
+      console.log(document, "Document", document?.id, id, document?.id === id);
+      if (document?.id === id) {
+        console.log(document?.question, "Question");
+        findQuestion = document?.question;
+      }
+    });
+
+    return findQuestion;
+  };
+
+  useEffect(() => {
+    if (dataFromDb && Object.keys(dataFromDb)?.length) {
+      fetchDataFromTheDb(
+        `http://localhost:5000/userInformation?id=${dataFromDb?.psId}`
+      ).then((result) => {
+        console.log(result, "PS");
+        setPsInfo(result);
+      });
+    }
+  }, [dataFromDb]);
+
   console.log(dataFromDb, "GDD");
+  console.log(shortfallDocuments, "SD");
+  console.log(psInfo, "Ps info");
   const date = new Date();
   const currentDate = date
     .toISOString()
@@ -69,7 +136,7 @@ const EndorsementModal = ({ modalEndorsement }) => {
               ENDORSEMENT!
             </h3>
             <div className="flex justify-between font-semibold text-lg">
-              <h4>Letter No: 1112/4232/21</h4>
+              <h4>Letter No: {dataFromDb?.shortfallSerialNo}</h4>
               <h4>Date: {currentDate}</h4>
             </div>
             <div className="flex flex-col pt-3 text-base">
@@ -132,46 +199,29 @@ const EndorsementModal = ({ modalEndorsement }) => {
                 </thead>
                 <tbody className="text-[15px]">
                   {/* Ground Position  */}
-                  <tr className="border-b border-neutral-500">
-                    <td
-                      rowSpan=""
-                      className="break-words border-r px-6 py-4 border-neutral-500"
-                    >
-                      1
-                    </td>
-                    <td
-                      className={`break-words border-r px-6 py-4 border-neutral-500`}
-                    >
-                      Latest Encumbrance Certificate issued by Registration
-                      Department.
-                    </td>
-                    <td
-                      className={`break-words border-r px-6 py-4 border-neutral-500`}
-                    >
-                      Self-Attested copies of Ownership Self-Attested copies of
-                      Ownership.
-                    </td>
-                  </tr>
-                  <tr className="border-b border-neutral-500">
-                    <td
-                      rowSpan=""
-                      className="break-words border-r px-6 py-4 border-neutral-500"
-                    >
-                      2
-                    </td>
-                    <td
-                      className={`break-words border-r px-6 py-4 border-neutral-500`}
-                    >
-                      Self-Attested copies of Ownership
-                      Documents-lease-deed/sale deed etc.giving the physical
-                      description of the plot/property.
-                    </td>
-                    <td
-                      className={`break-words border-r px-6 py-4 border-neutral-500`}
-                    >
-                      Self-Attested copies of Ownership.
-                    </td>
-                  </tr>
+                  {shortfallDocuments?.length !== 0 &&
+                    shortfallDocuments?.map((document, index) => {
+                      return (
+                        <tr className="border-b border-neutral-500">
+                          <td
+                            rowSpan=""
+                            className="break-words border-r px-6 py-4 border-neutral-500"
+                          >
+                            {index + 1}
+                          </td>
+                          <td
+                            className={`break-words border-r px-6 py-4 border-neutral-500`}
+                          >
+                            {document?.question}
+                          </td>
+                          <td
+                            className={`break-words border-r px-6 py-4 border-neutral-500`}
+                          >
+                            {document?.remark}
+                          </td>
+                        </tr>
+                      );
+                    })}
                 </tbody>
               </table>
             </div>
@@ -194,7 +244,7 @@ const EndorsementModal = ({ modalEndorsement }) => {
               <p className="font-bold">
                 Documents Remarks and Recommendation: Shortfall
               </p>
-              <table className="min-w-full border text-center text-sm font-light border-neutral-500">
+              <table className="min-w-full border text-sm font-light border-neutral-500">
                 <td
                   scope="col"
                   className="border-r px-6 py-10 border-neutral-500"
@@ -220,9 +270,9 @@ const EndorsementModal = ({ modalEndorsement }) => {
 
             <div className="mt-20 flex flex-col items-end">
               <p className="font-semibold">Panchayat Secretary</p>
-              <p>___________ Grama Panchayat</p>
-              <p>__________Mandal</p>
-              <p>______________ District</p>
+              <p>{psInfo?.gramaPanchayat}___________ Grama Panchayat</p>
+              <p>{psInfo?.mandal}__________Mandal</p>
+              <p>{psInfo?.district}______________ District</p>
             </div>
           </div>
         </div>

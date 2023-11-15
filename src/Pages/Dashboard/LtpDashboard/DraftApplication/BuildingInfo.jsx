@@ -33,7 +33,7 @@ const BuildingInfo = () => {
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
   const cameFrom = JSON.parse(localStorage.getItem("page"));
 
-  const { _id: id } = userInfoFromLocalStorage();
+  // const { _id: id } = userInfoFromLocalStorage();
 
   const role = userInfoFromLocalStorage()?.role;
 
