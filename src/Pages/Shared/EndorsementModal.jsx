@@ -174,56 +174,64 @@ const EndorsementModal = ({ modalEndorsement }) => {
               <p className="font-bold text-base">
                 You are requested to comply the shortfalls raised in documents:
               </p>
-              <table className="border text-sm font-light border-neutral-500">
-                <thead className="border-b font-medium border-neutral-500">
-                  <tr className="text-base">
-                    <th
-                      scope="col"
-                      className="border-r px-6 py-4 border-neutral-500 bg-gray-200"
-                    >
-                      #
-                    </th>
-                    <th
-                      scope="col"
-                      className="border-r px-6 py-4 border-neutral-500 bg-gray-200"
-                    >
-                      Name of the Document
-                    </th>
-                    <th
-                      scope="col"
-                      className="border-r px-6 py-4 border-neutral-500 bg-gray-200"
-                    >
-                      Remarks
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="text-[15px]">
-                  {/* Ground Position  */}
-                  {shortfallDocuments?.length !== 0 &&
-                    shortfallDocuments?.map((document, index) => {
-                      return (
-                        <tr className="border-b border-neutral-500">
-                          <td
-                            rowSpan=""
-                            className="break-words border-r px-6 py-4 border-neutral-500"
-                          >
-                            {index + 1}
-                          </td>
-                          <td
-                            className={`break-words border-r px-6 py-4 border-neutral-500`}
-                          >
-                            {document?.question}
-                          </td>
-                          <td
-                            className={`break-words border-r px-6 py-4 border-neutral-500`}
-                          >
-                            {document?.remark}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                </tbody>
-              </table>
+              <div className="container mx-auto px-4 font-roboto ">
+                <div className="py-2">
+                  <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 ">
+                    <div className="inline-block min-w-full nm_Container rounded-lg overflow-hidden">
+                      <table className="min-w-full leading-normal text-center">
+                        <thead className="bg-normalViolet">
+                          <tr className="text-base">
+                            <th
+                              scope="col"
+                              className="p-3 border-b-2 border-gray-200 text-sm text-white font-semibold uppercase tracking-wider"
+                            >
+                              #
+                            </th>
+                            <th
+                              scope="col"
+                              className="p-3 border-b-2 border-gray-200 text-sm text-white font-semibold uppercase tracking-wider"
+                            >
+                              Name of the Document
+                            </th>
+                            <th
+                              scope="col"
+                              className="p-3 border-b-2 border-gray-200 text-sm text-white font-semibold uppercase tracking-wider"
+                            >
+                              Remarks
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody className="text-[15px]">
+                          {/* Ground Position  */}
+                          {shortfallDocuments?.length !== 0 &&
+                            shortfallDocuments?.map((document, index) => {
+                              return (
+                                <tr className="border-b border-neutral-500">
+                                  <td
+                                    rowSpan=""
+                                    className="break-words border-r px-6 py-4 border-neutral-500"
+                                  >
+                                    {index + 1}
+                                  </td>
+                                  <td
+                                    className={`break-words border-r px-6 py-4 border-neutral-500`}
+                                  >
+                                    {document?.question}
+                                  </td>
+                                  <td
+                                    className={`break-words border-r px-6 py-4 border-neutral-500`}
+                                  >
+                                    {document?.remark}
+                                  </td>
+                                </tr>
+                              );
+                            })}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div className="my-6">
