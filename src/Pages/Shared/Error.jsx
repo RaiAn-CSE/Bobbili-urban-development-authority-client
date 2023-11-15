@@ -1,11 +1,13 @@
 import React from "react";
-import Lottie from "lottie-react";
-import ErrorAnimation from "../../assets/error.json";
+import backgroundImageUrl from '../../assets/images/404page.svg';
 
 const Error = () => {
   return (
-    <div className="flex justify-center items-center h-screen">
-      <Lottie animationData={ErrorAnimation} loop={true} />
+    <div className="bg-cover bg-center h-screen" style={{ backgroundImage: `url(${backgroundImageUrl})` }}>
+      <div className="relative">
+        <div className="planet right-[200px] top-[75px]">
+        </div>
+      </div>
     </div>
   );
 };
