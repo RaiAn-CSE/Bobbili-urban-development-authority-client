@@ -50,7 +50,9 @@ const EndorsementModal = ({ modalEndorsement }) => {
           const extractIdQuestionWithRemarks = shortfallRemarks?.map((item) => {
             if (item.hasOwnProperty("default")) {
               const getQuestion = collectShortfallDocumentNameWithRemark(
-                item?.default?.id
+                item?.default?.id,
+                undefined,
+                "default"
               );
 
               console.log(getQuestion, "Default");
@@ -61,7 +63,9 @@ const EndorsementModal = ({ modalEndorsement }) => {
               };
             } else if (item.hasOwnProperty("dynamic")) {
               const getQuestion = collectShortfallDocumentNameWithRemark(
-                item?.dynamic?.id
+                item?.dynamic?.id,
+                item?.dynamic?.uploadId,
+                "dynamic"
               );
               console.log(getQuestion, "dynamic");
               return {
@@ -79,15 +83,41 @@ const EndorsementModal = ({ modalEndorsement }) => {
     getData();
   }, []);
 
-  const collectShortfallDocumentNameWithRemark = (id) => {
+  const collectShortfallDocumentNameWithRemark = (
+    id,
+    uploadId,
+    documentType
+  ) => {
     let findQuestion;
-    [...DefaultDocuments, ...DynamicDocuments]?.forEach((document) => {
-      console.log(document, "Document", document?.id, id, document?.id === id);
-      if (document?.id === id) {
-        console.log(document?.question, "Question");
-        findQuestion = document?.question;
-      }
-    });
+    // [...DefaultDocuments, ...DynamicDocuments]?.forEach((document) => {
+    //   console.log(document, "Document", document?.id, id, document?.id === id);
+    //   if (document?.id === id) {
+    //     console.log(document?.question, "Question");
+    //     findQuestion = document?.question;
+    //   }
+    // });
+
+    switch (documentType) {
+      case "default":
+        DefaultDocuments?.forEach((document) => {
+          if (document?.id === id) {
+            console.log(document?.question, "Question");
+            findQuestion = document?.question;
+          }
+        });
+        break;
+
+      case "dynamic":
+        DynamicDocuments?.forEach((document) => {
+          if (document?.id === id) {
+            document?.requirements?.forEach((item) => {
+              if (item?.uploadId === uploadId) {
+                findQuestion = item?.requirement;
+              }
+            });
+          }
+        });
+    }
 
     return findQuestion;
   };
