@@ -236,9 +236,9 @@ const OnlinePayment = () => {
           login only.
         </h3>
       </div>
-      <div className="flex justify-end mt-2 pb-9">
+      <div className="flex justify-end px-1 pb-5">
         <button
-          className={`nm_Container flex rounded justify-center items-center px-2 py-[6px] border-none text-white cursor-pointer transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold text-base bg-normalViolet`}
+          className={`btn3D px-3 py-2 justify-center items-center`}
         >
           <GiMoneyStack size={25} />
           <span className="ml-1">pay now</span>
