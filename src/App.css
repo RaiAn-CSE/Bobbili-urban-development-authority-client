@@ -1158,8 +1158,8 @@ ol > li:before {
   align-items: center;
   justify-content: center;
   outline: none;
-  background-image: linear-gradient(to top, #D8D9DB 0%, #fff 80%, #FDFDFD 100%);
-  border: 1px solid #8B5BF6;
+  /* background-image: linear-gradient(to top, #D8D9DB 0%, #fff 80%, #FDFDFD 100%); */
+  /* border: 1px solid #8B5BF6; */
   transition: all 0.2s ease;
   font-family: "Source Sans Pro", sans-serif;
   font-size: 16px;
@@ -1167,19 +1167,19 @@ ol > li:before {
   color: #606060;
   text-shadow: 0 1px #fff;
   border-radius: 6px;
-  /* box-shadow: 4px 4px 8px rgb(189 200 213), -4px -4px 8px rgb(255 255 255); */
+  box-shadow: 4px 4px 8px rgb(189 200 213), -4px -4px 8px rgb(255 255 255);
 }
 
-.btn3D:hover {
+/* .btn3D:hover {
   box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 3px 3px #CECFD1;
-}
+} */
 
 .btn3D:active {
   box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 5px 3px #999, inset 0 0 30px #aaa;
 }
 
 .btn3D:focus {
-  box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 5px 3px #999, inset 0 0 30px #aaa;
+  box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 3px 3px #CECFD1;
 }
 
 /* ==========================> btn3D design  End*/
