@@ -232,12 +232,12 @@ const DraftApplication = () => {
             </div>
           </div>
           <div className="mb-5 font-roboto">
-            <ul className="w-full steps steps-vertical lg:steps-horizontal rounded-lg pt-4">
+            <div className="w-full steps steps-vertical lg:steps-horizontal rounded-lg pt-4">
               {stepsContent.map((step, index) => (
-                <li
+                <button
                   key={index}
                   data-content={index + 1}
-                  className={`${stepClasses(index)} lg:relative lg:pt-1`}
+                  className={`${stepClasses(index)} lg:relative lg:pt-1 flex justify-center`}
                   onClick={() => handleStepClick(index)}
                 >
                   <div className="lg:absolute lg:top-0 z-10">
@@ -248,9 +248,9 @@ const DraftApplication = () => {
                       {step}
                     </span>
                   </div>
-                </li>
+                </button>
               ))}
-            </ul>
+            </div>
           </div>
         </>
       )
