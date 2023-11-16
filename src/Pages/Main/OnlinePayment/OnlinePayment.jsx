@@ -62,7 +62,7 @@ const OnlinePayment = () => {
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
-          className={`${HomeCss.searchIcon} nm_Container`}
+          className={`${HomeCss.searchIcon}`}
         >
           <g strokeWidth="0" id="SVGRepo_bgCarrier"></g>
           <g
@@ -113,7 +113,7 @@ const OnlinePayment = () => {
       </form> */}
 
       {/* Application details  */}
-      <div className="divide-y-2 divide-gray-200 mt-7">
+      <div className="divide-y-2 divide-gray-300 mt-5">
         <div className="mb-1">
           <h3 className="w-fit basis-[50%] text-black text-lg  pl-3 font-semibold ">
             Application details:
@@ -181,7 +181,7 @@ const OnlinePayment = () => {
       </div>
 
       {/* Fees details  */}
-      <div className="divide-y-2 divide-gray-200 mt-9">
+      <div className="divide-y-2 divide-gray-300 mt-10">
         <div className="flex mb-1">
           <h3 className="basis-[50%] text-lg pl-3 font-semibold text-gray-900">
             Fees details:
