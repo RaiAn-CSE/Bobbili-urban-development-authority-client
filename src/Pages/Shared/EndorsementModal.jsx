@@ -206,20 +206,20 @@ const EndorsementModal = ({ modalEndorsement }) => {
                           {shortfallDocuments?.length !== 0 &&
                             shortfallDocuments?.map((document, index) => {
                               return (
-                                <tr className="border-b border-neutral-500">
+                                <tr className="text-start ">
                                   <td
                                     rowSpan=""
-                                    className="break-words border-r px-6 py-4 border-neutral-500"
+                                    className="break-words border-r px-6 py-4 border-neutral-300"
                                   >
                                     {index + 1}
                                   </td>
                                   <td
-                                    className={`break-words border-r px-6 py-4 border-neutral-500`}
+                                    className={`break-words border-r px-6 py-4 border-neutral-300`}
                                   >
                                     {document?.question}
                                   </td>
                                   <td
-                                    className={`break-words border-r px-6 py-4 border-neutral-500`}
+                                    className={`break-words  px-6 py-4 border-neutral-500`}
                                   >
                                     {document?.remark}
                                   </td>
