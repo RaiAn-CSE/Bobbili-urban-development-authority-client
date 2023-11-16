@@ -593,7 +593,7 @@ const Payment = () => {
               ltpDetails={calculatedData?.UDATotalCharged}
             />
             {role === "LTP" && cameFrom === "draft" && (
-              <div className="flex ms-5 items-center pay-btn-container">
+              <div className="flex ms-5 items-center mt-[16px] pay-btn-container">
                 <button className="pay-btn mt-3">
                   <div className="svg-wrapper-1">
                     <div className="svg-wrapper">
