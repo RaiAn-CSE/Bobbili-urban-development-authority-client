@@ -7,6 +7,9 @@ import toast from "react-hot-toast";
 import UpdateProfileInput from "./UpdateProfileInput";
 import { MdContactPhone } from "react-icons/md";
 import { FaAddressCard } from "react-icons/fa";
+import userInfoLogo from '../../assets/user_logo/user_info_svg.svg'
+import userContactLogo from '../../assets/user_logo/contact_info.svg'
+import userAddressLogo from '../../assets/user_logo/address_info.svg'
 
 const UpdateProfile = () => {
   const { userInfoFromLocalStorage } = useContext(AuthContext);
@@ -126,15 +129,16 @@ const UpdateProfile = () => {
         {/* if there is a button in form, it will close the modal */}
 
         {/* Basic Information  */}
-        <div className="divide-y-2 divide-gray-200 mb-[60px]">
-          <div className="flex items-center ">
-            <h3 className="font-bold text-xl px-5 mb-4 ml-1 flex justify-center items-center">
-              <BiSolidUserRectangle size={30} className="mr-2" />
+        <div className="divide-y-2 mx-5 divide-gray-200 mb-[60px]">
+          <div className="flex items-center">
+            <h3 className="font-bold text-xl mb-4 ml-1 flex justify-center items-center">
+              <img className="w-7 h-7 mr-1" src={userInfoLogo} alt="" />
+              {/* <BiSolidUserRectangle size={30} color="#8B5BF6" className="mr-2" /> */}
               <span>Basic Information</span>
             </h3>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 px-5 nm_Container mx-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 px-2 nm_Container pb-3">
             <UpdateProfileInput
               id="department"
               name="department"
@@ -187,15 +191,16 @@ const UpdateProfile = () => {
         </div>
 
         {/* Contact Information  */}
-        <div className="divide-y-2 divide-gray-200 mb-[60px]">
+        <div className="divide-y-2 divide-gray-200 mb-[60px] mx-5">
           <div className="flex items-center mb-4 ml-1">
-            <h3 className="font-bold text-xl px-5 flex justify-center items-center">
-              <MdContactPhone size={30} className="mr-2" />
+            <h3 className="font-bold text-xl flex justify-center items-center">
+              <img className="w-6 h-6 mr-1" src={userContactLogo} alt="" />
+              {/* <MdContactPhone size={30} color="#8B5BF6" className="mr-2" /> */}
               <span>Contact Information</span>
             </h3>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 px-5 nm_Container mx-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 px-5 nm_Container pb-3">
             <UpdateProfileInput
               id="contactEmail"
               name="contactEmail"
@@ -232,15 +237,16 @@ const UpdateProfile = () => {
         </div>
 
         {/* Address Information  */}
-        <div className="divide-y-2 divide-gray-200 mb-[60px]">
+        <div className="divide-y-2 divide-gray-200 mb-[60px] mx-5">
           <div className="flex items-center">
-            <h3 className="font-bold text-xl px-5 mb-4 ml-1 flex justify-center items-center">
-              <FaAddressCard size={30} className="mr-2" />
+            <h3 className="font-bold text-xl mb-4 ml-1 flex justify-center items-center">
+              <img className="w-7 h-7 mr-1" src={userAddressLogo} alt="" />
+              {/* <FaAddressCard size={30} color="#8B5BF6" className="mr-2" /> */}
               <span>Address Information</span>
             </h3>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 px-5 nm_Container mx-5">
+          <div className="grid grid-cols-2 lg:grid-cols-4 px-5 nm_Container pb-3">
             <UpdateProfileInput
               id="address"
               name="address"
