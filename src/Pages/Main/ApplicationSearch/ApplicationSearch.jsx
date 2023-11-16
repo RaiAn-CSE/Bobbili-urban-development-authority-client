@@ -252,7 +252,7 @@ const ApplicationSearch = () => {
 
       <div className="flex justify-center items-center mt-14 pb-9 space-x-10 dark:text-gray-600">
 
-        <button className="nm_Container w-[90px] h-[80px] flex flex-col justify-center items-center"
+        <button className="btn3D w-[90px] h-[80px] flex flex-col justify-center items-center"
           onClick={() => setOpenApplication(true)}
         >
           <span className="grid justify-center items-center">
@@ -261,7 +261,7 @@ const ApplicationSearch = () => {
           <h4 className="text-base font-semibold">Application</h4>
         </button>
 
-        <div className="nm_Container w-[90px] h-[80px] flex flex-col justify-center items-center">
+        <div className="btn3D w-[90px] h-[80px] flex flex-col justify-center items-center">
           <span className="grid justify-center items-center">
             <BsHouses className="text-violet-500" size={25} />
           </span>
@@ -269,7 +269,7 @@ const ApplicationSearch = () => {
         </div>
 
 
-        <button className="nm_Container w-[90px] h-[80px] flex flex-col justify-center items-center"
+        <button className="btn3D w-[90px] h-[80px] flex flex-col justify-center items-center"
           onClick={() => {
             setOpenProceeding(true);
           }}
