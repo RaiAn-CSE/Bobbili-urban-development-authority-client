@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import ArrowIcon from "../../../Components/ArrowIcon";
 import DefaultDocuments from "../../../../assets/DefaultDocument.json";
 import DynamicDocuments from "../../../../assets/DynamicDocument.json";
+import _ from "lodash";
 
 const ResubmitApplication = () => {
   const { appNo } = useLocation()?.state;
@@ -20,6 +21,7 @@ const ResubmitApplication = () => {
   const [error, setError] = useState("");
   const [data, setData] = useState({});
   const [documentObs, setDocumentObs] = useState([]);
+  const [oldImageIds, setOldImageIds] = useState([]);
   const [drawingFiles, setDrawingFiles] = useState({
     AutoCAD: "",
     Drawing: "",
@@ -80,7 +82,7 @@ const ResubmitApplication = () => {
     }
   }, [documentObs]);
 
-  const handleFileChange = (event, eventId) => {
+  const handleDrawingFileChange = (event, eventId) => {
     const file = event?.target.files[0];
     // formData.append(eventId, file);
     console.log(file, "FILE");
@@ -128,7 +130,6 @@ const ResubmitApplication = () => {
   };
 
   // document file change detect
-
   const handleDocumentFileChange = (event, document) => {
     console.log(event.target.files[0], "event");
     const file = event.target.files[0];
@@ -154,6 +155,49 @@ const ResubmitApplication = () => {
     }
     console.log(documentImageFiles, "Document image files update");
   };
+
+  // sent data into database
+
+  const sentApplication = async () => {
+    console.log("clicked");
+
+    // all old image files id
+    let oldImageFilesId = [data?.drawing?.AutoCAD, data?.drawing?.Drawing];
+
+    const documentsUploadByLtp = data?.documents;
+
+    documentImageFiles["default"].forEach((eachFile) => {
+      const index = documentsUploadByLtp?.default?.findIndex(
+        (item) => item?.id === eachFile?.id
+      );
+      if (index !== -1) {
+        oldImageFilesId = [
+          ...oldImageFilesId,
+          documentsUploadByLtp["default"][index]["imageId"],
+        ];
+      }
+    });
+
+    documentImageFiles["dynamic"].forEach((eachFile) => {
+      const index = documentsUploadByLtp?.dynamic?.findIndex(
+        (item) =>
+          item?.id === eachFile?.id && item?.uploadId === eachFile?.uploadId
+      );
+      if (index !== -1) {
+        oldImageFilesId = [
+          ...oldImageFilesId,
+          documentsUploadByLtp["dynamic"][index]["imageId"],
+        ];
+      }
+    });
+
+    console.log(oldImageFilesId, "old image files id");
+
+    // successfully get old image files id
+
+    // get drawing file image id
+  };
+
   console.log(documentObs, "DocumentObs");
   console.log(documentImageFiles, "Document image files");
 
@@ -232,7 +276,9 @@ const ResubmitApplication = () => {
                 <input
                   type="file"
                   accept=".dwg, .zip, .pdf, .png, .jpg"
-                  onChange={(event) => handleFileChange(event, "AutoCAD")}
+                  onChange={(event) =>
+                    handleDrawingFileChange(event, "AutoCAD")
+                  }
                   className="file-input file-input-bordered file-input-md w-full max-w-xs text-gray-400 bg-white dark:text-black"
                 />
               </label>
@@ -247,7 +293,9 @@ const ResubmitApplication = () => {
                 <input
                   type="file"
                   accept=".dwg, .zip, .pdf,.png,.jpg"
-                  onChange={(event) => handleFileChange(event, "Drawing")}
+                  onChange={(event) =>
+                    handleDrawingFileChange(event, "Drawing")
+                  }
                   className="file-input file-input-bordered file-input-md w-full max-w-xs text-gray-400 bg-white dark:text-black"
                 />
               </label>
@@ -314,7 +362,9 @@ const ResubmitApplication = () => {
             Back!
           </span>
         </button>
-        <button className="fancy-button">Submit</button>
+        <button className="fancy-button" onClick={sentApplication}>
+          Submit
+        </button>
       </div>
     </div>
   );
