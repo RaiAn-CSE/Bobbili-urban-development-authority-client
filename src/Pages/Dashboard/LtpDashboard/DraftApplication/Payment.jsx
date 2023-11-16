@@ -518,12 +518,14 @@ const Payment = () => {
   };
 
   return (
-    <div className="text-gray-600">
+    <div className="text-gray-600 mx-5">
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="grid my-5 mx-7 lg:my-0 lg:p-2"
+        className="grid my-5 lg:my-0"
       >
-        <div>
+
+        {/* UDA Charge  */}
+        <div className="nm_Container mt-3 p-2 mb-10">
           <div className="flex items-center">
             {/* <img
               src={UDAChargeImg}
@@ -733,6 +735,7 @@ const Payment = () => {
           </div>
         </div>
 
+        {/* Grama Panchayat fee */}
         <div className="my-5">
           <div className="flex items-center">
             {/* <img
@@ -871,6 +874,7 @@ const Payment = () => {
           </div>
         </div>
 
+        {/* Labour cess charge  */}
         <div>
           <div className="flex items-center">
             {/* <img
