@@ -391,7 +391,7 @@ const ShowCharts = () => {
 
             {/* week month year filter  */}
             {!path.includes("/statistics") && (
-              <div className="bg-gradient-to-r to-[#810be7] from-[#de12de] basis-[23%] z-[10]  p-3 py-6 rounded-lg shadow-lg">
+              <div className="nm_Container basis-[23%] z-[10]  p-3 py-6 rounded-lg">
                 <label
                   htmlFor="date"
                   className="flex items-center mb-5 text-lg font-bold text-white"
@@ -399,11 +399,11 @@ const ShowCharts = () => {
                   <span className="bg-[#fb5efd] inline-flex justify-center items-center w-[40px] h-[40px] rounded-full mr-2">
                     <BsCalendar3 size={20} />
                   </span>
-                  <span>Date</span>
+                  <span className="text-[#FB5EFD]">Date</span>
                 </label>
                 <select
                   id="date"
-                  className="nm_Inset bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ouline-noneblock w-full p-2.5"
+                  className="nm_Inset w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-[#FB5EFD] focus:outline-none focus:ring-2 ring-[#e0c3dc]"
                   defaultValue={selectedDate}
                   disabled={selectedPanchayat?.length === 0}
                   onChange={(e) => detectChangeOfDate(e)}
