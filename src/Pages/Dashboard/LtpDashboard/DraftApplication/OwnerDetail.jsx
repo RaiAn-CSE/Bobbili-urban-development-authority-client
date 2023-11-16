@@ -35,8 +35,8 @@ const OwnerDetail = ({
     role.toLowerCase() === "ps";
 
   return (
-    <div className="nm_Container p-5 mt-4 mb-8">
-      <p className="text-xl font-bold">{`${ownerSerial[index]} Person:`}</p>
+    <div className="mt-3">
+      <p className="text-xl font-bold px-2">{`${ownerSerial[index]} Person:`}</p>
       <div className="lg:flex">
         <div className="basis-[75%] grid grid-cols-2 lg:grid-cols-3">
           <InputField
@@ -136,9 +136,8 @@ const OwnerDetail = ({
             {index === length - 1 && index < 4 && (
               <div className="flex justify-center items-center">
                 <button
-                  className={`nm_Container text-xl rounded-full w-[30px] h-[30px] text-normalViolet cursor-pointer transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold ${
-                    hideBtn && "hidden"
-                  }`}
+                  className={`nm_Container text-xl rounded-full w-[30px] h-[30px] text-normalViolet cursor-pointer transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold ${hideBtn && "hidden"
+                    }`}
                   onClick={increaseApplicantNo}
                 >
                   +
@@ -149,9 +148,8 @@ const OwnerDetail = ({
             {index === length - 1 && index > 0 && index <= 4 && (
               <div className="flex justify-center items-center">
                 <button
-                  className={`nm_Container text-xl mx-2 rounded-full text-red-500 w-[30px] h-[30px]  transition-all duration-500 font-bold ${
-                    hideBtn && "hidden"
-                  }`}
+                  className={`nm_Container text-xl mx-2 rounded-full text-red-500 w-[30px] h-[30px]  transition-all duration-500 font-bold ${hideBtn && "hidden"
+                    }`}
                   onClick={decreaseApplicationNo}
                 >
                   -

@@ -183,15 +183,15 @@ const ApplicantInfo = () => {
     "w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-violet-600 focus:outline-none focus:ring-2 ring-violet-100";
 
   return (
-    <div className="grid my-5 mx-5 lg:my-0 lg:p-2 text-gray-900">
+    <div className="grid my-5 mx-5 lg:my-0 text-gray-900">
       {/* LTP’s Details  */}
-      <div className=" divide-y-2 divide-gray-200 mb-[60px]">
-        <div className="flex items-center mb-5">
+      <div className="divide-y-2 divide-gray-300 nm_Container mt-3 px-2 py-5 mb-10">
+        <div className="flex items-center mb-2 px-2">
           <BiSolidUserDetail size={30} className="text-normalViolet" />
           <h3 className="font-bold text-xl ml-3">LTP’s Details</h3>
         </div>
 
-        <div className="nm_Container lg:flex mt-2 p-5">
+        <div className="lg:flex">
           <div className="grid grid-cols-2 lg:grid-cols-3 basis-[75%]">
             <InputField
               id="ltpType"
@@ -278,8 +278,8 @@ const ApplicantInfo = () => {
       </div>
 
       {/* Owner’s Details  */}
-      <div className="divide-y-2 divide-gray-200">
-        <div className="flex items-center">
+      <div className="divide-y-2 divide-gray-300 nm_Container mt-3 px-2 py-5">
+        <div className="flex items-center mb-2 px-2">
           {/* <img
             src={OwnerImg}
             alt="An icon of the applicant section"
@@ -288,7 +288,6 @@ const ApplicantInfo = () => {
           <FaBuildingUser size={30} className="text-normalViolet" />
           <h3 className="font-bold text-xl ml-3">Owner’s Details</h3>
         </div>
-        {/* <div className="divider m-0"></div> */}
 
         <div className="mt-2">
           {totalApplicant?.map((applicantNo, index) => (

@@ -642,7 +642,7 @@ const BuildingInfo = () => {
     runningMeter,
   } = plotDetails ?? {};
 
-  const { east, west, north, south } = scheduleBoundaries ?? {};
+  // const { east, west, north, south } = scheduleBoundaries ?? {};
 
   console.log(radio2, "radio2", existingRoad, "Existing road");
 
@@ -653,7 +653,7 @@ const BuildingInfo = () => {
 
   return (
     <>
-      <div className="grid my-5 mx-5 lg:my-0  text-gray-900">
+      <div className="grid my-5 mx-5 lg:my-0 text-gray-900">
         {/* general information */}
         <div className="nm_Container mt-3 px-2 py-5 mb-10">
           <div className="pl-2 flex items-center">
@@ -1588,8 +1588,6 @@ const BuildingInfo = () => {
             </div>
           </div>
         </div>
-
-        {/* <input type="submit" value="get" onClick={getValue} /> */}
 
         {/* save & continue  */}
         <SaveData
