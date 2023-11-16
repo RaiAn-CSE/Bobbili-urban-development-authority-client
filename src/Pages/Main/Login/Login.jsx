@@ -183,7 +183,7 @@ const Login = () => {
                 type="text"
                 {...register("id", { required: true })}
                 id="userId"
-                className="nm_Container border-[1.5px] border-solid rounded-full block text-base w-full py-2 px-4 border-violet-400 text-gray-900 bg-white  focus:border-violet-500 focus:outline-none focus:ring-2 ring-violet-50"
+                className={`${LoginCSS.loginInput} rounded-full block text-base w-full py-2 px-4 text-gray-900`}
                 defaultValue={cookieUserId}
                 // placeholder="name@company.com"
                 autoFocus
@@ -205,7 +205,7 @@ const Login = () => {
                 id="password"
                 // placeholder="••••••••"
                 defaultValue={cookieUserPassword}
-                className={`nm_Container border-[1.5px] border-solid rounded-full block text-base w-full py-2 px-4 border-violet-400 text-gray-900 bg-white   ring-violet-50`}
+                className={`${LoginCSS.loginInput} rounded-full block text-base w-full py-2 px-4 text-gray-900`}
                 {...register("password", { required: true })}
                 required
               />
@@ -228,7 +228,7 @@ const Login = () => {
               </div>
             </div>
 
-            <div className="flex items-center pt-2">
+            <div className="flex items-center pt-2 pb-1">
               <div className="flex items-center h-5">
                 <input
                   id="remember"
@@ -239,11 +239,12 @@ const Login = () => {
               </div>
               <label
                 htmlFor="remember"
-                className={`${LoginCSS.checkboxLabel} ml-2 text-sm `}
+                className={`ml-2 text-sm text-gray-900 font-bold font-sans`}
               >
                 Remember me
               </label>
             </div>
+
             <div className="flex justify-center">
               {loading ? (
                 <BeatLoader
@@ -255,29 +256,19 @@ const Login = () => {
                   data-testid="loader"
                 />
               ) : (
-                <motion.div
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                >
+                <div>
                   <input
                     type="submit"
                     value="Sign in"
-                    className="nm_Inset bg-[#8980FD] py-2 px-7 rounded-full text-white cursor-pointer text-center mt-3 uppercase text-md"
-                    // className="w-full rounded-sm bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white cursor-pointer font-bold text-base px-7 py-2.5 my-1 text-center hover:bg-gradient-to-r hover:from-violet-600 hover:to-fuchsia-600"
+                    className={`${LoginCSS.loginInput} h-[40px] w-[130px] rounded-full cursor-pointer`}
                   />
-                </motion.div>
+                </div>
               )}
             </div>
+
           </form>
         </div>
       </div>
-      {/* <div className=" absolute bottom-[2%] right-[2%] w-[15vw] h-[15vw] md:w-[12vw] md:h-[12vw] lg:w-[5vw] lg:h-[5vw] rounded-full cursor-pointer">
-        <img
-          className="object-cover"
-          src={SupportIcon}
-          alt="Customer support icon"
-        />
-      </div> */}
     </div>
   );
 };

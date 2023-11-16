@@ -8,9 +8,8 @@
 .formGroup input:valid + label,
 .formGroup input:focus + label {
   color: #000000;
-  /* font-size: 14px; */
   transform: translate(8px, 8px);
-  background: #e8eaec;
+  background: #E8EAEC;
   border-radius: 3px;
   padding: 0px 4px;
 }
@@ -19,26 +18,37 @@
   transition: all 0.2s ease-in-out;
 }
 
-/* .shapeDiv1 {
-  width: 0;
-  height: 0;
-  border-top: 100px solid #895dd5;
-  border-right: 100px solid transparent;
-}
-.shapeDiv2 {
-  width: 0;
-  height: 0;
-  border-top: 100px solid #895dd5;
-  border-left: 100px solid transparent;
-} */
-
-.checkboxLabel {
-  color: #000;
-  font-size: 8em;
-  font-weight: bold;
-  font-family: sans-serif;
-}
-
 input[type="checkbox"]:checked {
   background-color: violet;
 }
+
+
+/*=============================> loginInput design  */
+.loginInput {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  background-image: linear-gradient(to top, #D8D9DB 0%, #fff 80%, #FDFDFD 100%);
+  border: 1.5px solid #8B5BF6;
+  transition: all 0.2s ease;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #606060;
+  text-shadow: 0 1px #fff;
+}
+
+.loginInput:hover {
+  box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 3px 3px #CECFD1;
+}
+
+.loginInput:active {
+  box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 5px 3px #999, inset 0 0 30px #aaa;
+}
+
+.loginInput:focus {
+  box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 5px 3px #999, inset 0 0 30px #aaa;
+}
+
+/* ==========================> loginInput design  End*/
