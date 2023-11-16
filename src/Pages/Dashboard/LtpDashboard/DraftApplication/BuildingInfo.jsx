@@ -912,7 +912,7 @@ const BuildingInfo = () => {
                 <motion.div
                   initial={{ x: "-100vw" }}
                   animate={{ x: 0 }}
-                  transition={{ delay: 0.2, type: "spring", stiffness: 110 }}
+                  transition={{ delay: 0.2 }}
                 >
                   <InputField
                     id="BpsApprovedNo"
@@ -930,7 +930,7 @@ const BuildingInfo = () => {
                 <motion.div
                   initial={{ x: "-100vw" }}
                   animate={{ x: 0 }}
-                  transition={{ delay: 0.2, type: "spring", stiffness: 110 }}
+                  transition={{ delay: 0.2 }}
                 >
                   <InputField
                     id="PreviewsApprovedFileNo"
@@ -949,7 +949,7 @@ const BuildingInfo = () => {
                 <motion.div
                   initial={{ x: "-100vw" }}
                   animate={{ x: 0 }}
-                  transition={{ delay: 0.2, type: "spring", stiffness: 110 }}
+                  transition={{ delay: 0.2 }}
                 >
                   <InputField
                     id="LpNo"
@@ -963,7 +963,7 @@ const BuildingInfo = () => {
                 <motion.div
                   initial={{ x: "-100vw" }}
                   animate={{ x: 0 }}
-                  transition={{ delay: 0.2, type: "spring", stiffness: 110 }}
+                  transition={{ delay: 0.2 }}
                 >
                   <InputField
                     id="PlotNo"
@@ -982,7 +982,7 @@ const BuildingInfo = () => {
                 <motion.div
                   initial={{ x: "-100vw" }}
                   animate={{ x: 0 }}
-                  transition={{ delay: 0.2, type: "spring", stiffness: 110 }}
+                  transition={{ delay: 0.2 }}
                 >
                   <InputField
                     id="LrsNo"
@@ -996,7 +996,7 @@ const BuildingInfo = () => {
                 <motion.div
                   initial={{ x: "-100vw" }}
                   animate={{ x: 0 }}
-                  transition={{ delay: 0.2, type: "spring", stiffness: 110 }}
+                  transition={{ delay: 0.2 }}
                 >
                   <InputField
                     id="PlotNo2"
@@ -1015,7 +1015,7 @@ const BuildingInfo = () => {
                 <motion.div
                   initial={{ x: "-100vw" }}
                   animate={{ x: 0 }}
-                  transition={{ delay: 0.2, type: "spring", stiffness: 110 }}
+                  transition={{ delay: 0.2 }}
                 >
                   <InputField
                     id="IplpNo"
@@ -1113,7 +1113,7 @@ const BuildingInfo = () => {
                   className="flex flex-col md:flex-row font-medium mb-4 text-lg"
                   initial={{ x: "100vw" }}
                   animate={{ x: 0 }}
-                  transition={{ delay: 0.2, type: "spring", stiffness: 110 }}
+                  transition={{ delay: 0.2 }}
                 >
                   <div className="flex items-center mb-3 md:mb-0">
                     <FaHandPointRight className="me-3 w-5 lg:w-auto text-violetLight" />
@@ -1420,11 +1420,7 @@ const BuildingInfo = () => {
                     <motion.div
                       initial={{ x: "-100vw" }}
                       animate={{ x: 0 }}
-                      transition={{
-                        delay: 0.2,
-                        type: "spring",
-                        stiffness: 110,
-                      }}
+                      transition={{ delay: 0.2 }}
                     >
                       <InputField
                         id="runningMeter"
