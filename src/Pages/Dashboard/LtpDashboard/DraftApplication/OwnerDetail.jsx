@@ -115,23 +115,7 @@ const OwnerDetail = ({
         </div>
 
         {role.toLowerCase() === "ltp" && (
-          <div className="flex basis-[25%] justify-center items-end my-5 lg:my-5">
-            {/* <div className="my-4 mx-3 basis-3/4">
-            <label
-              htmlFor="message"
-              className="block text-gray-600 mb-1 font-semibold dark:text-gray-100"
-            >
-              Address
-            </label>
-            <textarea
-              id={`applicantAddress${index}`}
-              rows="4"
-              defaultValue={applicantDetails?.address}
-              className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
-              placeholder="Dr. no., Street, Village, Mandal, Dist."
-              required
-            ></textarea>
-          </div> */}
+          <div className="flex basis-[25%] justify-center my-5 lg:my-5">
 
             {index === length - 1 && index < 4 && (
               <div className="flex justify-center items-center">
