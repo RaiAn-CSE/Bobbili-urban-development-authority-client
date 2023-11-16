@@ -1,3 +1,8 @@
+  .font-georgia {
+    font-family: Georgia, serif;
+  }
+
+
 :root {
   --colorMain: #c0c0c0;
   --brShadow: -6px 6px 15px rgba(0, 0, 0, 0.5);
