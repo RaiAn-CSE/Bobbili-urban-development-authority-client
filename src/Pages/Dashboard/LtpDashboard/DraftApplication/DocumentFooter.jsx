@@ -7,14 +7,14 @@ function DocumentFooter({
   const handleMessage = (event) => {
     setRecommendationMessage(event?.target?.value);
   };
-  const handleConfirm = (data) => {
-    setApprovedConfirmation(data);
+  const handleConfirm = (event) => {
+    const value = event.target.value;
+
+    value === "approved" && setApprovedConfirmation("true");
+    value === "shortfall" && setApprovedConfirmation("false");
   };
 
-  console.log(
-    approvedConfirmation && approvedConfirmation === "true",
-    "Checking"
-  );
+  console.log(approvedConfirmation, "Approved confirmation");
   return (
     <div className="nm_Container mx-10 pt-10 pb-6 font-roboto">
       <p className="text-center font-bold text-[22px] mb-5">
@@ -58,16 +58,16 @@ function DocumentFooter({
             <div className="radio-button">
               <input
                 type="radio"
-                id="approved"
-                name="finalApproved"
+                id="finalApproved"
+                name="finalDecision"
                 className="radio-button__input"
                 value="approved"
                 checked={approvedConfirmation === "true"}
-                onClick={() => handleConfirm("true")}
+                onChange={(event) => handleConfirm(event)}
               />
               <label
                 className="radio-button__label text-base"
-                htmlFor="approved"
+                htmlFor="finalApproved"
               >
                 <span className="radio-button__custom"></span>
                 Approve
@@ -76,16 +76,16 @@ function DocumentFooter({
             <div className="radio-button">
               <input
                 type="radio"
-                id="noSiteRegistered"
+                id="finalShortfall"
                 className="radio-button__input"
-                name="finalApproved"
+                name="finalDecision"
                 value="shortfall"
                 checked={approvedConfirmation === "false"}
-                onClick={() => handleConfirm("false")}
+                onChange={(event) => handleConfirm(event)}
               />
               <label
                 className="radio-button__label text-base"
-                htmlFor="noSiteRegistered"
+                htmlFor="finalShortfall"
               >
                 <span className="radio-button__custom"></span>
                 Shortfall

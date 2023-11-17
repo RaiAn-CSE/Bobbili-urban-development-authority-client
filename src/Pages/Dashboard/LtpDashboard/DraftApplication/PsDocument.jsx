@@ -10,8 +10,11 @@ function PsDocument({
   handleDynamicStatus,
   setRemarkText,
   remarkText,
+  remarkValue,
 }) {
-  console.log(approved, type, id, "from PS Document");
+  console.log(approved, type, id, remarkValue, remarkText, "from PS Document");
+
+  // console.log(setRemarkText, remarkText, "REMARK TEXT");
 
   const handleDocumentStatus = (event, id, uploadId, type) => {
     const data = event?.target?.value;
@@ -30,8 +33,10 @@ function PsDocument({
     }
 
     setRemarkText((prev) => {
+      console.log(prev, "PREV TEXT");
       const isDynamic = type === "dynamic";
-      const existingIndex = prev.findIndex(
+
+      const existingIndex = prev?.findIndex(
         (item) =>
           item[type]?.id === id &&
           (isDynamic ? item[type]?.uploadId === uploadId : true)
@@ -41,7 +46,12 @@ function PsDocument({
 
       if (!existingObject) {
         // If the value does not exist, add a new object to the array
-        return [...prev, { [type]: { id, uploadId, value } }];
+
+        if (isDynamic) {
+          return [...prev, { [type]: { id, uploadId, value } }];
+        } else {
+          return [...prev, { [type]: { id, value } }];
+        }
       }
 
       // If the value already exists, update the existing object with the new value
@@ -114,7 +124,7 @@ function PsDocument({
           className="min-w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-gray-500 focus:outline-none focus:ring-2 ring-violet-200"
           id="textarea"
           name={type === "dynamic" ? `${id}_${uploadId}` : `${id}`}
-          defaultValue={remarkText}
+          defaultValue={remarkValue}
           //   cols="30"
           rows="2"
           onBlur={(event) => handleRemarkText(event)}

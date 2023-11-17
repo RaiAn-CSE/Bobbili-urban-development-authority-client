@@ -268,7 +268,7 @@ const EndorsementModal = ({ modalEndorsement }) => {
               <p className="font-bold">
                 Drawing Plan Remarks and Recommendation: Shortfall
               </p>
-              <table className="min-w-full border text-center text-sm font-light border-neutral-500">
+              <table className="min-w-full border text-base font-light border-neutral-500">
                 <td
                   scope="col"
                   className="border-r h-[100px] p-2 border-neutral-500"
@@ -282,7 +282,7 @@ const EndorsementModal = ({ modalEndorsement }) => {
               <p className="font-bold">
                 Documents Remarks and Recommendation: Shortfall
               </p>
-              <table className="min-w-full border text-sm font-light border-neutral-500">
+              <table className="min-w-full border text-base font-light border-neutral-500">
                 <td
                   scope="col"
                   className="border-r h-[100px] p-2 border-neutral-500"
@@ -296,7 +296,7 @@ const EndorsementModal = ({ modalEndorsement }) => {
               <p className="font-bold">
                 Inspection Remarks and Recommendation : Shortfall
               </p>
-              <table className="min-w-full border text-center text-sm font-light border-neutral-500">
+              <table className="min-w-full border text-base font-light border-neutral-500">
                 <td
                   scope="col"
                   className="border-r h-[100px] p-2 border-neutral-500"

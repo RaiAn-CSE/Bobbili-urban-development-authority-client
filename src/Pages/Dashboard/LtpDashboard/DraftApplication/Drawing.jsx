@@ -50,10 +50,10 @@ const Drawing = () => {
       console.log(res);
       setSavedData(res);
       setBuildingInfoData(res?.buildingInfo);
-      if (Object.keys(res?.drawing).length) {
+      if (Object.keys(res?.drawing)?.length) {
         const drawingDataFromDB = res?.drawing;
-        setApprovedConfirmation(res?.psDrawingPageObservation.approved);
-        setRecommendationMessage(res?.psDrawingPageObservation.message);
+        setApprovedConfirmation(res?.psDrawingPageObservation?.approved);
+        setRecommendationMessage(res?.psDrawingPageObservation?.message);
         setImageId(drawingDataFromDB);
       }
     });

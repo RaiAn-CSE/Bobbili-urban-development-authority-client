@@ -26,6 +26,7 @@ const ResubmitApplication = () => {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [remarkValue, setRemarkValue] = useState("");
   const [data, setData] = useState({});
   const [documentObs, setDocumentObs] = useState([]);
   const [openEndorsement, setOpenEndorsement] = useState(false);
@@ -288,7 +289,6 @@ const ResubmitApplication = () => {
     }
 
     if (documentFileUploadSuccess === 2) {
-      const remarkText = document.getElementById("remarks")?.value;
       const submitDate = new Date()
         .toISOString()
         .split("T")[0]
@@ -296,12 +296,52 @@ const ResubmitApplication = () => {
         .reverse()
         .join("-");
 
+      // A function to check duplicate id and remove that id
+
+      const deepMerge = (type, oldArr, newArr) => {
+        const newUniqueArr = oldArr.filter((oldItem) => {
+          let matchItem = 0;
+          newArr.forEach((newItem) => {
+            if (type === "default" && oldItem?.id === newItem?.id) {
+              matchItem = 1;
+            }
+
+            if (
+              type === "dynamic" &&
+              oldItem?.id === newItem?.id &&
+              oldItem?.uploadId === newItem?.uploadId
+            ) {
+              matchItem = 1;
+            }
+          });
+
+          if (matchItem === 0) {
+            return oldItem;
+          }
+        });
+
+        return [...newUniqueArr, ...newArr];
+      };
+
       // issue with merge documents value
+      const defaultDocuments = deepMerge(
+        "default",
+        data?.documents?.default,
+        documentImageFiles?.default
+      );
+      const dynamicDocuments = deepMerge(
+        "dynamic",
+        data?.documents?.dynamic,
+        documentImageFiles?.dynamic
+      );
 
       const newUpdatedData = {
-        documents: { ...documentImageFiles },
+        documents: {
+          default: [...defaultDocuments],
+          dynamic: [...dynamicDocuments],
+        },
         drawing: { ...drawingFiles },
-        remarkText,
+        remarkTextByLtp: remarkValue,
         submitDate,
         status: "Pending at PS",
       };
@@ -330,13 +370,22 @@ const ResubmitApplication = () => {
 
       console.log(result, "result");
       if (result?.acknowledged) {
+        setLoading(false);
         toast.success("Your application submitted successfully");
         navigate("/dashboard/submitApplication");
       } else {
+        setLoading(false);
         toast.error("Failed to store data");
       }
-      setLoading(false);
     }
+    setLoading(false);
+  };
+
+  // get remark field value
+
+  const detectChangeOfRemarkValue = (event) => {
+    const value = event.target.value;
+    setRemarkValue(value);
   };
 
   console.log(documentObs, "DocumentObs");
@@ -517,6 +566,7 @@ const ResubmitApplication = () => {
                   rows="4"
                   className="w-[70%] p-3 rounded-lg text-base text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400"
                   placeholder="Write a comment..."
+                  onChange={(event) => detectChangeOfRemarkValue(event)}
                   required
                 ></textarea>
               </div>

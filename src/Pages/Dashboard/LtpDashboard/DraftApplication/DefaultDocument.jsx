@@ -15,6 +15,7 @@ function DefaultDocument({
   remarkText,
 }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
+  console.log(remarkText, "Remark text default");
   // const [render, setRender] = useState(false);
 
   // This function updates the data when user Clicked radio btn
@@ -53,7 +54,7 @@ function DefaultDocument({
             return item["default"].id === id;
           }
         });
-        const matchedText = FindRemarkText?.["default"].value;
+        const matchedText = FindRemarkText?.["default"]?.value;
 
         return (
           <div key={id} className="w-full px-2  rounded mb-8">
@@ -71,7 +72,7 @@ function DefaultDocument({
                 />
               )}
               {isMatch && (
-                <div className="basis-1/6">
+                <div className="basis-1/6 ml-2">
                   <Link
                     to={`https://drive.google.com/file/d/${isMatch?.imageId}/view?usp=sharing`}
                     target="_blank"
@@ -90,7 +91,8 @@ function DefaultDocument({
                   handleDefaultStatus={handleDefaultStatus}
                   type="default"
                   setRemarkText={setRemarkText}
-                  remarkText={matchedText}
+                  remarkText={remarkText}
+                  remarkValue={matchedText}
                 />
               )}
             </div>

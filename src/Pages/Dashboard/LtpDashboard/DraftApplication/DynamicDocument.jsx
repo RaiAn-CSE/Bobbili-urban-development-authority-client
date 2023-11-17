@@ -17,6 +17,8 @@ function DynamicDocument({
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [render, setRender] = useState(false);
 
+  console.log(remarkText, "dynamic");
+
   const someEventHandler = (event, id, uploadId) => {
     const file = event?.target.files[0];
     selectedFiles[id] = file;
@@ -62,7 +64,7 @@ function DynamicDocument({
           <div key={index + 1} className="w-full px-2 py-5 rounded">
             <div className="text-[17px]">
               <p className="pb-4 font-bold">
-                {index + 8}. {question}
+                {index + 9}. {question}
               </p>
               <div className="ml-6">
                 {requirements?.map((RequireData, ind) => {
@@ -98,7 +100,7 @@ function DynamicDocument({
                       );
                     }
                   });
-                  const matchedText = FindRemarkText?.["dynamic"].value;
+                  const matchedText = FindRemarkText?.["dynamic"]?.value;
 
                   return (
                     <div key={uploadId} className="mb-8 ">
@@ -121,7 +123,7 @@ function DynamicDocument({
                         )}
 
                         {isMatch && (
-                          <div className="basis-1/6">
+                          <div className="basis-1/6 ml-2">
                             <Link
                               to={`https://drive.google.com/file/d/${isMatch.imageId}/view?usp=sharing`}
                               target="_blank"
@@ -142,7 +144,8 @@ function DynamicDocument({
                             handleDynamicStatus={handleDynamicStatus}
                             type="dynamic"
                             setRemarkText={setRemarkText}
-                            remarkText={matchedText}
+                            remarkText={remarkText}
+                            remarkValue={matchedText}
                           />
                         )}
                       </div>
