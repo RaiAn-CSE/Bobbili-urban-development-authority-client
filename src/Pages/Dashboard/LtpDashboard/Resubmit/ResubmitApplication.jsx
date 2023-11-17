@@ -295,6 +295,9 @@ const ResubmitApplication = () => {
         .split("-")
         .reverse()
         .join("-");
+
+      // issue with merge documents value
+
       const newUpdatedData = {
         documents: { ...documentImageFiles },
         drawing: { ...drawingFiles },

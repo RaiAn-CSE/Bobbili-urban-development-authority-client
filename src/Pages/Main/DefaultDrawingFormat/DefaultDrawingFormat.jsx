@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
+import Loading from "../../Shared/Loading";
 
 const DefaultDrawingFormat = () => {
+  const [loading, setLoading] = useState(false);
+
   const downloadFile = (format, fileName) => {
+    setLoading(true);
     let data;
     if (format === "pdf") {
       data = JSON.stringify({
@@ -35,12 +39,18 @@ const DefaultDrawingFormat = () => {
         document.body.appendChild(a);
         a.click();
         window.URL.revokeObjectURL(url);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err, "err");
+        setLoading(<i class="fa fa-life-saver" aria-hidden="true"></i>);
         toast.error("Server Error");
       });
   };
+
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <div className="w-full h-full">
       <p className="text-black text-xl font-bold mt-10 text-center uppercase">
