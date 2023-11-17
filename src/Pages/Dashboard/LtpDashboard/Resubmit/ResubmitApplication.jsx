@@ -168,6 +168,7 @@ const ResubmitApplication = () => {
 
   const sentApplication = async () => {
     console.log("clicked");
+    setLoading(true);
 
     // get all old image files id
     let oldImageFilesId = [data?.drawing?.AutoCAD, data?.drawing?.Drawing];
@@ -205,36 +206,37 @@ const ResubmitApplication = () => {
 
     // get drawing file image id
     let drawingFileUploadSuccess = 0;
-    // for (const file in drawingFiles) {
-    //   console.log(file, "file");
-    //   if (drawingFiles[file] instanceof File) {
-    //     const formData = new FormData();
-    //     if (drawingFiles[file]) {
-    //       try {
-    //         const response = await axios.post(
-    //           "http://localhost:5000/upload?page=drawing",
-    //           formData,
-    //           {
-    //             headers: {
-    //               "Content-Type": "multipart/form-data", // Important for file uploads
-    //             },
-    //           }
-    //         );
-    //         if (response?.data.msg === "Successfully uploaded") {
-    //           const fileId = response.data.fileId;
-    //           drawingFiles[file] = fileId;
-    //           drawingFileUploadSuccess = 1;
-    //         }
-    //       } catch (error) {
-    //         // Handle errors, e.g., show an error message to the user
-    //         toast.error("Error to upload documents");
-    //         drawingFileUploadSuccess = 0;
-    //       }
-    //     }
-    //   } else {
-    //     drawingFileUploadSuccess = 1;
-    //   }
-    // }
+    for (const file in drawingFiles) {
+      console.log(file, "file");
+      if (drawingFiles[file] instanceof File) {
+        const formData = new FormData();
+        if (drawingFiles[file]) {
+          formData.append("file", drawingFiles[file]);
+          try {
+            const response = await axios.post(
+              "http://localhost:5000/upload?page=drawing",
+              formData,
+              {
+                headers: {
+                  "Content-Type": "multipart/form-data", // Important for file uploads
+                },
+              }
+            );
+            if (response?.data.msg === "Successfully uploaded") {
+              const fileId = response.data.fileId;
+              drawingFiles[file] = fileId;
+              drawingFileUploadSuccess = 1;
+            }
+          } catch (error) {
+            // Handle errors, e.g., show an error message to the user
+            toast.error("Error to upload documents");
+            drawingFileUploadSuccess = 0;
+          }
+        }
+      } else {
+        drawingFileUploadSuccess = 1;
+      }
+    }
 
     //get document file image id
 
@@ -287,7 +289,7 @@ const ResubmitApplication = () => {
 
     if (documentFileUploadSuccess === 2) {
       const remarkText = document.getElementById("remarks")?.value;
-      const submitDate = date
+      const submitDate = new Date()
         .toISOString()
         .split("T")[0]
         .split("-")
@@ -298,11 +300,12 @@ const ResubmitApplication = () => {
         drawing: { ...drawingFiles },
         remarkText,
         submitDate,
+        status: "Pending at PS",
       };
 
       // delete unnecessary properties from the old data
 
-      delete data["status"];
+      delete data["_id"];
       delete data["psDocumentPageObservation"];
       delete data["psDrawingPageObservation"];
       delete data["siteInspection"];
@@ -329,6 +332,7 @@ const ResubmitApplication = () => {
       } else {
         toast.error("Failed to store data");
       }
+      setLoading(false);
     }
   };
 
