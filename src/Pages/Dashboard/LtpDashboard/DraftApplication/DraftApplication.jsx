@@ -237,7 +237,7 @@ const DraftApplication = () => {
                 <button
                   key={index}
                   data-content={index + 1}
-                  className={`${stepClasses(index)} lg:relative lg:pt-1 flex justify-center`}
+                  className={`${stepClasses(index)} lg:relative lg:pt-1`}
                   onClick={() => handleStepClick(index)}
                 >
                   <div className="lg:absolute lg:top-0 z-10">
