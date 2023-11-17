@@ -11,7 +11,7 @@ import Application from "../../Dashboard/LtpDashboard/DraftApplication/Applicati
 const ApplicationSearch = () => {
   const [applicationData, setApplicationData] = useState([]);
   const [filteredData, setFilteredData] = useState(null);
-
+  const [status, setStatus] = useState(null);
   const [openApplication, setOpenApplication] = useState(false);
   const [openProceeding, setOpenProceeding] = useState(false);
 
@@ -37,7 +37,7 @@ const ApplicationSearch = () => {
       setFilteredData(
         applicationData.find((data) => data.applicationNo === value)
       );
-    } else {
+    } else if (value?.length) {
       console.log("Asci");
 
       setFilteredData(
@@ -53,6 +53,10 @@ const ApplicationSearch = () => {
           (data) => data?.applicantInfo?.applicantDetails[0]?.name === value
         )
       );
+    }
+
+    if (value?.length === 0) {
+      setFilteredData(null);
     }
   };
 
@@ -236,9 +240,10 @@ const ApplicationSearch = () => {
       </div>
 
       <div className="flex justify-center items-center mt-14 pb-9 space-x-10 dark:text-gray-600">
-
-        <button className="nm_Container w-[90px] h-[80px] flex flex-col justify-center items-center"
+        <button
+          className="nm_Container w-[90px] h-[80px] flex flex-col justify-center items-center"
           onClick={() => setOpenApplication(true)}
+          disabled={filteredData === null}
         >
           <span className="grid justify-center items-center">
             <AiOutlineFileDone className="text-violet-500" size={25} />
@@ -246,18 +251,28 @@ const ApplicationSearch = () => {
           <h4 className="text-base font-semibold">Application</h4>
         </button>
 
-        <div className="nm_Container w-[90px] h-[80px] flex flex-col justify-center items-center">
+        <button
+          className="nm_Container w-[90px] h-[80px] flex flex-col justify-center items-center"
+          disabled={
+            filteredData === null ||
+            filteredData?.status?.toLowerCase() !== "approved"
+          }
+        >
           <span className="grid justify-center items-center">
             <BsHouses className="text-violet-500" size={25} />
           </span>
           <h4 className="text-base font-semibold">Drawing</h4>
-        </div>
+        </button>
 
-
-        <button className="nm_Container w-[90px] h-[80px] flex flex-col justify-center items-center"
+        <button
+          className="nm_Container w-[90px] h-[80px] flex flex-col justify-center items-center"
           onClick={() => {
             setOpenProceeding(true);
           }}
+          disabled={
+            filteredData === null ||
+            filteredData?.status?.toLowerCase() !== "approved"
+          }
         >
           <span className="grid justify-center items-center">
             <VscDebugContinue className="text-violet-500" size={25} />
@@ -267,20 +282,21 @@ const ApplicationSearch = () => {
       </div>
 
       {/* Application Modal */}
-      {
-        openApplication && filteredData ? (
-          <Application setOpenApplication={setOpenApplication} filteredData={filteredData} />
-        ) : (
-          ""
-        )
-      }
+      {openApplication && filteredData ? (
+        <Application
+          setOpenApplication={setOpenApplication}
+          filteredData={filteredData}
+        />
+      ) : (
+        ""
+      )}
 
       {/* proceedingModal modal info  */}
-      {
-        openProceeding && filteredData ?
-          <ProceedingModal modalProceeding={{ setOpenProceeding, openProceeding, filteredData }} />
-          : null
-      }
+      {openProceeding && filteredData ? (
+        <ProceedingModal
+          modalProceeding={{ setOpenProceeding, openProceeding, filteredData }}
+        />
+      ) : null}
     </div>
   );
 };

@@ -27,22 +27,32 @@ function Application({ setOpenApplication, filteredData }) {
   };
 
   useEffect(() => {
-    const gettingData = async () => {
+    if (filteredData) {
+      setGeneralInformation(filteredData?.buildingInfo?.generalInformation);
+      setPlotDetails(filteredData?.buildingInfo?.plotDetails);
+      setLtpDetailsData(filteredData?.applicantInfo?.ltpDetails);
+      setApplicantDetailsData(filteredData?.applicantInfo?.applicantDetails);
+    } else {
+      const gettingData = async () => {
+        let applicationData;
+        if (filteredData) {
+          applicationData = filteredData;
+        } else {
+          applicationData = await getApplicationData(applicationNo, page);
+        }
 
-      let applicationData;
-      if (filteredData) {
-        applicationData = filteredData;
-      } else {
-        applicationData = await getApplicationData(applicationNo, page);
-      }
-
-      console.log(applicationData, "ApplicationData");
-      setGeneralInformation(applicationData?.buildingInfo?.generalInformation);
-      setPlotDetails(applicationData?.buildingInfo?.plotDetails);
-      setLtpDetailsData(applicationData?.applicantInfo?.ltpDetails);
-      setApplicantDetailsData(applicationData?.applicantInfo?.applicantDetails);
-    };
-    gettingData();
+        console.log(applicationData, "ApplicationData");
+        setGeneralInformation(
+          applicationData?.buildingInfo?.generalInformation
+        );
+        setPlotDetails(applicationData?.buildingInfo?.plotDetails);
+        setLtpDetailsData(applicationData?.applicantInfo?.ltpDetails);
+        setApplicantDetailsData(
+          applicationData?.applicantInfo?.applicantDetails
+        );
+      };
+      gettingData();
+    }
   }, [filteredData, applicationNo, page]);
 
   // ====Applicant Info
@@ -82,15 +92,17 @@ function Application({ setOpenApplication, filteredData }) {
     if (isArray) {
       return (
         <td
-          className={`p-3 border-t border-black text-sm ${type === "keys" && "w-1/3"
-            } p-0`}
+          className={`p-3 border-t border-black text-sm ${
+            type === "keys" && "w-1/3"
+          } p-0`}
         >
           <div className="flex">
             {data?.map((e, i) => (
               <p
                 key={i}
-                className={`flex items-center p-2 border-l border-black h-12 ${i === 0 && "w-1/2 border-l-0 bg-white font-bold"
-                  }`}
+                className={`flex items-center p-2 border-l border-black h-12 ${
+                  i === 0 && "w-1/2 border-l-0 bg-white font-bold"
+                }`}
               >
                 {(keys ? Object.keys(data[i]) : Object.values(data[i])) || e}
               </p>
@@ -101,8 +113,9 @@ function Application({ setOpenApplication, filteredData }) {
     } else {
       return (
         <td
-          className={` border-t border-black text-sm ${type === "keys" && "w-1/3"
-            } p-0 font-bold bg-white`}
+          className={` border-t border-black text-sm ${
+            type === "keys" && "w-1/3"
+          } p-0 font-bold bg-white`}
         >
           <p className="h-12 p-2 flex items-center border-l border-black">
             {keys ? Object.keys(data) : Object.values(data)}
@@ -310,7 +323,7 @@ function Application({ setOpenApplication, filteredData }) {
                         </thead>
                         <tbody className="text-start">
                           <tr>
-                            <td className="border-r border-black font-bold text-center w-[10%]">
+                            <td className="border border-l-0 border-black font-bold text-center w-[10%]">
                               01
                             </td>
                             <td className="border border-black font-bold text-center w-[30%]">
@@ -340,14 +353,14 @@ function Application({ setOpenApplication, filteredData }) {
                             </td>
                           </tr>
                           <tr>
-                            <td className="border-r border-black text-center font-bold">
+                            <td className="border border-l-0 border-black text-center font-bold">
                               02
                             </td>
                             <td className="border border-black font-bold text-center capitalize">
                               Total Number of floors
                             </td>
                             <td
-                              className="border-l border-black text-center"
+                              className="border border-r-0 border-black text-center"
                               colSpan={2}
                             >
                               {calculateNoOfFloors(plotDetails?.floorDetails)}
@@ -372,7 +385,9 @@ function Application({ setOpenApplication, filteredData }) {
                             </td>
                           </tr>
                           <tr className="text-sm">
-                            <td className="font-bold text-center ">a</td>
+                            <td className="border border-l-0 border-black font-bold text-center ">
+                              a
+                            </td>
                             <td className="border border-black font-bold text-center capitalize">
                               Stilt Floor (sq. mtr.)
                             </td>
@@ -384,7 +399,7 @@ function Application({ setOpenApplication, filteredData }) {
                                 )?.builtUpArea
                               }
                             </td>
-                            <td className="text-center">
+                            <td className="border-b border-black text-center">
                               {
                                 extractFloorInfo(
                                   plotDetails?.floorDetails,
@@ -394,7 +409,9 @@ function Application({ setOpenApplication, filteredData }) {
                             </td>
                           </tr>
                           <tr className="text-sm">
-                            <td className="font-bold text-center">b</td>
+                            <td className="border-b border-black font-bold text-center">
+                              b
+                            </td>
                             <td className="border border-black text-center font-bold capitalize">
                               Ground floor (sq.mtr.)
                             </td>
@@ -407,7 +424,7 @@ function Application({ setOpenApplication, filteredData }) {
                                 )?.builtUpArea
                               }
                             </td>
-                            <td className=" text-center">
+                            <td className="border-b border-black text-center">
                               {" "}
                               {
                                 extractFloorInfo(
@@ -418,7 +435,9 @@ function Application({ setOpenApplication, filteredData }) {
                             </td>
                           </tr>
                           <tr className="text-sm">
-                            <td className="font-bold text-center">c</td>
+                            <td className="border-b border-black font-bold text-center">
+                              c
+                            </td>
                             <td className="border border-black font-bold text-center capitalize">
                               First floor (sq.mtr.)
                             </td>
@@ -431,7 +450,7 @@ function Application({ setOpenApplication, filteredData }) {
                                 )?.builtUpArea
                               }
                             </td>
-                            <td className="text-center">
+                            <td className="border-b border-black text-center">
                               {" "}
                               {
                                 extractFloorInfo(
@@ -442,7 +461,9 @@ function Application({ setOpenApplication, filteredData }) {
                             </td>
                           </tr>
                           <tr className="text-sm">
-                            <td className="font-bold text-center">d</td>
+                            <td className="border-b border-black font-bold text-center">
+                              d
+                            </td>
                             <td className="border border-black font-bold text-center capitalize">
                               Second floor (sq.mtr.)
                             </td>
@@ -455,7 +476,7 @@ function Application({ setOpenApplication, filteredData }) {
                                 )?.builtUpArea
                               }
                             </td>
-                            <td className="text-center">
+                            <td className="border-b border-black text-center">
                               {" "}
                               {
                                 extractFloorInfo(
@@ -472,23 +493,30 @@ function Application({ setOpenApplication, filteredData }) {
                             <td className="p-3 border-b border-black text-sm"></td>
                           </tr>
                           <tr className="text-sm">
-                            <td className="font-bold text-center">03</td>
+                            <td className="border-b border-black font-bold text-center">
+                              03
+                            </td>
                             <td className="border border-black font-bold text-center capitalize">
                               Total Built-up area and parking area (sq.mtr.)
                             </td>
                             <td className="border border-black text-center">
                               {plotDetails?.totalBuiltUpArea}
                             </td>
-                            <td className="text-center">
+                            <td className="border-b border-black text-center">
                               {plotDetails?.totalParkingArea}
                             </td>
                           </tr>
                           <tr className="text-sm">
-                            <td className="font-bold text-center">04</td>
+                            <td className="border-b border-black font-bold text-center">
+                              04
+                            </td>
                             <td className="border border-black font-bold text-center capitalize">
                               Numbers Of Units
                             </td>
-                            <td className="border-0 text-center" colSpan={2}>
+                            <td
+                              className="border-b border-black text-center"
+                              colSpan={2}
+                            >
                               {plotDetails?.noOfUnits}
                             </td>
                           </tr>
@@ -497,7 +525,7 @@ function Application({ setOpenApplication, filteredData }) {
                             <td className="border border-b-0 border-black font-bold text-center capitalize">
                               Vacant site area
                             </td>
-                            <td className="border-0 text-center" colSpan={2}>
+                            <td className="text-center" colSpan={2}>
                               {plotDetails?.vacantLand}
                             </td>
                           </tr>

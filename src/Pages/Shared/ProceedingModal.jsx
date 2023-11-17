@@ -22,18 +22,20 @@ const ProceedingModal = ({ modalProceeding }) => {
   }, [openProceeding]);
 
   useEffect(() => {
-    const getData = async () => {
-      const applicationData = await getApplicationData(applicationNo, cameFrom);
-      console.log(applicationData, "All info ApplicationData");
-      if (filteredData) {
-        setAllInfo(filteredData);
-      }
-      else {
+    if (filteredData) {
+      setAllInfo(filteredData);
+    } else {
+      const getData = async () => {
+        const applicationData = await getApplicationData(
+          applicationNo,
+          cameFrom
+        );
+        console.log(applicationData, "All info ApplicationData");
+
         setAllInfo(applicationData);
-      }
-      // setAllInfo(applicationData);
-    };
-    getData();
+      };
+      getData();
+    }
   }, []);
 
   const dateArray = (date) => {
