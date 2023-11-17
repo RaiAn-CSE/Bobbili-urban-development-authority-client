@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { VscReferences } from "react-icons/vsc";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Drawing from "../DraftApplication/Drawing";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import Loading from "../../../Shared/Loading";
@@ -10,14 +10,18 @@ import DefaultDocuments from "../../../../assets/DefaultDocument.json";
 import DynamicDocuments from "../../../../assets/DynamicDocument.json";
 import _ from "lodash";
 import Lottie from "lottie-react";
+import axios from "axios";
 import ErrorAnimation from "../../../../assets/ServerError.json";
 
 const ResubmitApplication = () => {
   const { appNo } = useLocation()?.state;
 
-  const { fetchDataFromTheDb, ownerNamePattern } = useContext(AuthContext);
+  const { fetchDataFromTheDb, ownerNamePattern, sendUserDataIntoDB } =
+    useContext(AuthContext);
 
   console.log(appNo);
+
+  const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -164,7 +168,7 @@ const ResubmitApplication = () => {
   const sentApplication = async () => {
     console.log("clicked");
 
-    // all old image files id
+    // get all old image files id
     let oldImageFilesId = [data?.drawing?.AutoCAD, data?.drawing?.Drawing];
 
     const documentsUploadByLtp = data?.documents;
@@ -199,10 +203,137 @@ const ResubmitApplication = () => {
     // successfully get old image files id, upload drawing, documents and store image id and apply deep merge using loadash
 
     // get drawing file image id
+    let drawingFileUploadSuccess = 0;
+    // for (const file in drawingFiles) {
+    //   console.log(file, "file");
+    //   if (drawingFiles[file] instanceof File) {
+    //     const formData = new FormData();
+    //     if (drawingFiles[file]) {
+    //       try {
+    //         const response = await axios.post(
+    //           "http://localhost:5000/upload?page=drawing",
+    //           formData,
+    //           {
+    //             headers: {
+    //               "Content-Type": "multipart/form-data", // Important for file uploads
+    //             },
+    //           }
+    //         );
+    //         if (response?.data.msg === "Successfully uploaded") {
+    //           const fileId = response.data.fileId;
+    //           drawingFiles[file] = fileId;
+    //           drawingFileUploadSuccess = 1;
+    //         }
+    //       } catch (error) {
+    //         // Handle errors, e.g., show an error message to the user
+    //         toast.error("Error to upload documents");
+    //         drawingFileUploadSuccess = 0;
+    //       }
+    //     }
+    //   } else {
+    //     drawingFileUploadSuccess = 1;
+    //   }
+    // }
+
+    //get document file image id
+
+    let documentFileUploadSuccess = 0;
+    if (drawingFileUploadSuccess) {
+      const defaultImages = documentImageFiles?.default;
+      const dynamicImages = documentImageFiles?.dynamic;
+
+      const loopTimes = [defaultImages, dynamicImages];
+
+      for (let lt = 0; lt < loopTimes.length; lt++) {
+        // another loop
+
+        for (let i = 0; i < loopTimes[lt].length; i++) {
+          console.log(loopTimes[lt][i].imageId, "File");
+          const formData = new FormData();
+
+          formData.append("file", loopTimes[lt][i].imageId);
+          try {
+            const response = await axios.post(
+              "http://localhost:5000/upload?page=document",
+              formData,
+              {
+                headers: {
+                  "Content-Type": "multipart/form-data", // Important for file uploads
+                },
+              }
+            );
+
+            // Handle success or display a success message to the user
+            if (response?.data.msg === "Successfully uploaded") {
+              const documentImageId = response?.data?.fileId;
+
+              if (lt === 0) {
+                // console.log(sendingImageId.default[i].imageId, "File");
+                documentImageFiles.default[i].imageId = documentImageId;
+              } else if (lt === 1) {
+                // console.log(sendingImageId.dynamic[i].imageId, "File");
+                documentImageFiles.dynamic[i].imageId = documentImageId;
+              }
+            }
+          } catch (error) {
+            toast.error("Error to upload documents");
+          }
+        }
+
+        documentFileUploadSuccess++;
+      }
+    }
+
+    if (documentFileUploadSuccess === 2) {
+      const remarkText = document.getElementById("remarks")?.value;
+      const submitDate = date
+        .toISOString()
+        .split("T")[0]
+        .split("-")
+        .reverse()
+        .join("-");
+      const newUpdatedData = {
+        documents: { ...documentImageFiles },
+        drawing: { ...drawingFiles },
+        remarkText,
+        submitDate,
+      };
+
+      // delete unnecessary properties from the old data
+
+      delete data["status"];
+      delete data["psDocumentPageObservation"];
+      delete data["psDrawingPageObservation"];
+      delete data["siteInspection"];
+      delete data["psId"];
+      delete data["psSubmitDate"];
+      delete data["shortfallSerialNo"];
+
+      console.log(newUpdatedData, "new updated data");
+
+      const mergedData = _.merge({}, data, newUpdatedData);
+
+      console.log(mergedData);
+
+      const url = `http://localhost:5000/storeResubmitApplication?data=${JSON.stringify(
+        { appNo, oldImageFiles: oldImageFilesId }
+      )}`;
+
+      const result = await sendUserDataIntoDB(url, "PATCH", mergedData);
+
+      console.log(result, "result");
+      if (result?.acknowledged) {
+        toast.success("Your application submitted successfully");
+        navigate("/dashboard/submitApplication");
+      } else {
+        toast.error("Failed to store data");
+      }
+    }
   };
 
   console.log(documentObs, "DocumentObs");
   console.log(documentImageFiles, "Document image files");
+  console.log(drawingFiles, "Drawing");
 
   if (loading) {
     return <Loading />;

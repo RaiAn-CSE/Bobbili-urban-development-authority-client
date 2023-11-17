@@ -33,14 +33,29 @@ const LtpSidebar = () => {
     setHoverColor(getHoverColor);
   }, [isDark]);
 
+  const activeShortfallMenu =
+    findWhichMenuIsActiveForLtpSideBar(
+      path,
+      "/dashboard/shortfallApplication",
+      "shortfall",
+      role
+    ) ||
+    findWhichMenuIsActiveForLtpSideBar(
+      path,
+      "/dashboard/resubmitApplication",
+      "shortfall",
+      role
+    );
+
   const sidebarHoverClass =
     "flex items-center ps-4  hover:text-normalViolet hover:nm_Container mb-1";
 
   return (
     <>
       <li
-        className={`${path === "/dashboard" && activeColor
-          } mt-24 lg:mt-0 ${sidebarHoverClass} `}
+        className={`${
+          path === "/dashboard" && activeColor
+        } mt-24 lg:mt-0 ${sidebarHoverClass} `}
       >
         <span>
           <MdSpaceDashboard size={20} />
@@ -51,13 +66,14 @@ const LtpSidebar = () => {
       </li>
 
       <li
-        className={`${findWhichMenuIsActiveForLtpSideBar(
-          path,
-          "/dashboard/draftApplication",
-          "draft",
-          role
-        ) && activeColor
-          } ${sidebarHoverClass}`}
+        className={`${
+          findWhichMenuIsActiveForLtpSideBar(
+            path,
+            "/dashboard/draftApplication",
+            "draft",
+            role
+          ) && activeColor
+        } ${sidebarHoverClass}`}
       >
         <span>
           <BiSolidImageAdd size={22} />
@@ -74,15 +90,16 @@ const LtpSidebar = () => {
       </li>
 
       <li
-        className={`${(findWhichMenuIsActiveForLtpSideBar(
-          path,
-          "/dashboard/submitApplication",
-          "submit",
-          role
-        ) ||
-          path.includes("submit")) &&
+        className={`${
+          (findWhichMenuIsActiveForLtpSideBar(
+            path,
+            "/dashboard/submitApplication",
+            "submit",
+            role
+          ) ||
+            path.includes("/dashboard/submitApplication")) &&
           activeColor
-          } ${sidebarHoverClass}`}
+        } ${sidebarHoverClass}`}
       >
         <span>
           <BsSendCheckFill size={19} />
@@ -99,13 +116,14 @@ const LtpSidebar = () => {
       </li>
 
       <li
-        className={`${findWhichMenuIsActiveForLtpSideBar(
-          path,
-          "/dashboard/approvedApplication",
-          "approved",
-          role
-        ) && activeColor
-          } ${sidebarHoverClass}`}
+        className={`${
+          findWhichMenuIsActiveForLtpSideBar(
+            path,
+            "/dashboard/approvedApplication",
+            "approved",
+            role
+          ) && activeColor
+        } ${sidebarHoverClass}`}
       >
         <span>
           <BiCheckDouble size={23} />
@@ -122,13 +140,7 @@ const LtpSidebar = () => {
       </li>
 
       <li
-        className={`${findWhichMenuIsActiveForLtpSideBar(
-          path,
-          "/dashboard/shortfallApplication",
-          "shortfall",
-          role
-        ) && activeColor
-          } ${sidebarHoverClass}`}
+        className={`${activeShortfallMenu && activeColor} ${sidebarHoverClass}`}
       >
         <span>
           <AiOutlineForm size={20} />
@@ -145,13 +157,14 @@ const LtpSidebar = () => {
       </li>
 
       <li
-        className={`${findWhichMenuIsActiveForLtpSideBar(
-          path,
-          "/dashboard/rejectedApplications",
-          "rejected",
-          role
-        ) && activeColor
-          } ${sidebarHoverClass} flex items-center ps-4 ${hoverColor} mb-1`}
+        className={`${
+          findWhichMenuIsActiveForLtpSideBar(
+            path,
+            "/dashboard/rejectedApplications",
+            "rejected",
+            role
+          ) && activeColor
+        } ${sidebarHoverClass} flex items-center ps-4 ${hoverColor} mb-1`}
       >
         <span>
           <CgDanger size={22} />
