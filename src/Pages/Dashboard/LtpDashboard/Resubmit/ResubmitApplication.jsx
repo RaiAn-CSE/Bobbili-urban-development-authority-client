@@ -9,6 +9,8 @@ import ArrowIcon from "../../../Components/ArrowIcon";
 import DefaultDocuments from "../../../../assets/DefaultDocument.json";
 import DynamicDocuments from "../../../../assets/DynamicDocument.json";
 import _ from "lodash";
+import Lottie from "lottie-react";
+import ErrorAnimation from "../../../../assets/ServerError.json";
 
 const ResubmitApplication = () => {
   const { appNo } = useLocation()?.state;
@@ -153,6 +155,7 @@ const ResubmitApplication = () => {
         imageId: file,
       };
     }
+    toast.success(`${file?.name?.slice(0, 20)} uploaded successfully`);
     console.log(documentImageFiles, "Document image files update");
   };
 
@@ -193,7 +196,7 @@ const ResubmitApplication = () => {
 
     console.log(oldImageFilesId, "old image files id");
 
-    // successfully get old image files id
+    // successfully get old image files id, upload drawing, documents and store image id and apply deep merge using loadash
 
     // get drawing file image id
   };
@@ -205,168 +208,195 @@ const ResubmitApplication = () => {
     return <Loading />;
   }
   return (
-    <div>
-      {/* header part  */}
-      <div className="flex justify-between items-center m-5">
-        <p className="nm_Container p-3 font-bold text-xl">
-          Application no: <span className="text-normalViolet">{appNo}</span>
-        </p>
-
-        <button
-          // Open the modal using document.getElementById('ID').showModal() method
-          onClick={() => {
-            // document.getElementById("my_modal_2").showModal();
-            // setOpenEndorsement(true);
-          }}
-          className={`btn btn-sm text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white border-none`}
-        >
-          <VscReferences className="text-lg" />{" "}
-          <span className="text-xs uppercase">Endorsement</span>
-        </button>
-      </div>
-
-      {/* owner information  */}
-      <div className="grid grid-cols-2 p-10 border-image-frame nm_Container mt-10 mx-5 text-[18px]">
-        {/* 1st row  */}
+    <>
+      {error?.length !== 0 ? (
+        <div className="flex flex-col justify-center items-center min-h-[calc(100vh - 10%)]">
+          <Lottie
+            animationData={ErrorAnimation}
+            loop={true}
+            className="w-[40%] h-[40%]"
+          />
+          <p className="text-red-500 font-bold text-lg uppercase">
+            {error?.length === 0 ? "Failed to fetch " : error + " "} data
+          </p>
+        </div>
+      ) : (
         <div>
-          <p>
-            <span className="font-bold mr-3 text-violetDark">Owner name:</span>
-            {ownerNamePattern(data?.applicantInfo?.applicantDetails)}
-          </p>
-        </div>
-        <div className="mb-6">
-          <p>
-            <span className="font-bold mr-3 text-violetDark">
-              Site location:
-            </span>{" "}
-            {data?.buildingInfo?.generalInformation?.surveyNo},
-            {data?.buildingInfo?.generalInformation?.village},
-            {data?.buildingInfo?.generalInformation?.mandal}
-          </p>
-        </div>
-
-        {/* 2nd row  */}
-        <div>
-          <p>
-            <span className="font-bold mr-4 text-violetDark">Contact no:</span>{" "}
-            {data?.applicantInfo?.applicantDetails?.[0]?.phone}
-          </p>
-        </div>
-        <div>
-          <p>
-            <span className="font-bold mr-3 text-violetDark">Owner Email:</span>{" "}
-            {data?.applicantInfo?.applicantDetails?.[0]?.email}
-          </p>
-        </div>
-      </div>
-
-      {/* drawing  */}
-      <div className="my-10 nm_Container mx-6">
-        <p className="font-bold pt-5 text-violetDark text-xl ml-8">Drawing</p>
-        <hr className="w-[90%] h-[1.5px] inline-block ml-8 bg-gray-400" />
-        <form
-          onSubmit={(e) => e.preventDefault()}
-          className="text-black p-5 my-3 ml-3 flex justify-evenly"
-        >
-          {/* AutoCAD Drawing */}
-          <div className="text-lg  mb-8">
-            <p className="pr-3 font-bold text-black">1. AutoCAD Drawing</p>
-            <div className="flex items-center mt-5">
-              <label className="relative cursor-pointer mr-6">
-                <input
-                  type="file"
-                  accept=".dwg, .zip, .pdf, .png, .jpg"
-                  onChange={(event) =>
-                    handleDrawingFileChange(event, "AutoCAD")
-                  }
-                  className="file-input file-input-bordered file-input-md w-full max-w-xs text-gray-400 bg-white dark:text-black"
-                />
-              </label>
-            </div>
-          </div>
-
-          {/* Drawing PDF */}
-          <div className="text-lg mb-5">
-            <p className="pr-3 font-bold text-black">2. Drawing PDF</p>
-            <div className="flex items-center mt-5">
-              <label className="relative cursor-pointer mr-6">
-                <input
-                  type="file"
-                  accept=".dwg, .zip, .pdf,.png,.jpg"
-                  onChange={(event) =>
-                    handleDrawingFileChange(event, "Drawing")
-                  }
-                  className="file-input file-input-bordered file-input-md w-full max-w-xs text-gray-400 bg-white dark:text-black"
-                />
-              </label>
-            </div>
-
-            <p className="text-red-500 mt-2 font-bold text-sm">
-              Note: Upload A3 file
+          {/* header part  */}
+          <div className="flex justify-between items-center m-5">
+            <p className="nm_Container p-3 font-bold text-xl">
+              Application no: <span className="text-normalViolet">{appNo}</span>
             </p>
+
+            <button
+              // Open the modal using document.getElementById('ID').showModal() method
+              onClick={() => {
+                // document.getElementById("my_modal_2").showModal();
+                // setOpenEndorsement(true);
+              }}
+              className={`btn btn-sm text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white border-none`}
+            >
+              <VscReferences className="text-lg" />{" "}
+              <span className="text-xs uppercase">Endorsement</span>
+            </button>
           </div>
-        </form>
-      </div>
 
-      {/* documents  */}
-      <div className="my-6 nm_Container mx-6">
-        <p className="font-bold pt-5 text-violetDark text-xl ml-8">Documents</p>
-        <hr className="w-[90%] h-[1.5px] inline-block ml-8 bg-gray-400" />
-
-        {documentObs?.map((document, index) => {
-          return (
-            <div key={index} className="p-6">
-              <p className="font-bold text-[18px]">
-                {index + 1}. {findQuestionName(document)}
+          {/* owner information  */}
+          <div className="grid grid-cols-2 p-10 border-image-frame nm_Container mt-10 mx-5 text-[18px]">
+            {/* 1st row  */}
+            <div>
+              <p>
+                <span className="font-bold mr-3 text-violetDark">
+                  Owner name:
+                </span>
+                {ownerNamePattern(data?.applicantInfo?.applicantDetails)}
               </p>
-
-              <input
-                type="file"
-                accept="*"
-                onChange={(event) => handleDocumentFileChange(event, document)}
-                className="file-input file-input-bordered file-input-md w-full max-w-xs text-gray-400 bg-white mt-5 dark:text-black"
-              />
             </div>
-          );
-        })}
-      </div>
+            <div className="mb-6">
+              <p>
+                <span className="font-bold mr-3 text-violetDark">
+                  Site location:
+                </span>{" "}
+                {data?.buildingInfo?.generalInformation?.surveyNo},
+                {data?.buildingInfo?.generalInformation?.village},
+                {data?.buildingInfo?.generalInformation?.mandal}
+              </p>
+            </div>
 
-      {/* remarks */}
-      <div className="nm_Container mx-6 p-7 rounded-t-lg dark:bg-gray-800">
-        <label
-          className="inline-block font-bold mb-4 text-xl text-violetDark"
-          htmlFor="remarks"
-        >
-          Remarks
-        </label>
-        {/* <hr className="w-[98%] h-[1.5px] inline-block  bg-gray-400" /> */}
-        <div>
-          <textarea
-            id="remarks"
-            rows="4"
-            className="w-[70%] p-3 rounded-lg text-base text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400"
-            placeholder="Write a comment..."
-            required
-          ></textarea>
+            {/* 2nd row  */}
+            <div>
+              <p>
+                <span className="font-bold mr-4 text-violetDark">
+                  Contact no:
+                </span>{" "}
+                {data?.applicantInfo?.applicantDetails?.[0]?.phone}
+              </p>
+            </div>
+            <div>
+              <p>
+                <span className="font-bold mr-3 text-violetDark">
+                  Owner Email:
+                </span>{" "}
+                {data?.applicantInfo?.applicantDetails?.[0]?.email}
+              </p>
+            </div>
+          </div>
+
+          {/* drawing  */}
+          <div className="my-10 nm_Container mx-6">
+            <p className="font-bold pt-5 text-violetDark text-xl ml-8">
+              Drawing
+            </p>
+            <hr className="w-[90%] h-[1.5px] inline-block ml-8 bg-gray-400" />
+            <form
+              onSubmit={(e) => e.preventDefault()}
+              className="text-black p-5 my-3 ml-3 flex justify-evenly"
+            >
+              {/* AutoCAD Drawing */}
+              <div className="text-lg  mb-8">
+                <p className="pr-3 font-bold text-black">1. AutoCAD Drawing</p>
+                <div className="flex items-center mt-5">
+                  <label className="relative cursor-pointer mr-6">
+                    <input
+                      type="file"
+                      accept=".dwg, .zip, .pdf, .png, .jpg"
+                      onChange={(event) =>
+                        handleDrawingFileChange(event, "AutoCAD")
+                      }
+                      className="file-input file-input-bordered file-input-md w-full max-w-xs text-gray-400 bg-white dark:text-black"
+                    />
+                  </label>
+                </div>
+              </div>
+
+              {/* Drawing PDF */}
+              <div className="text-lg mb-5">
+                <p className="pr-3 font-bold text-black">2. Drawing PDF</p>
+                <div className="flex items-center mt-5">
+                  <label className="relative cursor-pointer mr-6">
+                    <input
+                      type="file"
+                      accept=".dwg, .zip, .pdf,.png,.jpg"
+                      onChange={(event) =>
+                        handleDrawingFileChange(event, "Drawing")
+                      }
+                      className="file-input file-input-bordered file-input-md w-full max-w-xs text-gray-400 bg-white dark:text-black"
+                    />
+                  </label>
+                </div>
+
+                <p className="text-red-500 mt-2 font-bold text-sm">
+                  Note: Upload A3 file
+                </p>
+              </div>
+            </form>
+          </div>
+
+          {/* documents  */}
+          <div className="my-6 nm_Container mx-6">
+            <p className="font-bold pt-5 text-violetDark text-xl ml-8">
+              Documents
+            </p>
+            <hr className="w-[90%] h-[1.5px] inline-block ml-8 bg-gray-400" />
+
+            {documentObs?.map((document, index) => {
+              return (
+                <div key={index} className="p-6">
+                  <p className="font-bold text-[18px]">
+                    {index + 1}. {findQuestionName(document)}
+                  </p>
+
+                  <input
+                    type="file"
+                    accept="*"
+                    onChange={(event) =>
+                      handleDocumentFileChange(event, document)
+                    }
+                    className="file-input file-input-bordered file-input-md w-full max-w-xs text-gray-400 bg-white mt-5 dark:text-black"
+                  />
+                </div>
+              );
+            })}
+          </div>
+
+          {/* remarks */}
+          <div className="nm_Container mx-6 p-7 rounded-t-lg dark:bg-gray-800">
+            <label
+              className="inline-block font-bold mb-4 text-xl text-violetDark"
+              htmlFor="remarks"
+            >
+              Remarks
+            </label>
+            {/* <hr className="w-[98%] h-[1.5px] inline-block  bg-gray-400" /> */}
+            <div>
+              <textarea
+                id="remarks"
+                rows="4"
+                className="w-[70%] p-3 rounded-lg text-base text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400"
+                placeholder="Write a comment..."
+                required
+              ></textarea>
+            </div>
+          </div>
+
+          {/* submit btns  */}
+          <div className="flex justify-between my-10 mx-6">
+            <button class="nm_Container overflow-hidden w-24 p-2 h-12 bg-normalViolet text-white border-none rounded-md text-base uppercase font-bold cursor-pointer relative z-10 group">
+              Go
+              <span class="absolute w-36 h-32 -top-8 -left-2 bg-white rotate-12 transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-500 duration-1000 origin-left"></span>
+              <span class="absolute w-36 h-32 -top-8 -left-2 bg-[#8F85F6] rotate-12 transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-700 duration-700 origin-left"></span>
+              <span class="absolute w-36 h-32 -top-8 -left-2 bg-[#8F85F6] rotate-12 transform scale-x-0 group-hover:scale-x-50 transition-transform group-hover:duration-1000 duration-500 origin-left"></span>
+              <span class="group-hover:opacity-100 group-hover:duration-1000 duration-100 opacity-0 absolute top-4.5 left-6 z-10">
+                Back!
+              </span>
+            </button>
+            <button className="fancy-button" onClick={sentApplication}>
+              Submit
+            </button>
+          </div>
         </div>
-      </div>
-
-      {/* submit btns  */}
-      <div className="flex justify-between my-10 mx-6">
-        <button class="nm_Container overflow-hidden w-24 p-2 h-12 bg-normalViolet text-white border-none rounded-md text-base uppercase font-bold cursor-pointer relative z-10 group">
-          Go
-          <span class="absolute w-36 h-32 -top-8 -left-2 bg-white rotate-12 transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-500 duration-1000 origin-left"></span>
-          <span class="absolute w-36 h-32 -top-8 -left-2 bg-[#8F85F6] rotate-12 transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-700 duration-700 origin-left"></span>
-          <span class="absolute w-36 h-32 -top-8 -left-2 bg-[#8F85F6] rotate-12 transform scale-x-0 group-hover:scale-x-50 transition-transform group-hover:duration-1000 duration-500 origin-left"></span>
-          <span class="group-hover:opacity-100 group-hover:duration-1000 duration-100 opacity-0 absolute top-4.5 left-6 z-10">
-            Back!
-          </span>
-        </button>
-        <button className="fancy-button" onClick={sentApplication}>
-          Submit
-        </button>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 
