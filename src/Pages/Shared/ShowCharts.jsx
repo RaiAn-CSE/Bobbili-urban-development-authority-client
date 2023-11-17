@@ -290,7 +290,7 @@ const ShowCharts = () => {
         <>
           <form className="flex justify-between items-center font-roboto my-8 z-[10] px-10">
             {/* district  */}
-            <div className="bg-gradient-to-r from-[#8e2de2] to-[#4a00e0] basis-[23%] z-[10]  p-3 rounded-lg py-6 shadow-lg">
+            <div className="nm_Container basis-[23%] z-[10] p-3 py-6 rounded-lg ">
               <label
                 htmlFor="district"
                 className="flex items-center mb-4 text-xl font-bold text-white"
@@ -298,11 +298,11 @@ const ShowCharts = () => {
                 <span className="bg-[#B67EEE] inline-flex justify-center items-center w-[40px] h-[40px] rounded-full mr-2">
                   <MdLocationCity size={25} />
                 </span>
-                <span>District</span>
+                <span className="text-[#B67EEE]">District</span>
               </label>
               <select
                 id="district"
-                className="nm_Inset bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ouline-noneblock w-full p-2.5"
+                className="nm_Inset w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-violet-500 focus:outline-none focus:ring-2 ring-violet-200"
                 defaultValue={selectedDistrict}
                 onChange={(e) => detectSelectOfDistrict(e)}
               >
@@ -324,9 +324,7 @@ const ShowCharts = () => {
             </div>
 
             {/* mandal */}
-            {/* background: linear-gradient(to right, rgb(127, 0, 255), rgb(225, 0, 255)); */}
-
-            <div className="bg-gradient-to-r from-[#7f00ff] to-[#e100ff] basis-[23%] z-[10]  p-3 py-6 rounded-lg shadow-lg">
+            <div className="nm_Container basis-[23%] z-[10]  p-3 py-6 rounded-lg">
               <label
                 htmlFor="mandal"
                 className="flex items-center mb-5 text-lg font-bold text-white"
@@ -334,11 +332,11 @@ const ShowCharts = () => {
                 <span className="bg-[#B67EEE] inline-flex justify-center items-center w-[40px] h-[40px] rounded-full mr-2">
                   <FaTreeCity size={25} />
                 </span>
-                <span>Mandal</span>
+                <span className="text-[#B67EEE]">Mandal</span>
               </label>
               <select
                 id="mandal"
-                className="nm_Inset bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ouline-noneblock w-full p-2.5"
+                className="nm_Inset w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-violet-500 focus:outline-none focus:ring-2 ring-violet-200"
                 defaultValue={selectedMandal}
                 onChange={(e) => detectChangeOfMandals(e)}
                 disabled={allMandal?.length === 0}
@@ -360,9 +358,8 @@ const ShowCharts = () => {
               </select>
             </div>
 
-            {/* background: linear-gradient(to right, #ff00cc, #333399); */}
             {/* gram panchayat  */}
-            <div className="bg-gradient-to-r from-[#ff00cc] to-[#333399] basis-[23%] z-[10]  p-3 py-6 rounded-lg shadow-lg">
+            <div className="nm_Container basis-[23%] z-[10]  p-3 py-6 rounded-lg">
               <label
                 htmlFor="panchayat"
                 className="flex items-center mb-5 text-lg font-bold text-white"
@@ -370,11 +367,11 @@ const ShowCharts = () => {
                 <span className="bg-[#F06ADD] inline-flex justify-center items-center w-[40px] h-[40px] rounded-full mr-2">
                   <MdForest size={20} />
                 </span>
-                <span>Grama Panchayat</span>
+                <span className="text-[#F06ADD]">Grama Panchayat</span>
               </label>
               <select
                 id="panchayat"
-                className="nm_Inset bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ouline-noneblock w-full p-2.5"
+                className="nm_Inset w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-[#F06ADD] focus:outline-none focus:ring-2 ring-[#e0c3dc]"
                 defaultValue={selectedPanchayat}
                 disabled={allPanchayat?.length === 0}
                 onChange={(e) => detectChangeOfPanchayat(e)}
@@ -393,9 +390,8 @@ const ShowCharts = () => {
             </div>
 
             {/* week month year filter  */}
-            {/* background: linear-gradient(to right, #8e2de2, #4a00e0); */}
             {!path.includes("/statistics") && (
-              <div className="bg-gradient-to-r to-[#810be7] from-[#de12de] basis-[23%] z-[10]  p-3 py-6 rounded-lg shadow-lg">
+              <div className="nm_Container basis-[23%] z-[10]  p-3 py-6 rounded-lg">
                 <label
                   htmlFor="date"
                   className="flex items-center mb-5 text-lg font-bold text-white"
@@ -403,11 +399,11 @@ const ShowCharts = () => {
                   <span className="bg-[#fb5efd] inline-flex justify-center items-center w-[40px] h-[40px] rounded-full mr-2">
                     <BsCalendar3 size={20} />
                   </span>
-                  <span>Date</span>
+                  <span className="text-[#FB5EFD]">Date</span>
                 </label>
                 <select
                   id="date"
-                  className="nm_Inset bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ouline-noneblock w-full p-2.5"
+                  className="nm_Inset w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-[#FB5EFD] focus:outline-none focus:ring-2 ring-[#e0c3dc]"
                   defaultValue={selectedDate}
                   disabled={selectedPanchayat?.length === 0}
                   onChange={(e) => detectChangeOfDate(e)}
@@ -438,9 +434,8 @@ const ShowCharts = () => {
             <Loading />
           ) : (
             <div
-              className={`${
-                path.includes("/dashboard") && "px-4"
-              } flex justify-between items-center  p-0 z-[10]`}
+              className={`${path.includes("/dashboard") && "px-4"
+                } flex justify-between items-center  p-0 z-[10]`}
             >
               {/* background: linear-gradient(to right, rgb(142, 45, 226), rgb(74, 0, 224)); */}
               <div className="  w-[45%]  overflow-hidden z-[10] p-8">

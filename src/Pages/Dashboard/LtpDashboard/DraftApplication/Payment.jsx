@@ -518,24 +518,20 @@ const Payment = () => {
   };
 
   return (
-    <div className="text-gray-600">
+    <div className="grid my-5 mx-5 lg:my-0 text-gray-900">
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="grid my-5 mx-7 lg:my-0 lg:p-2"
+        className="grid my-5 lg:my-0"
       >
-        <div>
-          <div className="flex items-center">
-            {/* <img
-              src={UDAChargeImg}
-              alt="Image icon for uda charge section"
-              className="h-10 me-3"
-            /> */}
+
+        {/* UDA Charge  */}
+        <div className="divide-y-2 divide-gray-400 nm_Container mt-3 px-2 py-5 mb-10">
+          <div className="flex items-center mb-2 px-2">
             <FaCcAmazonPay size={30} className="text-normalViolet" />
             <h3 className="font-bold text-xl text-gray-900 ml-3">UDA Charge</h3>
           </div>
-          <div className="divider m-0"></div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-3 mb-10">
+          <div className="grid grid-cols-2 lg:grid-cols-3">
             <InputField
               id="vacantArea"
               name="vacantArea"
@@ -597,7 +593,7 @@ const Payment = () => {
               ltpDetails={calculatedData?.UDATotalCharged}
             />
             {role === "LTP" && cameFrom === "draft" && (
-              <div className="flex ms-5 items-center pay-btn-container">
+              <div className="flex ms-5 items-center mt-[16px] pay-btn-container">
                 <button className="pay-btn mt-3">
                   <div className="svg-wrapper-1">
                     <div className="svg-wrapper">
@@ -733,231 +729,130 @@ const Payment = () => {
           </div>
         </div>
 
-        <div className="my-5">
-          <div className="flex items-center">
-            {/* <img
-              src={GramChargeImg}
-              alt="Image icon for Grama Panchayat fee section"
-              className="h-10 me-3"
-            /> */}
-
+        {/* Grama Panchayat fee */}
+        <div className="divide-y-2 divide-gray-400 nm_Container mt-3 px-2 py-5 mb-10">
+          <div className="flex items-center mb-2 px-2">
             <MdOutlinePayments size={30} className="text-normalViolet" />
             <h3 className="font-bold text-xl text-gray-900 ml-3">
               Grama Panchayat fee
             </h3>
           </div>
-          <div className="divider m-0"></div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 mt-3">
-            <InputField
-              id="paperPublication"
-              name="paperPublication"
-              label="Paper Publication Charges"
-              placeholder="000"
-              type="number"
-              ltpDetails={calculatedData?.paperPublicationCharged}
-            />
-            <InputField
-              id="processingFee"
-              name="processingFee"
-              label="Processing Fee"
-              placeholder="000"
-              type="number"
-              ltpDetails={calculatedData?.processingFees}
-            />
-            {
+          <div>
+            <div className="grid grid-cols-2 lg:grid-cols-4">
               <InputField
-                id="bettermentCharged"
-                name="bettermentCharged"
-                label="Betterment charge"
+                id="paperPublication"
+                name="paperPublication"
+                label="Paper Publication Charges"
                 placeholder="000"
                 type="number"
-                ltpDetails={calculatedData?.bettermentCharged}
+                ltpDetails={calculatedData?.paperPublicationCharged}
               />
-            }
-            <InputField
-              id="buildingPermitFees"
-              name="buildingPermitFees"
-              label="Building Permit Fee"
-              placeholder="000"
-              type="number"
-              ltpDetails={calculatedData?.buildingPermitFees}
-            />
-            <InputField
-              id="gramaSiteApprovalCharges"
-              name="gramaSiteApprovalCharges"
-              label="Site Approval Charges"
-              placeholder="000"
-              type="number"
-              ltpDetails={calculatedData?.gramaSiteApprovalCharged}
-            />
-
-            <InputField
-              id="GramaPanchayetTotalCharged"
-              name="GramaPanchayetTotalCharged"
-              label="Total"
-              placeholder="000"
-              type="number"
-              ltpDetails={calculatedData?.GramaPanchayetTotalCharged}
-            />
-          </div>
-
-          <div className="grid grid-cols-2 lg:grid-cols-4 mb-4">
-            <InputField
-              id="gramaChallanNo"
-              name="gramaChallanNo"
-              label="DD/Challan no."
-              placeholder="xxxx"
-              type="text"
-              ltpDetails={
-                applicationData?.payment?.gramaPanchayatFee?.gramaChallanNo ??
-                ""
-              }
-            />
-            <InputField
-              id="gramaChallanDate"
-              name="gramaChallanDate"
-              label="DD/Challan date"
-              placeholder="06-04-2023"
-              type="text"
-              ltpDetails={
-                applicationData?.payment?.gramaPanchayatFee?.gramaChallanDate ??
-                ""
-              }
-            />
-            <InputField
-              id="gramaBankName"
-              name="gramaBankName"
-              label="Bank name"
-              placeholder="xxxx"
-              type="text"
-              ltpDetails={
-                applicationData?.payment?.gramaPanchayatFee?.gramaBankName ?? ""
-              }
-            />
-            <InputField
-              id="gramaBankBranch"
-              name="gramaBankBranch"
-              label="Branch"
-              placeholder="xxxx"
-              type="text"
-              ltpDetails={
-                applicationData?.payment?.gramaPanchayatFee?.gramaBankBranch ??
-                ""
-              }
-            />
-          </div>
-          <div className="px-3 mb-8 flex justify-end">
-            <div className="form-control w-full max-w-xs">
-              {role === "LTP" && cameFrom === "draft" && (
-                <input
-                  type="file"
-                  className="file-input file-input-bordered w-full max-w-xs text-gray-400 bg-white dark:text-black"
-                  id="gramaBankReceipt"
-                  onChange={(e) => handleFileChange(e, "gramaBankReceipt")}
+              <InputField
+                id="processingFee"
+                name="processingFee"
+                label="Processing Fee"
+                placeholder="000"
+                type="number"
+                ltpDetails={calculatedData?.processingFees}
+              />
+              {
+                <InputField
+                  id="bettermentCharged"
+                  name="bettermentCharged"
+                  label="Betterment charge"
+                  placeholder="000"
+                  type="number"
+                  ltpDetails={calculatedData?.bettermentCharged}
                 />
-              )}
-            </div>
-            {applicationData?.payment?.gramaPanchayatFee?.gramaBankReceipt && (
-              <Link
-                to={`https://drive.google.com/file/d/${applicationData?.payment?.gramaPanchayatFee?.gramaBankReceipt}/view?usp=sharing`}
-                target="_blank"
-                className="flex justify-center items-center ms-10 px-4 py-2 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
-              >
-                <MdReceiptLong className="me-1" />
-                View Challan
-              </Link>
-            )}
-          </div>
-        </div>
+              }
+              <InputField
+                id="buildingPermitFees"
+                name="buildingPermitFees"
+                label="Building Permit Fee"
+                placeholder="000"
+                type="number"
+                ltpDetails={calculatedData?.buildingPermitFees}
+              />
+              <InputField
+                id="gramaSiteApprovalCharges"
+                name="gramaSiteApprovalCharges"
+                label="Site Approval Charges"
+                placeholder="000"
+                type="number"
+                ltpDetails={calculatedData?.gramaSiteApprovalCharged}
+              />
 
-        <div>
-          <div className="flex items-center">
-            {/* <img
-              src={LabourChargeImg}
-              alt="Image icon for labour charge section"
-              className="h-10 me-3"
-            /> */}
-
-            <FaMoneyCheckAlt size={30} className="text-normalViolet" />
-            <h3 className="font-bold text-xl text-gray-900 ml-3">
-              Labour cess charge
-            </h3>
-          </div>
-          <div className="divider m-0"></div>
-
-          <div className="grid lg:grid-cols-4 mt-3">
-            <InputField
-              id="labourCess01"
-              name="labourCess01"
-              label="Labour Cess Component 1"
-              placeholder="000"
-              type="number"
-              ltpDetails={calculatedData?.labourCessCompo1Charged}
-            />
-          </div>
-          <div className="grid grid-cols-2 lg:grid-cols-4 mb-8">
-            <InputField
-              id="labourCessChallanNo"
-              name="labourCessChallanNo"
-              label="DD/Challan no."
-              placeholder="xxxx"
-              type="text"
-              ltpDetails={
-                applicationData?.payment?.labourCessCharge
-                  ?.labourCessChallanNo ?? ""
-              }
-            />
-            <InputField
-              id="labourCessChallanDate"
-              name="labourCessChallanDate"
-              label="DD/Challan date"
-              placeholder="06-04-2023"
-              type="text"
-              ltpDetails={
-                applicationData?.payment?.labourCessCharge
-                  ?.labourCessChallanDate ?? ""
-              }
-            />
-            <InputField
-              id="labourCessBankName"
-              name="labourCessBankName"
-              label="Bank name"
-              placeholder="xxxx"
-              type="text"
-              ltpDetails={
-                applicationData?.payment?.labourCessCharge
-                  ?.labourCessBankName ?? ""
-              }
-            />
-            <InputField
-              id="labourCessBankBranch"
-              name="labourCessBankBranch"
-              label="Branch"
-              placeholder="xxxx"
-              type="text"
-              ltpDetails={
-                applicationData?.payment?.labourCessCharge
-                  ?.labourCessBankBranch ?? ""
-              }
-            />
-          </div>
-          <div className="px-3 mb-4 flex justify-end">
-            <div className="form-control w-full max-w-xs">
-              {role === "LTP" && cameFrom === "draft" && (
-                <input
-                  type="file"
-                  className="file-input file-input-bordered w-full max-w-xs text-gray-400 bg-white dark:text-black"
-                  id="labourCessBankReceipt"
-                  onChange={(e) => handleFileChange(e, "labourCessBankReceipt")}
-                />
-              )}
+              <InputField
+                id="GramaPanchayetTotalCharged"
+                name="GramaPanchayetTotalCharged"
+                label="Total"
+                placeholder="000"
+                type="number"
+                ltpDetails={calculatedData?.GramaPanchayetTotalCharged}
+              />
             </div>
 
-            {applicationData?.payment?.labourCessCharge
-              ?.labourCessBankReceipt && (
+            <div className="grid grid-cols-2 lg:grid-cols-4 mb-4">
+              <InputField
+                id="gramaChallanNo"
+                name="gramaChallanNo"
+                label="DD/Challan no."
+                placeholder="xxxx"
+                type="text"
+                ltpDetails={
+                  applicationData?.payment?.gramaPanchayatFee?.gramaChallanNo ??
+                  ""
+                }
+              />
+              <InputField
+                id="gramaChallanDate"
+                name="gramaChallanDate"
+                label="DD/Challan date"
+                placeholder="06-04-2023"
+                type="text"
+                ltpDetails={
+                  applicationData?.payment?.gramaPanchayatFee?.gramaChallanDate ??
+                  ""
+                }
+              />
+              <InputField
+                id="gramaBankName"
+                name="gramaBankName"
+                label="Bank name"
+                placeholder="xxxx"
+                type="text"
+                ltpDetails={
+                  applicationData?.payment?.gramaPanchayatFee?.gramaBankName ?? ""
+                }
+              />
+              <InputField
+                id="gramaBankBranch"
+                name="gramaBankBranch"
+                label="Branch"
+                placeholder="xxxx"
+                type="text"
+                ltpDetails={
+                  applicationData?.payment?.gramaPanchayatFee?.gramaBankBranch ??
+                  ""
+                }
+              />
+            </div>
+
+            <div className="px-3 mb-4 flex justify-end">
+              <div className="form-control w-full max-w-xs">
+                {role === "LTP" && cameFrom === "draft" && (
+                  <input
+                    type="file"
+                    className="file-input file-input-bordered w-full max-w-xs text-gray-400 bg-white dark:text-black"
+                    id="gramaBankReceipt"
+                    onChange={(e) => handleFileChange(e, "gramaBankReceipt")}
+                  />
+                )}
+              </div>
+              {applicationData?.payment?.gramaPanchayatFee?.gramaBankReceipt && (
                 <Link
-                  to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
+                  to={`https://drive.google.com/file/d/${applicationData?.payment?.gramaPanchayatFee?.gramaBankReceipt}/view?usp=sharing`}
                   target="_blank"
                   className="flex justify-center items-center ms-10 px-4 py-2 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
                 >
@@ -965,106 +860,199 @@ const Payment = () => {
                   View Challan
                 </Link>
               )}
+            </div>
+          </div>
+        </div>
+
+        {/* Labour cess charge  */}
+        <div className="divide-y-2 divide-gray-400 nm_Container mt-3 px-2 py-5 mb-10">
+          <div className="flex items-center mb-2 px-2">
+            <FaMoneyCheckAlt size={30} className="text-normalViolet" />
+            <h3 className="font-bold text-xl text-gray-900 ml-3">
+              Labour cess charge
+            </h3>
+          </div>
+
+          <div>
+            <div className="grid lg:grid-cols-4 mt-3">
+              <InputField
+                id="labourCess01"
+                name="labourCess01"
+                label="Labour Cess Component 1"
+                placeholder="000"
+                type="number"
+                ltpDetails={calculatedData?.labourCessCompo1Charged}
+              />
+            </div>
+
+            <div className="grid grid-cols-2 lg:grid-cols-4 mb-4">
+              <InputField
+                id="labourCessChallanNo"
+                name="labourCessChallanNo"
+                label="DD/Challan no."
+                placeholder="xxxx"
+                type="text"
+                ltpDetails={
+                  applicationData?.payment?.labourCessCharge
+                    ?.labourCessChallanNo ?? ""
+                }
+              />
+              <InputField
+                id="labourCessChallanDate"
+                name="labourCessChallanDate"
+                label="DD/Challan date"
+                placeholder="06-04-2023"
+                type="text"
+                ltpDetails={
+                  applicationData?.payment?.labourCessCharge
+                    ?.labourCessChallanDate ?? ""
+                }
+              />
+              <InputField
+                id="labourCessBankName"
+                name="labourCessBankName"
+                label="Bank name"
+                placeholder="xxxx"
+                type="text"
+                ltpDetails={
+                  applicationData?.payment?.labourCessCharge
+                    ?.labourCessBankName ?? ""
+                }
+              />
+              <InputField
+                id="labourCessBankBranch"
+                name="labourCessBankBranch"
+                label="Branch"
+                placeholder="xxxx"
+                type="text"
+                ltpDetails={
+                  applicationData?.payment?.labourCessCharge
+                    ?.labourCessBankBranch ?? ""
+                }
+              />
+            </div>
+
+            <div className="px-3 mb-4 flex justify-end">
+              <div className="form-control w-full max-w-xs">
+                {role === "LTP" && cameFrom === "draft" && (
+                  <input
+                    type="file"
+                    className="file-input file-input-bordered w-full max-w-xs text-gray-400 bg-white dark:text-black"
+                    id="labourCessBankReceipt"
+                    onChange={(e) => handleFileChange(e, "labourCessBankReceipt")}
+                  />
+                )}
+              </div>
+
+              {applicationData?.payment?.labourCessCharge
+                ?.labourCessBankReceipt && (
+                  <Link
+                    to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
+                    target="_blank"
+                    className="flex justify-center items-center ms-10 px-4 py-2 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
+                  >
+                    <MdReceiptLong className="me-1" />
+                    View Challan
+                  </Link>
+                )}
+            </div>
           </div>
         </div>
 
         {/* Green fee charge  */}
-        <div className="mt-5 mb-8">
-          <div className="flex items-center">
-            {/* <img
-              src={GreenChargeImg}
-              alt="Image icon for green charge section"
-              className="h-10 me-3"
-            /> */}
+        <div className="divide-y-2 divide-gray-400 nm_Container mt-3 px-2 py-5">
+          <div className="flex items-center mb-2 px-2">
             <HiCurrencyRupee size={30} className="text-normalViolet" />
             <h3 className="font-bold text-xl text-gray-900 ml-3">
               Green fee charge
             </h3>
           </div>
-          <div className="divider m-0"></div>
 
-          <div className="grid lg:grid-cols-4 mt-3">
-            <InputField
-              id="greenFeeCharge"
-              name="greenFeeCharge"
-              label="Green fee charge"
-              placeholder="000"
-              type="number"
-              ltpDetails={calculatedData?.greenFeeCharged}
-            />
-          </div>
-          <div className="grid grid-cols-2 lg:grid-cols-4">
-            <InputField
-              id="greenFeeChargeChallanNo"
-              name="greenFeeChargeChallanNo"
-              label="DD/Challan no."
-              placeholder="xxxx"
-              type="text"
-              ltpDetails={
-                applicationData?.payment?.greenFeeCharge
-                  ?.greenFeeChargeChallanNo ?? ""
-              }
-            />
-            <InputField
-              id="greenFeeChargeChallanDate"
-              name="greenFeeChargeChallanDate"
-              label="DD/Challan date"
-              placeholder="06-04-2023"
-              type="text"
-              ltpDetails={
-                applicationData?.payment?.greenFeeCharge
-                  ?.greenFeeChargeChallanDate ?? ""
-              }
-            />
-            <InputField
-              id="greenFeeChargeBankName"
-              name="greenFeeChargeBankName"
-              label="Bank name"
-              placeholder="xxxx"
-              type="text"
-              ltpDetails={
-                applicationData?.payment?.greenFeeCharge
-                  ?.greenFeeChargeBankName ?? ""
-              }
-            />
-            <InputField
-              id="greenFeeChargeBankBranch"
-              name="greenFeeChargeBankBranch"
-              label="Branch"
-              placeholder="xxxx"
-              type="text"
-              ltpDetails={
-                applicationData?.payment?.greenFeeCharge
-                  ?.greenFeeChargeBankBranch ?? ""
-              }
-            />
-          </div>
-        </div>
-
-        <div className="px-3 mb-4 flex justify-end">
-          <div className="form-control w-full max-w-xs">
-            {role === "LTP" && cameFrom === "draft" && (
-              <input
-                type="file"
-                className="file-input file-input-bordered w-full max-w-xs text-gray-400 bg-white dark:text-black"
-                id="greenFeeBankReceipt"
-                onChange={(e) => handleFileChange(e, "greenFeeBankReceipt")}
+          <div>
+            <div className="grid lg:grid-cols-4 mt-3">
+              <InputField
+                id="greenFeeCharge"
+                name="greenFeeCharge"
+                label="Green fee charge"
+                placeholder="000"
+                type="number"
+                ltpDetails={calculatedData?.greenFeeCharged}
               />
-            )}
+            </div>
+
+            <div className="grid grid-cols-2 lg:grid-cols-4 mb-4">
+              <InputField
+                id="greenFeeChargeChallanNo"
+                name="greenFeeChargeChallanNo"
+                label="DD/Challan no."
+                placeholder="xxxx"
+                type="text"
+                ltpDetails={
+                  applicationData?.payment?.greenFeeCharge
+                    ?.greenFeeChargeChallanNo ?? ""
+                }
+              />
+              <InputField
+                id="greenFeeChargeChallanDate"
+                name="greenFeeChargeChallanDate"
+                label="DD/Challan date"
+                placeholder="06-04-2023"
+                type="text"
+                ltpDetails={
+                  applicationData?.payment?.greenFeeCharge
+                    ?.greenFeeChargeChallanDate ?? ""
+                }
+              />
+              <InputField
+                id="greenFeeChargeBankName"
+                name="greenFeeChargeBankName"
+                label="Bank name"
+                placeholder="xxxx"
+                type="text"
+                ltpDetails={
+                  applicationData?.payment?.greenFeeCharge
+                    ?.greenFeeChargeBankName ?? ""
+                }
+              />
+              <InputField
+                id="greenFeeChargeBankBranch"
+                name="greenFeeChargeBankBranch"
+                label="Branch"
+                placeholder="xxxx"
+                type="text"
+                ltpDetails={
+                  applicationData?.payment?.greenFeeCharge
+                    ?.greenFeeChargeBankBranch ?? ""
+                }
+              />
+            </div>
+
+            <div className="px-3 mb-4 flex justify-end">
+              <div className="form-control w-full max-w-xs">
+                {role === "LTP" && cameFrom === "draft" && (
+                  <input
+                    type="file"
+                    className="file-input file-input-bordered w-full max-w-xs text-gray-400 bg-white dark:text-black"
+                    id="greenFeeBankReceipt"
+                    onChange={(e) => handleFileChange(e, "greenFeeBankReceipt")}
+                  />
+                )}
+              </div>
+              {applicationData?.payment?.greenFeeCharge?.greenFeeBankReceipt && (
+                <Link
+                  to={`https://drive.google.com/file/d/${applicationData?.payment?.greenFeeCharge?.greenFeeBankReceipt}/view?usp=sharing`}
+                  target="_blank"
+                  className="flex justify-center items-center ms-10 px-4 py-2 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
+                >
+                  <MdReceiptLong className="me-1" />
+                  View Challan
+                </Link>
+              )}
+            </div>
           </div>
-          {applicationData?.payment?.greenFeeCharge?.greenFeeBankReceipt && (
-            <Link
-              to={`https://drive.google.com/file/d/${applicationData?.payment?.greenFeeCharge?.greenFeeBankReceipt}/view?usp=sharing`}
-              target="_blank"
-              className="flex justify-center items-center ms-10 px-4 py-2 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
-            >
-              <MdReceiptLong className="me-1" />
-              View Challan
-            </Link>
-          )}
         </div>
 
-        {/* <input type="submit" value="GET" onClick={sendPaymentData} /> */}
+
 
         {/* save & continue  */}
         {/* navigation button  */}

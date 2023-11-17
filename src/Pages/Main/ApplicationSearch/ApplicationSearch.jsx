@@ -60,6 +60,14 @@ const ApplicationSearch = () => {
     }
   };
 
+  useEffect(() => {
+    setStatus(filteredData?.status?.toLowerCase());
+  }, []);
+
+  // console.log(accept);
+
+  console.log(filteredData?.status?.toLowerCase().includes("approved"));
+
   console.log(filteredData, "filteredData");
 
   const titleClass = "basis-[50%] text-lg pl-3 font-semibold text-gray-900";
@@ -78,7 +86,7 @@ const ApplicationSearch = () => {
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
-          className={`${HomeCss.searchIcon} nm_Container`}
+          className={`${HomeCss.searchIcon}`}
         >
           <g strokeWidth="0" id="SVGRepo_bgCarrier"></g>
           <g
@@ -99,7 +107,7 @@ const ApplicationSearch = () => {
       </div>
 
       {/* Location details  */}
-      <div className=" divide-y-2 divide-gray-200 mt-7">
+      <div className="divide-y-2 divide-gray-300 mt-5">
         <div className="flex mb-1">
           <h3 className={titleClass}>Location details</h3>
           <h3 className={titleClass}>Building info</h3>
@@ -184,7 +192,7 @@ const ApplicationSearch = () => {
       </div>
 
       {/* Owner details  */}
-      <div className="divide-y-2 divide-gray-200 mt-9">
+      <div className="divide-y-2 divide-gray-300 mt-10">
         <div className="flex mb-1">
           <h3 className={titleClass}>Owner details</h3>
           <h3 className={titleClass}>LTP Details</h3>
@@ -197,7 +205,7 @@ const ApplicationSearch = () => {
               type="text"
               placeholder="xxxxxxx"
               ltpDetails={
-                filteredData?.applicantInfo.applicantDetails?.[0].name
+                filteredData?.applicantInfo?.applicantDetails?.[0]?.name
               }
             />
             <MainPageInput
@@ -206,7 +214,7 @@ const ApplicationSearch = () => {
               type="text"
               placeholder="xxxxxxx"
               ltpDetails={
-                filteredData?.applicantInfo.applicantDetails?.[0].ownerDoorNo
+                filteredData?.applicantInfo?.applicantDetails?.[0]?.ownerDoorNo
               }
             />
             <MainPageInput
@@ -215,7 +223,8 @@ const ApplicationSearch = () => {
               type="text"
               placeholder="xxxxxxx"
               ltpDetails={
-                filteredData?.applicantInfo.applicantDetails?.[0].ownerStreetNo
+                filteredData?.applicantInfo?.applicantDetails?.[0]
+                  ?.ownerStreetNo
               }
             />
           </div>
@@ -226,14 +235,14 @@ const ApplicationSearch = () => {
               id="name2"
               type="text"
               placeholder="xxxxxxx"
-              ltpDetails={filteredData?.applicantInfo.ltpDetails?.name}
+              ltpDetails={filteredData?.applicantInfo?.ltpDetails?.name}
             />
             <MainPageInput
               label="Address :"
               id="address2"
               type="text"
               placeholder="xxxxxxx"
-              ltpDetails={filteredData?.applicantInfo.ltpDetails?.address}
+              ltpDetails={filteredData?.applicantInfo?.ltpDetails?.address}
             />
           </div>
         </div>
@@ -241,7 +250,7 @@ const ApplicationSearch = () => {
 
       <div className="flex justify-center items-center mt-14 pb-9 space-x-10 dark:text-gray-600">
         <button
-          className="nm_Container w-[90px] h-[80px] flex flex-col justify-center items-center"
+          className="btn3D w-[100px] h-[75px] flex flex-col justify-center items-center"
           onClick={() => setOpenApplication(true)}
           disabled={filteredData === null}
         >
@@ -251,13 +260,7 @@ const ApplicationSearch = () => {
           <h4 className="text-base font-semibold">Application</h4>
         </button>
 
-        <button
-          className="nm_Container w-[90px] h-[80px] flex flex-col justify-center items-center"
-          disabled={
-            filteredData === null ||
-            filteredData?.status?.toLowerCase() !== "approved"
-          }
-        >
+        <button className="btn3D w-[100px] h-[75px] flex flex-col justify-center items-center">
           <span className="grid justify-center items-center">
             <BsHouses className="text-violet-500" size={25} />
           </span>
@@ -265,7 +268,7 @@ const ApplicationSearch = () => {
         </button>
 
         <button
-          className="nm_Container w-[90px] h-[80px] flex flex-col justify-center items-center"
+          className="btn3D w-[100px] h-[75px] flex flex-col justify-center items-center"
           onClick={() => {
             setOpenProceeding(true);
           }}

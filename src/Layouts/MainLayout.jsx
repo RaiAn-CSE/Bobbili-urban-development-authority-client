@@ -53,42 +53,40 @@ const MainLayout = () => {
       <div className="px-10 min-h-screen z-[10] bg-[#E8EAEC]">
         {/* upper part  */}
         <div className="py-3 flex justify-between items-center z-[10]">
-          <div className="basis-3/4 z-[10]">
-            <p className="css-3d-text  w-fit p-2 text-2xl text-gray-600 font-bold font-sofadi">
+          <div className="basis-3/4 z-[10] pt-2">
+            <p
+              // className="css-3d-text w-fit p-2 text-4xl text-gray-600 font-bold font-sofadi"
+              className="w-fit p-2 text-4xl text-gray-900 font-bold font-georgia"
+            >
               Bobbili Urban Development Authority
             </p>
             <p
-              className={`css-3d-text  w-fit p-2 text-4xl text-gray-600 font-bold font-sofadi `}
+              // className={`css-3d-text w-fit p-2 text-2xl text-gray-600 font-bold font-sofadi`}
+              className={`w-fit px-2 text-2xl text-gray-600 font-bold font-georgia`}
             >
               Residential Building Plan Approval
             </p>
-            {/* <div className="content mb-10">
-              <h2>Residential Building Plan Approval</h2>
-              <h2>Residential Building Plan Approval</h2>
-            </div> */}
           </div>
 
           <div className="basis-[20%] z-[10] flex justify-end items-center space-x-6 dark:text-black">
             <Link
               to="/"
-              className={`nm_Container w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center  ${
-                path === "/" ||
+              className={`nm_Container w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center  ${path === "/" ||
                 path === "/onlinePayment" ||
                 path === "/listOfLTP" ||
                 path === "/demoVideos" ||
                 path === "/privacyPolicy" ||
                 path === "/defaultDrawingFormat"
-                  ? active
-                  : ` ${notActive}`
-              }`}
+                ? active
+                : ` ${notActive}`
+                }`}
             >
               <AiOutlineHome size={25} className="text-2xl " />
             </Link>
             <Link
               to="/statistics"
-              className={`nm_Container w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center ${
-                path.includes("/statistics") ? active : ` ${notActive}`
-              }`}
+              className={`nm_Container w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center ${path.includes("/statistics") ? active : ` ${notActive}`
+                }`}
             >
               <MdOutlineDashboard size={25} className="text-2xl" />
             </Link>

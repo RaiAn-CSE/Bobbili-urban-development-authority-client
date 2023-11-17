@@ -35,8 +35,8 @@ const OwnerDetail = ({
     role.toLowerCase() === "ps";
 
   return (
-    <div className="nm_Container p-5 mt-4 mb-8">
-      <p className="text-xl font-bold">{`${ownerSerial[index]} Person:`}</p>
+    <div className="mt-3">
+      <p className="text-xl font-bold px-2">{`${ownerSerial[index]} Person:`}</p>
       <div className="lg:flex">
         <div className="basis-[75%] grid grid-cols-2 lg:grid-cols-3">
           <InputField
@@ -115,30 +115,13 @@ const OwnerDetail = ({
         </div>
 
         {role.toLowerCase() === "ltp" && (
-          <div className="flex basis-[25%] justify-center items-end my-5 lg:my-5">
-            {/* <div className="my-4 mx-3 basis-3/4">
-            <label
-              htmlFor="message"
-              className="block text-gray-600 mb-1 font-semibold dark:text-gray-100"
-            >
-              Address
-            </label>
-            <textarea
-              id={`applicantAddress${index}`}
-              rows="4"
-              defaultValue={applicantDetails?.address}
-              className="w-full px-3 py-2 border border-green-600 rounded-lg max-w-xs dark:text-black"
-              placeholder="Dr. no., Street, Village, Mandal, Dist."
-              required
-            ></textarea>
-          </div> */}
+          <div className="flex basis-[25%] justify-center my-5 lg:my-5">
 
             {index === length - 1 && index < 4 && (
               <div className="flex justify-center items-center">
                 <button
-                  className={`nm_Container text-xl rounded-full w-[30px] h-[30px] text-normalViolet cursor-pointer transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold ${
-                    hideBtn && "hidden"
-                  }`}
+                  className={`nm_Container text-xl rounded-full w-[30px] h-[30px] text-normalViolet cursor-pointer transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold ${hideBtn && "hidden"
+                    }`}
                   onClick={increaseApplicantNo}
                 >
                   +
@@ -149,9 +132,8 @@ const OwnerDetail = ({
             {index === length - 1 && index > 0 && index <= 4 && (
               <div className="flex justify-center items-center">
                 <button
-                  className={`nm_Container text-xl mx-2 rounded-full text-red-500 w-[30px] h-[30px]  transition-all duration-500 font-bold ${
-                    hideBtn && "hidden"
-                  }`}
+                  className={`nm_Container text-xl mx-2 rounded-full text-red-500 w-[30px] h-[30px]  transition-all duration-500 font-bold ${hideBtn && "hidden"
+                    }`}
                   onClick={decreaseApplicationNo}
                 >
                   -

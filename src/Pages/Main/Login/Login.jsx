@@ -135,29 +135,6 @@ const Login = () => {
       <div className="relative overflow-hidden ">
         {/* support icon  */}
 
-        {/* login form  */}
-        {/* <div className="">
-          <div className="flex justify-between  relative text-gray-50">
-            <div className={`${LoginCSS.shapeDiv1} rounded-tl-lg`}>
-              <h1 className="absolute top-2 left-2 text-2xl font-semibold z-20">Sign</h1>
-            </div>
-            <svg className="rotate-180 absolute rounded-lg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-              <path fill="#895DD5" fill-opacity="1" d="M0,160L60,138.7C120,117,240,75,360,85.3C480,96,600,160,720,160C840,160,960,96,1080,74.7C1200,53,1320,75,1380,85.3L1440,96L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
-            </svg>
-
-            <div className={`${LoginCSS.shapeDiv2} rounded-tr-lg`}>
-              <h1 className="absolute top-2 right-4 text-2xl font-semibold z-20">in</h1>
-            </div>
-          </div>
-          <div className="flex justify-center">
-            <Lottie
-              animationData={signInAnimation}
-              loop={true}
-              className="w-[200px] h-[200px] absolute top-2"
-            />
-          </div>
-        </div> */}
-
         <div className="nm_Inset mt-[-65%] ml-[-20%] h-[330px] w-[343px] bg-gradient-to-r from-[#cecbf5] via-[#BDB9F6] to-[#8980fd] rounded-full flex justify-center flex-col items-center">
           <p
             className={`text text-white font-medium text-4xl uppercase pt-40 pr-14`}
@@ -183,7 +160,7 @@ const Login = () => {
                 type="text"
                 {...register("id", { required: true })}
                 id="userId"
-                className="nm_Container border-[1.5px] border-solid rounded-full block text-base w-full py-2 px-4 border-violet-400 text-gray-900 bg-white  focus:border-violet-500 focus:outline-none focus:ring-2 ring-violet-50"
+                className={`${LoginCSS.loginInput} rounded-full block text-base w-full py-2 px-4 text-gray-900`}
                 defaultValue={cookieUserId}
                 // placeholder="name@company.com"
                 autoFocus
@@ -205,7 +182,7 @@ const Login = () => {
                 id="password"
                 // placeholder="••••••••"
                 defaultValue={cookieUserPassword}
-                className={`nm_Container border-[1.5px] border-solid rounded-full block text-base w-full py-2 px-4 border-violet-400 text-gray-900 bg-white   ring-violet-50`}
+                className={`${LoginCSS.loginInput} rounded-full block text-base w-full py-2 px-4 text-gray-900`}
                 {...register("password", { required: true })}
                 required
               />
@@ -228,7 +205,7 @@ const Login = () => {
               </div>
             </div>
 
-            <div className="flex items-center pt-2">
+            <div className="flex items-center pt-2 pb-3">
               <div className="flex items-center h-5">
                 <input
                   id="remember"
@@ -239,11 +216,12 @@ const Login = () => {
               </div>
               <label
                 htmlFor="remember"
-                className={`${LoginCSS.checkboxLabel} ml-2 text-sm `}
+                className={`ml-2 text-sm text-gray-900 font-bold font-sans`}
               >
                 Remember me
               </label>
             </div>
+
             <div className="flex justify-center">
               {loading ? (
                 <BeatLoader
@@ -256,28 +234,21 @@ const Login = () => {
                 />
               ) : (
                 <motion.div
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   <input
                     type="submit"
                     value="Sign in"
-                    className="nm_Inset bg-[#8980FD] py-2 px-7 rounded-full text-white cursor-pointer text-center mt-3 uppercase text-md"
-                    // className="w-full rounded-sm bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white cursor-pointer font-bold text-base px-7 py-2.5 my-1 text-center hover:bg-gradient-to-r hover:from-violet-600 hover:to-fuchsia-600"
+                    className={`nm_Container font-bold bg-[#8980FD] py-2 px-8 text-white rounded-full cursor-pointer`}
                   />
                 </motion.div>
               )}
             </div>
+
           </form>
         </div>
       </div>
-      {/* <div className=" absolute bottom-[2%] right-[2%] w-[15vw] h-[15vw] md:w-[12vw] md:h-[12vw] lg:w-[5vw] lg:h-[5vw] rounded-full cursor-pointer">
-        <img
-          className="object-cover"
-          src={SupportIcon}
-          alt="Customer support icon"
-        />
-      </div> */}
     </div>
   );
 };

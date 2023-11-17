@@ -123,7 +123,7 @@ const DraftApplication = () => {
     if (index === currentStep) {
       return `nm_Container bg-gradient-to-b from-[#a29bfe] to-[#6c5ce7] shadow-none text-white border-0 `;
     } else if (index < currentStep) {
-      return `nm_Container bg-gradient-to-b from-[#a29bfe] to-[#6c5ce7]  shadow-none text-white border-0 `;
+      return `nm_Container bg-gradient-to-b from-[#a29bfe] to-[#6c5ce7] shadow-none text-white border-0 `;
     }
   };
 
@@ -232,27 +232,25 @@ const DraftApplication = () => {
             </div>
           </div>
           <div className="mb-5 font-roboto">
-            <ul className="w-full steps steps-vertical lg:steps-horizontal rounded-lg pt-4">
+            <div className="w-full steps steps-vertical lg:steps-horizontal rounded-lg pt-4">
               {stepsContent.map((step, index) => (
-                <li
+                <button
                   key={index}
                   data-content={index + 1}
-                  className={`${stepClasses(index)} lg:relative lg:pt-1`}
+                  className={`${stepClasses(index)} lg:relative lg:pt-1 flex justify-center`}
                   onClick={() => handleStepClick(index)}
                 >
                   <div className="lg:absolute lg:top-0 z-10">
                     <span
-                      className={`${btnClass} ${completeBtn(
-                        index
-                      )} w-[300px] lg:w-fit text-sm border-0 nm_Container `}
+                      className={`${btnClass} ${completeBtn(index)} w-[300px] lg:w-[160px] text-sm border-0 nm_Container`}
                     >
                       {role !== "PS" && icons[index]}
                       {step}
                     </span>
                   </div>
-                </li>
+                </button>
               ))}
-            </ul>
+            </div>
           </div>
         </>
       )
