@@ -95,7 +95,7 @@ const ShowPlotDetails = ({ serialNo, applicationData }) => {
         </p>
       </td>
       <td className="p-3  border-b border-gray-200 text-xs">
-        <span className="relative inline-block px-3 py-1 font-semibold  leading-tight">
+        <span className="relative inline-block px-3 py-1 font-semibold nm_Container leading-tight">
           <span
             aria-hidden
             className={`absolute inset-0  ${
@@ -104,7 +104,7 @@ const ShowPlotDetails = ({ serialNo, applicationData }) => {
               (status?.toLowerCase()?.includes("shortfall") &&
                 "bg-[#fad390]") ||
               (status?.toLowerCase()?.includes("rejected") && "bg-red-400")
-            } opacity-50 rounded-full`}
+            } opacity-50 rounded-full nm_Container`}
           ></span>
           <span className="relative capitalize">
             {status.split(" ")[0] ?? "N/A"}

@@ -109,7 +109,7 @@ const ShowRevenueReports = ({ serialNo, applicationData }) => {
               (status?.toLowerCase()?.includes("shortfall") &&
                 "bg-[#fad390]") ||
               (status?.toLowerCase()?.includes("rejected") && "bg-red-400")
-            } opacity-50 rounded-full`}
+            } opacity-50 rounded-full nm_Container`}
           ></span>
           <span className="relative capitalize">
             {status?.split(" ")[0] ?? "N/A"}

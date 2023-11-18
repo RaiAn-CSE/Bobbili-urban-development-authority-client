@@ -56,10 +56,10 @@ const VerificationStatus = () => {
         </button>
       </div>
 
-      <div className="container mx-auto px-4 font-roboto ">
+      <div className="container mx-auto px-4 font-roboto">
         <div className="py-4">
           <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4">
-            <div className="inline-block min-w-full nm_Container rounded-lg overflow-hidden">
+            <div className="inline-block min-w-full nm_Container  overflow-hidden rounded-2xl">
               <table
                 className=" min-w-full leading-normal text-center "
                 ref={verificationTableRef}
@@ -79,7 +79,7 @@ const VerificationStatus = () => {
                       Cantact no.
                     </th>
                     <th
-                      className={`p-3 border-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider `}
+                      className={`p-3 border-2 border-r-0 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider `}
                       colSpan={3}
                     >
                       No. of Files
@@ -97,7 +97,7 @@ const VerificationStatus = () => {
                       Verified
                     </th>
                     <th
-                      className={`p-3 border-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider `}
+                      className={`p-3 border-2 border-r-0 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider `}
                     >
                       Pending
                     </th>

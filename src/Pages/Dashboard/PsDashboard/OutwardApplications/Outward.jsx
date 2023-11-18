@@ -175,7 +175,7 @@ function Outward() {
                               <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
                                 <span
                                   aria-hidden
-                                  className={`absolute inset-0  ${
+                                  className={`absolute inset-0 nm_Container  ${
                                     (applicationData?.status
                                       ?.toLowerCase()
                                       ?.includes("pending") &&
