@@ -655,7 +655,7 @@ const BuildingInfo = () => {
     <>
       <div className="grid my-5 mx-5 lg:my-0 text-gray-900">
         {/* general information */}
-        <div className="nm_Container mt-3 px-2 py-5 mb-10">
+        <div className="divide-y-2 divide-gray-400 nm_Container mt-3 px-2 py-5 mb-10">
           <div className="pl-2 flex items-center">
             <div className=" text-normalViolet">
               <HiInformationCircle size={30} />
@@ -663,7 +663,7 @@ const BuildingInfo = () => {
             <h3 className="font-bold text-xl ml-2">General Information</h3>
           </div>
 
-          <hr className="w-[98%] h-[1.5px] inline-block ml-2 bg-gray-400" />
+          {/* <hr className="w-[98%] h-[1.5px] inline-block ml-2 bg-gray-400" /> */}
 
           <div className="grid grid-cols-2 lg:grid-cols-4 mt-2">
             <div className="flex flex-col justify-center my-4 px-3">
@@ -1032,13 +1032,13 @@ const BuildingInfo = () => {
         </div>
 
         {/* plot details  */}
-        <div className="nm_Container mt-3 px-2 py-5 mb-10">
+        <div className="divide-y-2 divide-gray-400 nm_Container mt-3 px-2 py-5 mb-10">
           <div className="pl-2 flex items-center">
             <AiOutlineAreaChart size={30} className="text-normalViolet" />
             <h3 className="font-bold text-xl ml-2">Plot Details</h3>
           </div>
 
-          <hr className="w-[98%] h-[1.5px] inline-block ml-2 bg-gray-400" />
+          {/* <hr className="w-[98%] h-[1.5px] inline-block ml-2 bg-gray-400" /> */}
 
           <div className="mt-2">
             <div className="grid grid-cols-2 lg:grid-cols-4">
@@ -1488,102 +1488,108 @@ const BuildingInfo = () => {
         </div>
 
         {/* schedule boundaries  */}
-        <div className="nm_Container mt-3 px-2 py-5">
-          <div className="pl-2 flex items-center">
-            <PiWall size={30} className="text-normalViolet" />
-            <h3 className="font-bold text-xl ml-3">Schedule of Boundaries</h3>
+        <motion.div
+
+        >
+          <div className="divide-y-2 divide-gray-400 nm_Container mt-3 px-2 py-5">
+            <div className="pl-2 flex items-center">
+              <PiWall size={30} className="text-normalViolet" />
+              <h3 className="font-bold text-xl ml-3">Schedule of Boundaries</h3>
+            </div>
+
+            {/* <hr className="w-[98%] h-[1.5px] inline-block ml-2 bg-gray-400" /> */}
+
+            <div className="grid grid-cols-2 lg:grid-cols-4 items-center mt-2">
+              <div className="flex flex-col my-4 justify-center mx-3">
+                <label className={labelClass}>
+                  <span>North</span>
+                </label>
+                <select
+                  id="north"
+                  className={`${inputClass}`}
+                  value={northValue}
+                  onChange={handleNorthChange}
+                  disabled={isReadOnly}
+                >
+                  <option disabled value="">
+                    Select North
+                  </option>
+                  <option value="Road">Road</option>
+                  <option value="Plot">Plot</option>
+                  <option value="Vacant land">Vacant land</option>
+                  <option value="Water body">Water body</option>
+                  <option value="Existing building">Existing building</option>
+                </select>
+              </div>
+
+              <div className="flex flex-col my-4 justify-center mx-3">
+                <label className={labelClass}>
+                  <span>South</span>
+                </label>
+                <select
+                  id="south"
+                  className={inputClass}
+                  value={southValue}
+                  onChange={handleSouthChange}
+                  disabled={isReadOnly}
+                >
+                  <option disabled value="">
+                    Select South
+                  </option>
+                  <option value="Road">Road</option>
+                  <option value="Plot">Plot</option>
+                  <option value="Vacant land">Vacant land</option>
+                  <option value="Water body">Water body</option>
+                  <option value="Existing building">Existing building</option>
+                </select>
+              </div>
+
+              <div className="flex flex-col my-4 justify-center mx-3">
+                <label className={labelClass}>
+                  <span>East</span>
+                </label>
+                <select
+                  id="east"
+                  className={inputClass}
+                  value={eastValue}
+                  onChange={handleEastChange}
+                  disabled={isReadOnly}
+                >
+                  <option disabled value="">
+                    Select East
+                  </option>
+                  <option value="Road">Road</option>
+                  <option value="Plot">Plot</option>
+                  <option value="Vacant land">Vacant land</option>
+                  <option value="Water body">Water body</option>
+                  <option value="Existing building">Existing building</option>
+                </select>
+              </div>
+
+              <div className="flex flex-col my-4 justify-center mx-3">
+                <label className={labelClass}>
+                  <span>West</span>
+                </label>
+                <select
+                  id="west"
+                  className={inputClass}
+                  value={westValue}
+                  onChange={handleWestChange}
+                  disabled={isReadOnly}
+                >
+                  <option disabled value="">
+                    Select West
+                  </option>
+                  <option value="Road">Road</option>
+                  <option value="Plot">Plot</option>
+                  <option value="Vacant land">Vacant land</option>
+                  <option value="Water body">Water body</option>
+                  <option value="Existing building">Existing building</option>
+                </select>
+              </div>
+            </div>
           </div>
-          <hr className="w-[98%] h-[1.5px] inline-block ml-2 bg-gray-400" />
-          <div className="grid grid-cols-2 lg:grid-cols-4 items-center mt-2">
-            <div className="flex flex-col my-4 justify-center mx-3">
-              <label className={labelClass}>
-                <span>North</span>
-              </label>
-              <select
-                id="north"
-                className={`${inputClass}`}
-                value={northValue}
-                onChange={handleNorthChange}
-                disabled={isReadOnly}
-              >
-                <option disabled value="">
-                  Select North
-                </option>
-                <option value="Road">Road</option>
-                <option value="Plot">Plot</option>
-                <option value="Vacant land">Vacant land</option>
-                <option value="Water body">Water body</option>
-                <option value="Existing building">Existing building</option>
-              </select>
-            </div>
-
-            <div className="flex flex-col my-4 justify-center mx-3">
-              <label className={labelClass}>
-                <span>South</span>
-              </label>
-              <select
-                id="south"
-                className={inputClass}
-                value={southValue}
-                onChange={handleSouthChange}
-                disabled={isReadOnly}
-              >
-                <option disabled value="">
-                  Select South
-                </option>
-                <option value="Road">Road</option>
-                <option value="Plot">Plot</option>
-                <option value="Vacant land">Vacant land</option>
-                <option value="Water body">Water body</option>
-                <option value="Existing building">Existing building</option>
-              </select>
-            </div>
-
-            <div className="flex flex-col my-4 justify-center mx-3">
-              <label className={labelClass}>
-                <span>East</span>
-              </label>
-              <select
-                id="east"
-                className={inputClass}
-                value={eastValue}
-                onChange={handleEastChange}
-                disabled={isReadOnly}
-              >
-                <option disabled value="">
-                  Select East
-                </option>
-                <option value="Road">Road</option>
-                <option value="Plot">Plot</option>
-                <option value="Vacant land">Vacant land</option>
-                <option value="Water body">Water body</option>
-                <option value="Existing building">Existing building</option>
-              </select>
-            </div>
-
-            <div className="flex flex-col my-4 justify-center mx-3">
-              <label className={labelClass}>
-                <span>West</span>
-              </label>
-              <select
-                id="west"
-                className={inputClass}
-                value={westValue}
-                onChange={handleWestChange}
-                disabled={isReadOnly}
-              >
-                <option disabled value="">
-                  Select West
-                </option>
-                <option value="Road">Road</option>
-                <option value="Plot">Plot</option>
-                <option value="Vacant land">Vacant land</option>
-                <option value="Water body">Water body</option>
-                <option value="Existing building">Existing building</option>
-              </select>
-            </div>
-          </div>
-        </div>
+        </motion.div>
 
         {/* save & continue  */}
         <SaveData

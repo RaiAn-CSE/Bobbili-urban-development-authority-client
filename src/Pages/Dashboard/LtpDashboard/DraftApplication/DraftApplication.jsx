@@ -242,7 +242,7 @@ const DraftApplication = () => {
                 >
                   <div className="lg:absolute lg:top-0 z-10">
                     <span
-                      className={`${btnClass} ${completeBtn(index)} w-[300px] lg:w-[160px] text-sm border-0 nm_Container`}
+                      className={`${btnClass} ${completeBtn(index)} w-[300px] lg:w-fit text-sm border-0 nm_Container`}
                     >
                       {role !== "PS" && icons[index]}
                       {step}
