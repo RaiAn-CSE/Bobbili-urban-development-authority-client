@@ -234,26 +234,22 @@ const DraftApplication = () => {
                 )}
             </div>
           </div>
-          <div className="mb-5 font-roboto">
-            <div className="w-full steps steps-vertical lg:steps-horizontal rounded-lg pt-4">
-              {stepsContent.map((step, index) => (
+          <div className="w-full steps steps-vertical lg:steps-horizontal rounded-lg py-4 lg:relative font-roboto ">
+            {stepsContent.map((step, index) => (
+              <div
+                key={index}
+                data-content={index + 1}
+                className={`${stepClasses(index)}`}
+                onClick={() => handleStepClick(index)}
+              >
                 <button
-                  key={index}
-                  data-content={index + 1}
-                  className={`${stepClasses(index)} lg:relative lg:pt-1`}
-                  onClick={() => handleStepClick(index)}
+                  className={`${btnClass} ${completeBtn(index)} ${role !== "PS" ? 'w-[160px]' : 'w-[135px]'} text-sm border-0 nm_Container lg:absolute top-3 z-10`}
                 >
-                  <div className="lg:absolute lg:top-0 z-10 flex">
-                    <button
-                      className={`${btnClass} ${completeBtn(index)} ${role !== "PS" ? 'w-[160px]' : 'w-[135px]'} text-sm border-0 nm_Container`}
-                    >
-                      {role !== "PS" && icons[index]}
-                      <span>{step}</span>
-                    </button>
-                  </div>
+                  {role !== "PS" && icons[index]}
+                  <span>{step}</span>
                 </button>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </>
       )
