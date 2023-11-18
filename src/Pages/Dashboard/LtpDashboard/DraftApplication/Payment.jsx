@@ -886,7 +886,7 @@ const Payment = () => {
           </div>
 
           <div className="-mt-2">
-            <div className="grid lg:grid-cols-4 mt-3">
+            <div className="grid lg:grid-cols-4">
               <InputField
                 id="labourCess01"
                 name="labourCess01"
@@ -985,7 +985,7 @@ const Payment = () => {
           </div>
 
           <div className="-mt-2">
-            <div className="grid lg:grid-cols-4 mt-3">
+            <div className="grid lg:grid-cols-4">
               <InputField
                 id="greenFeeCharge"
                 name="greenFeeCharge"
