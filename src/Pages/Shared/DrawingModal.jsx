@@ -4,18 +4,33 @@ import customScroll from "../../Style/Scrollbar.module.css";
 import { RxCross2 } from "react-icons/rx";
 
 const DrawingModal = ({ modalStates }) => {
-  const { fetchDataFromTheDb } = useContext(AuthContext);
+  const { getApplicationData } = useContext(AuthContext);
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
   const cameFrom = JSON.parse(localStorage.getItem("page"));
 
   const { openDrawing, setOpenDrawing } = modalStates;
+  const [dataFromDB, setDataFromDB] = useState({});
   console.log(modalStates, "Modal states");
   useEffect(() => {
     const modal = document.getElementById("drawingModal");
     if (openDrawing) {
       modal.showModal();
     }
+
+    const getData = async () => {
+      const applicationData = await getApplicationData(applicationNo, cameFrom);
+      console.log(applicationData, "All info ApplicationData");
+      if (Object.keys(applicationData)?.length) {
+        setDataFromDB(applicationData);
+      }
+    };
+    getData();
   }, []);
+
+  const BASE_URL =
+    "https://drive.google.com/viewerng/viewer?embedded=true&url=https://drive.google.com/uc?id=";
+
+  console.log(dataFromDB, "DFD");
   return (
     <div className="dark:bg-white">
       <dialog id="drawingModal" className="modal">
@@ -34,9 +49,17 @@ const DrawingModal = ({ modalStates }) => {
           </form>
 
           <div className="pt-4">
-            <h3 className="font-bold text-2xl text-center mb-8">
-              ENDORSEMENT!
+            <h3 className="font-bold text-2xl text-center mb-8 uppercase">
+              Drawing
             </h3>
+
+            <iframe
+              src={`https://drive.google.com/file/d/${dataFromDB?.drawing?.Drawing}/preview`}
+              width="100%"
+              height="500px"
+              frameborder="0"
+              allowfullscreen
+            ></iframe>
           </div>
         </div>
 
