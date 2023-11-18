@@ -665,7 +665,9 @@ const BuildingInfo = () => {
             <h3 className="font-bold text-xl ml-2">General Information</h3>
           </div>
 
-          <hr className="w-[98%] h-[1.5px] inline-block ml-2 bg-gray-400" />
+          <div className="px-3">
+            <hr className="w-full h-[1.5px] inline-block bg-gray-400" />
+          </div>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 -mt-2">
             <div className="flex flex-col justify-center my-4 px-3">
@@ -1035,14 +1037,16 @@ const BuildingInfo = () => {
 
         {/* plot details  */}
         <div className="nm_Container mt-3 px-2 py-5 mb-10">
-          <div className="pl-2 flex items-center">
+          <div className="pl-2 flex items-center -mb-2">
             <AiOutlineAreaChart size={30} className="text-normalViolet" />
             <h3 className="font-bold text-xl ml-2">Plot Details</h3>
           </div>
 
-          <hr className="w-[98%] h-[1.5px] inline-block ml-2 bg-gray-400" />
+          <div className="px-3">
+            <hr className="w-full h-[1.5px] inline-block bg-gray-400" />
+          </div>
 
-          <div className="">
+          <div className="-mt-2">
             <div className="grid grid-cols-2 lg:grid-cols-4">
               <InputField
                 type="number"
@@ -1491,14 +1495,16 @@ const BuildingInfo = () => {
 
         {/* schedule boundaries  */}
         <div className="nm_Container mt-3 px-2 py-5">
-          <div className="pl-2 flex items-center">
+          <div className="pl-2 flex items-center -mb-2">
             <PiWall size={30} className="text-normalViolet" />
             <h3 className="font-bold text-xl ml-3">Schedule of Boundaries</h3>
           </div>
 
-          <hr className="w-[98%] h-[1.5px] inline-block ml-2 bg-gray-400" />
+          <div className="px-3">
+            <hr className="w-full h-[1.5px] inline-block bg-gray-400" />
+          </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 items-center">
+          <div className="grid grid-cols-2 lg:grid-cols-4 items-center -mt-2">
             <div className="flex flex-col my-4 justify-center mx-3">
               <label className={labelClass}>
                 <span>North</span>
