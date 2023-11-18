@@ -187,7 +187,7 @@ const ApplicantInfo = () => {
   return (
     <div className="grid my-5 mx-5 lg:my-0 text-gray-900">
       {/* LTP’s Details  */}
-      <div className="divide-y-2 divide-gray-400 nm_Container mt-3 px-2 py-5 mb-10">
+      <div className="divide-y-2 divide-gray-300 nm_Container mt-3 px-2 py-5 mb-10">
         <div className="flex items-center mb-2 px-2">
           <BiSolidUserDetail size={30} className="text-normalViolet" />
           <h3 className="font-bold text-xl ml-3">LTP’s Details</h3>
@@ -280,7 +280,7 @@ const ApplicantInfo = () => {
       </div>
 
       {/* Owner’s Details  */}
-      <div className="divide-y-2 divide-gray-400 nm_Container mt-3 px-2 py-5">
+      <div className="divide-y-2 divide-gray-300 nm_Container mt-3 px-2 py-5">
         <div className="flex items-center mb-2 px-2">
           <FaBuildingUser size={30} className="text-normalViolet" />
           <h3 className="font-bold text-xl ml-3">Owner’s Details</h3>

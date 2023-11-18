@@ -525,7 +525,7 @@ const Payment = () => {
       >
 
         {/* UDA Charge  */}
-        <div className="divide-y-2 divide-gray-400 nm_Container mt-3 px-2 py-5 mb-10">
+        <div className="divide-y-2 divide-gray-300 nm_Container mt-3 px-2 py-5 mb-10">
           <div className="flex items-center mb-2 px-2">
             <FaCcAmazonPay size={30} className="text-normalViolet" />
             <h3 className="font-bold text-xl text-gray-900 ml-3">UDA Charge</h3>
@@ -730,7 +730,7 @@ const Payment = () => {
         </div>
 
         {/* Grama Panchayat fee */}
-        <div className="divide-y-2 divide-gray-400 nm_Container mt-3 px-2 py-5 mb-10">
+        <div className="divide-y-2 divide-gray-300 nm_Container mt-3 px-2 py-5 mb-10">
           <div className="flex items-center mb-2 px-2">
             <MdOutlinePayments size={30} className="text-normalViolet" />
             <h3 className="font-bold text-xl text-gray-900 ml-3">
@@ -865,7 +865,7 @@ const Payment = () => {
         </div>
 
         {/* Labour cess charge  */}
-        <div className="divide-y-2 divide-gray-400 nm_Container mt-3 px-2 py-5 mb-10">
+        <div className="divide-y-2 divide-gray-300 nm_Container mt-3 px-2 py-5 mb-10">
           <div className="flex items-center mb-2 px-2">
             <FaMoneyCheckAlt size={30} className="text-normalViolet" />
             <h3 className="font-bold text-xl text-gray-900 ml-3">
@@ -960,7 +960,7 @@ const Payment = () => {
         </div>
 
         {/* Green fee charge  */}
-        <div className="divide-y-2 divide-gray-400 nm_Container mt-3 px-2 py-5">
+        <div className="divide-y-2 divide-gray-300 nm_Container mt-3 px-2 py-5">
           <div className="flex items-center mb-2 px-2">
             <HiCurrencyRupee size={30} className="text-normalViolet" />
             <h3 className="font-bold text-xl text-gray-900 ml-3">
