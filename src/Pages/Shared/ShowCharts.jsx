@@ -324,7 +324,7 @@ const ShowCharts = () => {
             </div>
 
             {/* mandal */}
-            <div className="nm_Container basis-[23%] z-[10]  p-3 py-6 rounded-lg">
+            <div className="nm_Container basis-[23%] z-[10] p-3 py-6 rounded-lg">
               <label
                 htmlFor="mandal"
                 className="flex items-center mb-5 text-lg font-bold text-white"
@@ -359,19 +359,19 @@ const ShowCharts = () => {
             </div>
 
             {/* gram panchayat  */}
-            <div className="nm_Container basis-[23%] z-[10]  p-3 py-6 rounded-lg">
+            <div className="nm_Container basis-[23%] z-[10] p-3 py-6 rounded-lg">
               <label
                 htmlFor="panchayat"
                 className="flex items-center mb-5 text-lg font-bold text-white"
               >
-                <span className="bg-[#F06ADD] inline-flex justify-center items-center w-[40px] h-[40px] rounded-full mr-2">
+                <span className="bg-[#B67EEE] inline-flex justify-center items-center w-[40px] h-[40px] rounded-full mr-2">
                   <MdForest size={20} />
                 </span>
-                <span className="text-[#F06ADD]">Grama Panchayat</span>
+                <span className="text-[#B67EEE]">Grama Panchayat</span>
               </label>
               <select
                 id="panchayat"
-                className="nm_Inset w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-[#F06ADD] focus:outline-none focus:ring-2 ring-[#e0c3dc]"
+                className="nm_Inset w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-violet-500 focus:outline-none focus:ring-2 ring-violet-200"
                 defaultValue={selectedPanchayat}
                 disabled={allPanchayat?.length === 0}
                 onChange={(e) => detectChangeOfPanchayat(e)}
@@ -396,14 +396,14 @@ const ShowCharts = () => {
                   htmlFor="date"
                   className="flex items-center mb-5 text-lg font-bold text-white"
                 >
-                  <span className="bg-[#fb5efd] inline-flex justify-center items-center w-[40px] h-[40px] rounded-full mr-2">
+                  <span className="bg-[#B67EEE] inline-flex justify-center items-center w-[40px] h-[40px] rounded-full mr-2">
                     <BsCalendar3 size={20} />
                   </span>
-                  <span className="text-[#FB5EFD]">Date</span>
+                  <span className="text-[#B67EEE]">Date</span>
                 </label>
                 <select
                   id="date"
-                  className="nm_Inset w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-[#FB5EFD] focus:outline-none focus:ring-2 ring-[#e0c3dc]"
+                  className="nm_Inset w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-violet-500 focus:outline-none focus:ring-2 ring-violet-200"
                   defaultValue={selectedDate}
                   disabled={selectedPanchayat?.length === 0}
                   onChange={(e) => detectChangeOfDate(e)}

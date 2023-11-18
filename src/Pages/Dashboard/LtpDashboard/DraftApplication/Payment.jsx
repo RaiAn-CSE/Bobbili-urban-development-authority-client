@@ -619,16 +619,16 @@ const Payment = () => {
                     setViewChallan={setViewChallan}
                   />
                 )}
-                <div>
-                  <button
-                    className={`btn btn-md text-sm px-3 mt-10 font-roboto w-[60%] mx-auto border-none text-white shadow-md transition-all duration-500 ${gradientColor} nm_Container hover:bg-gradient-to-bl`}
-                    onClick={() =>
-                      document.getElementById("my_modal_4").showModal()
-                    }
-                  >
-                    <GiMoneyStack size={25} /> View Payment Receipt
-                  </button>
-                </div>
+
+
+                <button
+                  className={`btn btn-md text-sm px-3 mt-5 mb-1 font-roboto w-[60%] mx-3 border-none text-white shadow-md transition-all duration-500 ${gradientColor} nm_Container hover:bg-gradient-to-bl`}
+                  onClick={() =>
+                    document.getElementById("my_modal_4").showModal()
+                  }
+                >
+                  <GiMoneyStack size={25} /> View Payment Receipt
+                </button>
 
                 {/* modal box */}
 
