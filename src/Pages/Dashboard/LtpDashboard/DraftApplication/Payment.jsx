@@ -525,13 +525,17 @@ const Payment = () => {
       >
 
         {/* UDA Charge  */}
-        <div className="divide-y-2 divide-gray-300 nm_Container mt-3 px-2 py-5 mb-10">
-          <div className="flex items-center mb-2 px-2">
+        <div className="nm_Container mt-3 px-2 py-5 mb-10">
+          <div className="flex items-center -mb-2 px-2">
             <FaCcAmazonPay size={30} className="text-normalViolet" />
             <h3 className="font-bold text-xl text-gray-900 ml-3">UDA Charge</h3>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-3">
+          <div className="px-2">
+            <hr className="w-full h-[1.5px] inline-block bg-gray-400" />
+          </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-3 -mt-2">
             <InputField
               id="vacantArea"
               name="vacantArea"
@@ -730,15 +734,19 @@ const Payment = () => {
         </div>
 
         {/* Grama Panchayat fee */}
-        <div className="divide-y-2 divide-gray-300 nm_Container mt-3 px-2 py-5 mb-10">
-          <div className="flex items-center mb-2 px-2">
+        <div className="nm_Container mt-3 px-2 py-5 mb-10">
+          <div className="flex items-center -mb-2 px-2">
             <MdOutlinePayments size={30} className="text-normalViolet" />
             <h3 className="font-bold text-xl text-gray-900 ml-3">
               Grama Panchayat fee
             </h3>
           </div>
 
-          <div>
+          <div className="px-2">
+            <hr className="w-full h-[1.5px] inline-block bg-gray-400" />
+          </div>
+
+          <div className="-mt-2">
             <div className="grid grid-cols-2 lg:grid-cols-4">
               <InputField
                 id="paperPublication"
@@ -865,15 +873,19 @@ const Payment = () => {
         </div>
 
         {/* Labour cess charge  */}
-        <div className="divide-y-2 divide-gray-300 nm_Container mt-3 px-2 py-5 mb-10">
-          <div className="flex items-center mb-2 px-2">
+        <div className="nm_Container mt-3 px-2 py-5 mb-10">
+          <div className="flex items-center -mb-2 px-2">
             <FaMoneyCheckAlt size={30} className="text-normalViolet" />
             <h3 className="font-bold text-xl text-gray-900 ml-3">
               Labour cess charge
             </h3>
           </div>
 
-          <div>
+          <div className="px-2">
+            <hr className="w-full h-[1.5px] inline-block bg-gray-400" />
+          </div>
+
+          <div className="-mt-2">
             <div className="grid lg:grid-cols-4 mt-3">
               <InputField
                 id="labourCess01"
@@ -960,15 +972,19 @@ const Payment = () => {
         </div>
 
         {/* Green fee charge  */}
-        <div className="divide-y-2 divide-gray-300 nm_Container mt-3 px-2 py-5">
-          <div className="flex items-center mb-2 px-2">
+        <div className="nm_Container mt-3 px-2 py-5">
+          <div className="flex items-center -mb-2 px-2">
             <HiCurrencyRupee size={30} className="text-normalViolet" />
             <h3 className="font-bold text-xl text-gray-900 ml-3">
               Green fee charge
             </h3>
           </div>
 
-          <div>
+          <div className="px-2">
+            <hr className="w-full h-[1.5px] inline-block bg-gray-400" />
+          </div>
+
+          <div className="-mt-2">
             <div className="grid lg:grid-cols-4 mt-3">
               <InputField
                 id="greenFeeCharge"

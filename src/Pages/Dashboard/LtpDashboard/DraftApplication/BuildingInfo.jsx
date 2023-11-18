@@ -665,7 +665,7 @@ const BuildingInfo = () => {
             <h3 className="font-bold text-xl ml-2">General Information</h3>
           </div>
 
-          <div className="px-3">
+          <div className="px-2">
             <hr className="w-full h-[1.5px] inline-block bg-gray-400" />
           </div>
 
@@ -1042,7 +1042,7 @@ const BuildingInfo = () => {
             <h3 className="font-bold text-xl ml-2">Plot Details</h3>
           </div>
 
-          <div className="px-3">
+          <div className="px-2">
             <hr className="w-full h-[1.5px] inline-block bg-gray-400" />
           </div>
 
@@ -1500,7 +1500,7 @@ const BuildingInfo = () => {
             <h3 className="font-bold text-xl ml-3">Schedule of Boundaries</h3>
           </div>
 
-          <div className="px-3">
+          <div className="px-2">
             <hr className="w-full h-[1.5px] inline-block bg-gray-400" />
           </div>
 
