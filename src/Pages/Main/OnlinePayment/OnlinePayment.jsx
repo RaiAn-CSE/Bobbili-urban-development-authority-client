@@ -49,8 +49,8 @@ const OnlinePayment = () => {
 
   console.log(filteredData, "FILTERED DATA");
   return (
-    <div className="h-full font-lg w-full px-4 mt-5 font-roboto bg-[#E8EAEC]">
-      <div className={HomeCss.searchInputContainer}>
+    <div className="h-full font-lg w-full px-2 mt-5 font-roboto bg-[#E8EAEC]">
+      <div className={`${HomeCss.searchInputContainer} mx-2`}>
         <input
           placeholder="Application no. or owner name"
           className={`${HomeCss.searchInput} text-gray-900 focus:border-violet-500 focus:outline-none focus:ring-2 ring-violet-100`}
@@ -83,7 +83,7 @@ const OnlinePayment = () => {
       </div>
 
       {/* Application details  */}
-      <div className="mt-5">
+      <div className="mt-7">
         <div className="-mb-3">
           <h3 className="w-fit basis-[50%] text-black text-lg  pl-3 font-semibold ">
             Application details:
@@ -156,7 +156,7 @@ const OnlinePayment = () => {
       </div>
 
       {/* Fees details  */}
-      <div className="mt-10">
+      <div className="mt-12">
         <div className="flex -mb-3">
           <h3 className="basis-[50%] text-lg pl-3 font-semibold text-gray-900">
             Fees details:
@@ -216,7 +216,7 @@ const OnlinePayment = () => {
           login only.
         </h3>
       </div>
-      <div className="flex justify-end px-1 pb-5">
+      <div className="flex justify-end px-3 pb-6">
         <button
           className={`btn3D px-3 py-2 justify-center items-center`}
         >

@@ -49,8 +49,8 @@ const ListOfLTP = () => {
   }
 
   return (
-    <div className="w-full h-full px-4 mt-5">
-      <div className={HomeCss.searchInputContainer}>
+    <div className="w-full h-full px-2 mt-5">
+      <div className={`${HomeCss.searchInputContainer} mx-2`}>
         <input
           placeholder="Search LTP by name"
           className={`${HomeCss.searchInput} text-gray-900 focus:border-violet-500 focus:outline-none focus:ring-2 ring-violet-100`}
@@ -83,9 +83,8 @@ const ListOfLTP = () => {
       </div>
 
       {/* Location details  */}
-
-      <div className="container mx-auto font-roboto ">
-        <div className="mt-5 pb-4">
+      <div className="container px-2 font-roboto mt-9">
+        <div className="pb-4">
           <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
             <table className="min-w-full leading-normal text-center">
               {/* head */}
