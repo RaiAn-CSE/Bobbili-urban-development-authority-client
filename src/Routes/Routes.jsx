@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../Layouts/DashboardLayout";
 import Dashboard from "../Pages/Shared/Dashboard";
-import PrivateRoute from "./PrivateRoute";
+import PrivateRoute from "../Routes/PrivateRoutes/PrivateRoute";
 import DraftApplication from "../Pages/Dashboard/LtpDashboard/DraftApplication/DraftApplication";
 import NewApplication from "../Pages/Dashboard/LtpDashboard/DraftApplication/NewApplication";
 import BuildingInfo from "../Pages/Dashboard/LtpDashboard/DraftApplication/BuildingInfo";
@@ -38,6 +38,11 @@ import PlotDetails from "../Pages/Dashboard/UDA/PlotDetails/PlotDetails";
 import RevenueReport from "../Pages/Dashboard/UDA/RevenueReport/RevenueReport";
 import VerificationStatus from "../Pages/Dashboard/UDA/VerificationStatus/VerificationStatus";
 import ResubmitApplication from "../Pages/Dashboard/LtpDashboard/Resubmit/ResubmitApplication";
+import AdminRoute from "./PrivateRoutes/AdminRoute";
+import BothUserRoute from "./PrivateRoutes/BothUserRoute";
+import LtpRoute from "./PrivateRoutes/LtpRoute";
+import PsRoute from "./PrivateRoutes/PsRoute";
+import UdaRoute from "./PrivateRoutes/UdaRoute";
 
 const router = createBrowserRouter([
   {
@@ -101,99 +106,99 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/addUser",
         element: (
-          <PrivateRoute>
+          <AdminRoute>
             <AddUser />
-          </PrivateRoute>
+          </AdminRoute>
         ),
       },
       {
         path: "/dashboard/allUser",
         element: (
-          <PrivateRoute>
+          <AdminRoute>
             <AllUsers />
-          </PrivateRoute>
+          </AdminRoute>
         ),
       },
       {
         path: "/dashboard/updateLocation",
         element: (
-          <PrivateRoute>
+          <AdminRoute>
             <UpdateLocation />
-          </PrivateRoute>
+          </AdminRoute>
         ),
       },
       {
         path: "/dashboard/draftApplication",
         element: (
-          <PrivateRoute>
+          <BothUserRoute>
             {" "}
             <DraftApplication />{" "}
-          </PrivateRoute>
+          </BothUserRoute>
         ),
         children: [
           {
             path: "/dashboard/draftApplication",
             element: (
-              <PrivateRoute>
+              <LtpRoute>
                 {" "}
                 <NewApplication />{" "}
-              </PrivateRoute>
+              </LtpRoute>
             ),
           },
           {
             path: "/dashboard/draftApplication/buildingInfo",
             element: (
-              <PrivateRoute>
+              <BothUserRoute>
                 <BuildingInfo />
-              </PrivateRoute>
+              </BothUserRoute>
             ),
           },
           {
             path: "/dashboard/draftApplication/applicantInfo",
             element: (
-              <PrivateRoute>
+              <BothUserRoute>
                 <ApplicantInfo />
-              </PrivateRoute>
+              </BothUserRoute>
             ),
           },
           {
             path: "/dashboard/draftApplication/applicationChecklist",
             element: (
-              <PrivateRoute>
+              <BothUserRoute>
                 <AppChecklist />
-              </PrivateRoute>
+              </BothUserRoute>
             ),
           },
           {
             path: "/dashboard/draftApplication/documents",
             element: (
-              <PrivateRoute>
+              <BothUserRoute>
                 <Documents />
-              </PrivateRoute>
+              </BothUserRoute>
             ),
           },
           {
             path: "/dashboard/draftApplication/drawing",
             element: (
-              <PrivateRoute>
+              <BothUserRoute>
                 <Drawing />
-              </PrivateRoute>
+              </BothUserRoute>
             ),
           },
           {
             path: "/dashboard/draftApplication/payment",
             element: (
-              <PrivateRoute>
+              <BothUserRoute>
                 <Payment />
-              </PrivateRoute>
+              </BothUserRoute>
             ),
           },
           {
             path: "/dashboard/draftApplication/siteInspection",
             element: (
-              <PrivateRoute>
+              <PsRoute>
                 <SiteInspection />
-              </PrivateRoute>
+              </PsRoute>
             ),
           },
         ],
@@ -201,65 +206,65 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/submitApplication",
         element: (
-          <PrivateRoute>
+          <LtpRoute>
             <SubmitApplication />
-          </PrivateRoute>
+          </LtpRoute>
         ),
       },
       {
         path: "/dashboard/approvedApplication",
         element: (
-          <PrivateRoute>
+          <LtpRoute>
             <Approved />
-          </PrivateRoute>
+          </LtpRoute>
         ),
       },
       {
         path: "/dashboard/shortfallApplication",
         element: (
-          <PrivateRoute>
+          <LtpRoute>
             <Shortfall />
-          </PrivateRoute>
+          </LtpRoute>
         ),
       },
       {
         path: "/dashboard/rejectedApplications",
         element: (
-          <PrivateRoute>
+          <LtpRoute>
             <RejectedApplications />
-          </PrivateRoute>
+          </LtpRoute>
         ),
       },
       {
         path: "/dashboard/resubmitApplication",
         element: (
-          <PrivateRoute>
+          <LtpRoute>
             <ResubmitApplication />
-          </PrivateRoute>
+          </LtpRoute>
         ),
       },
       {
         path: "/dashboard/inWard",
         element: (
-          <PrivateRoute>
+          <PsRoute>
             <Inward />
-          </PrivateRoute>
+          </PsRoute>
         ),
       },
       {
         path: "/dashboard/outWard",
         element: (
-          <PrivateRoute>
+          <PsRoute>
             <Outward />
-          </PrivateRoute>
+          </PsRoute>
         ),
       },
       {
         path: "/dashboard/searchApplication",
         element: (
-          <PrivateRoute>
+          <PsRoute>
             <SearchApplications />
-          </PrivateRoute>
+          </PsRoute>
         ),
       },
       {
@@ -276,19 +281,35 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/plotDetails",
-        element: <PlotDetails />,
+        element: (
+          <UdaRoute>
+            <PlotDetails />
+          </UdaRoute>
+        ),
       },
       {
         path: "/dashboard/revenueReport",
-        element: <RevenueReport />,
+        element: (
+          <UdaRoute>
+            <RevenueReport />
+          </UdaRoute>
+        ),
       },
       {
         path: "/dashboard/verificationStatus",
-        element: <VerificationStatus />,
+        element: (
+          <UdaRoute>
+            <VerificationStatus />
+          </UdaRoute>
+        ),
       },
       {
         path: "/dashboard/profile",
-        element: <UpdateProfile />,
+        element: (
+          <PrivateRoute>
+            <UpdateProfile />
+          </PrivateRoute>
+        ),
       },
     ],
   },

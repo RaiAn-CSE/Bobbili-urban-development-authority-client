@@ -11,6 +11,7 @@ const PrivateRoute = ({ children }) => {
   }
 
   if (!user) {
+    localStorage.clear();
     return <Navigate to="/" state={{ from: location }} />;
   }
 };

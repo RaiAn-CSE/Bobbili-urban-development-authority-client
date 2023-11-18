@@ -574,7 +574,10 @@ const ResubmitApplication = () => {
 
             {/* submit btns  */}
             <div className="flex justify-between my-10 mx-6">
-              <button class="nm_Container overflow-hidden w-24 p-2 h-12 bg-normalViolet text-white border-none rounded-md text-base uppercase font-bold cursor-pointer relative z-10 group">
+              <button
+                class="nm_Container overflow-hidden w-24 p-2 h-12 bg-normalViolet text-white border-none rounded-md text-base uppercase font-bold cursor-pointer relative z-10 group"
+                onClick={() => navigate(-1)}
+              >
                 Go
                 <span class="absolute w-36 h-32 -top-8 -left-2 bg-white rotate-12 transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-500 duration-1000 origin-left"></span>
                 <span class="absolute w-36 h-32 -top-8 -left-2 bg-[#8F85F6] rotate-12 transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-700 duration-700 origin-left"></span>
