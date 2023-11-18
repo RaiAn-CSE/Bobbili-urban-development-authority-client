@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import MainPageInput from "../MainPageInput";
 import { GiMoneyStack } from "react-icons/gi";
+import { IoIosSend, IoMdSend } from "react-icons/io";
 import { AuthContext } from "../../../AuthProvider/AuthProvider";
 import HomeCss from "../../../Style/Home.module.css";
 
@@ -238,10 +239,10 @@ const OnlinePayment = () => {
       </div>
       <div className="flex justify-end px-1 pb-5">
         <button
-          className={`fancy-button text-sm flex justify-center items-center`}
+          className={`save-btn bg-[#8980FD] px-3 py-2 rounded-full nm_Container text-sm flex justify-center items-center`}
         >
-          <GiMoneyStack size={25} />
-          <span className="ml-1">pay now</span>
+          <IoIosSend size={20} />
+          <span className="ml-1 ">pay now</span>
         </button>
       </div>
     </div>
