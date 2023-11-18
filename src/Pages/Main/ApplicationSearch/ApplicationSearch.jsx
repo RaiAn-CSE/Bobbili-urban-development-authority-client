@@ -7,6 +7,7 @@ import HomeCss from "../../../Style/Home.module.css";
 import { VscDebugContinue } from "react-icons/vsc";
 import ProceedingModal from "../../Shared/ProceedingModal";
 import Application from "../../Dashboard/LtpDashboard/DraftApplication/Application";
+import DrawingModal from "../../Shared/DrawingModal";
 
 const ApplicationSearch = () => {
   const [applicationData, setApplicationData] = useState([]);
@@ -14,6 +15,7 @@ const ApplicationSearch = () => {
   const [status, setStatus] = useState(null);
   const [openApplication, setOpenApplication] = useState(false);
   const [openProceeding, setOpenProceeding] = useState(false);
+  const [openDrawing, setOpenDrawing] = useState(false);
 
   // console.log(filteredData, 'filteredData');
 
@@ -248,7 +250,7 @@ const ApplicationSearch = () => {
         </div>
       </div>
 
-      <div className="flex justify-center items-center mt-14 pb-9 space-x-10 dark:text-gray-600">
+      <div className="flex justify-center items-center font-roboto mt-14 pb-9 space-x-10 dark:text-gray-600">
         <button
           className="btn3D w-[100px] h-[75px] flex flex-col justify-center items-center"
           onClick={() => setOpenApplication(true)}
@@ -260,7 +262,13 @@ const ApplicationSearch = () => {
           <h4 className="text-base font-semibold">Application</h4>
         </button>
 
-        <button className="btn3D w-[100px] h-[75px] flex flex-col justify-center items-center">
+        <button
+          className="btn3D w-[100px] h-[75px] flex flex-col justify-center items-center"
+          disabled={
+            filteredData === null ||
+            filteredData?.status?.toLowerCase() !== "approved"
+          }
+        >
           <span className="grid justify-center items-center">
             <BsHouses className="text-violet-500" size={25} />
           </span>
@@ -300,6 +308,13 @@ const ApplicationSearch = () => {
           modalProceeding={{ setOpenProceeding, openProceeding, filteredData }}
         />
       ) : null}
+
+      {/* drawing modal  */}
+      {openDrawing && filteredData && (
+        <DrawingModal
+          modalStates={{ openDrawing, setOpenDrawing, filteredData }}
+        />
+      )}
     </div>
   );
 };

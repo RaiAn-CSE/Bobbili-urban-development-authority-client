@@ -163,7 +163,9 @@ const ShowRevenueReports = ({ serialNo, applicationData }) => {
         </p>
       </td>
       <td className="p-3 text-sm">
-        <p className="text-gray-900 ">{submitDate ?? "N/A"}</p>
+        <p className="text-gray-900 ">
+          {gramaPanchayatFee?.gramaSiteApprovalCharged ?? "N/A"}
+        </p>
       </td>
       <td className="p-3 text-sm">
         <p className="text-gray-900 ">

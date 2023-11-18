@@ -8,7 +8,7 @@ const DrawingModal = ({ modalStates }) => {
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
   const cameFrom = JSON.parse(localStorage.getItem("page"));
 
-  const { openDrawing, setOpenDrawing } = modalStates;
+  const { openDrawing, setOpenDrawing, filteredData } = modalStates;
   const [dataFromDB, setDataFromDB] = useState({});
   console.log(modalStates, "Modal states");
   useEffect(() => {
@@ -17,14 +17,21 @@ const DrawingModal = ({ modalStates }) => {
       modal.showModal();
     }
 
-    const getData = async () => {
-      const applicationData = await getApplicationData(applicationNo, cameFrom);
-      console.log(applicationData, "All info ApplicationData");
-      if (Object.keys(applicationData)?.length) {
-        setDataFromDB(applicationData);
-      }
-    };
-    getData();
+    if (filteredData) {
+      setDataFromDB(filteredData);
+    } else {
+      const getData = async () => {
+        const applicationData = await getApplicationData(
+          applicationNo,
+          cameFrom
+        );
+        console.log(applicationData, "All info ApplicationData");
+        if (Object.keys(applicationData)?.length) {
+          setDataFromDB(applicationData);
+        }
+      };
+      getData();
+    }
   }, []);
 
   const BASE_URL =
