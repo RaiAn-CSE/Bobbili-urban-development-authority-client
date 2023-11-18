@@ -1,11 +1,15 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Loading from "../../../Shared/Loading";
 import { useDownloadExcel } from "react-export-table-to-excel";
 import Style from "../../../../Style/TableDownloadBtn.module.css";
+import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 
 const VerificationStatus = () => {
+  const { fetchDataFromTheDb } = useContext(AuthContext);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [data, setData] = useState([]);
   const verificationTableRef = useRef(null);
 
   const { onDownload } = useDownloadExcel({
@@ -13,6 +17,22 @@ const VerificationStatus = () => {
     filename: "VerificationStatus",
     sheet: "VerificationStatus",
   });
+
+  useEffect(() => {
+    setLoading(true);
+    setError("");
+    fetchDataFromTheDb("http://localhost:5000/getVerificationStatus")
+      .then((result) => {
+        setLoading(false);
+        setError("");
+        console.log(result);
+        setData(result);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
+  }, []);
 
   if (loading) {
     return <Loading />;
@@ -84,23 +104,31 @@ const VerificationStatus = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="border-b border-gray-200 dark:text-black hidden md:table-row">
-                    <td className="p-3 text-sm">
-                      <p className="text-gray-900 ">Hi</p>
-                    </td>
-                    <td className="p-3 text-sm">
-                      <p className="text-gray-900 ">Hi</p>
-                    </td>
-                    <td className="p-3 text-sm">
-                      <p className="text-gray-900 ">Hi</p>
-                    </td>
-                    <td className="p-3 text-sm">
-                      <p className="text-gray-900 ">Hi</p>
-                    </td>
-                    <td className="p-3 text-sm">
-                      <p className="text-gray-900 ">Hi</p>
-                    </td>
-                  </tr>
+                  {data?.length !== 0 &&
+                    data?.map((item, index) => {
+                      return (
+                        <tr
+                          key={index}
+                          className="border-b border-gray-200 dark:text-black hidden md:table-row"
+                        >
+                          <td className="p-3 text-sm">
+                            <p className="text-gray-900 ">{item?.psName}</p>
+                          </td>
+                          <td className="p-3 text-sm">
+                            <p className="text-gray-900 ">{item?.psContact}</p>
+                          </td>
+                          <td className="p-3 text-sm">
+                            <p className="text-gray-900 ">{item?.assigned}</p>
+                          </td>
+                          <td className="p-3 text-sm">
+                            <p className="text-gray-900 ">{item?.verified}</p>
+                          </td>
+                          <td className="p-3 text-sm">
+                            <p className="text-gray-900 ">{item?.pending}</p>
+                          </td>
+                        </tr>
+                      );
+                    })}
                 </tbody>
               </table>
             </div>
