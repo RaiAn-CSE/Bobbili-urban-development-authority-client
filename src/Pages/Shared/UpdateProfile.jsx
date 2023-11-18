@@ -7,9 +7,9 @@ import toast from "react-hot-toast";
 import UpdateProfileInput from "./UpdateProfileInput";
 import { MdContactPhone } from "react-icons/md";
 import { FaAddressCard } from "react-icons/fa";
-import userInfoLogo from '../../assets/user_logo/user_info_svg.svg'
-import userContactLogo from '../../assets/user_logo/contact_info.svg'
-import userAddressLogo from '../../assets/user_logo/address_info.svg'
+import userInfoLogo from "../../assets/user_logo/user_info_svg.svg";
+import userContactLogo from "../../assets/user_logo/contact_info.svg";
+import userAddressLogo from "../../assets/user_logo/address_info.svg";
 
 const UpdateProfile = () => {
   const { userInfoFromLocalStorage } = useContext(AuthContext);
@@ -379,7 +379,7 @@ const UpdateProfile = () => {
         <div className="flex justify-center">
           <button
             type="submit"
-            className="text-white transition-all duration-700 shadow-md hover:shadow-violetDark bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:bg-gradient-to-l font-bold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+            className="text-white transition-all duration-700 fancy-button bg-normalViolet font-bold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
           >
             Update
           </button>

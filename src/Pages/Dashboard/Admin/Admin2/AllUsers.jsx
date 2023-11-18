@@ -252,7 +252,7 @@ const AllUsers = () => {
                   {/* close the modal  */}
                   <form method="dialog">
                     <button
-                      className="btn btn-sm btn-circle btn-ghost fixed right-2 top-2 dark:text-white"
+                      className="btn btn-sm btn-circle nm_Container bg-normalViolet hover:bg-normalViolet btn-ghost fixed right-2 top-2 text-white"
                       htmlFor="update_user"
                     >
                       ✕
@@ -450,7 +450,7 @@ const AllUsers = () => {
                       <div className="flex justify-center">
                         <button
                           type="submit"
-                          className="text-white transition-all duration-700 shadow-md hover:shadow-violetDark bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:bg-gradient-to-l font-bold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                          className="text-white transition-all duration-700 save-btn px-5 py-3 rounded-full bg-normalViolet"
                         >
                           Submit
                         </button>

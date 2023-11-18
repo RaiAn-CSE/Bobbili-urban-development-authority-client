@@ -11,6 +11,7 @@ import signInAnimation from "../../../assets/signIn.json";
 import LoginCSS from "../../../Style/Login.module.css";
 import Lottie from "lottie-react";
 import logInImg from "../../../assets/images/wave1.svg";
+import axios from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -84,20 +85,41 @@ const Login = () => {
 
             console.log(localStorage.getItem("loggedUser"));
 
-            // set information to cookie to implement remember me functionality
+            // axios.post("http://localhost:5000/jwt",userInfo,{
+            //   withCredentials: true,
+            //   headers: {
+            //       'Access-Control-Allow-Origin': '*',
+            //       'Content-Type': 'application/json'
+            //   }).then(result=>{
 
-            if (checkbox) {
-              console.log(checkbox);
-              document.cookie = "userId=" + id + ";path=http://localhost:5173/";
-              document.cookie =
-                "password=" + password + ";path=http://localhost:5173/";
-            }
+            //   })
 
-            // move to another page after successfully login
-            setLoading(false);
-            localStorage.setItem("theme", "light");
-            toast.success("Login successfully");
-            navigate(from, { replace: true });
+            fetch("http://localhost:5000/jwt", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(userInfo),
+            })
+              .then((res) => res.json())
+              .then((result) => {
+                console.log(result);
+
+                if (result.success) {
+                  // set information to cookie to implement remember me functionality
+
+                  if (checkbox) {
+                    console.log(checkbox);
+                    document.cookie =
+                      "userId=" + id + ";path=http://localhost:5173/";
+                    document.cookie =
+                      "password=" + password + ";path=http://localhost:5173/";
+                  }
+
+                  setLoading(false);
+                  localStorage.setItem("theme", "light");
+                  toast.success("Login successfully");
+                  navigate(from, { replace: true });
+                }
+              });
           } else {
             setLoading(false);
             toast.error("Password is wrong");
@@ -245,7 +267,6 @@ const Login = () => {
                 </motion.div>
               )}
             </div>
-
           </form>
         </div>
       </div>
