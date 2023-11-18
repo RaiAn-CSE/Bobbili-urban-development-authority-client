@@ -234,7 +234,7 @@ const DraftApplication = () => {
                 )}
             </div>
           </div>
-          <div className="w-full steps steps-vertical lg:steps-horizontal rounded-lg py-4 lg:relative font-roboto ">
+          <div className="w-full steps steps-vertical lg:steps-horizontal rounded-lg py-4 lg:relative font-roboto">
             {stepsContent.map((step, index) => (
               <div
                 key={index}
@@ -243,7 +243,7 @@ const DraftApplication = () => {
                 onClick={() => handleStepClick(index)}
               >
                 <button
-                  className={`${btnClass} ${completeBtn(index)} ${role !== "PS" ? 'w-[160px]' : 'w-[135px]'} text-sm border-0 nm_Container lg:absolute top-3 z-10`}
+                  className={`${btnClass} ${completeBtn(index)} ${role !== "PS" ? 'w-[50%] lg:w-[15%]' : 'w-[50%] lg:w-[13%]'} text-sm border-0 nm_Container lg:absolute top-3 z-10`}
                 >
                   {role !== "PS" && icons[index]}
                   <span>{step}</span>

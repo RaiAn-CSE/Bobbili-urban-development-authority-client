@@ -658,7 +658,7 @@ const BuildingInfo = () => {
         {/* divide-y-2 divide-gray-300  */}
         <div className="nm_Container mt-3 px-2 py-5 mb-10">
 
-          <div className="pl-2 flex items-center">
+          <div className="pl-2 flex items-center -mb-2">
             <div className=" text-normalViolet">
               <HiInformationCircle size={30} />
             </div>
@@ -667,7 +667,7 @@ const BuildingInfo = () => {
 
           <hr className="w-[98%] h-[1.5px] inline-block ml-2 bg-gray-400" />
 
-          <div className="grid grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 -mt-2">
             <div className="flex flex-col justify-center my-4 px-3">
               <label htmlFor="nature" className={labelClass}>
                 Case Type

@@ -273,11 +273,6 @@ const ShowCharts = () => {
 
   return (
     <>
-      {/* {!path.includes("/statistics") && (
-        <p className="text-2xl font-bold font-roboto ml-6 mt-5 text-black">
-          Dashboard:
-        </p>
-      )} */}
       {error?.length !== 0 ? (
         <div className="flex flex-col justify-center items-center min-h-[calc(100vh - 10%)]">
           <Lottie
@@ -291,17 +286,17 @@ const ShowCharts = () => {
         </div>
       ) : (
         <>
-          <form className="flex justify-between items-center font-roboto my-8 z-[10] px-10">
+          <form className="flex justify-between items-center font-roboto my-8 z-[10] px-10 text-gray-900">
             {/* district  */}
             <div className="nm_Container basis-[23%] z-[10] p-3 py-6 rounded-lg ">
               <label
                 htmlFor="district"
-                className="flex items-center mb-4 text-xl font-bold text-white"
+                className="flex items-center mb-4 text-xl font-bold"
               >
                 <span className={selectorBoxLabel}>
-                  <MdLocationCity size={25} />
+                  <MdLocationCity color="white" size={25} />
                 </span>
-                <span className="text-[#B67EEE]">District</span>
+                <span className="">District</span>
               </label>
               <select
                 id="district"
@@ -330,12 +325,12 @@ const ShowCharts = () => {
             <div className="nm_Container basis-[23%] z-[10] p-3 py-6 rounded-lg">
               <label
                 htmlFor="mandal"
-                className="flex items-center mb-5 text-lg font-bold text-white"
+                className="flex items-center mb-5 text-lg font-bold"
               >
                 <span className={selectorBoxLabel}>
-                  <FaTreeCity size={25} />
+                  <FaTreeCity color="white" size={25} />
                 </span>
-                <span className="text-[#B67EEE]">Mandal</span>
+                <span>Mandal</span>
               </label>
               <select
                 id="mandal"
@@ -365,12 +360,12 @@ const ShowCharts = () => {
             <div className="nm_Container basis-[23%] z-[10] p-3 py-6 rounded-lg">
               <label
                 htmlFor="panchayat"
-                className="flex items-center mb-5 text-lg font-bold text-white"
+                className="flex items-center mb-5 text-lg font-bold"
               >
                 <span className={selectorBoxLabel}>
-                  <MdForest size={20} />
+                  <MdForest color="white" size={20} />
                 </span>
-                <span className="text-[#B67EEE]">Grama Panchayat</span>
+                <span>Grama Panchayat</span>
               </label>
               <select
                 id="panchayat"
@@ -397,12 +392,12 @@ const ShowCharts = () => {
               <div className="nm_Container basis-[23%] z-[10]  p-3 py-6 rounded-lg">
                 <label
                   htmlFor="date"
-                  className="flex items-center mb-5 text-lg font-bold text-white"
+                  className="flex items-center mb-5 text-lg font-bold"
                 >
                   <span className={selectorBoxLabel}>
-                    <BsCalendar3 size={20} />
+                    <BsCalendar3 color="white" size={20} />
                   </span>
-                  <span className="text-[#B67EEE]">Date</span>
+                  <span>Date</span>
                 </label>
                 <select
                   id="date"
