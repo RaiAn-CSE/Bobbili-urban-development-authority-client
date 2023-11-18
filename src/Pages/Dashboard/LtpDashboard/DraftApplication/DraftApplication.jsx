@@ -12,6 +12,7 @@ import Application from "./Application";
 import EndorsementModal from "../../../Shared/EndorsementModal";
 import ProceedingModal from "../../../Shared/ProceedingModal";
 import { AiFillPieChart } from "react-icons/ai";
+import { AnimatePresence, motion } from "framer-motion"
 
 const DraftApplication = () => {
   const navigate = useNavigate();
@@ -187,6 +188,8 @@ const DraftApplication = () => {
                     <VscDebugContinue className="text-lg" />{" "}
                     <span>Proceeding</span>
                   </button>
+
+
 
                   <button
                     className={`btn btn-sm text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white me-5 dark:border-none`}

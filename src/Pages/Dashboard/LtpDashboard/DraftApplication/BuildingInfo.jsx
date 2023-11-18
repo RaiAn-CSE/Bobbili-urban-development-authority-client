@@ -10,7 +10,7 @@ import { useOutletContext, useLocation } from "react-router";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import SaveData from "./SaveData";
 import FloorDetails from "./FloorDetails";
-import { motion, spring } from "framer-motion";
+import { motion } from "framer-motion"
 import { AiOutlineAreaChart } from "react-icons/ai";
 
 const BuildingInfo = () => {

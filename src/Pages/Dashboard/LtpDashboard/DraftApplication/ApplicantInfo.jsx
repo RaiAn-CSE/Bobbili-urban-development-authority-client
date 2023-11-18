@@ -10,6 +10,7 @@ import useGetUser from "../../../CustomHook/useGetUser";
 import { BiSolidUserDetail } from "react-icons/bi";
 import { FaBuildingUser } from "react-icons/fa6";
 
+
 const ApplicantInfo = () => {
   const stepperData = useOutletContext();
 
@@ -182,6 +183,7 @@ const ApplicantInfo = () => {
   const inputClass =
     "w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-violet-600 focus:outline-none focus:ring-2 ring-violet-100";
 
+
   return (
     <div className="grid my-5 mx-5 lg:my-0 text-gray-900">
       {/* LTP’s Details  */}
@@ -278,10 +280,7 @@ const ApplicantInfo = () => {
       </div>
 
       {/* Owner’s Details  */}
-      <div className="divide-y-2 divide-gray-400 nm_Container mt-3 px-2 py-5"
-
-
-      >
+      <div className="divide-y-2 divide-gray-400 nm_Container mt-3 px-2 py-5">
         <div className="flex items-center mb-2 px-2">
           <FaBuildingUser size={30} className="text-normalViolet" />
           <h3 className="font-bold text-xl ml-3">Owner’s Details</h3>
