@@ -12,6 +12,7 @@ import Application from "./Application";
 import EndorsementModal from "../../../Shared/EndorsementModal";
 import ProceedingModal from "../../../Shared/ProceedingModal";
 import { AiFillPieChart } from "react-icons/ai";
+import DrawingModal from "../../../Shared/DrawingModal";
 
 const DraftApplication = () => {
   const navigate = useNavigate();
@@ -20,8 +21,7 @@ const DraftApplication = () => {
   const [openApplication, setOpenApplication] = useState(false);
   const [openProceeding, setOpenProceeding] = useState(false);
   const [openEndorsement, setOpenEndorsement] = useState(false);
-
-
+  const [openDrawing, setOpenDrawing] = useState(false);
 
   // const { applicationNo } = location.state;
   // console.log(
@@ -151,7 +151,7 @@ const DraftApplication = () => {
 
   console.log(
     applicationButtonForDraftApplication &&
-    (cameFrom === "draft" || cameFrom === "submit")
+      (cameFrom === "draft" || cameFrom === "submit")
   );
 
   const applicationButtonForApprovedOrShortfallApplication =
@@ -190,6 +190,7 @@ const DraftApplication = () => {
 
                   <button
                     className={`btn btn-sm text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white me-5 dark:border-none`}
+                    onClick={() => setOpenDrawing(true)}
                   >
                     <AiFillPieChart className="text-lg" /> <span>Drawing</span>
                   </button>
@@ -208,9 +209,8 @@ const DraftApplication = () => {
                     // Open the modal using document.getElementById('ID').showModal() method
                     onClick={() => {
                       // document.getElementById("my_modal_2").showModal();
-                      setOpenEndorsement(true)
-                    }
-                    }
+                      setOpenEndorsement(true);
+                    }}
                     className={`btn btn-sm me-5 text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white dark:border-none`}
                   >
                     <VscReferences className="text-lg" />{" "}
@@ -221,14 +221,14 @@ const DraftApplication = () => {
 
               {(applicationButtonForDraftApplication ||
                 applicationButtonForApprovedOrShortfallApplication) && (
-                  <button
-                    onClick={() => setOpenApplication(true)}
-                    className={`btn btn-sm text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white dark:border-none`}
-                  >
-                    <HiOutlineClipboardDocumentList className="text-lg" />{" "}
-                    <span>Application</span>
-                  </button>
-                )}
+                <button
+                  onClick={() => setOpenApplication(true)}
+                  className={`btn btn-sm text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white dark:border-none`}
+                >
+                  <HiOutlineClipboardDocumentList className="text-lg" />{" "}
+                  <span>Application</span>
+                </button>
+              )}
             </div>
           </div>
           <div className="mb-5 font-roboto">
@@ -237,12 +237,16 @@ const DraftApplication = () => {
                 <button
                   key={index}
                   data-content={index + 1}
-                  className={`${stepClasses(index)} lg:relative lg:pt-1 flex justify-center`}
+                  className={`${stepClasses(
+                    index
+                  )} lg:relative lg:pt-1 flex justify-center`}
                   onClick={() => handleStepClick(index)}
                 >
                   <div className="lg:absolute lg:top-0 z-10">
                     <span
-                      className={`${btnClass} ${completeBtn(index)} w-[300px] lg:w-[160px] text-sm border-0 nm_Container`}
+                      className={`${btnClass} ${completeBtn(
+                        index
+                      )} w-[300px] lg:w-[160px] text-sm border-0 nm_Container`}
                     >
                       {role !== "PS" && icons[index]}
                       {step}
@@ -253,8 +257,7 @@ const DraftApplication = () => {
             </div>
           </div>
         </>
-      )
-      }
+      )}
 
       {/* content  */}
       <Outlet
@@ -262,27 +265,33 @@ const DraftApplication = () => {
       />
 
       {/* proceedingModal modal info  */}
-      {
-        openProceeding ?
-          <ProceedingModal modalProceeding={{ setOpenProceeding, openProceeding }} />
-          : ""
-      }
+      {openProceeding ? (
+        <ProceedingModal
+          modalProceeding={{ setOpenProceeding, openProceeding }}
+        />
+      ) : (
+        ""
+      )}
 
       {/* my_modal_2 modal info : */}
-      {
-        openEndorsement ?
-          <EndorsementModal modalEndorsement={{ setOpenEndorsement, openEndorsement }} />
-          : ""
-      }
+      {openEndorsement ? (
+        <EndorsementModal
+          modalEndorsement={{ setOpenEndorsement, openEndorsement }}
+        />
+      ) : (
+        ""
+      )}
 
       {/* Application Modal */}
-      {
-        openApplication ? (
-          <Application setOpenApplication={setOpenApplication} />
-        ) : (
-          ""
-        )
-      }
+      {openApplication ? (
+        <Application setOpenApplication={setOpenApplication} />
+      ) : (
+        ""
+      )}
+
+      {openDrawing && (
+        <DrawingModal modalStates={{ openDrawing, setOpenDrawing }} />
+      )}
     </>
   );
 };

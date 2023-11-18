@@ -100,7 +100,7 @@ const SaveData = ({
   return (
     <>
       {isStepperVisible && ( // Render the stepper only when isStepperVisible is true
-        <div className="flex justify-end my-8 px-10">
+        <div className="flex justify-end my-6 px-10">
           {role === "LTP" &&
             (currentStep !== steps.length - 1 ? (
               <button
@@ -191,7 +191,7 @@ const SaveData = ({
           {role === "PS" && (
             <>
               <button
-                className={`btn btn-md nm_Container bg-normalViolet ${hiddenSaveButtonForPS} text-sm text-white px-7 mt-5 ml-3  hover:bg-bgColor hover:text-normalViolet border-0 transition-all duration-500 `}
+                className={`save-btn flex items-center nm_Container bg-[#7465EA] ${hiddenSaveButtonForPS} text-sm text-white px-7 mt-5 ml-3  hover:bg-bgColor hover:text-normalViolet border-0 uppercase transition-all duration-500 `}
                 onClick={() => {
                   confirmAlert(undefined, collectInputFieldData, {
                     page: "PS site inspection data save",
@@ -199,13 +199,13 @@ const SaveData = ({
                   });
                 }}
               >
-                <BsFillSaveFill />
+                <BsFillSaveFill size={16} className="mr-2" />
                 Save
               </button>
               {location.pathname.includes("siteInspection") &&
                 isApproved === 1 && (
                   <button
-                    className={`btn btn-md text-sm px-7 mt-5 ml-6 shadow-md hover:shadow-violetDark border-0 transition-all duration-500 bg-black hover:bg-black text-white`}
+                    className={`fancy-button text-sm px-7 mt-5 ml-6  border-0 transition-all duration-500 text-white`}
                     onClick={() => {
                       localStorage.setItem(
                         "PSDecision",

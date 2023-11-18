@@ -607,7 +607,7 @@ function Application({ setOpenApplication, filteredData }) {
           >
             <button
               onClick={() => setOpenApplication(false)}
-              className={`flex justify-center items-center hover:bg-white text-base rounded-full bg-violet-500 text-white border-2 border-violet-500 hover:text-violet-600 px-4 py-2 transition-all duration-1000 font-bold`}
+              className={`flex justify-center items-center text-base rounded-full bg-violet-500 text-white border-2 border-violet-500  px-4 py-2 transition-all duration-1000 font-bold fancy-button`}
             >
               <span className="">Close</span>
               {/* <RxCross2 className="text-xl ms-1 rounded-full" /> */}

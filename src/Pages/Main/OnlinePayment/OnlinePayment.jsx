@@ -238,7 +238,7 @@ const OnlinePayment = () => {
       </div>
       <div className="flex justify-end px-1 pb-5">
         <button
-          className={`btn3D px-3 py-2 justify-center items-center`}
+          className={`fancy-button text-sm flex justify-center items-center`}
         >
           <GiMoneyStack size={25} />
           <span className="ml-1">pay now</span>
