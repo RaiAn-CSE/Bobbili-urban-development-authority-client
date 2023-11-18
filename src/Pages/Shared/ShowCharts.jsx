@@ -268,6 +268,9 @@ const ShowCharts = () => {
   //   return <Loading />;
   // }
 
+  const selectorBoxLabel = "bg-[#B67EEE] inline-flex justify-center items-center w-[40px] h-[40px] rounded-full mr-2"
+  const selectorBox = "nm_Inset w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-violet-500 focus:outline-none focus:ring-2 ring-violet-200"
+
   return (
     <>
       {/* {!path.includes("/statistics") && (
@@ -295,14 +298,14 @@ const ShowCharts = () => {
                 htmlFor="district"
                 className="flex items-center mb-4 text-xl font-bold text-white"
               >
-                <span className="bg-[#B67EEE] inline-flex justify-center items-center w-[40px] h-[40px] rounded-full mr-2">
+                <span className={selectorBoxLabel}>
                   <MdLocationCity size={25} />
                 </span>
                 <span className="text-[#B67EEE]">District</span>
               </label>
               <select
                 id="district"
-                className="nm_Inset w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-violet-500 focus:outline-none focus:ring-2 ring-violet-200"
+                className={selectorBox}
                 defaultValue={selectedDistrict}
                 onChange={(e) => detectSelectOfDistrict(e)}
               >
@@ -329,14 +332,14 @@ const ShowCharts = () => {
                 htmlFor="mandal"
                 className="flex items-center mb-5 text-lg font-bold text-white"
               >
-                <span className="bg-[#B67EEE] inline-flex justify-center items-center w-[40px] h-[40px] rounded-full mr-2">
+                <span className={selectorBoxLabel}>
                   <FaTreeCity size={25} />
                 </span>
                 <span className="text-[#B67EEE]">Mandal</span>
               </label>
               <select
                 id="mandal"
-                className="nm_Inset w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-violet-500 focus:outline-none focus:ring-2 ring-violet-200"
+                className={selectorBox}
                 defaultValue={selectedMandal}
                 onChange={(e) => detectChangeOfMandals(e)}
                 disabled={allMandal?.length === 0}
@@ -364,14 +367,14 @@ const ShowCharts = () => {
                 htmlFor="panchayat"
                 className="flex items-center mb-5 text-lg font-bold text-white"
               >
-                <span className="bg-[#B67EEE] inline-flex justify-center items-center w-[40px] h-[40px] rounded-full mr-2">
+                <span className={selectorBoxLabel}>
                   <MdForest size={20} />
                 </span>
                 <span className="text-[#B67EEE]">Grama Panchayat</span>
               </label>
               <select
                 id="panchayat"
-                className="nm_Inset w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-violet-500 focus:outline-none focus:ring-2 ring-violet-200"
+                className={selectorBox}
                 defaultValue={selectedPanchayat}
                 disabled={allPanchayat?.length === 0}
                 onChange={(e) => detectChangeOfPanchayat(e)}
@@ -396,14 +399,14 @@ const ShowCharts = () => {
                   htmlFor="date"
                   className="flex items-center mb-5 text-lg font-bold text-white"
                 >
-                  <span className="bg-[#B67EEE] inline-flex justify-center items-center w-[40px] h-[40px] rounded-full mr-2">
+                  <span className={selectorBoxLabel}>
                     <BsCalendar3 size={20} />
                   </span>
                   <span className="text-[#B67EEE]">Date</span>
                 </label>
                 <select
                   id="date"
-                  className="nm_Inset w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-violet-500 focus:outline-none focus:ring-2 ring-violet-200"
+                  className={selectorBox}
                   defaultValue={selectedDate}
                   disabled={selectedPanchayat?.length === 0}
                   onChange={(e) => detectChangeOfDate(e)}
