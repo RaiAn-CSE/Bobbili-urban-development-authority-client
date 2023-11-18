@@ -98,7 +98,7 @@ const Payment = () => {
         generalInformation?.natureOfTheSite === "Approved Layout" ||
         generalInformation?.natureOfTheSite === "Regularised under LRS" ||
         generalInformation?.natureOfTheSite ===
-        "Congested/ Gramakanta/ Old Built-up area" ||
+          "Congested/ Gramakanta/ Old Built-up area" ||
         generalInformation?.natureOfTheSite === "Newly Developed/ Built up area"
       ) {
         setCondition(1);
@@ -295,9 +295,9 @@ const Payment = () => {
     const labourCessComponentUnitRate1 = 1400; // per Sq.ft.
     const labourCessCompo1Charged = Math.round(
       labourCessComponentUnitRate1 *
-      BuiltUp_area_SquareFeet *
-      10.76 *
-      (0.01 * 0.98)
+        BuiltUp_area_SquareFeet *
+        10.76 *
+        (0.01 * 0.98)
     );
 
     setCalculatedData({
@@ -519,18 +519,14 @@ const Payment = () => {
 
   return (
     <div className="grid my-5 mx-5 lg:my-0 text-gray-900">
-      <form
-        onSubmit={(e) => e.preventDefault()}
-        className="grid my-5 lg:my-0"
-      >
-
+      <form onSubmit={(e) => e.preventDefault()} className="grid my-5 lg:my-0">
         {/* UDA Charge  */}
-        <div className="divide-y-2 divide-gray-400 nm_Container mt-3 px-2 py-5 mb-10">
-          <div className="flex items-center mb-2 px-2">
+        <div className="nm_Container mt-3 px-2 py-5 mb-10">
+          <div className="flex items-center px-2">
             <FaCcAmazonPay size={30} className="text-normalViolet" />
             <h3 className="font-bold text-xl text-gray-900 ml-3">UDA Charge</h3>
           </div>
-
+          <hr className="w-[98%] h-[1.5px] inline-block ml-2 bg-gray-400" />
           <div className="grid grid-cols-2 lg:grid-cols-3">
             <InputField
               id="vacantArea"
@@ -730,14 +726,14 @@ const Payment = () => {
         </div>
 
         {/* Grama Panchayat fee */}
-        <div className="divide-y-2 divide-gray-400 nm_Container mt-3 px-2 py-5 mb-10">
-          <div className="flex items-center mb-2 px-2">
+        <div className="nm_Container mt-3 px-2 py-5 mb-10">
+          <div className="flex items-center px-2">
             <MdOutlinePayments size={30} className="text-normalViolet" />
             <h3 className="font-bold text-xl text-gray-900 ml-3">
               Grama Panchayat fee
             </h3>
           </div>
-
+          <hr className="w-[98%] h-[1.5px] inline-block ml-2 bg-gray-400" />
           <div>
             <div className="grid grid-cols-2 lg:grid-cols-4">
               <InputField
@@ -812,8 +808,8 @@ const Payment = () => {
                 placeholder="06-04-2023"
                 type="text"
                 ltpDetails={
-                  applicationData?.payment?.gramaPanchayatFee?.gramaChallanDate ??
-                  ""
+                  applicationData?.payment?.gramaPanchayatFee
+                    ?.gramaChallanDate ?? ""
                 }
               />
               <InputField
@@ -823,7 +819,8 @@ const Payment = () => {
                 placeholder="xxxx"
                 type="text"
                 ltpDetails={
-                  applicationData?.payment?.gramaPanchayatFee?.gramaBankName ?? ""
+                  applicationData?.payment?.gramaPanchayatFee?.gramaBankName ??
+                  ""
                 }
               />
               <InputField
@@ -833,8 +830,8 @@ const Payment = () => {
                 placeholder="xxxx"
                 type="text"
                 ltpDetails={
-                  applicationData?.payment?.gramaPanchayatFee?.gramaBankBranch ??
-                  ""
+                  applicationData?.payment?.gramaPanchayatFee
+                    ?.gramaBankBranch ?? ""
                 }
               />
             </div>
@@ -850,7 +847,8 @@ const Payment = () => {
                   />
                 )}
               </div>
-              {applicationData?.payment?.gramaPanchayatFee?.gramaBankReceipt && (
+              {applicationData?.payment?.gramaPanchayatFee
+                ?.gramaBankReceipt && (
                 <Link
                   to={`https://drive.google.com/file/d/${applicationData?.payment?.gramaPanchayatFee?.gramaBankReceipt}/view?usp=sharing`}
                   target="_blank"
@@ -865,14 +863,14 @@ const Payment = () => {
         </div>
 
         {/* Labour cess charge  */}
-        <div className="divide-y-2 divide-gray-400 nm_Container mt-3 px-2 py-5 mb-10">
-          <div className="flex items-center mb-2 px-2">
+        <div className="nm_Container mt-3 px-2 py-5 mb-10">
+          <div className="flex items-center px-2">
             <FaMoneyCheckAlt size={30} className="text-normalViolet" />
             <h3 className="font-bold text-xl text-gray-900 ml-3">
               Labour cess charge
             </h3>
           </div>
-
+          <hr className="w-[98%] h-[1.5px] inline-block ml-2 bg-gray-400" />
           <div>
             <div className="grid lg:grid-cols-4 mt-3">
               <InputField
@@ -939,35 +937,37 @@ const Payment = () => {
                     type="file"
                     className="file-input file-input-bordered w-full max-w-xs text-gray-400 bg-white dark:text-black"
                     id="labourCessBankReceipt"
-                    onChange={(e) => handleFileChange(e, "labourCessBankReceipt")}
+                    onChange={(e) =>
+                      handleFileChange(e, "labourCessBankReceipt")
+                    }
                   />
                 )}
               </div>
 
               {applicationData?.payment?.labourCessCharge
                 ?.labourCessBankReceipt && (
-                  <Link
-                    to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
-                    target="_blank"
-                    className="flex justify-center items-center ms-10 px-4 py-2 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
-                  >
-                    <MdReceiptLong className="me-1" />
-                    View Challan
-                  </Link>
-                )}
+                <Link
+                  to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
+                  target="_blank"
+                  className="flex justify-center items-center ms-10 px-4 py-2 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
+                >
+                  <MdReceiptLong className="me-1" />
+                  View Challan
+                </Link>
+              )}
             </div>
           </div>
         </div>
 
         {/* Green fee charge  */}
-        <div className="divide-y-2 divide-gray-400 nm_Container mt-3 px-2 py-5">
+        <div className="nm_Container mt-3 px-2 py-5">
           <div className="flex items-center mb-2 px-2">
             <HiCurrencyRupee size={30} className="text-normalViolet" />
             <h3 className="font-bold text-xl text-gray-900 ml-3">
               Green fee charge
             </h3>
           </div>
-
+          <hr className="w-[98%] h-[1.5px] inline-block ml-2 bg-gray-400" />
           <div>
             <div className="grid lg:grid-cols-4 mt-3">
               <InputField
@@ -1038,7 +1038,8 @@ const Payment = () => {
                   />
                 )}
               </div>
-              {applicationData?.payment?.greenFeeCharge?.greenFeeBankReceipt && (
+              {applicationData?.payment?.greenFeeCharge
+                ?.greenFeeBankReceipt && (
                 <Link
                   to={`https://drive.google.com/file/d/${applicationData?.payment?.greenFeeCharge?.greenFeeBankReceipt}/view?usp=sharing`}
                   target="_blank"
@@ -1051,8 +1052,6 @@ const Payment = () => {
             </div>
           </div>
         </div>
-
-
 
         {/* save & continue  */}
         {/* navigation button  */}

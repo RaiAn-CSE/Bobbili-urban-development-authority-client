@@ -1206,8 +1206,8 @@ ol > li:before {
   align-items: center;
   justify-content: center;
   outline: none;
-  background-image: linear-gradient(to top, #d8d9db 0%, #fff 80%, #fdfdfd 100%);
-  border: 1px solid #8b5bf6;
+  /* background-image: linear-gradient(to top, #d8d9db 0%, #fff 80%, #fdfdfd 100%); */
+  /* border: 1px solid #8b5bf6; */
   transition: all 0.1s ease;
   font-family: "Source Sans Pro", sans-serif;
   font-size: 16px;
@@ -1219,7 +1219,8 @@ ol > li:before {
 }
 
 .btn3D:focus {
-  box-shadow: none;
+  box-shadow: inset -5px -5px 9px rgba(255, 255, 255, 0.45),
+    inset 5px 5px 9px rgba(94, 104, 121, 0.3);
 }
 
 .planet::after {
