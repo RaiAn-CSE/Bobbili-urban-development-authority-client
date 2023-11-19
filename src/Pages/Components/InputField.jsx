@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
+import { motion } from "framer-motion";
 
 const InputField = ({
   id,
@@ -26,7 +27,22 @@ const InputField = ({
   // console.log(ltpDetails, "LTP details", id);
 
   return (
-    <div className="my-4 mx-3 flex flex-col justify-between">
+    <motion.div
+      className="my-4 mx-3 flex flex-col justify-between"
+      initial={{
+        opacity: 0,
+        // if odd index card,slide from right instead of left
+        y: 50,
+      }}
+      whileInView={{
+        opacity: 1,
+        y: 0, // Slide in to its original position
+        transition: {
+          duration: 2, // Animation duration
+        },
+      }}
+      viewport={{ once: false }}
+    >
       <label htmlFor={id} className="block mb-1 font-semibold text-gray-600">
         {label}
       </label>
@@ -39,7 +55,7 @@ const InputField = ({
         className="w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-violet-500 focus:outline-none focus:ring-2 ring-violet-200"
         readOnly={isReadOnly}
       />
-    </div>
+    </motion.div>
   );
 };
 

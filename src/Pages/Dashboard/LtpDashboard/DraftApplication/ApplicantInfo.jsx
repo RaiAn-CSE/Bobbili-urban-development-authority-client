@@ -9,6 +9,7 @@ import SaveData from "./SaveData";
 import useGetUser from "../../../CustomHook/useGetUser";
 import { BiSolidUserDetail } from "react-icons/bi";
 import { FaBuildingUser } from "react-icons/fa6";
+import { motion } from "framer-motion";
 
 const ApplicantInfo = () => {
   const stepperData = useOutletContext();
@@ -282,7 +283,22 @@ const ApplicantInfo = () => {
       </div>
 
       {/* Owner’s Details  */}
-      <div className="nm_Container mt-3 px-2 py-5">
+      <motion.div
+        className="nm_Container mt-3 px-2 py-5"
+        initial={{
+          opacity: 0,
+          // if odd index card,slide from right instead of left
+          y: 50,
+        }}
+        whileInView={{
+          opacity: 1,
+          y: 0, // Slide in to its original position
+          transition: {
+            duration: 2, // Animation duration
+          },
+        }}
+        viewport={{ once: false }}
+      >
         <div className="flex items-center -mb-2 px-2">
           <FaBuildingUser size={30} className="text-normalViolet" />
           <h3 className="font-bold text-xl ml-3">Owner’s Details</h3>
@@ -309,7 +325,7 @@ const ApplicantInfo = () => {
             />
           ))}
         </div>
-      </div>
+      </motion.div>
 
       {/* save & continue  */}
       <SaveData
