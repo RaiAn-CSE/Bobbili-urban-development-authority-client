@@ -52,7 +52,7 @@ const DefaultDrawingFormat = () => {
     return <Loading />;
   }
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full drawingFormat relative">
       <p className="text-black text-xl font-bold mt-10 text-center uppercase">
         Default Formats
       </p>
@@ -75,6 +75,12 @@ const DefaultDrawingFormat = () => {
           AutoCad Drawing
         </button>
       </div>
+
+      {/* <div className="absolute top-0 left-1/2 w-[40px] h-[40px] rounded-full bg-[#8579F2]"></div> */}
+      <div className="nm_Container absolute top-10 left-10 w-[20px] h-[20px] rounded-full bg-[#8579F2]"></div>
+      {/* <div className="absolute top-1/2 right-0 w-[30px] h-[30px] rounded-full bg-[#8579F2]"></div> */}
+      <div className="nm_Container absolute bottom-9 left-3/4 w-[70px] h-[70px] rounded-full bg-[#8579F2]"></div>
+      <div className="nm_Container absolute top-32 right-32 w-[30px] h-[30px] rounded-full bg-[#8579F2]"></div>
     </div>
   );
 };

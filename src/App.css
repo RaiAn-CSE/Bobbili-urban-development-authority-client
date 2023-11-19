@@ -1263,3 +1263,9 @@ ol > li:before {
   background-repeat: no-repeat;
   background-image: url("./assets//images/blob-scene-haikei.svg");
 }
+.drawingFormat {
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-image: url("./assets//images/blob-df.svg");
+}
