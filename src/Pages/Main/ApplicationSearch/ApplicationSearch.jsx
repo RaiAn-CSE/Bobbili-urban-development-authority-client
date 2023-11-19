@@ -22,7 +22,9 @@ const ApplicationSearch = () => {
   const { fetchDataFromTheDb } = useContext(AuthContext);
 
   useEffect(() => {
-    fetchDataFromTheDb("http://localhost:5000/allApplications").then((data) => {
+    fetchDataFromTheDb(
+      "https://residential-building.vercel.app/allApplications"
+    ).then((data) => {
       console.log(data);
       setApplicationData(data);
     });
@@ -269,7 +271,7 @@ const ApplicationSearch = () => {
           <span className="grid justify-center items-center">
             <AiOutlineFileDone className="text-violet-500" size={25} />
           </span>
-          <h4 className="text-base font-semibold">Application</h4>
+          <h4 className="text-base font-bold font-roboto">Application</h4>
         </button>
 
         <button
@@ -282,7 +284,7 @@ const ApplicationSearch = () => {
           <span className="grid justify-center items-center">
             <BsHouses className="text-violet-500" size={25} />
           </span>
-          <h4 className="text-base font-semibold">Drawing</h4>
+          <h4 className="text-base font-bold font-roboto">Drawing</h4>
         </button>
 
         <button
@@ -298,7 +300,7 @@ const ApplicationSearch = () => {
           <span className="grid justify-center items-center">
             <VscDebugContinue className="text-violet-500" size={25} />
           </span>
-          <h4 className="text-base font-semibold">Proceeding</h4>
+          <h4 className="text-base font-bold font-roboto">Proceeding</h4>
         </button>
       </div>
 

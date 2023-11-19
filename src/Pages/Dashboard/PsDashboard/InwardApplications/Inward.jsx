@@ -34,7 +34,8 @@ const Inward = () => {
     ["allInwardApplications"],
     async () => {
       const response = await fetch(
-        `http://localhost:5000/submitApplications?userId=${userInfoFromLocalStorage()?._id
+        `https://residential-building.vercel.app/submitApplications?userId=${
+          userInfoFromLocalStorage()?._id
         }`
       );
       return await response.json();

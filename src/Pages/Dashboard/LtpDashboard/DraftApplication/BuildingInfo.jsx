@@ -10,7 +10,7 @@ import { useOutletContext, useLocation } from "react-router";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import SaveData from "./SaveData";
 import FloorDetails from "./FloorDetails";
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
 import { AiOutlineAreaChart } from "react-icons/ai";
 
 const BuildingInfo = () => {
@@ -157,7 +157,7 @@ const BuildingInfo = () => {
     // console.log(districtData, 'districtData');
 
     // const apiUrl = "../../src/assets/buildingInfo.json";
-    // fetch('http://localhost:5000/getDistricts')
+    // fetch('https://residential-building.vercel.app/getDistricts')
     //   .then((response) => response.json())
     //   .then((result) => {
     //     console.log(result[0], 'result.district');
@@ -172,7 +172,7 @@ const BuildingInfo = () => {
   useEffect(() => {
     (async function () {
       const locationData = await fetchDataFromTheDb(
-        "http://localhost:5000/getDistricts"
+        "https://residential-building.vercel.app/getDistricts"
       );
       console.log(locationData, "LOC");
       const extractsDataFromDB = locationData[0]?.district;
@@ -657,7 +657,6 @@ const BuildingInfo = () => {
         {/* general information */}
         {/* divide-y-2 divide-gray-300  */}
         <div className="nm_Container mt-3 px-2 py-5 mb-10">
-
           <div className="pl-2 flex items-center -mb-2">
             <div className=" text-normalViolet">
               <HiInformationCircle size={30} />
@@ -1016,21 +1015,21 @@ const BuildingInfo = () => {
 
             {selectedNatureOfTheSite ===
               "Plot port of RLP/IPLP but not regularised" && (
-                <motion.div
-                  initial={{ x: "-100vw" }}
-                  animate={{ x: 0 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  <InputField
-                    id="IplpNo"
-                    name="IplpNo"
-                    label="RLP/IPLP no."
-                    placeholder="RLP/IPLP no."
-                    type="number"
-                    ltpDetails={iplpNo}
-                  />
-                </motion.div>
-              )}
+              <motion.div
+                initial={{ x: "-100vw" }}
+                animate={{ x: 0 }}
+                transition={{ delay: 0.2 }}
+              >
+                <InputField
+                  id="IplpNo"
+                  name="IplpNo"
+                  label="RLP/IPLP no."
+                  placeholder="RLP/IPLP no."
+                  type="number"
+                  ltpDetails={iplpNo}
+                />
+              </motion.div>
+            )}
             {/*===================== Conditional Input Field End =====================*/}
           </div>
         </div>

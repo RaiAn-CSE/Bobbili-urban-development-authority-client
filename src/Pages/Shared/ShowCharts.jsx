@@ -53,7 +53,7 @@ const ShowCharts = () => {
       setLoading(true);
       try {
         const locationData = await fetchDataFromTheDb(
-          "http://localhost:5000/getDistricts"
+          "https://residential-building.vercel.app/getDistricts"
         );
         console.log(locationData, "LOC");
         const extractsDataFromDB = locationData[0]?.district;
@@ -153,7 +153,7 @@ const ShowCharts = () => {
 
       console.log(data);
       fetch(
-        `http://localhost:5000/filterApplications?search=${JSON.stringify(
+        `https://residential-building.vercel.app/filterApplications?search=${JSON.stringify(
           data
         )}`
       )
@@ -173,7 +173,7 @@ const ShowCharts = () => {
       console.log("all");
       setLoading(true);
       fetch(
-        `http://localhost:5000/totalApplications?data=${JSON.stringify(
+        `https://residential-building.vercel.app/totalApplications?data=${JSON.stringify(
           userInfoFromLocalStorage()
         )}`
       )
@@ -268,8 +268,10 @@ const ShowCharts = () => {
   //   return <Loading />;
   // }
 
-  const selectorBoxLabel = "bg-[#B67EEE] inline-flex justify-center items-center w-[40px] h-[40px] rounded-full mr-2"
-  const selectorBox = "nm_Inset w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-violet-500 focus:outline-none focus:ring-2 ring-violet-200"
+  const selectorBoxLabel =
+    "bg-[#B67EEE] inline-flex justify-center items-center w-[40px] h-[40px] rounded-full mr-2";
+  const selectorBox =
+    "nm_Inset w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-violet-500 focus:outline-none focus:ring-2 ring-violet-200";
 
   return (
     <>
@@ -432,8 +434,9 @@ const ShowCharts = () => {
             <Loading />
           ) : (
             <div
-              className={`${path.includes("/dashboard") && "px-4"
-                } flex justify-between items-center  p-0 z-[10]`}
+              className={`${
+                path.includes("/dashboard") && "px-4"
+              } flex justify-between items-center  p-0 z-[10]`}
             >
               {/* background: linear-gradient(to right, rgb(142, 45, 226), rgb(74, 0, 224)); */}
               <div className="  w-[45%]  overflow-hidden z-[10] p-8">

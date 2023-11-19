@@ -21,7 +21,9 @@ const VerificationStatus = () => {
   useEffect(() => {
     setLoading(true);
     setError("");
-    fetchDataFromTheDb("http://localhost:5000/getVerificationStatus")
+    fetchDataFromTheDb(
+      "https://residential-building.vercel.app/getVerificationStatus"
+    )
       .then((result) => {
         setLoading(false);
         setError("");

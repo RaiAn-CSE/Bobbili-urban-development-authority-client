@@ -76,7 +76,7 @@ const SiteInspection = () => {
       console.log(query, "query");
 
       const response = await fetch(
-        `http://localhost:5000/getApplicationData?data=${query}`
+        `https://residential-building.vercel.app/getApplicationData?data=${query}`
       );
 
       return await response.json();
@@ -178,7 +178,7 @@ const SiteInspection = () => {
           console.log(...formData, "FORM DATA");
           try {
             const response = await axios.post(
-              "http://localhost:5000/upload?page=siteInspection",
+              "https://residential-building.vercel.app/upload?page=siteInspection",
               formData,
               {
                 headers: {
@@ -315,7 +315,7 @@ const SiteInspection = () => {
 
         console.log(siteInspection, "SITE INSPECTION");
 
-        // fetch(`http://localhost:5000/recommendDataOfPs?appNo=${applicationNo}`, {
+        // fetch(`https://residential-building.vercel.app/recommendDataOfPs?appNo=${applicationNo}`, {
         //     method: "PATCH",
         //     headers: {
         //         "content-type": "application/json",
@@ -355,7 +355,9 @@ const SiteInspection = () => {
       applicationNo,
       trackPSAction,
     };
-    url = `http://localhost:5000/decisionOfPs?data=${JSON.stringify(data)}`;
+    url = `https://residential-building.vercel.app/decisionOfPs?data=${JSON.stringify(
+      data
+    )}`;
     console.log(url);
 
     const config = {
@@ -378,7 +380,6 @@ const SiteInspection = () => {
 
   return (
     <div className="flex flex-col mx-5 mt-3  text-gray-900">
-
       <div className="container mx-auto font-roboto ">
         <div className="pb-4">
           <div className="inline-block min-w-full nm_Container rounded-lg overflow-hidden">
@@ -638,9 +639,7 @@ const SiteInspection = () => {
                     <input
                       id="scheduleOfTheDocumentsApp"
                       type="text"
-                      defaultValue={
-                        siteBoundaries?.scheduleOfTheDocuments?.[0]
-                      }
+                      defaultValue={siteBoundaries?.scheduleOfTheDocuments?.[0]}
                       placeholder="Yes/No"
                       className="h-[105px] px-4 rounded-none w-full focus:outline-none bg-white hover:bg-white"
                     />
@@ -651,9 +650,7 @@ const SiteInspection = () => {
                     <input
                       id="scheduleOfTheDocumentsObs"
                       type="text"
-                      defaultValue={
-                        siteBoundaries?.scheduleOfTheDocuments?.[1]
-                      }
+                      defaultValue={siteBoundaries?.scheduleOfTheDocuments?.[1]}
                       placeholder="Yes/No"
                       className="h-[105px] px-4 rounded-none w-full focus:outline-none bg-white hover:bg-white"
                     />
