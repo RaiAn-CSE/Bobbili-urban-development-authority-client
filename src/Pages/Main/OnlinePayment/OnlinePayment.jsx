@@ -50,8 +50,8 @@ const OnlinePayment = () => {
 
   console.log(filteredData, "FILTERED DATA");
   return (
-    <div className="h-full font-lg w-full px-4 mt-5 font-roboto bg-[#E8EAEC]">
-      <div className={HomeCss.searchInputContainer}>
+    <div className="h-full font-lg w-full px-2 mt-5 font-roboto bg-[#E8EAEC]">
+      <div className={`${HomeCss.searchInputContainer} mx-2`}>
         <input
           placeholder="Application no. or owner name"
           className={`${HomeCss.searchInput} text-gray-900 focus:border-violet-500 focus:outline-none focus:ring-2 ring-violet-100`}
@@ -83,44 +83,19 @@ const OnlinePayment = () => {
         </svg>
       </div>
 
-      {/* <form>
-        <div className="relative mt-2">
-          <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-            <svg
-              className="w-4 h-4 text-violet-500"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 20 20"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-              />
-            </svg>
-          </div>
-          <input
-            type="search"
-            id="default-search"
-            className="block w-full p-4 pl-10 text-base font-normal text-gray-900 border-2 border-violet-500 focus:border-violet-500 focus:outline-none focus:ring-2 ring-violet-200 rounded-lg bg-gray-50"
-            placeholder="Application no. or owner name"
-            onChange={(e) => searchApplicationData(e)}
-            required
-          />
-        </div>
-      </form> */}
-
       {/* Application details  */}
-      <div className="divide-y-2 divide-gray-300 mt-5">
-        <div className="mb-1">
+      <div className="mt-7">
+        <div className="-mb-3">
           <h3 className="w-fit basis-[50%] text-black text-lg  pl-3 font-semibold ">
             Application details:
           </h3>
         </div>
-        <div className="flex">
+
+        <div className="px-2">
+          <hr className="w-full h-[1px] inline-block bg-gray-400" />
+        </div>
+
+        <div className="flex -mt-2">
           <div className="basis-[50%]">
             <MainPageInput
               label="File no :"
@@ -182,13 +157,18 @@ const OnlinePayment = () => {
       </div>
 
       {/* Fees details  */}
-      <div className="divide-y-2 divide-gray-300 mt-10">
-        <div className="flex mb-1">
+      <div className="mt-12">
+        <div className="flex -mb-3">
           <h3 className="basis-[50%] text-lg pl-3 font-semibold text-gray-900">
             Fees details:
           </h3>
         </div>
-        <div className="flex">
+
+        <div className="px-2">
+          <hr className="w-full h-[1px] inline-block bg-gray-400" />
+        </div>
+
+        <div className="flex -mt-2">
           <div className="basis-[70%]">
             <MainPageInput
               label="UDA charges :"
@@ -237,7 +217,7 @@ const OnlinePayment = () => {
           login only.
         </h3>
       </div>
-      <div className="flex justify-end px-1 pb-5">
+      <div className="flex justify-end px-3 pb-6">
         <button
           className={`save-btn bg-[#8980FD] px-3 py-2 rounded-full nm_Container text-sm flex justify-center items-center`}
         >

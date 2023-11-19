@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import customScroll from "../../Style/Scrollbar.module.css";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { RxCross2 } from "react-icons/rx";
+import { motion } from "framer-motion"
 
 const ProceedingModal = ({ modalProceeding }) => {
   const { setOpenProceeding, openProceeding, filteredData } = modalProceeding;
@@ -67,8 +68,34 @@ const ProceedingModal = ({ modalProceeding }) => {
   console.log(approvedDate, "AD");
   console.log(allInfo, "AI");
 
+  const dropIn = {
+    hidden: {
+      y: "-100vh",
+      opacity: 0,
+    },
+    visible: {
+      y: "0",
+      opacity: 1,
+      transition: {
+        duration: 0.1,
+        type: "spring",
+        damping: 25,
+        stiffness: 500,
+      }
+    },
+    exit: {
+      y: "100vh",
+      opacity: 0,
+    },
+  }
+
   return (
-    <div className="dark:bg-white">
+    <motion.div className="dark:bg-white"
+      variants={dropIn}
+      initial='hidden'
+      animate='visible'
+      exit='exit'
+    >
       <dialog id="proceedingModal" className="modal">
         <div
           className={`${customScroll.customScrolling} rounded-lg modal-box py-10 px-12 text-gray-900 w-full max-w-4xl relative bg-white`}
@@ -741,7 +768,7 @@ const ProceedingModal = ({ modalProceeding }) => {
           <button onClick={() => setOpenProceeding(false)}>close</button>
         </form>
       </dialog>
-    </div>
+    </motion.div>
   );
 };
 

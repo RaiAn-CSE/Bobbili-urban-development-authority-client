@@ -13,6 +13,7 @@ import EndorsementModal from "../../../Shared/EndorsementModal";
 import ProceedingModal from "../../../Shared/ProceedingModal";
 import { AiFillPieChart } from "react-icons/ai";
 import DrawingModal from "../../../Shared/DrawingModal";
+import { AnimatePresence, motion } from "framer-motion";
 
 const DraftApplication = () => {
   const navigate = useNavigate();
@@ -231,30 +232,24 @@ const DraftApplication = () => {
               )}
             </div>
           </div>
-          <div className="mb-5 font-roboto">
-            <div className="w-full steps steps-vertical lg:steps-horizontal rounded-lg pt-4">
-              {stepsContent.map((step, index) => (
+          <div className="w-full steps steps-vertical lg:steps-horizontal rounded-lg py-4 lg:relative font-roboto">
+            {stepsContent.map((step, index) => (
+              <div
+                key={index}
+                data-content={index + 1}
+                className={`${stepClasses(index)}`}
+                onClick={() => handleStepClick(index)}
+              >
                 <button
-                  key={index}
-                  data-content={index + 1}
-                  className={`${stepClasses(
-                    index
-                  )} lg:relative lg:pt-1 flex justify-center`}
-                  onClick={() => handleStepClick(index)}
+                  className={`${btnClass} ${completeBtn(index)} ${
+                    role !== "PS" ? "w-[50%] lg:w-[15%]" : "w-[50%] lg:w-[13%]"
+                  } text-sm border-0 nm_Container lg:absolute top-3 z-10`}
                 >
-                  <div className="lg:absolute lg:top-0 z-10">
-                    <span
-                      className={`${btnClass} ${completeBtn(
-                        index
-                      )} w-[300px] lg:w-[160px] text-sm border-0 nm_Container`}
-                    >
-                      {role !== "PS" && icons[index]}
-                      {step}
-                    </span>
-                  </div>
+                  {role !== "PS" && icons[index]}
+                  <span>{step}</span>
                 </button>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </>
       )}
