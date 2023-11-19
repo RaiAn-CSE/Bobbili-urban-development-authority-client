@@ -85,7 +85,7 @@ const Login = () => {
 
             console.log(localStorage.getItem("loggedUser"));
 
-            // axios.post("http://localhost:5000/jwt",userInfo,{
+            // axios.post("https://residential-building.vercel.app/jwt",userInfo,{
             //   withCredentials: true,
             //   headers: {
             //       'Access-Control-Allow-Origin': '*',
@@ -94,7 +94,7 @@ const Login = () => {
 
             //   })
 
-            fetch("http://localhost:5000/jwt", {
+            fetch("https://residential-building.vercel.app/jwt", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(userInfo),
