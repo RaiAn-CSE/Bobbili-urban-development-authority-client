@@ -36,7 +36,7 @@ const InputField = ({
         name={name}
         placeholder={placeholder} // Use the labelPlaceholder variable as the placeholder attribute
         defaultValue={ltpDetails}
-        className="w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-violet-500 focus:outline-none focus:ring-2 ring-violet-200"
+        className="w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-gray-600 focus:outline-none focus:ring-2 ring-gray-300"
         readOnly={isReadOnly}
       />
     </div>
