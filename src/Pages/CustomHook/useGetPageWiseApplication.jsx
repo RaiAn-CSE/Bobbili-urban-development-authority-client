@@ -13,7 +13,7 @@ const useGetPageWiseApplication = (searchApplicationName) => {
         searchApplicationName,
       };
       const response = await fetch(
-        `https://residential-building.vercel.app/allPageWiseApplications?data=${JSON.stringify(
+        `http://localhost:5000/allPageWiseApplications?data=${JSON.stringify(
           query
         )}`
       );

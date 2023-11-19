@@ -34,9 +34,6 @@ const DrawingModal = ({ modalStates }) => {
     }
   }, []);
 
-  const BASE_URL =
-    "https://drive.google.com/viewerng/viewer?embedded=true&url=https://drive.google.com/uc?id=";
-
   console.log(dataFromDB, "DFD");
   return (
     <div className="dark:bg-white">

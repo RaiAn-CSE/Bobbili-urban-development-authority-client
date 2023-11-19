@@ -85,7 +85,7 @@ const Login = () => {
 
             console.log(localStorage.getItem("loggedUser"));
 
-            // axios.post("https://residential-building.vercel.app/jwt",userInfo,{
+            // axios.post("http://localhost:5000/jwt",userInfo,{
             //   withCredentials: true,
             //   headers: {
             //       'Access-Control-Allow-Origin': '*',
@@ -94,7 +94,7 @@ const Login = () => {
 
             //   })
 
-            fetch("https://residential-building.vercel.app/jwt", {
+            fetch("http://localhost:5000/jwt", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(userInfo),
@@ -103,9 +103,10 @@ const Login = () => {
               .then((result) => {
                 console.log(result);
 
-                if (result.success) {
+                if (result?.success) {
                   // set information to cookie to implement remember me functionality
 
+                  localStorage.setItem("jwToken", result?.token);
                   if (checkbox) {
                     console.log(checkbox);
                     document.cookie =

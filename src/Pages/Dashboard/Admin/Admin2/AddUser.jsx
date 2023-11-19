@@ -35,7 +35,7 @@ const AddUser = () => {
   useEffect(() => {
     (async function () {
       const locationData = await fetchDataFromTheDb(
-        "https://residential-building.vercel.app/getDistricts"
+        "http://localhost:5000/getDistricts"
       );
       console.log(locationData, "LOC");
       const extractsDataFromDB = locationData[0]?.district;
@@ -146,32 +146,32 @@ const AddUser = () => {
 
       console.log(userInfo, "USER INFO");
 
-      // if (userInfo) {
-      //   // store users data in the database
-      //   fetch("https://residential-building.vercel.app/addUser", {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-type": "application/json",
-      //     },
-      //     body: JSON.stringify(userInfo),
-      //   })
-      //     .then((res) => res.json())
-      //     .then((data) => {
-      //       console.log(data);
+      if (userInfo) {
+        // store users data in the database
+        fetch("http://localhost:5000/addUser", {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(userInfo),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
 
-      //       if (data.acknowledged) {
-      //         toast.success("User added successfully");
-      //         navigate("/dashboard/allUser");
-      //       }
-      //       if (data?.result === 0) {
-      //         console.log(data.message);
-      //         toast.error(data.message);
-      //       }
-      //     })
-      //     .catch(() => {
-      //       toast.error("Server is not responded");
-      //     });
-      // }
+            if (data.acknowledged) {
+              toast.success("User added successfully");
+              navigate("/dashboard/allUser");
+            }
+            if (data?.result === 0) {
+              console.log(data.message);
+              toast.error(data.message);
+            }
+          })
+          .catch(() => {
+            toast.error("Server is not responded");
+          });
+      }
     }
   };
 

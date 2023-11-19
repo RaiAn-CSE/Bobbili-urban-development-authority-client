@@ -76,7 +76,7 @@ const SiteInspection = () => {
       console.log(query, "query");
 
       const response = await fetch(
-        `https://residential-building.vercel.app/getApplicationData?data=${query}`
+        `http://localhost:5000/getApplicationData?data=${query}`
       );
 
       return await response.json();
@@ -178,7 +178,7 @@ const SiteInspection = () => {
           console.log(...formData, "FORM DATA");
           try {
             const response = await axios.post(
-              "https://residential-building.vercel.app/upload?page=siteInspection",
+              "http://localhost:5000/upload?page=siteInspection",
               formData,
               {
                 headers: {
@@ -315,7 +315,7 @@ const SiteInspection = () => {
 
         console.log(siteInspection, "SITE INSPECTION");
 
-        // fetch(`https://residential-building.vercel.app/recommendDataOfPs?appNo=${applicationNo}`, {
+        // fetch(`http://localhost:5000/recommendDataOfPs?appNo=${applicationNo}`, {
         //     method: "PATCH",
         //     headers: {
         //         "content-type": "application/json",
@@ -355,9 +355,7 @@ const SiteInspection = () => {
       applicationNo,
       trackPSAction,
     };
-    url = `https://residential-building.vercel.app/decisionOfPs?data=${JSON.stringify(
-      data
-    )}`;
+    url = `http://localhost:5000/decisionOfPs?data=${JSON.stringify(data)}`;
     console.log(url);
 
     const config = {

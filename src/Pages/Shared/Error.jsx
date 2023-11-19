@@ -58,7 +58,7 @@ const Error = () => {
       <div className=" basis-1/2 h-screen flex justify-center items-center ">
         {/* <img src={BlobImg} className="absolute w-[100%] " /> */}
         {/* <img src={Space} className="w-[60%] h-[60%]" /> */}
-        <Lottie animationData={ErrorAnim} loop={true} className="pr-48" />
+        <Lottie animationData={ErrorAnim} loop={true} className="" />
       </div>
 
       {/* circles  */}
