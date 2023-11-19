@@ -18,6 +18,7 @@ export default {
         roboto: ["Roboto Condensed", "sans-serif"],
         notSerif: ["Noto Serif JP", "seri"],
         poppins: ["Poppins", "sans-serif"],
+        titleFont: ["Neuton", "sans-serif"],
       },
     },
   },

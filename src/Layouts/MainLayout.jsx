@@ -56,13 +56,13 @@ const MainLayout = () => {
           <div className="basis-3/4 z-[10] pt-2">
             <p
               // className="css-3d-text w-fit p-2 text-4xl text-gray-600 font-bold font-sofadi"
-              className="w-fit p-2 text-4xl text-gray-900 font-bold font-georgia"
+              className="w-fit italic tracking-wider bg-bgColor p-2 text-5xl font-bold font-titleFont"
             >
               Bobbili Urban Development Authority
             </p>
             <p
               // className={`css-3d-text w-fit p-2 text-2xl text-gray-600 font-bold font-sofadi`}
-              className={`w-fit px-2 text-2xl text-gray-600 font-bold font-georgia`}
+              className={`w-fit bg-bgColor px-2 tracking-wider italic text-3xl text-gray-600 font-bold font-titleFont `}
             >
               Residential Building Plan Approval
             </p>
@@ -71,22 +71,24 @@ const MainLayout = () => {
           <div className="basis-[20%] z-[10] flex justify-end items-center space-x-6 dark:text-black">
             <Link
               to="/"
-              className={`nm_Container w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center  ${path === "/" ||
+              className={`nm_Container w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center  ${
+                path === "/" ||
                 path === "/onlinePayment" ||
                 path === "/listOfLTP" ||
                 path === "/demoVideos" ||
                 path === "/privacyPolicy" ||
                 path === "/defaultDrawingFormat"
-                ? active
-                : ` ${notActive}`
-                }`}
+                  ? active
+                  : ` ${notActive}`
+              }`}
             >
               <AiOutlineHome size={25} className="text-2xl " />
             </Link>
             <Link
               to="/statistics"
-              className={`nm_Container w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center ${path.includes("/statistics") ? active : ` ${notActive}`
-                }`}
+              className={`nm_Container w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center ${
+                path.includes("/statistics") ? active : ` ${notActive}`
+              }`}
             >
               <MdOutlineDashboard size={25} className="text-2xl" />
             </Link>
