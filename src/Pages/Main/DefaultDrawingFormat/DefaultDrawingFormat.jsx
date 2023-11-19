@@ -53,27 +53,30 @@ const DefaultDrawingFormat = () => {
   }
   return (
     <div className="w-full h-full drawingFormat relative">
-      <p className="text-black text-xl font-bold mt-10 text-center uppercase">
-        Default Formats
-      </p>
-      <div className="flex justify-evenly items-center w-full min-h-[calc(100vh-70%)]">
-        <button
-          className="buttonDownload"
-          onClick={() => {
-            downloadFile("pdf", "Drawing-Model.pdf");
-          }}
-        >
-          Drawing Format PDF
-        </button>
 
-        <button
-          className="buttonDownload"
-          onClick={() => {
-            downloadFile("dwg", "Drawing.dwg");
-          }}
-        >
-          AutoCad Drawing
-        </button>
+      <div className="flex flex-col w-full items-center h-full justify-center">
+        <p className="text-black text-xl font-bold text-center uppercase mb-10">
+          Default Formats
+        </p>
+        <div className="flex w-full justify-evenly">
+          <button
+            className="buttonDownload"
+            onClick={() => {
+              downloadFile("pdf", "Drawing-Model.pdf");
+            }}
+          >
+            Drawing Format PDF
+          </button>
+
+          <button
+            className="buttonDownload"
+            onClick={() => {
+              downloadFile("dwg", "Drawing.dwg");
+            }}
+          >
+            AutoCad Drawing
+          </button>
+        </div>
       </div>
 
       {/* <div className="absolute top-0 left-1/2 w-[40px] h-[40px] rounded-full bg-[#8579F2]"></div> */}

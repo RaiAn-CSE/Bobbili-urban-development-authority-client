@@ -6,6 +6,8 @@ import ErrorAnim from "../../assets/Err.json";
 import Space from "../../assets/images/lost-in-space-gif.webp";
 import BlobImg from "../../assets/images/bloob.png";
 import { Link, useNavigate } from "react-router-dom";
+import emoji from "../../assets/user_logo/emoji404.svg";
+
 const Error = () => {
   const navigate = useNavigate();
   return (
@@ -30,10 +32,14 @@ const Error = () => {
     //   </div>
     // </div>
 
-    <div className="flex min-h-screen items-center relative magicpattern">
+    <div className="flex min-h-screen items-center relative magicpattern text-black">
       <div className="basis-1/2 p-10">
-        <p className="text-7xl">
-          4<span className="inline-block font-bold text-[#8579F2]">0</span>4
+        <p className="text-7xl font-sans font-bold">
+          4
+          <span className="inline-block text-[#8579F2] animate-bounce">
+            <img className="w-14 h-14" src={emoji} alt="" />
+          </span>
+          4
         </p>
         <p className="font-poppins font-bold text-7xl">
           Lost in <span className="text-[#8579F2]">space</span>
@@ -55,10 +61,10 @@ const Error = () => {
           </button>
         </div>
       </div>
-      <div className=" basis-1/2 h-screen flex justify-center items-center ">
+      <div className=" basis-1/2 h-screen flex">
         {/* <img src={BlobImg} className="absolute w-[100%] " /> */}
         {/* <img src={Space} className="w-[60%] h-[60%]" /> */}
-        <Lottie animationData={ErrorAnim} loop={true} className="" />
+        <Lottie animationData={ErrorAnim} loop={true} />
       </div>
 
       {/* circles  */}

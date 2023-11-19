@@ -77,6 +77,9 @@ const FloorDetails = ({
     page === "shortfall" ||
     role.toLowerCase() === "ps";
 
+
+  const inputClass = "w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-gray-600 focus:outline-none focus:ring-2 ring-gray-300"
+
   return (
     <>
       <div className="flex flex-col justify-center mx-3">
@@ -86,7 +89,7 @@ const FloorDetails = ({
         <select
           id={`floorName${index}`}
           name={`floorName${index}`}
-          className="w-full px-3 py-[10px] border rounded-lg max-w-xs border-gray-300 text-gray-900 bg-gray-50 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200"
+          className={inputClass}
           value={selectedFloor?.length ? selectedFloor : floorChange}
           onChange={(e) => {
             handleFloorChange(e, index);
@@ -102,9 +105,8 @@ const FloorDetails = ({
                 <option
                   key={index}
                   value={eachFloor}
-                  className={`${
-                    findOldSelectedValue(eachFloor) ? "hidden" : ""
-                  }`}
+                  className={`${findOldSelectedValue(eachFloor) ? "hidden" : ""
+                    }`}
                 >
                   {eachFloor}
                 </option>
@@ -125,7 +127,7 @@ const FloorDetails = ({
           id={`builtUpArea${index}`}
           name={`builtUpArea${index}`}
           placeholder="in Sq.Mts."
-          className="w-full px-3 py-2 border rounded-lg max-w-xs border-gray-300 text-gray-900 bg-gray-50 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200"
+          className={inputClass}
           defaultValue={
             builtUpAreaValue ? builtUpAreaValue : plotDetailsFloor?.builtUpArea
           }
@@ -146,7 +148,7 @@ const FloorDetails = ({
           id={`parkingArea${index}`}
           name={`parkingArea${index}`}
           placeholder="in Sq.Mts."
-          className="w-full px-3 py-2 border rounded-lg max-w-xs border-gray-300 text-gray-900 bg-gray-50 focus:border-gray-400 focus:outline-none focus:ring-2 ring-gray-200"
+          className={inputClass}
           defaultValue={
             parkingAreaValue ? parkingAreaValue : plotDetailsFloor?.parkingArea
           }
@@ -160,9 +162,8 @@ const FloorDetails = ({
           {index === length - 1 && index < 3 && (
             <div className="flex justify-center items-center">
               <button
-                className={`nm_Container text-xl rounded-full w-[30px] h-[30px] text-normalViolet cursor-pointer transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold ${
-                  hideBtn && "hidden"
-                }`}
+                className={`nm_Container text-xl rounded-full w-[30px] h-[30px] text-normalViolet cursor-pointer transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold ${hideBtn && "hidden"
+                  }`}
                 onClick={increaseFloorNo}
               >
                 +
@@ -173,9 +174,8 @@ const FloorDetails = ({
           {index === length - 1 && index > 0 && index <= 3 && (
             <div className="flex justify-center items-center">
               <button
-                className={`nm_Container text-xl mx-2 rounded-full text-red-500 w-[30px] h-[30px]  transition-all duration-500 font-bold ${
-                  hideBtn && "hidden"
-                }`}
+                className={`nm_Container text-xl mx-2 rounded-full text-red-500 w-[30px] h-[30px]  transition-all duration-500 font-bold ${hideBtn && "hidden"
+                  }`}
                 onClick={decreaseFloorNo}
               >
                 -
