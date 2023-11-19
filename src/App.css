@@ -1257,3 +1257,9 @@ ol > li:before {
   }
 }
 /* Error Page Animation end :  */
+.magicpattern {
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-image: url("./assets//images/blob-scene-haikei.svg");
+}
