@@ -8,6 +8,7 @@ import { VscDebugContinue } from "react-icons/vsc";
 import ProceedingModal from "../../Shared/ProceedingModal";
 import Application from "../../Dashboard/LtpDashboard/DraftApplication/Application";
 import DrawingModal from "../../Shared/DrawingModal";
+import { motion } from "framer-motion";
 
 const ApplicationSearch = () => {
   const [applicationData, setApplicationData] = useState([]);
@@ -113,8 +114,18 @@ const ApplicationSearch = () => {
       {/* Location details  */}
       <div className="mt-7">
         <div className="flex -mb-3">
-          <h3 className={titleClass}>Location details</h3>
-          <h3 className={titleClass}>Building info</h3>
+          <motion.h3 className={titleClass}
+            initial={{ opacity: 0, x: -70 }}
+            whileInView={{ opacity: 1, x: 0, transition: { duration: 0.5, } }}
+            viewport={{ once: false }}
+          >
+            Location details
+          </motion.h3>
+          <motion.h3 className={titleClass}
+            initial={{ opacity: 0, x: 70 }}
+            whileInView={{ opacity: 1, x: 0, transition: { duration: 0.5, } }}
+            viewport={{ once: false }}
+          >Building info</motion.h3>
         </div>
 
         <div className="px-2">
@@ -203,8 +214,18 @@ const ApplicationSearch = () => {
       {/* Owner details  */}
       <div className="mt-12">
         <div className="flex -mb-3">
-          <h3 className={titleClass}>Owner details</h3>
-          <h3 className={titleClass}>LTP Details</h3>
+          <motion.h3 className={titleClass}
+            initial={{ opacity: 0, x: -70 }}
+            whileInView={{ opacity: 1, x: 0, transition: { duration: 0.5, } }}
+            viewport={{ once: false }}
+          >
+            Owner details
+          </motion.h3>
+          <motion.h3 className={titleClass}
+            initial={{ opacity: 0, x: 70 }}
+            whileInView={{ opacity: 1, x: 0, transition: { duration: 0.5, } }}
+            viewport={{ once: false }}
+          >LTP Details</motion.h3>
         </div>
 
         <div className="px-2">
@@ -263,31 +284,37 @@ const ApplicationSearch = () => {
       </div>
 
       <div className="flex justify-center items-center font-roboto mt-14 pb-9 space-x-10 dark:text-gray-600">
-        <button
+        <motion.button
           className="btn3D w-[100px] h-[75px] flex flex-col justify-center items-center"
           onClick={() => setOpenApplication(true)}
           disabled={filteredData === null}
+          initial={{ opacity: 0, x: -40 }}
+          whileInView={{ opacity: 1, x: 0, transition: { duration: 1, } }}
+          viewport={{ once: false }}
         >
           <span className="grid justify-center items-center">
             <AiOutlineFileDone className="text-violet-500" size={25} />
           </span>
           <h4 className="text-base font-bold font-roboto">Application</h4>
-        </button>
+        </motion.button>
 
-        <button
+        <motion.button
           className="btn3D w-[100px] h-[75px] flex flex-col justify-center items-center"
           disabled={
             filteredData === null ||
             filteredData?.status?.toLowerCase() !== "approved"
           }
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0, transition: { duration: 1, } }}
+          viewport={{ once: false }}
         >
           <span className="grid justify-center items-center">
             <BsHouses className="text-violet-500" size={25} />
           </span>
           <h4 className="text-base font-bold font-roboto">Drawing</h4>
-        </button>
+        </motion.button>
 
-        <button
+        <motion.button
           className="btn3D w-[100px] h-[75px] flex flex-col justify-center items-center"
           onClick={() => {
             setOpenProceeding(true);
@@ -296,12 +323,15 @@ const ApplicationSearch = () => {
             filteredData === null ||
             filteredData?.status?.toLowerCase() !== "approved"
           }
+          initial={{ opacity: 0, x: 40 }}
+          whileInView={{ opacity: 1, x: 0, transition: { duration: 1, } }}
+          viewport={{ once: false }}
         >
           <span className="grid justify-center items-center">
             <VscDebugContinue className="text-violet-500" size={25} />
           </span>
           <h4 className="text-base font-bold font-roboto">Proceeding</h4>
-        </button>
+        </motion.button>
       </div>
 
       {/* Application Modal */}
