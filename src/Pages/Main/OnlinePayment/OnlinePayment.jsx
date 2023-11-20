@@ -10,7 +10,8 @@ const OnlinePayment = () => {
   const [applicationData, setApplicationData] = useState([]);
   const [filteredData, setFilteredData] = useState(null);
 
-  const { getAllDraftApplicationData } = useContext(AuthContext);
+  const { getAllDraftApplicationData, textTypingAnimation } =
+    useContext(AuthContext);
 
   useEffect(() => {
     getAllDraftApplicationData().then((data) => {
@@ -49,12 +50,28 @@ const OnlinePayment = () => {
     }
   };
 
+  // const textTypingAnimation = (text) => {
+  //   return text.map((el, i) => (
+  //     <motion.span
+  //       initial={{ opacity: 0 }}
+  //       animate={{ opacity: 1 }}
+  //       transition={{
+  //         duration: 0.25,
+  //         delay: i / 6,
+  //       }}
+  //       key={i}
+  //     >
+  //       {el}{" "}
+  //     </motion.span>
+  //   ));
+  // };
   console.log(filteredData, "FILTERED DATA");
   return (
     <div className="h-full font-lg w-full px-2 mt-5 font-roboto bg-[#E8EAEC]">
-      <motion.div className={`${HomeCss.searchInputContainer} mx-2`}
+      <motion.div
+        className={`${HomeCss.searchInputContainer} mx-2`}
         initial={{ opacity: 0, x: -40, y: -40 }}
-        whileInView={{ opacity: 1, x: 0, y: 0, transition: { duration: 0.5, } }}
+        whileInView={{ opacity: 1, x: 0, y: 0, transition: { duration: 0.5 } }}
         viewport={{ once: false }}
       >
         <input
@@ -91,9 +108,10 @@ const OnlinePayment = () => {
       {/* Application details  */}
       <div className="mt-7">
         <div className="-mb-3">
-          <motion.h3 className="w-fit basis-[50%] text-black text-lg  pl-3 font-semibold"
+          <motion.h3
+            className="w-fit basis-[50%] text-black text-lg  pl-3 font-semibold"
             initial={{ opacity: 0, x: -70 }}
-            whileInView={{ opacity: 1, x: 0, transition: { duration: 0.5, } }}
+            whileInView={{ opacity: 1, x: 0, transition: { duration: 0.5 } }}
             viewport={{ once: false }}
           >
             Application details:
@@ -168,9 +186,10 @@ const OnlinePayment = () => {
       {/* Fees details  */}
       <div className="mt-12">
         <div className="flex -mb-3">
-          <motion.h3 className="basis-[50%] text-lg pl-3 font-semibold text-gray-900"
+          <motion.h3
+            className="basis-[50%] text-lg pl-3 font-semibold text-gray-900"
             initial={{ opacity: 0, x: -70 }}
-            whileInView={{ opacity: 1, x: 0, transition: { duration: 0.5, } }}
+            whileInView={{ opacity: 1, x: 0, transition: { duration: 0.5 } }}
             viewport={{ once: false }}
           >
             Fees details:
@@ -211,7 +230,7 @@ const OnlinePayment = () => {
             />
             <MainPageInput
               label="Green fee charge :"
-              id="labourCessCharge"
+              id="greenFeeCharge"
               type="text"
               placeholder="xxxxxxx"
               ltpDetails={filteredData?.payment?.greenFeeCharge?.greenFee}
@@ -221,20 +240,27 @@ const OnlinePayment = () => {
       </div>
 
       <div className="flex justify-center items-center pl-3 mt-5 text-gray-600">
-        <motion.h3 className="text-base font-semibold"
+        <motion.h3
+          className="text-base font-semibold"
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0, transition: { duration: 1, } }}
+          whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
           viewport={{ once: false }}
         >
-          For UDA charge you can pay only Rs.{" "}
-          {filteredData?.payment?.udaCharge?.UDATotalCharged
-            ? filteredData?.payment?.udaCharge?.UDATotalCharged
-            : "xxxxxxx"}
+          {textTypingAnimation(
+            `For UDA charge you can pay only Rs.
+          ${
+            filteredData?.payment?.udaCharge?.UDATotalCharged
+              ? filteredData?.payment?.udaCharge?.UDATotalCharged
+              : "xxxxxxx"
+          }
           /= fee online, remaining all fee DD/Challan can be attached in LTP
-          login only.
+          login only.`.split(" ")
+          )}
         </motion.h3>
       </div>
-      <motion.div className="flex justify-end px-3 pb-6"
+
+      <motion.div
+        className="flex justify-end px-3 pb-6"
         initial={{ opacity: 0, x: 20 }}
         whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
         viewport={{ once: false }}

@@ -2,6 +2,8 @@ import React, { createContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useQueryClient } from "react-query";
 import Swal from "sweetalert2";
+import { motion } from "framer-motion";
+
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
@@ -480,6 +482,22 @@ const AuthProvider = ({ children }) => {
     return hideBtnPageWise;
   };
 
+  const textTypingAnimation = (text) => {
+    return text.map((el, i) => (
+      <motion.span
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{
+          duration: 0.25,
+          delay: i / 6,
+        }}
+        key={i}
+      >
+        {el}{" "}
+      </motion.span>
+    ));
+  };
+
   //   create a object to transfer data into various components
   const userInfo = {
     updateUserInfoInLocalStorage,
@@ -504,6 +522,7 @@ const AuthProvider = ({ children }) => {
     calculateNoOfFloors,
     ownerNamePattern,
     needToHideElementBasedOnPage,
+    textTypingAnimation,
     handleLogOut,
   };
 
