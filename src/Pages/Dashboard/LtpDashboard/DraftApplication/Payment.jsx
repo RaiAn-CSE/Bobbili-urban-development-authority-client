@@ -2,10 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import InputField from "../../../Components/InputField";
 import { GiMoneyStack } from "react-icons/gi";
 import { FaCcAmazonPay, FaMoneyCheckAlt, FaWallet } from "react-icons/fa";
-import UDAChargeImg from "../../../../assets/images/mobile-transfer.png";
-import GramChargeImg from "../../../../assets/images/pay-per-click.png";
-import LabourChargeImg from "../../../../assets/images/payment-method.png";
-import GreenChargeImg from "../../../../assets/images/money.png";
 import { useOutletContext } from "react-router";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import toast from "react-hot-toast";
@@ -17,10 +13,10 @@ import {
   MdOutlineReceiptLong,
   MdReceiptLong,
 } from "react-icons/md";
-import Application from "./Application";
 import Modal from "./Modal";
 import { HiCurrencyRupee } from "react-icons/hi2";
 import SendIcon from "../../../Components/SendIcon";
+import { motion } from "framer-motion";
 
 const Payment = () => {
   const [openApplication, setOpenApplication] = useState(false);
@@ -98,7 +94,7 @@ const Payment = () => {
         generalInformation?.natureOfTheSite === "Approved Layout" ||
         generalInformation?.natureOfTheSite === "Regularised under LRS" ||
         generalInformation?.natureOfTheSite ===
-          "Congested/ Gramakanta/ Old Built-up area" ||
+        "Congested/ Gramakanta/ Old Built-up area" ||
         generalInformation?.natureOfTheSite === "Newly Developed/ Built up area"
       ) {
         setCondition(1);
@@ -295,9 +291,9 @@ const Payment = () => {
     const labourCessComponentUnitRate1 = 1400; // per Sq.ft.
     const labourCessCompo1Charged = Math.round(
       labourCessComponentUnitRate1 *
-        BuiltUp_area_SquareFeet *
-        10.76 *
-        (0.01 * 0.98)
+      BuiltUp_area_SquareFeet *
+      10.76 *
+      (0.01 * 0.98)
     );
 
     setCalculatedData({
@@ -522,10 +518,14 @@ const Payment = () => {
       <form onSubmit={(e) => e.preventDefault()} className="grid my-5 lg:my-0">
         {/* UDA Charge  */}
         <div className="nm_Container mt-3 px-2 py-5 mb-10">
-          <div className="flex items-center -mb-2 px-2">
+          <motion.div className="flex items-center -mb-2 px-2"
+            initial={{ opacity: 0, x: 100 }}
+            whileInView={{ opacity: 1, x: 0, transition: { duration: 1, } }}
+            viewport={{ once: false }}
+          >
             <FaCcAmazonPay size={30} className="text-normalViolet" />
             <h3 className="font-bold text-xl text-gray-900 ml-3">UDA Charge</h3>
-          </div>
+          </motion.div>
 
           <div className="px-2">
             <hr className="w-full h-[1.5px] inline-block bg-gray-400" />
@@ -593,7 +593,11 @@ const Payment = () => {
               ltpDetails={calculatedData?.UDATotalCharged}
             />
             {role === "LTP" && cameFrom === "draft" && (
-              <div className="flex ms-5 items-center mt-[16px] pay-btn-container">
+              <motion.div className="flex ms-5 items-center mt-[16px] pay-btn-container"
+                initial={{ opacity: 0, x: 40 }}
+                whileInView={{ opacity: 1, x: 0, transition: { duration: 1, } }}
+                viewport={{ once: false }}
+              >
                 <button className="pay-btn mt-3">
                   <div className="svg-wrapper-1">
                     <div className="svg-wrapper">
@@ -602,7 +606,7 @@ const Payment = () => {
                   </div>
                   <span>Pay now</span>
                 </button>
-              </div>
+              </motion.div>
             )}
             {role === "PS" && (
               <>
@@ -730,12 +734,16 @@ const Payment = () => {
 
         {/* Grama Panchayat fee */}
         <div className="nm_Container mt-3 px-2 py-5 mb-10">
-          <div className="flex items-center -mb-2 px-2">
+          <motion.div className="flex items-center -mb-2 px-2"
+            initial={{ opacity: 0, x: 100 }}
+            whileInView={{ opacity: 1, x: 0, transition: { duration: 1, } }}
+            viewport={{ once: false }}
+          >
             <MdOutlinePayments size={30} className="text-normalViolet" />
             <h3 className="font-bold text-xl text-gray-900 ml-3">
               Grama Panchayat fee
             </h3>
-          </div>
+          </motion.div>
 
           <div className="px-2">
             <hr className="w-full h-[1.5px] inline-block bg-gray-400" />
@@ -843,7 +851,11 @@ const Payment = () => {
               />
             </div>
 
-            <div className="px-3 mb-4 flex justify-end">
+            <motion.div className="px-3 mb-4 flex justify-end"
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0, transition: { duration: 1, } }}
+              viewport={{ once: false }}
+            >
               <div className="form-control w-full max-w-xs">
                 {role === "LTP" && cameFrom === "draft" && (
                   <input
@@ -856,27 +868,31 @@ const Payment = () => {
               </div>
               {applicationData?.payment?.gramaPanchayatFee
                 ?.gramaBankReceipt && (
-                <Link
-                  to={`https://drive.google.com/file/d/${applicationData?.payment?.gramaPanchayatFee?.gramaBankReceipt}/view?usp=sharing`}
-                  target="_blank"
-                  className="flex justify-center items-center ms-10 px-4 py-2 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
-                >
-                  <MdReceiptLong className="me-1" />
-                  View Challan
-                </Link>
-              )}
-            </div>
+                  <Link
+                    to={`https://drive.google.com/file/d/${applicationData?.payment?.gramaPanchayatFee?.gramaBankReceipt}/view?usp=sharing`}
+                    target="_blank"
+                    className="flex justify-center items-center ms-10 px-4 py-2 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
+                  >
+                    <MdReceiptLong className="me-1" />
+                    View Challan
+                  </Link>
+                )}
+            </motion.div>
           </div>
         </div>
 
         {/* Labour cess charge  */}
         <div className="nm_Container mt-3 px-2 py-5 mb-10">
-          <div className="flex items-center -mb-2 px-2">
+          <motion.div className="flex items-center -mb-2 px-2"
+            initial={{ opacity: 0, x: 100 }}
+            whileInView={{ opacity: 1, x: 0, transition: { duration: 1, } }}
+            viewport={{ once: false }}
+          >
             <FaMoneyCheckAlt size={30} className="text-normalViolet" />
             <h3 className="font-bold text-xl text-gray-900 ml-3">
               Labour cess charge
             </h3>
-          </div>
+          </motion.div>
 
           <div className="px-2">
             <hr className="w-full h-[1.5px] inline-block bg-gray-400" />
@@ -941,7 +957,11 @@ const Payment = () => {
               />
             </div>
 
-            <div className="px-3 mb-4 flex justify-end">
+            <motion.div className="px-3 mb-4 flex justify-end"
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0, transition: { duration: 1, } }}
+              viewport={{ once: false }}
+            >
               <div className="form-control w-full max-w-xs">
                 {role === "LTP" && cameFrom === "draft" && (
                   <input
@@ -957,27 +977,31 @@ const Payment = () => {
 
               {applicationData?.payment?.labourCessCharge
                 ?.labourCessBankReceipt && (
-                <Link
-                  to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
-                  target="_blank"
-                  className="flex justify-center items-center ms-10 px-4 py-2 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
-                >
-                  <MdReceiptLong className="me-1" />
-                  View Challan
-                </Link>
-              )}
-            </div>
+                  <Link
+                    to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
+                    target="_blank"
+                    className="flex justify-center items-center ms-10 px-4 py-2 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
+                  >
+                    <MdReceiptLong className="me-1" />
+                    View Challan
+                  </Link>
+                )}
+            </motion.div>
           </div>
         </div>
 
         {/* Green fee charge  */}
         <div className="nm_Container mt-3 px-2 py-5">
-          <div className="flex items-center -mb-2 px-2">
+          <motion.div className="flex items-center -mb-2 px-2"
+            initial={{ opacity: 0, x: 100 }}
+            whileInView={{ opacity: 1, x: 0, transition: { duration: 1, } }}
+            viewport={{ once: false }}
+          >
             <HiCurrencyRupee size={30} className="text-normalViolet" />
             <h3 className="font-bold text-xl text-gray-900 ml-3">
               Green fee charge
             </h3>
-          </div>
+          </motion.div>
 
           <div className="px-2">
             <hr className="w-full h-[1.5px] inline-block bg-gray-400" />
@@ -1042,7 +1066,11 @@ const Payment = () => {
               />
             </div>
 
-            <div className="px-3 mb-4 flex justify-end">
+            <motion.div className="px-3 mb-4 flex justify-end"
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0, transition: { duration: 1, } }}
+              viewport={{ once: false }}
+            >
               <div className="form-control w-full max-w-xs">
                 {role === "LTP" && cameFrom === "draft" && (
                   <input
@@ -1055,16 +1083,16 @@ const Payment = () => {
               </div>
               {applicationData?.payment?.greenFeeCharge
                 ?.greenFeeBankReceipt && (
-                <Link
-                  to={`https://drive.google.com/file/d/${applicationData?.payment?.greenFeeCharge?.greenFeeBankReceipt}/view?usp=sharing`}
-                  target="_blank"
-                  className="flex justify-center items-center ms-10 px-4 py-2 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
-                >
-                  <MdReceiptLong className="me-1" />
-                  View Challan
-                </Link>
-              )}
-            </div>
+                  <Link
+                    to={`https://drive.google.com/file/d/${applicationData?.payment?.greenFeeCharge?.greenFeeBankReceipt}/view?usp=sharing`}
+                    target="_blank"
+                    className="flex justify-center items-center ms-10 px-4 py-2 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
+                  >
+                    <MdReceiptLong className="me-1" />
+                    View Challan
+                  </Link>
+                )}
+            </motion.div>
           </div>
         </div>
 
