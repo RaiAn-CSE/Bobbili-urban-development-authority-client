@@ -55,12 +55,12 @@ const LtpSidebar = () => {
       <li
         className={`${
           path === "/dashboard" && activeColor
-        } mt-24 lg:mt-0 ${sidebarHoverClass} `}
+        } mt-24 lg:mt-0 ${sidebarHoverClass}`}
       >
         <span>
           <MdSpaceDashboard size={20} />
         </span>
-        <Link className={`p-[10px] font-medium `} to="/dashboard">
+        <Link className={`p-[10px] font-medium`} to="/dashboard">
           Dashboard
         </Link>
       </li>
@@ -179,8 +179,7 @@ const LtpSidebar = () => {
           Rejected
         </Link>
       </li>
-
-      <li className={`mt-5 ${sidebarHoverClass}`}>
+      {/* <li className={` ${sidebarHoverClass}`}>
         <span>
           <MdOutlineLogout size={22} />
         </span>
@@ -190,7 +189,19 @@ const LtpSidebar = () => {
         >
           Logout
         </Link>
-      </li>
+      </li> */}
+
+      {/* <li className={` ${sidebarHoverClass}`}>
+        <span>
+          <MdOutlineLogout size={22} />
+        </span>
+        <Link
+          className="p-[10px]  font-medium"
+          onClick={() => handleLogOut(navigate)}
+        >
+          Logout
+        </Link>
+      </li> */}
     </>
   );
 };

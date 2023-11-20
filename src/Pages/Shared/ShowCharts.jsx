@@ -436,14 +436,14 @@ const ShowCharts = () => {
             <div
               className={`${
                 path.includes("/dashboard") && "px-4"
-              } flex justify-between items-center  p-0 z-[10]`}
+              } flex justify-evenly items-center  p-0 z-[10]`}
             >
               {/* background: linear-gradient(to right, rgb(142, 45, 226), rgb(74, 0, 224)); */}
-              <div className="  w-[45%]  overflow-hidden z-[10] p-8">
+              <div className="w-[46%] overflow-hidden z-[10]">
                 {serverData?.length !== 0 && <BarChart chartData={chartData} />}
               </div>
 
-              <div className=" w-[45%] overflow-hidden  z-[10] p-8">
+              <div className=" w-[46%] overflow-hidden  z-[10] ">
                 {serverData?.length !== 0 && <PieChart chartData={chartData} />}
               </div>
             </div>

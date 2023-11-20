@@ -106,6 +106,7 @@ const Navbar = () => {
           ({user?.role})
         </small>
       </div>
+
       <div className="dropdown dropdown-end me-5">
         <label
           tabIndex={0}
