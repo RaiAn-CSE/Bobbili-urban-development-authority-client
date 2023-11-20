@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import HomeCss from "../../../Style/Home.module.css";
 import Loading from "../../Shared/Loading";
+import { motion } from "framer-motion";
 
 const ListOfLTP = () => {
   const [filteredData, setFilteredData] = useState([]);
@@ -50,7 +51,11 @@ const ListOfLTP = () => {
 
   return (
     <div className="w-full h-full px-2 mt-5">
-      <div className={`${HomeCss.searchInputContainer} mx-2`}>
+      <motion.div className={`${HomeCss.searchInputContainer} mx-2`}
+        initial={{ opacity: 0, x: -40, y: -40 }}
+        whileInView={{ opacity: 1, x: 0, y: 0, transition: { duration: 0.5, } }}
+        viewport={{ once: false }}
+      >
         <input
           placeholder="Search LTP by name"
           className={`${HomeCss.searchInput} text-gray-900 focus:border-violet-500 focus:outline-none focus:ring-2 ring-violet-100`}
@@ -80,7 +85,7 @@ const ListOfLTP = () => {
             ></path>{" "}
           </g>
         </svg>
-      </div>
+      </motion.div>
 
       {/* Location details  */}
       <div className="container px-2 font-roboto mt-9">
@@ -148,7 +153,7 @@ const ListOfLTP = () => {
               </tbody>
             </table>
             {filteredData?.length === 0 && (
-              <p className="text-center my-5 text-lg font-bold text-violet-500">
+              <p className="text-center my-5 text-2xl font-bold text-violet-500">
                 No data found
               </p>
             )}

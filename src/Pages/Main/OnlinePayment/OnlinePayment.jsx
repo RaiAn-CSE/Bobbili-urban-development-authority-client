@@ -4,6 +4,7 @@ import { GiMoneyStack } from "react-icons/gi";
 import { IoIosSend, IoMdSend } from "react-icons/io";
 import { AuthContext } from "../../../AuthProvider/AuthProvider";
 import HomeCss from "../../../Style/Home.module.css";
+import { motion } from "framer-motion";
 
 const OnlinePayment = () => {
   const [applicationData, setApplicationData] = useState([]);
@@ -51,7 +52,11 @@ const OnlinePayment = () => {
   console.log(filteredData, "FILTERED DATA");
   return (
     <div className="h-full font-lg w-full px-2 mt-5 font-roboto bg-[#E8EAEC]">
-      <div className={`${HomeCss.searchInputContainer} mx-2`}>
+      <motion.div className={`${HomeCss.searchInputContainer} mx-2`}
+        initial={{ opacity: 0, x: -40, y: -40 }}
+        whileInView={{ opacity: 1, x: 0, y: 0, transition: { duration: 0.5, } }}
+        viewport={{ once: false }}
+      >
         <input
           placeholder="Application no. or owner name"
           className={`${HomeCss.searchInput} text-gray-900 focus:border-violet-500 focus:outline-none focus:ring-2 ring-violet-100`}
@@ -81,14 +86,18 @@ const OnlinePayment = () => {
             ></path>{" "}
           </g>
         </svg>
-      </div>
+      </motion.div>
 
       {/* Application details  */}
       <div className="mt-7">
         <div className="-mb-3">
-          <h3 className="w-fit basis-[50%] text-black text-lg  pl-3 font-semibold ">
+          <motion.h3 className="w-fit basis-[50%] text-black text-lg  pl-3 font-semibold"
+            initial={{ opacity: 0, x: -70 }}
+            whileInView={{ opacity: 1, x: 0, transition: { duration: 0.5, } }}
+            viewport={{ once: false }}
+          >
             Application details:
-          </h3>
+          </motion.h3>
         </div>
 
         <div className="px-2">
@@ -159,9 +168,13 @@ const OnlinePayment = () => {
       {/* Fees details  */}
       <div className="mt-12">
         <div className="flex -mb-3">
-          <h3 className="basis-[50%] text-lg pl-3 font-semibold text-gray-900">
+          <motion.h3 className="basis-[50%] text-lg pl-3 font-semibold text-gray-900"
+            initial={{ opacity: 0, x: -70 }}
+            whileInView={{ opacity: 1, x: 0, transition: { duration: 0.5, } }}
+            viewport={{ once: false }}
+          >
             Fees details:
-          </h3>
+          </motion.h3>
         </div>
 
         <div className="px-2">
@@ -208,23 +221,31 @@ const OnlinePayment = () => {
       </div>
 
       <div className="flex justify-center items-center pl-3 mt-5 text-gray-600">
-        <h3 className="text-base font-semibold">
+        <motion.h3 className="text-base font-semibold"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0, transition: { duration: 1, } }}
+          viewport={{ once: false }}
+        >
           For UDA charge you can pay only Rs.{" "}
           {filteredData?.payment?.udaCharge?.UDATotalCharged
             ? filteredData?.payment?.udaCharge?.UDATotalCharged
             : "xxxxxxx"}
           /= fee online, remaining all fee DD/Challan can be attached in LTP
           login only.
-        </h3>
+        </motion.h3>
       </div>
-      <div className="flex justify-end px-3 pb-6">
+      <motion.div className="flex justify-end px-3 pb-6"
+        initial={{ opacity: 0, x: 20 }}
+        whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
+        viewport={{ once: false }}
+      >
         <button
           className={`save-btn bg-[#8980FD] px-3 py-2 rounded-full nm_Container text-sm flex justify-center items-center`}
         >
           <IoIosSend size={20} />
           <span className="ml-1 ">pay now</span>
         </button>
-      </div>
+      </motion.div>
     </div>
   );
 };

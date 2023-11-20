@@ -79,7 +79,11 @@ const ApplicationSearch = () => {
 
   return (
     <div className=" h-full font-roboto w-full px-2 mt-5 bg-[#E8EAEC]">
-      <div className={`${HomeCss.searchInputContainer} mx-2`}>
+      <motion.div className={`${HomeCss.searchInputContainer} mx-2`}
+        initial={{ opacity: 0, x: -40, y: -40 }}
+        whileInView={{ opacity: 1, x: 0, y: 0, transition: { duration: 0.5, } }}
+        viewport={{ once: false }}
+      >
         <input
           placeholder="Application no. or owner name"
           className={`${HomeCss.searchInput} text-gray-900 focus:border-violet-500 focus:outline-none focus:ring-2 ring-violet-100`}
@@ -109,7 +113,7 @@ const ApplicationSearch = () => {
             ></path>{" "}
           </g>
         </svg>
-      </div>
+      </motion.div>
 
       {/* Location details  */}
       <div className="mt-7">
