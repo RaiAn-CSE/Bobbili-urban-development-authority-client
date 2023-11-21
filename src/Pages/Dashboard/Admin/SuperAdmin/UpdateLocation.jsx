@@ -133,22 +133,22 @@ const UpdateLocation = () => {
       )}`;
     }
 
-    // fetch(url, {
-    //   method: "PATCH",
-    // })
-    //   .then((res) => res.json())
-    //   .then((result) => {
-    //     console.log(result);
+    fetch(url, {
+      method: "PATCH",
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
 
-    //     if (result?.response?.acknowledged) {
-    //       toast.success(result?.msg);
-    //     } else {
-    //       toast.error(result?.msg);
-    //     }
-    //   })
-    //   .catch(() => {
-    //     toast.error("Server Failed");
-    //   });
+        if (result?.response?.acknowledged) {
+          toast.success(result?.msg);
+        } else {
+          toast.error(result?.msg);
+        }
+      })
+      .catch(() => {
+        toast.error("Server Failed");
+      });
   };
 
   const setDistrictInputValue = (e) => {
