@@ -56,7 +56,7 @@ const MainLayout = () => {
           <div className="basis-3/4 z-[10] pt-2">
             <p
               // className="css-3d-text w-fit p-2 text-4xl text-gray-600 font-bold font-sofadi"
-              className="w-fit italic tracking-wider bg-bgColor p-2 text-5xl font-bold font-titleFont"
+              className="w-fit italic tracking-wider bg-bgColor p-2 text-5xl font-bold font-titleFont text-black"
             >
               Bobbili Urban Development Authority
             </p>

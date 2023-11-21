@@ -130,7 +130,7 @@ const DraftApplication = () => {
 
   const icons = [
     <FaBuildingColumns size={15} />,
-    <BsInfoCircle size={18} />,
+    <BsInfoCircle size={17} />,
     <GoChecklist size={18} />,
     <HiOutlineClipboardDocumentList size={19} />,
     <BsHouseCheck size={17} />,
@@ -242,8 +242,10 @@ const DraftApplication = () => {
               >
                 <button
                   className={`${btnClass} ${completeBtn(index)} ${
-                    role !== "PS" ? "w-[50%] lg:w-[15%]" : "w-[50%] lg:w-[13%]"
-                  } text-sm border-0 nm_Container lg:absolute top-3 z-10`}
+                    role !== "PS"
+                      ? "w-[50%] lg:w-[15.3%]"
+                      : "w-[50%] lg:w-[13%]"
+                  } text-[14px] border-0 nm_Container flex lg:absolute top-3 z-10`}
                 >
                   {role !== "PS" && icons[index]}
                   <span>{step}</span>

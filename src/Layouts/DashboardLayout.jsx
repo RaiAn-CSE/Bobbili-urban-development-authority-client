@@ -46,7 +46,7 @@ const DashboardLayout = () => {
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
 
           <ul
-            className={`nm_Container md:m-3 w-full md:w-60 h-[95%] bg-bgColor font-roboto font-bold text-xl md:text-base text-black pt-10 md:pt-0 lg:fixed rounded-3xl text-center`}
+            className={`nm_Container md:m-3 w-full md:w-[18.5%] h-[95%] bg-bgColor font-roboto font-bold text-xl md:text-base text-black pt-10 md:pt-0 lg:fixed rounded-3xl text-center`}
           >
             {/* <!-- Sidebar content here --> */}
 
