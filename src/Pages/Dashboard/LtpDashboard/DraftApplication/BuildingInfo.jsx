@@ -676,7 +676,11 @@ const BuildingInfo = () => {
           </div>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 -mt-2">
-            <div className="flex flex-col justify-center my-4 px-3">
+            <motion.div className="flex flex-col justify-center my-4 px-3"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
+              viewport={{ once: false }}
+            >
               <label htmlFor="nature" className={labelClass}>
                 Case Type
               </label>
@@ -699,10 +703,14 @@ const BuildingInfo = () => {
                 </option>
                 <option value="Revision">Revision</option>
               </select>
-            </div>
+            </motion.div>
 
             {/* General Information radio button  */}
-            <div className="grid grid-cols-1 font-medium  lg:justify-items-center my-4 mx-3">
+            <motion.div className="grid grid-cols-1 font-medium  lg:justify-items-center my-4 mx-3"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
+              viewport={{ once: false }}
+            >
               <p className="flex items-center font-semibold text-gray-600">
                 Application Type?
               </p>
@@ -749,9 +757,13 @@ const BuildingInfo = () => {
                   </label>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="flex flex-col justify-center my-4 mx-3">
+            <motion.div className="flex flex-col justify-center my-4 mx-3"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
+              viewport={{ once: false }}
+            >
               <label className="block text-gray-600 mb-1 font-semibold">
                 <span>Nature of permission</span>
               </label>
@@ -768,9 +780,13 @@ const BuildingInfo = () => {
                 </option>
                 <option value="Housing Scheme">Housing Scheme</option>
               </select>
-            </div>
+            </motion.div>
 
-            <div className="my-4 mx-3">
+            <motion.div className="my-4 mx-3"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
+              viewport={{ once: false }}
+            >
               <label htmlFor="nature" className={labelClass}>
                 <span>Nature of the site</span>
               </label>
@@ -802,7 +818,7 @@ const BuildingInfo = () => {
                   Newly Developed/ Built up area
                 </option>
               </select>
-            </div>
+            </motion.div>
 
             <InputField
               id="SurveyNo"
@@ -813,7 +829,11 @@ const BuildingInfo = () => {
               ltpDetails={surveyNo}
             />
 
-            <div className="flex flex-col justify-center my-4 mx-3">
+            <motion.div className="flex flex-col justify-center my-4 mx-3"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
+              viewport={{ once: false }}
+            >
               <label className={labelClass}>
                 <span>District</span>
               </label>
@@ -834,9 +854,13 @@ const BuildingInfo = () => {
                   </option>
                 ))}
               </select>
-            </div>
+            </motion.div>
 
-            <div className="flex flex-col justify-center my-4 mx-3">
+            <motion.div className="flex flex-col justify-center my-4 mx-3"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
+              viewport={{ once: false }}
+            >
               <label className={labelClass}>
                 <span>Mandal</span>
               </label>
@@ -860,9 +884,13 @@ const BuildingInfo = () => {
                       </option>
                     ))}
               </select>
-            </div>
+            </motion.div>
 
-            <div className="flex flex-col justify-center my-4 mx-3">
+            <motion.div className="flex flex-col justify-center my-4 mx-3"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
+              viewport={{ once: false }}
+            >
               <label className={labelClass}>
                 <span>Village</span>
               </label>
@@ -887,9 +915,13 @@ const BuildingInfo = () => {
                       </option>
                     ))}
               </select>
-            </div>
+            </motion.div>
 
-            <div className="flex flex-col justify-center my-4 mx-3">
+            <motion.div className="flex flex-col justify-center my-4 mx-3"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
+              viewport={{ once: false }}
+            >
               <label className={labelClass}>
                 <span>Grama Panchayat</span>
               </label>
@@ -914,7 +946,7 @@ const BuildingInfo = () => {
                       </option>
                     ))}
               </select>
-            </div>
+            </motion.div>
 
             {/*===================== Conditionally render input fields based on Case Type  =====================*/}
             {selectedOptionCase === "Alteration Addition Existing" &&
@@ -1079,7 +1111,11 @@ const BuildingInfo = () => {
                 ltpDetails={totalPlotGround}
               />
 
-              <div className="my-4 mx-3 flex flex-col justify-between">
+              <motion.div className="my-4 mx-3 flex flex-col justify-between"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
+                viewport={{ once: false }}
+              >
                 <label htmlFor="" className={labelClass}>
                   Proposed Plot area
                 </label>
@@ -1093,9 +1129,13 @@ const BuildingInfo = () => {
                   onChange={handleProposedPlotAreaChange}
                   readOnly={isReadOnly}
                 />
-              </div>
+              </motion.div>
 
-              <div className="my-4 mx-3 flex flex-col justify-between">
+              <motion.div className="my-4 mx-3 flex flex-col justify-between"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
+                viewport={{ once: false }}
+              >
                 <label htmlFor="" className={labelClass}>
                   Road Widening Area
                 </label>
@@ -1108,10 +1148,14 @@ const BuildingInfo = () => {
                   onChange={handleRoadWideningAreaChange}
                   disabled={isReadOnly}
                 />
-              </div>
+              </motion.div>
 
               {/* Automatically calculated Plot Details  */}
-              <div className="my-4 mx-3">
+              <motion.div className="my-4 mx-3"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
+                viewport={{ once: false }}
+              >
                 <label htmlFor="disabled-input" className={labelClass}>
                   Net Plot Area (in Sq.Mts.)
                 </label>
@@ -1124,7 +1168,7 @@ const BuildingInfo = () => {
                   value={netPlotArea ?? ""}
                   readOnly
                 />
-              </div>
+              </motion.div>
             </div>
 
             <div className="grid grid-cols-1 mx-5 md:mx-10 lg:mx-14 my-10">
@@ -1184,7 +1228,11 @@ const BuildingInfo = () => {
                 </motion.div>
               )}
 
-              <div className="flex flex-col md:flex-row font-medium mb-4 text-lg mt-4">
+              <motion.div className="flex flex-col md:flex-row font-medium mb-4 text-lg mt-4"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
+                viewport={{ once: false }}
+              >
                 <div className="flex items-center mb-3 md:mb-0">
                   <FaHandPointRight className="me-3 w-5 lg:w-auto text-violetLight" />
                   <p className="font-bold text-lg">Status of Road?</p>
@@ -1228,11 +1276,15 @@ const BuildingInfo = () => {
                     </label>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </div>
 
             <div className="grid grid-cols-2 lg:grid-cols-4 mt-3">
-              <div className="flex flex-col justify-center mx-3">
+              <motion.div className="flex flex-col justify-center mx-3"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
+                viewport={{ once: false }}
+              >
                 <label className={labelClass}>
                   <span>Nature of Road</span>
                 </label>
@@ -1251,7 +1303,7 @@ const BuildingInfo = () => {
                   <option>WBM</option>
                   <option>Kutchha/ Graval</option>
                 </select>
-              </div>
+              </motion.div>
 
               <InputField
                 id="existingRoadMts"
@@ -1303,7 +1355,11 @@ const BuildingInfo = () => {
 
             <div className="grid grid-cols-2 lg:grid-cols-4 mt-5">
               <div className="hidden lg:grid"></div>
-              <div className="my-4 mx-3 grid">
+              <motion.div className="my-4 mx-3 grid"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
+                viewport={{ once: false }}
+              >
                 <label htmlFor="disabled-input" className={labelClass}>
                   Total Built up area
                 </label>
@@ -1316,9 +1372,13 @@ const BuildingInfo = () => {
                   value={builtUpAreaSum}
                   readOnly
                 />
-              </div>
+              </motion.div>
 
-              <div className="my-4 mx-3">
+              <motion.div className="my-4 mx-3"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
+                viewport={{ once: false }}
+              >
                 <label htmlFor="disabled-input2" className={labelClass}>
                   Total Parking area
                 </label>
@@ -1330,7 +1390,7 @@ const BuildingInfo = () => {
                   value={parkingAreaSum}
                   readOnly
                 />
-              </div>
+              </motion.div>
             </div>
 
             <div className="grid grid-cols-2 lg:grid-cols-4">
@@ -1387,7 +1447,11 @@ const BuildingInfo = () => {
 
             <div className="grid grid-cols-1 mx-5 md:mx-10 lg:mx-14">
               <div className="lg:flex">
-                <div className="flex flex-col md:flex-row basis-[70%] font-medium text-lg my-10">
+                <motion.div className="flex flex-col md:flex-row basis-[70%] font-medium text-lg my-10"
+                  initial={{ opacity: 0, x: 100 }}
+                  whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
+                  viewport={{ once: false }}
+                >
                   <div className="flex items-center mb-3 md:mb-0">
                     <FaHandPointRight className="me-3 w-7 lg:w-auto text-violetLight" />
                     <p className="font-bold text-lg">
@@ -1434,7 +1498,7 @@ const BuildingInfo = () => {
                       </label>
                     </div>
                   </div>
-                </div>
+                </motion.div>
                 <div className="basis-[30%]">
                   {radio4 === "yes" ? (
                     <motion.div
@@ -1454,7 +1518,11 @@ const BuildingInfo = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col md:flex-row font-medium mb-3 text-lg">
+              <motion.div className="flex flex-col md:flex-row font-medium mb-3 text-lg"
+                initial={{ opacity: 0, x: 100 }}
+                whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
+                viewport={{ once: false }}
+              >
                 <div className="flex items-center mb-3 md:mb-0">
                   <FaHandPointRight className="me-3 w-7 lg:w-auto text-violetLight" />
                   <p className="font-bold text-lg">
@@ -1502,7 +1570,7 @@ const BuildingInfo = () => {
                     </label>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
         </motion.div>
