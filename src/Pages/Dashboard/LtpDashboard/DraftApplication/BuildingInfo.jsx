@@ -655,14 +655,21 @@ const BuildingInfo = () => {
     <>
       <div className="grid my-5 mx-5 lg:my-0 text-gray-900">
         {/* general information */}
-        {/* divide-y-2 divide-gray-300  */}
-        <div className="nm_Container mt-3 px-2 py-5 mb-10">
-          <div className="pl-2 flex items-center -mb-2">
+        <motion.div className="nm_Container mt-3 px-2 py-5 mb-10"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0, transition: { duration: 2 } }}
+          viewport={{ once: false }}
+        >
+          <motion.div className="pl-2 flex items-center -mb-2"
+            initial={{ opacity: 0, x: 100 }}
+            whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
+            viewport={{ once: false }}
+          >
             <div className=" text-normalViolet">
               <HiInformationCircle size={30} />
             </div>
             <h3 className="font-bold text-xl ml-2">General Information</h3>
-          </div>
+          </motion.div>
 
           <div className="px-2">
             <hr className="w-full h-[1.5px] inline-block bg-gray-400" />
@@ -1032,14 +1039,22 @@ const BuildingInfo = () => {
               )}
             {/*===================== Conditional Input Field End =====================*/}
           </div>
-        </div>
+        </motion.div>
 
         {/* plot details  */}
-        <div className="nm_Container mt-3 px-2 py-5 mb-10">
-          <div className="pl-2 flex items-center -mb-2">
+        <motion.div className="nm_Container mt-3 px-2 py-5 mb-10"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0, transition: { duration: 2 } }}
+          viewport={{ once: false }}
+        >
+          <motion.div className="pl-2 flex items-center -mb-2"
+            initial={{ opacity: 0, x: 100 }}
+            whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
+            viewport={{ once: false }}
+          >
             <AiOutlineAreaChart size={30} className="text-normalViolet" />
             <h3 className="font-bold text-xl ml-2">Plot Details</h3>
-          </div>
+          </motion.div>
 
           <div className="px-2">
             <hr className="w-full h-[1.5px] inline-block bg-gray-400" />
@@ -1490,21 +1505,33 @@ const BuildingInfo = () => {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* schedule boundaries  */}
-        <div className="nm_Container mt-3 px-2 py-5">
-          <div className="pl-2 flex items-center -mb-2">
+        <motion.div className="nm_Container mt-3 px-2 py-5"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0, transition: { duration: 2 } }}
+          viewport={{ once: false }}
+        >
+          <motion.div className="pl-2 flex items-center -mb-2"
+            initial={{ opacity: 0, x: 100 }}
+            whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
+            viewport={{ once: false }}
+          >
             <PiWall size={30} className="text-normalViolet" />
             <h3 className="font-bold text-xl ml-3">Schedule of Boundaries</h3>
-          </div>
+          </motion.div>
 
           <div className="px-2">
             <hr className="w-full h-[1.5px] inline-block bg-gray-400" />
           </div>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 items-center -mt-2">
-            <div className="flex flex-col my-4 justify-center mx-3">
+            <motion.div className="flex flex-col my-4 justify-center mx-3"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0, transition: { duration: 1, } }}
+              viewport={{ once: false }}
+            >
               <label className={labelClass}>
                 <span>North</span>
               </label>
@@ -1524,9 +1551,13 @@ const BuildingInfo = () => {
                 <option value="Water body">Water body</option>
                 <option value="Existing building">Existing building</option>
               </select>
-            </div>
+            </motion.div>
 
-            <div className="flex flex-col my-4 justify-center mx-3">
+            <motion.div className="flex flex-col my-4 justify-center mx-3"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0, transition: { duration: 1, } }}
+              viewport={{ once: false }}
+            >
               <label className={labelClass}>
                 <span>South</span>
               </label>
@@ -1546,9 +1577,13 @@ const BuildingInfo = () => {
                 <option value="Water body">Water body</option>
                 <option value="Existing building">Existing building</option>
               </select>
-            </div>
+            </motion.div>
 
-            <div className="flex flex-col my-4 justify-center mx-3">
+            <motion.div className="flex flex-col my-4 justify-center mx-3"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0, transition: { duration: 1, } }}
+              viewport={{ once: false }}
+            >
               <label className={labelClass}>
                 <span>East</span>
               </label>
@@ -1568,9 +1603,13 @@ const BuildingInfo = () => {
                 <option value="Water body">Water body</option>
                 <option value="Existing building">Existing building</option>
               </select>
-            </div>
+            </motion.div>
 
-            <div className="flex flex-col my-4 justify-center mx-3">
+            <motion.div className="flex flex-col my-4 justify-center mx-3"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0, transition: { duration: 1, } }}
+              viewport={{ once: false }}
+            >
               <label className={labelClass}>
                 <span>West</span>
               </label>
@@ -1590,9 +1629,9 @@ const BuildingInfo = () => {
                 <option value="Water body">Water body</option>
                 <option value="Existing building">Existing building</option>
               </select>
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
 
         {/* save & continue  */}
         <SaveData
