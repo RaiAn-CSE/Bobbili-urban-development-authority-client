@@ -517,7 +517,11 @@ const Payment = () => {
     <div className="grid my-5 mx-5 lg:my-0 text-gray-900">
       <form onSubmit={(e) => e.preventDefault()} className="grid my-5 lg:my-0">
         {/* UDA Charge  */}
-        <div className="nm_Container mt-3 px-2 py-5 mb-10">
+        <motion.div className="nm_Container mt-3 px-2 py-5 mb-10"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0, transition: { duration: 2 } }}
+          viewport={{ once: false }}
+        >
           <motion.div className="flex items-center -mb-2 px-2"
             initial={{ opacity: 0, x: 100 }}
             whileInView={{ opacity: 1, x: 0, transition: { duration: 1, } }}
@@ -730,10 +734,14 @@ const Payment = () => {
               </>
             )}
           </div>
-        </div>
+        </motion.div>
 
         {/* Grama Panchayat fee */}
-        <div className="nm_Container mt-3 px-2 py-5 mb-10">
+        <motion.div className="nm_Container mt-3 px-2 py-5 mb-10"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0, transition: { duration: 2 } }}
+          viewport={{ once: false }}
+        >
           <motion.div className="flex items-center -mb-2 px-2"
             initial={{ opacity: 0, x: 100 }}
             whileInView={{ opacity: 1, x: 0, transition: { duration: 1, } }}
@@ -879,10 +887,14 @@ const Payment = () => {
                 )}
             </motion.div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Labour cess charge  */}
-        <div className="nm_Container mt-3 px-2 py-5 mb-10">
+        <motion.div className="nm_Container mt-3 px-2 py-5 mb-10"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0, transition: { duration: 2 } }}
+          viewport={{ once: false }}
+        >
           <motion.div className="flex items-center -mb-2 px-2"
             initial={{ opacity: 0, x: 100 }}
             whileInView={{ opacity: 1, x: 0, transition: { duration: 1, } }}
@@ -988,10 +1000,14 @@ const Payment = () => {
                 )}
             </motion.div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Green fee charge  */}
-        <div className="nm_Container mt-3 px-2 py-5">
+        <motion.div className="nm_Container mt-3 px-2 py-5"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0, transition: { duration: 2 } }}
+          viewport={{ once: false }}
+        >
           <motion.div className="flex items-center -mb-2 px-2"
             initial={{ opacity: 0, x: 100 }}
             whileInView={{ opacity: 1, x: 0, transition: { duration: 1, } }}
@@ -1094,7 +1110,7 @@ const Payment = () => {
                 )}
             </motion.div>
           </div>
-        </div>
+        </motion.div>
 
         {/* save & continue  */}
         {/* navigation button  */}
