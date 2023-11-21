@@ -12,6 +12,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaRegEdit, FaUserEdit } from "react-icons/fa";
 import { LuSettings } from "react-icons/lu";
 import { AuthContext } from "../AuthProvider/AuthProvider";
+import SvgTextAnimation from "../Pages/Components/SvgTextAnimation";
 
 const DashboardLayout = () => {
   const { handleLogOut } = useContext(AuthContext);
@@ -63,9 +64,16 @@ const DashboardLayout = () => {
               <div className="flex-1 mt-3">
                 <Link to="/dashboard" className="font-bold normal-case text-xl">
                   {/* <img className="h-full" src={Logo} alt="The logo of the website" /> */}
-                  <p className="hidden text-gray-600 lg:block text-3xl font-titleFont">
+                  {/* <p className="hidden text-gray-600 lg:block text-3xl font-titleFont">
                     BUDA
-                  </p>
+                  </p> */}
+                  {/* <SvgTextAnimation /> */}
+                  <button class="logo-btn" data-text="Awesome">
+                    <span class="actual-text">&nbsp;BUDA&nbsp;</span>
+                    <span aria-hidden="true" class="hover-text">
+                      &nbsp;BUDA&nbsp;
+                    </span>
+                  </button>
                 </Link>
               </div>
 
