@@ -186,11 +186,19 @@ const ApplicantInfo = () => {
   return (
     <div className="grid my-5 mx-5 lg:my-0 text-gray-900">
       {/* LTP’s Details  */}
-      <div className="nm_Container mt-3 px-2 py-5 mb-10">
-        <div className="flex items-center -mb-2 px-2">
+      <motion.div className="nm_Container mt-3 px-2 py-5 mb-10"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0, transition: { duration: 2 } }}
+        viewport={{ once: false }}
+      >
+        <motion.div className="flex items-center -mb-2 px-2"
+          initial={{ opacity: 0, x: 100 }}
+          whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
+          viewport={{ once: false }}
+        >
           <BiSolidUserDetail size={30} className="text-normalViolet" />
           <h3 className="font-bold text-xl ml-3">LTP’s Details</h3>
-        </div>
+        </motion.div>
 
         <div className="px-2">
           <hr className="w-full h-[1.5px] inline-block bg-gray-400" />
@@ -224,7 +232,17 @@ const ApplicantInfo = () => {
               isAlwaysHide={1}
             />
 
-            <div className="my-4 mx-3">
+            <InputField
+              id="validity"
+              name="validity"
+              label="Validity"
+              // placeholder="xx/xxxxx"
+              type="date"
+              ltpDetails={validity}
+              isAlwaysHide={1}
+            />
+
+            {/* <div className="my-4 mx-3">
               <label htmlFor="validity" className={labelClass}>
                 Validity
               </label>
@@ -236,9 +254,13 @@ const ApplicantInfo = () => {
                 defaultValue={validity}
                 readOnly={true}
               />
-            </div>
+            </div> */}
 
-            <div className="my-4 mx-3">
+            <motion.div className="my-4 mx-3"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0, transition: { duration: 1, } }}
+              viewport={{ once: false }}
+            >
               <label htmlFor="ltpPhoneNo" className={labelClass}>
                 Phone no.
               </label>
@@ -253,7 +275,7 @@ const ApplicantInfo = () => {
                 maxLength={10}
                 readOnly={true}
               />
-            </div>
+            </motion.div>
 
             <InputField
               id="ltpEmail"
@@ -265,7 +287,12 @@ const ApplicantInfo = () => {
               isAlwaysHide={1}
             />
           </div>
-          <div className="my-4 mx-3 basis-[25%]">
+
+          <motion.div className="my-4 mx-3 basis-[25%]"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0, transition: { duration: 1, } }}
+            viewport={{ once: false }}
+          >
             <label htmlFor="ltpAddress" className={labelClass}>
               Address
             </label>
@@ -278,31 +305,25 @@ const ApplicantInfo = () => {
               placeholder="Dr. no., Street, Village, Mandal, Dist."
               readOnly={true}
             ></textarea>
-          </div>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Owner’s Details  */}
       <motion.div
         className="nm_Container mt-3 px-2 py-5"
-        initial={{
-          opacity: 0,
-          // if odd index card,slide from right instead of left
-          y: 50,
-        }}
-        whileInView={{
-          opacity: 1,
-          y: 0, // Slide in to its original position
-          transition: {
-            duration: 2, // Animation duration
-          },
-        }}
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0, transition: { duration: 2 } }}
         viewport={{ once: false }}
       >
-        <div className="flex items-center -mb-2 px-2">
+        <motion.div className="flex items-center -mb-2 px-2"
+          initial={{ opacity: 0, x: 100 }}
+          whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
+          viewport={{ once: false }}
+        >
           <FaBuildingUser size={30} className="text-normalViolet" />
           <h3 className="font-bold text-xl ml-3">Owner’s Details</h3>
-        </div>
+        </motion.div>
 
         <div className="px-2">
           <hr className="w-full h-[1.5px] inline-block bg-gray-400" />
