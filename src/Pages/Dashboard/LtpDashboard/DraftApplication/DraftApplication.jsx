@@ -13,7 +13,6 @@ import EndorsementModal from "../../../Shared/EndorsementModal";
 import ProceedingModal from "../../../Shared/ProceedingModal";
 import { AiFillPieChart } from "react-icons/ai";
 import DrawingModal from "../../../Shared/DrawingModal";
-import { AnimatePresence, motion } from "framer-motion";
 
 const DraftApplication = () => {
   const navigate = useNavigate();
@@ -152,7 +151,7 @@ const DraftApplication = () => {
 
   console.log(
     applicationButtonForDraftApplication &&
-      (cameFrom === "draft" || cameFrom === "submit")
+    (cameFrom === "draft" || cameFrom === "submit")
   );
 
   const applicationButtonForApprovedOrShortfallApplication =
@@ -222,14 +221,14 @@ const DraftApplication = () => {
 
               {(applicationButtonForDraftApplication ||
                 applicationButtonForApprovedOrShortfallApplication) && (
-                <button
-                  onClick={() => setOpenApplication(true)}
-                  className={`btn btn-sm text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white dark:border-none`}
-                >
-                  <HiOutlineClipboardDocumentList className="text-lg" />{" "}
-                  <span>Application</span>
-                </button>
-              )}
+                  <button
+                    onClick={() => setOpenApplication(true)}
+                    className={`btn btn-sm text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white dark:border-none`}
+                  >
+                    <HiOutlineClipboardDocumentList className="text-lg" />{" "}
+                    <span>Application</span>
+                  </button>
+                )}
             </div>
           </div>
           <div className="w-full steps steps-vertical lg:steps-horizontal rounded-lg py-4 lg:relative font-roboto">
@@ -241,11 +240,10 @@ const DraftApplication = () => {
                 onClick={() => handleStepClick(index)}
               >
                 <button
-                  className={`${btnClass} ${completeBtn(index)} ${
-                    role !== "PS"
-                      ? "w-[50%] lg:w-[15.3%]"
-                      : "w-[50%] lg:w-[13%]"
-                  } text-[14px] border-0 nm_Container flex lg:absolute top-3 z-10`}
+                  className={`${btnClass} ${completeBtn(index)} ${role !== "PS"
+                    ? "w-[50%] lg:w-[15.3%]"
+                    : "w-[50%] lg:w-[13%]"
+                    } text-[14px] border-0 nm_Container flex lg:absolute top-3 z-10`}
                 >
                   {role !== "PS" && icons[index]}
                   <span>{step}</span>

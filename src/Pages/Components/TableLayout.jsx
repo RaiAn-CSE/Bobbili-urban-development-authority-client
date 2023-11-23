@@ -1,5 +1,4 @@
 import React from "react";
-import AllDraftApplication from "../Dashboard/LtpDashboard/DraftApplication/AllDraftApplication";
 
 const TableLayout = ({ tableData, Component, tableComponentProps }) => {
   return (
@@ -14,9 +13,8 @@ const TableLayout = ({ tableData, Component, tableComponentProps }) => {
                     return (
                       <th
                         key={headerName}
-                        className={`p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider ${
-                          headerName === "Application no." && "w-48"
-                        }`}
+                        className={`p-3 border-b-2 border-gray-200  text-white  text-xs font-semibold uppercase tracking-wider ${headerName === "Application no." && "w-48"
+                          }`}
                       >
                         {headerName}
                       </th>

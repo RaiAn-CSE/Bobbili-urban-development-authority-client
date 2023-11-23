@@ -191,7 +191,7 @@ const Login = () => {
               />
               <label
                 htmlFor="userId"
-                className="text-violet-400 text-base font-semibold absolute top-0 left-[16px] pointer-events-none transform translate-y-7"
+                className="text-violet-400 h-5 text-base font-semibold absolute top-0 left-[16px] pointer-events-none transform translate-y-7"
               >
                 Your Id
               </label>
@@ -211,7 +211,7 @@ const Login = () => {
               />
               <label
                 htmlFor="password"
-                className="text-violet-400 text-base font-semibold absolute top-0 left-[20px] pointer-events-none transform translate-y-7"
+                className="text-violet-400 h-5 text-base font-semibold absolute top-0 left-[20px] pointer-events-none transform translate-y-7"
               >
                 Your password
               </label>

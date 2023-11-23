@@ -1,10 +1,7 @@
 import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import { RiDeleteBin5Fill } from "react-icons/ri";
-import { AiFillPlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
 import { BiSolidDownArrow, BiSolidRightArrow } from "react-icons/bi";
-import { CiEdit } from "react-icons/ci";
 import DeleteIcon from "../../../Components/DeleteIcon";
 
 const AllDraftApplication = ({
@@ -20,8 +17,6 @@ const AllDraftApplication = ({
   const { showPageBasedOnApplicationType, removeDraftApplication, navigate } =
     tableComponentProps;
 
-  // const { showDraftApplication, removeDraftApplication, navigate } =
-  //   tableComponentProps;
   const { applicationNo, buildingInfo, applicantInfo, createdDate } =
     applicationData;
 
