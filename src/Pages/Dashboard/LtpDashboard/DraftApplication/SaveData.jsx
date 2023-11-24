@@ -9,6 +9,7 @@ import { BsFillSaveFill } from "react-icons/bs";
 import { FaThumbsUp } from "react-icons/fa";
 import { TbFileLike } from "react-icons/tb";
 import { TiCancel } from "react-icons/ti";
+import toast from "react-hot-toast";
 
 const SaveData = ({
   isStepperVisible,
@@ -43,6 +44,9 @@ const SaveData = ({
   // const [isUpdate, setIsUpdate] = useState(0);
 
   const navigate = useNavigate();
+
+  const [textOfSentDepartment, setTextOfSentDepartment] =
+    useState("Click on Save");
 
   // useEffect(() => {
   //   if (location.pathname.includes("siteInspection")) {
@@ -100,7 +104,7 @@ const SaveData = ({
   return (
     <>
       {isStepperVisible && ( // Render the stepper only when isStepperVisible is true
-        <div className="flex justify-end my-6 px-10">
+        <div className="flex justify-end my-6 ">
           {role === "LTP" &&
             (currentStep !== steps.length - 1 ? (
               <button
@@ -134,6 +138,8 @@ const SaveData = ({
                       page: "payment",
                       setSentData,
                     });
+
+                    setTextOfSentDepartment("Sent to department");
                   }}
                 >
                   <span className="flex justify-center items-center">
@@ -159,13 +165,17 @@ const SaveData = ({
 
                 <button
                   className="sent-department"
-                  disabled={sentData === 0}
-                  onClick={() =>
-                    sentToPS(
-                      JSON.parse(localStorage.getItem("CurrentAppNo")),
-                      navigate
-                    )
-                  }
+                  // disabled={sentData === 0}
+                  onClick={() => {
+                    if (sentData === 0) {
+                      toast.error("Click on save");
+                    } else {
+                      sentToPS(
+                        JSON.parse(localStorage.getItem("CurrentAppNo")),
+                        navigate
+                      );
+                    }
+                  }}
                 >
                   {/* <span
                     className={`${
@@ -176,7 +186,7 @@ const SaveData = ({
                   >
                     Click on save button
                   </span> */}
-                  <span className="span">Sent to department</span>
+                  <span className="span">{textOfSentDepartment}</span>
                   <span className="second">
                     <ArrowIcon />
                   </span>

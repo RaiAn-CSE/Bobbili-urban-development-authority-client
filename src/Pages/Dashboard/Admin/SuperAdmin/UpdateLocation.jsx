@@ -198,7 +198,7 @@ const UpdateLocation = () => {
 
   return (
     <>
-      <div className="flex justify-center items-center font-roboto h-[calc(100vh-12vh)] transition-all duration-1000">
+      <div className="flex justify-center items-center font-roboto h-screen transition-all duration-1000">
         {/* container of main div  */}
         <div className="flex min-h-[70%] w-[80%]  nm_Container">
           {/* left side  */}
@@ -537,7 +537,7 @@ const UpdateLocation = () => {
           </div>
 
           {/* right side  */}
-          <div className="basis-1/2 bg-bgColor h-full">
+          <div className="basis-1/2 bg-bgColor min-h-full ">
             {/* <Lottie
               animationData={mapAnimation}
               loop={true}
@@ -547,7 +547,7 @@ const UpdateLocation = () => {
             <img
               src={IndiaMapImg}
               alt="A 3d map of india"
-              className="w-full h-full rounded-lg"
+              className="w-full h-full object-cover rounded-lg"
             />
           </div>
         </div>
