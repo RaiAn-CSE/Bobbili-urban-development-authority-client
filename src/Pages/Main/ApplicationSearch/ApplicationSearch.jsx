@@ -78,10 +78,11 @@ const ApplicationSearch = () => {
   const titleClass = "basis-[50%] text-lg pl-3 font-semibold text-gray-900";
 
   return (
-    <div className=" h-full font-roboto w-full px-2 mt-5 bg-[#E8EAEC]">
+    <div className="h-full font-roboto w-full px-2 mt-5 bg-[#E8EAEC]">
       <motion.div className={`${HomeCss.searchInputContainer} mx-2`}
-        initial={{ opacity: 0, x: -40, y: -40 }}
-        whileInView={{ opacity: 1, x: 0, y: 0, transition: { duration: 0.5, } }}
+        initial={{ opacity: 0, scale: 0.5 }}
+        whileInView={{ opacity: 1, scale: 1.0 }}
+        transition={{ duration: 1 }}
         viewport={{ once: false }}
       >
         <input

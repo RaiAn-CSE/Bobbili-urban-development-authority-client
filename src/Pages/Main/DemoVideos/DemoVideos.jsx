@@ -2,8 +2,8 @@ import React from "react";
 
 const DemoVideos = () => {
   return (
-    <div>
-      <p>Demo videos</p>
+    <div className="text-center w-full">
+      <p>Demo videos coming soon...</p>
     </div>
   );
 };

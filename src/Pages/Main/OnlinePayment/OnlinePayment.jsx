@@ -67,11 +67,14 @@ const OnlinePayment = () => {
   // };
   console.log(filteredData, "FILTERED DATA");
   return (
-    <div className="h-full font-lg w-full px-2 mt-5 font-roboto bg-[#E8EAEC]">
-      <motion.div
-        className={`${HomeCss.searchInputContainer} mx-2`}
-        initial={{ opacity: 0, x: -40, y: -40 }}
-        whileInView={{ opacity: 1, x: 0, y: 0, transition: { duration: 0.5 } }}
+    <div className="h-full font-roboto w-full px-2 mt-5 bg-[#E8EAEC]">
+      <motion.div className={`${HomeCss.searchInputContainer} mx-2`}
+        // initial={{ opacity: 0, x: -40, y: -40 }}
+        // whileInView={{ opacity: 1, x: 0, y: 0, transition: { duration: 0.5 } }}
+        // viewport={{ once: false }}
+        initial={{ opacity: 0, scale: 0.5 }}
+        whileInView={{ opacity: 1, scale: 1.0 }}
+        transition={{ duration: 1 }}
         viewport={{ once: false }}
       >
         <input
@@ -248,11 +251,10 @@ const OnlinePayment = () => {
         >
           {textTypingAnimation(
             `For UDA charge you can pay only Rs.
-          ${
-            filteredData?.payment?.udaCharge?.UDATotalCharged
-              ? filteredData?.payment?.udaCharge?.UDATotalCharged
-              : "xxxxxxx"
-          }
+          ${filteredData?.payment?.udaCharge?.UDATotalCharged
+                ? filteredData?.payment?.udaCharge?.UDATotalCharged
+                : "xxxxxxx"
+              }
           /= fee online, remaining all fee DD/Challan can be attached in LTP
           login only.`.split(" ")
           )}

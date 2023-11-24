@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import Loading from "../../Shared/Loading";
+import { motion } from "framer-motion";
 
 const DefaultDrawingFormat = () => {
   const [loading, setLoading] = useState(false);
@@ -54,8 +55,13 @@ const DefaultDrawingFormat = () => {
   return (
     <div className="w-full h-full drawingFormat relative">
 
-      <div className="flex flex-col w-full items-center h-full justify-center">
-        <p className="text-black text-xl font-bold text-center uppercase mb-10">
+      <motion.div className="flex flex-col w-full items-center h-full justify-center"
+        initial={{ opacity: 0, scale: 0.5 }}
+        whileInView={{ opacity: 1, scale: 1.0 }}
+        transition={{ duration: 1 }}
+        viewport={{ once: false }}
+      >
+        <p className="text-black text-2xl font-bold text-center uppercase mb-10">
           Default Formats
         </p>
         <div className="flex w-full justify-evenly">
@@ -77,7 +83,7 @@ const DefaultDrawingFormat = () => {
             AutoCad Drawing
           </button>
         </div>
-      </div>
+      </motion.div>
 
       {/* <div className="absolute top-0 left-1/2 w-[40px] h-[40px] rounded-full bg-[#8579F2]"></div> */}
       <div className="nm_Container absolute top-10 left-10 w-[20px] h-[20px] rounded-full bg-[#8579F2]"></div>
