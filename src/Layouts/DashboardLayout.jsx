@@ -117,7 +117,7 @@ const DashboardLayout = () => {
               </div>
 
               <div className="relative">
-                <div className="my-2 flex flex-col font-roboto">
+                <div className="mb-2 flex flex-col font-roboto">
                   <p className="font-semibold md:text-lg text-black">
                     {currentUser?.name}
                   </p>

@@ -104,7 +104,7 @@ const SaveData = ({
   return (
     <>
       {isStepperVisible && ( // Render the stepper only when isStepperVisible is true
-        <div className="flex justify-end my-6 px-10">
+        <div className="flex justify-end my-6 ">
           {role === "LTP" &&
             (currentStep !== steps.length - 1 ? (
               <button
