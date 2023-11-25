@@ -2,13 +2,8 @@ import React, { useContext, useEffect, useMemo, useState } from "react";
 import UserImg from "../../assets/images//man.png";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-import { FiSun } from "react-icons/fi";
-import { MdOutlineDarkMode } from "react-icons/md";
-import { LuSettings } from "react-icons/lu";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { useForm } from "react-hook-form";
-import userAvatar from "../../assets/images/man.png";
-import useGetUser from "../CustomHook/useGetUser";
 import toast from "react-hot-toast";
 import { useQueryClient } from "react-query";
 
@@ -58,8 +53,7 @@ const Navbar = () => {
 
   const onSubmit = (formValue) => {
     fetch(
-      `https://residential-building.vercel.app/updateUserInfo/${
-        userInfoFromLocalStorage()._id
+      `https://residential-building.vercel.app/updateUserInfo/${userInfoFromLocalStorage()._id
       }`,
       {
         method: "PATCH",
