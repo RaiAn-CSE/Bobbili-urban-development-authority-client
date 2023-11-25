@@ -69,6 +69,7 @@ function DefaultDocument({
                   accept=".pdf, image/*"
                   onChange={(event) => someEventHandler(event, id)}
                   className="file-input file-input-bordered w-full max-w-xs bg-white border border-gray-300"
+                  required={true}
                 />
               )}
               {isMatch && (

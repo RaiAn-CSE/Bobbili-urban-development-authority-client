@@ -185,7 +185,6 @@ const Login = () => {
                 id="userId"
                 className={`${LoginCSS.loginInput} rounded-full block text-base w-full py-2 px-4 text-gray-900`}
                 defaultValue={cookieUserId}
-                // placeholder="name@company.com"
                 autoFocus
                 required
               />

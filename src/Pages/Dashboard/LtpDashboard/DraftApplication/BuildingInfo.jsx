@@ -654,7 +654,7 @@ const BuildingInfo = () => {
   return (
     <>
       <div className="grid my-5 mx-5 lg:my-0 text-gray-900">
-        <form>
+        <form onClick={(e) => e.preventDefault()}>
           {/* general information */}
           <motion.div className="nm_Container mt-3 px-2 py-5 mb-10"
             initial={{ opacity: 0, y: 40 }}
