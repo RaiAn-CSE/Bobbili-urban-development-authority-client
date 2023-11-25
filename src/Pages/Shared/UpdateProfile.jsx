@@ -17,23 +17,7 @@ const UpdateProfile = () => {
 
   const { register, reset, handleSubmit } = useForm({
     defaultValues: useMemo(() => {
-      console.log("User has changed");
-
-      // let keysToKeep;
-      // if (role === "LTP") {
-      //   keysToKeep = ["contactEmail", "address", "adharNo", "phone"];
-      // } else {
-      //   keysToKeep = ["contactEmail", "address", "phone"];
-      // }
-      // const newObj = {};
-
-      // for (const key of keysToKeep) {
-      //   if (data && key in data) {
-      //     newObj[key] = data[key];
-      //   }
-      // }
-
-      // console.log(newObj, "NEW OBJ");
+      // console.log("User has changed");
       return {
         department: "Town Planning",
         designation: "Engineer",
@@ -50,45 +34,7 @@ const UpdateProfile = () => {
 
   const onSubmit = (formValue) => {
     console.log(formValue, "Formvalue");
-
     delete formValue["_id"];
-    // let keysToKeep;
-    // if (role === "LTP") {
-    //   keysToKeep = [
-    //     "department",
-    //     "townPlaning",
-    //     "designation",
-    //     "registrationNo",
-    //     "qualification",
-
-    //     "contactEmail",
-    //     "mobileNo",
-    //     "phone",
-    //     "fax",
-
-    //     "address",
-    //     "city",
-    //     "country",
-    //     "aadharNo",
-    //     "state",
-    //     "zip",
-
-    //     // "engineer",
-    //     // "email",
-    //     // "address",
-    //     // "adharNo",
-    //     // "phone"
-    //   ];
-    // } else {
-    //   keysToKeep = ["contactEmail", "address", "phone"];
-    // }
-    // const newObj = {};
-
-    // for (const key of keysToKeep) {
-    //   if (formValue && key in formValue) {
-    //     newObj[key] = formValue[key];
-    //   }
-    // }
 
     console.log(formValue, "FOrm r value");
 

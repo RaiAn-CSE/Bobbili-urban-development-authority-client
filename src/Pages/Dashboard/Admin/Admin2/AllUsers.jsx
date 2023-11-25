@@ -258,7 +258,7 @@ const AllUsers = () => {
                 id="update_user"
                 className="modal modal-top h-full font-roboto transition-all duration-500"
               >
-                <div className="modal-box dark:bg-black ">
+                <div className="modal-box bg-[#E8EAEC]">
                   <h3 className="font-bold text-center my-10 text-2xl dark:text-white">
                     Update Profile
                   </h3>
