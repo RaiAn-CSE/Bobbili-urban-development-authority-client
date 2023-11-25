@@ -24,7 +24,6 @@ const InputField = ({
     page === "approved" ||
     page === "shortfall";
 
-  // console.log(ltpDetails, "LTP details", id);
 
   return (
     <motion.div
