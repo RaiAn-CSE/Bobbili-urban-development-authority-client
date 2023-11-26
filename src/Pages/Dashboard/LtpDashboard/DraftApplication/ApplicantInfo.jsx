@@ -185,64 +185,65 @@ const ApplicantInfo = () => {
 
   return (
     <div className="grid my-5 mx-5 lg:my-0 text-gray-900">
-      {/* LTP’s Details  */}
-      <motion.div className="nm_Container mt-3 px-2 py-5 mb-10"
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0, transition: { duration: 2 } }}
-        viewport={{ once: false }}
-      >
-        <motion.div className="flex items-center -mb-2 px-2"
-          initial={{ opacity: 0, x: 100 }}
-          whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
+      <form action="" onSubmit={(e) => e.preventDefault()}>
+        {/* LTP’s Details  */}
+        <motion.div className="nm_Container mt-3 px-2 py-5 mb-10"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0, transition: { duration: 2 } }}
           viewport={{ once: false }}
         >
-          <BiSolidUserDetail size={30} className="text-normalViolet" />
-          <h3 className="font-bold text-xl ml-3">LTP’s Details</h3>
-        </motion.div>
+          <motion.div className="flex items-center -mb-2 px-2"
+            initial={{ opacity: 0, x: 100 }}
+            whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
+            viewport={{ once: false }}
+          >
+            <BiSolidUserDetail size={30} className="text-normalViolet" />
+            <h3 className="font-bold text-xl ml-3">LTP’s Details</h3>
+          </motion.div>
 
-        <div className="px-2">
-          <hr className="w-full h-[1.5px] inline-block bg-gray-400" />
-        </div>
+          <div className="px-2">
+            <hr className="w-full h-[1.5px] inline-block bg-gray-400" />
+          </div>
 
-        <div className="lg:flex -mt-2">
-          <div className="grid grid-cols-2 lg:grid-cols-3 basis-[75%]">
-            <InputField
-              id="ltpType"
-              name="ltpType"
-              label="LTP Type"
-              placeholder="Licensed Engineer"
-              ltpDetails={type}
-              isAlwaysHide={1}
-            />
-            <InputField
-              id="ltpName"
-              name="ltpName"
-              label="LTP Name"
-              placeholder="xxxxxxxxxxxxxxxxx"
-              ltpDetails={name}
-              isAlwaysHide={1}
-            />
-            <InputField
-              id="licenseNo"
-              name="licenseNo"
-              label="Licence no."
-              placeholder="xx/xxxxx"
-              type="text"
-              ltpDetails={licenseNo}
-              isAlwaysHide={1}
-            />
+          <div className="lg:flex -mt-2">
+            <div className="grid grid-cols-2 lg:grid-cols-3 basis-[75%]">
+              <InputField
+                id="ltpType"
+                name="ltpType"
+                label="LTP Type"
+                placeholder="Licensed Engineer"
+                ltpDetails={type}
+                isAlwaysHide={1}
+              />
+              <InputField
+                id="ltpName"
+                name="ltpName"
+                label="LTP Name"
+                placeholder="xxxxxxxxxxxxxxxxx"
+                ltpDetails={name}
+                isAlwaysHide={1}
+              />
+              <InputField
+                id="licenseNo"
+                name="licenseNo"
+                label="Licence no."
+                placeholder="xx/xxxxx"
+                type="text"
+                ltpDetails={licenseNo}
+                isAlwaysHide={1}
+              />
 
-            <InputField
-              id="validity"
-              name="validity"
-              label="Validity"
-              // placeholder="xx/xxxxx"
-              type="date"
-              ltpDetails={validity}
-              isAlwaysHide={1}
-            />
+              <InputField
+                id="validity"
+                name="validity"
+                label="Validity"
+                // placeholder="xx/xxxxx"
+                type="date"
+                ltpDetails={validity}
+                isAlwaysHide={1}
+              />
 
-            {/* <div className="my-4 mx-3">
+              {/* <div className="my-4 mx-3">
               <label htmlFor="validity" className={labelClass}>
                 Validity
               </label>
@@ -256,107 +257,108 @@ const ApplicantInfo = () => {
               />
             </div> */}
 
-            <motion.div className="my-4 mx-3"
+              <motion.div className="my-4 mx-3"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0, transition: { duration: 1, } }}
+                viewport={{ once: false }}
+              >
+                <label htmlFor="ltpPhoneNo" className={labelClass}>
+                  Phone no.
+                </label>
+                <input
+                  id="ltpPhoneNo"
+                  type="text"
+                  name="ltpPhoneNo"
+                  placeholder="xxxxxxxxxx"
+                  defaultValue={phone}
+                  onChange={(e) => setPhoneNoLimit(e, setLtpPhone)}
+                  className={inputClass}
+                  maxLength={10}
+                  readOnly={true}
+                />
+              </motion.div>
+
+              <InputField
+                id="ltpEmail"
+                name="ltpEmail"
+                label="E-mail"
+                placeholder="xxxx@gmail.com"
+                type="email"
+                ltpDetails={email}
+                isAlwaysHide={1}
+              />
+            </div>
+
+            <motion.div className="my-4 mx-3 basis-[25%]"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0, transition: { duration: 1, } }}
               viewport={{ once: false }}
             >
-              <label htmlFor="ltpPhoneNo" className={labelClass}>
-                Phone no.
+              <label htmlFor="ltpAddress" className={labelClass}>
+                Address
               </label>
-              <input
-                id="ltpPhoneNo"
-                type="text"
-                name="ltpPhoneNo"
-                placeholder="xxxxxxxxxx"
-                defaultValue={phone}
-                onChange={(e) => setPhoneNoLimit(e, setLtpPhone)}
+              <textarea
+                id="ltpAddress"
+                name="ltpAddress"
+                rows="4"
                 className={inputClass}
-                maxLength={10}
+                defaultValue={address}
+                placeholder="Dr. no., Street, Village, Mandal, Dist."
                 readOnly={true}
-              />
+              ></textarea>
             </motion.div>
-
-            <InputField
-              id="ltpEmail"
-              name="ltpEmail"
-              label="E-mail"
-              placeholder="xxxx@gmail.com"
-              type="email"
-              ltpDetails={email}
-              isAlwaysHide={1}
-            />
           </div>
-
-          <motion.div className="my-4 mx-3 basis-[25%]"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0, transition: { duration: 1, } }}
-            viewport={{ once: false }}
-          >
-            <label htmlFor="ltpAddress" className={labelClass}>
-              Address
-            </label>
-            <textarea
-              id="ltpAddress"
-              name="ltpAddress"
-              rows="4"
-              className={inputClass}
-              defaultValue={address}
-              placeholder="Dr. no., Street, Village, Mandal, Dist."
-              readOnly={true}
-            ></textarea>
-          </motion.div>
-        </div>
-      </motion.div>
-
-      {/* Owner’s Details  */}
-      <motion.div
-        className="nm_Container mt-3 px-2 py-5"
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0, transition: { duration: 2 } }}
-        viewport={{ once: false }}
-      >
-        <motion.div className="flex items-center -mb-2 px-2"
-          initial={{ opacity: 0, x: 100 }}
-          whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
-          viewport={{ once: false }}
-        >
-          <FaBuildingUser size={30} className="text-normalViolet" />
-          <h3 className="font-bold text-xl ml-3">Owner’s Details</h3>
         </motion.div>
 
-        <div className="px-2">
-          <hr className="w-full h-[1.5px] inline-block bg-gray-400" />
-        </div>
+        {/* Owner’s Details  */}
+        <motion.div
+          className="nm_Container mt-3 px-2 py-5"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0, transition: { duration: 2 } }}
+          viewport={{ once: false }}
+        >
+          <motion.div className="flex items-center -mb-2 px-2"
+            initial={{ opacity: 0, x: 100 }}
+            whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
+            viewport={{ once: false }}
+          >
+            <FaBuildingUser size={30} className="text-normalViolet" />
+            <h3 className="font-bold text-xl ml-3">Owner’s Details</h3>
+          </motion.div>
 
-        <div className="-mt-2">
-          {totalApplicant?.map((applicantNo, index) => (
-            <OwnerDetail
-              key={index}
-              index={index}
-              labelClass={labelClass}
-              inputClass={inputClass}
-              length={totalApplicant.length}
-              applicantNo={applicantNo}
-              increaseApplicantNo={increaseApplicantNo}
-              decreaseApplicationNo={decreaseApplicationNo}
-              setPhoneNoLimit={setPhoneNoLimit}
-              applicantDetails={applicantDetails[index]}
-              isReadOnly={isReadOnly}
-            />
-          ))}
-        </div>
-      </motion.div>
+          <div className="px-2">
+            <hr className="w-full h-[1.5px] inline-block bg-gray-400" />
+          </div>
 
-      {/* save & continue  */}
-      <SaveData
-        isStepperVisible={isStepperVisible}
-        currentStep={currentStep}
-        steps={steps}
-        stepperData={stepperData}
-        confirmAlert={confirmAlert}
-        collectInputFieldData={handleApplicantInfoData}
-      />
+          <div className="-mt-2">
+            {totalApplicant?.map((applicantNo, index) => (
+              <OwnerDetail
+                key={index}
+                index={index}
+                labelClass={labelClass}
+                inputClass={inputClass}
+                length={totalApplicant.length}
+                applicantNo={applicantNo}
+                increaseApplicantNo={increaseApplicantNo}
+                decreaseApplicationNo={decreaseApplicationNo}
+                setPhoneNoLimit={setPhoneNoLimit}
+                applicantDetails={applicantDetails[index]}
+                isReadOnly={isReadOnly}
+              />
+            ))}
+          </div>
+        </motion.div>
+
+        {/* save & continue  */}
+        <SaveData
+          isStepperVisible={isStepperVisible}
+          currentStep={currentStep}
+          steps={steps}
+          stepperData={stepperData}
+          confirmAlert={confirmAlert}
+          collectInputFieldData={handleApplicantInfoData}
+        />
+      </form>
     </div>
   );
 };

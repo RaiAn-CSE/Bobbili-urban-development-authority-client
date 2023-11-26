@@ -11,10 +11,7 @@ const UpdateProfileInput = ({ id, name, placeholder, type, label, register }) =>
             whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
             viewport={{ once: false }}
         >
-            <label
-                htmlFor={id}
-                className="block mb-1 font-semibold text-gray-600"
-            >
+            <label htmlFor={id} className="block mb-1 font-semibold text-gray-600">
                 {label}
             </label>
             <input

@@ -90,6 +90,8 @@ const SaveData = ({
   //     getSubmitAppData();
   //   }
   // }, []);
+
+
   const path = location.pathname;
   const hiddenSaveButtonForPS =
     (path.includes("buildingInfo") ||
