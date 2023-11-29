@@ -93,11 +93,11 @@ const DashboardLayout = () => {
                 </label>
                 <ul
                   tabIndex={0}
-                  className="shadow-md bg-normalViolet text-white menu menu-md dropdown-content mt-8 z-[1] p-2 rounded-box w-44"
+                  className="shadow-md bg-normalViolet text-white menu menu-md dropdown-content mt-8 z-[1] p-2 rounded-box w-44 dark:text-white"
                 >
                   <li>
                     <Link
-                      className="items-center hover:bg-gray-100 "
+                      className="items-center hover:bg-gray-100 hover:text-black"
                       to="/dashboard/profile"
                     >
                       <FaRegEdit size={17} />
@@ -106,7 +106,7 @@ const DashboardLayout = () => {
                   </li>
                   <li>
                     <Link
-                      className="hover:bg-gray-100"
+                      className="items-center hover:bg-gray-100 hover:text-black"
                       onClick={() => handleLogOut(navigate)}
                     >
                       <MdOutlineLogout size={22} />
