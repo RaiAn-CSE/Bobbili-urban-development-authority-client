@@ -118,6 +118,8 @@ const SaveData = ({
                 //   // handleStepClick(currentStep + 1)
                 //   confirmAlert()
                 // }
+
+
                 onClick={() => confirmAlert(stepperData, collectInputFieldData)}
               >
                 Save and Continue
