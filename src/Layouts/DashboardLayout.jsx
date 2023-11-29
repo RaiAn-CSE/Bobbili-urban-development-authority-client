@@ -25,9 +25,9 @@ const DashboardLayout = () => {
   return (
     <div className="bg-bgColor">
       {/* <Navbar /> */}
-      <div className="drawer dark:bg-grad lg:drawer-open min-h-screen relative transition-all duration-700">
+      <div className="drawer dark:bg-grad lg:drawer-open min-h-screen relative transition-all duration-700 grid-cols-5">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle " />
-        <div className="drawer-content w-full overflow-hidden lg:drawer-open ">
+        <div className="drawer-content w-full overflow-hidden lg:drawer-open col-span-4">
           {/* <!-- Page content here --> */}
 
           <label
@@ -43,7 +43,7 @@ const DashboardLayout = () => {
         </div>
 
         {/* sidebar start here  */}
-        <div className="drawer-side w-full md:min-w-[250px] h-full z-10 overflow-hidden">
+        <div className="drawer-side w-full  h-full z-10 overflow-hidden">
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
 
           <ul
@@ -93,11 +93,11 @@ const DashboardLayout = () => {
                 </label>
                 <ul
                   tabIndex={0}
-                  className="shadow-md bg-normalViolet text-white menu menu-md dropdown-content mt-8 z-[1] p-2 rounded-box w-44"
+                  className="shadow-md bg-normalViolet text-white menu menu-md dropdown-content mt-8 z-[1] p-2 rounded-box w-44 dark:text-white"
                 >
                   <li>
                     <Link
-                      className="items-center hover:bg-gray-100 "
+                      className="items-center hover:bg-gray-100 hover:text-black"
                       to="/dashboard/profile"
                     >
                       <FaRegEdit size={17} />
@@ -106,7 +106,7 @@ const DashboardLayout = () => {
                   </li>
                   <li>
                     <Link
-                      className="hover:bg-gray-100"
+                      className="items-center hover:bg-gray-100 hover:text-black"
                       onClick={() => handleLogOut(navigate)}
                     >
                       <MdOutlineLogout size={22} />

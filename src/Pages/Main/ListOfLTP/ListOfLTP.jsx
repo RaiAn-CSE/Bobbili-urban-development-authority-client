@@ -51,9 +51,10 @@ const ListOfLTP = () => {
 
   return (
     <div className="w-full h-full px-2 mt-5">
-      <motion.div className={`${HomeCss.searchInputContainer} mx-2`}
+      <motion.div
+        className={`${HomeCss.searchInputContainer} mx-2`}
         initial={{ opacity: 0, x: -40, y: -40 }}
-        whileInView={{ opacity: 1, x: 0, y: 0, transition: { duration: 0.5, } }}
+        whileInView={{ opacity: 1, x: 0, y: 0, transition: { duration: 0.5 } }}
         viewport={{ once: false }}
       >
         <input
@@ -153,7 +154,7 @@ const ListOfLTP = () => {
               </tbody>
             </table>
             {filteredData?.length === 0 && (
-              <p className="text-center my-5 text-2xl font-bold text-violet-500">
+              <p className="text-center my-5 text-xl font-bold text-red-400">
                 No data found
               </p>
             )}
