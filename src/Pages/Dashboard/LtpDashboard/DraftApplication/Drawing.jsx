@@ -243,13 +243,13 @@ const Drawing = () => {
   }, []);
 
   return (
-    <div className="text-black">
+    <div className="text-black p-5">
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="text-black p-5 mt-3 ml-3"
+        className="text-black mt-3"
       >
         {/* AutoCAD Drawing */}
-        <div className="text-lg px-2 mb-16">
+        <div className="text-lg mb-16">
           <p className="pr-3 font-bold text-black">1. AutoCAD Drawing</p>
           <div className="flex items-center mt-5">
             {role === "LTP" && cameFrom === "draft" && (
@@ -276,7 +276,7 @@ const Drawing = () => {
         </div>
 
         {/* Drawing PDF */}
-        <div className="text-lg px-2 mb-10">
+        <div className="text-lg mb-10">
           <p className="pr-3 font-bold text-black">2. Drawing PDF</p>
           <div className="flex items-center mt-5">
             {role === "LTP" && cameFrom === "draft" && (
