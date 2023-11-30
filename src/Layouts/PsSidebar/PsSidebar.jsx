@@ -32,9 +32,8 @@ function PsSidebar() {
   return (
     <>
       <li
-        className={`${
-          path === "/dashboard" && activeColor
-        } mt-24 lg:mt-0 flex items-center  ps-3 ${hoverColor}`}
+        className={`${path === "/dashboard" && activeColor
+          } flex items-center  ps-3 ${hoverColor}`}
       >
         <span>
           <MdSpaceDashboard size={20} />
@@ -45,15 +44,14 @@ function PsSidebar() {
       </li>
 
       <li
-        className={`${
-          findWhichMenuIsActiveForPsSideBar(
-            path,
-            "/dashboard/inward",
-            "submit",
-            role,
-            "inward"
-          ) && activeColor
-        } mt-1  flex items-center  ps-3 ${hoverColor}`}
+        className={`${findWhichMenuIsActiveForPsSideBar(
+          path,
+          "/dashboard/inward",
+          "submit",
+          role,
+          "inward"
+        ) && activeColor
+          } mt-1  flex items-center  ps-3 ${hoverColor}`}
       >
         <span>
           <BiSolidAddToQueue size={20} />
@@ -70,15 +68,14 @@ function PsSidebar() {
         </Link>
       </li>
       <li
-        className={`${
-          findWhichMenuIsActiveForPsSideBar(
-            path,
-            "/dashboard/outWard",
-            "submit",
-            role,
-            "outward"
-          ) && activeColor
-        } mt-1 flex items-center  ps-3 ${hoverColor}`}
+        className={`${findWhichMenuIsActiveForPsSideBar(
+          path,
+          "/dashboard/outWard",
+          "submit",
+          role,
+          "outward"
+        ) && activeColor
+          } mt-1 flex items-center  ps-3 ${hoverColor}`}
       >
         <span>
           <AiOutlineFileDone size={20} />
@@ -95,15 +92,14 @@ function PsSidebar() {
         </Link>
       </li>
       <li
-        className={`${
-          findWhichMenuIsActiveForPsSideBar(
-            path,
-            "/dashboard/searchApplication",
-            "submit",
-            role,
-            "search"
-          ) && activeColor
-        } mt-1 flex items-center  ps-3 ${hoverColor}`}
+        className={`${findWhichMenuIsActiveForPsSideBar(
+          path,
+          "/dashboard/searchApplication",
+          "submit",
+          role,
+          "search"
+        ) && activeColor
+          } mt-1 flex items-center  ps-3 ${hoverColor}`}
       >
         <span>
           <AiOutlineFileSearch size={20} />

@@ -23,9 +23,8 @@ const AdminSideBar = () => {
   return (
     <>
       <li
-        className={`${
-          path === "/dashboard" && activeColor
-        } mt-24 lg:mt-0 mb-1 ps-4  flex items-center ${hoverColor}`}
+        className={`${path === "/dashboard" && activeColor
+          } mb-1 ps-4  flex items-center ${hoverColor}`}
       >
         <span>
           <MdSpaceDashboard size={20} />
@@ -35,9 +34,8 @@ const AdminSideBar = () => {
         </Link>
       </li>
       <li
-        className={`${
-          path === "/dashboard/addUser" && activeColor
-        }  ps-4 mb-1 flex items-center  ${hoverColor}`}
+        className={`${path === "/dashboard/addUser" && activeColor
+          }  ps-4 mb-1 flex items-center  ${hoverColor}`}
       >
         <span>
           <BiSolidUserPlus size={20} />
@@ -47,9 +45,8 @@ const AdminSideBar = () => {
         </Link>
       </li>
       <li
-        className={`${
-          path === "/dashboard/allUser" && activeColor
-        }  ps-4 mb-1 flex items-center  ${hoverColor}`}
+        className={`${path === "/dashboard/allUser" && activeColor
+          }  ps-4 mb-1 flex items-center  ${hoverColor}`}
       >
         <span>
           <FaUsersGear size={20} />
@@ -59,9 +56,8 @@ const AdminSideBar = () => {
         </Link>
       </li>
       <li
-        className={`${
-          path === "/dashboard/updateLocation" && activeColor
-        }  ps-4 mb-1 flex items-center  ${hoverColor}`}
+        className={`${path === "/dashboard/updateLocation" && activeColor
+          }  ps-4 mb-1 flex items-center  ${hoverColor}`}
       >
         <span>
           <FaLocationDot size={20} />

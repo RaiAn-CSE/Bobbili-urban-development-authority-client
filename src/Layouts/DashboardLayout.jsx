@@ -30,12 +30,12 @@ const DashboardLayout = () => {
         <div className="drawer-content w-full overflow-hidden lg:drawer-open col-span-4">
           {/* <!-- Page content here --> */}
 
-          <label
+          {/* <label
             htmlFor="my-drawer-2"
             className="btn btn-sm md:btn-md m-2 lg:hidden bg-violetLight shadow-md shadow-violetLight text-white border-0 drawer-button transition-all duration-700 hover:bg-black hover:shadow-black "
           >
             <MdOutlineMenuOpen size={24} />
-          </label>
+          </label> */}
 
           {/* page content will be here  */}
           <Outlet />
@@ -47,21 +47,21 @@ const DashboardLayout = () => {
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
 
           <ul
-            className={`nm_Container md:my-3 w-full md:w-[19.5%] h-[95%] bg-bgColor font-roboto font-bold text-xl md:text-base text-black pt-10 md:pt-0 lg:fixed rounded-3xl text-center`}
+            className={`nm_Container lg:my-3 w-full lg:w-[19.5%] h-[95%] bg-bgColor font-roboto font-bold text-xl md:text-base text-black pt-10 md:pt-0 lg:fixed lg:rounded-3xl text-center`}
           >
             {/* <!-- Sidebar content here --> */}
 
-            <li className="absolute right-2 top-20 lg:hidden">
+            <li className="absolute right-7 top-7 lg:hidden">
               <label
                 htmlFor="my-drawer-2"
-                className="btn btn-sm btn-circle bg-black text-white hover:bg-violetDark hover:border-0 "
+                className="btn btn-sm btn-circle bg-black text-white hover:bg-violetDark hover:border-0"
               >
                 ✕
               </label>
             </li>
 
             <li>
-              <div className="flex-1 mt-3">
+              <div className="flex-1 mt-10 lg:mt-3">
                 <Link to="/dashboard" className="font-bold normal-case text-xl">
                   {/* <img className="h-full" src={Logo} alt="The logo of the website" /> */}
                   {/* <p className="hidden text-gray-600 lg:block text-3xl font-titleFont">
