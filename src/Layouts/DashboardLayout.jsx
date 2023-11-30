@@ -30,12 +30,12 @@ const DashboardLayout = () => {
         <div className="drawer-content w-full overflow-hidden lg:drawer-open col-span-4">
           {/* <!-- Page content here --> */}
 
-          {/* <label
+          <label
             htmlFor="my-drawer-2"
             className="btn btn-sm md:btn-md m-2 lg:hidden bg-violetLight shadow-md shadow-violetLight text-white border-0 drawer-button transition-all duration-700 hover:bg-black hover:shadow-black "
           >
             <MdOutlineMenuOpen size={24} />
-          </label> */}
+          </label>
 
           {/* page content will be here  */}
           <Outlet />
