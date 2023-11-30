@@ -151,7 +151,7 @@ const DraftApplication = () => {
 
   console.log(
     applicationButtonForDraftApplication &&
-      (cameFrom === "draft" || cameFrom === "submit")
+    (cameFrom === "draft" || cameFrom === "submit")
   );
 
   const applicationButtonForApprovedOrShortfallApplication =
@@ -166,15 +166,15 @@ const DraftApplication = () => {
     <>
       {isStepperVisible && ( // Render the stepper only when isStepperVisible is true
         <>
-          <div className="flex justify-between items-center mx-5">
+          <div className="lg:flex justify-between items-center mx-2 lg:mx-5">
             <p
-              className={`nm_Container p-2 my-8 font-roboto font-semibold text-lg ${gradientColor} text-transparent bg-clip-text`}
+              className={`nm_Container w-fit p-2 my-8 font-roboto font-semibold text-lg ${gradientColor} text-transparent bg-clip-text`}
             >
               <span className="text-black">Application No:</span>{" "}
               {applicationNo}
             </p>
 
-            <div>
+            <div className="flex justify-end">
               {cameFrom === "approved" && (
                 <>
                   <button
@@ -182,14 +182,14 @@ const DraftApplication = () => {
                       // document.getElementById("proceedingModal").showModal();
                       setOpenProceeding(true);
                     }}
-                    className={`btn btn-sm nm_Container text-xs bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white me-5 border-none`}
+                    className={`btn btn-sm nm_Container text-xs bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white me-2 lg:me-5 border-none`}
                   >
                     <VscDebugContinue className="text-lg" />{" "}
                     <span>Proceeding</span>
                   </button>
 
                   <button
-                    className={`btn btn-sm text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white me-5 border-none`}
+                    className={`btn btn-sm text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white me-2 lg:me-5 border-none`}
                     onClick={() => setOpenDrawing(true)}
                   >
                     <AiFillPieChart className="text-lg" /> <span>Drawing</span>
@@ -200,7 +200,7 @@ const DraftApplication = () => {
               {cameFrom === "shortfall" && (
                 <>
                   <button
-                    className={`btn btn-sm text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white me-5  border-none`}
+                    className={`btn btn-sm text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white me-2 lg:me-5  border-none`}
                     onClick={navigateToResubmitPage}
                   >
                     <FiRefreshCcw className="text-lg" /> <span>Resubmit</span>
@@ -211,7 +211,7 @@ const DraftApplication = () => {
                       // document.getElementById("my_modal_2").showModal();
                       setOpenEndorsement(true);
                     }}
-                    className={`btn btn-sm me-5 text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white border-none`}
+                    className={`btn btn-sm me-2 lg:me-5 text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white border-none`}
                   >
                     <VscReferences className="text-lg" />{" "}
                     <span className="text-xs uppercase">Endorsement</span>
@@ -221,17 +221,17 @@ const DraftApplication = () => {
 
               {(applicationButtonForDraftApplication ||
                 applicationButtonForApprovedOrShortfallApplication) && (
-                <button
-                  onClick={() => setOpenApplication(true)}
-                  className={`btn btn-sm text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white border-none`}
-                >
-                  <HiOutlineClipboardDocumentList className="text-lg" />{" "}
-                  <span>Application</span>
-                </button>
-              )}
+                  <button
+                    onClick={() => setOpenApplication(true)}
+                    className={`btn btn-sm text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white border-none`}
+                  >
+                    <HiOutlineClipboardDocumentList className="text-lg" />{" "}
+                    <span>Application</span>
+                  </button>
+                )}
             </div>
           </div>
-          <div className="w-full steps steps-vertical lg:steps-horizontal rounded-lg py-4 lg:relative font-roboto">
+          <div className="w-full mx-2 steps steps-vertical lg:steps-horizontal rounded-lg py-4 lg:relative font-roboto">
             {stepsContent.map((step, index) => (
               <div
                 key={index}
@@ -240,11 +240,10 @@ const DraftApplication = () => {
                 onClick={() => handleStepClick(index)}
               >
                 <button
-                  className={`${btnClass} ${completeBtn(index)} ${
-                    role !== "PS"
-                      ? "w-[50%] lg:w-[15.3%]"
-                      : "w-[50%] lg:w-[13%]"
-                  } text-[14px] border-0 nm_Container flex lg:absolute top-3 z-10`}
+                  className={`${btnClass} ${completeBtn(index)} ${role !== "PS"
+                    ? "w-[50%] lg:w-[15.3%]"
+                    : "w-[50%] lg:w-[13%]"
+                    } text-[14px] border-0 nm_Container flex lg:absolute top-3 z-10`}
                 >
                   {role !== "PS" && icons[index]}
                   <span>{step}</span>
