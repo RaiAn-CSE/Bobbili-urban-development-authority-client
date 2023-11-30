@@ -615,7 +615,7 @@ const Payment = () => {
             {role === "PS" && (
               <>
                 <button
-                  className={`btn btn-md nm_Container w-[60%] mx-auto text-sm px-3 mt-10 border-none text-white transition-all duration-500 bg-normalViolet hover:bg-bgColor hover:text-normalViolet`}
+                  className={`btn btn-md nm_Container w-[70%] max-w-xs mx-auto text-sm px-3 mt-10 border-none text-white transition-all duration-500 bg-normalViolet hover:bg-bgColor hover:text-normalViolet`}
                   onClick={() => setViewChallan(true)}
                 >
                   <MdOutlineReceiptLong size={20} />
@@ -629,7 +629,7 @@ const Payment = () => {
                 )}
 
                 <button
-                  className={`btn btn-md text-sm px-3 mt-5 mb-1 font-roboto w-[60%] mx-3 border-none text-white shadow-md transition-all duration-500 ${gradientColor} nm_Container hover:bg-gradient-to-bl`}
+                  className={`btn btn-md text-sm px-3 mt-5 mb-1 font-roboto w-[70%] max-w-xs mx-3 border-none text-white shadow-md transition-all duration-500 ${gradientColor} nm_Container hover:bg-gradient-to-bl`}
                   onClick={() =>
                     document.getElementById("my_modal_4").showModal()
                   }
