@@ -301,12 +301,12 @@ const DocumentUpload = () => {
   };
 
   return (
-    <div className="text-black">
+    <div className="text-black mx-5">
       <form
         onSubmit={(e) => {
           e.preventDefault();
         }}
-        className="text-black p-4 font-roboto dark:text-black"
+        className="text-black font-roboto dark:text-black"
       >
         <div className="w-full text-[17px] px-2 rounded">
           <DefaultDocument
