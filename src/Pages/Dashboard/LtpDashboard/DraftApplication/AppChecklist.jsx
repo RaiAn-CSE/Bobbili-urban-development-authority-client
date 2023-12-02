@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import ChecklistQuestions from "../../../../assets/AppChecklist.json";
-import { Link, useLocation } from "react-router-dom";
-import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 import { useOutletContext } from "react-router-dom";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import SaveData from "./SaveData";
 import toast from "react-hot-toast";
+import { motion } from "framer-motion";
 
 function AppChecklist() {
   const [openApplication, setOpenApplication] = useState(false);
@@ -69,7 +68,11 @@ function AppChecklist() {
     <div className="text-sm relative font-roboto">
       <div className="">
         {questions.map(({ id, question, answer }) => (
-          <div className="m-4 nm_Container">
+          <motion.div className="m-4 nm_Container"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
+            viewport={{ once: false }}
+          >
             <div key={id} className="lg:flex items-center justify-center shadow-sm shadow-gray-100 rounded p-3">
               <p className="flex-1 text-black rounded mb-5 text-base md:text-lg lg:mb-0 lg:pr-4">
                 {id}. {question}
@@ -118,7 +121,7 @@ function AppChecklist() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
 
