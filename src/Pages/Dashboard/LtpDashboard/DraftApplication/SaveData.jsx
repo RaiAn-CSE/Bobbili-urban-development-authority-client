@@ -212,7 +212,7 @@ const SaveData = ({
                 isApproved === 0 && (
                   <>
                     <button
-                      className={`${BtnStyle.customBtnForProceeding} ${BtnStyle.publishEndorseBtn} text-[17px] px-7 mt-5 ml-6`}
+                      className={`${BtnStyle.customBtnForProceeding} ${BtnStyle.publishEndorseBtn} text-[17px] px-7 ml-6`}
                       onClick={() => {
                         localStorage.setItem(
                           "PSDecision",
@@ -228,7 +228,7 @@ const SaveData = ({
                       Publish Endorsement
                     </button>
                     <button
-                      className={`${BtnStyle.rejectBtn} flex items-center font-bold text-base px-5 mt-5 ml-6 border-3 transition-all duration-1000 nm_Container border-red-500 bg-[#f53844] text-white`}
+                      className={`${BtnStyle.rejectBtn} flex items-center font-bold text-base ml-6 px-5 border-3 transition-all duration-1000 nm_Container border-red-500 bg-[#f53844] text-white`}
                       onClick={() => {
                         localStorage.setItem(
                           "PSDecision",
