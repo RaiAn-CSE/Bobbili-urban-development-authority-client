@@ -43,12 +43,10 @@ const DashboardLayout = () => {
         </div>
 
         {/* sidebar start here  */}
-        <div className="drawer-side w-full  h-full z-10 overflow-hidden">
+        <div className="drawer-side w-full h-full z-10 overflow-hidden">
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
 
-          <ul
-            className={`nm_Container lg:my-3 w-full lg:w-[19.5%] h-[95%] bg-bgColor font-roboto font-bold text-xl md:text-base text-black pt-10 md:pt-0 lg:fixed lg:rounded-3xl text-center`}
-          >
+          <ul className={`nm_Container lg:my-3 w-full lg:w-[19.5%] h-[95%] bg-bgColor font-roboto font-bold text-xl md:text-base text-black pt-10 md:pt-0 lg:fixed lg:rounded-3xl text-center`}>
             {/* <!-- Sidebar content here --> */}
 
             <li className="absolute right-7 top-7 lg:hidden">

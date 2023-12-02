@@ -231,7 +231,7 @@ const DraftApplication = () => {
                 )}
             </div>
           </div>
-          <div className="w-full mx-2 steps steps-vertical lg:steps-horizontal rounded-lg py-4 lg:relative font-roboto">
+          <div className="w-full steps steps-vertical lg:steps-horizontal rounded-lg py-4 lg:relative font-roboto px-4 lg:px-0">
             {stepsContent.map((step, index) => (
               <div
                 key={index}
