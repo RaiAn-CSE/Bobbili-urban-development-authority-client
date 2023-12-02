@@ -66,57 +66,55 @@ function AppChecklist() {
   const role = userInfoFromLocalStorage().role;
 
   return (
-    <div className="px-3 text-sm py-1 relative font-roboto">
-      <div className="space-y-5">
+    <div className="text-sm relative font-roboto">
+      <div className="">
         {questions.map(({ id, question, answer }) => (
-          <div
-            key={id}
-            className="lg:flex items-center justify-center shadow-sm shadow-gray-100 rounded p-3"
-          >
-            <p className="flex-1 text-black rounded mb-5 text-base md:text-lg lg:mb-0 lg:pr-4">
-              {id}. {question}
-            </p>
-            <div className="space-x-10 mt-2 lg:pr-2 lg:mt-0 text-base md:text-lg">
-              <div className="radio-button-container ml-3">
-                <div className="radio-button">
-                  <input
-                    type="radio"
-                    className="radio-button__input"
-                    id={`yes${id}`}
-                    name={id}
-                    value="yes"
-                    checked={answer === "yes"}
-                    onChange={(event) => handleAnswer(event, id)}
-                    disabled={role === "PS" || cameFrom !== "draft"}
-                  />
-                  <label
-                    className={`radio-button__label text-base ${
-                      answer === "yes" ? "" : ""
-                    }`}
-                    htmlFor={`yes${id}`}
-                  >
-                    <span className="radio-button__custom"></span>
-                    Yes
-                  </label>
-                </div>
-                <div className="radio-button">
-                  <input
-                    type="radio"
-                    id={`no${id}`}
-                    className="radio-button__input"
-                    name={id}
-                    value="no"
-                    checked={answer === "no"}
-                    onChange={(event) => handleAnswer(event, id)}
-                    disabled={role === "PS" || cameFrom !== "draft"}
-                  />
-                  <label
-                    className="radio-button__label text-base"
-                    htmlFor={`no${id}`}
-                  >
-                    <span className="radio-button__custom"></span>
-                    No
-                  </label>
+          <div className="m-4 nm_Container">
+            <div key={id} className="lg:flex items-center justify-center shadow-sm shadow-gray-100 rounded p-3">
+              <p className="flex-1 text-black rounded mb-5 text-base md:text-lg lg:mb-0 lg:pr-4">
+                {id}. {question}
+              </p>
+              <div className="space-x-10 mt-2 lg:pr-2 lg:mt-0 text-base md:text-lg">
+                <div className="radio-button-container ml-3">
+                  <div className="radio-button">
+                    <input
+                      type="radio"
+                      className="radio-button__input"
+                      id={`yes${id}`}
+                      name={id}
+                      value="yes"
+                      checked={answer === "yes"}
+                      onChange={(event) => handleAnswer(event, id)}
+                      disabled={role === "PS" || cameFrom !== "draft"}
+                    />
+                    <label
+                      className={`radio-button__label text-base ${answer === "yes" ? "" : ""
+                        }`}
+                      htmlFor={`yes${id}`}
+                    >
+                      <span className="radio-button__custom"></span>
+                      Yes
+                    </label>
+                  </div>
+                  <div className="radio-button">
+                    <input
+                      type="radio"
+                      id={`no${id}`}
+                      className="radio-button__input"
+                      name={id}
+                      value="no"
+                      checked={answer === "no"}
+                      onChange={(event) => handleAnswer(event, id)}
+                      disabled={role === "PS" || cameFrom !== "draft"}
+                    />
+                    <label
+                      className="radio-button__label text-base"
+                      htmlFor={`no${id}`}
+                    >
+                      <span className="radio-button__custom"></span>
+                      No
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>

@@ -184,7 +184,7 @@ const ApplicantInfo = () => {
     "w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-gray-400 focus:border-gray-600 focus:outline-none focus:ring-2 ring-violet-200";
 
   return (
-    <div className="grid my-5 mx-5 lg:my-0 text-gray-900">
+    <div className="grid m-4 lg:my-0 text-gray-900">
       <form action="" onSubmit={(e) => e.preventDefault()}>
         {/* LTP’s Details  */}
         <motion.div className="nm_Container mt-3 px-2 py-5 mb-10"

@@ -181,10 +181,10 @@ function DrawingTable({
   console.log(submitData?.drawingTableObs?.proposedSitObs, "ADK");
 
   return (
-    <div>
-      <div className="overflow-x-auto mb-3 p-5 w-full">
+    <>
+      <div className=" mb-3 w-full">
         <p className="font-bold text-lg mb-3">Drawing Scrutiny report</p>
-        <div className="mb-5 nm_Container inline-block min-w-full rounded-lg overflow-hidden">
+        <div className="nm_Container mb-5 inline-block min-w-full rounded-lg overflow-hidden">
           <table className="min-w-full leading-normal text-center">
             {/* Table Header */}
             <thead className="bg-gradient-to-b from-[#a29bfe] to-[#6c5ce7]">
@@ -710,7 +710,7 @@ function DrawingTable({
         approvedConfirmation={approvedConfirmation}
         submitData={submitData}
       />
-    </div>
+    </>
   );
 }
 

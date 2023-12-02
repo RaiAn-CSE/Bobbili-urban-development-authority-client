@@ -514,7 +514,7 @@ const Payment = () => {
   };
 
   return (
-    <div className="grid my-5 mx-5 lg:my-0 text-gray-900">
+    <div className="grid m-4 lg:my-0 text-gray-900">
       <form onSubmit={(e) => e.preventDefault()} className="grid my-5 lg:my-0">
         {/* UDA Charge  */}
         <motion.div className="nm_Container mt-3 px-2 py-5 mb-10"

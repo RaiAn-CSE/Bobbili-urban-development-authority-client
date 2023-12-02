@@ -106,7 +106,7 @@ const SaveData = ({
   return (
     <>
       {isStepperVisible && ( // Render the stepper only when isStepperVisible is true
-        <div className="flex justify-end my-6 ">
+        <div className="flex justify-end mt-10 mb-7">
           {role === "LTP" &&
             (currentStep !== steps.length - 1 ? (
               <button
@@ -118,7 +118,6 @@ const SaveData = ({
                 //   // handleStepClick(currentStep + 1)
                 //   confirmAlert()
                 // }
-
 
                 onClick={() => confirmAlert(stepperData, collectInputFieldData)}
               >
@@ -152,20 +151,6 @@ const SaveData = ({
                     Save
                   </span>
                 </button>
-                {/* <button
-                  className={`btn btn-md text-white rounded-lg shadow-md border-0 mt-6  transition-all duration-500 cursor-pointer ${
-                    sentData === 1 && gradientColor
-                  } ${sentData === 1 && "shadow-violetDark"}`}
-                  disabled={sentData === 0}
-                  onClick={() =>
-                    sentToPS(
-                      JSON.parse(localStorage.getItem("CurrentAppNo")),
-                      navigate
-                    )
-                  }
-                >
-                  Sent to department
-                </button> */}
 
                 <button
                   className="sent-department"
@@ -181,15 +166,6 @@ const SaveData = ({
                     }
                   }}
                 >
-                  {/* <span
-                    className={`${
-                      sentData === 0
-                        ? "absolute top-[-80%] left-[25%] bg-[#6225e6] p-1 text-xs"
-                        : "hidden"
-                    }`}
-                  >
-                    Click on save button
-                  </span> */}
                   <span className="span">{textOfSentDepartment}</span>
                   <span className="second">
                     <ArrowIcon />
@@ -203,7 +179,7 @@ const SaveData = ({
           {role === "PS" && (
             <>
               <button
-                className={`save-btn flex items-center nm_Container bg-[#7465EA] ${hiddenSaveButtonForPS} text-sm text-white px-7 mt-5 ml-3  hover:bg-bgColor hover:text-normalViolet border-0 uppercase transition-all duration-500 `}
+                className={`save-btn flex items-center nm_Container bg-[#7465EA] ${hiddenSaveButtonForPS} text-sm text-white px-7  hover:bg-bgColor hover:text-normalViolet border-0 uppercase transition-all duration-500 `}
                 onClick={() => {
                   confirmAlert(undefined, collectInputFieldData, {
                     page: "PS site inspection data save",
@@ -217,7 +193,7 @@ const SaveData = ({
               {location.pathname.includes("siteInspection") &&
                 isApproved === 1 && (
                   <button
-                    className={`fancy-button text-sm px-7 mt-5 ml-6  border-0 transition-all duration-500 text-white`}
+                    className={`fancy-button text-sm px-7 ml-6 border-0 transition-all duration-500 text-white`}
                     onClick={() => {
                       localStorage.setItem(
                         "PSDecision",

@@ -301,14 +301,14 @@ const DocumentUpload = () => {
   };
 
   return (
-    <div className="text-black mx-5">
+    <div className="text-black m-4">
       <form
         onSubmit={(e) => {
           e.preventDefault();
         }}
-        className="text-black font-roboto dark:text-black"
+        className="text-black font-roboto dark:text-black mx-3"
       >
-        <div className="w-full text-[17px] px-2 rounded">
+        <div className="w-full text-[17px] rounded">
           <DefaultDocument
             role={role}
             UpdatedDefaultData={UpdatedDefaultData}

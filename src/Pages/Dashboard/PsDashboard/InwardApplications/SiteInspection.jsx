@@ -379,540 +379,538 @@ const SiteInspection = () => {
   }
 
   return (
-    <div className="flex flex-col mx-5 mt-3  text-gray-900">
-      <div className="container mx-auto font-roboto ">
-        <div className="pb-4">
-          <div className="inline-block min-w-full nm_Container rounded-lg overflow-hidden">
-            <table className="min-w-full leading-normal text-center">
-              <thead className="bg-gradient-to-b from-[#a29bfe] to-[#6c5ce7]">
-                <tr className="text-white uppercase tracking-wider">
-                  <th scope="col" className="border-r p-3 border-white">
-                    {" "}
-                    Sl. No.
-                  </th>
-                  <th scope="col" className="border-r border-white">
-                    Description
-                  </th>
-                  <th scope="col" className="border-r border-white">
-                    As per Application
-                  </th>
-                  <th scope="col">
-                    Observation
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {/* Ground Position  */}
-                <tr className="border-b border-neutral-500">
-                  <td
-                    rowSpan="5"
-                    className={`${tableDataClass}  border-l-0 font-bold`}
-                  >
-                    1
-                  </td>
-                  <td
-                    colSpan="3"
-                    className={`${tableDataClass} border-r-0 text-center text-base font-semibold bg-gray-200`}
-                  >
-                    Ground Position
-                  </td>
-                </tr>
-                <tr className="border-b border-neutral-500">
-                  <td className={`${tableDataClass} font-bold bg-white`}>
-                    Nature of Site
-                  </td>
-                  <td className={`${inputTableDataClass} p-0 bg-white`}>
-                    <input
-                      type="text"
-                      id="natureOfSiteApp"
-                      defaultValue={groundPosition?.natureOfSite?.[0]}
-                      placeholder="Yes/No"
-                      className={`${inputClass} focus:border-0`}
-                    />
-                  </td>
-                  <td
-                    className={`${inputTableDataClass} p-0 bg-white border-r-0`}
-                  >
-                    <input
-                      id="natureOfSiteObs"
-                      defaultValue={groundPosition?.natureOfSite?.[1]}
-                      type="text"
-                      placeholder="Yes/No"
-                      className={`${inputClass} focus:border-0`}
-                    />
-                  </td>
-                </tr>
-                <tr className="border-b border-neutral-500">
-                  <td className={`${tableDataClass} font-bold bg-white`}>
-                    Site Level
-                  </td>
-                  <td className={`${inputTableDataClass} p-0 bg-white`}>
-                    <input
-                      id="siteLevelApp"
-                      type="text"
-                      defaultValue={groundPosition?.siteLevel?.[0]}
-                      placeholder="Yes/No"
-                      className={`${inputClass} focus:border-0 `}
-                    />
-                  </td>
-                  <td
-                    className={`${inputTableDataClass} p-0 bg-white border-r-0`}
-                  >
-                    <input
-                      id="siteLevelObs"
-                      type="text"
-                      defaultValue={groundPosition?.siteLevel?.[1]}
-                      placeholder="Yes/No"
-                      className={`${inputClass} focus:border-0`}
-                    />
-                  </td>
-                </tr>
-                <tr className="border-b border-neutral-500">
-                  <td className={`${tableDataClass} font-bold bg-white`}>
-                    Total Area as on Ground in Sq.M.
-                  </td>
-                  <td className={`${inputTableDataClass} p-0 bg-white`}>
-                    <input
-                      id="totalAreaAsOnGroundApp"
-                      type="text"
-                      defaultValue={groundPosition?.totalAreaAsOnGround?.[0]}
-                      placeholder="Yes/No"
-                      className={`${inputClass} focus:border-0 `}
-                    />
-                  </td>
-                  <td
-                    className={`${inputTableDataClass} p-0 bg-white border-r-0`}
-                  >
-                    <input
-                      id="totalAreaAsOnGroundObs"
-                      type="text"
-                      defaultValue={groundPosition?.totalAreaAsOnGround?.[1]}
-                      placeholder="Yes/No"
-                      className={`${inputClass} focus:border-0 `}
-                    />
-                  </td>
-                </tr>
-                <tr className="border-b border-neutral-500">
-                  <td className={`${tableDataClass} font-bold bg-white`}>
-                    Work commented
-                  </td>
-                  <td className={`${inputTableDataClass} p-0 bg-white`}>
-                    <input
-                      id="workCommentedApp"
-                      type="text"
-                      defaultValue={groundPosition?.workCommented?.[0]}
-                      placeholder="Yes/No"
-                      className={`${inputClass} focus:border-0 `}
-                    />
-                  </td>
-                  <td
-                    className={`${inputTableDataClass} p-0 bg-white border-r-0`}
-                  >
-                    <input
-                      id="workCommentedObs"
-                      type="text"
-                      defaultValue={groundPosition?.workCommented?.[1]}
-                      placeholder="Yes/No"
-                      className={`${inputClass} focus:border-0 `}
-                    />
-                  </td>
-                </tr>
+    <div className="flex flex-col mx-4 mt-4 text-gray-900">
+      <div className="container mx-auto font-roboto">
+        <div className="nm_Container inline-block min-w-full rounded-lg overflow-hidden">
+          <table className="min-w-full leading-normal text-center">
+            <thead className="bg-gradient-to-b from-[#a29bfe] to-[#6c5ce7]">
+              <tr className="text-white uppercase tracking-wider">
+                <th scope="col" className="border-r p-3 border-white">
+                  {" "}
+                  Sl. No.
+                </th>
+                <th scope="col" className="border-r border-white">
+                  Description
+                </th>
+                <th scope="col" className="border-r border-white">
+                  As per Application
+                </th>
+                <th scope="col">
+                  Observation
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* Ground Position  */}
+              <tr className="border-b border-neutral-500">
+                <td
+                  rowSpan="5"
+                  className={`${tableDataClass}  border-l-0 font-bold`}
+                >
+                  1
+                </td>
+                <td
+                  colSpan="3"
+                  className={`${tableDataClass} border-r-0 text-center text-base font-semibold bg-gray-200`}
+                >
+                  Ground Position
+                </td>
+              </tr>
+              <tr className="border-b border-neutral-500">
+                <td className={`${tableDataClass} font-bold bg-white`}>
+                  Nature of Site
+                </td>
+                <td className={`${inputTableDataClass} p-0 bg-white`}>
+                  <input
+                    type="text"
+                    id="natureOfSiteApp"
+                    defaultValue={groundPosition?.natureOfSite?.[0]}
+                    placeholder="Yes/No"
+                    className={`${inputClass} focus:border-0`}
+                  />
+                </td>
+                <td
+                  className={`${inputTableDataClass} p-0 bg-white border-r-0`}
+                >
+                  <input
+                    id="natureOfSiteObs"
+                    defaultValue={groundPosition?.natureOfSite?.[1]}
+                    type="text"
+                    placeholder="Yes/No"
+                    className={`${inputClass} focus:border-0`}
+                  />
+                </td>
+              </tr>
+              <tr className="border-b border-neutral-500">
+                <td className={`${tableDataClass} font-bold bg-white`}>
+                  Site Level
+                </td>
+                <td className={`${inputTableDataClass} p-0 bg-white`}>
+                  <input
+                    id="siteLevelApp"
+                    type="text"
+                    defaultValue={groundPosition?.siteLevel?.[0]}
+                    placeholder="Yes/No"
+                    className={`${inputClass} focus:border-0 `}
+                  />
+                </td>
+                <td
+                  className={`${inputTableDataClass} p-0 bg-white border-r-0`}
+                >
+                  <input
+                    id="siteLevelObs"
+                    type="text"
+                    defaultValue={groundPosition?.siteLevel?.[1]}
+                    placeholder="Yes/No"
+                    className={`${inputClass} focus:border-0`}
+                  />
+                </td>
+              </tr>
+              <tr className="border-b border-neutral-500">
+                <td className={`${tableDataClass} font-bold bg-white`}>
+                  Total Area as on Ground in Sq.M.
+                </td>
+                <td className={`${inputTableDataClass} p-0 bg-white`}>
+                  <input
+                    id="totalAreaAsOnGroundApp"
+                    type="text"
+                    defaultValue={groundPosition?.totalAreaAsOnGround?.[0]}
+                    placeholder="Yes/No"
+                    className={`${inputClass} focus:border-0 `}
+                  />
+                </td>
+                <td
+                  className={`${inputTableDataClass} p-0 bg-white border-r-0`}
+                >
+                  <input
+                    id="totalAreaAsOnGroundObs"
+                    type="text"
+                    defaultValue={groundPosition?.totalAreaAsOnGround?.[1]}
+                    placeholder="Yes/No"
+                    className={`${inputClass} focus:border-0 `}
+                  />
+                </td>
+              </tr>
+              <tr className="border-b border-neutral-500">
+                <td className={`${tableDataClass} font-bold bg-white`}>
+                  Work commented
+                </td>
+                <td className={`${inputTableDataClass} p-0 bg-white`}>
+                  <input
+                    id="workCommentedApp"
+                    type="text"
+                    defaultValue={groundPosition?.workCommented?.[0]}
+                    placeholder="Yes/No"
+                    className={`${inputClass} focus:border-0 `}
+                  />
+                </td>
+                <td
+                  className={`${inputTableDataClass} p-0 bg-white border-r-0`}
+                >
+                  <input
+                    id="workCommentedObs"
+                    type="text"
+                    defaultValue={groundPosition?.workCommented?.[1]}
+                    placeholder="Yes/No"
+                    className={`${inputClass} focus:border-0 `}
+                  />
+                </td>
+              </tr>
 
-                {/* Site Boundaries  */}
-                <tr className="border-b border-neutral-500">
-                  <td
-                    rowSpan="6"
-                    className={`${tableDataClass} border-l-0 font-bold`}
-                  >
-                    2
-                  </td>
-                  <td
-                    colSpan="3"
-                    className={`${tableDataClass} text-center text-base font-semibold bg-gray-200 border-r-0`}
-                  >
-                    Site Boundaries
-                  </td>
-                </tr>
-                <tr className="border-b border-neutral-500">
-                  <td className={`${tableDataClass} font-bold bg-white`}>
-                    North
-                  </td>
-                  <td className="border-r border-neutral-500 bg-white">
-                    <ImageUploadInput
-                      id="northApp"
-                      onFileChange={handleFileChange}
-                      siteBoundariesImageFiles={siteBoundariesImageFiles}
-                      imageId={siteBoundariesImageFilesId?.northApp}
-                    />
-                  </td>
-                  <td
-                    className={`${inputTableDataClass} p-0 bg-white border-r-0`}
-                  >
-                    <ImageUploadInput
-                      id="northObs"
-                      onFileChange={handleFileChange}
-                      siteBoundariesImageFiles={siteBoundariesImageFiles}
-                      imageId={siteBoundariesImageFilesId?.northObs}
-                    />
-                  </td>
-                </tr>
-                <tr className="border-b border-neutral-500">
-                  <td className={`${tableDataClass} font-bold bg-white`}>
-                    South
-                  </td>
-                  <td className={`${inputTableDataClass} p-0 bg-white`}>
-                    <ImageUploadInput
-                      id="southApp"
-                      onFileChange={handleFileChange}
-                      siteBoundariesImageFiles={siteBoundariesImageFiles}
-                      imageId={siteBoundariesImageFilesId?.southApp}
-                    />
-                  </td>
-                  <td
-                    className={`${inputTableDataClass} p-0 bg-white border-r-0`}
-                  >
-                    <ImageUploadInput
-                      id="southObs"
-                      onFileChange={handleFileChange}
-                      siteBoundariesImageFiles={siteBoundariesImageFiles}
-                      imageId={siteBoundariesImageFilesId?.southObs}
-                    />
-                  </td>
-                </tr>
-                <tr className="border-b border-neutral-500">
-                  <td className={`${tableDataClass} font-bold bg-white`}>
-                    East
-                  </td>
-                  <td className={`${inputTableDataClass} p-0 bg-white`}>
-                    <ImageUploadInput
-                      id="eastApp"
-                      onFileChange={handleFileChange}
-                      siteBoundariesImageFiles={siteBoundariesImageFiles}
-                      imageId={siteBoundariesImageFilesId?.eastApp}
-                    />
-                  </td>
-                  <td
-                    className={`${inputTableDataClass} p-0 bg-white border-r-0`}
-                  >
-                    <ImageUploadInput
-                      id="eastObs"
-                      onFileChange={handleFileChange}
-                      siteBoundariesImageFiles={siteBoundariesImageFiles}
-                      imageId={siteBoundariesImageFilesId?.eastObs}
-                    />
-                  </td>
-                </tr>
-                <tr className="border-b border-neutral-500">
-                  <td className={`${tableDataClass} font-bold bg-white`}>
-                    West
-                  </td>
-                  <td className={`${inputTableDataClass} p-0 bg-white`}>
-                    <ImageUploadInput
-                      id="westApp"
-                      onFileChange={handleFileChange}
-                      siteBoundariesImageFiles={siteBoundariesImageFiles}
-                      imageId={siteBoundariesImageFilesId?.westApp}
-                    />
-                  </td>
-                  <td
-                    className={`${inputTableDataClass} p-0 bg-white border-r-0`}
-                  >
-                    <ImageUploadInput
-                      id="westObs"
-                      onFileChange={handleFileChange}
-                      siteBoundariesImageFiles={siteBoundariesImageFiles}
-                      imageId={siteBoundariesImageFilesId?.westObs}
-                    />
-                  </td>
-                </tr>
-                <tr className="border-b border-neutral-500">
-                  <td className={`${tableDataClass}  font-bold bg-white`}>
-                    Whether the above physical feature are
-                    <br />
-                    talking / Not talking with the schedule of
-                    <br />
-                    the Documents.
-                  </td>
-                  <td
-                    className={`${inputTableDataClass} p-0 bg-white hover:bg-white`}
-                  >
-                    <input
-                      id="scheduleOfTheDocumentsApp"
-                      type="text"
-                      defaultValue={siteBoundaries?.scheduleOfTheDocuments?.[0]}
-                      placeholder="Yes/No"
-                      className="h-[105px] px-4 rounded-none w-full focus:outline-none bg-white hover:bg-white"
-                    />
-                  </td>
-                  <td
-                    className={`${inputTableDataClass} p-0 bg-white hover:bg-white border-r-0`}
-                  >
-                    <input
-                      id="scheduleOfTheDocumentsObs"
-                      type="text"
-                      defaultValue={siteBoundaries?.scheduleOfTheDocuments?.[1]}
-                      placeholder="Yes/No"
-                      className="h-[105px] px-4 rounded-none w-full focus:outline-none bg-white hover:bg-white"
-                    />
-                  </td>
-                </tr>
+              {/* Site Boundaries  */}
+              <tr className="border-b border-neutral-500">
+                <td
+                  rowSpan="6"
+                  className={`${tableDataClass} border-l-0 font-bold`}
+                >
+                  2
+                </td>
+                <td
+                  colSpan="3"
+                  className={`${tableDataClass} text-center text-base font-semibold bg-gray-200 border-r-0`}
+                >
+                  Site Boundaries
+                </td>
+              </tr>
+              <tr className="border-b border-neutral-500">
+                <td className={`${tableDataClass} font-bold bg-white`}>
+                  North
+                </td>
+                <td className="border-r border-neutral-500 bg-white">
+                  <ImageUploadInput
+                    id="northApp"
+                    onFileChange={handleFileChange}
+                    siteBoundariesImageFiles={siteBoundariesImageFiles}
+                    imageId={siteBoundariesImageFilesId?.northApp}
+                  />
+                </td>
+                <td
+                  className={`${inputTableDataClass} p-0 bg-white border-r-0`}
+                >
+                  <ImageUploadInput
+                    id="northObs"
+                    onFileChange={handleFileChange}
+                    siteBoundariesImageFiles={siteBoundariesImageFiles}
+                    imageId={siteBoundariesImageFilesId?.northObs}
+                  />
+                </td>
+              </tr>
+              <tr className="border-b border-neutral-500">
+                <td className={`${tableDataClass} font-bold bg-white`}>
+                  South
+                </td>
+                <td className={`${inputTableDataClass} p-0 bg-white`}>
+                  <ImageUploadInput
+                    id="southApp"
+                    onFileChange={handleFileChange}
+                    siteBoundariesImageFiles={siteBoundariesImageFiles}
+                    imageId={siteBoundariesImageFilesId?.southApp}
+                  />
+                </td>
+                <td
+                  className={`${inputTableDataClass} p-0 bg-white border-r-0`}
+                >
+                  <ImageUploadInput
+                    id="southObs"
+                    onFileChange={handleFileChange}
+                    siteBoundariesImageFiles={siteBoundariesImageFiles}
+                    imageId={siteBoundariesImageFilesId?.southObs}
+                  />
+                </td>
+              </tr>
+              <tr className="border-b border-neutral-500">
+                <td className={`${tableDataClass} font-bold bg-white`}>
+                  East
+                </td>
+                <td className={`${inputTableDataClass} p-0 bg-white`}>
+                  <ImageUploadInput
+                    id="eastApp"
+                    onFileChange={handleFileChange}
+                    siteBoundariesImageFiles={siteBoundariesImageFiles}
+                    imageId={siteBoundariesImageFilesId?.eastApp}
+                  />
+                </td>
+                <td
+                  className={`${inputTableDataClass} p-0 bg-white border-r-0`}
+                >
+                  <ImageUploadInput
+                    id="eastObs"
+                    onFileChange={handleFileChange}
+                    siteBoundariesImageFiles={siteBoundariesImageFiles}
+                    imageId={siteBoundariesImageFilesId?.eastObs}
+                  />
+                </td>
+              </tr>
+              <tr className="border-b border-neutral-500">
+                <td className={`${tableDataClass} font-bold bg-white`}>
+                  West
+                </td>
+                <td className={`${inputTableDataClass} p-0 bg-white`}>
+                  <ImageUploadInput
+                    id="westApp"
+                    onFileChange={handleFileChange}
+                    siteBoundariesImageFiles={siteBoundariesImageFiles}
+                    imageId={siteBoundariesImageFilesId?.westApp}
+                  />
+                </td>
+                <td
+                  className={`${inputTableDataClass} p-0 bg-white border-r-0`}
+                >
+                  <ImageUploadInput
+                    id="westObs"
+                    onFileChange={handleFileChange}
+                    siteBoundariesImageFiles={siteBoundariesImageFiles}
+                    imageId={siteBoundariesImageFilesId?.westObs}
+                  />
+                </td>
+              </tr>
+              <tr className="border-b border-neutral-500">
+                <td className={`${tableDataClass}  font-bold bg-white`}>
+                  Whether the above physical feature are
+                  <br />
+                  talking / Not talking with the schedule of
+                  <br />
+                  the Documents.
+                </td>
+                <td
+                  className={`${inputTableDataClass} p-0 bg-white hover:bg-white`}
+                >
+                  <input
+                    id="scheduleOfTheDocumentsApp"
+                    type="text"
+                    defaultValue={siteBoundaries?.scheduleOfTheDocuments?.[0]}
+                    placeholder="Yes/No"
+                    className="h-[105px] px-4 rounded-none w-full focus:outline-none bg-white hover:bg-white"
+                  />
+                </td>
+                <td
+                  className={`${inputTableDataClass} p-0 bg-white hover:bg-white border-r-0`}
+                >
+                  <input
+                    id="scheduleOfTheDocumentsObs"
+                    type="text"
+                    defaultValue={siteBoundaries?.scheduleOfTheDocuments?.[1]}
+                    placeholder="Yes/No"
+                    className="h-[105px] px-4 rounded-none w-full focus:outline-none bg-white hover:bg-white"
+                  />
+                </td>
+              </tr>
 
-                {/* Access Road  */}
-                <tr className="border-b border-neutral-500">
-                  <td rowSpan="5" className={`${tableDataClass} border-l-0`}>
-                    3
-                  </td>
-                  <td
-                    colSpan="3"
-                    className={`${tableDataClass} text-center text-base font-semibold bg-gray-200 border-r-0`}
-                  >
-                    Access Road
-                  </td>
-                </tr>
-                <tr className="border-b border-neutral-500">
-                  <td className={`${tableDataClass} font-bold bg-white`}>
-                    Nature of Road
-                  </td>
-                  <td className={`${inputTableDataClass} p-0 bg-white`}>
-                    <input
-                      id="natureOfRoadApp"
-                      type="text"
-                      defaultValue={accessRoad?.natureOfRoad?.[0]}
-                      placeholder="Yes/No"
-                      className={`${inputClass} focus:border-0 `}
-                    />
-                  </td>
-                  <td
-                    className={`${inputTableDataClass} p-0 bg-white border-r-0`}
-                  >
-                    <input
-                      id="natureOfRoadObs"
-                      type="text"
-                      defaultValue={accessRoad?.natureOfRoad?.[1]}
-                      placeholder="Yes/No"
-                      className={`${inputClass} focus:border-0 `}
-                    />
-                  </td>
-                </tr>
-                <tr className="border-b border-neutral-500">
-                  <td className={`${tableDataClass} font-bold bg-white`}>
-                    Status of Approach Road
-                  </td>
-                  <td className={`${inputTableDataClass} p-0 bg-white`}>
-                    <div className="flex flex-col justify-center">
-                      <select
-                        id="approachRoadApp"
-                        className="input rounded-none w-full bg-white focus:outline-none"
-                        value={
-                          approachRoadApp
-                            ? approachRoadApp
-                            : accessRoad?.approachRoad?.[0]
-                        }
-                        onChange={handleApproachRoadApp}
-                      >
-                        <option value="Public">Public</option>
-                        <option value="Private">Private</option>
-                      </select>
-                    </div>
-                  </td>
-                  <td
-                    className={`${inputTableDataClass} p-0 bg-white border-r-0`}
-                  >
-                    <div className="flex flex-col justify-center">
-                      <select
-                        id="approachRoadObs"
-                        className="input bg-white rounded-none w-full focus:outline-none"
-                        value={
-                          approachRoadObs
-                            ? approachRoadObs
-                            : accessRoad?.approachRoad?.[1]
-                        }
-                        onChange={handleApproachRoadObs}
-                      >
-                        <option value="Select option" disabled>
-                          Select option
-                        </option>
-                        <option value="Public">Public</option>
-                        <option value="Private">Private</option>
-                      </select>
-                    </div>
-                  </td>
-                </tr>
-                <tr className="border-b border-neutral-500">
-                  <td className={`${tableDataClass} font-bold bg-white`}>
-                    Road Width
-                  </td>
-                  <td className={`${inputTableDataClass} p-0 bg-white`}>
-                    <input
-                      id="roadWidthApp"
-                      type="text"
-                      defaultValue={accessRoad?.accessRoadWidth?.[0]}
-                      placeholder="Yes/No"
-                      className={`${inputClass} focus:border-0 `}
-                    />
-                  </td>
-                  <td
-                    className={`${inputTableDataClass} p-0 bg-white border-r-0`}
-                  >
-                    <input
-                      id="roadWidthObs"
-                      type="text"
-                      defaultValue={accessRoad?.accessRoadWidth?.[1]}
-                      placeholder="Yes/No"
-                      className={`${inputClass} focus:border-0 `}
-                    />
-                  </td>
-                </tr>
-                <tr className="border-b border-neutral-500">
-                  <td className={`${tableDataClass} font-bold bg-white`}>
-                    Scope of Road Widening in Mts.
-                  </td>
-                  <td className={`${inputTableDataClass} p-0 bg-white`}>
-                    <input
-                      id="scopeOfRoadApp"
-                      type="text"
-                      defaultValue={accessRoad?.scopeOfRoad?.[0]}
-                      placeholder="0"
-                      className={`${inputClass} focus:border-0 `}
-                    />
-                  </td>
-                  <td
-                    className={`${inputTableDataClass} p-0 bg-white border-r-0`}
-                  >
-                    <input
-                      id="scopeOfRoadObs"
-                      defaultValue={accessRoad?.scopeOfRoad?.[1]}
-                      type="text"
-                      placeholder="0"
-                      className={`${inputClass} focus:border-0 `}
-                    />
-                  </td>
-                </tr>
+              {/* Access Road  */}
+              <tr className="border-b border-neutral-500">
+                <td rowSpan="5" className={`${tableDataClass} border-l-0`}>
+                  3
+                </td>
+                <td
+                  colSpan="3"
+                  className={`${tableDataClass} text-center text-base font-semibold bg-gray-200 border-r-0`}
+                >
+                  Access Road
+                </td>
+              </tr>
+              <tr className="border-b border-neutral-500">
+                <td className={`${tableDataClass} font-bold bg-white`}>
+                  Nature of Road
+                </td>
+                <td className={`${inputTableDataClass} p-0 bg-white`}>
+                  <input
+                    id="natureOfRoadApp"
+                    type="text"
+                    defaultValue={accessRoad?.natureOfRoad?.[0]}
+                    placeholder="Yes/No"
+                    className={`${inputClass} focus:border-0 `}
+                  />
+                </td>
+                <td
+                  className={`${inputTableDataClass} p-0 bg-white border-r-0`}
+                >
+                  <input
+                    id="natureOfRoadObs"
+                    type="text"
+                    defaultValue={accessRoad?.natureOfRoad?.[1]}
+                    placeholder="Yes/No"
+                    className={`${inputClass} focus:border-0 `}
+                  />
+                </td>
+              </tr>
+              <tr className="border-b border-neutral-500">
+                <td className={`${tableDataClass} font-bold bg-white`}>
+                  Status of Approach Road
+                </td>
+                <td className={`${inputTableDataClass} p-0 bg-white`}>
+                  <div className="flex flex-col justify-center">
+                    <select
+                      id="approachRoadApp"
+                      className="input rounded-none w-full bg-white focus:outline-none"
+                      value={
+                        approachRoadApp
+                          ? approachRoadApp
+                          : accessRoad?.approachRoad?.[0]
+                      }
+                      onChange={handleApproachRoadApp}
+                    >
+                      <option value="Public">Public</option>
+                      <option value="Private">Private</option>
+                    </select>
+                  </div>
+                </td>
+                <td
+                  className={`${inputTableDataClass} p-0 bg-white border-r-0`}
+                >
+                  <div className="flex flex-col justify-center">
+                    <select
+                      id="approachRoadObs"
+                      className="input bg-white rounded-none w-full focus:outline-none"
+                      value={
+                        approachRoadObs
+                          ? approachRoadObs
+                          : accessRoad?.approachRoad?.[1]
+                      }
+                      onChange={handleApproachRoadObs}
+                    >
+                      <option value="Select option" disabled>
+                        Select option
+                      </option>
+                      <option value="Public">Public</option>
+                      <option value="Private">Private</option>
+                    </select>
+                  </div>
+                </td>
+              </tr>
+              <tr className="border-b border-neutral-500">
+                <td className={`${tableDataClass} font-bold bg-white`}>
+                  Road Width
+                </td>
+                <td className={`${inputTableDataClass} p-0 bg-white`}>
+                  <input
+                    id="roadWidthApp"
+                    type="text"
+                    defaultValue={accessRoad?.accessRoadWidth?.[0]}
+                    placeholder="Yes/No"
+                    className={`${inputClass} focus:border-0 `}
+                  />
+                </td>
+                <td
+                  className={`${inputTableDataClass} p-0 bg-white border-r-0`}
+                >
+                  <input
+                    id="roadWidthObs"
+                    type="text"
+                    defaultValue={accessRoad?.accessRoadWidth?.[1]}
+                    placeholder="Yes/No"
+                    className={`${inputClass} focus:border-0 `}
+                  />
+                </td>
+              </tr>
+              <tr className="border-b border-neutral-500">
+                <td className={`${tableDataClass} font-bold bg-white`}>
+                  Scope of Road Widening in Mts.
+                </td>
+                <td className={`${inputTableDataClass} p-0 bg-white`}>
+                  <input
+                    id="scopeOfRoadApp"
+                    type="text"
+                    defaultValue={accessRoad?.scopeOfRoad?.[0]}
+                    placeholder="0"
+                    className={`${inputClass} focus:border-0 `}
+                  />
+                </td>
+                <td
+                  className={`${inputTableDataClass} p-0 bg-white border-r-0`}
+                >
+                  <input
+                    id="scopeOfRoadObs"
+                    defaultValue={accessRoad?.scopeOfRoad?.[1]}
+                    type="text"
+                    placeholder="0"
+                    className={`${inputClass} focus:border-0 `}
+                  />
+                </td>
+              </tr>
 
-                {/* Land Use  */}
-                <tr className="">
-                  <td
-                    rowSpan="5"
-                    className={`${tableDataClass} border-l-0 border-b-0`}
-                  >
-                    4
-                  </td>
-                  <td
-                    colSpan="3"
-                    className={`${tableDataClass} text-center text-base font-semibold bg-gray-200 border-r-0`}
-                  >
-                    Land Use
-                  </td>
-                </tr>
-                <tr className="border-b border-neutral-500">
-                  <td className={`${tableDataClass} font-bold bg-white`}>
-                    Land Use as per Master Plan
-                  </td>
-                  <td className={`${inputTableDataClass} p-0 bg-white`}>
-                    <input
-                      id="landUseApp"
-                      type="text"
-                      defaultValue={landUse?.landUse?.[0]}
-                      placeholder="Yes/No"
-                      className={`${inputClass} focus:border-0 `}
-                    />
-                  </td>
-                  <td
-                    className={`${inputTableDataClass} p-0 bg-white border-r-0`}
-                  >
-                    <input
-                      id="landUseObs"
-                      type="text"
-                      defaultValue={landUse?.landUse?.[1]}
-                      placeholder="Yes/No"
-                      className={`${inputClass} focus:border-0 `}
-                    />
-                  </td>
-                </tr>
-                <tr className="border-b border-neutral-500">
-                  <td className={`${tableDataClass} font-bold bg-white`}>
-                    Proposed activity
-                  </td>
-                  <td className={`${inputTableDataClass} p-0 bg-white`}>
-                    <input
-                      id="proposedActivityApp"
-                      type="text"
-                      defaultValue={landUse?.proposedActivity?.[0]}
-                      placeholder="Yes/No"
-                      className={`${inputClass} focus:border-0 `}
-                    />
-                  </td>
-                  <td
-                    className={`${inputTableDataClass} p-0 bg-white border-r-0`}
-                  >
-                    <input
-                      id="proposedActivityObs"
-                      type="text"
-                      defaultValue={landUse?.proposedActivity?.[1]}
-                      placeholder="Yes/No"
-                      className={`${inputClass} focus:border-0 `}
-                    />
-                  </td>
-                </tr>
-                <tr className="border-b border-neutral-500">
-                  <td className={`${tableDataClass} font-bold bg-white`}>
-                    Road Width
-                  </td>
-                  <td className={`${inputTableDataClass} p-0 bg-white`}>
-                    <input
-                      id="landRoadWidthApp"
-                      type="text"
-                      defaultValue={landUse?.landRoadWidth?.[0]}
-                      placeholder="Yes/No"
-                      className={`${inputClass} focus:border-0 `}
-                    />
-                  </td>
-                  <td
-                    className={`${inputTableDataClass} p-0 bg-white border-r-0`}
-                  >
-                    <input
-                      id="landRoadWidthObs"
-                      type="text"
-                      defaultValue={landUse?.landRoadWidth?.[1]}
-                      placeholder="Yes/No"
-                      className={`${inputClass} focus:border-0 `}
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td
-                    className={`${tableDataClass} font-bold bg-white border-b-0`}
-                  >
-                    Whether permission as per Zoning Regulations
-                  </td>
-                  <td className={`${inputTableDataClass} p-0 bg-white`}>
-                    <input
-                      id="whetherPermissionApp"
-                      type="text"
-                      defaultValue={landUse?.whetherPermission?.[0]}
-                      placeholder="Yes/No"
-                      className={`${inputClass} focus:border-0 `}
-                    />
-                  </td>
-                  <td
-                    className={`${inputTableDataClass} p-0 bg-white border-r-0`}
-                  >
-                    <input
-                      id="whetherPermissionObs"
-                      type="text"
-                      defaultValue={landUse?.whetherPermission?.[1]}
-                      placeholder="Yes/No"
-                      className={`${inputClass} focus:border-0 `}
-                    />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+              {/* Land Use  */}
+              <tr className="">
+                <td
+                  rowSpan="5"
+                  className={`${tableDataClass} border-l-0 border-b-0`}
+                >
+                  4
+                </td>
+                <td
+                  colSpan="3"
+                  className={`${tableDataClass} text-center text-base font-semibold bg-gray-200 border-r-0`}
+                >
+                  Land Use
+                </td>
+              </tr>
+              <tr className="border-b border-neutral-500">
+                <td className={`${tableDataClass} font-bold bg-white`}>
+                  Land Use as per Master Plan
+                </td>
+                <td className={`${inputTableDataClass} p-0 bg-white`}>
+                  <input
+                    id="landUseApp"
+                    type="text"
+                    defaultValue={landUse?.landUse?.[0]}
+                    placeholder="Yes/No"
+                    className={`${inputClass} focus:border-0 `}
+                  />
+                </td>
+                <td
+                  className={`${inputTableDataClass} p-0 bg-white border-r-0`}
+                >
+                  <input
+                    id="landUseObs"
+                    type="text"
+                    defaultValue={landUse?.landUse?.[1]}
+                    placeholder="Yes/No"
+                    className={`${inputClass} focus:border-0 `}
+                  />
+                </td>
+              </tr>
+              <tr className="border-b border-neutral-500">
+                <td className={`${tableDataClass} font-bold bg-white`}>
+                  Proposed activity
+                </td>
+                <td className={`${inputTableDataClass} p-0 bg-white`}>
+                  <input
+                    id="proposedActivityApp"
+                    type="text"
+                    defaultValue={landUse?.proposedActivity?.[0]}
+                    placeholder="Yes/No"
+                    className={`${inputClass} focus:border-0 `}
+                  />
+                </td>
+                <td
+                  className={`${inputTableDataClass} p-0 bg-white border-r-0`}
+                >
+                  <input
+                    id="proposedActivityObs"
+                    type="text"
+                    defaultValue={landUse?.proposedActivity?.[1]}
+                    placeholder="Yes/No"
+                    className={`${inputClass} focus:border-0 `}
+                  />
+                </td>
+              </tr>
+              <tr className="border-b border-neutral-500">
+                <td className={`${tableDataClass} font-bold bg-white`}>
+                  Road Width
+                </td>
+                <td className={`${inputTableDataClass} p-0 bg-white`}>
+                  <input
+                    id="landRoadWidthApp"
+                    type="text"
+                    defaultValue={landUse?.landRoadWidth?.[0]}
+                    placeholder="Yes/No"
+                    className={`${inputClass} focus:border-0 `}
+                  />
+                </td>
+                <td
+                  className={`${inputTableDataClass} p-0 bg-white border-r-0`}
+                >
+                  <input
+                    id="landRoadWidthObs"
+                    type="text"
+                    defaultValue={landUse?.landRoadWidth?.[1]}
+                    placeholder="Yes/No"
+                    className={`${inputClass} focus:border-0 `}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td
+                  className={`${tableDataClass} font-bold bg-white border-b-0`}
+                >
+                  Whether permission as per Zoning Regulations
+                </td>
+                <td className={`${inputTableDataClass} p-0 bg-white`}>
+                  <input
+                    id="whetherPermissionApp"
+                    type="text"
+                    defaultValue={landUse?.whetherPermission?.[0]}
+                    placeholder="Yes/No"
+                    className={`${inputClass} focus:border-0 `}
+                  />
+                </td>
+                <td
+                  className={`${inputTableDataClass} p-0 bg-white border-r-0`}
+                >
+                  <input
+                    id="whetherPermissionObs"
+                    type="text"
+                    defaultValue={landUse?.whetherPermission?.[1]}
+                    placeholder="Yes/No"
+                    className={`${inputClass} focus:border-0 `}
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
-      <div className="nm_Container px-7 py-5">
+      <div className="nm_Container p-7 mt-10">
         <p className="font-bold text-xl text-center mb-4">
           Submit Your Final Decision
         </p>

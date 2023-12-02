@@ -57,7 +57,7 @@ function DefaultDocument({
         const matchedText = FindRemarkText?.["default"]?.value;
 
         return (
-          <div key={id} className="w-full px-2  rounded mb-8">
+          <div key={id} className="w-full rounded mb-8">
             <p className="pb-4 font-bold">
               {id}. {question}
             </p>
