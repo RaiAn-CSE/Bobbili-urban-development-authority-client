@@ -9,7 +9,6 @@ import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import DocumentFooter from "./DocumentFooter";
 import DefaultDocument from "./DefaultDocument";
 import DynamicDocument from "./DynamicDocument";
-import PsDocument from "./PsDocument";
 
 const DocumentUpload = () => {
   const [UpdatedDefaultData, setUpdatedDefaultData] = useState([

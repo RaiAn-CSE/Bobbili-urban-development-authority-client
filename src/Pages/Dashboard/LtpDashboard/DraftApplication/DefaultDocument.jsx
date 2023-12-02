@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import DefaultDocumentData from "../../../../assets/DefaultDocument.json";
 import PsDocument from "./PsDocument";
 import { Link } from "react-router-dom";
 import { TbSlideshow } from "react-icons/tb";
@@ -16,7 +15,6 @@ function DefaultDocument({
 }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
   console.log(remarkText, "Remark text default");
-  // const [render, setRender] = useState(false);
 
   // This function updates the data when user Clicked radio btn
   const handleDefaultStatus = ({ value: data, id, type }) => {

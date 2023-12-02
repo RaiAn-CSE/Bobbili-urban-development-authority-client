@@ -7,6 +7,7 @@ import ImageUploadInput from "./ImageUploadInput";
 import axios from "axios";
 import { useQuery } from "react-query";
 import Loading from "../../../Shared/Loading";
+import { motion } from "framer-motion";
 
 const SiteInspection = () => {
   const {
@@ -910,7 +911,11 @@ const SiteInspection = () => {
         </div>
       </div>
 
-      <div className="nm_Container p-7 mt-10">
+      <motion.div className="nm_Container p-7 mt-10"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0, transition: { duration: 2 } }}
+        viewport={{ once: false }}
+      >
         <p className="font-bold text-xl text-center mb-4">
           Submit Your Final Decision
         </p>
@@ -967,9 +972,7 @@ const SiteInspection = () => {
             ></textarea>
           </div>
         </div>
-      </div>
-
-      {/* <button type="submit" className="btn btn-sm" onClick={submitImageData}>Submit</button> */}
+      </motion.div>
 
       {/* save & continue  */}
       <SaveData

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import PsDocument from "./PsDocument";
 import { Link } from "react-router-dom";
-import toast from "react-hot-toast";
 import { TbSlideshow } from "react-icons/tb";
 
 function DynamicDocument({
