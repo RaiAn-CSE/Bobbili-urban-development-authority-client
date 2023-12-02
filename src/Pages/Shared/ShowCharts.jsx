@@ -288,7 +288,7 @@ const ShowCharts = () => {
         </div>
       ) : (
         <>
-          <form className="flex justify-between items-center font-roboto my-8 z-[10] px-10 text-gray-900">
+          <form className="grid grid-cols-2 lg:grid-cols-4 gap-4 font-roboto my-8 z-[10] px-10 text-gray-900">
             {/* district  */}
             <div className="nm_Container basis-[23%] z-[10] p-3 py-6 rounded-lg ">
               <label
@@ -434,9 +434,8 @@ const ShowCharts = () => {
             <Loading />
           ) : (
             <div
-              className={`${
-                path.includes("/dashboard") && "px-4"
-              } flex justify-evenly items-center  p-0 z-[10]`}
+              className={`${path.includes("/dashboard") && "px-4"
+                } flex justify-evenly items-center  p-0 z-[10]`}
             >
               {/* background: linear-gradient(to right, rgb(142, 45, 226), rgb(74, 0, 224)); */}
               <div className="w-[46%] overflow-hidden z-[10]">
