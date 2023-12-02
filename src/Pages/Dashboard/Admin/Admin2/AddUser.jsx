@@ -180,6 +180,10 @@ const AddUser = () => {
     console.log(value);
     setUserType(e.target.value);
   };
+
+  const inputLabel = "block mb-1 font-semibold text-gray-600"
+  const inputBox = "w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-gray-400 focus:border-gray-600 focus:outline-none focus:ring-2 ring-violet-200"
+
   return (
     <div className="mt-10 text-black">
       <h1 className="text-xl lg:text-3xl text-center font-roboto font-bold text-black">
@@ -187,14 +191,14 @@ const AddUser = () => {
       </h1>
 
       <form
-        className="w-2/3 mx-auto mt-10 font-roboto text-lg"
+        className="w-[90%] mx-auto mt-10 font-roboto text-lg"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="mb-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           <div>
             <label
               htmlFor="name"
-              className="block mb-2 text-base font-bold text-gray-900"
+              className={inputLabel}
             >
               Name
             </label>
@@ -202,7 +206,7 @@ const AddUser = () => {
               type="text"
               {...register("name", { required: true })}
               id="name"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              className={inputBox}
               placeholder="Enter user name"
               required
             />
@@ -211,7 +215,7 @@ const AddUser = () => {
           <div>
             <label
               htmlFor="id"
-              className="block mb-2 text-base '' font-bold text-gray-900"
+              className={inputLabel}
             >
               User ID
             </label>
@@ -219,7 +223,7 @@ const AddUser = () => {
               type="text"
               {...register("userId", { required: true })}
               id="id"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              className={inputBox}
               placeholder="Enter user id"
               required
             />
@@ -228,7 +232,7 @@ const AddUser = () => {
           <div>
             <label
               htmlFor="password"
-              className="block mb-2 text-base font-bold '' text-gray-900"
+              className={inputLabel}
             >
               Password
             </label>
@@ -236,7 +240,7 @@ const AddUser = () => {
               type="text"
               {...register("password", { required: true })}
               id="password"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-violet-500 focus:border-blue-500 block w-full p-2.5"
+              className={inputBox}
               placeholder="•••••••••"
               required
             />
@@ -245,14 +249,14 @@ const AddUser = () => {
           <div>
             <label
               htmlFor="role"
-              className="block mb-2 text-base font-bold text-gray-900 "
+              className={inputLabel}
             >
               Role
             </label>
             <select
               id="role"
               {...register("role", { required: true })}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-violet-500 focus:border-blue-500 block w-full p-2.5 "
+              className="w-full px-3 py-[10.5px] border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-gray-400 focus:border-gray-600 focus:outline-none focus:ring-2 ring-violet-200"
               onChange={(e) => handleChangeRole(e)}
             >
               <option value="Select an option">Select an option</option>
@@ -273,7 +277,7 @@ const AddUser = () => {
           <div>
             <label
               htmlFor="email"
-              className="block mb-2 text-base font-bold text-gray-900"
+              className={inputLabel}
             >
               Email
             </label>
@@ -281,7 +285,7 @@ const AddUser = () => {
               type="text"
               {...register("email", { required: true })}
               id="email"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              className={inputBox}
               placeholder="test@gmail.com"
               required
             />
@@ -290,7 +294,7 @@ const AddUser = () => {
           <div>
             <label
               htmlFor="phone"
-              className="block mb-2 text-base font-bold text-gray-900"
+              className={inputLabel}
             >
               Phone no
             </label>
@@ -298,7 +302,7 @@ const AddUser = () => {
               type="text"
               {...register("phone", { required: true })}
               id="phone"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+              className={inputBox}
               placeholder="Enter phone no"
               maxLength={10}
               required
@@ -308,7 +312,7 @@ const AddUser = () => {
           <div>
             <label
               htmlFor="address"
-              className="block mb-2 text-base font-bold text-gray-900"
+              className={inputLabel}
             >
               Address
             </label>
@@ -316,7 +320,7 @@ const AddUser = () => {
               id="address"
               rows="2"
               {...register("address", { required: true })}
-              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 "
+              className={inputBox}
               placeholder="Enter address..."
             ></textarea>
           </div>
@@ -327,7 +331,7 @@ const AddUser = () => {
             <div>
               <label
                 htmlFor="licenseNo"
-                className="block mb-2 text-base font-bold text-gray-900"
+                className={inputLabel}
               >
                 License No
               </label>
@@ -335,7 +339,7 @@ const AddUser = () => {
                 type="text"
                 {...register("licenseNo", { required: true })}
                 id="licenseNo"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                className={inputBox}
                 placeholder="Enter license no"
                 required
               />
@@ -344,7 +348,7 @@ const AddUser = () => {
             <div>
               <label
                 htmlFor="adharNo"
-                className="block mb-2 text-base font-bold text-gray-900"
+                className={inputLabel}
               >
                 Adhar no
               </label>
@@ -352,15 +356,16 @@ const AddUser = () => {
                 type="text"
                 {...register("adharNo", { required: true })}
                 id="adharNo"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                className={inputBox}
                 placeholder="Enter phone no"
                 required
               />
             </div>
+
             <div>
               <label
                 htmlFor="validity"
-                className="block mb-2 text-base font-bold text-gray-900"
+                className={inputLabel}
               >
                 Validity
               </label>
@@ -368,7 +373,7 @@ const AddUser = () => {
                 type="date"
                 {...register("validity", { required: true })}
                 id="validity"
-                className="bg-violet border border-gray-300 text-black text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-400 dark:text-white"
+                className={inputBox}
               />
               {/* <FaRegCalendarAlt className="absolute bottom-[15%] right-[5%] bg-transparent" /> */}
             </div>
@@ -381,13 +386,13 @@ const AddUser = () => {
             <div className="basis-1/5">
               <label
                 htmlFor="district"
-                className="block mb-2 text-base font-bold text-gray-900"
+                className={inputLabel}
               >
                 District
               </label>
               <select
                 id="district"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                className="w-full px-3 py-[10.5px] border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-gray-400 focus:border-gray-600 focus:outline-none focus:ring-2 ring-violet-200"
                 defaultValue={selectedDistrict}
                 onChange={(e) => detectSelectOfDistrict(e)}
               >
@@ -405,17 +410,16 @@ const AddUser = () => {
             </div>
 
             {/* mandal */}
-
             <div className="basis-1/5">
               <label
                 htmlFor="mandal"
-                className="block mb-2 text-base font-bold text-gray-900"
+                className={inputLabel}
               >
                 Mandal
               </label>
               <select
                 id="mandal"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                className="w-full px-3 py-[10.5px] border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-gray-400 focus:border-gray-600 focus:outline-none focus:ring-2 ring-violet-200"
                 defaultValue={selectedMandal}
                 onChange={(e) => detectChangeOfMandals(e)}
                 disabled={allMandal?.length === 0}
@@ -432,17 +436,18 @@ const AddUser = () => {
                 })}
               </select>
             </div>
+
             {/* gram panchayat  */}
             <div className="basis-1/5">
               <label
                 htmlFor="panchayat"
-                className="block mb-2 text-base font-bold text-gray-900"
+                className={inputLabel}
               >
                 Grama Panchayat
               </label>
               <select
                 id="panchayat"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                className="w-full px-3 py-[10.5px] border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-gray-400 focus:border-gray-600 focus:outline-none focus:ring-2 ring-violet-200"
                 defaultValue={selectedPanchayat}
                 disabled={allPanchayat?.length === 0}
                 onChange={(e) => detectChangeOfPanchayat(e)}

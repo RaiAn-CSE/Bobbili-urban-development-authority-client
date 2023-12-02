@@ -191,7 +191,7 @@ const AllUsers = () => {
             {/* <h1 className="mt-10 text-center text-3xl font-bold Roboto">All Users</h1> */}
 
             {/* input box for search users  */}
-            <div className="form-control mt-5 w-1/2 mx-auto  max-w-xs">
+            <div className="form-control mt-5 w-1/2 mx-auto max-w-xs">
               <div>
                 <label
                   htmlFor="search"
