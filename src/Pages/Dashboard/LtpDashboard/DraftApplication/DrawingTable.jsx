@@ -182,26 +182,26 @@ function DrawingTable({
 
   return (
     <div>
-      <div className="overflow-x-auto mb-3 w-full">
+      <div className="overflow-x-auto mb-3 p-5 w-full">
         <p className="font-bold text-lg mb-3">Drawing Scrutiny report</p>
-        <div className="nm_Container mb-5 inline-block min-w-full rounded-lg overflow-hidden">
+        <div className="mb-5 nm_Container inline-block min-w-full rounded-lg overflow-hidden">
           <table className="min-w-full leading-normal text-center">
             {/* Table Header */}
-            <thead className="bg-normalViolet">
-              <tr className="text-sm md:text-base text-white hover:bg-normalViolet">
-                <th className="p-3 border-b-2 border-gray-200  text-white text-sm font-semibold uppercase tracking-wider ">
+            <thead className="bg-gradient-to-b from-[#a29bfe] to-[#6c5ce7]">
+              <tr className="text-white uppercase tracking-wider">
+                <th className="border-r p-3 border-white">
                   Sl. No.
                 </th>
-                <th className="p-3 border-b-2 border-gray-200  text-white  text-sm font-semibold uppercase tracking-wider ">
+                <th className="border-r border-white">
                   Description
                 </th>
-                <th className="p-3 border-b-2 border-gray-200  text-white  text-sm font-semibold uppercase tracking-wider ">
+                <th className="border-r border-white">
                   As per G.O.s
                 </th>
-                <th className="p-3 border-b-2 border-gray-200  text-white  text-sm font-semibold uppercase tracking-wider ">
+                <th className="border-r border-white">
                   As on Plan
                 </th>
-                <th className="p-3 border-b-2 border-gray-200  text-white  text-sm font-semibold uppercase tracking-wider ">
+                <th className="">
                   Observation
                 </th>
               </tr>

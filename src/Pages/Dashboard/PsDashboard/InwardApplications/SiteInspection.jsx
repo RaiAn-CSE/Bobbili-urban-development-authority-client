@@ -385,18 +385,18 @@ const SiteInspection = () => {
           <div className="inline-block min-w-full nm_Container rounded-lg overflow-hidden">
             <table className="min-w-full leading-normal text-center">
               <thead className="bg-gradient-to-b from-[#a29bfe] to-[#6c5ce7]">
-                <tr className=" text-white">
-                  <th scope="col" className="border-r px-6 py-3 border-white">
+                <tr className="text-white uppercase tracking-wider">
+                  <th scope="col" className="border-r p-3 border-white">
                     {" "}
                     Sl. No.
                   </th>
-                  <th scope="col" className="border-r px-6  border-white">
+                  <th scope="col" className="border-r border-white">
                     Description
                   </th>
-                  <th scope="col" className="border-r px-6 border-white">
+                  <th scope="col" className="border-r border-white">
                     As per Application
                   </th>
-                  <th scope="col" className="px-6 ">
+                  <th scope="col">
                     Observation
                   </th>
                 </tr>

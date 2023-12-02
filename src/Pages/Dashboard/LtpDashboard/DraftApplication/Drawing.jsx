@@ -243,10 +243,10 @@ const Drawing = () => {
   }, []);
 
   return (
-    <div className="text-black p-5">
+    <div className="text-black py-5">
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="text-black mt-3"
+        className="text-black mt-3 px-5"
       >
         {/* AutoCAD Drawing */}
         <div className="text-lg mb-16">

@@ -16,7 +16,7 @@ function DocumentFooter({
 
   console.log(approvedConfirmation, "Approved confirmation");
   return (
-    <div className="nm_Container pt-10 pb-6 font-roboto">
+    <div className="nm_Container pt-10 pb-6 font-roboto mx-5">
       <p className="text-center font-bold text-[22px] mb-5">
         Submit Your Final Decision
       </p>
