@@ -200,9 +200,9 @@ const UpdateLocation = () => {
     <>
       <div className="flex justify-center items-center font-roboto h-screen transition-all duration-1000">
         {/* container of main div  */}
-        <div className="flex min-h-[70%] w-[80%]  nm_Container">
+        <div className="lg:flex lg:min-h-[70%] w-[80%] nm_Container rounded-lg">
           {/* left side  */}
-          <div className="basis-1/2 bg-bgColor min-h-full ">
+          <div className="basis-1/2 bg-bgColor min-h-full rounded-lg">
             <p className="text-black text-2xl font-roboto font-bold ml-6 my-3">
               Location
             </p>
@@ -211,10 +211,9 @@ const UpdateLocation = () => {
               <ul className="flex text-center text-white bg-[#1A1B27] mx-6 rounded-lg p-1">
                 <li className={`basis-1/2`} onClick={() => swapTheTab(1)}>
                   <button
-                    className={`inline-flex items-center justify-center text-base py-2 w-full ${
-                      isAddOption === 1 &&
+                    className={`inline-flex items-center justify-center text-base py-2 w-full ${isAddOption === 1 &&
                       "bg-gradient-to-b from-[#9870F7] to-[#5B4395]  rounded-lg"
-                    }`}
+                      }`}
                   >
                     <MdOutlineAddLocationAlt className="me-2" size={20} />
                     Add
@@ -222,10 +221,9 @@ const UpdateLocation = () => {
                 </li>
                 <li className={`basis-1/2 `} onClick={() => swapTheTab(0)}>
                   <button
-                    className={`w-full inline-flex items-center justify-center text-base py-2 ${
-                      isAddOption === 0 &&
+                    className={`w-full inline-flex items-center justify-center text-base py-2 ${isAddOption === 0 &&
                       "bg-gradient-to-b from-[#9870F7] to-[#5B4395]  rounded-lg"
-                    }`}
+                      }`}
                   >
                     <MdOutlineWrongLocation className="me-2" size={20} />
                     Delete
@@ -537,7 +535,7 @@ const UpdateLocation = () => {
           </div>
 
           {/* right side  */}
-          <div className="basis-1/2 bg-bgColor min-h-full ">
+          <div className="basis-1/2 bg-bgColor min-h-full rounded-lg">
             {/* <Lottie
               animationData={mapAnimation}
               loop={true}
