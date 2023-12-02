@@ -198,9 +198,9 @@ const UpdateLocation = () => {
 
   return (
     <>
-      <div className="flex justify-center items-center font-roboto h-screen transition-all duration-1000">
+      <div className="flex justify-center items-center font-roboto min-h-screen transition-all duration-1000">
         {/* container of main div  */}
-        <div className="lg:flex lg:min-h-[70%] w-[80%] nm_Container rounded-lg">
+        <div className="lg:flex lg:min-h-[70%] w-[90%] nm_Container rounded-lg">
           {/* left side  */}
           <div className="basis-1/2 bg-bgColor min-h-full rounded-lg">
             <p className="text-black text-2xl font-roboto font-bold ml-6 my-3">
