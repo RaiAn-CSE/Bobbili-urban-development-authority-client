@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { AiOutlineHome } from "react-icons/ai";
+import { AiFillMessage, AiOutlineHome, AiTwotoneMessage } from "react-icons/ai";
 import { MdOutlineDarkMode, MdOutlineDashboard } from "react-icons/md";
 import { motion } from "framer-motion";
 import { FiSun } from "react-icons/fi";
 import ParticleBg from "../Pages/Components/ParticleBg";
+import CustomerSupport from "../assets/images/support.jpg";
+import { useForm } from "react-hook-form";
+import { LuMessagesSquare } from "react-icons/lu";
 
 const MainLayout = () => {
   const path = useLocation().pathname;
@@ -44,13 +47,19 @@ const MainLayout = () => {
     };
   }, [theme]);
 
+  const { register, errors, handleSubmit } = useForm();
+
+  const [toggleChat, setToggleChat] = useState(false);
+
+  const onSubmit = (data) => console.log(data);
+
   return (
     <>
       {/* particle  */}
 
       {!path.includes("/statistics") && <ParticleBg />}
 
-      <div className="px-10 min-h-screen z-[10] bg-[#E8EAEC]">
+      <div className="px-10 min-h-screen z-[10] bg-[#E8EAEC] relative">
         {/* upper part  */}
         <div className="py-3 flex justify-between items-center z-[10]">
           <div className="basis-3/4 z-[10] pt-2">
@@ -71,22 +80,24 @@ const MainLayout = () => {
           <div className="basis-[20%] z-[10] flex justify-end items-center space-x-6 dark:text-black">
             <Link
               to="/"
-              className={`nm_Container w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center  ${path === "/" ||
+              className={`nm_Container w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center  ${
+                path === "/" ||
                 path === "/onlinePayment" ||
                 path === "/listOfLTP" ||
                 path === "/demoVideos" ||
                 path === "/privacyPolicy" ||
                 path === "/defaultDrawingFormat"
-                ? active
-                : ` ${notActive}`
-                }`}
+                  ? active
+                  : ` ${notActive}`
+              }`}
             >
               <AiOutlineHome size={25} className="text-2xl " />
             </Link>
             <Link
               to="/statistics"
-              className={`nm_Container w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center ${path.includes("/statistics") ? active : ` ${notActive}`
-                }`}
+              className={`nm_Container w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center ${
+                path.includes("/statistics") ? active : ` ${notActive}`
+              }`}
             >
               <MdOutlineDashboard size={25} className="text-2xl" />
             </Link>
@@ -111,6 +122,72 @@ const MainLayout = () => {
 
         {/* lower part  */}
         <Outlet />
+
+        <div
+          className="chatbox-wrapper"
+          onClick={() => setToggleChat(!toggleChat)}
+        >
+          <div className="chatbox-toggle">
+            <AiFillMessage size={30} />
+          </div>
+        </div>
+
+        {toggleChat && (
+          <div className="absolute bottom-[70px] right-8 z-10 h-[80vh] w-96 bg-white rounded-lg shadow-md message-box">
+            <div className="flex flex-col items-center mt-5">
+              <button class="logo-btn mt-5" data-text="Awesome">
+                <span class="actual-text text-4xl">&nbsp;BUDA&nbsp;</span>
+                <span aria-hidden="true" class="hover-text text-4xl">
+                  &nbsp;BUDA&nbsp;
+                </span>
+              </button>
+
+              <LuMessagesSquare
+                size={70}
+                className="nm_Container text-[#6c5ce7] mt-4"
+              />
+            </div>
+            <form
+              className="flex flex-col items-center space-y-6 mt-6"
+              onSubmit={handleSubmit(onSubmit)}
+            >
+              <div>
+                <label htmlFor="name" className="inline-block font-bold">
+                  Your Name
+                </label>
+                <input
+                  className="input input-bordered  w-full max-w-xs focus:outline-none"
+                  placeholder="Enter your name ..."
+                  type="text"
+                  id="name"
+                  {...register("name", { required: true })}
+                />
+              </div>
+
+              <div>
+                <label htmlFor="mobile" className="inline-block font-bold">
+                  Mobile No
+                </label>
+                <input
+                  type="text"
+                  className="input input-bordered w-full max-w-xs focus:outline-none"
+                  placeholder="Enter your mobile no..."
+                  {...register("mobileNo", { required: true })}
+                />
+              </div>
+              {/* errors will return when field validation fails  */}
+              {errors?.mobileNo && (
+                <span className="text-red-500">This field is required</span>
+              )}
+
+              <input
+                className="nm_Container capitalize p-2 px-4 text-lg rounded-full text-white bg-[#8980FD] cursor-pointer"
+                type="submit"
+                value={"Sent request"}
+              />
+            </form>
+          </div>
+        )}
       </div>
     </>
   );
