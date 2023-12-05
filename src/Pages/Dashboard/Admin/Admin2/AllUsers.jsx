@@ -62,7 +62,11 @@ const AllUsers = () => {
 
   const filter = (event) => {
     console.log(data);
-    setRecords(data.filter((f) => f?.name?.includes(event.target.value)));
+    setRecords(
+      data.filter((f) =>
+        f?.name?.toLowerCase()?.includes(event.target.value.toLowerCase())
+      )
+    );
     console.log(records);
   };
 
@@ -190,16 +194,16 @@ const AllUsers = () => {
         <>
           <div className="text-black">
             {/* input box for search users  */}
-            <div className="mt-10 ml-[13%]">
-
-              <motion.div className={`${HomeCss.searchInputContainer} mx-2`}
+            <div className="mt-10 w-3/4 mx-auto">
+              <motion.div
+                className={`${HomeCss.searchInputContainer} mx-2`}
                 initial={{ opacity: 0, scale: 0.5 }}
                 whileInView={{ opacity: 1, scale: 1.0 }}
                 transition={{ duration: 1 }}
                 viewport={{ once: false }}
               >
                 <input
-                  placeholder="Application no. or owner name"
+                  placeholder="Search by name"
                   className={`${HomeCss.searchInput} text-gray-900 focus:border-violet-500 focus:outline-none focus:ring-2 ring-violet-100`}
                   name="text"
                   type="text"
@@ -245,7 +249,6 @@ const AllUsers = () => {
                   required
                 />
               </div> */}
-
             </div>
 
             {/* display users  */}
