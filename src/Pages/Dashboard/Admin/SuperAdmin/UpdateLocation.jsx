@@ -53,7 +53,7 @@ const UpdateLocation = () => {
     (async function () {
       try {
         const locationData = await fetchDataFromTheDb(
-          "https://residential-building.vercel.app/getDistricts"
+          "http://localhost:5000/getDistricts"
         );
         console.log(locationData, "LOC");
         const extractsDataFromDB = locationData[0]?.district;
@@ -122,15 +122,11 @@ const UpdateLocation = () => {
       // add location
       console.log(data, "ADD");
 
-      url = `https://residential-building.vercel.app/addLocation?data=${JSON.stringify(
-        data
-      )}`;
+      url = `http://localhost:5000/addLocation?data=${JSON.stringify(data)}`;
     } else {
       // remove location
       console.log(data, "Remove");
-      url = `https://residential-building.vercel.app/removeLocation?data=${JSON.stringify(
-        data
-      )}`;
+      url = `http://localhost:5000/removeLocation?data=${JSON.stringify(data)}`;
     }
 
     fetch(url, {
@@ -211,9 +207,10 @@ const UpdateLocation = () => {
               <ul className="flex text-center text-white bg-[#1A1B27] mx-6 rounded-lg p-1">
                 <li className={`basis-1/2`} onClick={() => swapTheTab(1)}>
                   <button
-                    className={`inline-flex items-center justify-center text-base py-2 w-full ${isAddOption === 1 &&
+                    className={`inline-flex items-center justify-center text-base py-2 w-full ${
+                      isAddOption === 1 &&
                       "bg-gradient-to-b from-[#9870F7] to-[#5B4395]  rounded-lg"
-                      }`}
+                    }`}
                   >
                     <MdOutlineAddLocationAlt className="me-2" size={20} />
                     Add
@@ -221,9 +218,10 @@ const UpdateLocation = () => {
                 </li>
                 <li className={`basis-1/2 `} onClick={() => swapTheTab(0)}>
                   <button
-                    className={`w-full inline-flex items-center justify-center text-base py-2 ${isAddOption === 0 &&
+                    className={`w-full inline-flex items-center justify-center text-base py-2 ${
+                      isAddOption === 0 &&
                       "bg-gradient-to-b from-[#9870F7] to-[#5B4395]  rounded-lg"
-                      }`}
+                    }`}
                   >
                     <MdOutlineWrongLocation className="me-2" size={20} />
                     Delete

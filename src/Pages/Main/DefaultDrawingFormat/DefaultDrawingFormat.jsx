@@ -21,7 +21,7 @@ const DefaultDrawingFormat = () => {
       });
     }
 
-    fetch(`https://residential-building.vercel.app/downloadFile?data=${data}`)
+    fetch(`http://localhost:5000/downloadFile?data=${data}`)
       .then((res) => {
         if (res.ok) {
           // If the response status is OK, it means the file download is successful
@@ -54,8 +54,8 @@ const DefaultDrawingFormat = () => {
   }
   return (
     <div className="w-full h-full drawingFormat relative">
-
-      <motion.div className="flex flex-col w-full items-center h-full justify-center"
+      <motion.div
+        className="flex flex-col w-full items-center h-full justify-center"
         initial={{ opacity: 0, scale: 0.5 }}
         whileInView={{ opacity: 1, scale: 1.0 }}
         transition={{ duration: 1 }}

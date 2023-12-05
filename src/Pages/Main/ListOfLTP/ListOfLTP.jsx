@@ -9,7 +9,7 @@ const ListOfLTP = () => {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     setLoading(true);
-    fetch("https://residential-building.vercel.app/allUser")
+    fetch("http://localhost:5000/allUser")
       .then((res) => res.json())
       .then((data) => {
         setLoading(false);
