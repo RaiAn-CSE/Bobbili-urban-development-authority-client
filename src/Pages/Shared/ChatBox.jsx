@@ -14,7 +14,9 @@ const ChatBox = () => {
   return (
     <>
       {requestSent ? (
-        <MessagePage />
+        <MessagePage
+          props={{ setUserInfo, setRequestSent, userInfo, requestSent }}
+        />
       ) : (
         <RequestPage props={{ setUserInfo, setRequestSent }} />
       )}

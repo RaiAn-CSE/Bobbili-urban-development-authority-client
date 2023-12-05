@@ -35,6 +35,9 @@ const RequestPage = ({ props }) => {
 
       if (data.acknowledged) {
         setRequestSent(true);
+        setUserInfo((prev) => {
+          return { ...prev, uniqueId: data.insertedId };
+        });
       } else {
         toast.error("Server failed");
       }
