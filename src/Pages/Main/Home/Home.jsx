@@ -19,61 +19,55 @@ const Home = () => {
       <Link
         to="/"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-base border-b border-gray-200 rounded-t-lg ${hoverGradientColor} ${
-          path.length === 1 && path.includes("/") ? active : ""
-        }`}
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-base border-b border-gray-200 rounded-t-lg ${hoverGradientColor} ${path.length === 1 && path.includes("/") ? active : ""
+          }`}
       >
         Application Search
       </Link>
       <Link
         to="/onlinePayment"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-base border-b border-gray-200  ${hoverGradientColor} ${
-          path.includes("onlinePayment") ? active : ""
-        }`}
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-base border-b border-gray-200  ${hoverGradientColor} ${path.includes("onlinePayment") ? active : ""
+          }`}
       >
         Online Payment
       </Link>
       <Link
         to="/listOfLTP"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-base  border-b border-gray-200 ${hoverGradientColor} ${
-          path.includes("listOfLTP") ? active : ""
-        }`}
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-base  border-b border-gray-200 ${hoverGradientColor} ${path.includes("listOfLTP") ? active : ""
+          }`}
       >
         List of LTP's
       </Link>
       <Link
         to="/demoVideos"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-base border-b ${hoverGradientColor} ${
-          path.includes("demoVideos") ? active : ""
-        }`}
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-base border-b ${hoverGradientColor} ${path.includes("demoVideos") ? active : ""
+          }`}
       >
         Demo Videos
       </Link>
       <Link
         to="/privacyPolicy"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-base  border-b ${hoverGradientColor} ${
-          path.includes("privacyPolicy") ? active : ""
-        }`}
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-base  border-b ${hoverGradientColor} ${path.includes("privacyPolicy") ? active : ""
+          }`}
       >
         Privacy Policy
       </Link>
       <Link
         to="/defaultDrawingFormat"
         type="button"
-        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-base border-b ${hoverGradientColor} ${
-          path.includes("defaultDrawingFormat") ? active : ""
-        }`}
+        className={`relative inline-flex items-center w-full h-full px-4 py-2 text-base border-b ${hoverGradientColor} ${path.includes("defaultDrawingFormat") ? active : ""
+          }`}
       >
         Default Drawing Format
       </Link>
     </>
   );
   return (
-    <div className=" w-full grid grid-cols-[200px_minmax(700px,_1fr)_284px] pt-6">
+    <div className="w-full grid grid-cols-[200px_minmax(700px,_1fr)_284px] pt-6">
       {/* sidebar menus  */}
       <div className="nm_Container z-[10] w-full text-base flex flex-col justify-between bg-[#E8EAEC] text-black border border-gray-200 rounded-lg">
         {menu}
@@ -81,7 +75,7 @@ const Home = () => {
 
       {/* Scrollable content */}
       <div
-        className={`${customScroll.customScrolling} nm_Container h-[410px] rounded-lg mx-4 z-[10] flex items-center bg-[#E8EAEC]`}
+        className={`${customScroll.customScrolling} nm_Container lg:h-[410px] rounded-lg mx-4 z-[10] flex items-center bg-[#E8EAEC]`}
       >
         <Outlet />
       </div>

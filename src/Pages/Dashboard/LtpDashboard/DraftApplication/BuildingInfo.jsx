@@ -707,7 +707,7 @@ const BuildingInfo = () => {
                 </select>
               </motion.div>
 
-              {/* General Information radio button  */}
+              {/* radio button  */}
               <motion.div className="grid grid-cols-1 font-medium  lg:justify-items-center my-4 mx-3"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}

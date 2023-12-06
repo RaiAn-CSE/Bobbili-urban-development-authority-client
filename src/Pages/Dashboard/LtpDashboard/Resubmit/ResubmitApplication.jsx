@@ -575,14 +575,14 @@ const ResubmitApplication = () => {
             {/* submit btns  */}
             <div className="flex justify-between my-10 mx-6">
               <button
-                class="nm_Container overflow-hidden w-24 p-2 h-12 bg-normalViolet text-white border-none rounded-md text-base uppercase font-bold cursor-pointer relative z-10 group"
+                className="nm_Container overflow-hidden w-24 p-2 h-12 bg-normalViolet text-white border-none rounded-md text-base uppercase font-bold cursor-pointer relative z-10 group"
                 onClick={() => navigate(-1)}
               >
                 Go
-                <span class="absolute w-36 h-32 -top-8 -left-2 bg-white rotate-12 transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-500 duration-1000 origin-left"></span>
-                <span class="absolute w-36 h-32 -top-8 -left-2 bg-[#8F85F6] rotate-12 transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-700 duration-700 origin-left"></span>
-                <span class="absolute w-36 h-32 -top-8 -left-2 bg-[#8F85F6] rotate-12 transform scale-x-0 group-hover:scale-x-50 transition-transform group-hover:duration-1000 duration-500 origin-left"></span>
-                <span class="group-hover:opacity-100 group-hover:duration-1000 duration-100 opacity-0 absolute top-4.5 left-6 z-10">
+                <span className="absolute w-36 h-32 -top-8 -left-2 bg-white rotate-12 transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-500 duration-1000 origin-left"></span>
+                <span className="absolute w-36 h-32 -top-8 -left-2 bg-[#8F85F6] rotate-12 transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-700 duration-700 origin-left"></span>
+                <span className="absolute w-36 h-32 -top-8 -left-2 bg-[#8F85F6] rotate-12 transform scale-x-0 group-hover:scale-x-50 transition-transform group-hover:duration-1000 duration-500 origin-left"></span>
+                <span className="group-hover:opacity-100 group-hover:duration-1000 duration-100 opacity-0 absolute top-4.5 left-6 z-10">
                   Back!
                 </span>
               </button>

@@ -44,7 +44,7 @@ const DefaultDrawingFormat = () => {
       })
       .catch((err) => {
         console.log(err, "err");
-        setLoading(<i class="fa fa-life-saver" aria-hidden="true"></i>);
+        setLoading(<i className="fa fa-life-saver" aria-hidden="true"></i>);
         toast.error("Server Error");
       });
   };
