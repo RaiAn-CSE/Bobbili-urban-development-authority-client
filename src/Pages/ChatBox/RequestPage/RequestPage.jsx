@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { LuMessagesSquare } from "react-icons/lu";
+import { IoMdStar } from "react-icons/io";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -46,8 +47,8 @@ const RequestPage = ({ props }) => {
     }
   };
   return (
-    <div className="message-box">
-      <div className="flex flex-col items-center mt-5">
+    <div className="message-box h-full flex flex-col justify-around rounded-md">
+      <div className="flex flex-col items-center">
         <button className="logo-btn mt-5" data-text="Awesome">
           <span className="actual-text text-4xl">&nbsp;BUDA&nbsp;</span>
           <span aria-hidden="true" className="hover-text text-4xl">
@@ -61,15 +62,20 @@ const RequestPage = ({ props }) => {
         />
       </div>
       <form
-        className="flex flex-col items-center space-y-6 mt-6"
+        className="flex flex-col items-center space-y-6 "
         onSubmit={handleSubmit(onSubmit)}
       >
         <div>
-          <label htmlFor="name" className="inline-block font-bold">
-            Your Name
-          </label>
+          <div className="indicator">
+            <span className="indicator-item badge badge-xs text-red-500">
+              <IoMdStar />
+            </span>
+            <label htmlFor="name" className="inline-block font-bold">
+              Your Name
+            </label>
+          </div>
           <input
-            className="input input-bordered  w-full max-w-xs focus:outline-none"
+            className="input input-bordered border-2 border-violet-400 w-full max-w-xs rounded-full focus:outline-none"
             placeholder="Enter your name ..."
             type="text"
             id="name"
@@ -78,12 +84,17 @@ const RequestPage = ({ props }) => {
         </div>
 
         <div>
-          <label htmlFor="mobile" className="inline-block font-bold">
-            Mobile No
-          </label>
+          <div className="indicator">
+            <span className="indicator-item badge badge-xs text-red-500">
+              <IoMdStar />
+            </span>
+            <label htmlFor="mobile" className="inline-block font-bold">
+              Mobile No
+            </label>
+          </div>
           <input
             type="text"
-            className="input input-bordered w-full max-w-xs focus:outline-none"
+            className="input input-bordered w-full max-w-xs border-2 border-violet-400 rounded-full focus:outline-none "
             placeholder="Enter your mobile no..."
             {...register("mobileNo", { required: true })}
           />
