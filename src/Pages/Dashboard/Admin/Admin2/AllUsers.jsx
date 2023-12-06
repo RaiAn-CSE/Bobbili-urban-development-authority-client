@@ -179,6 +179,9 @@ const AllUsers = () => {
     return <Loading />;
   }
 
+  const inputLabel = "block mb-1 font-semibold text-gray-600"
+  const inputBox = "w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-gray-400 focus:border-gray-600 focus:outline-none focus:ring-2 ring-violet-200"
+
   return (
     <>
       {error?.length !== 0 ? (
@@ -309,10 +312,6 @@ const AllUsers = () => {
                     >
                       ✕
                     </button>
-
-                    {/* <button className="absolute bottom-6 right-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                Close
-              </button> */}
                   </form>
 
                   {/* user information  */}
@@ -321,67 +320,69 @@ const AllUsers = () => {
                       {/* if there is a button in form, it will close the modal */}
 
                       {/* form input boxes  */}
-
                       <div className="grid gap-6 mb-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                         <div>
                           <label
                             htmlFor="name"
-                            className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
+                            className={inputLabel}
                           >
                             Name
                           </label>
                           <input
                             type="text"
                             id="name"
-                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            className={inputBox}
                             placeholder="John"
                             {...register("name")}
                             required
                           />
                         </div>
+
                         <div>
                           <label
                             htmlFor="user_id"
-                            className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
+                            className={inputLabel}
                           >
                             User ID
                           </label>
                           <input
                             type="text"
                             id="user_id"
-                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            className={inputBox}
                             placeholder="Doe"
                             {...register("userId")}
                             required
                           />
                         </div>
+
                         <div>
                           <label
                             htmlFor="password"
-                            className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
+                            className={inputLabel}
                           >
                             Password
                           </label>
                           <input
                             type="text"
                             id="password"
-                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            className={inputBox}
                             placeholder="*****"
                             {...register("password")}
                             required
                           />
                         </div>
+
                         <div>
                           <label
                             htmlFor="role"
-                            className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
+                            className={inputLabel}
                           >
                             Role
                           </label>
                           <input
                             type="tel"
                             id="role"
-                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            className={inputBox}
                             placeholder="role"
                             {...register("role")}
                             required
@@ -389,11 +390,45 @@ const AllUsers = () => {
                         </div>
                       </div>
 
-                      <div className="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      <div className="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div className="flex flex-col items-center mt-3">
+                          <label htmlFor="" className={`${inputLabel}`}>Gender</label>
+                          <div className="radio-button-container">
+                            <div className="radio-button">
+                              <input
+                                type="radio"
+                                className="radio-button__input"
+                                id="male"
+                                name="gender1"
+                                value="male"
+                                {...register("gender1")}
+                              />
+                              <label className="radio-button__label" htmlFor="male">
+                                <span className="radio-button__custom"></span>
+                                male
+                              </label>
+                            </div>
+                            <div className="radio-button">
+                              <input
+                                type="radio"
+                                className="radio-button__input"
+                                id="female"
+                                name="gender1"
+                                value="female"
+                                {...register("gender1")}
+                              />
+                              <label className="radio-button__label" htmlFor="female">
+                                <span className="radio-button__custom"></span>
+                                female
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+
                         <div>
                           <label
                             htmlFor="email"
-                            className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
+                            className={inputLabel}
                           >
                             Email
                           </label>
@@ -401,7 +436,7 @@ const AllUsers = () => {
                             type="text"
                             {...register("email", { required: true })}
                             id="email"
-                            className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            className={inputBox}
                             placeholder="test@gmail.com"
                             required
                           />
@@ -410,7 +445,7 @@ const AllUsers = () => {
                         <div>
                           <label
                             htmlFor="phone"
-                            className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
+                            className={inputLabel}
                           >
                             Phone no
                           </label>
@@ -418,7 +453,7 @@ const AllUsers = () => {
                             type="text"
                             {...register("phone", { required: true })}
                             id="phone"
-                            className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            className={inputBox}
                             placeholder="Enter phone no"
                             maxLength={10}
                             required
@@ -428,7 +463,7 @@ const AllUsers = () => {
                         <div>
                           <label
                             htmlFor="address"
-                            className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
+                            className={inputLabel}
                           >
                             Address
                           </label>
@@ -436,7 +471,7 @@ const AllUsers = () => {
                             id="address"
                             rows="2"
                             {...register("address", { required: true })}
-                            className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            className={inputBox}
                             placeholder="Enter address..."
                           ></textarea>
                         </div>
@@ -447,7 +482,7 @@ const AllUsers = () => {
                           <div>
                             <label
                               htmlFor="licenseNo"
-                              className="block mb-2 text-base font-bold text-gray-900 dark:text-white"
+                              className={inputLabel}
                             >
                               License No
                             </label>
@@ -455,7 +490,7 @@ const AllUsers = () => {
                               type="text"
                               {...register("licenseNo", { required: true })}
                               id="licenseNo"
-                              className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              className={inputBox}
                               placeholder="Enter license no"
                               required
                             />
@@ -464,7 +499,7 @@ const AllUsers = () => {
                           <div>
                             <label
                               htmlFor="adharNo"
-                              className="block mb-2 text-base font-bold '' text-gray-900 dark:text-white"
+                              className={inputLabel}
                             >
                               Aadhar no
                             </label>
@@ -472,15 +507,16 @@ const AllUsers = () => {
                               type="text"
                               {...register("adharNo", { required: true })}
                               id="adharNo"
-                              className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              className={inputBox}
                               placeholder="Enter Aadhar No"
                               required
                             />
                           </div>
+
                           <div>
                             <label
                               htmlFor="validity"
-                              className="block mb-2 text-base font-bold '' text-gray-900 dark:text-white"
+                              className={inputLabel}
                             >
                               Validity
                             </label>
@@ -489,7 +525,7 @@ const AllUsers = () => {
                               {...register("validity", { required: true })}
                               id="validity"
                               placeholder="DD-MM-YYYY"
-                              className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              className={inputBox}
                             />
                           </div>
                         </div>
