@@ -2,6 +2,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import io from "socket.io-client";
 import axios from "axios";
+import chatAvatarImg from "../../../assets/images/chat.png";
+import { MdSend } from "react-icons/md";
 
 const socket = io("http://localhost:5000");
 
@@ -127,7 +129,7 @@ const MessagePage = ({ props }) => {
   };
 
   return (
-    <div>
+    <div className="h-full overflow-hidden">
       {timeEnd && !isAccepted && (
         <div>
           <button className="bg-normalViolet text-white" onClick={requestAgain}>
@@ -144,7 +146,49 @@ const MessagePage = ({ props }) => {
           </span>
         </div>
       )}
-      {isAccepted && <div>Accept</div>}
+      {isAccepted && (
+        <div className="h-full bg-[#c9c0fd] flex flex-col justify-between">
+          {/* upper part  */}
+          <div className="bg-normalViolet h-[10vh] w-full items-center flex gap-3">
+            <div className="h-full">
+              <img
+                src={chatAvatarImg}
+                alt="customer support user avatar image"
+                className="h-full object-cover"
+              />
+            </div>
+            <div className="flex flex-col justify-center ">
+              <p className="font-bold text-white text-lg">
+                Bobbili Urban Development Authority
+              </p>
+              <span className="text-white font-bold text-xs">
+                Customer Support
+              </span>
+            </div>
+          </div>
+
+          {/* message box part  */}
+
+          <div className="flex-1 p-3 bg-white"></div>
+
+          {/* input boxes */}
+          <form className="flex justify-between items-center">
+            <input
+              className="input input-bordered rounded-none focus:outline-none bg-gray-200  flex-1"
+              type="text"
+              name=""
+              id=""
+              placeholder="Type your message"
+            />
+            <button
+              type="submit"
+              className="bg-normalViolet text-white p-3 border-none fancy-button"
+            >
+              <MdSend size={20} />
+            </button>
+          </form>
+        </div>
+      )}
     </div>
   );
 };
