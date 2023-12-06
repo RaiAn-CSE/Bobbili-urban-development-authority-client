@@ -269,7 +269,7 @@ const AddUser = () => {
             </select>
           </div>
 
-          <div className="flex flex-col items-center mt-2">
+          <div className="flex flex-col items-center mt-3">
             <label htmlFor="" className={`${inputLabel}`}>Gender</label>
             <div className="radio-button-container">
               <div className="radio-button">
