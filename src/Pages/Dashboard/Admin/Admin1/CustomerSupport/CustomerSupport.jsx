@@ -1,4 +1,6 @@
 import React from "react";
+import NewMessage from "./NewMessage/NewMessage";
+import MissedRequest from "./MissedRequest/MissedRequest";
 
 const CustomerSupport = () => {
   return (
@@ -15,7 +17,7 @@ const CustomerSupport = () => {
         role="tabpanel"
         className="tab-content bg-base-100 border-base-300 rounded-box p-6"
       >
-        Tab content 1
+        <NewMessage />
       </div>
 
       <input
@@ -37,13 +39,13 @@ const CustomerSupport = () => {
         name="my_tabs_2"
         role="tab"
         className="tab text-base font-bold checked:text-normalViolet"
-        aria-label="Today"
+        aria-label="Missed Request"
       />
       <div
         role="tabpanel"
         className="tab-content bg-base-100 border-base-300 rounded-box p-6"
       >
-        Tab content 3
+        <MissedRequest />
       </div>
     </div>
   );
