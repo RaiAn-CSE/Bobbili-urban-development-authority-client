@@ -43,6 +43,7 @@ import BothUserRoute from "./PrivateRoutes/BothUserRoute";
 import LtpRoute from "./PrivateRoutes/LtpRoute";
 import PsRoute from "./PrivateRoutes/PsRoute";
 import UdaRoute from "./PrivateRoutes/UdaRoute";
+import CustomerSupport from "../Pages/Dashboard/Admin/Admin1/CustomerSupport/CustomerSupport";
 
 const router = createBrowserRouter([
   {
@@ -124,6 +125,14 @@ const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <UpdateLocation />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/support",
+        element: (
+          <AdminRoute>
+            <CustomerSupport />
           </AdminRoute>
         ),
       },

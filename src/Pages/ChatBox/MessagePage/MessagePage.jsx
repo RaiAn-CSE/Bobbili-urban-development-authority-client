@@ -57,7 +57,7 @@ const MessagePage = ({ props }) => {
   //       .style.setProperty("--value", counter);
   //   }, 1000);
 
-  const [counter, setCounter] = useState(100);
+  const [counter, setCounter] = useState(5);
 
   useEffect(() => {
     const countDownInterval = setInterval(() => {
@@ -100,6 +100,7 @@ const MessagePage = ({ props }) => {
   console.log("HELLO");
 
   const requestAgain = async () => {
+    // clearInterval(countDownInterval);
     try {
       const { data } = await axios.patch(
         `http://localhost:5000/messageRequest?update=${JSON.stringify({
@@ -124,51 +125,53 @@ const MessagePage = ({ props }) => {
   };
 
   return (
-    <div className="h-full overflow-hidden">
-      <div className="message-box h-full flex flex-col justify-center items-center">
-        <div className="flex flex-col justify-center items-center gap-3">
-          <div className="text-2xl font-bold text-normalViolet">
-            Bobbili Urban Development Authority
-          </div>
-          <div className="h-[150px]">
-            <img
-              src={chatAvatarImg}
-              alt="An image of avatar"
-              className="h-full"
-            />
-          </div>
-        </div>
-        {timeEnd && !isAccepted && (
-          <div>
-            <button
-              className="bg-normalViolet text-white fancy-button mt-4"
-              onClick={requestAgain}
-            >
-              Request Again
-            </button>
-          </div>
-        )}{" "}
-        {!timeEnd && !isAccepted && (
-          <div className="  flex flex-col justify-center items-center">
-            <span
-              id="counterElement"
-              className={`${
-                counter < 15 ? "text-red-500" : "text-normalViolet"
-              } text-black text-xl font-bold inline-block`}
-              style={{ "--value": counter }}
-            >
-              {counter}
-            </span>
-            <div className="flex items-center gap-2">
-              <p className="text-lg font-bold font-poppins">
-                <span className="text-warning">Please wait.</span>{" "}
-                <span className="text-normalViolet">Connecting</span>
-              </p>
-              <span className="loading loading-dots loading-lg text-normalViolet"></span>
+    <div className="h-full overflow-hidden rounded-md">
+      {!isAccepted && (
+        <div className="message-box h-full flex flex-col justify-center items-center">
+          <div className="flex flex-col justify-center items-center gap-3">
+            <div className="text-2xl font-bold text-normalViolet">
+              Bobbili Urban Development Authority
+            </div>
+            <div className="h-[150px]">
+              <img
+                src={chatAvatarImg}
+                alt="An image of avatar"
+                className="h-full"
+              />
             </div>
           </div>
-        )}
-      </div>
+          {timeEnd && (
+            <div>
+              <button
+                className="bg-normalViolet text-white fancy-button mt-4"
+                onClick={requestAgain}
+              >
+                Request Again
+              </button>
+            </div>
+          )}{" "}
+          {!timeEnd && (
+            <div className="  flex flex-col justify-center items-center">
+              <span
+                id="counterElement"
+                className={`${
+                  counter < 15 ? "text-red-500" : "text-normalViolet"
+                } text-black text-xl font-bold inline-block`}
+                style={{ "--value": counter }}
+              >
+                {counter}
+              </span>
+              <div className="flex items-center gap-2">
+                <p className="text-lg font-bold font-poppins">
+                  <span className="text-warning">Please wait.</span>{" "}
+                  <span className="text-normalViolet">Connecting</span>
+                </p>
+                <span className="loading loading-dots loading-lg text-normalViolet"></span>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
       {isAccepted && (
         <div className="h-full bg-[#c9c0fd] flex flex-col justify-between">
           {/* upper part  */}

@@ -47,7 +47,14 @@ const AllUsers = () => {
         const msg = data?.message + ". Please login again";
         setError(msg);
       } else {
-        setRecords([...data]);
+        if (
+          userInfoFromLocalStorage()?.role?.toLowerCase() !==
+          "Super Admin"?.toLowerCase()
+        ) {
+          setRecords([...data.filter((u) => u.role !== "Super Admin")]);
+        } else {
+          setRecords([...data]);
+        }
       }
     } else {
       setLoading(false);
