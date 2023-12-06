@@ -125,45 +125,50 @@ const MessagePage = ({ props }) => {
 
   return (
     <div className="h-full overflow-hidden">
-      {timeEnd && !isAccepted && (
-        <div>
-          <button className="bg-normalViolet text-white" onClick={requestAgain}>
-            Request Again
-          </button>
-        </div>
-      )}{" "}
-      {!timeEnd && !isAccepted && (
-        <div className="message-box h-full flex flex-col justify-center items-center">
-          <div className="flex flex-col justify-center items-center gap-3">
-            <div className="text-2xl font-bold text-normalViolet">
-              Bobbili Urban Development Authority
-            </div>
-            <div className="h-[150px]">
-              <img
-                src={chatAvatarImg}
-                alt="An image of avatar"
-                className="h-full"
-              />
-            </div>
+      <div className="message-box h-full flex flex-col justify-center items-center">
+        <div className="flex flex-col justify-center items-center gap-3">
+          <div className="text-2xl font-bold text-normalViolet">
+            Bobbili Urban Development Authority
           </div>
-          <span
-            id="counterElement"
-            className={`${
-              counter < 15 ? "text-red-500" : "text-normalViolet"
-            } text-black text-xl font-bold inline-block`}
-            style={{ "--value": counter }}
-          >
-            {counter}
-          </span>
-          <div className="flex items-center gap-2">
-            <p className="text-lg font-bold font-poppins">
-              <span className="text-warning">Please wait.</span>{" "}
-              <span className="text-normalViolet">Connecting</span>
-            </p>
-            <span className="loading loading-dots loading-lg text-normalViolet"></span>
+          <div className="h-[150px]">
+            <img
+              src={chatAvatarImg}
+              alt="An image of avatar"
+              className="h-full"
+            />
           </div>
         </div>
-      )}
+        {timeEnd && !isAccepted && (
+          <div>
+            <button
+              className="bg-normalViolet text-white fancy-button mt-4"
+              onClick={requestAgain}
+            >
+              Request Again
+            </button>
+          </div>
+        )}{" "}
+        {!timeEnd && !isAccepted && (
+          <div className="  flex flex-col justify-center items-center">
+            <span
+              id="counterElement"
+              className={`${
+                counter < 15 ? "text-red-500" : "text-normalViolet"
+              } text-black text-xl font-bold inline-block`}
+              style={{ "--value": counter }}
+            >
+              {counter}
+            </span>
+            <div className="flex items-center gap-2">
+              <p className="text-lg font-bold font-poppins">
+                <span className="text-warning">Please wait.</span>{" "}
+                <span className="text-normalViolet">Connecting</span>
+              </p>
+              <span className="loading loading-dots loading-lg text-normalViolet"></span>
+            </div>
+          </div>
+        )}
+      </div>
       {isAccepted && (
         <div className="h-full bg-[#c9c0fd] flex flex-col justify-between">
           {/* upper part  */}
