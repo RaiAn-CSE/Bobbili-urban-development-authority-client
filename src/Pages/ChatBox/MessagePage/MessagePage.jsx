@@ -16,11 +16,6 @@ const MessagePage = ({ props }) => {
 
   console.log(userInfo, "Userinfo");
 
-  function handleCheckAcceptMessage(event) {
-    console.log("Handling check-accept-message:", event.data);
-    // Your logic for handling the check-accept-message event
-  }
-
   useEffect(() => {
     !timeEnd &&
       socket.on("check-accept-message", (data) => {
@@ -62,7 +57,7 @@ const MessagePage = ({ props }) => {
   //       .style.setProperty("--value", counter);
   //   }, 1000);
 
-  const [counter, setCounter] = useState(30);
+  const [counter, setCounter] = useState(100);
 
   useEffect(() => {
     const countDownInterval = setInterval(() => {
@@ -138,12 +133,35 @@ const MessagePage = ({ props }) => {
         </div>
       )}{" "}
       {!timeEnd && !isAccepted && (
-        <div>
-          <span className="countdown">
-            <span id="counterElement" style={{ "--value": counter }}>
-              {counter}
-            </span>
+        <div className="message-box h-full flex flex-col justify-center items-center">
+          <div className="flex flex-col justify-center items-center gap-3">
+            <div className="text-2xl font-bold text-normalViolet">
+              Bobbili Urban Development Authority
+            </div>
+            <div className="h-[150px]">
+              <img
+                src={chatAvatarImg}
+                alt="An image of avatar"
+                className="h-full"
+              />
+            </div>
+          </div>
+          <span
+            id="counterElement"
+            className={`${
+              counter < 15 ? "text-red-500" : "text-normalViolet"
+            } text-black text-xl font-bold inline-block`}
+            style={{ "--value": counter }}
+          >
+            {counter}
           </span>
+          <div className="flex items-center gap-2">
+            <p className="text-lg font-bold font-poppins">
+              <span className="text-warning">Please wait.</span>{" "}
+              <span className="text-normalViolet">Connecting</span>
+            </p>
+            <span className="loading loading-dots loading-lg text-normalViolet"></span>
+          </div>
         </div>
       )}
       {isAccepted && (

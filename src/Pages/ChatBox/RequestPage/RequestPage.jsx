@@ -75,7 +75,7 @@ const RequestPage = ({ props }) => {
             </label>
           </div>
           <input
-            className="input input-bordered border-2 border-violet-400 w-full max-w-xs rounded-full focus:outline-none"
+            className="input input-bordered border-2 border-violet-400 w-full max-w-xs rounded-full focus:outline-none bg-gray-100"
             placeholder="Enter your name ..."
             type="text"
             id="name"
@@ -94,7 +94,7 @@ const RequestPage = ({ props }) => {
           </div>
           <input
             type="text"
-            className="input input-bordered w-full max-w-xs border-2 border-violet-400 rounded-full focus:outline-none "
+            className="input input-bordered w-full max-w-xs border-2 border-violet-400 rounded-full focus:outline-none bg-gray-100"
             placeholder="Enter your mobile no..."
             {...register("mobileNo", { required: true })}
           />
