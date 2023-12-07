@@ -52,7 +52,7 @@ const MainLayout = () => {
 
       <div className="px-10 min-h-screen z-[10] bg-[#E8EAEC]">
         {/* upper part  */}
-        <div className="py-3 flex justify-between items-center z-[10]">
+        <div className="py-3 flex-col lg:flex-row flex justify-between items-center z-[10]">
           <div className="basis-3/4 z-[10] pt-2">
             <p
               // className="css-3d-text w-fit p-2 text-4xl text-gray-600 font-bold font-sofadi"
@@ -68,7 +68,7 @@ const MainLayout = () => {
             </p>
           </div>
 
-          <div className="basis-[20%] z-[10] flex justify-end items-center space-x-6 dark:text-black">
+          <div className="basis-[20%] mt-7 lg:mt-0 z-[10] flex justify-end items-center space-x-6 dark:text-black">
             <Link
               to="/"
               className={`nm_Container w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center  ${path === "/" ||

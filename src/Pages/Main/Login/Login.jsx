@@ -154,121 +154,118 @@ const Login = () => {
   };
 
   return (
-    <div className={`nm_Container z-[10] h-full overflow-hidden bg-[#E8EAEC]`}>
-      <div className="relative overflow-hidden ">
-        {/* support icon  */}
+    <div className="relative overflow-hidden">
+      {/* support icon  */}
+      <div className="nm_Inset mt-[-65%] ml-[-20%] h-[330px] lg:w-[343px] bg-gradient-to-r from-[#cecbf5] via-[#BDB9F6] to-[#8980fd] rounded-full flex justify-center flex-col items-center">
+        <p
+          className={`text text-white font-medium text-4xl uppercase pt-40 pr-14`}
+        >
+          Sign in
+        </p>
+        <p className="text-white font-base text-lg">Welcome back!</p>
+      </div>
 
-        <div className="nm_Inset mt-[-65%] ml-[-20%] h-[330px] w-[343px] bg-gradient-to-r from-[#cecbf5] via-[#BDB9F6] to-[#8980fd] rounded-full flex justify-center flex-col items-center">
-          <p
-            className={`text text-white font-medium text-4xl uppercase pt-40 pr-14`}
-          >
-            Sign in
-          </p>
-          <p className="text-white font-base text-lg">Welcome back!</p>
-        </div>
-
-        <div className="p-4 sm:p-6 md:px-5 md:pt-3 shadow-lg rounded-b-lg">
-          <form
-            className="space-y-2 font-roboto"
-            onSubmit={handleSubmit(onSubmit)}
-          >
-            {/* <h1 className="text-3xl text-center font-bold text-gray-50">
+      <div className="p-4 sm:p-6 md:px-5 md:pt-3 shadow-lg rounded-b-lg">
+        <form
+          className="space-y-2 font-roboto"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          {/* <h1 className="text-3xl text-center font-bold text-gray-50">
               Sign in
             </h1> */}
 
-            <div
-              className={`${LoginCSS.formGroup} relative pt-[20px] max-w-xs`}
+          <div
+            className={`${LoginCSS.formGroup} relative pt-[20px] max-w-xs`}
+          >
+            <input
+              type="text"
+              {...register("id", { required: true })}
+              id="userId"
+              className={`${LoginCSS.loginInput} rounded-full block text-base w-full py-2 px-4 text-gray-900`}
+              defaultValue={cookieUserId}
+              autoFocus
+              required
+            />
+            <label
+              htmlFor="userId"
+              className="text-violet-400 h-5 text-base font-semibold absolute top-0 left-[16px] pointer-events-none transform translate-y-7"
             >
-              <input
-                type="text"
-                {...register("id", { required: true })}
-                id="userId"
-                className={`${LoginCSS.loginInput} rounded-full block text-base w-full py-2 px-4 text-gray-900`}
-                defaultValue={cookieUserId}
-                autoFocus
-                required
-              />
-              <label
-                htmlFor="userId"
-                className="text-violet-400 h-5 text-base font-semibold absolute top-0 left-[16px] pointer-events-none transform translate-y-7"
-              >
-                Your Id
-              </label>
-            </div>
+              Your Id
+            </label>
+          </div>
+
+          <div
+            className={`${LoginCSS.formGroup} relative pt-[20px] max-w-xs`}
+          >
+            <input
+              type={`${show === true ? "text" : "password"}`}
+              id="password"
+              // placeholder="••••••••"
+              defaultValue={cookieUserPassword}
+              className={`${LoginCSS.loginInput} rounded-full block text-base w-full py-2 px-4 text-gray-900`}
+              {...register("password", { required: true })}
+              required
+            />
+            <label
+              htmlFor="password"
+              className="text-violet-400 h-5 text-base font-semibold absolute top-0 left-[20px] pointer-events-none transform translate-y-7"
+            >
+              Your password
+            </label>
 
             <div
-              className={`${LoginCSS.formGroup} relative pt-[20px] max-w-xs`}
+              className="absolute top-[55%] right-3 w-fit dark:text-black"
+              onClick={handlePasswordShow}
             >
-              <input
-                type={`${show === true ? "text" : "password"}`}
-                id="password"
-                // placeholder="••••••••"
-                defaultValue={cookieUserPassword}
-                className={`${LoginCSS.loginInput} rounded-full block text-base w-full py-2 px-4 text-gray-900`}
-                {...register("password", { required: true })}
-                required
-              />
-              <label
-                htmlFor="password"
-                className="text-violet-400 h-5 text-base font-semibold absolute top-0 left-[20px] pointer-events-none transform translate-y-7"
-              >
-                Your password
-              </label>
-
-              <div
-                className="absolute top-[55%] right-3 w-fit dark:text-black"
-                onClick={handlePasswordShow}
-              >
-                {show ? (
-                  <BsFillHouseCheckFill className="text-violet-400" />
-                ) : (
-                  <BsFillHouseLockFill className="text-violet-400" />
-                )}
-              </div>
-            </div>
-
-            <div className="flex items-center pt-2 pb-3">
-              <div className="flex items-center h-5">
-                <input
-                  id="remember"
-                  type="checkbox"
-                  {...register("checkbox")}
-                  className="nm_Inset checkbox checked:border-none w-5 h-5 checked:checkbox-primary"
-                />
-              </div>
-              <label
-                htmlFor="remember"
-                className={`ml-2 text-sm text-gray-900 font-bold font-sans`}
-              >
-                Remember me
-              </label>
-            </div>
-
-            <div className="flex justify-center">
-              {loading ? (
-                <BeatLoader
-                  color={color}
-                  loading={loading}
-                  cssOverride={override}
-                  size={15}
-                  aria-label="Loading Spinner"
-                  data-testid="loader"
-                />
+              {show ? (
+                <BsFillHouseCheckFill className="text-violet-400" />
               ) : (
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <input
-                    type="submit"
-                    value="Sign in"
-                    className={`nm_Container font-bold bg-[#8980FD] py-2 px-8 text-white rounded-full cursor-pointer`}
-                  />
-                </motion.div>
+                <BsFillHouseLockFill className="text-violet-400" />
               )}
             </div>
-          </form>
-        </div>
+          </div>
+
+          <div className="flex items-center pt-2 pb-3">
+            <div className="flex items-center h-5">
+              <input
+                id="remember"
+                type="checkbox"
+                {...register("checkbox")}
+                className="nm_Inset checkbox checked:border-none w-5 h-5 checked:checkbox-primary"
+              />
+            </div>
+            <label
+              htmlFor="remember"
+              className={`ml-2 text-sm text-gray-900 font-bold font-sans`}
+            >
+              Remember me
+            </label>
+          </div>
+
+          <div className="flex justify-center">
+            {loading ? (
+              <BeatLoader
+                color={color}
+                loading={loading}
+                cssOverride={override}
+                size={15}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+              />
+            ) : (
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <input
+                  type="submit"
+                  value="Sign in"
+                  className={`nm_Container font-bold bg-[#8980FD] py-2 px-8 text-white rounded-full cursor-pointer`}
+                />
+              </motion.div>
+            )}
+          </div>
+        </form>
       </div>
     </div>
   );

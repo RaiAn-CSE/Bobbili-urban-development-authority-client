@@ -67,20 +67,22 @@ const Home = () => {
     </>
   );
   return (
-    <div className="w-full grid grid-cols-[200px_minmax(700px,_1fr)_284px] pt-6">
+    <div className="w-full grid lg:grid-cols-[200px_minmax(700px,_1fr)_284px] pt-6">
       {/* sidebar menus  */}
-      <div className="nm_Container z-[10] w-full text-base flex flex-col justify-between bg-[#E8EAEC] text-black border border-gray-200 rounded-lg">
+      <div className="nm_Container hidden lg:flex lg:flex-col z-[10] w-full text-base justify-between bg-[#E8EAEC] text-black border border-gray-200 rounded-lg">
         {menu}
       </div>
 
       {/* Scrollable content */}
       <div
-        className={`${customScroll.customScrolling} nm_Container lg:h-[410px] rounded-lg mx-4 z-[10] flex items-center bg-[#E8EAEC]`}
+        className={`${customScroll.customScrolling} nm_Container hidden lg:flex lg:h-[410px] rounded-lg mx-4 z-[10] items-center bg-[#E8EAEC]`}
       >
         <Outlet />
       </div>
 
-      <Login />
+      <div className="nm_Container z-[10] h-full overflow-hidden bg-[#E8EAEC]">
+        <Login />
+      </div>
     </div>
   );
 };
