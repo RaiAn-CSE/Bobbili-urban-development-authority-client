@@ -1,11 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
-import io from "socket.io-client";
 import axios from "axios";
 import chatAvatarImg from "../../../assets/images/chat.png";
 import { MdSend } from "react-icons/md";
-
-const socket = io("http://localhost:5000");
+import socket from "../../Common/socket";
 
 const MessagePage = ({ props }) => {
   const { setUserInfo, setRequestSent, userInfo, requestSent } = props;
@@ -57,7 +55,7 @@ const MessagePage = ({ props }) => {
   //       .style.setProperty("--value", counter);
   //   }, 1000);
 
-  const [counter, setCounter] = useState(5);
+  const [counter, setCounter] = useState(10);
 
   useEffect(() => {
     const countDownInterval = setInterval(() => {
@@ -151,7 +149,7 @@ const MessagePage = ({ props }) => {
             </div>
           )}{" "}
           {!timeEnd && (
-            <div className="  flex flex-col justify-center items-center">
+            <div className="flex flex-col justify-center items-center">
               <span
                 id="counterElement"
                 className={`${

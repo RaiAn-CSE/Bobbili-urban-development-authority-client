@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import TableLayout from "../../../../../Components/TableLayout";
 import Lottie from "lottie-react";
 import ErrorAnimation from "../../../../../../assets/ServerError.json";
 import ShowMissedRequest from "./ShowMissedRequest";
 import axios from "axios";
-import io from "socket.io-client";
 import toast from "react-hot-toast";
-
-const socket = io("http://localhost:5000");
+import Loading from "../../../../../Shared/Loading";
+import socket from "../../../../../Common/socket";
+import { AuthContext } from "../../../../../../AuthProvider/AuthProvider";
 
 const MissedRequest = () => {
+  const { userInfoFromLocalStorage } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const [allData, setAllData] = useState([]);
   const [tableData, setTableData] = useState({});
@@ -18,16 +19,23 @@ const MissedRequest = () => {
   const tableHeader = ["Sl.no.", "Customer Info", "Action"];
 
   useEffect(() => {
+    setLoading(true);
     setError("");
     fetch("http://localhost:5000/missedMessage")
       .then((res) => res.json())
       .then((result) => {
         console.log(result);
         setAllData(result);
+        setLoading(false);
       })
       .catch((err) => {
+        setLoading(false);
         setError("Server Error");
       });
+  }, []);
+
+  useEffect(() => {
+    socket.emit("login", { id: userInfoFromLocalStorage().role.toLowerCase() });
   }, []);
 
   useEffect(() => {
@@ -35,16 +43,19 @@ const MissedRequest = () => {
       // Handle the new data received from the server
       console.log(data, "Data");
 
-      if (data?.change?.updatedFields?.noResponse === 1) {
-        setAllData([...allData, data?.changedDocument]);
+      if (data?.change?.updateDescription?.updatedFields?.noResponse === 1) {
+        console.log(allData, "After updating");
+        const { data } = await axios.get("http://localhost:5000/missedMessage");
+
+        setAllData(data);
       }
     });
 
-    return () => {
-      // Clean up event listeners on component unmount
-      socket.off("check-accept-message");
-      //   clearInterval(countDownInterval);
-    };
+    // return () => {
+    //   // Clean up event listeners on component unmount
+    //   socket.off("check-accept-message");
+    //   //   clearInterval(countDownInterval);
+    // };
   }, [socket]);
 
   const checkedMissedMessage = async (id) => {
@@ -72,8 +83,14 @@ const MissedRequest = () => {
 
     setTableComponentProps({ checkedMissedMessage });
   }, [allData]);
+
   console.log(error);
 
+  console.log(allData, "All data");
+
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <>
       {error?.length !== 0 ? (
@@ -97,7 +114,7 @@ const MissedRequest = () => {
             />
 
             {allData?.length === 0 && (
-              <p className="text-center  font-bold text-xl text-black">
+              <p className="text-center font-bold text-lg text-normalViolet">
                 No Request Found
               </p>
             )}
