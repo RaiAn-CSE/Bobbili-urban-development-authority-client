@@ -1,6 +1,7 @@
 import React from "react";
 import NewMessage from "./NewMessage/NewMessage";
 import MissedRequest from "./MissedRequest/MissedRequest";
+import Chat from "./Chat/Chat";
 
 const CustomerSupport = () => {
   return (
@@ -31,7 +32,7 @@ const CustomerSupport = () => {
         role="tabpanel"
         className="tab-content bg-base-100 border-base-300 rounded-box p-6"
       >
-        Tab content 2
+        <Chat />
       </div>
 
       <input
