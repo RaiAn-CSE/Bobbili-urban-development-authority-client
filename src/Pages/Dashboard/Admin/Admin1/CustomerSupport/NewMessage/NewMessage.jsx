@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import Loading from "../../../../../Shared/Loading";
 import { AuthContext } from "../../../../../../AuthProvider/AuthProvider";
 import socket from "../../../../../Common/socket";
+import axios from "axios";
 
 const NewMessage = () => {
   const { userInfoFromLocalStorage } = useContext(AuthContext);
@@ -25,9 +26,9 @@ const NewMessage = () => {
   useEffect(() => {
     socket.on("check-new-message", async (data) => {
       // Handle the new data received from the server
-      console.log(data, "Data");
+      console.log(data, "New msg data");
 
-      if (data?.change?.updateDescription?.updatedFields?.noResponse === 0) {
+      if (data?.change?.operationType === "insert") {
         console.log(allData, "After updating");
         const { data } = await axios.get(
           "http://localhost:5000/messageRequest"
@@ -39,7 +40,7 @@ const NewMessage = () => {
 
     socket.on("check-accept-message", async (data) => {
       // Handle the new data received from the server
-      console.log(data, "Data");
+      console.log(data, "Check accept message");
 
       if (data?.change?.updateDescription?.updatedFields?.noResponse === 1) {
         console.log(allData, "After updating");

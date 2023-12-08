@@ -23,8 +23,8 @@ const ShowMissedRequest = ({
               className="h-full object-cover"
             />
           </div>
-          <div className="text-start">
-            <p className="text-xl font-bold text-normalViolet">
+          <div className="text-start w-36">
+            <p className="text-xl font-bold text-normalViolet capitalize">
               {applicationData?.name}
             </p>
             <p className="text-gray-500 font-mono text-base">
