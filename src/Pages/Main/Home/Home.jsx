@@ -5,14 +5,8 @@ import customScroll from "../../../Style/Scrollbar.module.css";
 
 const Home = () => {
   const path = useLocation().pathname;
-  console.log(path);
-  const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
-
-  // const hoverGradientColor =
-  //   "hover:bg-gradient-to-r hover:from-violet-500 hover:to-fuchsia-500";
-
+  // console.log(path);
   const hoverGradientColor = "hover:bg-[#8B5BF6] hover:text-white";
-
   const active = "nm_Container font-bold bg-[#8B5BF6] text-white";
   const menu = (
     <>
@@ -66,6 +60,7 @@ const Home = () => {
       </Link>
     </>
   );
+
   return (
     <div className="w-full grid lg:grid-cols-[200px_minmax(700px,_1fr)_284px] pt-6">
       {/* sidebar menus  */}
@@ -80,7 +75,7 @@ const Home = () => {
         <Outlet />
       </div>
 
-      <div className="nm_Container z-[10] h-full overflow-hidden bg-[#E8EAEC]">
+      <div className="nm_Container z-[10]  overflow-hidden bg-[#E8EAEC]">
         <Login />
       </div>
     </div>

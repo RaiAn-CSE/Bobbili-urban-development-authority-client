@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { AiOutlineHome } from "react-icons/ai";
-import { MdOutlineDarkMode, MdOutlineDashboard } from "react-icons/md";
-import { motion } from "framer-motion";
-import { FiSun } from "react-icons/fi";
+import { MdOutlineDashboard } from "react-icons/md";
 import ParticleBg from "../Pages/Components/ParticleBg";
 
 const MainLayout = () => {
-  const path = useLocation().pathname;
+  const path = useLocation()?.pathname;
   console.log(path);
   const active =
     "bg-[#8B5BF6] shadow-md shadow-violetDark text-white border-none ";
@@ -85,7 +83,7 @@ const MainLayout = () => {
             </Link>
             <Link
               to="/statistics"
-              className={`nm_Container w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center ${path.includes("/statistics") ? active : ` ${notActive}`
+              className={`nm_Container w-12 h-12 cursor-pointer transition-all duration-700 border rounded-full flex justify-center items-center ${path.includes("/statistics") ? active : ` ${notActive}`
                 }`}
             >
               <MdOutlineDashboard size={25} className="text-2xl" />
