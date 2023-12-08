@@ -15,6 +15,12 @@ const MessagePage = ({ props }) => {
   console.log(userInfo, "Userinfo");
 
   useEffect(() => {
+    socket.emit("login", {
+      id: `Help-${userInfo?.name}-${userInfo?.mobileNo}`,
+    });
+  }, [socket]);
+
+  useEffect(() => {
     !timeEnd &&
       socket.on("check-accept-message", (data) => {
         // Handle the new data received from the server
@@ -28,13 +34,13 @@ const MessagePage = ({ props }) => {
           socket.off("check-accept-message");
           setCheckUpdateData(data);
           setIsAccepted(true);
-          axios.patch(
-            `http://localhost:5000/messageRequest?update=${JSON.stringify({
-              id: userInfo.uniqueId,
-              senderId: data.senderId,
-              action: "sendId",
-            })}`
-          );
+          // axios.patch(
+          //   `http://localhost:5000/messageRequest?update=${JSON.stringify({
+          //     id: userInfo.uniqueId,
+          //     senderId: data.senderId,
+          //     action: "sendId",
+          //   })}`
+          // );
         }
       });
 
@@ -58,7 +64,7 @@ const MessagePage = ({ props }) => {
   //       .style.setProperty("--value", counter);
   //   }, 1000);
 
-  const [counter, setCounter] = useState(10);
+  const [counter, setCounter] = useState(1000);
 
   useEffect(() => {
     const countDownInterval = setInterval(() => {
@@ -196,12 +202,12 @@ const MessagePage = ({ props }) => {
 
           {/* message box part  */}
 
-          <div className="flex-1 p-3 bg-white"></div>
+          <div className="flex-1 p-3 message-bg"></div>
 
           {/* input boxes */}
           <form className="flex justify-between items-center">
             <input
-              className="input input-bordered rounded-none focus:outline-none bg-gray-200  flex-1"
+              className="input input-bordered rounded-none focus:outline-none bg-white  flex-1"
               type="text"
               name=""
               id=""

@@ -20,7 +20,7 @@ const NewMessage = () => {
   const tableHeader = ["Sl.no.", "Customer Info", "Action"];
 
   useEffect(() => {
-    socket.emit("login", { id: userInfoFromLocalStorage().role.toLowerCase() });
+    socket.on("login", { id: userInfoFromLocalStorage().role.toLowerCase() });
   }, [socket]);
 
   useEffect(() => {
@@ -76,8 +76,26 @@ const NewMessage = () => {
       });
   }, []);
 
-  const acceptNewMessage = (id) => {
+  const acceptNewMessage = async (id) => {
     console.log(id);
+    const { data } = await axios.patch(
+      `http://localhost:5000/messageRequest?update=${JSON.stringify({
+        id,
+        action: "accept",
+        acceptedBy: userInfoFromLocalStorage().role.toLowerCase(),
+      })}`
+    );
+
+    if (data.acknowledged) {
+      toast.success("Request accepted");
+      const { data: updateData } = await axios.get(
+        "http://localhost:5000/messageRequest"
+      );
+      console.log(updateData, "UPD");
+      setAllData(updateData);
+    } else {
+      toast.error("Server Error");
+    }
   };
 
   useEffect(() => {

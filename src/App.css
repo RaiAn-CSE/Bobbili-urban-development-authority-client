@@ -1363,3 +1363,8 @@ ol > li:before {
   background-repeat: no-repeat;
   background-size: cover;
 }
+.message-bg {
+  background-image: url("./assets/images/messagbg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
