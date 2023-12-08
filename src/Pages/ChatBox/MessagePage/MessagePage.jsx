@@ -21,7 +21,10 @@ const MessagePage = ({ props }) => {
         console.log(data, "Data");
 
         console.log(userInfo, "Userinfo");
-        if (userInfo.uniqueId === data.change.documentKey._id) {
+        if (
+          data?.change?.updateDescription?.updatedFields?.isAccepted &&
+          userInfo?.uniqueId === data?.change?.documentKey?._id
+        ) {
           socket.off("check-accept-message");
           setCheckUpdateData(data);
           setIsAccepted(true);
@@ -95,7 +98,7 @@ const MessagePage = ({ props }) => {
     }
   }, [counter]);
 
-  console.log("HELLO");
+  console.log(isAccepted, "HELLO");
 
   const requestAgain = async () => {
     // clearInterval(countDownInterval);

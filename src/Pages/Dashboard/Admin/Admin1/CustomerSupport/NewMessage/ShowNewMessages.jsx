@@ -1,6 +1,9 @@
-import React, { useState } from "react";
-import customerImg from "../../../../../../assets/images/boy.png";
+import React, { useEffect, useState } from "react";
+import maleImg from "../../../../../../assets/images/male.png";
+import femaleImg from "../../../../../../assets/images/female.png";
+import unknownImg from "../../../../../../assets/images/unknown.png";
 import { PiPhoneDisconnectFill } from "react-icons/pi";
+import { FaFacebookMessenger } from "react-icons/fa6";
 
 const ShowNewMessages = ({
   serialNo,
@@ -8,6 +11,20 @@ const ShowNewMessages = ({
   tableComponentProps,
 }) => {
   const [loading, setLoading] = useState(false);
+  const [userImg, setUserImg] = useState(unknownImg);
+
+  useEffect(() => {
+    fetch(`https://api.genderize.io?name=${applicationData.name.split(" ")[0]}`)
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result, "Result");
+        if (result?.gender?.toLowerCase() === "male") {
+          setUserImg(maleImg);
+        } else if (result?.gender?.toLowerCase() === "female") {
+          setUserImg(femaleImg);
+        }
+      });
+  }, []);
   return (
     <>
       <tr className="table-row hover:bg-white">
@@ -17,7 +34,7 @@ const ShowNewMessages = ({
         <td className="cursor-pointer border-b border-gray-200 text-sm flex justify-center items-center gap-4">
           <div className="h-20">
             <img
-              src={customerImg}
+              src={userImg}
               alt="Customer avatar"
               className="h-full object-cover"
             />
@@ -41,7 +58,7 @@ const ShowNewMessages = ({
             }}
             disabled={loading}
           >
-            <PiPhoneDisconnectFill size={18} />
+            <FaFacebookMessenger size={18} />
           </button>
         </td>
       </tr>

@@ -42,7 +42,7 @@ const NewMessage = () => {
       // Handle the new data received from the server
       console.log(data, "Check accept message");
 
-      if (data?.change?.updateDescription?.updatedFields?.noResponse === 1) {
+      if (data?.change?.operationType === "update") {
         console.log(allData, "After updating");
         const { data } = await axios.get(
           "http://localhost:5000/messageRequest"
