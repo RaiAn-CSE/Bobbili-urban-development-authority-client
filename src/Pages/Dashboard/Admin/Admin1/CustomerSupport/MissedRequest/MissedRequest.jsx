@@ -62,7 +62,7 @@ const MissedRequest = () => {
     const filteredData = allData.filter((each) => each._id !== id);
     setAllData(filteredData);
     const { data } = await axios.delete(
-      `http://localhost:5000/missedMessage?id=${id}`
+      `http://localhost:5000/messageRequest?id=${id}`
     );
 
     if (data.acknowledged) {

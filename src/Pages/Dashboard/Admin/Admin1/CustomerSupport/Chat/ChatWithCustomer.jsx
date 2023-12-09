@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { IoMdArrowBack } from "react-icons/io";
 import { IoRemoveCircleSharp } from "react-icons/io5";
 import { MdMenu, MdOutlineCancelScheduleSend, MdSend } from "react-icons/md";
 import maleImg from "../../../../../../assets/images/male.png";
 import femaleImg from "../../../../../../assets/images/female.png";
 import unknownImg from "../../../../../../assets/images/unknown.png";
-const ChatWithCustomer = ({ activeChat, setShow }) => {
+import axios from "axios";
+
+const ChatWithCustomer = ({
+  activeChat,
+  setActiveChat,
+  setShow,
+  removeUser,
+  chatEnd,
+}) => {
   console.log(activeChat, "c");
   return (
     <>
@@ -53,13 +61,22 @@ const ChatWithCustomer = ({ activeChat, setShow }) => {
                 className="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-32"
               >
                 <li>
-                  <button className="flex items-center gap-2  text-normalViolet font-bold text-sm">
+                  <button
+                    className="flex items-center gap-2  text-normalViolet font-bold text-sm"
+                    onClick={() => {
+                      chatEnd(activeChat._id);
+                      setActiveChat({ ...activeChat, chatEnd: 1 });
+                    }}
+                  >
                     Chat End
                     <MdOutlineCancelScheduleSend size={18} />
                   </button>
                 </li>
                 <li>
-                  <button className="flex items-center gap-2 text-red-500 font-bold text-sm">
+                  <button
+                    className="flex items-center gap-2 text-red-500 font-bold text-sm"
+                    onClick={() => removeUser(activeChat._id)}
+                  >
                     Remove
                     <IoRemoveCircleSharp size={18} />
                   </button>
@@ -70,21 +87,27 @@ const ChatWithCustomer = ({ activeChat, setShow }) => {
           {/* message part  */}
           <div className="h-[calc(82vh-112px)] message-bg ">Message part</div>
           {/* input boxes  */}
-          <form className="flex justify-between items-center bg-gray-200">
-            <input
-              className="input rounded-none focus:outline-none border-none bg-gray-200 flex-1"
-              type="text"
-              name=""
-              id=""
-              placeholder="Type your message here..."
-            />
-            <button
-              type="submit"
-              className="bg-normalViolet text-white p-3 border-none fancy-button"
-            >
-              <MdSend size={20} />
-            </button>
-          </form>
+          {activeChat.chatEnd === 1 ? (
+            <p className="bg-[#7871e1] p-4 text-center font-bold text-white">
+              You end your chat with this person
+            </p>
+          ) : (
+            <form className="flex justify-between items-center bg-gray-200">
+              <input
+                className="input rounded-none focus:outline-none border-none bg-gray-200 flex-1"
+                type="text"
+                name=""
+                id=""
+                placeholder="Type your message here..."
+              />
+              <button
+                type="submit"
+                className="bg-normalViolet text-white p-3 border-none fancy-button"
+              >
+                <MdSend size={20} />
+              </button>
+            </form>
+          )}
         </div>
       ) : (
         <p className="flex justify-center items-center h-full text-2xl font-bold capitalize font-titleFont message-bg">

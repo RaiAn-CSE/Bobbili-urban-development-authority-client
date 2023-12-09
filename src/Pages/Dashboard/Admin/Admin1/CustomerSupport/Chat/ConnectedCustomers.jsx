@@ -5,10 +5,34 @@ import maleImg from "../../../../../../assets/images/male.png";
 import femaleImg from "../../../../../../assets/images/female.png";
 import unknownImg from "../../../../../../assets/images/unknown.png";
 import { FaUsers } from "react-icons/fa";
+import socket from "../../../../../Common/socket";
 
 const ConnectedCustomers = ({ setActiveChat, setShow }) => {
   const { userInfoFromLocalStorage } = useContext(AuthContext);
   const [connectedUsers, setConnectedUsers] = useState([]);
+
+  useEffect(() => {
+    socket.on("check-accept-message", async (data) => {
+      console.log(data, "DATA");
+
+      if (
+        (data?.change?.operationType === "update" &&
+          data?.change?.updateDescription?.updatedFields?.chatEnd === 1) ||
+        data?.change?.operationType === "delete"
+      ) {
+        const { data: updateData } = await axios.get(
+          `http://localhost:5000/acceptMessage?role=${JSON.stringify(
+            userInfoFromLocalStorage().role.toLowerCase()
+          )}`
+        );
+
+        console.log(updateData, "connected user");
+        setConnectedUsers(updateData);
+      }
+    });
+  }, [socket]);
+
+  useEffect(() => {}, [connectedUsers]);
 
   useEffect(() => {
     (async function () {
@@ -29,7 +53,9 @@ const ConnectedCustomers = ({ setActiveChat, setShow }) => {
       </p>
       <div>
         {connectedUsers?.length === 0 ? (
-          <div>No users</div>
+          <div className="mt-10 h-[30vh] flex justify-center items-center font-bold text-white text-lg capitalize">
+            No users
+          </div>
         ) : (
           <>
             {connectedUsers?.map((user) => (
