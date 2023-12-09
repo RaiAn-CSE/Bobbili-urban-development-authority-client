@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { LuMessagesSquare } from "react-icons/lu";
 import { IoMdStar } from "react-icons/io";
@@ -8,42 +8,51 @@ import toast from "react-hot-toast";
 const RequestPage = ({ props }) => {
   const { setRequestSent, setUserInfo } = props;
   const { register, errors, handleSubmit } = useForm();
+  const [gender, setGender] = useState(null);
   const onSubmit = async (dataFromUser) => {
     console.log(dataFromUser);
 
     setUserInfo(dataFromUser);
 
-    const messageRequest = {
-      userId: `Help-${dataFromUser.name}-${dataFromUser.mobileNo}`,
-      name: dataFromUser.name,
-      mobile: dataFromUser.mobileNo,
-    };
+    const { data } = await axios.get(
+      `https://api.genderize.io?name=${dataFromUser.name.split(" ")[0]}`
+    );
 
-    const config = {
-      headers: {
-        "Content-type": "application/json",
-      },
-    };
+    console.log(data, "GENDER DATA");
+    if (Object.keys(data)?.length) {
+      const messageRequest = {
+        userId: `Help-${dataFromUser.name}-${dataFromUser.mobileNo}`,
+        name: dataFromUser.name,
+        mobile: dataFromUser.mobileNo,
+        gender: data?.gender,
+      };
 
-    try {
-      const { data } = await axios.post(
-        "http://localhost:5000/messageRequest",
-        messageRequest,
-        config
-      );
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
 
-      console.log(data, "DATA");
+      try {
+        const { data } = await axios.post(
+          "http://localhost:5000/messageRequest",
+          messageRequest,
+          config
+        );
 
-      if (data.acknowledged) {
-        setRequestSent(true);
-        setUserInfo((prev) => {
-          return { ...prev, uniqueId: data.insertedId };
-        });
-      } else {
-        toast.error("Server failed");
+        console.log(data, "DATA");
+
+        if (data.acknowledged) {
+          setRequestSent(true);
+          setUserInfo((prev) => {
+            return { ...prev, uniqueId: data.insertedId };
+          });
+        } else {
+          toast.error("Server failed");
+        }
+      } catch (error) {
+        toast.error("Server down");
       }
-    } catch (error) {
-      toast.error("Server down");
     }
   };
   return (

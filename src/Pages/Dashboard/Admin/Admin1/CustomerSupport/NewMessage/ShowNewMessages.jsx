@@ -14,17 +14,25 @@ const ShowNewMessages = ({
   const [userImg, setUserImg] = useState(unknownImg);
 
   useEffect(() => {
-    fetch(`https://api.genderize.io?name=${applicationData.name.split(" ")[0]}`)
-      .then((res) => res.json())
-      .then((result) => {
-        console.log(result, "Result");
-        if (result?.gender?.toLowerCase() === "male") {
-          setUserImg(maleImg);
-        } else if (result?.gender?.toLowerCase() === "female") {
-          setUserImg(femaleImg);
-        }
-      });
+    if (applicationData?.gender === "male") {
+      setUserImg(maleImg);
+    } else if (applicationData?.gender === "female") {
+      setUserImg(femaleImg);
+    }
   }, []);
+
+  // useEffect(() => {
+  //   fetch(`https://api.genderize.io?name=${applicationData.name.split(" ")[0]}`)
+  //     .then((res) => res.json())
+  //     .then((result) => {
+  //       console.log(result, "Result");
+  //       if (result?.gender?.toLowerCase() === "male") {
+  //         setUserImg(maleImg);
+  //       } else if (result?.gender?.toLowerCase() === "female") {
+  //         setUserImg(femaleImg);
+  //       }
+  //     });
+  // }, []);
   return (
     <>
       <tr className="table-row hover:bg-white">
