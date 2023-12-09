@@ -47,7 +47,7 @@ const MessagePage = ({ props }) => {
     return () => {
       // Clean up event listeners on component unmount
       socket.off("check-accept-message");
-      //   clearInterval(countDownInterval);
+      clearInterval(countDownInterval);
     };
   }, [socket, timeEnd]);
 

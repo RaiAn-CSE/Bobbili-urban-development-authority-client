@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import socket from "../../../../../Common/socket";
 import ConnectedCustomers from "./ConnectedCustomers";
 import ChatWithCustomer from "./ChatWithCustomer";
@@ -6,6 +6,11 @@ import ChatWithCustomer from "./ChatWithCustomer";
 const Chat = () => {
   const [activeChat, setActiveChat] = useState(null);
   const [show, setShow] = useState(false);
+
+  // useEffect(() => {
+  //   setActiveChat(null);
+  //   setShow(false);
+  // }, []);
 
   function leftSideBar(setActiveChat, setShow) {
     return (
@@ -17,7 +22,7 @@ const Chat = () => {
     );
   }
 
-  function rightSideBar(activChat, setShow) {
+  function rightSideBar(activeChat, setShow) {
     return (
       <div
         className={` basis-[100%] md:basis-[68%] rounded-lg overflow-hidden md:block`}

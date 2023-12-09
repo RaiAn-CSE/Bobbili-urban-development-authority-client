@@ -70,13 +70,13 @@ const ChatWithCustomer = ({ activeChat, setShow }) => {
           {/* message part  */}
           <div className="h-[calc(82vh-112px)] message-bg ">Message part</div>
           {/* input boxes  */}
-          <form className="flex justify-between items-center ">
+          <form className="flex justify-between items-center bg-gray-200">
             <input
-              className="input input-bordered rounded-none focus:outline-none bg-white  flex-1"
+              className="input rounded-none focus:outline-none border-none bg-gray-200 flex-1"
               type="text"
               name=""
               id=""
-              placeholder="Type your message"
+              placeholder="Type your message here..."
             />
             <button
               type="submit"
@@ -87,7 +87,7 @@ const ChatWithCustomer = ({ activeChat, setShow }) => {
           </form>
         </div>
       ) : (
-        <p className="flex justify-center items-center h-full text-2xl font-bold capitalize font-titleFont">
+        <p className="flex justify-center items-center h-full text-2xl font-bold capitalize font-titleFont message-bg">
           Select user & start chat
         </p>
       )}

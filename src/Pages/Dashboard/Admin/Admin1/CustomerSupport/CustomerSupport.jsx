@@ -11,7 +11,7 @@ const CustomerSupport = () => {
         name="my_tabs_2"
         role="tab"
         className="tab text-base font-bold checked:text-normalViolet"
-        aria-label="New Request"
+        aria-label="New"
         defaultChecked={true}
       />
       <div
@@ -40,7 +40,7 @@ const CustomerSupport = () => {
         name="my_tabs_2"
         role="tab"
         className="tab text-base font-bold checked:text-normalViolet"
-        aria-label="Missed Request"
+        aria-label="Missed"
       />
       <div
         role="tabpanel"
