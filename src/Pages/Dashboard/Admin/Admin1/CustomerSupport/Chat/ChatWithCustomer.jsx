@@ -75,7 +75,9 @@ const ChatWithCustomer = ({
                 <li>
                   <button
                     className="flex items-center gap-2 text-red-500 font-bold text-sm"
-                    onClick={() => removeUser(activeChat._id)}
+                    onClick={() => {
+                      removeUser(activeChat._id);
+                    }}
                   >
                     Remove
                     <IoRemoveCircleSharp size={18} />

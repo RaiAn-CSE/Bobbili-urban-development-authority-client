@@ -38,6 +38,8 @@ const Chat = () => {
 
       if (data.acknowledged) {
         toast.success("Chat removed");
+
+        setActiveChat(null);
       }
     } catch (err) {
       toast.error("Server Error");

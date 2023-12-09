@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
 import chatAvatarImg from "../../../assets/images/chat.png";
@@ -11,8 +12,10 @@ const MessagePage = ({ props }) => {
   const [checkUpdateData, setCheckUpdateData] = useState({});
   const [error, setError] = useState("");
   const [isAccepted, setIsAccepted] = useState(false);
-
+  const [isChatEnd, setIsChatEnd] = useState(0);
   console.log(userInfo, "Userinfo");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     socket.emit("login", {
@@ -31,9 +34,10 @@ const MessagePage = ({ props }) => {
           data?.change?.updateDescription?.updatedFields?.isAccepted &&
           userInfo?.uniqueId === data?.change?.documentKey?._id
         ) {
-          socket.off("check-accept-message");
           setCheckUpdateData(data);
           setIsAccepted(true);
+          setTimeout(true);
+          // clearInterval(countDownInterval);
           // axios.patch(
           //   `http://localhost:5000/messageRequest?update=${JSON.stringify({
           //     id: userInfo.uniqueId,
@@ -47,9 +51,31 @@ const MessagePage = ({ props }) => {
     return () => {
       // Clean up event listeners on component unmount
       socket.off("check-accept-message");
-      clearInterval(countDownInterval);
     };
   }, [socket, timeEnd]);
+
+  useEffect(() => {
+    socket.on("check-accept-message", (data) => {
+      // Handle the new data received from the server
+      console.log(data, "Data");
+
+      console.log(userInfo, "Userinfo");
+
+      if (
+        data?.change?.updateDescription?.updatedFields?.chatEnd === 1 &&
+        userInfo?.uniqueId === data?.change?.documentKey?._id
+      ) {
+        setIsChatEnd(1);
+      }
+
+      if (
+        data?.change?.operationType === "delete" &&
+        userInfo?.uniqueId === data?.change?.documentKey?._id
+      ) {
+        setRequestSent(false);
+      }
+    });
+  }, [socket]);
 
   //   let counter = 10;
   //   const countDownInterval = setInterval(() => {
@@ -64,7 +90,7 @@ const MessagePage = ({ props }) => {
   //       .style.setProperty("--value", counter);
   //   }, 1000);
 
-  const [counter, setCounter] = useState(1000);
+  const [counter, setCounter] = useState(10);
 
   useEffect(() => {
     const countDownInterval = setInterval(() => {
@@ -73,11 +99,15 @@ const MessagePage = ({ props }) => {
       }
     }, 1000);
 
+    if (isAccepted) {
+      clearInterval(countDownInterval);
+    }
+
     // Cleanup function to clear the interval when the component is unmounted
     return () => {
       clearInterval(countDownInterval);
     };
-  }, [counter]);
+  }, [counter, isAccepted]);
 
   useEffect(() => {
     if (counter === 0) {
@@ -205,21 +235,27 @@ const MessagePage = ({ props }) => {
           <div className="flex-1 p-3 message-bg"></div>
 
           {/* input boxes */}
-          <form className="flex justify-between items-center">
-            <input
-              className="input input-bordered rounded-none focus:outline-none bg-white  flex-1"
-              type="text"
-              name=""
-              id=""
-              placeholder="Type your message"
-            />
-            <button
-              type="submit"
-              className="bg-normalViolet text-white p-3 border-none fancy-button"
-            >
-              <MdSend size={20} />
-            </button>
-          </form>
+          {!isChatEnd ? (
+            <form className="flex justify-between items-center">
+              <input
+                className="input input-bordered rounded-none focus:outline-none bg-white  flex-1"
+                type="text"
+                name=""
+                id=""
+                placeholder="Type your message"
+              />
+              <button
+                type="submit"
+                className="bg-normalViolet text-white p-3 border-none fancy-button"
+              >
+                <MdSend size={20} />
+              </button>
+            </form>
+          ) : (
+            <div className="bg-[#7871e1] p-4 text-center font-bold text-white">
+              Your chat is End
+            </div>
+          )}
         </div>
       )}
     </div>
