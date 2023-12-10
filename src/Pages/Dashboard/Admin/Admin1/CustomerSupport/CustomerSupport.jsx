@@ -16,7 +16,7 @@ const CustomerSupport = () => {
       />
       <div
         role="tabpanel"
-        className="tab-content bg-base-100 border-base-300 rounded-box p-6"
+        className="tab-content bg-base-100 border-base-300 rounded-box p-6 h-[calc(100vh-10vh)] overflow-auto no-scrollbar"
       >
         <NewMessage />
       </div>
@@ -44,7 +44,7 @@ const CustomerSupport = () => {
       />
       <div
         role="tabpanel"
-        className="tab-content bg-base-100 border-base-300 rounded-box p-6"
+        className="tab-content bg-base-100 border-base-300 rounded-box p-6 h-[calc(100vh-10vh)] overflow-auto no-scrollbar"
       >
         <MissedRequest />
       </div>

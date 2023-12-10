@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { IoMdArrowBack } from "react-icons/io";
 import { IoRemoveCircleSharp } from "react-icons/io5";
 import { MdMenu, MdOutlineCancelScheduleSend, MdSend } from "react-icons/md";
@@ -6,6 +6,7 @@ import maleImg from "../../../../../../assets/images/male.png";
 import femaleImg from "../../../../../../assets/images/female.png";
 import unknownImg from "../../../../../../assets/images/unknown.png";
 import axios from "axios";
+import socket from "../../../../../Common/socket";
 
 const ChatWithCustomer = ({
   activeChat,
@@ -15,6 +16,16 @@ const ChatWithCustomer = ({
   chatEnd,
 }) => {
   console.log(activeChat, "c");
+  const [connectionStatus, setConnectionStatus] = useState(true);
+
+  useEffect(() => {
+    socket.emit("check-connection", { id: activeChat?.userId });
+
+    socket.on("connection-status", (status) => {
+      console.log(status, "Status");
+      setConnectionStatus(status);
+    });
+  }, [socket]);
   return (
     <>
       {activeChat ? (
@@ -47,7 +58,9 @@ const ChatWithCustomer = ({
                 <p className="text-xl font-bold text-white">
                   {activeChat.name}
                 </p>
-                <p className="text-white text-sm">Online</p>
+                <p className="text-white text-sm">
+                  {connectionStatus ? "Online" : "Offline"}
+                </p>
               </div>
             </div>
 

@@ -1,15 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import socket from "../../../../../Common/socket";
 import ConnectedCustomers from "./ConnectedCustomers";
 import ChatWithCustomer from "./ChatWithCustomer";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { AuthContext } from "../../../../../../AuthProvider/AuthProvider";
 
 const Chat = () => {
+  const { userInfoFromLocalStorage } = useContext(AuthContext);
   const [activeChat, setActiveChat] = useState(null);
   const [show, setShow] = useState(false);
 
   useEffect(() => {}, [activeChat]);
+
+  useEffect(() => {
+    socket.emit("login", {
+      id: userInfoFromLocalStorage()?.role?.toLowerCase(),
+    });
+  }, [socket]);
 
   const chatEnd = async (id) => {
     console.log(id, "id");

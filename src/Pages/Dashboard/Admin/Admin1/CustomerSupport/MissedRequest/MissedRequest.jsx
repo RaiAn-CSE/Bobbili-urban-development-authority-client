@@ -35,7 +35,7 @@ const MissedRequest = () => {
   }, []);
 
   useEffect(() => {
-    socket.on("login", { id: userInfoFromLocalStorage().role.toLowerCase() });
+    socket.emit("login", { id: userInfoFromLocalStorage().role.toLowerCase() });
   }, []);
 
   useEffect(() => {

@@ -50,7 +50,7 @@ const ConnectedCustomers = ({ setActiveChat, setShow }) => {
     })();
   }, []);
   return (
-    <div className="h-full  p-3">
+    <div className="h-full  p-3 ">
       <p className="capitalize text-lg font-bold font-roboto flex justify-center items-center gap-4 text-white">
         <FaUsers size={20} /> Connected users
       </p>
@@ -62,7 +62,7 @@ const ConnectedCustomers = ({ setActiveChat, setShow }) => {
             <p>NO ONE CONNECTED YET</p>
           </div>
         ) : (
-          <>
+          <div className="overflow-y-scroll no-scrollbar">
             {connectedUsers?.map((user) => (
               <div
                 key={user._id}
@@ -89,7 +89,7 @@ const ConnectedCustomers = ({ setActiveChat, setShow }) => {
                 </div>
               </div>
             ))}
-          </>
+          </div>
         )}
       </div>
     </div>

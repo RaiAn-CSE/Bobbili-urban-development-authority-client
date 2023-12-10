@@ -20,7 +20,7 @@ const NewMessage = () => {
   const tableHeader = ["Sl.no.", "Customer Info", "Action"];
 
   useEffect(() => {
-    socket.on("login", { id: userInfoFromLocalStorage().role.toLowerCase() });
+    socket.emit("login", { id: userInfoFromLocalStorage().role.toLowerCase() });
   }, [socket]);
 
   useEffect(() => {

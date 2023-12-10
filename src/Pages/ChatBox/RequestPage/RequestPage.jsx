@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { LuMessagesSquare } from "react-icons/lu";
-import { IoMdStar } from "react-icons/io";
+import { IoIosSend, IoMdStar } from "react-icons/io";
+import { GiSensuousness } from "react-icons/gi";
+import { CiStar } from "react-icons/ci";
 import axios from "axios";
 import toast from "react-hot-toast";
+import socket from "../../Common/socket";
 
 const RequestPage = ({ props }) => {
   const { setRequestSent, setUserInfo } = props;
@@ -56,7 +59,7 @@ const RequestPage = ({ props }) => {
     }
   };
   return (
-    <div className="message-box h-full flex flex-col justify-around rounded-md">
+    <div className="message-box h-full flex flex-col justify-around rounded-md relative">
       <div className="flex flex-col items-center">
         <button className="logo-btn mt-5" data-text="Awesome">
           <span className="actual-text text-4xl">&nbsp;BUDA&nbsp;</span>
@@ -116,9 +119,21 @@ const RequestPage = ({ props }) => {
         <input
           className="nm_Container capitalize p-2 px-4 text-lg rounded-full text-white bg-[#8980FD] cursor-pointer"
           type="submit"
-          value={"Sent request"}
+          value={"Submit"}
         />
       </form>
+
+      <div className="absolute flex justify-center items-center text-white h-10 w-10 rounded-full bg-violet-400 top-24 left-10 nm_Container">
+        <GiSensuousness size={30} />
+      </div>
+
+      {/* <div className="absolute flex justify-center items-center text-normalViolet h-10 w-10 rounded-full top-28 right-10 nm_Container">
+       
+      </div> */}
+      <div className="absolute flex justify-center items-center text-white h-10 w-10 rounded-full bg-purple-400 top-5 right-5 nm_Container">
+        {" "}
+        <CiStar size={30} />
+      </div>
     </div>
   );
 };

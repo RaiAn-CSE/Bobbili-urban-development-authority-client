@@ -5,6 +5,7 @@ import axios from "axios";
 import chatAvatarImg from "../../../assets/images/chat.png";
 import { MdSend } from "react-icons/md";
 import socket from "../../Common/socket";
+import { CiStar } from "react-icons/ci";
 
 const MessagePage = ({ props }) => {
   const { setUserInfo, setRequestSent, userInfo, requestSent } = props;
@@ -162,7 +163,7 @@ const MessagePage = ({ props }) => {
   };
 
   return (
-    <div className="h-full overflow-hidden rounded-md">
+    <div className="h-full overflow-hidden rounded-md relative">
       {!isAccepted && (
         <div className="message-box h-full flex flex-col justify-center items-center">
           <div className="flex flex-col justify-center items-center gap-3">
@@ -178,9 +179,12 @@ const MessagePage = ({ props }) => {
             </div>
           </div>
           {timeEnd && (
-            <div>
+            <div className="flex flex-col justify-center items-center gap-2 mt-3">
+              <p className="font-bold text-lg text-black">
+                Sorry. Please try again or we will contact with you
+              </p>
               <button
-                className="bg-normalViolet text-white fancy-button mt-4"
+                className="bg-normalViolet text-white fancy-button mt-4 w-fit"
                 onClick={requestAgain}
               >
                 Request Again
@@ -258,6 +262,14 @@ const MessagePage = ({ props }) => {
           )}
         </div>
       )}
+
+      <div className="absolute flex justify-center items-center text-white h-10 w-10 rounded-full bg-violet-400 bottom-5 left-10 nm_Container">
+        {" "}
+        <CiStar size={30} />
+      </div>
+      <div className="absolute flex justify-center items-center text-white h-10 w-10  rounded-full bg-violet-400 top-5 right-5 nm_Container">
+        <CiStar size={30} />
+      </div>
     </div>
   );
 };
