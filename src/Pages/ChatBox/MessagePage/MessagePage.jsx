@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import axios from "axios";
 import chatAvatarImg from "../../../assets/images/chat.png";
@@ -14,14 +14,26 @@ const MessagePage = ({ props }) => {
   const [error, setError] = useState("");
   const [isAccepted, setIsAccepted] = useState(false);
   const [isChatEnd, setIsChatEnd] = useState(0);
+  const [receiverId, setReceiverId] = useState(null);
+  const [messages, setMessages] = useState([]);
+  const { register, errors, handleSubmit, resetField } = useForm();
   console.log(userInfo, "Userinfo");
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     socket.emit("login", {
       id: `Help-${userInfo?.name}-${userInfo?.mobileNo}`,
     });
+  }, [socket]);
+
+  useEffect(() => {
+    socket.on("private-message", (message) => {
+      setMessages((prevMessages) => [...prevMessages, { ...message }]);
+    });
+
+    return () => {
+      // Clean up event listeners on component unmount
+      socket.off("private-message");
+    };
   }, [socket]);
 
   useEffect(() => {
@@ -37,6 +49,9 @@ const MessagePage = ({ props }) => {
         ) {
           setCheckUpdateData(data);
           setIsAccepted(true);
+          setReceiverId(
+            data?.change?.updateDescription?.updatedFields?.acceptedBy
+          );
           setTimeout(true);
           // clearInterval(countDownInterval);
           // axios.patch(
@@ -78,18 +93,23 @@ const MessagePage = ({ props }) => {
     });
   }, [socket]);
 
-  //   let counter = 10;
-  //   const countDownInterval = setInterval(() => {
-  //     if (counter > 0) {
-  //       counter = counter - 1;
-  //       console.log(counter, "INSIde interval");
-  //       //   counter === 0 && setTimeEnd(true);
-  //     }
+  // useEffect(() => {
+  //   // Listen for private messages
+  //   socket.on("private-message", ({ from, message }) => {
+  //     setMessages((prevMessages) => [...prevMessages, { from, message }]);
+  //   });
 
-  //     document
-  //       .getElementById("counterElement")
-  //       .style.setProperty("--value", counter);
-  //   }, 1000);
+  //   // Handle errors for private messages (e.g., friend not online)
+  //   socket.on("private-message-error", ({ to, message }) => {
+  //     console.log(`Error sending message to ${to}: ${message}`);
+  //   });
+
+  //   return () => {
+  //     // Clean up event listeners on component unmount
+  //     socket.off("private-message");
+  //     socket.off("private-message-error");
+  //   };
+  // }, [socket]);
 
   const [counter, setCounter] = useState(10);
 
@@ -162,6 +182,32 @@ const MessagePage = ({ props }) => {
     }
   };
 
+  const onSubmit = async (data) => {
+    console.log(data);
+
+    const messageData = {
+      userId: userInfo?.name,
+      message: data?.message,
+    };
+
+    console.log(receiverId, "Receiver id");
+
+    socket.emit("private-message", {
+      to: receiverId,
+      message: { ...messageData },
+    });
+    setMessages((prevMessages) => [...prevMessages, { ...messageData }]);
+    await axios.patch(
+      `http://localhost:5000/messageRequest?update=${JSON.stringify({
+        id: userInfo.uniqueId,
+        action: "text",
+        message: { userId: userInfo?.name, message: messageData?.message },
+      })}`
+    );
+
+    resetField("message");
+  };
+
   return (
     <div className="h-full overflow-hidden rounded-md relative">
       {!isAccepted && (
@@ -213,6 +259,19 @@ const MessagePage = ({ props }) => {
           )}
         </div>
       )}
+
+      {!isAccepted && (
+        <>
+          <div className="absolute flex justify-center items-center text-white h-10 w-10 rounded-full bg-violet-400 bottom-5 left-10 nm_Container">
+            {" "}
+            <CiStar size={30} />
+          </div>
+          <div className="absolute flex justify-center items-center text-white h-10 w-10  rounded-full bg-violet-400 top-5 right-5 nm_Container">
+            <CiStar size={30} />
+          </div>
+        </>
+      )}
+
       {isAccepted && (
         <div className="h-full bg-[#c9c0fd] flex flex-col justify-between">
           {/* upper part  */}
@@ -236,17 +295,26 @@ const MessagePage = ({ props }) => {
 
           {/* message box part  */}
 
-          <div className="flex-1 p-3 message-bg"></div>
+          <div className="flex-1 p-3 message-bg overflow-y-auto">
+            {messages?.map((message, index) => (
+              <div key={index}>
+                <p>{message?.userId}</p>
+                <p>{message?.message}</p>
+              </div>
+            ))}
+          </div>
 
           {/* input boxes */}
           {!isChatEnd ? (
-            <form className="flex justify-between items-center">
+            <form
+              className="flex justify-between items-center"
+              onSubmit={handleSubmit(onSubmit)}
+            >
               <input
                 className="input input-bordered rounded-none focus:outline-none bg-white  flex-1"
                 type="text"
-                name=""
-                id=""
                 placeholder="Type your message"
+                {...register("message", { required: true })}
               />
               <button
                 type="submit"
@@ -262,14 +330,6 @@ const MessagePage = ({ props }) => {
           )}
         </div>
       )}
-
-      <div className="absolute flex justify-center items-center text-white h-10 w-10 rounded-full bg-violet-400 bottom-5 left-10 nm_Container">
-        {" "}
-        <CiStar size={30} />
-      </div>
-      <div className="absolute flex justify-center items-center text-white h-10 w-10  rounded-full bg-violet-400 top-5 right-5 nm_Container">
-        <CiStar size={30} />
-      </div>
     </div>
   );
 };

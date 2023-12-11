@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { IoMdArrowBack } from "react-icons/io";
 import { IoRemoveCircleSharp } from "react-icons/io5";
 import { MdMenu, MdOutlineCancelScheduleSend, MdSend } from "react-icons/md";
@@ -7,6 +7,9 @@ import femaleImg from "../../../../../../assets/images/female.png";
 import unknownImg from "../../../../../../assets/images/unknown.png";
 import axios from "axios";
 import socket from "../../../../../Common/socket";
+import toast from "react-hot-toast";
+import { useForm } from "react-hook-form";
+import { AuthContext } from "../../../../../../AuthProvider/AuthProvider";
 
 const ChatWithCustomer = ({
   activeChat,
@@ -14,9 +17,14 @@ const ChatWithCustomer = ({
   setShow,
   removeUser,
   chatEnd,
+  messages,
+  setMessages,
 }) => {
   console.log(activeChat, "c");
+  const { userInfoFromLocalStorage } = useContext(AuthContext);
   const [connectionStatus, setConnectionStatus] = useState(true);
+
+  const { register, errors, handleSubmit, resetField } = useForm();
 
   useEffect(() => {
     socket.emit("check-connection", { id: activeChat?.userId });
@@ -26,9 +34,40 @@ const ChatWithCustomer = ({
       setConnectionStatus(status);
     });
   }, [socket]);
+
+  const onSubmit = async (data) => {
+    console.log(data);
+
+    const messageData = {
+      userId: userInfoFromLocalStorage()?.role?.toLowerCase(),
+      message: data?.message,
+    };
+
+    socket.emit("private-message", {
+      to: activeChat?.userId,
+      message: messageData,
+    });
+    setMessages((prevMessages) => [...prevMessages, { ...messageData }]);
+
+    await axios.patch(
+      `http://localhost:5000/messageRequest?update=${JSON.stringify({
+        id: activeChat?._id,
+        action: "text",
+        message: {
+          userId: userInfoFromLocalStorage()?.role?.toLowerCase(),
+          message: messageData?.message,
+        },
+      })}`
+    );
+
+    resetField("message");
+  };
+
+  console.log(messages, "CHECK ALL MESSAGES");
+
   return (
     <>
-      {activeChat ? (
+      {activeChat !== null ? (
         <div className="flex flex-col">
           {/* header part  */}
           <div className="bg-[#7871e1] h-16 flex items-center gap-3 px-4">
@@ -100,20 +139,49 @@ const ChatWithCustomer = ({
             </div>
           </div>
           {/* message part  */}
-          <div className="h-[calc(82vh-112px)] message-bg ">Message part</div>
+          <div className="h-[calc(82vh-112px)] message-bg overflow-y-auto">
+            {console.log(messages, "MEssage")}
+            {messages?.map((message, index) => (
+              <div
+                key={index}
+                className={`${
+                  message?.userId?.includes("admin")
+                    ? "justify-end"
+                    : "justify-start"
+                } flex my-3`}
+              >
+                <div>
+                  <p className="text-sm font-bold capitalize">
+                    {message?.userId}
+                  </p>
+                  <p
+                    className={`${
+                      message?.userId?.includes("admin")
+                        ? "bg-[#9a94e7] font-bold text-white rounded-l-xl"
+                        : "bg-white rounded-r-xl"
+                    } p-3  max-w-[500px]`}
+                  >
+                    {message?.message}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
           {/* input boxes  */}
           {activeChat.chatEnd === 1 ? (
             <p className="bg-[#7871e1] p-4 text-center font-bold text-white">
               You end your chat with this person
             </p>
           ) : (
-            <form className="flex justify-between items-center bg-gray-200">
+            <form
+              className="flex justify-between items-center bg-gray-200"
+              onSubmit={handleSubmit(onSubmit)}
+            >
               <input
                 className="input rounded-none focus:outline-none border-none bg-gray-200 flex-1"
                 type="text"
-                name=""
-                id=""
                 placeholder="Type your message here..."
+                {...register("message", { required: true })}
               />
               <button
                 type="submit"

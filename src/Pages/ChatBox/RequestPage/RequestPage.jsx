@@ -7,6 +7,7 @@ import { CiStar } from "react-icons/ci";
 import axios from "axios";
 import toast from "react-hot-toast";
 import socket from "../../Common/socket";
+import { FaStar } from "react-icons/fa6";
 
 const RequestPage = ({ props }) => {
   const { setRequestSent, setUserInfo } = props;
@@ -59,7 +60,7 @@ const RequestPage = ({ props }) => {
     }
   };
   return (
-    <div className="message-box h-full flex flex-col justify-around rounded-md relative">
+    <div className="message-box h-full flex flex-col justify-around rounded-md shadow-lg relative">
       <div className="flex flex-col items-center">
         <button className="logo-btn mt-5" data-text="Awesome">
           <span className="actual-text text-4xl">&nbsp;BUDA&nbsp;</span>
@@ -123,16 +124,23 @@ const RequestPage = ({ props }) => {
         />
       </form>
 
-      <div className="absolute flex justify-center items-center text-white h-10 w-10 rounded-full bg-violet-400 top-24 left-10 nm_Container">
+      <div className="absolute flex justify-center items-center text-white h-10 w-10 rounded-full top-5 left-5 ">
+        <GiSensuousness size={30} />
+      </div>
+      <div className="absolute flex justify-center items-center text-white h-10 w-10 rounded-full bottom-3 right-3 ">
         <GiSensuousness size={30} />
       </div>
 
       {/* <div className="absolute flex justify-center items-center text-normalViolet h-10 w-10 rounded-full top-28 right-10 nm_Container">
        
       </div> */}
-      <div className="absolute flex justify-center items-center text-white h-10 w-10 rounded-full bg-purple-400 top-5 right-5 nm_Container">
+      <div className="absolute flex justify-center items-center text-normalViolet h-10 w-10 rounded-full top-5 right-5 ">
         {" "}
-        <CiStar size={30} />
+        <FaStar size={30} />
+      </div>
+      <div className="absolute flex justify-center items-center text-normalViolet h-10 w-10 rounded-full bottom-5 left-5 ">
+        {" "}
+        <FaStar size={30} />
       </div>
     </div>
   );

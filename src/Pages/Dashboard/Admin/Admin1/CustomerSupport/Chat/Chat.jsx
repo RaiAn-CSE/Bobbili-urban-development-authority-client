@@ -5,6 +5,7 @@ import ChatWithCustomer from "./ChatWithCustomer";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { AuthContext } from "../../../../../../AuthProvider/AuthProvider";
+import RightSidebar from "./RightSidebar";
 
 const Chat = () => {
   const { userInfoFromLocalStorage } = useContext(AuthContext);
@@ -64,35 +65,83 @@ const Chat = () => {
     );
   }
 
-  function rightSideBar(activeChat, setShow, removeUser) {
-    return (
-      <div
-        className={` basis-[100%] md:basis-[68%] rounded-lg overflow-hidden md:block`}
-      >
-        <ChatWithCustomer
-          activeChat={activeChat}
-          setActiveChat={setActiveChat}
-          setShow={setShow}
-          removeUser={removeUser}
-          chatEnd={chatEnd}
-        />
-      </div>
-    );
-  }
+  // function rightSideBar(activeChat, setShow, removeUser) {
+  //   const [messages, setMessages] = useState([]);
+  //   useEffect(() => {
+  //     if (activeChat) {
+  //       (async function () {
+  //         try {
+  //           const { data } = await axios.get(
+  //             `http://localhost:5000/messages?id=${activeChat?._id}`
+  //           );
+
+  //           console.log(data, "GET OLD MESSAGES");
+
+  //           setMessages(data?.text);
+  //         } catch (err) {
+  //           toast.error("Server Error");
+  //         }
+  //       })();
+  //     }
+  //   }, []);
+
+  //   useEffect(() => {
+  //     socket.on("private-message", (message) => {
+  //       console.log(message, message?.userId === activeChat?.name, "message");
+  //       if (message?.userId === activeChat?.name) {
+  //         setMessages((prevMessages) => {
+  //           return [...prevMessages, { ...message }];
+  //         });
+  //       }
+  //     });
+  //   }, [socket]);
+
+  //   return (
+  //     <div
+  //       className={` basis-[100%] md:basis-[68%] rounded-lg overflow-hidden md:block`}
+  //     >
+  //       <ChatWithCustomer
+  //         activeChat={activeChat}
+  //         setActiveChat={setActiveChat}
+  //         setShow={setShow}
+  //         removeUser={removeUser}
+  //         chatEnd={chatEnd}
+  //         messages={messages}
+  //         setMessages={setMessages}
+  //       />
+  //     </div>
+  //   );
+  // }
   return (
     <>
       <div className="md:hidden flex justify-between flex-wrap h-[calc(100vh-18vh)]">
         {/* left sidebar  */}
         {!show && leftSideBar(setActiveChat, setShow)}
         {/* right sidebar  */}
-        {show && rightSideBar(activeChat, setShow, removeUser, chatEnd)}
+        {/* {show && rightSideBar(activeChat, setShow, removeUser, chatEnd)} */}
+        {show && (
+          <RightSidebar
+            activeChat={activeChat}
+            setActiveChat={setActiveChat}
+            setShow={setShow}
+            removeUser={removeUser}
+            chatEnd={chatEnd}
+          />
+        )}
       </div>
 
       <div className="hidden md:flex justify-between flex-wrap h-[calc(100vh-18vh)]">
         {/* left sidebar  */}
         {leftSideBar(setActiveChat, setShow)}
         {/* right sidebar  */}
-        {rightSideBar(activeChat, setShow, removeUser, chatEnd)}
+        {/* {rightSideBar(activeChat, setShow, removeUser, chatEnd)} */}
+        <RightSidebar
+          activeChat={activeChat}
+          setActiveChat={setActiveChat}
+          setShow={setShow}
+          removeUser={removeUser}
+          chatEnd={chatEnd}
+        />
       </div>
     </>
   );
