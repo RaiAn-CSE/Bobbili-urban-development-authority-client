@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { AiOutlineHome } from "react-icons/ai";
-import { MdOutlineDashboard } from "react-icons/md";
+import { AiFillMessage, AiOutlineHome, AiTwotoneMessage } from "react-icons/ai";
+import { MdOutlineDarkMode, MdOutlineDashboard } from "react-icons/md";
+import { motion } from "framer-motion";
+import { FiSun } from "react-icons/fi";
 import ParticleBg from "../Pages/Components/ParticleBg";
+import CustomerSupport from "../assets/images/support.jpg";
+
+import ChatBox from "../Pages/Shared/ChatBox";
 
 const MainLayout = () => {
   const path = useLocation()?.pathname;
@@ -42,13 +47,15 @@ const MainLayout = () => {
     };
   }, [theme]);
 
+  const [toggleChat, setToggleChat] = useState(false);
+
   return (
     <>
       {/* particle  */}
 
       {!path.includes("/statistics") && <ParticleBg />}
 
-      <div className="px-10 min-h-screen z-[10] bg-[#E8EAEC]">
+      <div className="px-10 min-h-screen z-[10] bg-[#E8EAEC] relative">
         {/* upper part  */}
         <div className="py-3 flex-col lg:flex-row flex justify-between items-center z-[10]">
           <div className="basis-3/4 z-[10] pt-2">
@@ -70,13 +77,13 @@ const MainLayout = () => {
             <Link
               to="/"
               className={`nm_Container w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center  ${path === "/" ||
-                path === "/onlinePayment" ||
-                path === "/listOfLTP" ||
-                path === "/demoVideos" ||
-                path === "/privacyPolicy" ||
-                path === "/defaultDrawingFormat"
-                ? active
-                : ` ${notActive}`
+                  path === "/onlinePayment" ||
+                  path === "/listOfLTP" ||
+                  path === "/demoVideos" ||
+                  path === "/privacyPolicy" ||
+                  path === "/defaultDrawingFormat"
+                  ? active
+                  : ` ${notActive}`
                 }`}
             >
               <AiOutlineHome size={25} className="text-2xl " />
@@ -109,6 +116,21 @@ const MainLayout = () => {
 
         {/* lower part  */}
         <Outlet />
+
+        <div
+          className="chatbox-wrapper"
+          onClick={() => setToggleChat(!toggleChat)}
+        >
+          <div className="chatbox-toggle">
+            <AiFillMessage size={30} />
+          </div>
+        </div>
+
+        {toggleChat && (
+          <div className="absolute bottom-[70px] right-8 z-10 h-[80vh] w-96 bg-white rounded-lg shadow-md ">
+            <ChatBox />
+          </div>
+        )}
       </div>
     </>
   );

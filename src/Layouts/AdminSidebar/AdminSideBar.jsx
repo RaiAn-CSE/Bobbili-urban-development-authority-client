@@ -4,15 +4,25 @@ import { MdSpaceDashboard } from "react-icons/md";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { BiSolidUserPlus } from "react-icons/bi";
 import { FaLocationDot, FaUsersGear } from "react-icons/fa6";
+import { RiCustomerService2Fill } from "react-icons/ri";
 
 const AdminSideBar = () => {
   const path = useLocation().pathname;
 
-  const { handleLogOut, decideActiveColor, decideHoverColor, isDark } =
-    useContext(AuthContext);
+  const {
+    handleLogOut,
+    decideActiveColor,
+    decideHoverColor,
+    isDark,
+    userInfoFromLocalStorage,
+  } = useContext(AuthContext);
 
   const [activeColor, setActiveColor] = useState("");
   const [hoverColor, setHoverColor] = useState("");
+
+  const role = userInfoFromLocalStorage()?.role?.toLowerCase();
+
+  console.log(role, "role");
 
   useEffect(() => {
     const getActiveColor = decideActiveColor();
@@ -23,8 +33,9 @@ const AdminSideBar = () => {
   return (
     <>
       <li
-        className={`${path === "/dashboard" && activeColor
-          } mb-1 ps-4  flex items-center ${hoverColor}`}
+        className={`${
+          path === "/dashboard" && activeColor
+        } mb-1 ps-4  flex items-center ${hoverColor}`}
       >
         <span>
           <MdSpaceDashboard size={20} />
@@ -34,8 +45,9 @@ const AdminSideBar = () => {
         </Link>
       </li>
       <li
-        className={`${path === "/dashboard/addUser" && activeColor
-          }  ps-4 mb-1 flex items-center  ${hoverColor}`}
+        className={`${
+          path === "/dashboard/addUser" && activeColor
+        }  ps-4 mb-1 flex items-center  ${hoverColor}`}
       >
         <span>
           <BiSolidUserPlus size={20} />
@@ -45,8 +57,9 @@ const AdminSideBar = () => {
         </Link>
       </li>
       <li
-        className={`${path === "/dashboard/allUser" && activeColor
-          }  ps-4 mb-1 flex items-center  ${hoverColor}`}
+        className={`${
+          path === "/dashboard/allUser" && activeColor
+        }  ps-4 mb-1 flex items-center  ${hoverColor}`}
       >
         <span>
           <FaUsersGear size={20} />
@@ -56,8 +69,9 @@ const AdminSideBar = () => {
         </Link>
       </li>
       <li
-        className={`${path === "/dashboard/updateLocation" && activeColor
-          }  ps-4 mb-1 flex items-center  ${hoverColor}`}
+        className={`${
+          path === "/dashboard/updateLocation" && activeColor
+        }  ps-4 mb-1 flex items-center  ${hoverColor}`}
       >
         <span>
           <FaLocationDot size={20} />
@@ -69,6 +83,20 @@ const AdminSideBar = () => {
           Location
         </Link>
       </li>
+      {(role === "admin1" || role === "admin2") && (
+        <li
+          className={`${
+            path === "/dashboard/support" && activeColor
+          }  ps-4 mb-1 flex items-center  ${hoverColor}`}
+        >
+          <span>
+            <RiCustomerService2Fill size={20} />
+          </span>
+          <Link className={`p-[10px] font-medium `} to="/dashboard/support">
+            Customer Support
+          </Link>
+        </li>
+      )}
     </>
   );
 };

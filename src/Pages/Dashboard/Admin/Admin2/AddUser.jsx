@@ -35,7 +35,7 @@ const AddUser = () => {
   useEffect(() => {
     (async function () {
       const locationData = await fetchDataFromTheDb(
-        "https://residential-building.vercel.app/getDistricts"
+        "http://localhost:5000/getDistricts"
       );
       console.log(locationData, "LOC");
       const extractsDataFromDB = locationData[0]?.district;
@@ -148,7 +148,7 @@ const AddUser = () => {
 
       if (userInfo) {
         // store users data in the database
-        fetch("https://residential-building.vercel.app/addUser", {
+        fetch("http://localhost:5000/addUser", {
           method: "POST",
           headers: {
             "Content-type": "application/json",
@@ -181,8 +181,9 @@ const AddUser = () => {
     setUserType(e.target.value);
   };
 
-  const inputLabel = "block mb-1 font-semibold text-gray-600"
-  const inputBox = "w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-gray-400 focus:border-gray-600 focus:outline-none focus:ring-2 ring-violet-200"
+  const inputLabel = "block mb-1 font-semibold text-gray-600";
+  const inputBox =
+    "w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-gray-400 focus:border-gray-600 focus:outline-none focus:ring-2 ring-violet-200";
 
   return (
     <div className="mt-10 text-black">
@@ -196,10 +197,7 @@ const AddUser = () => {
       >
         <div className="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <div>
-            <label
-              htmlFor="name"
-              className={inputLabel}
-            >
+            <label htmlFor="name" className={inputLabel}>
               Name
             </label>
             <input
@@ -213,10 +211,7 @@ const AddUser = () => {
           </div>
 
           <div>
-            <label
-              htmlFor="id"
-              className={inputLabel}
-            >
+            <label htmlFor="id" className={inputLabel}>
               User ID
             </label>
             <input
@@ -230,10 +225,7 @@ const AddUser = () => {
           </div>
 
           <div>
-            <label
-              htmlFor="password"
-              className={inputLabel}
-            >
+            <label htmlFor="password" className={inputLabel}>
               Password
             </label>
             <input
@@ -320,10 +312,7 @@ const AddUser = () => {
           </div> */}
 
           <div>
-            <label
-              htmlFor="email"
-              className={inputLabel}
-            >
+            <label htmlFor="email" className={inputLabel}>
               Email
             </label>
             <input
@@ -337,10 +326,7 @@ const AddUser = () => {
           </div>
 
           <div>
-            <label
-              htmlFor="phone"
-              className={inputLabel}
-            >
+            <label htmlFor="phone" className={inputLabel}>
               Phone no
             </label>
             <input
@@ -355,10 +341,7 @@ const AddUser = () => {
           </div>
 
           <div>
-            <label
-              htmlFor="address"
-              className={inputLabel}
-            >
+            <label htmlFor="address" className={inputLabel}>
               Address
             </label>
             <textarea
@@ -378,10 +361,7 @@ const AddUser = () => {
         {userType === "LTP" && (
           <div className="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <div>
-              <label
-                htmlFor="licenseNo"
-                className={inputLabel}
-              >
+              <label htmlFor="licenseNo" className={inputLabel}>
                 License No
               </label>
               <input
@@ -395,10 +375,7 @@ const AddUser = () => {
             </div>
 
             <div>
-              <label
-                htmlFor="adharNo"
-                className={inputLabel}
-              >
+              <label htmlFor="adharNo" className={inputLabel}>
                 Adhar no
               </label>
               <input
@@ -412,10 +389,7 @@ const AddUser = () => {
             </div>
 
             <div>
-              <label
-                htmlFor="validity"
-                className={inputLabel}
-              >
+              <label htmlFor="validity" className={inputLabel}>
                 Validity
               </label>
               <input
@@ -433,10 +407,7 @@ const AddUser = () => {
           <div className="flex justify-between items-center">
             {/* district  */}
             <div className="basis-1/5">
-              <label
-                htmlFor="district"
-                className={inputLabel}
-              >
+              <label htmlFor="district" className={inputLabel}>
                 District
               </label>
               <select
@@ -460,10 +431,7 @@ const AddUser = () => {
 
             {/* mandal */}
             <div className="basis-1/5">
-              <label
-                htmlFor="mandal"
-                className={inputLabel}
-              >
+              <label htmlFor="mandal" className={inputLabel}>
                 Mandal
               </label>
               <select
@@ -488,10 +456,7 @@ const AddUser = () => {
 
             {/* gram panchayat  */}
             <div className="basis-1/5">
-              <label
-                htmlFor="panchayat"
-                className={inputLabel}
-              >
+              <label htmlFor="panchayat" className={inputLabel}>
                 Grama Panchayat
               </label>
               <select

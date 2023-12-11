@@ -94,7 +94,7 @@ const Payment = () => {
         generalInformation?.natureOfTheSite === "Approved Layout" ||
         generalInformation?.natureOfTheSite === "Regularised under LRS" ||
         generalInformation?.natureOfTheSite ===
-        "Congested/ Gramakanta/ Old Built-up area" ||
+          "Congested/ Gramakanta/ Old Built-up area" ||
         generalInformation?.natureOfTheSite === "Newly Developed/ Built up area"
       ) {
         setCondition(1);
@@ -291,9 +291,9 @@ const Payment = () => {
     const labourCessComponentUnitRate1 = 1400; // per Sq.ft.
     const labourCessCompo1Charged = Math.round(
       labourCessComponentUnitRate1 *
-      BuiltUp_area_SquareFeet *
-      10.76 *
-      (0.01 * 0.98)
+        BuiltUp_area_SquareFeet *
+        10.76 *
+        (0.01 * 0.98)
     );
 
     setCalculatedData({
@@ -373,7 +373,7 @@ const Payment = () => {
         console.log(...formData);
         try {
           const response = await axios.post(
-            "https://residential-building.vercel.app/upload?page=payment",
+            "http://localhost:5000/upload?page=payment",
             formData,
             {
               headers: {
@@ -517,14 +517,16 @@ const Payment = () => {
     <div className="grid m-4 lg:my-0 text-gray-900">
       <form onSubmit={(e) => e.preventDefault()} className="grid my-5 lg:my-0">
         {/* UDA Charge  */}
-        <motion.div className="nm_Container mt-3 px-2 py-5 mb-10"
+        <motion.div
+          className="nm_Container mt-3 px-2 py-5 mb-10"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0, transition: { duration: 2 } }}
           viewport={{ once: false }}
         >
-          <motion.div className="flex items-center -mb-2 px-2"
+          <motion.div
+            className="flex items-center -mb-2 px-2"
             initial={{ opacity: 0, x: 100 }}
-            whileInView={{ opacity: 1, x: 0, transition: { duration: 1, } }}
+            whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
             viewport={{ once: false }}
           >
             <FaCcAmazonPay size={30} className="text-normalViolet" />
@@ -597,9 +599,10 @@ const Payment = () => {
               ltpDetails={calculatedData?.UDATotalCharged}
             />
             {role === "LTP" && cameFrom === "draft" && (
-              <motion.div className="flex ms-5 items-center mt-[16px] pay-btn-container"
+              <motion.div
+                className="flex ms-5 items-center mt-[16px] pay-btn-container"
                 initial={{ opacity: 0, x: 40 }}
-                whileInView={{ opacity: 1, x: 0, transition: { duration: 1, } }}
+                whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
                 viewport={{ once: false }}
               >
                 <button className="pay-btn mt-3">
@@ -737,14 +740,16 @@ const Payment = () => {
         </motion.div>
 
         {/* Grama Panchayat fee */}
-        <motion.div className="nm_Container mt-3 px-2 py-5 mb-10"
+        <motion.div
+          className="nm_Container mt-3 px-2 py-5 mb-10"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0, transition: { duration: 2 } }}
           viewport={{ once: false }}
         >
-          <motion.div className="flex items-center -mb-2 px-2"
+          <motion.div
+            className="flex items-center -mb-2 px-2"
             initial={{ opacity: 0, x: 100 }}
-            whileInView={{ opacity: 1, x: 0, transition: { duration: 1, } }}
+            whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
             viewport={{ once: false }}
           >
             <MdOutlinePayments size={30} className="text-normalViolet" />
@@ -859,9 +864,10 @@ const Payment = () => {
               />
             </div>
 
-            <motion.div className="px-3 mb-4 flex justify-end"
+            <motion.div
+              className="px-3 mb-4 flex justify-end"
               initial={{ opacity: 0, x: -40 }}
-              whileInView={{ opacity: 1, x: 0, transition: { duration: 1, } }}
+              whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
               viewport={{ once: false }}
             >
               <div className="form-control w-full max-w-xs">
@@ -876,28 +882,30 @@ const Payment = () => {
               </div>
               {applicationData?.payment?.gramaPanchayatFee
                 ?.gramaBankReceipt && (
-                  <Link
-                    to={`https://drive.google.com/file/d/${applicationData?.payment?.gramaPanchayatFee?.gramaBankReceipt}/view?usp=sharing`}
-                    target="_blank"
-                    className="flex justify-center items-center ms-10 px-4 py-2 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
-                  >
-                    <MdReceiptLong className="me-1" />
-                    View Challan
-                  </Link>
-                )}
+                <Link
+                  to={`https://drive.google.com/file/d/${applicationData?.payment?.gramaPanchayatFee?.gramaBankReceipt}/view?usp=sharing`}
+                  target="_blank"
+                  className="flex justify-center items-center ms-10 px-4 py-2 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
+                >
+                  <MdReceiptLong className="me-1" />
+                  View Challan
+                </Link>
+              )}
             </motion.div>
           </div>
         </motion.div>
 
         {/* Labour cess charge  */}
-        <motion.div className="nm_Container mt-3 px-2 py-5 mb-10"
+        <motion.div
+          className="nm_Container mt-3 px-2 py-5 mb-10"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0, transition: { duration: 2 } }}
           viewport={{ once: false }}
         >
-          <motion.div className="flex items-center -mb-2 px-2"
+          <motion.div
+            className="flex items-center -mb-2 px-2"
             initial={{ opacity: 0, x: 100 }}
-            whileInView={{ opacity: 1, x: 0, transition: { duration: 1, } }}
+            whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
             viewport={{ once: false }}
           >
             <FaMoneyCheckAlt size={30} className="text-normalViolet" />
@@ -969,9 +977,10 @@ const Payment = () => {
               />
             </div>
 
-            <motion.div className="px-3 mb-4 flex justify-end"
+            <motion.div
+              className="px-3 mb-4 flex justify-end"
               initial={{ opacity: 0, x: -40 }}
-              whileInView={{ opacity: 1, x: 0, transition: { duration: 1, } }}
+              whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
               viewport={{ once: false }}
             >
               <div className="form-control w-full max-w-xs">
@@ -989,28 +998,30 @@ const Payment = () => {
 
               {applicationData?.payment?.labourCessCharge
                 ?.labourCessBankReceipt && (
-                  <Link
-                    to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
-                    target="_blank"
-                    className="flex justify-center items-center ms-10 px-4 py-2 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
-                  >
-                    <MdReceiptLong className="me-1" />
-                    View Challan
-                  </Link>
-                )}
+                <Link
+                  to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
+                  target="_blank"
+                  className="flex justify-center items-center ms-10 px-4 py-2 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
+                >
+                  <MdReceiptLong className="me-1" />
+                  View Challan
+                </Link>
+              )}
             </motion.div>
           </div>
         </motion.div>
 
         {/* Green fee charge  */}
-        <motion.div className="nm_Container mt-3 px-2 py-5"
+        <motion.div
+          className="nm_Container mt-3 px-2 py-5"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0, transition: { duration: 2 } }}
           viewport={{ once: false }}
         >
-          <motion.div className="flex items-center -mb-2 px-2"
+          <motion.div
+            className="flex items-center -mb-2 px-2"
             initial={{ opacity: 0, x: 100 }}
-            whileInView={{ opacity: 1, x: 0, transition: { duration: 1, } }}
+            whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
             viewport={{ once: false }}
           >
             <HiCurrencyRupee size={30} className="text-normalViolet" />
@@ -1082,9 +1093,10 @@ const Payment = () => {
               />
             </div>
 
-            <motion.div className="px-3 mb-4 flex justify-end"
+            <motion.div
+              className="px-3 mb-4 flex justify-end"
               initial={{ opacity: 0, x: -40 }}
-              whileInView={{ opacity: 1, x: 0, transition: { duration: 1, } }}
+              whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
               viewport={{ once: false }}
             >
               <div className="form-control w-full max-w-xs">
@@ -1099,15 +1111,15 @@ const Payment = () => {
               </div>
               {applicationData?.payment?.greenFeeCharge
                 ?.greenFeeBankReceipt && (
-                  <Link
-                    to={`https://drive.google.com/file/d/${applicationData?.payment?.greenFeeCharge?.greenFeeBankReceipt}/view?usp=sharing`}
-                    target="_blank"
-                    className="flex justify-center items-center ms-10 px-4 py-2 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
-                  >
-                    <MdReceiptLong className="me-1" />
-                    View Challan
-                  </Link>
-                )}
+                <Link
+                  to={`https://drive.google.com/file/d/${applicationData?.payment?.greenFeeCharge?.greenFeeBankReceipt}/view?usp=sharing`}
+                  target="_blank"
+                  className="flex justify-center items-center ms-10 px-4 py-2 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
+                >
+                  <MdReceiptLong className="me-1" />
+                  View Challan
+                </Link>
+              )}
             </motion.div>
           </div>
         </motion.div>

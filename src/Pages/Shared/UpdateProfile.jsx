@@ -39,8 +39,7 @@ const UpdateProfile = () => {
     console.log(formValue, "FOrm r value");
 
     fetch(
-      `https://residential-building.vercel.app/updateUserInfo/${userInfoFromLocalStorage()._id
-      }`,
+      `http://localhost:5000/updateUserInfo/${userInfoFromLocalStorage()._id}`,
       {
         method: "PATCH",
         headers: { "content-type": "application/json" },
@@ -74,12 +73,14 @@ const UpdateProfile = () => {
         {/* if there is a button in form, it will close the modal */}
 
         {/* Basic Information  */}
-        <motion.div className="divide-y-2 mx-5 divide-gray-200 mb-[60px]"
+        <motion.div
+          className="divide-y-2 mx-5 divide-gray-200 mb-[60px]"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0, transition: { duration: 2 } }}
           viewport={{ once: false }}
         >
-          <motion.div className="flex items-center"
+          <motion.div
+            className="flex items-center"
             initial={{ opacity: 0, x: 100 }}
             whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
             viewport={{ once: false }}
@@ -128,12 +129,14 @@ const UpdateProfile = () => {
         </motion.div>
 
         {/* Contact Information  */}
-        <motion.div className="divide-y-2 divide-gray-200 mb-[60px] mx-5"
+        <motion.div
+          className="divide-y-2 divide-gray-200 mb-[60px] mx-5"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0, transition: { duration: 2 } }}
           viewport={{ once: false }}
         >
-          <motion.div className="flex items-center mb-4 ml-1"
+          <motion.div
+            className="flex items-center mb-4 ml-1"
             initial={{ opacity: 0, x: 100 }}
             whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
             viewport={{ once: false }}
@@ -182,12 +185,14 @@ const UpdateProfile = () => {
         </motion.div>
 
         {/* Address Information  */}
-        <motion.div className="divide-y-2 divide-gray-200 mb-[60px] mx-5"
+        <motion.div
+          className="divide-y-2 divide-gray-200 mb-[60px] mx-5"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0, transition: { duration: 2 } }}
           viewport={{ once: false }}
         >
-          <motion.div className="flex items-center"
+          <motion.div
+            className="flex items-center"
             initial={{ opacity: 0, x: 100 }}
             whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
             viewport={{ once: false }}
@@ -251,7 +256,8 @@ const UpdateProfile = () => {
           </div>
         </motion.div>
 
-        <motion.div className="flex justify-center"
+        <motion.div
+          className="flex justify-center"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
           viewport={{ once: false }}

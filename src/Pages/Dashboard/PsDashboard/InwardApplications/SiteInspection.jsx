@@ -77,7 +77,7 @@ const SiteInspection = () => {
       console.log(query, "query");
 
       const response = await fetch(
-        `https://residential-building.vercel.app/getApplicationData?data=${query}`
+        `http://localhost:5000/getApplicationData?data=${query}`
       );
 
       return await response.json();
@@ -179,7 +179,7 @@ const SiteInspection = () => {
           console.log(...formData, "FORM DATA");
           try {
             const response = await axios.post(
-              "https://residential-building.vercel.app/upload?page=siteInspection",
+              "http://localhost:5000/upload?page=siteInspection",
               formData,
               {
                 headers: {
@@ -316,7 +316,7 @@ const SiteInspection = () => {
 
         console.log(siteInspection, "SITE INSPECTION");
 
-        // fetch(`https://residential-building.vercel.app/recommendDataOfPs?appNo=${applicationNo}`, {
+        // fetch(`http://localhost:5000/recommendDataOfPs?appNo=${applicationNo}`, {
         //     method: "PATCH",
         //     headers: {
         //         "content-type": "application/json",
@@ -356,9 +356,7 @@ const SiteInspection = () => {
       applicationNo,
       trackPSAction,
     };
-    url = `https://residential-building.vercel.app/decisionOfPs?data=${JSON.stringify(
-      data
-    )}`;
+    url = `http://localhost:5000/decisionOfPs?data=${JSON.stringify(data)}`;
     console.log(url);
 
     const config = {
@@ -396,9 +394,7 @@ const SiteInspection = () => {
                 <th scope="col" className="border-r border-white">
                   As per Application
                 </th>
-                <th scope="col">
-                  Observation
-                </th>
+                <th scope="col">Observation</th>
               </tr>
             </thead>
             <tbody>
@@ -580,9 +576,7 @@ const SiteInspection = () => {
                 </td>
               </tr>
               <tr className="border-b border-neutral-500">
-                <td className={`${tableDataClass} font-bold bg-white`}>
-                  East
-                </td>
+                <td className={`${tableDataClass} font-bold bg-white`}>East</td>
                 <td className={`${inputTableDataClass} p-0 bg-white`}>
                   <ImageUploadInput
                     id="eastApp"
@@ -603,9 +597,7 @@ const SiteInspection = () => {
                 </td>
               </tr>
               <tr className="border-b border-neutral-500">
-                <td className={`${tableDataClass} font-bold bg-white`}>
-                  West
-                </td>
+                <td className={`${tableDataClass} font-bold bg-white`}>West</td>
                 <td className={`${inputTableDataClass} p-0 bg-white`}>
                   <ImageUploadInput
                     id="westApp"
@@ -911,7 +903,8 @@ const SiteInspection = () => {
         </div>
       </div>
 
-      <motion.div className="nm_Container p-7 mt-10"
+      <motion.div
+        className="nm_Container p-7 mt-10"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0, transition: { duration: 2 } }}
         viewport={{ once: false }}

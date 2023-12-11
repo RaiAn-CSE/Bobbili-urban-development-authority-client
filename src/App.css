@@ -1354,3 +1354,40 @@ ol > li:before {
   background: #7162E9;
 }
 /*=========================<<< Scrollbar End >>> */
+/* chat box  */
+
+.chatbox-wrapper {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  width: 3rem;
+  height: 3rem;
+  z-index: 1000;
+}
+.chatbox-toggle {
+  width: 100%;
+  height: 100%;
+  background-color: #8980fd;
+  color: #fff;
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25%;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.chatbox-toggle:active {
+  transform: scale(0.9);
+}
+
+.message-box {
+  background-image: url("./assets/images/message-bg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.message-bg {
+  background-image: url("./assets/images/messagbg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}

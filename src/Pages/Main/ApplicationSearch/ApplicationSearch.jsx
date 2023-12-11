@@ -23,9 +23,7 @@ const ApplicationSearch = () => {
   const { fetchDataFromTheDb } = useContext(AuthContext);
 
   useEffect(() => {
-    fetchDataFromTheDb(
-      "https://residential-building.vercel.app/allApplications"
-    ).then((data) => {
+    fetchDataFromTheDb("http://localhost:5000/allApplications").then((data) => {
       console.log(data);
       setApplicationData(data);
     });
@@ -79,7 +77,8 @@ const ApplicationSearch = () => {
 
   return (
     <div className="h-full font-roboto w-full px-2 mt-5 bg-[#E8EAEC]">
-      <motion.div className={`${HomeCss.searchInputContainer} mx-2`}
+      <motion.div
+        className={`${HomeCss.searchInputContainer} mx-2`}
         initial={{ opacity: 0, scale: 0.5 }}
         whileInView={{ opacity: 1, scale: 1.0 }}
         transition={{ duration: 1 }}
@@ -119,18 +118,22 @@ const ApplicationSearch = () => {
       {/* Location details  */}
       <div className="mt-7">
         <div className="flex -mb-3">
-          <motion.h3 className={titleClass}
+          <motion.h3
+            className={titleClass}
             initial={{ opacity: 0, x: -70 }}
-            whileInView={{ opacity: 1, x: 0, transition: { duration: 0.5, } }}
+            whileInView={{ opacity: 1, x: 0, transition: { duration: 0.5 } }}
             viewport={{ once: false }}
           >
             Location details
           </motion.h3>
-          <motion.h3 className={titleClass}
+          <motion.h3
+            className={titleClass}
             initial={{ opacity: 0, x: 70 }}
-            whileInView={{ opacity: 1, x: 0, transition: { duration: 0.5, } }}
+            whileInView={{ opacity: 1, x: 0, transition: { duration: 0.5 } }}
             viewport={{ once: false }}
-          >Building info</motion.h3>
+          >
+            Building info
+          </motion.h3>
         </div>
 
         <div className="px-2">
@@ -219,18 +222,22 @@ const ApplicationSearch = () => {
       {/* Owner details  */}
       <div className="mt-12">
         <div className="flex -mb-3">
-          <motion.h3 className={titleClass}
+          <motion.h3
+            className={titleClass}
             initial={{ opacity: 0, x: -70 }}
-            whileInView={{ opacity: 1, x: 0, transition: { duration: 0.5, } }}
+            whileInView={{ opacity: 1, x: 0, transition: { duration: 0.5 } }}
             viewport={{ once: false }}
           >
             Owner details
           </motion.h3>
-          <motion.h3 className={titleClass}
+          <motion.h3
+            className={titleClass}
             initial={{ opacity: 0, x: 70 }}
-            whileInView={{ opacity: 1, x: 0, transition: { duration: 0.5, } }}
+            whileInView={{ opacity: 1, x: 0, transition: { duration: 0.5 } }}
             viewport={{ once: false }}
-          >LTP Details</motion.h3>
+          >
+            LTP Details
+          </motion.h3>
         </div>
 
         <div className="px-2">
@@ -294,7 +301,7 @@ const ApplicationSearch = () => {
           onClick={() => setOpenApplication(true)}
           disabled={filteredData === null}
           initial={{ opacity: 0, x: -40 }}
-          whileInView={{ opacity: 1, x: 0, transition: { duration: 1, } }}
+          whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
           viewport={{ once: false }}
         >
           <span className="grid justify-center items-center">
@@ -310,7 +317,7 @@ const ApplicationSearch = () => {
             filteredData?.status?.toLowerCase() !== "approved"
           }
           initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0, transition: { duration: 1, } }}
+          whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
           viewport={{ once: false }}
         >
           <span className="grid justify-center items-center">
@@ -329,7 +336,7 @@ const ApplicationSearch = () => {
             filteredData?.status?.toLowerCase() !== "approved"
           }
           initial={{ opacity: 0, x: 40 }}
-          whileInView={{ opacity: 1, x: 0, transition: { duration: 1, } }}
+          whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
           viewport={{ once: false }}
         >
           <span className="grid justify-center items-center">
