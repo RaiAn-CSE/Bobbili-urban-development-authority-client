@@ -49,6 +49,8 @@ const ConnectedCustomers = ({ setActiveChat, setShow }) => {
       setConnectedUsers(data);
     })();
   }, []);
+
+  console.log(connectedUsers, "Connected users");
   return (
     <div className="h-full  p-3 ">
       <p className="capitalize text-lg font-bold font-roboto flex justify-center items-center gap-4 text-white">
@@ -85,7 +87,7 @@ const ConnectedCustomers = ({ setActiveChat, setShow }) => {
                 </div>
                 <div>
                   <p className="font-bold text-base">{user.name}</p>
-                  <p className="text-gray-500">Last text</p>
+                  <p className="text-gray-500">{user?.mobile}</p>
                 </div>
               </div>
             ))}
