@@ -45,7 +45,7 @@ const RightSidebar = ({
   }, [socket, activeChat]);
   return (
     <div
-      className={` basis-[100%] md:basis-[68%] rounded-lg overflow-hidden md:block`}
+      className={` basis-[100%] md:basis-[68%] rounded-lg overflow-hidden md:block border-2 border-[#7871E1]`}
     >
       <ChatWithCustomer
         activeChat={activeChat}
