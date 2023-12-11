@@ -24,10 +24,12 @@ const Chat = () => {
     console.log(id, "id");
     try {
       const { data } = await axios.patch(
-        `http://localhost:5000/messageRequest?update=${JSON.stringify({
-          id,
-          action: "chatEnd",
-        })}`
+        `https://residential-building.onrender.com/messageRequest?update=${JSON.stringify(
+          {
+            id,
+            action: "chatEnd",
+          }
+        )}`
       );
 
       if (data.acknowledged) {
@@ -42,7 +44,7 @@ const Chat = () => {
 
     try {
       const { data } = await axios.delete(
-        `http://localhost:5000/messageRequest?id=${id}`
+        `https://residential-building.onrender.com/messageRequest?id=${id}`
       );
 
       if (data.acknowledged) {
@@ -58,7 +60,7 @@ const Chat = () => {
   function leftSideBar(setActiveChat, setShow) {
     return (
       <div
-        className={` basis-[100%] md:basis-[30%] rounded-lg bg-[#7871e1] md:block`}
+        className={` basis-[100%] md:basis-[30%] rounded-lg bg-[#7871e1] md:block overflow-hidden overflow-y-auto`}
       >
         <ConnectedCustomers setActiveChat={setActiveChat} setShow={setShow} />
       </div>
@@ -72,7 +74,7 @@ const Chat = () => {
   //       (async function () {
   //         try {
   //           const { data } = await axios.get(
-  //             `http://localhost:5000/messages?id=${activeChat?._id}`
+  //             `https://residential-building.onrender.com/messages?id=${activeChat?._id}`
   //           );
 
   //           console.log(data, "GET OLD MESSAGES");
@@ -114,7 +116,7 @@ const Chat = () => {
   // }
   return (
     <>
-      <div className="md:hidden flex justify-between flex-wrap h-[calc(100vh-18vh)]">
+      <div className="md:hidden flex justify-between flex-wrap h-[calc(100vh-18vh)] overflow-hidden rounded-lg">
         {/* left sidebar  */}
         {!show && leftSideBar(setActiveChat, setShow)}
         {/* right sidebar  */}
@@ -130,7 +132,7 @@ const Chat = () => {
         )}
       </div>
 
-      <div className="hidden md:flex justify-between flex-wrap h-[calc(100vh-18vh)]">
+      <div className="hidden md:flex justify-between flex-wrap h-[calc(100vh-18vh)] overflow-hidden rounded-lg">
         {/* left sidebar  */}
         {leftSideBar(setActiveChat, setShow)}
         {/* right sidebar  */}

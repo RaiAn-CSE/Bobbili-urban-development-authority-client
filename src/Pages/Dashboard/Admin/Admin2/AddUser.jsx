@@ -35,7 +35,7 @@ const AddUser = () => {
   useEffect(() => {
     (async function () {
       const locationData = await fetchDataFromTheDb(
-        "http://localhost:5000/getDistricts"
+        "https://residential-building.onrender.com/getDistricts"
       );
       console.log(locationData, "LOC");
       const extractsDataFromDB = locationData[0]?.district;
@@ -148,7 +148,7 @@ const AddUser = () => {
 
       if (userInfo) {
         // store users data in the database
-        fetch("http://localhost:5000/addUser", {
+        fetch("https://residential-building.onrender.com/addUser", {
           method: "POST",
           headers: {
             "Content-type": "application/json",
@@ -262,7 +262,9 @@ const AddUser = () => {
           </div>
 
           <div className="flex flex-col items-center mt-3">
-            <label htmlFor="" className={`${inputLabel}`}>Gender</label>
+            <label htmlFor="" className={`${inputLabel}`}>
+              Gender
+            </label>
             <div className="radio-button-container">
               <div className="radio-button">
                 <input
@@ -354,9 +356,7 @@ const AddUser = () => {
           </div>
         </div>
 
-        <div className="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-
-        </div>
+        <div className="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
 
         {userType === "LTP" && (
           <div className="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

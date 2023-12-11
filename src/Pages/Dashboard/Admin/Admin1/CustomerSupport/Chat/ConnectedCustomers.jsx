@@ -7,6 +7,7 @@ import unknownImg from "../../../../../../assets/images/unknown.png";
 import { FaUsers } from "react-icons/fa";
 import socket from "../../../../../Common/socket";
 import { IoHappySharp } from "react-icons/io5";
+import toast from "react-hot-toast";
 
 const ConnectedCustomers = ({ setActiveChat, setShow }) => {
   const { userInfoFromLocalStorage } = useContext(AuthContext);
@@ -23,14 +24,18 @@ const ConnectedCustomers = ({ setActiveChat, setShow }) => {
           data?.change?.updateDescription?.updatedFields?.isAccepted === 1) ||
         data?.change?.operationType === "delete"
       ) {
-        const { data: updateData } = await axios.get(
-          `http://localhost:5000/acceptMessage?role=${JSON.stringify(
-            userInfoFromLocalStorage().role.toLowerCase()
-          )}`
-        );
+        try {
+          const { data: updateData } = await axios.get(
+            `https://residential-building.onrender.com/acceptMessage?role=${JSON.stringify(
+              userInfoFromLocalStorage().role.toLowerCase()
+            )}`
+          );
 
-        console.log(updateData, "connected user");
-        setConnectedUsers(updateData);
+          console.log(updateData, "connected user");
+          setConnectedUsers(updateData);
+        } catch (err) {
+          toast.error("Server Error");
+        }
       }
     });
   }, [socket]);
@@ -39,24 +44,28 @@ const ConnectedCustomers = ({ setActiveChat, setShow }) => {
 
   useEffect(() => {
     (async function () {
-      const { data } = await axios.get(
-        `http://localhost:5000/acceptMessage?role=${JSON.stringify(
-          userInfoFromLocalStorage().role.toLowerCase()
-        )}`
-      );
+      try {
+        const { data } = await axios.get(
+          `https://residential-building.onrender.com/acceptMessage?role=${JSON.stringify(
+            userInfoFromLocalStorage().role.toLowerCase()
+          )}`
+        );
 
-      console.log(data, "data");
-      setConnectedUsers(data);
+        console.log(data, "data");
+        setConnectedUsers(data);
+      } catch (err) {
+        toast.error("Server Error");
+      }
     })();
   }, []);
 
   console.log(connectedUsers, "Connected users");
   return (
-    <div className="h-full  p-3 ">
+    <div className="h-full p-3 ">
       <p className="capitalize text-lg font-bold font-roboto flex justify-center items-center gap-4 text-white">
         <FaUsers size={20} /> Connected users
       </p>
-      <div className="h-[80%]">
+      <div className="h-[90%] overflow-y-auto no-scrollbar">
         {connectedUsers?.length === 0 ? (
           <div className="h-full flex flex-col justify-center items-center font-bold text-white text-lg capitalize gap-3">
             <IoHappySharp size={35} />
@@ -64,7 +73,7 @@ const ConnectedCustomers = ({ setActiveChat, setShow }) => {
             <p>NO ONE CONNECTED YET</p>
           </div>
         ) : (
-          <div className="overflow-y-scroll no-scrollbar">
+          <div className="">
             {connectedUsers?.map((user) => (
               <div
                 key={user._id}

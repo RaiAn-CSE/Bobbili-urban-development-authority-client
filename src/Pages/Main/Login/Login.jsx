@@ -85,7 +85,7 @@ const Login = () => {
 
             console.log(localStorage.getItem("loggedUser"));
 
-            // axios.post("http://localhost:5000/jwt",userInfo,{
+            // axios.post("https://residential-building.onrender.com/jwt",userInfo,{
             //   withCredentials: true,
             //   headers: {
             //       'Access-Control-Allow-Origin': '*',
@@ -94,7 +94,7 @@ const Login = () => {
 
             //   })
 
-            fetch("http://localhost:5000/jwt", {
+            fetch("https://residential-building.onrender.com/jwt", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(userInfo),
@@ -157,7 +157,11 @@ const Login = () => {
     <div className="relative overflow-hidden">
       {/* support icon  */}
       <div className="nm_Inset mt-[-65%] ml-[-20%] h-[330px] lg:w-[120%] bg-gradient-to-r from-[#cecbf5] via-[#BDB9F6] to-[#8980fd] rounded-full flex justify-center flex-col items-center">
-        <p className={`text text-white font-medium text-4xl uppercase pt-[50%] pr-[15%]`}>Sign in</p>
+        <p
+          className={`text text-white font-medium text-4xl uppercase pt-[50%] pr-[15%]`}
+        >
+          Sign in
+        </p>
         <p className="text-white font-base text-lg">Welcome back!</p>
       </div>
 
@@ -170,9 +174,7 @@ const Login = () => {
               Sign in
             </h1> */}
 
-          <div
-            className={`${LoginCSS.formGroup} relative pt-[20px] max-w-xs`}
-          >
+          <div className={`${LoginCSS.formGroup} relative pt-[20px] max-w-xs`}>
             <input
               type="text"
               {...register("id", { required: true })}
@@ -190,9 +192,7 @@ const Login = () => {
             </label>
           </div>
 
-          <div
-            className={`${LoginCSS.formGroup} relative pt-[20px] max-w-xs`}
-          >
+          <div className={`${LoginCSS.formGroup} relative pt-[20px] max-w-xs`}>
             <input
               type={`${show === true ? "text" : "password"}`}
               id="password"
