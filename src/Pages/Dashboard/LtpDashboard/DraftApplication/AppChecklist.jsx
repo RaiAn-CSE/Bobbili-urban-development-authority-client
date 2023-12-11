@@ -130,14 +130,16 @@ function AppChecklist() {
 
       {/* save & continue  */}
       {/* navigation button  */}
-      <SaveData
-        isStepperVisible={isStepperVisible}
-        currentStep={currentStep}
-        steps={steps}
-        stepperData={stepperData}
-        confirmAlert={confirmAlert}
-        collectInputFieldData={sendAppChecklistData}
-      />
+      <div className="mx-4">
+        <SaveData
+          isStepperVisible={isStepperVisible}
+          currentStep={currentStep}
+          steps={steps}
+          stepperData={stepperData}
+          confirmAlert={confirmAlert}
+          collectInputFieldData={sendAppChecklistData}
+        />
+      </div>
     </div>
   );
 }
