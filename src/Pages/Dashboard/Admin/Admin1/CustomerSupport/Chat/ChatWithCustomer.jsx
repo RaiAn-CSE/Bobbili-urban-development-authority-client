@@ -171,7 +171,7 @@ const ChatWithCustomer = ({
           </div>
           {/* input boxes  */}
           {activeChat.chatEnd === 1 ? (
-            <p className="bg-[#7871e1] p-4 text-center font-bold text-white">
+            <p className="bg-[#7871e1] p-3 text-center font-bold text-white">
               You end your chat with this person
             </p>
           ) : (
