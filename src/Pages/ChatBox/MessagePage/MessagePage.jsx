@@ -55,7 +55,7 @@ const MessagePage = ({ props }) => {
           setTimeout(true);
           // clearInterval(countDownInterval);
           // axios.patch(
-          //   `http://localhost:5000/messageRequest?update=${JSON.stringify({
+          //   `https://residential-building.onrender.com/messageRequest?update=${JSON.stringify({
           //     id: userInfo.uniqueId,
           //     senderId: data.senderId,
           //     action: "sendId",
@@ -136,10 +136,12 @@ const MessagePage = ({ props }) => {
       socket.off("check-accept-message");
       console.log("Counter inside");
       fetch(
-        `http://localhost:5000/messageRequest?update=${JSON.stringify({
-          id: userInfo.uniqueId,
-          action: "timeUp",
-        })}`,
+        `https://residential-building.onrender.com/messageRequest?update=${JSON.stringify(
+          {
+            id: userInfo.uniqueId,
+            action: "timeUp",
+          }
+        )}`,
         {
           method: "PATCH",
         }
@@ -161,10 +163,12 @@ const MessagePage = ({ props }) => {
     // clearInterval(countDownInterval);
     try {
       const { data } = await axios.patch(
-        `http://localhost:5000/messageRequest?update=${JSON.stringify({
-          id: userInfo.uniqueId,
-          action: "requestAgain",
-        })}`
+        `https://residential-building.onrender.com/messageRequest?update=${JSON.stringify(
+          {
+            id: userInfo.uniqueId,
+            action: "requestAgain",
+          }
+        )}`
       );
 
       console.log(data, "UPDATE REQ");
@@ -198,11 +202,13 @@ const MessagePage = ({ props }) => {
     });
     setMessages((prevMessages) => [...prevMessages, { ...messageData }]);
     await axios.patch(
-      `http://localhost:5000/messageRequest?update=${JSON.stringify({
-        id: userInfo.uniqueId,
-        action: "text",
-        message: { userId: userInfo?.name, message: messageData?.message },
-      })}`
+      `https://residential-building.onrender.com/messageRequest?update=${JSON.stringify(
+        {
+          id: userInfo.uniqueId,
+          action: "text",
+          message: { userId: userInfo?.name, message: messageData?.message },
+        }
+      )}`
     );
 
     resetField("message");
@@ -241,8 +247,9 @@ const MessagePage = ({ props }) => {
             <div className="flex flex-col justify-center items-center">
               <span
                 id="counterElement"
-                className={`${counter < 15 ? "text-red-500" : "text-normalViolet"
-                  } text-black text-xl font-bold inline-block`}
+                className={`${
+                  counter < 15 ? "text-red-500" : "text-normalViolet"
+                } text-black text-xl font-bold inline-block`}
                 style={{ "--value": counter }}
               >
                 {counter}
@@ -301,22 +308,26 @@ const MessagePage = ({ props }) => {
             {messages?.map((message, index) => (
               <div
                 key={index}
-                className={`${message?.userId?.includes("admin")
-                  ? "justify-end"
-                  : "justify-start"
-                  } flex m-3`}
+                className={`${
+                  message?.userId?.includes("admin")
+                    ? "justify-end"
+                    : "justify-start"
+                } flex m-3`}
               >
                 <div>
                   <div className="text-sm font-bold capitalize mx-2">
-                    {message?.userId?.includes("admin")
-                      ? <span className="flex justify-end">Admin</span>
-                      : <span className="flex justify-start">You</span>}
+                    {message?.userId?.includes("admin") ? (
+                      <span className="flex justify-end">Admin</span>
+                    ) : (
+                      <span className="flex justify-start">You</span>
+                    )}
                   </div>
                   <p
-                    className={`${message?.userId?.includes("admin")
-                      ? "bg-[#8B5BF6] font-bold text-white rounded-xl"
-                      : "bg-white rounded-xl"
-                      } p-3  max-w-[500px]`}
+                    className={`${
+                      message?.userId?.includes("admin")
+                        ? "bg-[#8B5BF6] font-bold text-white rounded-xl"
+                        : "bg-white rounded-xl"
+                    } p-3  max-w-[500px]`}
                   >
                     {message?.message}
                   </p>

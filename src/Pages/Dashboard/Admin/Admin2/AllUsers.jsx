@@ -27,10 +27,13 @@ const AllUsers = () => {
   const { data, refetch, isLoading, isSuccess } = useQuery({
     queryKey: ["allUser"],
     queryFn: async () => {
-      const response = await fetch("http://localhost:5000/allUser", {
-        method: "GET",
-        headers: { authorization: getToken },
-      });
+      const response = await fetch(
+        "https://residential-building.onrender.com/allUser",
+        {
+          method: "GET",
+          headers: { authorization: getToken },
+        }
+      );
       const data = await response.json();
       return data;
     },
@@ -78,7 +81,7 @@ const AllUsers = () => {
   const deleteUser = (id) => {
     console.log(id);
 
-    fetch(`http://localhost:5000/deleteUser/${id}`, {
+    fetch(`https://residential-building.onrender.com/deleteUser/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -143,13 +146,16 @@ const AllUsers = () => {
         delete newUpdatedData._id;
 
         console.log(newUpdatedData, "New updated data");
-        fetch(`http://localhost:5000/updateUserInfo/${_id}`, {
-          method: "PATCH",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(newUpdatedData),
-        })
+        fetch(
+          `https://residential-building.onrender.com/updateUserInfo/${_id}`,
+          {
+            method: "PATCH",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(newUpdatedData),
+          }
+        )
           .then((res) => res.json())
           .then((result) => {
             if (result.acknowledged) {
@@ -183,8 +189,9 @@ const AllUsers = () => {
     return <Loading />;
   }
 
-  const inputLabel = "block mb-1 font-semibold text-gray-600"
-  const inputBox = "w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-gray-400 focus:border-gray-600 focus:outline-none focus:ring-2 ring-violet-200"
+  const inputLabel = "block mb-1 font-semibold text-gray-600";
+  const inputBox =
+    "w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-gray-400 focus:border-gray-600 focus:outline-none focus:ring-2 ring-violet-200";
 
   return (
     <>
@@ -326,10 +333,7 @@ const AllUsers = () => {
                       {/* form input boxes  */}
                       <div className="grid gap-6 mb-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                         <div>
-                          <label
-                            htmlFor="name"
-                            className={inputLabel}
-                          >
+                          <label htmlFor="name" className={inputLabel}>
                             Name
                           </label>
                           <input
@@ -343,10 +347,7 @@ const AllUsers = () => {
                         </div>
 
                         <div>
-                          <label
-                            htmlFor="user_id"
-                            className={inputLabel}
-                          >
+                          <label htmlFor="user_id" className={inputLabel}>
                             User ID
                           </label>
                           <input
@@ -360,10 +361,7 @@ const AllUsers = () => {
                         </div>
 
                         <div>
-                          <label
-                            htmlFor="password"
-                            className={inputLabel}
-                          >
+                          <label htmlFor="password" className={inputLabel}>
                             Password
                           </label>
                           <input
@@ -377,10 +375,7 @@ const AllUsers = () => {
                         </div>
 
                         <div>
-                          <label
-                            htmlFor="role"
-                            className={inputLabel}
-                          >
+                          <label htmlFor="role" className={inputLabel}>
                             Role
                           </label>
                           <input
@@ -396,7 +391,9 @@ const AllUsers = () => {
 
                       <div className="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                         <div className="flex flex-col items-center mt-3">
-                          <label htmlFor="" className={`${inputLabel}`}>Gender</label>
+                          <label htmlFor="" className={`${inputLabel}`}>
+                            Gender
+                          </label>
                           <div className="radio-button-container">
                             <div className="radio-button">
                               <input
@@ -407,7 +404,10 @@ const AllUsers = () => {
                                 value="male"
                                 {...register("gender1")}
                               />
-                              <label className="radio-button__label" htmlFor="male">
+                              <label
+                                className="radio-button__label"
+                                htmlFor="male"
+                              >
                                 <span className="radio-button__custom"></span>
                                 male
                               </label>
@@ -421,7 +421,10 @@ const AllUsers = () => {
                                 value="female"
                                 {...register("gender1")}
                               />
-                              <label className="radio-button__label" htmlFor="female">
+                              <label
+                                className="radio-button__label"
+                                htmlFor="female"
+                              >
                                 <span className="radio-button__custom"></span>
                                 female
                               </label>
@@ -430,10 +433,7 @@ const AllUsers = () => {
                         </div>
 
                         <div>
-                          <label
-                            htmlFor="email"
-                            className={inputLabel}
-                          >
+                          <label htmlFor="email" className={inputLabel}>
                             Email
                           </label>
                           <input
@@ -447,10 +447,7 @@ const AllUsers = () => {
                         </div>
 
                         <div>
-                          <label
-                            htmlFor="phone"
-                            className={inputLabel}
-                          >
+                          <label htmlFor="phone" className={inputLabel}>
                             Phone no
                           </label>
                           <input
@@ -465,10 +462,7 @@ const AllUsers = () => {
                         </div>
 
                         <div>
-                          <label
-                            htmlFor="address"
-                            className={inputLabel}
-                          >
+                          <label htmlFor="address" className={inputLabel}>
                             Address
                           </label>
                           <textarea
@@ -484,10 +478,7 @@ const AllUsers = () => {
                       {userInfo?.role === "LTP" && (
                         <div className="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                           <div>
-                            <label
-                              htmlFor="licenseNo"
-                              className={inputLabel}
-                            >
+                            <label htmlFor="licenseNo" className={inputLabel}>
                               License No
                             </label>
                             <input
@@ -501,10 +492,7 @@ const AllUsers = () => {
                           </div>
 
                           <div>
-                            <label
-                              htmlFor="adharNo"
-                              className={inputLabel}
-                            >
+                            <label htmlFor="adharNo" className={inputLabel}>
                               Aadhar no
                             </label>
                             <input
@@ -518,10 +506,7 @@ const AllUsers = () => {
                           </div>
 
                           <div>
-                            <label
-                              htmlFor="validity"
-                              className={inputLabel}
-                            >
+                            <label htmlFor="validity" className={inputLabel}>
                               Validity
                             </label>
                             <input

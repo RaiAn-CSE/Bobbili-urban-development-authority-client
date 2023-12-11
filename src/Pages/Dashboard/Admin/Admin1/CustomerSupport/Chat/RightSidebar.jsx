@@ -12,12 +12,14 @@ const RightSidebar = ({
   chatEnd,
 }) => {
   const [messages, setMessages] = useState([]);
+  const [error, setError] = useState("");
   useEffect(() => {
     if (activeChat) {
+      setError("");
       (async function () {
         try {
           const { data } = await axios.get(
-            `http://localhost:5000/messages?id=${activeChat?._id}`
+            `https://residential-building.onrender.com/messages?id=${activeChat?._id}`
           );
 
           console.log(data, "GET OLD MESSAGES");
@@ -25,6 +27,7 @@ const RightSidebar = ({
           setMessages(data?.text);
         } catch (err) {
           toast.error("Server Error");
+          setError("Server Error");
         }
       })();
     }
@@ -47,15 +50,19 @@ const RightSidebar = ({
     <div
       className={` basis-[100%] md:basis-[68%] rounded-lg overflow-hidden md:block border-2 border-[#7871E1]`}
     >
-      <ChatWithCustomer
-        activeChat={activeChat}
-        setActiveChat={setActiveChat}
-        setShow={setShow}
-        removeUser={removeUser}
-        chatEnd={chatEnd}
-        messages={messages}
-        setMessages={setMessages}
-      />
+      {error?.length !== 0 ? (
+        <p>Error</p>
+      ) : (
+        <ChatWithCustomer
+          activeChat={activeChat}
+          setActiveChat={setActiveChat}
+          setShow={setShow}
+          removeUser={removeUser}
+          chatEnd={chatEnd}
+          messages={messages}
+          setMessages={setMessages}
+        />
+      )}
     </div>
   );
 };

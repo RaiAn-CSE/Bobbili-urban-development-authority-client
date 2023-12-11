@@ -30,11 +30,15 @@ const NewMessage = () => {
 
       if (data?.change?.operationType === "insert") {
         console.log(allData, "After updating");
-        const { data } = await axios.get(
-          "http://localhost:5000/messageRequest"
-        );
+        try {
+          const { data } = await axios.get(
+            "https://residential-building.onrender.com/messageRequest"
+          );
 
-        setAllData(data);
+          setAllData(data);
+        } catch (err) {
+          setError("Server Error");
+        }
       }
     });
 
@@ -44,11 +48,15 @@ const NewMessage = () => {
 
       if (data?.change?.operationType === "update") {
         console.log(allData, "After updating");
-        const { data } = await axios.get(
-          "http://localhost:5000/messageRequest"
-        );
+        try {
+          const { data } = await axios.get(
+            "https://residential-building.onrender.com/messageRequest"
+          );
 
-        setAllData(data);
+          setAllData(data);
+        } catch (err) {
+          setError("Server Error");
+        }
       }
     });
 
@@ -62,7 +70,7 @@ const NewMessage = () => {
   useEffect(() => {
     setError("");
     setLoading(true);
-    fetch("http://localhost:5000/messageRequest")
+    fetch("https://residential-building.onrender.com/messageRequest")
       .then((res) => res.json())
       .then((result) => {
         console.log(result);
@@ -78,23 +86,33 @@ const NewMessage = () => {
 
   const acceptNewMessage = async (id) => {
     console.log(id);
-    const { data } = await axios.patch(
-      `http://localhost:5000/messageRequest?update=${JSON.stringify({
-        id,
-        action: "accept",
-        acceptedBy: userInfoFromLocalStorage().role.toLowerCase(),
-      })}`
-    );
-
-    if (data.acknowledged) {
-      toast.success("Request accepted");
-      const { data: updateData } = await axios.get(
-        "http://localhost:5000/messageRequest"
+    try {
+      const { data } = await axios.patch(
+        `https://residential-building.onrender.com/messageRequest?update=${JSON.stringify(
+          {
+            id,
+            action: "accept",
+            acceptedBy: userInfoFromLocalStorage().role.toLowerCase(),
+          }
+        )}`
       );
-      console.log(updateData, "UPD");
-      setAllData(updateData);
-    } else {
-      toast.error("Server Error");
+
+      if (data.acknowledged) {
+        toast.success("Request accepted");
+        try {
+          const { data: updateData } = await axios.get(
+            "https://residential-building.onrender.com/messageRequest"
+          );
+          console.log(updateData, "UPD");
+          setAllData(updateData);
+        } catch (err) {
+          setError("Server Error");
+        }
+      } else {
+        toast.error("Server Error");
+      }
+    } catch (error) {
+      setError("Server Error");
     }
   };
 
