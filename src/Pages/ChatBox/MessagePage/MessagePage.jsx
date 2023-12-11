@@ -304,16 +304,18 @@ const MessagePage = ({ props }) => {
                 className={`${message?.userId?.includes("admin")
                   ? "justify-end"
                   : "justify-start"
-                  } flex my-3 ml-10`}
+                  } flex m-3`}
               >
                 <div>
-                  <p className="text-sm font-bold capitalize">
-                    {message?.userId?.includes("admin") ? "Admin" : "You"}
-                  </p>
+                  <div className="text-sm font-bold capitalize mx-2">
+                    {message?.userId?.includes("admin")
+                      ? <span className="flex justify-end">Admin</span>
+                      : <span className="flex justify-start">You</span>}
+                  </div>
                   <p
                     className={`${message?.userId?.includes("admin")
-                      ? "bg-[#8B5BF6] font-bold text-white rounded-l-xl"
-                      : "bg-white rounded-r-xl"
+                      ? "bg-[#8B5BF6] font-bold text-white rounded-xl"
+                      : "bg-white rounded-xl"
                       } p-3  max-w-[500px]`}
                   >
                     {message?.message}
