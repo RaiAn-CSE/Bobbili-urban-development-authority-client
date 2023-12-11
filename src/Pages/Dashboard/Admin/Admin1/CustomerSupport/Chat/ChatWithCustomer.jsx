@@ -140,7 +140,9 @@ const ChatWithCustomer = ({
           </div>
           {/* message part  */}
           <div className="h-[calc(82vh-112px)] message-bg overflow-y-auto">
-            {console.log(messages, "MEssage")}
+            <p className="mx-auto text-sm bg-[#8B5BF6] text-white w-fit font-bold mt-1 px-3 rounded-xl">
+              Today
+            </p>
             {messages?.map((message, index) => (
               <div
                 key={index}
@@ -152,12 +154,14 @@ const ChatWithCustomer = ({
               >
                 <div>
                   <p className="text-sm font-bold capitalize">
-                    {message?.userId}
+                    {message?.userId?.includes("admin")
+                      ? "You"
+                      : message?.userId}
                   </p>
                   <p
                     className={`${
                       message?.userId?.includes("admin")
-                        ? "bg-[#9a94e7] font-bold text-white rounded-l-xl"
+                        ? "bg-[#7871e1] font-bold text-white rounded-l-xl"
                         : "bg-white rounded-r-xl"
                     } p-3  max-w-[500px]`}
                   >

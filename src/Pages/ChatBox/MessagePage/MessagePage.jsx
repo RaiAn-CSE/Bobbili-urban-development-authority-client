@@ -295,11 +295,33 @@ const MessagePage = ({ props }) => {
 
           {/* message box part  */}
 
-          <div className="flex-1 p-3 message-bg overflow-y-auto">
+          <div className="flex-1 message-bg  overflow-y-auto">
+            <p className="mx-auto text-sm bg-[#8B5BF6] text-white w-fit font-bold mt-1 px-3 rounded-xl">
+              Today
+            </p>
             {messages?.map((message, index) => (
-              <div key={index}>
-                <p>{message?.userId}</p>
-                <p>{message?.message}</p>
+              <div
+                key={index}
+                className={`${
+                  message?.userId?.includes("admin")
+                    ? "justify-end"
+                    : "justify-start"
+                } flex my-3`}
+              >
+                <div>
+                  <p className="text-sm font-bold capitalize">
+                    {message?.userId?.includes("admin") ? "Admin" : "You"}
+                  </p>
+                  <p
+                    className={`${
+                      message?.userId?.includes("admin")
+                        ? "bg-[#8B5BF6] font-bold text-white rounded-l-xl"
+                        : "bg-white rounded-r-xl"
+                    } p-3  max-w-[500px]`}
+                  >
+                    {message?.message}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
