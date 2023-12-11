@@ -241,9 +241,8 @@ const MessagePage = ({ props }) => {
             <div className="flex flex-col justify-center items-center">
               <span
                 id="counterElement"
-                className={`${
-                  counter < 15 ? "text-red-500" : "text-normalViolet"
-                } text-black text-xl font-bold inline-block`}
+                className={`${counter < 15 ? "text-red-500" : "text-normalViolet"
+                  } text-black text-xl font-bold inline-block`}
                 style={{ "--value": counter }}
               >
                 {counter}
@@ -302,22 +301,20 @@ const MessagePage = ({ props }) => {
             {messages?.map((message, index) => (
               <div
                 key={index}
-                className={`${
-                  message?.userId?.includes("admin")
-                    ? "justify-end"
-                    : "justify-start"
-                } flex my-3`}
+                className={`${message?.userId?.includes("admin")
+                  ? "justify-end"
+                  : "justify-start"
+                  } flex my-3 ml-10`}
               >
                 <div>
                   <p className="text-sm font-bold capitalize">
                     {message?.userId?.includes("admin") ? "Admin" : "You"}
                   </p>
                   <p
-                    className={`${
-                      message?.userId?.includes("admin")
-                        ? "bg-[#8B5BF6] font-bold text-white rounded-l-xl"
-                        : "bg-white rounded-r-xl"
-                    } p-3  max-w-[500px]`}
+                    className={`${message?.userId?.includes("admin")
+                      ? "bg-[#8B5BF6] font-bold text-white rounded-l-xl"
+                      : "bg-white rounded-r-xl"
+                      } p-3  max-w-[500px]`}
                   >
                     {message?.message}
                   </p>
