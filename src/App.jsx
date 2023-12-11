@@ -4,7 +4,7 @@ import { RouterProvider } from "react-router-dom";
 import router from "./Routes/Routes";
 import io from "socket.io-client";
 
-const socket = io("https://residential-building.vercel.app");
+const socket = io("https://localhost:5000/");
 
 function App() {
   useEffect(() => {
