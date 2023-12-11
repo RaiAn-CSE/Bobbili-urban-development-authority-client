@@ -195,7 +195,7 @@ const AddUser = () => {
         className="w-[90%] mx-auto mt-10 font-roboto text-lg"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className="mb-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <div>
             <label htmlFor="name" className={inputLabel}>
               Name
@@ -260,9 +260,57 @@ const AddUser = () => {
               )}
             </select>
           </div>
-        </div>
 
-        <div className="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="flex flex-col items-center mt-3">
+            <label htmlFor="" className={`${inputLabel}`}>Gender</label>
+            <div className="radio-button-container">
+              <div className="radio-button">
+                <input
+                  type="radio"
+                  className="radio-button__input"
+                  id="male"
+                  name="gender1"
+                  value="male"
+                  {...register("gender1")}
+                />
+                <label className="radio-button__label" htmlFor="male">
+                  <span className="radio-button__custom"></span>
+                  male
+                </label>
+              </div>
+              <div className="radio-button">
+                <input
+                  type="radio"
+                  className="radio-button__input"
+                  id="female"
+                  name="gender1"
+                  value="female"
+                  {...register("gender1")}
+                />
+                <label className="radio-button__label" htmlFor="female">
+                  <span className="radio-button__custom"></span>
+                  female
+                </label>
+              </div>
+            </div>
+          </div>
+
+          {/* <div>
+            <label htmlFor="gender" className={inputLabel}>
+              Gender
+            </label>
+            <select
+              id="gender"
+              {...register("gender", { required: true })}
+              className="w-full px-3 py-[10.5px] border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-gray-400 focus:border-gray-600 focus:outline-none focus:ring-2 ring-violet-200"
+            // onChange={(e) => handleChangeRole(e)}
+            >
+              <option value="Select an option">Select an option</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div> */}
+
           <div>
             <label htmlFor="email" className={inputLabel}>
               Email
@@ -304,6 +352,10 @@ const AddUser = () => {
               placeholder="Enter address..."
             ></textarea>
           </div>
+        </div>
+
+        <div className="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
         </div>
 
         {userType === "LTP" && (

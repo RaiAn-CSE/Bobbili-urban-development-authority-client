@@ -74,9 +74,12 @@ function AppChecklist() {
             viewport={{ once: false }}
           >
             <div key={id} className="lg:flex items-center justify-center shadow-sm shadow-gray-100 rounded p-3">
-              <p className="flex-1 text-black rounded mb-5 text-base md:text-lg lg:mb-0 lg:pr-4">
-                {id}. {question}
-              </p>
+              <div className="flex-1 text-black rounded mb-5 text-base md:text-lg lg:mb-0 lg:pr-4">
+                <div className="flex">
+                  <span className="font-semibold mr-1">{id}.</span>
+                  <span>{question}</span>
+                </div>
+              </div>
               <div className="space-x-10 mt-2 lg:pr-2 lg:mt-0 text-base md:text-lg">
                 <div className="radio-button-container ml-3">
                   <div className="radio-button">
@@ -127,14 +130,16 @@ function AppChecklist() {
 
       {/* save & continue  */}
       {/* navigation button  */}
-      <SaveData
-        isStepperVisible={isStepperVisible}
-        currentStep={currentStep}
-        steps={steps}
-        stepperData={stepperData}
-        confirmAlert={confirmAlert}
-        collectInputFieldData={sendAppChecklistData}
-      />
+      <div className="mx-4">
+        <SaveData
+          isStepperVisible={isStepperVisible}
+          currentStep={currentStep}
+          steps={steps}
+          stepperData={stepperData}
+          confirmAlert={confirmAlert}
+          collectInputFieldData={sendAppChecklistData}
+        />
+      </div>
     </div>
   );
 }

@@ -625,6 +625,7 @@ const ProceedingModal = ({ modalProceeding }) => {
               </tr>
             </tbody>
           </table>
+
           <div className="mt-10 border-image-frame p-4">
             <h4 className="font-semibold underline text-md p-3 pb-0">
               షరతులు:

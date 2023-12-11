@@ -5,12 +5,13 @@ import { MdOutlineDarkMode, MdOutlineDashboard } from "react-icons/md";
 import { motion } from "framer-motion";
 import { FiSun } from "react-icons/fi";
 import ParticleBg from "../Pages/Components/ParticleBg";
+import { IoIosArrowDropdownCircle } from "react-icons/io";
 import CustomerSupport from "../assets/images/support.jpg";
 
 import ChatBox from "../Pages/Shared/ChatBox";
 
 const MainLayout = () => {
-  const path = useLocation().pathname;
+  const path = useLocation()?.pathname;
   console.log(path);
   const active =
     "bg-[#8B5BF6] shadow-md shadow-violetDark text-white border-none ";
@@ -57,7 +58,7 @@ const MainLayout = () => {
 
       <div className="px-10 min-h-screen z-[10] bg-[#E8EAEC] relative">
         {/* upper part  */}
-        <div className="py-3 flex justify-between items-center z-[10]">
+        <div className="py-3 flex-col lg:flex-row flex justify-between items-center z-[10]">
           <div className="basis-3/4 z-[10] pt-2">
             <p
               // className="css-3d-text w-fit p-2 text-4xl text-gray-600 font-bold font-sofadi"
@@ -73,27 +74,25 @@ const MainLayout = () => {
             </p>
           </div>
 
-          <div className="basis-[20%] z-[10] flex justify-end items-center space-x-6 dark:text-black">
+          <div className="basis-[20%] mt-7 lg:mt-0 z-[10] flex justify-end items-center space-x-6 dark:text-black">
             <Link
               to="/"
-              className={`nm_Container w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center  ${
-                path === "/" ||
+              className={`nm_Container w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center  ${path === "/" ||
                 path === "/onlinePayment" ||
                 path === "/listOfLTP" ||
                 path === "/demoVideos" ||
                 path === "/privacyPolicy" ||
                 path === "/defaultDrawingFormat"
-                  ? active
-                  : ` ${notActive}`
-              }`}
+                ? active
+                : ` ${notActive}`
+                }`}
             >
               <AiOutlineHome size={25} className="text-2xl " />
             </Link>
             <Link
               to="/statistics"
-              className={`nm_Container w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center ${
-                path.includes("/statistics") ? active : ` ${notActive}`
-              }`}
+              className={`nm_Container w-12 h-12 cursor-pointer transition-all duration-700 border rounded-full flex justify-center items-center ${path.includes("/statistics") ? active : ` ${notActive}`
+                }`}
             >
               <MdOutlineDashboard size={25} className="text-2xl" />
             </Link>
@@ -124,7 +123,9 @@ const MainLayout = () => {
           onClick={() => setToggleChat(!toggleChat)}
         >
           <div className="chatbox-toggle">
-            <AiFillMessage size={30} />
+            {
+              toggleChat ? <IoIosArrowDropdownCircle size={36} /> : <AiFillMessage size={33} />
+            }
           </div>
         </div>
 

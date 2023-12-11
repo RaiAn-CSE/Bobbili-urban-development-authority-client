@@ -44,7 +44,7 @@ const DefaultDrawingFormat = () => {
       })
       .catch((err) => {
         console.log(err, "err");
-        setLoading(<i class="fa fa-life-saver" aria-hidden="true"></i>);
+        setLoading(<i className="fa fa-life-saver" aria-hidden="true"></i>);
         toast.error("Server Error");
       });
   };
@@ -54,8 +54,7 @@ const DefaultDrawingFormat = () => {
   }
   return (
     <div className="w-full h-full drawingFormat relative">
-      <motion.div
-        className="flex flex-col w-full items-center h-full justify-center"
+      <motion.div className="flex flex-col w-full items-center h-full justify-center"
         initial={{ opacity: 0, scale: 0.5 }}
         whileInView={{ opacity: 1, scale: 1.0 }}
         transition={{ duration: 1 }}

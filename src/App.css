@@ -1331,6 +1331,29 @@ ol > li:before {
   }
 }
 
+
+/*===========================<<< Scrollbar >>> */
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #8272ff;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #7162E9;
+}
+/*=========================<<< Scrollbar End >>> */
 /* chat box  */
 
 .chatbox-wrapper {

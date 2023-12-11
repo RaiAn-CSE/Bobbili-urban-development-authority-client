@@ -66,9 +66,9 @@ const DashboardLayout = () => {
                     BUDA
                   </p> */}
                   {/* <SvgTextAnimation /> */}
-                  <button class="logo-btn" data-text="Awesome">
-                    <span class="actual-text">&nbsp;BUDA&nbsp;</span>
-                    <span aria-hidden="true" class="hover-text">
+                  <button className="logo-btn" data-text="Awesome">
+                    <span className="actual-text">&nbsp;BUDA&nbsp;</span>
+                    <span aria-hidden="true" className="hover-text">
                       &nbsp;BUDA&nbsp;
                     </span>
                   </button>
