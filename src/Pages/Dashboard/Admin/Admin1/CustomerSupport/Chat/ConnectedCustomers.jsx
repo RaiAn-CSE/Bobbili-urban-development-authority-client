@@ -35,7 +35,7 @@ const ConnectedCustomers = ({ setActiveChat, setShow }) => {
     });
   }, [socket]);
 
-  useEffect(() => {}, [connectedUsers]);
+  useEffect(() => { }, [connectedUsers]);
 
   useEffect(() => {
     (async function () {
@@ -50,7 +50,7 @@ const ConnectedCustomers = ({ setActiveChat, setShow }) => {
     })();
   }, []);
   return (
-    <div className="h-full  p-3 ">
+    <div className="h-full p-3 nm_Container">
       <p className="capitalize text-lg font-bold font-roboto flex justify-center items-center gap-4 text-white">
         <FaUsers size={20} /> Connected users
       </p>
