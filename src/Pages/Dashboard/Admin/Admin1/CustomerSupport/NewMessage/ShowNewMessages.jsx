@@ -57,17 +57,18 @@ const ShowNewMessages = ({
           </div>
         </td>
         <td className="p-3  border-b border-gray-200 text-sm">
-          <button
-            className="text-white fancy-button"
-            onClick={() => {
-              setLoading(true);
-              tableComponentProps.acceptNewMessage(applicationData._id);
-              setLoading(false);
-            }}
-            disabled={loading}
-          >
-            <FaFacebookMessenger size={18} />
-          </button>
+          {tableComponentProps?.loadOnAccept ? (
+            <span className="loading loading-dots loading-lg text-normalViolet"></span>
+          ) : (
+            <button
+              className="text-white fancy-button"
+              onClick={() => {
+                tableComponentProps.acceptNewMessage(applicationData._id);
+              }}
+            >
+              <FaFacebookMessenger size={18} />
+            </button>
+          )}
         </td>
       </tr>
     </>

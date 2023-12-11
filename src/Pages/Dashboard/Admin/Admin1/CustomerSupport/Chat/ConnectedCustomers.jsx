@@ -89,7 +89,7 @@ const ConnectedCustomers = ({ setActiveChat, setShow }) => {
                     src={
                       (user.gender === "male" && maleImg) ||
                       (user.gender === "female" && femaleImg) ||
-                      (user.gender === "null" && unknownImg)
+                      (user.gender === null && unknownImg)
                     }
                     alt="user avatar"
                   />

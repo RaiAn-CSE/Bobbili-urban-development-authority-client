@@ -61,6 +61,7 @@ const MissedRequest = () => {
   }, [socket]);
 
   const checkedMissedMessage = async (id) => {
+    setLoading(true);
     const filteredData = allData.filter((each) => each._id !== id);
     setAllData(filteredData);
     const { data } = await axios.delete(
@@ -72,6 +73,7 @@ const MissedRequest = () => {
     } else {
       toast.error("Server Error");
     }
+    setLoading(false);
   };
 
   useEffect(() => {
