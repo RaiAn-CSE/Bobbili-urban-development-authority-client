@@ -5,6 +5,7 @@ import { MdOutlineDarkMode, MdOutlineDashboard } from "react-icons/md";
 import { motion } from "framer-motion";
 import { FiSun } from "react-icons/fi";
 import ParticleBg from "../Pages/Components/ParticleBg";
+import { IoIosArrowDropdownCircle } from "react-icons/io";
 import CustomerSupport from "../assets/images/support.jpg";
 
 import ChatBox from "../Pages/Shared/ChatBox";
@@ -77,13 +78,13 @@ const MainLayout = () => {
             <Link
               to="/"
               className={`nm_Container w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center  ${path === "/" ||
-                  path === "/onlinePayment" ||
-                  path === "/listOfLTP" ||
-                  path === "/demoVideos" ||
-                  path === "/privacyPolicy" ||
-                  path === "/defaultDrawingFormat"
-                  ? active
-                  : ` ${notActive}`
+                path === "/onlinePayment" ||
+                path === "/listOfLTP" ||
+                path === "/demoVideos" ||
+                path === "/privacyPolicy" ||
+                path === "/defaultDrawingFormat"
+                ? active
+                : ` ${notActive}`
                 }`}
             >
               <AiOutlineHome size={25} className="text-2xl " />
@@ -122,7 +123,9 @@ const MainLayout = () => {
           onClick={() => setToggleChat(!toggleChat)}
         >
           <div className="chatbox-toggle">
-            <AiFillMessage size={30} />
+            {
+              toggleChat ? <IoIosArrowDropdownCircle size={36} /> : <AiFillMessage size={33} />
+            }
           </div>
         </div>
 
