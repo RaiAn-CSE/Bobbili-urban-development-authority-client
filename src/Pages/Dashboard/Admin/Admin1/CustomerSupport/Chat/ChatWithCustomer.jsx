@@ -161,7 +161,7 @@ const ChatWithCustomer = ({
                   <p
                     className={`${
                       message?.userId?.includes("admin")
-                        ? "bg-[#9a94e7] font-bold text-white rounded-l-xl"
+                        ? "bg-[#7871e1] font-bold text-white rounded-l-xl"
                         : "bg-white rounded-r-xl"
                     } p-3  max-w-[500px]`}
                   >
