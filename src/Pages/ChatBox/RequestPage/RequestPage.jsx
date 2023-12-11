@@ -1,18 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { LuMessagesSquare } from "react-icons/lu";
-import { IoIosSend, IoMdStar } from "react-icons/io";
+import { IoMdStar } from "react-icons/io";
 import { GiSensuousness } from "react-icons/gi";
-import { CiStar } from "react-icons/ci";
 import axios from "axios";
 import toast from "react-hot-toast";
-import socket from "../../Common/socket";
 import { FaStar } from "react-icons/fa6";
 
 const RequestPage = ({ props }) => {
   const { setRequestSent, setUserInfo } = props;
   const { register, errors, handleSubmit } = useForm();
-  const [gender, setGender] = useState(null);
   const onSubmit = async (dataFromUser) => {
     console.log(dataFromUser);
 

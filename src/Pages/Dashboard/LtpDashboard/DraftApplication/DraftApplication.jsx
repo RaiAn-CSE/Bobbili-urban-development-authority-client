@@ -243,7 +243,7 @@ const DraftApplication = () => {
                   className={`${btnClass} ${completeBtn(index)} ${role !== "PS"
                     ? "w-[70%] lg:w-[15.3%]"
                     : "w-[50%] lg:w-[13%]"
-                    } text-[14px] border-0 nm_Container flex lg:absolute top-3 z-10`}
+                    } text-[14px] border-0 flex lg:absolute top-3 z-10 nm_Container`}
                 >
                   {role !== "PS" && icons[index]}
                   <span>{step}</span>
