@@ -246,7 +246,7 @@ const DraftApplication = () => {
                     role !== "PS"
                       ? "w-[70%] lg:w-[15.3%]"
                       : "w-[50%] lg:w-[13%]"
-                  } text-[14px] font-bold gap-1 border-0 flex justify-center items-center lg:absolute top-3 z-10`}
+                  } text-[15px] font-bold gap-1 border-0 flex justify-center items-center lg:absolute top-3 z-10`}
                 >
                   {role !== "PS" && icons[index]}
                   <span>{step}</span>
