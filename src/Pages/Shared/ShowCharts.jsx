@@ -53,7 +53,7 @@ const ShowCharts = () => {
       setLoading(true);
       try {
         const locationData = await fetchDataFromTheDb(
-          "https://residential-building.vercel.app/getDistricts"
+          "http://localhost:5000/getDistricts"
         );
         console.log(locationData, "LOC");
         const extractsDataFromDB = locationData[0]?.district;
@@ -153,7 +153,7 @@ const ShowCharts = () => {
 
       console.log(data);
       fetch(
-        `https://residential-building.vercel.app/filterApplications?search=${JSON.stringify(
+        `http://localhost:5000/filterApplications?search=${JSON.stringify(
           data
         )}`
       )
@@ -173,7 +173,7 @@ const ShowCharts = () => {
       console.log("all");
       setLoading(true);
       fetch(
-        `https://residential-building.vercel.app/totalApplications?data=${JSON.stringify(
+        `http://localhost:5000/totalApplications?data=${JSON.stringify(
           userInfoFromLocalStorage()
         )}`
       )

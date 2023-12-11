@@ -205,7 +205,7 @@ const DocumentUpload = () => {
         formData.append("file", loopTimes[lt][i].file);
         try {
           const response = await axios.post(
-            "https://residential-building.vercel.app/upload?page=document",
+            "http://localhost:5000/upload?page=document",
             formData,
             {
               headers: {

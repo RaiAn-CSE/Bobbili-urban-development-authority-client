@@ -35,7 +35,7 @@ const AddUser = () => {
   useEffect(() => {
     (async function () {
       const locationData = await fetchDataFromTheDb(
-        "https://residential-building.vercel.app/getDistricts"
+        "http://localhost:5000/getDistricts"
       );
       console.log(locationData, "LOC");
       const extractsDataFromDB = locationData[0]?.district;
@@ -148,7 +148,7 @@ const AddUser = () => {
 
       if (userInfo) {
         // store users data in the database
-        fetch("https://residential-building.vercel.app/addUser", {
+        fetch("http://localhost:5000/addUser", {
           method: "POST",
           headers: {
             "Content-type": "application/json",

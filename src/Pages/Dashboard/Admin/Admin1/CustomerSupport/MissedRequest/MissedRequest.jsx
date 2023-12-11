@@ -21,7 +21,7 @@ const MissedRequest = () => {
   useEffect(() => {
     setLoading(true);
     setError("");
-    fetch("https://residential-building.vercel.app/missedMessage")
+    fetch("http://localhost:5000/missedMessage")
       .then((res) => res.json())
       .then((result) => {
         console.log(result);
@@ -45,9 +45,7 @@ const MissedRequest = () => {
 
       if (data?.change?.operationType === "update") {
         console.log(allData, "After updating");
-        const { data } = await axios.get(
-          "https://residential-building.vercel.app/missedMessage"
-        );
+        const { data } = await axios.get("http://localhost:5000/missedMessage");
 
         setAllData(data);
       }
@@ -64,7 +62,7 @@ const MissedRequest = () => {
     const filteredData = allData.filter((each) => each._id !== id);
     setAllData(filteredData);
     const { data } = await axios.delete(
-      `https://residential-building.vercel.app/messageRequest?id=${id}`
+      `http://localhost:5000/messageRequest?id=${id}`
     );
 
     if (data.acknowledged) {
