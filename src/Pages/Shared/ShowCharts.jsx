@@ -288,7 +288,13 @@ const ShowCharts = () => {
         </div>
       ) : (
         <>
-          <form className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4 font-roboto my-8 z-[10] px-10 text-gray-900">
+          <form
+            className={`grid grid-cols-1 gap-5 md:grid-cols-2 ${
+              path.includes("/dashboard")
+                ? "lg:grid-cols-4"
+                : "lg:grid-cols-3 gap-8"
+            } font-roboto my-8 z-[10] px-3 text-gray-900`}
+          >
             {/* district  */}
             <div className="nm_Container z-[10] p-7 flex flex-col justify-center rounded-lg">
               <label

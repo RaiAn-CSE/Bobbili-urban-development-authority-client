@@ -10,7 +10,9 @@ import { FaStar } from "react-icons/fa6";
 const RequestPage = ({ props }) => {
   const { setRequestSent, setUserInfo } = props;
   const { register, errors, handleSubmit } = useForm();
+  const [loading, setLoading] = useState(false);
   const onSubmit = async (dataFromUser) => {
+    setLoading(true);
     console.log(dataFromUser);
 
     setUserInfo(dataFromUser);
@@ -20,41 +22,41 @@ const RequestPage = ({ props }) => {
     );
 
     console.log(data, "GENDER DATA");
-    if (Object.keys(data)?.length) {
-      const messageRequest = {
-        userId: `Help-${dataFromUser.name}-${dataFromUser.mobileNo}`,
-        name: dataFromUser.name,
-        mobile: dataFromUser.mobileNo,
-        gender: data?.gender,
-      };
 
-      const config = {
-        headers: {
-          "Content-type": "application/json",
-        },
-      };
+    const messageRequest = {
+      userId: `Help-${dataFromUser.name}-${dataFromUser.mobileNo}`,
+      name: dataFromUser.name,
+      mobile: dataFromUser.mobileNo,
+      gender: data?.gender,
+    };
 
-      try {
-        const { data } = await axios.post(
-          "https://residential-building.onrender.com/messageRequest",
-          messageRequest,
-          config
-        );
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+      },
+    };
 
-        console.log(data, "DATA");
+    try {
+      const { data } = await axios.post(
+        "https://residential-building.onrender.com/messageRequest",
+        messageRequest,
+        config
+      );
 
-        if (data.acknowledged) {
-          setRequestSent(true);
-          setUserInfo((prev) => {
-            return { ...prev, uniqueId: data.insertedId };
-          });
-        } else {
-          toast.error("Server failed");
-        }
-      } catch (error) {
-        toast.error("Server down");
+      console.log(data, "DATA");
+
+      if (data.acknowledged) {
+        setRequestSent(true);
+        setUserInfo((prev) => {
+          return { ...prev, uniqueId: data.insertedId };
+        });
+      } else {
+        toast.error("Server failed");
       }
+    } catch (error) {
+      toast.error("Server down");
     }
+    setLoading(true);
   };
   return (
     <div className="message-box h-full flex flex-col justify-around rounded-md shadow-lg relative">
@@ -114,11 +116,15 @@ const RequestPage = ({ props }) => {
           <span className="text-red-500">This field is required</span>
         )}
 
-        <input
-          className="nm_Container capitalize p-2 px-4 text-lg rounded-full text-white bg-[#8980FD] cursor-pointer"
-          type="submit"
-          value={"Submit"}
-        />
+        {loading ? (
+          <span className="loading loading-dots loading-lg text-normalViolet"></span>
+        ) : (
+          <input
+            className="nm_Container capitalize p-2 px-4 text-lg rounded-full text-white bg-[#8980FD] cursor-pointer"
+            type="submit"
+            value={"Submit"}
+          />
+        )}
       </form>
 
       <div className="absolute flex justify-center items-center text-white h-10 w-10 rounded-full top-5 left-5 ">

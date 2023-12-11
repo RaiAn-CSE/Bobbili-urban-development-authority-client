@@ -88,7 +88,7 @@ const ChatWithCustomer = ({
                   src={
                     (activeChat.gender === "male" && maleImg) ||
                     (activeChat.gender === "female" && femaleImg) ||
-                    (activeChat.gender === "null" && unknownImg)
+                    (activeChat.gender === null && unknownImg)
                   }
                   alt="user avatar image"
                   className="h-full"

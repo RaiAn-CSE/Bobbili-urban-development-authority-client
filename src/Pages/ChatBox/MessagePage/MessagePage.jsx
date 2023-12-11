@@ -16,6 +16,7 @@ const MessagePage = ({ props }) => {
   const [isChatEnd, setIsChatEnd] = useState(0);
   const [receiverId, setReceiverId] = useState(null);
   const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState(false);
   const { register, errors, handleSubmit, resetField } = useForm();
   console.log(userInfo, "Userinfo");
 
@@ -161,6 +162,7 @@ const MessagePage = ({ props }) => {
 
   const requestAgain = async () => {
     // clearInterval(countDownInterval);
+    setLoading(true);
     try {
       const { data } = await axios.patch(
         `https://residential-building.onrender.com/messageRequest?update=${JSON.stringify(
@@ -184,6 +186,7 @@ const MessagePage = ({ props }) => {
     } catch (error) {
       setError("Server Error");
     }
+    setLoading(false);
   };
 
   const onSubmit = async (data) => {
@@ -235,12 +238,16 @@ const MessagePage = ({ props }) => {
               <p className="font-bold text-lg text-black">
                 Sorry. Please try again or we will contact with you
               </p>
-              <button
-                className="bg-normalViolet text-white fancy-button mt-4 w-fit"
-                onClick={requestAgain}
-              >
-                Request Again
-              </button>
+              {loading ? (
+                <span className="loading loading-dots loading-lg text-normalViolet"></span>
+              ) : (
+                <button
+                  className="bg-normalViolet text-white fancy-button mt-4 w-fit"
+                  onClick={requestAgain}
+                >
+                  Request Again
+                </button>
+              )}
             </div>
           )}{" "}
           {!timeEnd && (

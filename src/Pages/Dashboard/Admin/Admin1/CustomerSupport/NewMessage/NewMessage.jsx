@@ -13,6 +13,7 @@ const NewMessage = () => {
   const { userInfoFromLocalStorage } = useContext(AuthContext);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
+  const [loadOnAccept, setLoadOnAccept] = useState(false);
   const [allData, setAllData] = useState([]);
   const [tableData, setTableData] = useState({});
   const [tableComponentProps, setTableComponentProps] = useState({});
@@ -85,6 +86,7 @@ const NewMessage = () => {
   }, []);
 
   const acceptNewMessage = async (id) => {
+    setLoadOnAccept(true);
     console.log(id);
     try {
       const { data } = await axios.patch(
@@ -114,6 +116,7 @@ const NewMessage = () => {
     } catch (error) {
       setError("Server Error");
     }
+    setLoadOnAccept(false);
   };
 
   useEffect(() => {
@@ -125,7 +128,7 @@ const NewMessage = () => {
       return { ...prev, ...newValue };
     });
 
-    setTableComponentProps({ acceptNewMessage });
+    setTableComponentProps({ acceptNewMessage, loadOnAccept });
   }, [allData]);
 
   if (loading) {

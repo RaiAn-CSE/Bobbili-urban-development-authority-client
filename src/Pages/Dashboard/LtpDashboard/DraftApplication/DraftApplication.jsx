@@ -106,7 +106,7 @@ const DraftApplication = () => {
   const isStepperVisible = allSteps.includes(location.pathname); // Check if current route is in the list of routes with the stepper
 
   let btnClass =
-    "btn btn-md hover:text-[#fff] text-black rounded-lg transition-all duration-500 cursor-pointer hover:bg-normalViolet bg-bgColor ";
+    "nm_Container  btn-md hover:text-[#fff] text-black  transition-all duration-500 cursor-pointer hover:bg-normalViolet bg-bgColor";
 
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
@@ -121,9 +121,11 @@ const DraftApplication = () => {
   };
   const completeBtn = (index) => {
     if (index === currentStep) {
-      return `nm_Container bg-gradient-to-b from-[#a29bfe] to-[#6c5ce7] shadow-none text-white border-0 `;
+      return `bg-gradient-to-b from-[#a29bfe] to-[#6c5ce7] shadow-none text-white border-0 `;
     } else if (index < currentStep) {
-      return `nm_Container bg-gradient-to-b from-[#a29bfe] to-[#6c5ce7] shadow-none text-white border-0 `;
+      return ` bg-gradient-to-b from-[#a29bfe] to-[#6c5ce7] shadow-none text-white border-0 `;
+    } else {
+      return ``;
     }
   };
 
@@ -241,9 +243,9 @@ const DraftApplication = () => {
               >
                 <button
                   className={`${btnClass} ${completeBtn(index)} ${role !== "PS"
-                    ? "w-[70%] lg:w-[15.3%]"
-                    : "w-[50%] lg:w-[13%]"
-                    } text-[14px] border-0 flex lg:absolute top-3 z-10 nm_Container`}
+                      ? "w-[70%] lg:w-[15.3%]"
+                      : "w-[50%] lg:w-[13%]"
+                    } text-[15px] font-bold gap-1 border-0 flex justify-center items-center lg:absolute top-3 z-10`}
                 >
                   {role !== "PS" && icons[index]}
                   <span>{step}</span>
