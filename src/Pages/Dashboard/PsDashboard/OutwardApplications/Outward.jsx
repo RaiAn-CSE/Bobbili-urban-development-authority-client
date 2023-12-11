@@ -16,7 +16,7 @@ function Outward() {
     ["allOutwardApplications"],
     async () => {
       const response = await fetch(
-        `http://localhost:5000/totalApplications?data=${JSON.stringify(
+        `https://residential-building.vercel.app/totalApplications?data=${JSON.stringify(
           userInfoFromLocalStorage()
         )}`
       );

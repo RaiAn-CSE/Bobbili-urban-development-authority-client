@@ -24,7 +24,7 @@ const ConnectedCustomers = ({ setActiveChat, setShow }) => {
         data?.change?.operationType === "delete"
       ) {
         const { data: updateData } = await axios.get(
-          `http://localhost:5000/acceptMessage?role=${JSON.stringify(
+          `https://residential-building.vercel.app/acceptMessage?role=${JSON.stringify(
             userInfoFromLocalStorage().role.toLowerCase()
           )}`
         );
@@ -40,7 +40,7 @@ const ConnectedCustomers = ({ setActiveChat, setShow }) => {
   useEffect(() => {
     (async function () {
       const { data } = await axios.get(
-        `http://localhost:5000/acceptMessage?role=${JSON.stringify(
+        `https://residential-building.vercel.app/acceptMessage?role=${JSON.stringify(
           userInfoFromLocalStorage().role.toLowerCase()
         )}`
       );

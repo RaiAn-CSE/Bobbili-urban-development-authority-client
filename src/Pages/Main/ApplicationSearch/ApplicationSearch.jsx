@@ -23,7 +23,9 @@ const ApplicationSearch = () => {
   const { fetchDataFromTheDb } = useContext(AuthContext);
 
   useEffect(() => {
-    fetchDataFromTheDb("http://localhost:5000/allApplications").then((data) => {
+    fetchDataFromTheDb(
+      "https://residential-building.vercel.app/allApplications"
+    ).then((data) => {
       console.log(data);
       setApplicationData(data);
     });

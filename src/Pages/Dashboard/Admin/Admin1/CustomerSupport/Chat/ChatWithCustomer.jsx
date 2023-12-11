@@ -50,14 +50,16 @@ const ChatWithCustomer = ({
     setMessages((prevMessages) => [...prevMessages, { ...messageData }]);
 
     await axios.patch(
-      `http://localhost:5000/messageRequest?update=${JSON.stringify({
-        id: activeChat?._id,
-        action: "text",
-        message: {
-          userId: userInfoFromLocalStorage()?.role?.toLowerCase(),
-          message: messageData?.message,
-        },
-      })}`
+      `https://residential-building.vercel.app/messageRequest?update=${JSON.stringify(
+        {
+          id: activeChat?._id,
+          action: "text",
+          message: {
+            userId: userInfoFromLocalStorage()?.role?.toLowerCase(),
+            message: messageData?.message,
+          },
+        }
+      )}`
     );
 
     resetField("message");

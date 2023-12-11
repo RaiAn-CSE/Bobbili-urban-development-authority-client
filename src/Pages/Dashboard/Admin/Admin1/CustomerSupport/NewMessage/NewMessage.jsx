@@ -31,7 +31,7 @@ const NewMessage = () => {
       if (data?.change?.operationType === "insert") {
         console.log(allData, "After updating");
         const { data } = await axios.get(
-          "http://localhost:5000/messageRequest"
+          "https://residential-building.vercel.app/messageRequest"
         );
 
         setAllData(data);
@@ -45,7 +45,7 @@ const NewMessage = () => {
       if (data?.change?.operationType === "update") {
         console.log(allData, "After updating");
         const { data } = await axios.get(
-          "http://localhost:5000/messageRequest"
+          "https://residential-building.vercel.app/messageRequest"
         );
 
         setAllData(data);
@@ -62,7 +62,7 @@ const NewMessage = () => {
   useEffect(() => {
     setError("");
     setLoading(true);
-    fetch("http://localhost:5000/messageRequest")
+    fetch("https://residential-building.vercel.app/messageRequest")
       .then((res) => res.json())
       .then((result) => {
         console.log(result);
@@ -79,17 +79,19 @@ const NewMessage = () => {
   const acceptNewMessage = async (id) => {
     console.log(id);
     const { data } = await axios.patch(
-      `http://localhost:5000/messageRequest?update=${JSON.stringify({
-        id,
-        action: "accept",
-        acceptedBy: userInfoFromLocalStorage().role.toLowerCase(),
-      })}`
+      `https://residential-building.vercel.app/messageRequest?update=${JSON.stringify(
+        {
+          id,
+          action: "accept",
+          acceptedBy: userInfoFromLocalStorage().role.toLowerCase(),
+        }
+      )}`
     );
 
     if (data.acknowledged) {
       toast.success("Request accepted");
       const { data: updateData } = await axios.get(
-        "http://localhost:5000/messageRequest"
+        "https://residential-building.vercel.app/messageRequest"
       );
       console.log(updateData, "UPD");
       setAllData(updateData);

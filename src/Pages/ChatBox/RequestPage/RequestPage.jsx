@@ -39,7 +39,7 @@ const RequestPage = ({ props }) => {
 
       try {
         const { data } = await axios.post(
-          "http://localhost:5000/messageRequest",
+          "https://residential-building.vercel.app/messageRequest",
           messageRequest,
           config
         );
