@@ -130,7 +130,7 @@ const MainLayout = () => {
         </div>
 
         {toggleChat && (
-          <div className="absolute bottom-[70px] right-8 z-10 h-[80vh] w-96 bg-white rounded-lg shadow-md ">
+          <div className="absolute bottom-[70px] right-8 z-10 h-[80vh] w-96 bg-white rounded-lg shadow-md hover:transform hover:translate-y-[-5px] hover:scale-[1.01] hover:translate-z-0 transition-all duration-500 ease-out">
             <ChatBox />
           </div>
         )}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { LuMessagesSquare } from "react-icons/lu";
 import { IoMdStar } from "react-icons/io";
@@ -60,6 +60,7 @@ const RequestPage = ({ props }) => {
   };
   return (
     <div className="message-box h-full flex flex-col justify-around rounded-md shadow-lg relative">
+
       <div className="flex flex-col items-center">
         <button className="logo-btn mt-5" data-text="Awesome">
           <span className="actual-text text-4xl">&nbsp;BUDA&nbsp;</span>
@@ -130,13 +131,10 @@ const RequestPage = ({ props }) => {
       <div className="absolute flex justify-center items-center text-white h-10 w-10 rounded-full top-5 left-5 ">
         <GiSensuousness size={30} />
       </div>
-      <div className="absolute flex justify-center items-center text-white h-10 w-10 rounded-full bottom-3 right-3 ">
+      <div className="absolute flex justify-center items-center text-white h-10 w-10 rounded-full bottom-2 right-2">
         <GiSensuousness size={30} />
       </div>
 
-      {/* <div className="absolute flex justify-center items-center text-normalViolet h-10 w-10 rounded-full top-28 right-10 nm_Container">
-       
-      </div> */}
       <div className="absolute flex justify-center items-center text-normalViolet h-10 w-10 rounded-full top-5 right-5 ">
         {" "}
         <FaStar size={30} />
@@ -145,7 +143,7 @@ const RequestPage = ({ props }) => {
         {" "}
         <FaStar size={30} />
       </div>
-    </div>
+    </div >
   );
 };
 
