@@ -280,10 +280,10 @@ const DocumentUpload = () => {
       }
 
       console.log(documents, "Documents");
-      // return await sendUserDataIntoDB(url, "PATCH", {
-      //   applicationNo,
-      //   documents,
-      // });
+      return await sendUserDataIntoDB(url, "PATCH", {
+        applicationNo,
+        documents,
+      });
     }
   };
 

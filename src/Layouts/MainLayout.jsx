@@ -134,7 +134,7 @@ const MainLayout = () => {
         </div>
 
         {toggleChat && (
-          <div className="fixed shadow-lg bottom-[70px] right-8 z-10 h-[81vh] w-[350px] bg-white rounded-lg hover:transform hover:translate-y-[-5px] hover:scale-[1.005] hover:translate-z-0 transition-all duration-500 ease-out">
+          <div className="fixed shadow-lg bottom-[70px] right-8 z-10 h-[86vh] w-[350px] bg-white rounded-lg hover:transform hover:translate-y-[-5px] hover:scale-[1.005] hover:translate-z-0 transition-all duration-500 ease-out">
             <ChatBox />
           </div>
         )}

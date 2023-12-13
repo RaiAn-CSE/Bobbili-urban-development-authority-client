@@ -117,7 +117,7 @@ const NewApplication = () => {
         plotDetails: {},
         scheduleBoundaries: {},
       },
-      applicantInfo: { ltpDetails: {}, applicantDetails: {} },
+      applicantInfo: { ltpDetails: {}, applicantDetails: [] },
       applicationCheckList: [],
       documents: {
         default: [],

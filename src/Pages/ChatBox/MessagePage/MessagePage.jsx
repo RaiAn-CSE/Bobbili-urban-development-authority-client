@@ -112,7 +112,7 @@ const MessagePage = ({ props }) => {
   //   };
   // }, [socket]);
 
-  const [counter, setCounter] = useState(10);
+  const [counter, setCounter] = useState(30);
 
   useEffect(() => {
     const countDownInterval = setInterval(() => {
@@ -222,7 +222,7 @@ const MessagePage = ({ props }) => {
       {!isAccepted && (
         <div className="message-box h-full flex flex-col justify-center items-center">
           <div className="flex flex-col justify-center items-center gap-3">
-            <div className="text-2xl font-bold text-normalViolet">
+            <div className="text-[22px] font-bold text-normalViolet">
               Bobbili Urban Development Authority
             </div>
             <div className="h-[150px]">
@@ -254,8 +254,9 @@ const MessagePage = ({ props }) => {
             <div className="flex flex-col justify-center items-center">
               <span
                 id="counterElement"
-                className={`${counter < 15 ? "text-red-500" : "text-normalViolet"
-                  } text-black text-xl font-bold inline-block`}
+                className={`${
+                  counter < 15 ? "text-red-500" : "text-normalViolet"
+                } text-black text-xl font-bold inline-block`}
                 style={{ "--value": counter }}
               >
                 {counter}
@@ -314,10 +315,11 @@ const MessagePage = ({ props }) => {
             {messages?.map((message, index) => (
               <div
                 key={index}
-                className={`${message?.userId?.includes("admin")
+                className={`${
+                  message?.userId?.includes("admin")
                     ? "justify-end"
                     : "justify-start"
-                  } flex m-3`}
+                } flex m-3`}
               >
                 <div>
                   <div className="text-sm font-bold capitalize mx-2">
@@ -328,10 +330,11 @@ const MessagePage = ({ props }) => {
                     )}
                   </div>
                   <p
-                    className={`${message?.userId?.includes("admin")
+                    className={`${
+                      message?.userId?.includes("admin")
                         ? "bg-[#8B5BF6] font-bold text-white rounded-xl"
                         : "bg-white rounded-xl"
-                      } p-3  max-w-[500px]`}
+                    } p-3  max-w-[500px]`}
                   >
                     {message?.message}
                   </p>
