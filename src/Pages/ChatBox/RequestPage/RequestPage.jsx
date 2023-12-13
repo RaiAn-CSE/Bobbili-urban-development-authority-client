@@ -59,7 +59,7 @@ const RequestPage = ({ props }) => {
     setLoading(true);
   };
   return (
-    <div className="message-box h-full flex flex-col justify-around rounded-md shadow-lg relative">
+    <div className="message-box text-gray-600 h-full flex flex-col justify-around rounded-md shadow-lg relative">
 
       <div className="flex flex-col items-center">
         <button className="logo-btn mt-5" data-text="Awesome">
@@ -70,8 +70,8 @@ const RequestPage = ({ props }) => {
         </button>
 
         <LuMessagesSquare
-          size={70}
-          className="nm_Container text-[#6c5ce7] mt-4"
+          size={80}
+          className="nm_Container text-[#6c5ce7] mt-4 p-2"
         />
       </div>
       <form
@@ -80,7 +80,7 @@ const RequestPage = ({ props }) => {
       >
         <div>
           <div className="indicator">
-            <span className="indicator-item badge badge-xs text-red-500">
+            <span className="indicator-item badge badge-xs text-red-500 bg-[#FFFFFF]">
               <IoMdStar />
             </span>
             <label htmlFor="name" className="inline-block font-bold">
@@ -98,7 +98,7 @@ const RequestPage = ({ props }) => {
 
         <div>
           <div className="indicator">
-            <span className="indicator-item badge badge-xs text-red-500">
+            <span className="indicator-item badge badge-xs text-red-500 bg-[#FFFFFF]">
               <IoMdStar />
             </span>
             <label htmlFor="mobile" className="inline-block font-bold">
@@ -128,10 +128,10 @@ const RequestPage = ({ props }) => {
         )}
       </form>
 
-      <div className="absolute flex justify-center items-center text-white h-10 w-10 rounded-full top-5 left-5 ">
+      <div className="absolute flex justify-center items-center text-white h-10 w-10 rounded-full top-3 left-3">
         <GiSensuousness size={30} />
       </div>
-      <div className="absolute flex justify-center items-center text-white h-10 w-10 rounded-full bottom-2 right-2">
+      <div className="absolute flex justify-center items-center text-white h-10 w-10 rounded-full bottom-3 right-3">
         <GiSensuousness size={30} />
       </div>
 
