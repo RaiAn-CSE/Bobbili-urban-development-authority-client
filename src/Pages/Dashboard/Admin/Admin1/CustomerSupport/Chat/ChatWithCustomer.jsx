@@ -195,7 +195,7 @@ const ChatWithCustomer = ({
               />
               <button
                 type="submit"
-                className="bg-normalViolet text-white p-3 border-none fancy-button"
+                className="bg-normalViolet text-white p-3 border-none fancy-button mr-[2px]"
               >
                 <MdSend size={20} />
               </button>

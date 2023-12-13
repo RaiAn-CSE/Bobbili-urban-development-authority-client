@@ -254,9 +254,8 @@ const MessagePage = ({ props }) => {
             <div className="flex flex-col justify-center items-center">
               <span
                 id="counterElement"
-                className={`${
-                  counter < 15 ? "text-red-500" : "text-normalViolet"
-                } text-black text-xl font-bold inline-block`}
+                className={`${counter < 15 ? "text-red-500" : "text-normalViolet"
+                  } text-black text-xl font-bold inline-block`}
                 style={{ "--value": counter }}
               >
                 {counter}
@@ -315,11 +314,10 @@ const MessagePage = ({ props }) => {
             {messages?.map((message, index) => (
               <div
                 key={index}
-                className={`${
-                  message?.userId?.includes("admin")
+                className={`${message?.userId?.includes("admin")
                     ? "justify-end"
                     : "justify-start"
-                } flex m-3`}
+                  } flex m-3`}
               >
                 <div>
                   <div className="text-sm font-bold capitalize mx-2">
@@ -330,11 +328,10 @@ const MessagePage = ({ props }) => {
                     )}
                   </div>
                   <p
-                    className={`${
-                      message?.userId?.includes("admin")
+                    className={`${message?.userId?.includes("admin")
                         ? "bg-[#8B5BF6] font-bold text-white rounded-xl"
                         : "bg-white rounded-xl"
-                    } p-3  max-w-[500px]`}
+                      } p-3  max-w-[500px]`}
                   >
                     {message?.message}
                   </p>
@@ -357,7 +354,7 @@ const MessagePage = ({ props }) => {
               />
               <button
                 type="submit"
-                className="bg-normalViolet text-white p-3 border-none fancy-button"
+                className="bg-normalViolet text-white p-3 border-none fancy-button mr-[2px]"
               >
                 <MdSend size={20} />
               </button>

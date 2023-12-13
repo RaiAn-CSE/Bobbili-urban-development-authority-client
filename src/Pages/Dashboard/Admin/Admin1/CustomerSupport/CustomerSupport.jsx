@@ -10,13 +10,13 @@ const CustomerSupport = () => {
         type="radio"
         name="my_tabs_2"
         role="tab"
-        className="tab text-base font-bold checked:text-normalViolet"
+        className="tab text-base font-bold text-normalViolet checked:text-white [--tab-bg:#8B5BF6] [--tab-border-color:#8B5BF6]"
         aria-label="New"
         defaultChecked={true}
       />
       <div
         role="tabpanel"
-        className="tab-content bg-base-100 border-base-300 rounded-box p-6 h-[calc(100vh-10vh)] overflow-auto no-scrollbar"
+        className="tab-content rounded-box p-6 bg-white h-[calc(100vh-10vh)] overflow-auto no-scrollbar"
       >
         <NewMessage />
       </div>
@@ -25,12 +25,12 @@ const CustomerSupport = () => {
         type="radio"
         name="my_tabs_2"
         role="tab"
-        className="tab text-base font-bold checked:text-normalViolet"
+        className="tab text-base font-bold text-normalViolet checked:text-white [--tab-bg:#7871E1] [--tab-border-color:#7871E1]"
         aria-label="Chat"
       />
       <div
         role="tabpanel"
-        className="tab-content bg-base-100 border-base-300 rounded-box p-6"
+        className="tab-content rounded-box p-6 bg-white"
       >
         <Chat />
       </div>
@@ -39,12 +39,12 @@ const CustomerSupport = () => {
         type="radio"
         name="my_tabs_2"
         role="tab"
-        className="tab text-base font-bold checked:text-normalViolet"
+        className="tab text-base font-bold text-normalViolet checked:text-white [--tab-bg:#8B5BF6] [--tab-border-color:#8B5BF6]"
         aria-label="Missed"
       />
       <div
         role="tabpanel"
-        className="tab-content bg-base-100 border-base-300 rounded-box p-6 h-[calc(100vh-10vh)] overflow-auto no-scrollbar"
+        className="tab-content rounded-box p-6 bg-white h-[calc(100vh-10vh)] overflow-auto no-scrollbar"
       >
         <MissedRequest />
       </div>

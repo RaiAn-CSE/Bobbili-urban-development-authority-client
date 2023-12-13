@@ -106,7 +106,7 @@ const DraftApplication = () => {
   const isStepperVisible = allSteps.includes(location.pathname); // Check if current route is in the list of routes with the stepper
 
   let btnClass =
-    "nm_Container  btn-md hover:text-[#fff] text-black  transition-all duration-500 cursor-pointer hover:bg-normalViolet bg-bgColor";
+    "nm_Container btn-md hover:text-[#fff] text-black  transition-all duration-500 cursor-pointer hover:bg-normalViolet bg-bgColor";
 
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
@@ -153,7 +153,7 @@ const DraftApplication = () => {
 
   console.log(
     applicationButtonForDraftApplication &&
-      (cameFrom === "draft" || cameFrom === "submit")
+    (cameFrom === "draft" || cameFrom === "submit")
   );
 
   const applicationButtonForApprovedOrShortfallApplication =
@@ -223,14 +223,14 @@ const DraftApplication = () => {
 
               {(applicationButtonForDraftApplication ||
                 applicationButtonForApprovedOrShortfallApplication) && (
-                <button
-                  onClick={() => setOpenApplication(true)}
-                  className={`btn btn-sm text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white border-none`}
-                >
-                  <HiOutlineClipboardDocumentList className="text-lg" />{" "}
-                  <span>Application</span>
-                </button>
-              )}
+                  <button
+                    onClick={() => setOpenApplication(true)}
+                    className={`btn btn-sm text-xs nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white border-none`}
+                  >
+                    <HiOutlineClipboardDocumentList className="text-lg" />{" "}
+                    <span>Application</span>
+                  </button>
+                )}
             </div>
           </div>
           <div className="w-full steps steps-vertical lg:steps-horizontal rounded-lg py-4 lg:relative font-roboto px-4 lg:px-0">
@@ -242,11 +242,10 @@ const DraftApplication = () => {
                 onClick={() => handleStepClick(index)}
               >
                 <button
-                  className={`${btnClass} ${completeBtn(index)} ${
-                    role !== "PS"
-                      ? "w-[70%] lg:w-[15.3%]"
-                      : "w-[50%] lg:w-[13%]"
-                  } text-[15px] font-bold gap-1 border-0 flex justify-center items-center lg:absolute top-3 z-10`}
+                  className={`${btnClass} ${completeBtn(index)} ${role !== "PS"
+                    ? "w-[70%] lg:w-[15.3%]"
+                    : "w-[50%] lg:w-[13%]"
+                    } text-[15px] font-bold gap-1 border-0 flex justify-center items-center lg:absolute top-3 z-10`}
                 >
                   {role !== "PS" && icons[index]}
                   <span>{step}</span>
