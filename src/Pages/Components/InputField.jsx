@@ -29,7 +29,7 @@ const InputField = ({
       className="my-4 mx-3 flex flex-col justify-between"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
-      viewport={{ once: false }}
+      viewport={{ once: true }}
     >
       <label htmlFor={id} className="block mb-1 font-semibold text-gray-600">
         {label}

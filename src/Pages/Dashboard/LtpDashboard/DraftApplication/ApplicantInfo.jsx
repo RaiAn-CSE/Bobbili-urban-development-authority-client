@@ -200,13 +200,13 @@ const ApplicantInfo = () => {
           className="nm_Container mt-3 px-2 py-5 mb-10"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0, transition: { duration: 2 } }}
-          viewport={{ once: false }}
+          viewport={{ once: true }}
         >
           <motion.div
             className="flex items-center -mb-2 px-2"
             initial={{ opacity: 0, x: 100 }}
             whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
           >
             <BiSolidUserDetail size={30} className="text-normalViolet" />
             <h3 className="font-bold text-xl ml-3">LTP’s Details</h3>
@@ -272,7 +272,7 @@ const ApplicantInfo = () => {
                 className="my-4 mx-3"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
-                viewport={{ once: false }}
+                viewport={{ once: true }}
               >
                 <label htmlFor="ltpPhoneNo" className={labelClass}>
                   Phone no.
@@ -306,7 +306,7 @@ const ApplicantInfo = () => {
               className="my-4 mx-3 basis-[25%]"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
-              viewport={{ once: false }}
+              viewport={{ once: true }}
             >
               <label htmlFor="ltpAddress" className={labelClass}>
                 Address
@@ -330,13 +330,13 @@ const ApplicantInfo = () => {
           className="nm_Container mt-3 px-2 py-5"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0, transition: { duration: 2 } }}
-          viewport={{ once: false }}
+          viewport={{ once: true }}
         >
           <motion.div
             className="flex items-center -mb-2 px-2"
             initial={{ opacity: 0, x: 100 }}
             whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
           >
             <FaBuildingUser size={30} className="text-normalViolet" />
             <h3 className="font-bold text-xl ml-3">Owner’s Details</h3>

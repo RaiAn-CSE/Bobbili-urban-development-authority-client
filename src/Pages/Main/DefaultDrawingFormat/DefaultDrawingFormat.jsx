@@ -59,7 +59,7 @@ const DefaultDrawingFormat = () => {
         initial={{ opacity: 0, scale: 0.5 }}
         whileInView={{ opacity: 1, scale: 1.0 }}
         transition={{ duration: 1 }}
-        viewport={{ once: false }}
+        viewport={{ once: true }}
       >
         <p className="text-black text-2xl font-bold text-center uppercase mb-10">
           Default Formats

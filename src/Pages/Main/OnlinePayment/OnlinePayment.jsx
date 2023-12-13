@@ -71,11 +71,11 @@ const OnlinePayment = () => {
       <motion.div className={`${HomeCss.searchInputContainer} mx-2`}
         // initial={{ opacity: 0, x: -40, y: -40 }}
         // whileInView={{ opacity: 1, x: 0, y: 0, transition: { duration: 0.5 } }}
-        // viewport={{ once: false }}
+        // viewport={{ once: true }}
         initial={{ opacity: 0, scale: 0.5 }}
         whileInView={{ opacity: 1, scale: 1.0 }}
         transition={{ duration: 1 }}
-        viewport={{ once: false }}
+        viewport={{ once: true }}
       >
         <input
           placeholder="Application no. or owner name"
@@ -115,7 +115,7 @@ const OnlinePayment = () => {
             className="w-fit basis-[50%] text-black text-lg  pl-3 font-semibold"
             initial={{ opacity: 0, x: -70 }}
             whileInView={{ opacity: 1, x: 0, transition: { duration: 0.5 } }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
           >
             Application details:
           </motion.h3>
@@ -193,7 +193,7 @@ const OnlinePayment = () => {
             className="basis-[50%] text-lg pl-3 font-semibold text-gray-900"
             initial={{ opacity: 0, x: -70 }}
             whileInView={{ opacity: 1, x: 0, transition: { duration: 0.5 } }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
           >
             Fees details:
           </motion.h3>
@@ -247,7 +247,7 @@ const OnlinePayment = () => {
           className="text-base font-semibold"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
-          viewport={{ once: false }}
+          viewport={{ once: true }}
         >
           {textTypingAnimation(
             `For UDA charge you can pay only Rs.
@@ -265,7 +265,7 @@ const OnlinePayment = () => {
         className="flex justify-end px-3 pb-6"
         initial={{ opacity: 0, x: 20 }}
         whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
-        viewport={{ once: false }}
+        viewport={{ once: true }}
       >
         <button
           className={`save-btn bg-[#8980FD] px-3 py-2 rounded-full nm_Container text-sm flex justify-center items-center`}

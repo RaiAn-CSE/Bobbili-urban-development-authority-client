@@ -214,7 +214,7 @@ const AllUsers = () => {
                 initial={{ opacity: 0, scale: 0.5 }}
                 whileInView={{ opacity: 1, scale: 1.0 }}
                 transition={{ duration: 1 }}
-                viewport={{ once: false }}
+                viewport={{ once: true }}
               >
                 <input
                   placeholder="Search by name"

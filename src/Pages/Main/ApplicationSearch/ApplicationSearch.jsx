@@ -84,7 +84,7 @@ const ApplicationSearch = () => {
         initial={{ opacity: 0, scale: 0.5 }}
         whileInView={{ opacity: 1, scale: 1.0 }}
         transition={{ duration: 1 }}
-        viewport={{ once: false }}
+        viewport={{ once: true }}
       >
         <input
           placeholder="Application no. or owner name"
@@ -124,7 +124,7 @@ const ApplicationSearch = () => {
             className={titleClass}
             initial={{ opacity: 0, x: -70 }}
             whileInView={{ opacity: 1, x: 0, transition: { duration: 0.5 } }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
           >
             Location details
           </motion.h3>
@@ -132,7 +132,7 @@ const ApplicationSearch = () => {
             className={titleClass}
             initial={{ opacity: 0, x: 70 }}
             whileInView={{ opacity: 1, x: 0, transition: { duration: 0.5 } }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
           >
             Building info
           </motion.h3>
@@ -228,7 +228,7 @@ const ApplicationSearch = () => {
             className={titleClass}
             initial={{ opacity: 0, x: -70 }}
             whileInView={{ opacity: 1, x: 0, transition: { duration: 0.5 } }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
           >
             Owner details
           </motion.h3>
@@ -236,7 +236,7 @@ const ApplicationSearch = () => {
             className={titleClass}
             initial={{ opacity: 0, x: 70 }}
             whileInView={{ opacity: 1, x: 0, transition: { duration: 0.5 } }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
           >
             LTP Details
           </motion.h3>
@@ -304,7 +304,7 @@ const ApplicationSearch = () => {
           disabled={filteredData === null}
           initial={{ opacity: 0, x: -40 }}
           whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
-          viewport={{ once: false }}
+          viewport={{ once: true }}
         >
           <span className="grid justify-center items-center">
             <AiOutlineFileDone className="text-violet-500" size={25} />
@@ -320,7 +320,7 @@ const ApplicationSearch = () => {
           }
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
-          viewport={{ once: false }}
+          viewport={{ once: true }}
         >
           <span className="grid justify-center items-center">
             <BsHouses className="text-violet-500" size={25} />
@@ -339,7 +339,7 @@ const ApplicationSearch = () => {
           }
           initial={{ opacity: 0, x: 40 }}
           whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
-          viewport={{ once: false }}
+          viewport={{ once: true }}
         >
           <span className="grid justify-center items-center">
             <VscDebugContinue className="text-violet-500" size={25} />

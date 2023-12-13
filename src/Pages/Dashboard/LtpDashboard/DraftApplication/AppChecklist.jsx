@@ -71,7 +71,7 @@ function AppChecklist() {
           <motion.div className="m-4 nm_Container"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
           >
             <div key={id} className="lg:flex items-center justify-center shadow-sm shadow-gray-100 rounded p-3">
               <div className="flex-1 text-black rounded mb-5 text-base md:text-lg lg:mb-0 lg:pr-4">

@@ -76,7 +76,7 @@ const OwnerDetail = ({
             className="my-4 mx-3"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
           >
             <label htmlFor="ltpPhoneNo" className={labelClass}>
               Phone no.
@@ -128,12 +128,11 @@ const OwnerDetail = ({
                 className="flex justify-center items-center"
                 initial={{ opacity: 0, x: -40 }}
                 whileInView={{ opacity: 1, x: 0, transition: { duration: 2 } }}
-                viewport={{ once: false }}
+                viewport={{ once: true }}
               >
                 <button
-                  className={`nm_Container text-xl rounded-full w-[30px] h-[30px] text-normalViolet cursor-pointer transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold ${
-                    hideBtn && "hidden"
-                  }`}
+                  className={`nm_Container text-xl rounded-full w-[30px] h-[30px] text-normalViolet cursor-pointer transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold ${hideBtn && "hidden"
+                    }`}
                   onClick={increaseApplicantNo}
                 >
                   +
@@ -146,12 +145,11 @@ const OwnerDetail = ({
                 className="flex justify-center items-center"
                 initial={{ opacity: 0, x: 40 }}
                 whileInView={{ opacity: 1, x: 0, transition: { duration: 2 } }}
-                viewport={{ once: false }}
+                viewport={{ once: true }}
               >
                 <button
-                  className={`nm_Container text-xl mx-2 rounded-full text-red-500 w-[30px] h-[30px]  transition-all duration-500 font-bold ${
-                    hideBtn && "hidden"
-                  }`}
+                  className={`nm_Container text-xl mx-2 rounded-full text-red-500 w-[30px] h-[30px]  transition-all duration-500 font-bold ${hideBtn && "hidden"
+                    }`}
                   onClick={decreaseApplicationNo}
                 >
                   -
