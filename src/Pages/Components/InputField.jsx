@@ -24,7 +24,6 @@ const InputField = ({
     page === "approved" ||
     page === "shortfall";
 
-
   return (
     <motion.div
       className="my-4 mx-3 flex flex-col justify-between"

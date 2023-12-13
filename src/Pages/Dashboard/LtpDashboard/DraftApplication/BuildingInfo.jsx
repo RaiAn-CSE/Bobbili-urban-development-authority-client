@@ -204,6 +204,7 @@ const BuildingInfo = () => {
       if (Object.keys(plotDetails).length) {
         const plotDetailsFloor =
           dataFromDB?.buildingInfo?.plotDetails?.floorDetails;
+
         setRadio2(plotDetails?.existingRoad);
         setRadio3(plotDetails?.statusOfRoad);
         setRadio4(plotDetails?.compoundingWallProposed);
@@ -654,7 +655,14 @@ const BuildingInfo = () => {
   return (
     <>
       <div className="grid m-4 lg:my-0 text-gray-900">
-        <form action="" onSubmit={(e) => e.preventDefault()}>
+        <form
+          action=""
+          onSubmit={(e) => {
+            e.preventDefault();
+            confirmAlert(stepperData, collectInputFieldData);
+          }}
+          id="formId"
+        >
           {/* general information */}
           <motion.div
             className="nm_Container mt-3 px-2 py-5 mb-10"
@@ -736,6 +744,7 @@ const BuildingInfo = () => {
                       }
                       onChange={handleRadio1}
                       disabled={isReadOnly}
+                      required
                     />
                     <label className="radio-button__label" htmlFor="private">
                       <span className="radio-button__custom"></span>
@@ -780,6 +789,7 @@ const BuildingInfo = () => {
                   value={selectedOptionPermission}
                   onChange={handlePermissionChange}
                   disabled={isReadOnly}
+                  required
                 >
                   <option value="General">General</option>
                   <option value="Regularised under BPS">
@@ -804,6 +814,7 @@ const BuildingInfo = () => {
                   value={selectedNatureOfTheSite}
                   onChange={handleNatureChange}
                   disabled={isReadOnly}
+                  required
                 >
                   <option disabled value="">
                     Select Nature of the site
@@ -853,6 +864,7 @@ const BuildingInfo = () => {
                   onChange={handleDistrictChange}
                   value={selectedDistrict}
                   disabled={isReadOnly}
+                  required
                 >
                   <option value="" disabled>
                     Select District
@@ -881,6 +893,7 @@ const BuildingInfo = () => {
                   onChange={handleMandalChange}
                   value={selectedMandal}
                   disabled={!selectedDistrict || isReadOnly}
+                  required
                 >
                   <option value="" disabled>
                     Select Mandal
@@ -912,6 +925,7 @@ const BuildingInfo = () => {
                   value={selectedVillage}
                   onChange={(e) => setSelectedVillage(e.target.value)}
                   disabled={!selectedMandal || isReadOnly}
+                  required
                 >
                   <option value="" disabled>
                     Select Village
@@ -944,6 +958,7 @@ const BuildingInfo = () => {
                   value={selectedGrama}
                   onChange={(e) => setSelectedGrama(e.target.value)}
                   disabled={!selectedMandal || isReadOnly}
+                  required
                 >
                   <option value="" disabled>
                     Select Grama Panchayat
@@ -1147,6 +1162,7 @@ const BuildingInfo = () => {
                     defaultValue={proposedPlotArea ?? ""}
                     onChange={handleProposedPlotAreaChange}
                     readOnly={isReadOnly}
+                    required
                   />
                 </motion.div>
 
@@ -1171,6 +1187,7 @@ const BuildingInfo = () => {
                     defaultValue={roadWideningArea ?? ""}
                     onChange={handleRoadWideningAreaChange}
                     disabled={isReadOnly}
+                    required
                   />
                 </motion.div>
 
@@ -1241,6 +1258,7 @@ const BuildingInfo = () => {
                             type="radio"
                             className="radio-button__input"
                             id="noRoadExist"
+                            name="yesRoadExist"
                             value="no"
                             checked={radio2 === "no"}
                             onChange={handleRadio2}
@@ -1279,6 +1297,7 @@ const BuildingInfo = () => {
                         type="radio"
                         id="publicStatusRoad"
                         className="radio-button__input"
+                        name="publicStatusRoad"
                         value="Public"
                         checked={radio3 === "Public"}
                         onChange={handleRadio3}
@@ -1297,6 +1316,7 @@ const BuildingInfo = () => {
                         type="radio"
                         className="radio-button__input"
                         id="privateStatusRoad"
+                        name="publicStatusRoad"
                         value="Private"
                         checked={radio3 === "Private"}
                         onChange={handleRadio3}
@@ -1540,6 +1560,7 @@ const BuildingInfo = () => {
                           className="radio-button__input"
                           id="noWallProposed"
                           value="no"
+                          name="yesWallProposed"
                           checked={radio4 === "no"}
                           onChange={handleRadio4}
                           disabled={isReadOnly}
@@ -1616,6 +1637,7 @@ const BuildingInfo = () => {
                         type="radio"
                         className="radio-button__input"
                         id="noSiteRegistered"
+                        name="yesSiteRegistered"
                         value="no"
                         checked={radio5 === "no"}
                         onChange={handleRadio5}
