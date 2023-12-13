@@ -18,9 +18,12 @@ const ApplicantInfo = () => {
 
   // console.log(stepperData);
 
-  const { userInfoFromLocalStorage } = useContext(AuthContext);
-  const { confirmAlert, sendUserDataIntoDB, getApplicationData } =
-    useContext(AuthContext);
+  const {
+    userInfoFromLocalStorage,
+    confirmAlert,
+    sendUserDataIntoDB,
+    getApplicationData,
+  } = useContext(AuthContext);
 
   const role = userInfoFromLocalStorage().role;
 
@@ -185,14 +188,22 @@ const ApplicantInfo = () => {
 
   return (
     <div className="grid m-4 lg:my-0 text-gray-900">
-      <form action="" onSubmit={(e) => e.preventDefault()}>
+      <form
+        action=""
+        onSubmit={(e) => {
+          e.preventDefault();
+          confirmAlert(stepperData, handleApplicantInfoData);
+        }}
+      >
         {/* LTP’s Details  */}
-        <motion.div className="nm_Container mt-3 px-2 py-5 mb-10"
+        <motion.div
+          className="nm_Container mt-3 px-2 py-5 mb-10"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0, transition: { duration: 2 } }}
           viewport={{ once: false }}
         >
-          <motion.div className="flex items-center -mb-2 px-2"
+          <motion.div
+            className="flex items-center -mb-2 px-2"
             initial={{ opacity: 0, x: 100 }}
             whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
             viewport={{ once: false }}
@@ -257,9 +268,10 @@ const ApplicantInfo = () => {
               />
             </div> */}
 
-              <motion.div className="my-4 mx-3"
+              <motion.div
+                className="my-4 mx-3"
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0, transition: { duration: 1, } }}
+                whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
                 viewport={{ once: false }}
               >
                 <label htmlFor="ltpPhoneNo" className={labelClass}>
@@ -275,6 +287,7 @@ const ApplicantInfo = () => {
                   className={inputClass}
                   maxLength={10}
                   readOnly={true}
+                  required
                 />
               </motion.div>
 
@@ -289,9 +302,10 @@ const ApplicantInfo = () => {
               />
             </div>
 
-            <motion.div className="my-4 mx-3 basis-[25%]"
+            <motion.div
+              className="my-4 mx-3 basis-[25%]"
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0, transition: { duration: 1, } }}
+              whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
               viewport={{ once: false }}
             >
               <label htmlFor="ltpAddress" className={labelClass}>
@@ -305,6 +319,7 @@ const ApplicantInfo = () => {
                 defaultValue={address}
                 placeholder="Dr. no., Street, Village, Mandal, Dist."
                 readOnly={true}
+                required
               ></textarea>
             </motion.div>
           </div>
@@ -317,7 +332,8 @@ const ApplicantInfo = () => {
           whileInView={{ opacity: 1, y: 0, transition: { duration: 2 } }}
           viewport={{ once: false }}
         >
-          <motion.div className="flex items-center -mb-2 px-2"
+          <motion.div
+            className="flex items-center -mb-2 px-2"
             initial={{ opacity: 0, x: 100 }}
             whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
             viewport={{ once: false }}

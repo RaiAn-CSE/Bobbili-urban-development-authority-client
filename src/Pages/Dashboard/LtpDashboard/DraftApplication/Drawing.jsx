@@ -244,7 +244,15 @@ const Drawing = () => {
 
   return (
     <div className="text-black m-4">
-      <form onSubmit={(e) => e.preventDefault()} className="text-black mx-3">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          role === "LTP"
+            ? confirmAlert(stepperData, handleFileUpload)
+            : confirmAlert(stepperData, sentPsDecision);
+        }}
+        className="text-black mx-3"
+      >
         {/* AutoCAD Drawing */}
         <div className="text-lg mb-16">
           <p className="pr-3 font-bold text-black">1. AutoCAD Drawing</p>
@@ -304,35 +312,35 @@ const Drawing = () => {
             </p>
           )}
         </div>
-      </form>
 
-      {role == "PS" &&
-        buildingInfoData?.length !== 0 &&
-        getSubmitData?.length !== 0 && (
-          <DrawingTable
-            setApprovedConfirmation={setApprovedConfirmation}
-            setRecommendationMessage={setRecommendationMessage}
-            recomendationMessage={recomendationMessage}
-            approvedConfirmation={approvedConfirmation}
-            applicationData={buildingInfoData}
-            submitData={getSubmitData?.psDrawingPageObservation}
-          />
-        )}
-      {/* {openApplication && (
+        {role == "PS" &&
+          buildingInfoData?.length !== 0 &&
+          getSubmitData?.length !== 0 && (
+            <DrawingTable
+              setApprovedConfirmation={setApprovedConfirmation}
+              setRecommendationMessage={setRecommendationMessage}
+              recomendationMessage={recomendationMessage}
+              approvedConfirmation={approvedConfirmation}
+              applicationData={buildingInfoData}
+              submitData={getSubmitData?.psDrawingPageObservation}
+            />
+          )}
+        {/* {openApplication && (
         <Application setOpenApplication={setOpenApplication} />
       )} */}
 
-      {/* save & continue  */}
-      <SaveData
-        isStepperVisible={isStepperVisible}
-        currentStep={currentStep}
-        steps={steps}
-        stepperData={stepperData}
-        confirmAlert={confirmAlert}
-        collectInputFieldData={
-          role === "LTP" ? handleFileUpload : sentPsDecision
-        }
-      />
+        {/* save & continue  */}
+        <SaveData
+          isStepperVisible={isStepperVisible}
+          currentStep={currentStep}
+          steps={steps}
+          stepperData={stepperData}
+          confirmAlert={confirmAlert}
+          collectInputFieldData={
+            role === "LTP" ? handleFileUpload : sentPsDecision
+          }
+        />
+      </form>
     </div>
   );
 };

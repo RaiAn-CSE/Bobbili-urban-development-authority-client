@@ -204,6 +204,7 @@ const BuildingInfo = () => {
       if (Object.keys(plotDetails).length) {
         const plotDetailsFloor =
           dataFromDB?.buildingInfo?.plotDetails?.floorDetails;
+
         setRadio2(plotDetails?.existingRoad);
         setRadio3(plotDetails?.statusOfRoad);
         setRadio4(plotDetails?.compoundingWallProposed);
@@ -654,19 +655,26 @@ const BuildingInfo = () => {
   return (
     <>
       <div className="grid m-4 lg:my-0 text-gray-900">
-        <form action="" onSubmit={(e) => e.preventDefault()}>
+        <form
+          action=""
+          onSubmit={(e) => {
+            e.preventDefault();
+            confirmAlert(stepperData, collectInputFieldData);
+          }}
+          id="formId"
+        >
           {/* general information */}
           <motion.div
             className="nm_Container mt-3 px-2 py-5 mb-10"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0, transition: { duration: 2 } }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
           >
             <motion.div
               className="pl-2 flex items-center -mb-2"
               initial={{ opacity: 0, x: 100 }}
               whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
-              viewport={{ once: false }}
+              viewport={{ once: true }}
             >
               <div className=" text-normalViolet">
                 <HiInformationCircle size={30} />
@@ -683,7 +691,7 @@ const BuildingInfo = () => {
                 className="flex flex-col justify-center my-4 px-3"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
-                viewport={{ once: false }}
+                viewport={{ once: true }}
               >
                 <label htmlFor="nature" className={labelClass}>
                   Case Type
@@ -715,7 +723,7 @@ const BuildingInfo = () => {
                 className="grid grid-cols-1 font-medium  lg:justify-items-center my-4 mx-3"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
-                viewport={{ once: false }}
+                viewport={{ once: true }}
               >
                 <p className="flex items-center font-semibold text-gray-600">
                   Application Type?
@@ -736,6 +744,7 @@ const BuildingInfo = () => {
                       }
                       onChange={handleRadio1}
                       disabled={isReadOnly}
+                      required
                     />
                     <label className="radio-button__label" htmlFor="private">
                       <span className="radio-button__custom"></span>
@@ -769,7 +778,7 @@ const BuildingInfo = () => {
                 className="flex flex-col justify-center my-4 mx-3"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
-                viewport={{ once: false }}
+                viewport={{ once: true }}
               >
                 <label className="block text-gray-600 mb-1 font-semibold">
                   <span>Nature of permission</span>
@@ -780,6 +789,7 @@ const BuildingInfo = () => {
                   value={selectedOptionPermission}
                   onChange={handlePermissionChange}
                   disabled={isReadOnly}
+                  required
                 >
                   <option value="General">General</option>
                   <option value="Regularised under BPS">
@@ -793,7 +803,7 @@ const BuildingInfo = () => {
                 className="my-4 mx-3"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
-                viewport={{ once: false }}
+                viewport={{ once: true }}
               >
                 <label htmlFor="nature" className={labelClass}>
                   <span>Nature of the site</span>
@@ -804,6 +814,7 @@ const BuildingInfo = () => {
                   value={selectedNatureOfTheSite}
                   onChange={handleNatureChange}
                   disabled={isReadOnly}
+                  required
                 >
                   <option disabled value="">
                     Select Nature of the site
@@ -841,7 +852,7 @@ const BuildingInfo = () => {
                 className="flex flex-col justify-center my-4 mx-3"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
-                viewport={{ once: false }}
+                viewport={{ once: true }}
               >
                 <label className={labelClass}>
                   <span>District</span>
@@ -853,6 +864,7 @@ const BuildingInfo = () => {
                   onChange={handleDistrictChange}
                   value={selectedDistrict}
                   disabled={isReadOnly}
+                  required
                 >
                   <option value="" disabled>
                     Select District
@@ -869,7 +881,7 @@ const BuildingInfo = () => {
                 className="flex flex-col justify-center my-4 mx-3"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
-                viewport={{ once: false }}
+                viewport={{ once: true }}
               >
                 <label className={labelClass}>
                   <span>Mandal</span>
@@ -881,6 +893,7 @@ const BuildingInfo = () => {
                   onChange={handleMandalChange}
                   value={selectedMandal}
                   disabled={!selectedDistrict || isReadOnly}
+                  required
                 >
                   <option value="" disabled>
                     Select Mandal
@@ -900,7 +913,7 @@ const BuildingInfo = () => {
                 className="flex flex-col justify-center my-4 mx-3"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
-                viewport={{ once: false }}
+                viewport={{ once: true }}
               >
                 <label className={labelClass}>
                   <span>Village</span>
@@ -912,6 +925,7 @@ const BuildingInfo = () => {
                   value={selectedVillage}
                   onChange={(e) => setSelectedVillage(e.target.value)}
                   disabled={!selectedMandal || isReadOnly}
+                  required
                 >
                   <option value="" disabled>
                     Select Village
@@ -932,7 +946,7 @@ const BuildingInfo = () => {
                 className="flex flex-col justify-center my-4 mx-3"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
-                viewport={{ once: false }}
+                viewport={{ once: true }}
               >
                 <label className={labelClass}>
                   <span>Grama Panchayat</span>
@@ -944,6 +958,7 @@ const BuildingInfo = () => {
                   value={selectedGrama}
                   onChange={(e) => setSelectedGrama(e.target.value)}
                   disabled={!selectedMandal || isReadOnly}
+                  required
                 >
                   <option value="" disabled>
                     Select Grama Panchayat
@@ -1090,13 +1105,13 @@ const BuildingInfo = () => {
             className="nm_Container mt-3 px-2 py-5 mb-10"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0, transition: { duration: 2 } }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
           >
             <motion.div
               className="pl-2 flex items-center -mb-2"
               initial={{ opacity: 0, x: 100 }}
               whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
-              viewport={{ once: false }}
+              viewport={{ once: true }}
             >
               <AiOutlineAreaChart size={30} className="text-normalViolet" />
               <h3 className="font-bold text-xl ml-2">Plot Details</h3>
@@ -1133,7 +1148,7 @@ const BuildingInfo = () => {
                     y: 0,
                     transition: { duration: 1 },
                   }}
-                  viewport={{ once: false }}
+                  viewport={{ once: true }}
                 >
                   <label htmlFor="" className={labelClass}>
                     Proposed Plot area
@@ -1147,6 +1162,7 @@ const BuildingInfo = () => {
                     defaultValue={proposedPlotArea ?? ""}
                     onChange={handleProposedPlotAreaChange}
                     readOnly={isReadOnly}
+                    required
                   />
                 </motion.div>
 
@@ -1158,7 +1174,7 @@ const BuildingInfo = () => {
                     y: 0,
                     transition: { duration: 1 },
                   }}
-                  viewport={{ once: false }}
+                  viewport={{ once: true }}
                 >
                   <label htmlFor="" className={labelClass}>
                     Road Widening Area
@@ -1171,6 +1187,7 @@ const BuildingInfo = () => {
                     defaultValue={roadWideningArea ?? ""}
                     onChange={handleRoadWideningAreaChange}
                     disabled={isReadOnly}
+                    required
                   />
                 </motion.div>
 
@@ -1183,7 +1200,7 @@ const BuildingInfo = () => {
                     y: 0,
                     transition: { duration: 1 },
                   }}
-                  viewport={{ once: false }}
+                  viewport={{ once: true }}
                 >
                   <label htmlFor="disabled-input" className={labelClass}>
                     Net Plot Area (in Sq.Mts.)
@@ -1241,6 +1258,7 @@ const BuildingInfo = () => {
                           type="radio"
                           className="radio-button__input"
                           id="noRoadExist"
+                          name="yesRoadExist"
                           value="no"
                           checked={radio2 === "no"}
                           onChange={handleRadio2}
@@ -1266,7 +1284,7 @@ const BuildingInfo = () => {
                     y: 0,
                     transition: { duration: 1 },
                   }}
-                  viewport={{ once: false }}
+                  viewport={{ once: true }}
                 >
                   <div className="flex items-center mb-3 md:mb-0">
                     <FaHandPointRight className="me-3 w-5 lg:w-auto text-violetLight" />
@@ -1279,6 +1297,7 @@ const BuildingInfo = () => {
                         type="radio"
                         id="publicStatusRoad"
                         className="radio-button__input"
+                        name="publicStatusRoad"
                         value="Public"
                         checked={radio3 === "Public"}
                         onChange={handleRadio3}
@@ -1297,6 +1316,7 @@ const BuildingInfo = () => {
                         type="radio"
                         className="radio-button__input"
                         id="privateStatusRoad"
+                        name="publicStatusRoad"
                         value="Private"
                         checked={radio3 === "Private"}
                         onChange={handleRadio3}
@@ -1323,7 +1343,7 @@ const BuildingInfo = () => {
                     y: 0,
                     transition: { duration: 1 },
                   }}
-                  viewport={{ once: false }}
+                  viewport={{ once: true }}
                 >
                   <label className={labelClass}>
                     <span>Nature of Road</span>
@@ -1403,7 +1423,7 @@ const BuildingInfo = () => {
                     y: 0,
                     transition: { duration: 1 },
                   }}
-                  viewport={{ once: false }}
+                  viewport={{ once: true }}
                 >
                   <label htmlFor="disabled-input" className={labelClass}>
                     Total Built up area
@@ -1427,7 +1447,7 @@ const BuildingInfo = () => {
                     y: 0,
                     transition: { duration: 1 },
                   }}
-                  viewport={{ once: false }}
+                  viewport={{ once: true }}
                 >
                   <label htmlFor="disabled-input2" className={labelClass}>
                     Total Parking area
@@ -1505,7 +1525,7 @@ const BuildingInfo = () => {
                       x: 0,
                       transition: { duration: 1 },
                     }}
-                    viewport={{ once: false }}
+                    viewport={{ once: true }}
                   >
                     <div className="flex items-center mb-3 md:mb-0">
                       <FaHandPointRight className="me-3 w-7 lg:w-auto text-violetLight" />
@@ -1540,6 +1560,7 @@ const BuildingInfo = () => {
                           className="radio-button__input"
                           id="noWallProposed"
                           value="no"
+                          name="yesWallProposed"
                           checked={radio4 === "no"}
                           onChange={handleRadio4}
                           disabled={isReadOnly}
@@ -1581,7 +1602,7 @@ const BuildingInfo = () => {
                     x: 0,
                     transition: { duration: 1 },
                   }}
-                  viewport={{ once: false }}
+                  viewport={{ once: true }}
                 >
                   <div className="flex items-center mb-3 md:mb-0">
                     <FaHandPointRight className="me-3 w-7 lg:w-auto text-violetLight" />
@@ -1616,6 +1637,7 @@ const BuildingInfo = () => {
                         type="radio"
                         className="radio-button__input"
                         id="noSiteRegistered"
+                        name="yesSiteRegistered"
                         value="no"
                         checked={radio5 === "no"}
                         onChange={handleRadio5}
@@ -1640,13 +1662,13 @@ const BuildingInfo = () => {
             className="nm_Container mt-3 px-2 py-5"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0, transition: { duration: 2 } }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
           >
             <motion.div
               className="pl-2 flex items-center -mb-2"
               initial={{ opacity: 0, x: 100 }}
               whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
-              viewport={{ once: false }}
+              viewport={{ once: true }}
             >
               <PiWall size={30} className="text-normalViolet" />
               <h3 className="font-bold text-xl ml-3">Schedule of Boundaries</h3>
@@ -1661,7 +1683,7 @@ const BuildingInfo = () => {
                 className="flex flex-col my-4 justify-center mx-3"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
-                viewport={{ once: false }}
+                viewport={{ once: true }}
               >
                 <label className={labelClass}>
                   <span>North</span>
@@ -1688,7 +1710,7 @@ const BuildingInfo = () => {
                 className="flex flex-col my-4 justify-center mx-3"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
-                viewport={{ once: false }}
+                viewport={{ once: true }}
               >
                 <label className={labelClass}>
                   <span>South</span>
@@ -1715,7 +1737,7 @@ const BuildingInfo = () => {
                 className="flex flex-col my-4 justify-center mx-3"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
-                viewport={{ once: false }}
+                viewport={{ once: true }}
               >
                 <label className={labelClass}>
                   <span>East</span>
@@ -1742,7 +1764,7 @@ const BuildingInfo = () => {
                 className="flex flex-col my-4 justify-center mx-3"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
-                viewport={{ once: false }}
+                viewport={{ once: true }}
               >
                 <label className={labelClass}>
                   <span>West</span>

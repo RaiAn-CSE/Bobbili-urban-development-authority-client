@@ -72,9 +72,10 @@ const OwnerDetail = ({
             ltpDetails={applicantDetails?.ownerStreetNo}
           />
 
-          <motion.div className="my-4 mx-3"
+          <motion.div
+            className="my-4 mx-3"
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0, transition: { duration: 1, } }}
+            whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
             viewport={{ once: false }}
           >
             <label htmlFor="ltpPhoneNo" className={labelClass}>
@@ -90,6 +91,7 @@ const OwnerDetail = ({
               maxLength={10}
               onInput={handleInputPhone}
               disabled={isReadOnly}
+              required
             />
           </motion.div>
 
@@ -121,16 +123,17 @@ const OwnerDetail = ({
 
         {role.toLowerCase() === "ltp" && (
           <div className="flex basis-[25%] justify-center my-5 lg:my-5">
-
             {index === length - 1 && index < 4 && (
-              <motion.div className="flex justify-center items-center"
+              <motion.div
+                className="flex justify-center items-center"
                 initial={{ opacity: 0, x: -40 }}
-                whileInView={{ opacity: 1, x: 0, transition: { duration: 2, } }}
+                whileInView={{ opacity: 1, x: 0, transition: { duration: 2 } }}
                 viewport={{ once: false }}
               >
                 <button
-                  className={`nm_Container text-xl rounded-full w-[30px] h-[30px] text-normalViolet cursor-pointer transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold ${hideBtn && "hidden"
-                    }`}
+                  className={`nm_Container text-xl rounded-full w-[30px] h-[30px] text-normalViolet cursor-pointer transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold ${
+                    hideBtn && "hidden"
+                  }`}
                   onClick={increaseApplicantNo}
                 >
                   +
@@ -139,14 +142,16 @@ const OwnerDetail = ({
             )}
 
             {index === length - 1 && index > 0 && index <= 4 && (
-              <motion.div className="flex justify-center items-center"
+              <motion.div
+                className="flex justify-center items-center"
                 initial={{ opacity: 0, x: 40 }}
-                whileInView={{ opacity: 1, x: 0, transition: { duration: 2, } }}
+                whileInView={{ opacity: 1, x: 0, transition: { duration: 2 } }}
                 viewport={{ once: false }}
               >
                 <button
-                  className={`nm_Container text-xl mx-2 rounded-full text-red-500 w-[30px] h-[30px]  transition-all duration-500 font-bold ${hideBtn && "hidden"
-                    }`}
+                  className={`nm_Container text-xl mx-2 rounded-full text-red-500 w-[30px] h-[30px]  transition-all duration-500 font-bold ${
+                    hideBtn && "hidden"
+                  }`}
                   onClick={decreaseApplicationNo}
                 >
                   -

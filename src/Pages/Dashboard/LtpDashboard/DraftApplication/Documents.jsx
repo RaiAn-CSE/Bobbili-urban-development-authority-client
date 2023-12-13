@@ -278,10 +278,12 @@ const DocumentUpload = () => {
       } else {
         documents.dynamic = [...dbDynamic];
       }
-      return await sendUserDataIntoDB(url, "PATCH", {
-        applicationNo,
-        documents,
-      });
+
+      console.log(documents, "Documents");
+      // return await sendUserDataIntoDB(url, "PATCH", {
+      //   applicationNo,
+      //   documents,
+      // });
     }
   };
 
@@ -304,6 +306,11 @@ const DocumentUpload = () => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
+
+          confirmAlert(
+            stepperData,
+            role === "LTP" ? handleFileUpload : sentPsDecision
+          );
         }}
         className="text-black font-roboto dark:text-black mx-3"
       >
@@ -331,29 +338,29 @@ const DocumentUpload = () => {
             // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
           />
         </div>
-      </form>
 
-      {role === "PS" ? (
-        <DocumentFooter
-          approvedConfirmation={approvedConfirmation}
-          setApprovedConfirmation={setApprovedConfirmation}
-          setRecommendationMessage={setRecommendationMessage}
-          recommendationMessage={recommendationMessage}
+        {role === "PS" ? (
+          <DocumentFooter
+            approvedConfirmation={approvedConfirmation}
+            setApprovedConfirmation={setApprovedConfirmation}
+            setRecommendationMessage={setRecommendationMessage}
+            recommendationMessage={recommendationMessage}
+          />
+        ) : (
+          ""
+        )}
+
+        <SaveData
+          isStepperVisible={isStepperVisible}
+          currentStep={currentStep}
+          steps={steps}
+          stepperData={stepperData}
+          confirmAlert={confirmAlert}
+          collectInputFieldData={
+            role === "LTP" ? handleFileUpload : sentPsDecision
+          }
         />
-      ) : (
-        ""
-      )}
-
-      <SaveData
-        isStepperVisible={isStepperVisible}
-        currentStep={currentStep}
-        steps={steps}
-        stepperData={stepperData}
-        confirmAlert={confirmAlert}
-        collectInputFieldData={
-          role === "LTP" ? handleFileUpload : sentPsDecision
-        }
-      />
+      </form>
     </div>
   );
 };

@@ -168,10 +168,10 @@ input {
 }
 
 .radio-button__input {
-  position: absolute;
+  /* position: absolute; */
   opacity: 0;
-  width: 0;
-  height: 0;
+  width: 1px;
+  height: 1px;
 }
 
 .radio-button__label {
@@ -1331,7 +1331,6 @@ ol > li:before {
   }
 }
 
-
 /*===========================<<< Scrollbar >>> */
 /* width */
 ::-webkit-scrollbar {
@@ -1351,7 +1350,7 @@ ol > li:before {
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #7162E9;
+  background: #7162e9;
 }
 /*=========================<<< Scrollbar End >>> */
 /* chat box  */
@@ -1391,8 +1390,5 @@ ol > li:before {
   background-repeat: no-repeat;
   background-size: cover;
 }
-
-
-
 
 /* Chat Page Animation Wave :  */
