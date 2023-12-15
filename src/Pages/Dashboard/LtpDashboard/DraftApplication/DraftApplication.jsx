@@ -23,11 +23,7 @@ const DraftApplication = () => {
   const [openEndorsement, setOpenEndorsement] = useState(false);
   const [openDrawing, setOpenDrawing] = useState(false);
 
-  // const { applicationNo } = location.state;
-  // console.log(
-  //   JSON.parse(localStorage.getItem("CurrentAppNo")),
-  //   "APPLICATION NO"
-  // );
+
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
 
   const getIndex = JSON.parse(localStorage.getItem("stepIndex"));
@@ -35,8 +31,6 @@ const DraftApplication = () => {
   useEffect(() => {
     setCurrentStep(getIndex);
   }, []);
-
-  // console.log(applicationNo);
 
   const { userInfoFromLocalStorage } = useContext(AuthContext);
 
@@ -66,6 +60,27 @@ const DraftApplication = () => {
     steps.push("/siteInspection");
     stepsContent.push("Site Inspection");
   }
+
+
+
+
+
+  // const currentLocation = window.location.href;
+
+  // console.log(currentLocation, "currentLocation");
+  // console.log(window.location.pathname === `/dashboard/draftApplication/${steps}`);
+
+  // if (role === "LTP" && window.location.href.includes(`/dashboard/draftApplication/${steps}`)) {
+  //   const index = steps.indexOf("/payment");
+
+  //   if (index !== -1) {
+  //     steps.splice(index, 1);
+  //     stepsContent.splice(index, 1);
+  //   }
+  // }
+
+
+
 
   // Use localStorage to store and retrieve the current step
   useEffect(() => {
@@ -153,7 +168,7 @@ const DraftApplication = () => {
 
   console.log(
     applicationButtonForDraftApplication &&
-      (cameFrom === "draft" || cameFrom === "submit")
+    (cameFrom === "draft" || cameFrom === "submit")
   );
 
   const applicationButtonForApprovedOrShortfallApplication =
@@ -223,14 +238,14 @@ const DraftApplication = () => {
 
               {(applicationButtonForDraftApplication ||
                 applicationButtonForApprovedOrShortfallApplication) && (
-                <button
-                  onClick={() => setOpenApplication(true)}
-                  className={`flex justify-center items-center gap-1 btn-sm text-sm nm_Container bg-normalViolet  hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white border-none`}
-                >
-                  <HiOutlineClipboardDocumentList className="text-lg" />{" "}
-                  <span>Application</span>
-                </button>
-              )}
+                  <button
+                    onClick={() => setOpenApplication(true)}
+                    className={`flex justify-center items-center gap-1 btn-sm text-sm nm_Container bg-normalViolet  hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white border-none`}
+                  >
+                    <HiOutlineClipboardDocumentList className="text-lg" />{" "}
+                    <span>Application</span>
+                  </button>
+                )}
             </div>
           </div>
           <div className="w-full steps steps-vertical lg:steps-horizontal rounded-lg py-4 lg:relative font-roboto px-4 lg:px-0">
@@ -242,11 +257,10 @@ const DraftApplication = () => {
                 onClick={() => handleStepClick(index)}
               >
                 <button
-                  className={`${btnClass} ${completeBtn(index)} ${
-                    role !== "PS"
-                      ? "w-[70%] lg:w-[15.3%]"
-                      : "w-[50%] lg:w-[13%]"
-                  } text-[15px] font-bold gap-1 border-0 flex justify-center items-center lg:absolute top-3 z-10`}
+                  className={`${btnClass} ${completeBtn(index)} ${role !== "PS"
+                    ? "w-[70%] lg:w-[15.3%]"
+                    : "w-[50%] lg:w-[13%]"
+                    } text-[15px] font-bold gap-1 border-0 flex justify-center items-center lg:absolute top-3 z-10`}
                 >
                   {role !== "PS" && icons[index]}
                   <span>{step}</span>
