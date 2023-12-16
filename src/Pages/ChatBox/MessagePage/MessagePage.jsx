@@ -10,6 +10,7 @@ import { CiStar } from "react-icons/ci";
 import customerImg from "../../../assets/images/user1.png";
 import TextEditor from "../../Components/TextEditor";
 import { IoMdStar } from "react-icons/io";
+import curveLogo from "../../../assets/images/curveLogo.png";
 
 const MessagePage = ({ props }) => {
   const { setUserInfo, setRequestSent, userInfo, requestSent } = props;
@@ -24,6 +25,7 @@ const MessagePage = ({ props }) => {
   const [editorContent, setEditorContent] = useState(null);
   const [queryLoading, setQueryLoading] = useState(false);
   const [queryErrorMessage, setQueryErrorMessage] = useState("");
+  const [wantToLeaveMessage, setWantToLeaveMessage] = useState(false);
   const { register, errors, handleSubmit, resetField } = useForm();
   console.log(userInfo, "Userinfo");
 
@@ -256,50 +258,57 @@ const MessagePage = ({ props }) => {
 
   return (
     <div className="h-full overflow-hidden rounded-md relative">
-      {!isAccepted && (
-        <div className="message-box h-full flex flex-col justify-center items-center">
-          <div className="flex flex-col justify-center items-center gap-3">
-            <div className="text-[22px] font-bold text-normalViolet">
-              Bobbili Urban Development Authority
+      {!isAccepted && !wantToLeaveMessage ? (
+        <>
+          <div className="message-box h-full flex flex-col justify-center items-center">
+            <div className="flex flex-col justify-center items-center gap-3">
+              <div className="text-[22px] font-bold text-normalViolet absolute top-5 left-2 rotate-3">
+                {/* Bobbili Urban Development Authority */}
+                <img
+                  src={curveLogo}
+                  alt="A curved logo"
+                  className="object-fit"
+                />
+              </div>
+              <div className="h-[150px]">
+                <img
+                  src={chatAvatarImg}
+                  alt="An image of avatar"
+                  className="h-full"
+                />
+              </div>
             </div>
-            <div className="h-[150px]">
-              <img
-                src={chatAvatarImg}
-                alt="An image of avatar"
-                className="h-full"
-              />
-            </div>
-          </div>
-          {timeEnd && (
-            <div className="flex flex-col justify-center items-center gap-2 mt-3">
-              <p className="font-bold text-lg text-black">
-                Sorry. No one received.
-              </p>
+            {timeEnd && (
+              <div className="flex flex-col justify-center items-center gap-2 mt-3">
+                <p className="font-bold text-lg text-black">
+                  Sorry. No one received.
+                </p>
 
-              {loading ? (
-                <span className="loading loading-dots loading-lg text-normalViolet"></span>
-              ) : (
-                <div className="flex flex-col w-full border-opacity-50">
-                  <button
-                    className="bg-normalViolet text-white fancy-button mt-4 w-fit"
-                    onClick={() =>
-                      document.getElementById("leaveMessage").showModal()
-                    }
+                {loading ? (
+                  <span className="loading loading-dots loading-lg text-normalViolet"></span>
+                ) : (
+                  <div className="flex flex-col w-full border-opacity-50">
+                    <button
+                      className="bg-normalViolet text-white fancy-button mt-4 w-fit"
+                      onClick={() => setWantToLeaveMessage(true)}
+                    >
+                      Leave a reply
+                    </button>
+
+                    <div className="divider">OR</div>
+
+                    <button
+                      className="bg-normalViolet text-white fancy-button  w-fit"
+                      onClick={requestAgain}
+                    >
+                      Request Again
+                    </button>
+
+                    {/* modal of leave a message  */}
+                    {/* <dialog
+                    id="leaveMessage"
+                    className="modal absolute top-0 left-0 overflow-hidden"
                   >
-                    Leave a reply
-                  </button>
-
-                  <div className="divider">OR</div>
-
-                  <button
-                    className="bg-normalViolet text-white fancy-button  w-fit"
-                    onClick={requestAgain}
-                  >
-                    Request Again
-                  </button>
-
-                  {/* modal of leave a message  */}
-                  <dialog id="leaveMessage" className="modal ">
                     <div className="modal-box w-11/12 message-bg">
                       <div className="flex flex-col justify-center items-center ">
                         <div className="h-20">
@@ -331,7 +340,7 @@ const MessagePage = ({ props }) => {
                           </label>
                         </div>
 
-                        <div className="z-[100]">
+                        <div className="z-[100] rounded-lg ">
                           <TextEditor
                             editorContent={editorContent}
                             setEditorContent={setEditorContent}
@@ -358,7 +367,7 @@ const MessagePage = ({ props }) => {
                               Submit
                             </button>
                             <form method="dialog">
-                              {/* if there is a button in form, it will close the modal */}
+                             
 
                               <button
                                 className="btn btn-neutral save-btn font-bold text-base hover:scale-105"
@@ -374,44 +383,99 @@ const MessagePage = ({ props }) => {
                         )}
                       </div>
                     </div>
-                  </dialog>
-                </div>
-              )}
-            </div>
-          )}{" "}
-          {!timeEnd && (
-            <div className="flex flex-col justify-center items-center">
-              <span
-                id="counterElement"
-                className={`${
-                  counter < 15 ? "text-red-500" : "text-normalViolet"
-                } text-black text-xl font-bold inline-block`}
-                style={{ "--value": counter }}
-              >
-                {counter}
-              </span>
-              <div className="flex items-center gap-2">
-                <p className="text-lg font-bold font-poppins">
-                  <span className="text-warning">Please wait.</span>{" "}
-                  <span className="text-normalViolet">Connecting</span>
-                </p>
-                <span className="loading loading-dots loading-lg text-normalViolet"></span>
+                  </dialog> */}
+                  </div>
+                )}
               </div>
+            )}{" "}
+            {!timeEnd && (
+              <div className="flex flex-col justify-center items-center">
+                <span
+                  id="counterElement"
+                  className={`${
+                    counter < 15 ? "text-red-500" : "text-normalViolet"
+                  } text-black text-xl font-bold inline-block`}
+                  style={{ "--value": counter }}
+                >
+                  {counter}
+                </span>
+                <div className="flex items-center gap-2">
+                  <p className="text-lg font-bold font-poppins">
+                    <span className="text-warning">Please wait.</span>{" "}
+                    <span className="text-normalViolet">Connecting</span>
+                  </p>
+                  <span className="loading loading-dots loading-lg text-normalViolet"></span>
+                </div>
+              </div>
+            )}
+          </div>
+          <>
+            <div className="absolute flex justify-center items-center text-white h-10 w-10 rounded-full bg-violet-400 bottom-5 left-10 nm_Container">
+              {" "}
+              <CiStar size={30} />
             </div>
-          )}
-        </div>
-      )}
-
-      {!isAccepted && (
-        <>
-          <div className="absolute flex justify-center items-center text-white h-10 w-10 rounded-full bg-violet-400 bottom-5 left-10 nm_Container">
-            {" "}
-            <CiStar size={30} />
-          </div>
-          <div className="absolute flex justify-center items-center text-white h-10 w-10  rounded-full bg-violet-400 top-5 right-5 nm_Container">
-            <CiStar size={30} />
-          </div>
+            <div className="absolute flex justify-center items-center text-white h-10 w-10  rounded-full bg-violet-400 top-5 right-5 nm_Container">
+              <CiStar size={30} />
+            </div>
+          </>
         </>
+      ) : (
+        <div className="w-full h-full message-bg">
+          <div className="flex flex-col justify-center items-center pt-3">
+            <div className="h-20">
+              <img
+                src={customerImg}
+                alt="Customer avatar"
+                className="h-full object-cover"
+              />
+            </div>
+            <div className="text-center">
+              <p className="text-2xl font-bold text-normalViolet capitalize">
+                {userInfo?.name}
+              </p>
+              <p className="text-black font-bold font-mono text-base">
+                {userInfo?.mobileNo}
+              </p>
+            </div>
+          </div>
+          <div className="w-full  my-4 overflow-hidden">
+            <div className="indicator my-2">
+              <span className="indicator-item badge badge-xs text-red-500 bg-[#FFFFFF]">
+                <IoMdStar />
+              </span>
+              <label htmlFor="mobile" className="inline-block font-bold">
+                Your Queries
+              </label>
+            </div>
+
+            <div className="z-[100] rounded-lg overflow-hidden">
+              <TextEditor
+                editorContent={editorContent}
+                setEditorContent={setEditorContent}
+                extraOptions={{ autofocus: true }}
+              />
+            </div>
+            {queryErrorMessage?.length !== 0 && (
+              <p className="text-red-500 font-bold text-center">
+                {queryErrorMessage}
+              </p>
+            )}
+          </div>
+          <div className="flex justify-center items-center">
+            {queryLoading ? (
+              <div className="w-full flex justify-center items-center">
+                <span className=" loading loading-dots loading-lg text-normalViolet"></span>
+              </div>
+            ) : (
+              <button
+                className="btn fancy-button text-white"
+                onClick={leaveMessage}
+              >
+                Submit
+              </button>
+            )}
+          </div>
+        </div>
       )}
 
       {isAccepted && (

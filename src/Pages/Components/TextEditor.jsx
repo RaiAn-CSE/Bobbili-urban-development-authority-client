@@ -8,6 +8,7 @@ const TextEditor = ({ setEditorContent, editorContent, extraOptions = {} }) => {
     placeholder: "Write your query...",
     style: {
       backgroundColor: "#f4efef",
+      zIndex: 10000,
     },
     beautifyHTML: true,
     spellcheck: true,
@@ -19,6 +20,7 @@ const TextEditor = ({ setEditorContent, editorContent, extraOptions = {} }) => {
     showXPathInStatusbar: false,
     statusbar: false,
     addNewLine: false,
+    // toolbarSticky: true,
     ...extraOptions,
   };
   return (
