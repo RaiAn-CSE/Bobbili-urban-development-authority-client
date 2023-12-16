@@ -85,7 +85,7 @@ const Login = () => {
 
             console.log(localStorage.getItem("loggedUser"));
 
-            // axios.post("https://residential-building.onrender.com/jwt",userInfo,{
+            // axios.post("http://localhost:5000/jwt",userInfo,{
             //   withCredentials: true,
             //   headers: {
             //       'Access-Control-Allow-Origin': '*',
@@ -94,7 +94,7 @@ const Login = () => {
 
             //   })
 
-            fetch("https://residential-building.onrender.com/jwt", {
+            fetch("http://localhost:5000/jwt", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(userInfo),

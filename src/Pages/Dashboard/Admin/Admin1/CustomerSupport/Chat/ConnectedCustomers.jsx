@@ -26,7 +26,7 @@ const ConnectedCustomers = ({ setActiveChat, setShow }) => {
       ) {
         try {
           const { data: updateData } = await axios.get(
-            `https://residential-building.onrender.com/acceptMessage?role=${JSON.stringify(
+            `http://localhost:5000/acceptMessage?role=${JSON.stringify(
               userInfoFromLocalStorage().role.toLowerCase()
             )}`
           );
@@ -40,13 +40,13 @@ const ConnectedCustomers = ({ setActiveChat, setShow }) => {
     });
   }, [socket]);
 
-  useEffect(() => { }, [connectedUsers]);
+  useEffect(() => {}, [connectedUsers]);
 
   useEffect(() => {
     (async function () {
       try {
         const { data } = await axios.get(
-          `https://residential-building.onrender.com/acceptMessage?role=${JSON.stringify(
+          `http://localhost:5000/acceptMessage?role=${JSON.stringify(
             userInfoFromLocalStorage().role.toLowerCase()
           )}`
         );

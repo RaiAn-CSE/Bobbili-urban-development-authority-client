@@ -54,9 +54,8 @@ const MainLayout = () => {
     <>
       {/* particle  */}
 
-      {!path.includes("/statistics") && <ParticleBg />}
-
       <div className="px-10 min-h-screen z-[10] bg-[#E8EAEC] relative">
+        {!path.includes("/statistics") && <ParticleBg />}
         {/* upper part  */}
         <div className="py-3 flex-col lg:flex-row flex justify-between items-center z-[10]">
           <div className="basis-3/4 z-[10] pt-2">
@@ -134,7 +133,7 @@ const MainLayout = () => {
         </div>
 
         {toggleChat && (
-          <div className="fixed shadow-lg bottom-[70px] right-8 z-10 h-[86vh] w-[350px] bg-white rounded-lg hover:transform hover:translate-y-[-5px] hover:scale-[1.005] hover:translate-z-0 transition-all duration-500 ease-out">
+          <div className="fixed shadow-lg bottom-[70px] right-8 z-10 h-[86vh] w-[400px] bg-white rounded-lg hover:transform hover:translate-y-[-5px] hover:scale-[1.005] hover:translate-z-0 transition-all duration-500 ease-out">
             <ChatBox />
           </div>
         )}

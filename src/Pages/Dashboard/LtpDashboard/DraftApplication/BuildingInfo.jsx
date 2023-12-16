@@ -157,7 +157,7 @@ const BuildingInfo = () => {
     // console.log(districtData, 'districtData');
 
     // const apiUrl = "../../src/assets/buildingInfo.json";
-    // fetch('https://residential-building.onrender.com/getDistricts')
+    // fetch('http://localhost:5000/getDistricts')
     //   .then((response) => response.json())
     //   .then((result) => {
     //     console.log(result[0], 'result.district');
@@ -172,7 +172,7 @@ const BuildingInfo = () => {
   useEffect(() => {
     (async function () {
       const locationData = await fetchDataFromTheDb(
-        "https://residential-building.onrender.com/getDistricts"
+        "http://localhost:5000/getDistricts"
       );
       console.log(locationData, "LOC");
       const extractsDataFromDB = locationData[0]?.district;
