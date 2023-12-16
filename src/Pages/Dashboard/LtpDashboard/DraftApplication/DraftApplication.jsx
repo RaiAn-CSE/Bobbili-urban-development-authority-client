@@ -114,6 +114,7 @@ const DraftApplication = () => {
       return "";
     }
   };
+
   const completeBtn = (index) => {
     if (index === currentStep) {
       return `bg-gradient-to-b from-[#a29bfe] to-[#6c5ce7] shadow-none text-white border-0 `;
@@ -136,8 +137,6 @@ const DraftApplication = () => {
   const path = useLocation()?.pathname;
 
   // check the page name to show the building info and other pages application value
-
-
 
   const applicationButtonForDraftApplication =
     (path.includes("applicationChecklist") ||
