@@ -12,7 +12,7 @@ const AllDraftApplication = ({
   // tableComponentProps,
 }) => {
   const { alertToConfirmDelete } = useContext(AuthContext);
-  console.log(applicationData);
+  // console.log(applicationData);
 
   const { showPageBasedOnApplicationType, removeDraftApplication, navigate } =
     tableComponentProps;
@@ -23,7 +23,7 @@ const AllDraftApplication = ({
   const { generalInformation } = buildingInfo;
   const { applicantDetails } = applicantInfo;
 
-  console.log(applicantInfo, "applicantInfo");
+  // console.log(applicantInfo, "applicantInfo");
 
   const [tableInfo, setTableInfo] = useState(false);
   const handleTableInfo = () => {

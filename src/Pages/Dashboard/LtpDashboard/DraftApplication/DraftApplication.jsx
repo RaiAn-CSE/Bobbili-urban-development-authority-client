@@ -22,6 +22,7 @@ const DraftApplication = () => {
   const [openProceeding, setOpenProceeding] = useState(false);
   const [openEndorsement, setOpenEndorsement] = useState(false);
   const [openDrawing, setOpenDrawing] = useState(false);
+  const cameFrom = JSON.parse(localStorage.getItem("page"));
 
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
@@ -61,25 +62,15 @@ const DraftApplication = () => {
     stepsContent.push("Site Inspection");
   }
 
+  // Delete Payment page from LTP DrapApplication:
+  if (cameFrom === "draft") {
+    const index = steps.indexOf("/payment");
 
-
-
-
-  // const currentLocation = window.location.href;
-
-  // console.log(currentLocation, "currentLocation");
-  // console.log(window.location.pathname === `/dashboard/draftApplication/${steps}`);
-
-  // if (role === "LTP" && window.location.href.includes(`/dashboard/draftApplication/${steps}`)) {
-  //   const index = steps.indexOf("/payment");
-
-  //   if (index !== -1) {
-  //     steps.splice(index, 1);
-  //     stepsContent.splice(index, 1);
-  //   }
-  // }
-
-
+    if (index !== -1) {
+      steps.splice(index, 1);
+      stepsContent.splice(index, 1);
+    }
+  }
 
 
   // Use localStorage to store and retrieve the current step
@@ -98,7 +89,6 @@ const DraftApplication = () => {
   }, [location.pathname]);
 
   const handleStepClick = (index) => {
-    console.log("ASLCAM");
     setCurrentStep(index);
     localStorage.setItem("stepIndex", JSON.stringify(index)); // Store the current step in localStorage
     navigate(`/dashboard/draftApplication${steps[index]}`);
@@ -119,11 +109,6 @@ const DraftApplication = () => {
   const allSteps = [...steps, ...additionalSteps];
 
   const isStepperVisible = allSteps.includes(location.pathname); // Check if current route is in the list of routes with the stepper
-
-  let btnClass =
-    "nm_Container btn-md hover:text-[#fff] text-black  transition-all duration-500 cursor-pointer hover:bg-normalViolet bg-bgColor";
-
-  const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
   const stepClasses = (index) => {
     if (index === currentStep) {
@@ -157,7 +142,7 @@ const DraftApplication = () => {
 
   // check the page name to show the building info and other pages application value
 
-  const cameFrom = JSON.parse(localStorage.getItem("page"));
+
 
   const applicationButtonForDraftApplication =
     (path.includes("applicationChecklist") ||
@@ -179,6 +164,12 @@ const DraftApplication = () => {
     const appNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
     navigate("/dashboard/resubmitApplication", { state: { appNo } });
   };
+
+  let btnClass =
+    "nm_Container btn-md hover:text-[#fff] text-black  transition-all duration-500 cursor-pointer hover:bg-normalViolet bg-bgColor";
+
+  const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
+
   return (
     <>
       {isStepperVisible && ( // Render the stepper only when isStepperVisible is true
