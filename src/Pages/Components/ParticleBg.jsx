@@ -27,6 +27,7 @@ const ParticleBg = () => {
             value: "#E8EAEC",
           },
         },
+
         fpsLimit: 120,
         interactivity: {
           events: {

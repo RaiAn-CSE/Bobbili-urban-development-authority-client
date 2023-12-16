@@ -9,7 +9,7 @@
 .formGroup input:focus + label {
   color: #000000;
   transform: translate(8px, 8px);
-  background: #E8EAEC;
+  background: #e8eaec;
   border-radius: 3px;
   padding: 0px 3px;
 }
@@ -22,15 +22,14 @@ input[type="checkbox"]:checked {
   background-color: violet;
 }
 
-
 /*=============================> loginInput design  */
 .loginInput {
   display: flex;
   align-items: center;
   justify-content: center;
   outline: none;
-  background-image: linear-gradient(to top, #D8D9DB 0%, #fff 80%, #FDFDFD 100%);
-  border: 1.5px solid #8B5BF6;
+  background-image: linear-gradient(to top, #d8d9db 0%, #fff 80%, #fdfdfd 100%);
+  border: 1.5px solid #8b5bf6;
   transition: all 0.2s ease;
   font-family: "Source Sans Pro", sans-serif;
   font-size: 16px;
@@ -39,15 +38,18 @@ input[type="checkbox"]:checked {
 }
 
 .loginInput:hover {
-  box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 3px 3px #CECFD1;
+  box-shadow: 0 4px 3px 1px #fcfcfc, 0 6px 8px #d6d7d9, 0 -4px 4px #cecfd1,
+    0 -6px 4px #fefefe, inset 0 0 3px 3px #cecfd1;
 }
 
 .loginInput:active {
-  box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 5px 3px #999, inset 0 0 30px #aaa;
+  box-shadow: 0 4px 3px 1px #fcfcfc, 0 6px 8px #d6d7d9, 0 -4px 4px #cecfd1,
+    0 -6px 4px #fefefe, inset 0 0 5px 3px #999, inset 0 0 30px #aaa;
 }
 
 .loginInput:focus {
-  box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 5px 3px #999, inset 0 0 30px #aaa;
+  box-shadow: 0 4px 3px 1px #fcfcfc, 0 6px 8px #d6d7d9, 0 -4px 4px #cecfd1,
+    0 -6px 4px #fefefe, inset 0 0 5px 3px #999, inset 0 0 30px #aaa;
 }
 
 /* ==========================> loginInput design  End*/

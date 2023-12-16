@@ -8,6 +8,10 @@ import toast from "react-hot-toast";
 import Loading from "../../../../../Shared/Loading";
 import socket from "../../../../../Common/socket";
 import { AuthContext } from "../../../../../../AuthProvider/AuthProvider";
+import maleImg from "../../../../../../assets/images/male.png";
+import femaleImg from "../../../../../../assets/images/female.png";
+import unknownImg from "../../../../../../assets/images/unknown.png";
+import { BsQuestionOctagonFill } from "react-icons/bs";
 
 const MissedRequest = () => {
   const { userInfoFromLocalStorage } = useContext(AuthContext);
@@ -16,12 +20,13 @@ const MissedRequest = () => {
   const [tableData, setTableData] = useState({});
   const [tableComponentProps, setTableComponentProps] = useState({});
   const [error, setError] = useState("");
+  const [query, setQuery] = useState(null);
   const tableHeader = ["Sl.no.", "Customer Info", "Action"];
 
   useEffect(() => {
     setLoading(true);
     setError("");
-    fetch("https://residential-building.onrender.com/missedMessage")
+    fetch("http://localhost:5000/missedMessage")
       .then((res) => res.json())
       .then((result) => {
         console.log(result);
@@ -43,11 +48,12 @@ const MissedRequest = () => {
       // Handle the new data received from the server
       console.log(data, "Data");
 
-      if (data?.change?.operationType === "update") {
-        console.log(allData, "After updating");
-        const { data } = await axios.get(
-          "https://residential-building.onrender.com/missedMessage"
-        );
+      if (
+        data?.change?.operationType === "update" ||
+        data?.change?.operationType === "insert"
+      ) {
+        console.log(allData, "After updating or inserting");
+        const { data } = await axios.get("http://localhost:5000/missedMessage");
 
         setAllData(data);
       }
@@ -65,7 +71,7 @@ const MissedRequest = () => {
     const filteredData = allData.filter((each) => each._id !== id);
     setAllData(filteredData);
     const { data } = await axios.delete(
-      `https://residential-building.onrender.com/messageRequest?id=${id}`
+      `http://localhost:5000/messageRequest?id=${id}`
     );
 
     if (data.acknowledged) {
@@ -85,8 +91,14 @@ const MissedRequest = () => {
       return { ...prev, ...newValue };
     });
 
-    setTableComponentProps({ checkedMissedMessage });
+    setTableComponentProps({ checkedMissedMessage, setQuery });
   }, [allData]);
+
+  useEffect(() => {
+    if (query) {
+      document.getElementById("my_modal_5").showModal();
+    }
+  }, [query]);
 
   console.log(error);
 
@@ -96,7 +108,7 @@ const MissedRequest = () => {
     return <Loading />;
   }
   return (
-    <>
+    <div>
       {error?.length !== 0 ? (
         <div className="flex flex-col justify-center items-center min-h-[calc(100vh - 10%)]">
           <Lottie
@@ -117,6 +129,63 @@ const MissedRequest = () => {
               tableComponentProps={tableComponentProps}
             />
 
+            {/* modal to show query  */}
+            {query && (
+              <dialog
+                id="my_modal_5"
+                className="modal modal-bottom sm:modal-middle"
+              >
+                <div className="modal-box">
+                  {/* upper part  */}
+                  <div className="flex items-center">
+                    <div className="h-20">
+                      <img
+                        src={
+                          (query?.gender === "male" && maleImg) ||
+                          (query?.gender === "female" && femaleImg) ||
+                          (query?.gender === null && unknownImg)
+                        }
+                        alt="Customer avatar"
+                        className="h-full object-cover"
+                      />
+                    </div>
+                    <div className="text-start ml-4">
+                      <p className="text-xl font-bold text-normalViolet capitalize">
+                        {query?.name}
+                      </p>
+                      <p className="text-gray-500 font-mono text-base">
+                        {query?.mobile}
+                      </p>
+                    </div>
+                  </div>
+                  {/* question part  */}
+                  <div className="">
+                    <p className="flex justify-center items-center gap-3 my-3 font-bold fancy-button hover:scale-100 rounded-lg text-white text-base p-1">
+                      <BsQuestionOctagonFill size={20} />
+                      Queries
+                      <BsQuestionOctagonFill size={20} />
+                    </p>
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: query?.noResponse?.query,
+                      }}
+                    />
+                  </div>
+                  <div className="modal-action">
+                    <form method="dialog">
+                      {/* if there is a button in form, it will close the modal */}
+                      <button
+                        className="btn fancy-button text-white"
+                        onClick={() => setQuery(null)}
+                      >
+                        Close
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </dialog>
+            )}
+
             {allData?.length === 0 && (
               <p className="text-center font-bold text-lg text-normalViolet">
                 No Request Found
@@ -127,7 +196,7 @@ const MissedRequest = () => {
           </>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

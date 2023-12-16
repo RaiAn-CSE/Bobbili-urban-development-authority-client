@@ -5,6 +5,7 @@ import maleImg from "../../../../../../assets/images/male.png";
 import femaleImg from "../../../../../../assets/images/female.png";
 import unknownImg from "../../../../../../assets/images/unknown.png";
 import { PiPhoneDisconnectFill } from "react-icons/pi";
+import { MdQuestionAnswer } from "react-icons/md";
 
 const ShowMissedRequest = ({
   serialNo,
@@ -12,7 +13,7 @@ const ShowMissedRequest = ({
   tableComponentProps,
 }) => {
   console.log(applicationData, "application data");
-  const [loading, setLoading] = useState(false);
+  const [contacted, setContacted] = useState(false);
   const [userImg, setUserImg] = useState(unknownImg);
 
   useEffect(() => {
@@ -58,15 +59,20 @@ const ShowMissedRequest = ({
             </p>
           </div>
         </td>
-        <td className="p-3  border-b border-gray-200 text-sm">
+        <td className="p-3 border-b border-gray-200 text-sm">
+          <button
+            className="text-white fancy-button mr-3"
+            onClick={() => {
+              tableComponentProps.setQuery(applicationData);
+            }}
+          >
+            <MdQuestionAnswer size={18} />
+          </button>
           <button
             className="text-white fancy-button"
             onClick={() => {
-              setLoading(true);
               tableComponentProps.checkedMissedMessage(applicationData._id);
-              setLoading(false);
             }}
-            disabled={loading}
           >
             <PiPhoneDisconnectFill size={18} />
           </button>

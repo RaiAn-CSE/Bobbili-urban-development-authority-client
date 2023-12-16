@@ -205,7 +205,7 @@ const DocumentUpload = () => {
         formData.append("file", loopTimes[lt][i].file);
         try {
           const response = await axios.post(
-            "https://residential-building.onrender.com/upload?page=document",
+            "http://localhost:5000/upload?page=document",
             formData,
             {
               headers: {
@@ -280,10 +280,10 @@ const DocumentUpload = () => {
       }
 
       console.log(documents, "Documents");
-      // return await sendUserDataIntoDB(url, "PATCH", {
-      //   applicationNo,
-      //   documents,
-      // });
+      return await sendUserDataIntoDB(url, "PATCH", {
+        applicationNo,
+        documents,
+      });
     }
   };
 

@@ -69,11 +69,12 @@ function DynamicDocument({
                 {requirements?.map((RequireData, ind) => {
                   const { uploadId, requirement, approved, upload } =
                     RequireData;
-
+                  console.log(dynamicImageFromDB, "DIDB");
                   const isMatch = dynamicImageFromDB?.find(
                     (eachFile, i) =>
                       eachFile?.id === id && eachFile?.uploadId === uploadId
                   );
+                  console.log(isMatch, id, uploadId, "ISMATCH");
                   const letters = [
                     "a",
                     "b",

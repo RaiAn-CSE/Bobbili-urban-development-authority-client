@@ -120,7 +120,7 @@ const Drawing = () => {
           formData.append("file", selectedFiles[file]);
           try {
             const response = await axios.post(
-              "https://residential-building.onrender.com/upload?page=drawing",
+              "http://localhost:5000/upload?page=drawing",
               formData,
               {
                 headers: {
@@ -243,7 +243,7 @@ const Drawing = () => {
   }, []);
 
   return (
-    <div className="text-black m-4">
+    <div className="text-black ml-4 ">
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -254,9 +254,9 @@ const Drawing = () => {
         className="text-black mx-3"
       >
         {/* AutoCAD Drawing */}
-        <div className="text-lg mb-16">
+        <div className="text-lg mb-10">
           <p className="pr-3 font-bold text-black">1. AutoCAD Drawing</p>
-          <div className="flex items-center mt-5">
+          <div className="flex items-center mt-3">
             {role === "LTP" && cameFrom === "draft" && (
               <label className="relative cursor-pointer mr-6">
                 <input
@@ -281,7 +281,7 @@ const Drawing = () => {
         </div>
 
         {/* Drawing PDF */}
-        <div className="text-lg mb-10">
+        <div className="text-lg mb-2">
           <p className="pr-3 font-bold text-black">2. Drawing PDF</p>
           <div className="flex items-center mt-5">
             {role === "LTP" && cameFrom === "draft" && (

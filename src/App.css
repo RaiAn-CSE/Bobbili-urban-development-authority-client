@@ -69,7 +69,7 @@ table tbody tr:hover {
 
 /* Custom CSS for sticky table header */
 #tsparticles {
-  z-index: -10;
+  z-index: 11;
   background-color: transparent;
 }
 
@@ -1391,4 +1391,73 @@ ol > li:before {
   background-size: cover;
 }
 
-/* Chat Page Animation Wave :  */
+.message-icon-container {
+  width: fit-content;
+  height: fit-content;
+  margin: 0 auto;
+}
+
+.oval-thought {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  background: linear-gradient(#b478ff, #6e3bba);
+  border-radius: 50%;
+}
+
+.oval-thought:before {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  right: 23px;
+  width: 30px;
+  height: 30px;
+  background: #7642c2;
+  border-radius: 30px;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  transform: rotate(130deg);
+}
+
+/* .oval-thought:after {
+  content: "";
+  position: absolute;
+  bottom: -30px;
+  left: 30px;
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  background: #075698;
+} */
+
+/* triangle  */
+
+.triangle-container {
+  width: 70px;
+  height: 90px;
+  border-top: 4px solid #9f4ce3;
+  transform: rotate(35deg);
+  top: 0px;
+  left: 0;
+  z-index: 1000;
+}
+.triangle {
+  margin: auto;
+  width: 50px;
+  height: 50px;
+  top: -25px;
+  left: 0;
+  right: 0;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  border-right: 4px solid #6e18c4;
+  border-bottom: 4px solid #751fdd;
+  border-bottom: 4px solid #781bc5;
+}
