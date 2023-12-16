@@ -6,6 +6,9 @@ const TextEditor = ({ setEditorContent, editorContent, extraOptions = {} }) => {
   const config = {
     readonly: false,
     placeholder: "Write your query...",
+    style: {
+      backgroundColor: "#f4efef",
+    },
     beautifyHTML: true,
     spellcheck: true,
     language: "auto",

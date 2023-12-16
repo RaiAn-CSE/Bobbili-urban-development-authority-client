@@ -300,8 +300,8 @@ const MessagePage = ({ props }) => {
 
                   {/* modal of leave a message  */}
                   <dialog id="leaveMessage" className="modal ">
-                    <div className="modal-box w-11/12">
-                      <div className="flex items-center">
+                    <div className="modal-box w-11/12 message-bg">
+                      <div className="flex flex-col justify-center items-center ">
                         <div className="h-20">
                           <img
                             src={customerImg}
@@ -309,11 +309,11 @@ const MessagePage = ({ props }) => {
                             className="h-full object-cover"
                           />
                         </div>
-                        <div className="text-start ml-4">
+                        <div className="text-center">
                           <p className="text-xl font-bold text-normalViolet capitalize">
                             {userInfo?.name}
                           </p>
-                          <p className="text-gray-500 font-mono text-base">
+                          <p className="text-black font-bold font-mono text-base">
                             {userInfo?.mobileNo}
                           </p>
                         </div>

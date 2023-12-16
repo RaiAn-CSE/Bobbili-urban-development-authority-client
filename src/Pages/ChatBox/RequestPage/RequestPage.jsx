@@ -191,7 +191,7 @@ const RequestPage = ({ props }) => {
               </div>
               <input
                 type="number"
-                className={`input input-bordered w-full max-w-xs border-2 focus:border-violet-400 rounded-full focus:outline-none bg-gray-100 ${LoginCSS.loginInput} focus:nm_Inset`}
+                className={`input input-bordered w-full max-w-xs border-2 focus:border-violet-400 rounded-full focus:outline-none  bg-gray-100 ${LoginCSS.loginInput} focus:nm_Inset`}
                 placeholder="Enter your mobile no..."
                 pattern="[0-9]+"
                 {...register("mobileNo", { required: true })}
