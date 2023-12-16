@@ -598,7 +598,7 @@ const Payment = () => {
               type="number"
               ltpDetails={calculatedData?.UDATotalCharged}
             />
-            {role === "LTP" && cameFrom === "draft" && (
+            {role === "LTP" && cameFrom === "approved" && (
               <motion.div
                 className="flex ms-5 items-center mt-[16px] pay-btn-container"
                 initial={{ opacity: 0, x: 40 }}
@@ -871,7 +871,7 @@ const Payment = () => {
               viewport={{ once: true }}
             >
               <div className="form-control w-full max-w-xs">
-                {role === "LTP" && cameFrom === "draft" && (
+                {role === "LTP" && cameFrom === "approved" && (
                   <input
                     type="file"
                     className="file-input file-input-bordered w-full max-w-xs text-gray-400 bg-white dark:text-black"
@@ -984,7 +984,7 @@ const Payment = () => {
               viewport={{ once: true }}
             >
               <div className="form-control w-full max-w-xs">
-                {role === "LTP" && cameFrom === "draft" && (
+                {role === "LTP" && cameFrom === "approved" && (
                   <input
                     type="file"
                     className="file-input file-input-bordered w-full max-w-xs text-gray-400 bg-white dark:text-black"
@@ -1100,7 +1100,7 @@ const Payment = () => {
               viewport={{ once: true }}
             >
               <div className="form-control w-full max-w-xs">
-                {role === "LTP" && cameFrom === "draft" && (
+                {role === "LTP" && cameFrom === "approved" && (
                   <input
                     type="file"
                     className="file-input file-input-bordered w-full max-w-xs text-gray-400 bg-white dark:text-black"

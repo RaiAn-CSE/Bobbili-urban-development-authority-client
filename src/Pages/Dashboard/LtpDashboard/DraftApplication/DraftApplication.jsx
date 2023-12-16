@@ -57,15 +57,17 @@ const DraftApplication = () => {
     stepsContent.push("Site Inspection");
   }
 
-  // Delete Payment page from LTP DrapApplication:
-  if (cameFrom === "draft") {
-    const index = steps.indexOf("/payment");
 
-    if (index !== -1) {
-      steps.splice(index, 1);
-      stepsContent.splice(index, 1);
-    }
-  }
+
+  // Delete Payment page from LTP DrapApplication:
+  // if (cameFrom === "draft") {
+  //   const index = steps.indexOf("/payment");
+
+  //   if (index !== -1) {
+  //     steps.splice(index, 1);
+  //     stepsContent.splice(index, 1);
+  //   }
+  // }
 
 
   // Use localStorage to store and retrieve the current step
