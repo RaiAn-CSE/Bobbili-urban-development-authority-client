@@ -13,7 +13,7 @@ const ShowMissedRequest = ({
   tableComponentProps,
 }) => {
   console.log(applicationData, "application data");
-  const [loading, setLoading] = useState(false);
+  const [contacted, setContacted] = useState(false);
   const [userImg, setUserImg] = useState(unknownImg);
 
   useEffect(() => {
@@ -71,11 +71,8 @@ const ShowMissedRequest = ({
           <button
             className="text-white fancy-button"
             onClick={() => {
-              setLoading(true);
               tableComponentProps.checkedMissedMessage(applicationData._id);
-              setLoading(false);
             }}
-            disabled={loading}
           >
             <PiPhoneDisconnectFill size={18} />
           </button>

@@ -160,7 +160,7 @@ const MissedRequest = () => {
                   </div>
                   {/* question part  */}
                   <div className="">
-                    <p className="flex justify-center items-center gap-3 my-3 font-bold bg-normalViolet rounded-lg text-white text-lg p-1">
+                    <p className="flex justify-center items-center gap-3 my-3 font-bold fancy-button hover:scale-100 rounded-lg text-white text-base p-1">
                       <BsQuestionOctagonFill size={20} />
                       Queries
                       <BsQuestionOctagonFill size={20} />

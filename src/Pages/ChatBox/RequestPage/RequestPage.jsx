@@ -12,7 +12,8 @@ import stairLikeLine from "../../../assets/images/stairLikeLine.png";
 import { TfiEmail } from "react-icons/tfi";
 import LoginCSS from "../../../Style/Login.module.css";
 import isBetweenWorkingHours from "../../Common/CheckWorkingHours";
-import JoditEditor from "jodit-react";
+import { BsSendCheckFill } from "react-icons/bs";
+import TextEditor from "../../Components/TextEditor";
 
 const RequestPage = ({ props }) => {
   const { setRequestSent, setUserInfo } = props;
@@ -24,8 +25,6 @@ const RequestPage = ({ props }) => {
   } = useForm();
 
   const [loading, setLoading] = useState(false);
-
-  const storeUserData = async (needToStore) => {};
 
   // if the user want to send message in between working hours
   const onSubmit = async (dataFromUser) => {
@@ -78,22 +77,7 @@ const RequestPage = ({ props }) => {
 
   // editor configuration
 
-  const editor = useRef(null);
   const [editorContent, setEditorContent] = useState("");
-
-  const config = {
-    readonly: false,
-    placeholder: "Write your query...",
-    beautifyHTML: true,
-    spellcheck: true,
-    language: "auto",
-    enter: "p",
-    imageDefaultWidth: 300,
-    height: 100,
-    resize: false,
-    showXPathInStatusbar: false,
-    statusbar: false,
-  };
 
   // if the user want to message after working hours
   const submitQuery = async (query) => {
@@ -162,7 +146,7 @@ const RequestPage = ({ props }) => {
           className="nm_Container text-[#6c5ce7] mt-4 p-2"
         />  */}
 
-            <div className="message-icon-container">
+            <div className="message-icon-container ">
               <blockquote className="oval-thought">
                 <TfiEmail size={50} />
               </blockquote>
@@ -331,12 +315,9 @@ const RequestPage = ({ props }) => {
                 </label>
               </div>
 
-              <JoditEditor
-                ref={editor}
-                value={editorContent}
-                config={config}
-                tabIndex={1} // tabIndex of textarea
-                onBlur={(newContent) => setEditorContent(newContent)}
+              <TextEditor
+                editorContent={editorContent}
+                setEditorContent={setEditorContent}
               />
             </div>
 
@@ -349,7 +330,7 @@ const RequestPage = ({ props }) => {
               <input
                 className="capitalize p-2 px-8 text-lg rounded-full text-white bg-black cursor-pointer transition-all duration-700"
                 type="submit"
-                value={"Submit"}
+                value={`Submit`}
               />
             )}
           </form>

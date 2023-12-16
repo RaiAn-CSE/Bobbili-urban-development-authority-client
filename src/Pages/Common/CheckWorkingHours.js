@@ -6,7 +6,7 @@ const isBetweenWorkingHours = () => {
   // Get the current time in the 'Asia/Kolkata' timezone
   const currentTime = DateTime.now().setZone("Asia/Kolkata");
 
-  const isWeekday = currentTime.weekday !== 6 && currentTime.weekday !== 7;
+  const isWeekday = currentTime.weekday !== 7;
 
   if (isWeekday) {
     // Set the start and end times for the range (12 AM to 5 PM)
