@@ -22,22 +22,17 @@ const DraftApplication = () => {
   const [openProceeding, setOpenProceeding] = useState(false);
   const [openEndorsement, setOpenEndorsement] = useState(false);
   const [openDrawing, setOpenDrawing] = useState(false);
+
+  const { userInfoFromLocalStorage } = useContext(AuthContext);
+
   const cameFrom = JSON.parse(localStorage.getItem("page"));
-
-
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
-
   const getIndex = JSON.parse(localStorage.getItem("stepIndex"));
+  const role = userInfoFromLocalStorage()?.role;
 
   useEffect(() => {
     setCurrentStep(getIndex);
   }, []);
-
-  const { userInfoFromLocalStorage } = useContext(AuthContext);
-
-  const role = userInfoFromLocalStorage()?.role;
-
-  console.log(role);
 
   const steps = [
     "/buildingInfo",
