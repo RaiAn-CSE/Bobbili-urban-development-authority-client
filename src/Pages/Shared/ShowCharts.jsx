@@ -28,9 +28,9 @@ const ShowCharts = () => {
   const { userInfoFromLocalStorage, fetchDataFromTheDb } =
     useContext(AuthContext);
 
-  const role = userInfoFromLocalStorage()?.role;
+  const role = userInfoFromLocalStorage()?.role?.toLowerCase();
 
-  const isLtpOrPs = role === "LTP" || role === "PS";
+  const isLtpOrPs = role === "ltp" || role === "ps";
 
   // const role = userInfoFromLocalStorage().role;
 
@@ -45,6 +45,7 @@ const ShowCharts = () => {
   const [serverData, setServerData] = useState([]);
 
   const [selectedDate, setSelectedDate] = useState("");
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -142,9 +143,11 @@ const ShowCharts = () => {
   console.log(allMandal, allPanchayat, "ALL");
 
   useEffect(() => {
-    if (selectedDistrict.length) {
+    if (isLtpOrPs && selectedDate.length) {
+      console.log("ltp");
+    } else if (selectedDistrict.length) {
       setLoading(true);
-      const data = { district: "", mandal: "", panchayat: "", date: "" };
+      const data = { district: "", mandal: "", panchayat: "", date: "", role };
 
       selectedDistrict?.length && (data["district"] = selectedDistrict);
       selectedMandal?.length && (data["mandal"] = selectedMandal);
@@ -180,7 +183,7 @@ const ShowCharts = () => {
         .then((res) => res.json())
         .then((result) => {
           setLoading(false);
-          console.log(result);
+          console.log(result, "TOTLA APPLIC");
           setServerData(result?.totalApplication);
         })
         .catch((err) => {
@@ -288,161 +291,247 @@ const ShowCharts = () => {
         </div>
       ) : (
         <>
-          <form
-            className={`grid grid-cols-1 gap-5 md:grid-cols-2 ${
-              path.includes("/dashboard")
-                ? "lg:grid-cols-4"
-                : "lg:grid-cols-3 gap-8"
-            } font-roboto my-8 z-[10] px-3 text-gray-900`}
-          >
-            {/* district  */}
-            <div className="nm_Container z-[10] p-7 flex flex-col justify-center rounded-lg">
-              <label
-                htmlFor="district"
-                className="flex items-center mb-4 text-xl font-bold"
-              >
-                <span className={selectorBoxLabel}>
-                  <MdLocationCity color="white" size={25} />
-                </span>
-                <span className="">District</span>
-              </label>
-              <select
-                id="district"
-                className={selectorBox}
-                defaultValue={selectedDistrict}
-                onChange={(e) => detectSelectOfDistrict(e)}
-              >
-                <option className="text-base" value="" disabled>
-                  Select an option
-                </option>
-                {allDistricts.map((eachDistrict) => {
-                  return (
-                    <option
-                      className="text-base"
-                      key={eachDistrict}
-                      value={eachDistrict}
-                    >
-                      {eachDistrict}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
-
-            {/* mandal */}
-            <div className="nm_Container z-[10] p-7 flex flex-col justify-center rounded-lg">
-              <label
-                htmlFor="mandal"
-                className="flex items-center mb-5 text-lg font-bold"
-              >
-                <span className={selectorBoxLabel}>
-                  <FaTreeCity color="white" size={25} />
-                </span>
-                <span>Mandal</span>
-              </label>
-              <select
-                id="mandal"
-                className={selectorBox}
-                defaultValue={selectedMandal}
-                onChange={(e) => detectChangeOfMandals(e)}
-                disabled={allMandal?.length === 0}
-              >
-                <option className="text-base" value="" disabled>
-                  Select an option
-                </option>
-                {allMandal?.map((eachMandal, index) => {
-                  return (
-                    <option
-                      className="text-base"
-                      key={index}
-                      value={eachMandal?.name}
-                    >
-                      {eachMandal?.name}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
-
-            {/* gram panchayat  */}
-            <div className="nm_Container z-[10] p-7 flex flex-col justify-center rounded-lg">
-              <label
-                htmlFor="panchayat"
-                className="flex items-center mb-5 text-lg font-bold"
-              >
-                <span className={selectorBoxLabel}>
-                  <MdForest color="white" size={20} />
-                </span>
-                <span>Grama Panchayat</span>
-              </label>
-              <select
-                id="panchayat"
-                className={selectorBox}
-                defaultValue={selectedPanchayat}
-                disabled={allPanchayat?.length === 0}
-                onChange={(e) => detectChangeOfPanchayat(e)}
-              >
-                <option className="text-base" value="" disabled>
-                  Select an option
-                </option>
-                {allPanchayat?.map((eachPanchayt, index) => {
-                  return (
-                    <option className="text-base" key={index}>
-                      {eachPanchayt}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
-
-            {/* week month year filter  */}
-            {!path.includes("/statistics") && (
+          {!isLtpOrPs && (
+            <form
+              className={`grid grid-cols-1 gap-5 md:grid-cols-2 ${
+                path.includes("/dashboard")
+                  ? "lg:grid-cols-4"
+                  : "lg:grid-cols-3 gap-8"
+              } font-roboto my-8 z-[10] px-3 text-gray-900`}
+            >
+              {/* district  */}
               <div className="nm_Container z-[10] p-7 flex flex-col justify-center rounded-lg">
                 <label
-                  htmlFor="date"
-                  className="flex items-center mb-5 text-lg font-bold"
+                  htmlFor="district"
+                  className="flex items-center mb-4 text-xl font-bold"
                 >
                   <span className={selectorBoxLabel}>
-                    <BsCalendar3 color="white" size={20} />
+                    <MdLocationCity color="white" size={25} />
                   </span>
-                  <span>Date</span>
+                  <span className="">District</span>
                 </label>
                 <select
-                  id="date"
+                  id="district"
                   className={selectorBox}
-                  defaultValue={selectedDate}
-                  disabled={selectedPanchayat?.length === 0}
-                  onChange={(e) => detectChangeOfDate(e)}
+                  defaultValue={selectedDistrict}
+                  onChange={(e) => detectSelectOfDistrict(e)}
                 >
                   <option className="text-base" value="" disabled>
                     Select an option
                   </option>
-                  <option className="text-base" value="7 days">
-                    1 week
-                  </option>
-                  <option
-                    value="1 months"
-                    className={`${!isLtpOrPs && "hidden text-base"}`}
-                  >
-                    1 months
-                  </option>
-                  <option className="text-base" value="6 months">
-                    6 months
-                  </option>
-                  <option className="text-base" value="1 year">
-                    1 year
-                  </option>
+                  {allDistricts.map((eachDistrict) => {
+                    return (
+                      <option
+                        className="text-base"
+                        key={eachDistrict}
+                        value={eachDistrict}
+                      >
+                        {eachDistrict}
+                      </option>
+                    );
+                  })}
                 </select>
               </div>
-            )}
-          </form>
+
+              {/* mandal */}
+              <div className="nm_Container z-[10] p-7 flex flex-col justify-center rounded-lg">
+                <label
+                  htmlFor="mandal"
+                  className="flex items-center mb-5 text-lg font-bold"
+                >
+                  <span className={selectorBoxLabel}>
+                    <FaTreeCity color="white" size={25} />
+                  </span>
+                  <span>Mandal</span>
+                </label>
+                <select
+                  id="mandal"
+                  className={selectorBox}
+                  defaultValue={selectedMandal}
+                  onChange={(e) => detectChangeOfMandals(e)}
+                  disabled={allMandal?.length === 0}
+                >
+                  <option className="text-base" value="" disabled>
+                    Select an option
+                  </option>
+                  {allMandal?.map((eachMandal, index) => {
+                    return (
+                      <option
+                        className="text-base"
+                        key={index}
+                        value={eachMandal?.name}
+                      >
+                        {eachMandal?.name}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+
+              {/* gram panchayat  */}
+              <div className="nm_Container z-[10] p-7 flex flex-col justify-center rounded-lg">
+                <label
+                  htmlFor="panchayat"
+                  className="flex items-center mb-5 text-lg font-bold"
+                >
+                  <span className={selectorBoxLabel}>
+                    <MdForest color="white" size={20} />
+                  </span>
+                  <span>Grama Panchayat</span>
+                </label>
+                <select
+                  id="panchayat"
+                  className={selectorBox}
+                  defaultValue={selectedPanchayat}
+                  disabled={allPanchayat?.length === 0}
+                  onChange={(e) => detectChangeOfPanchayat(e)}
+                >
+                  <option className="text-base" value="" disabled>
+                    Select an option
+                  </option>
+                  {allPanchayat?.map((eachPanchayt, index) => {
+                    return (
+                      <option className="text-base" key={index}>
+                        {eachPanchayt}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+
+              {/* week month year filter  */}
+              {!path.includes("/statistics") && (
+                <div className="nm_Container z-[10] p-7 flex flex-col justify-center rounded-lg">
+                  <label
+                    htmlFor="date"
+                    className="flex items-center mb-5 text-lg font-bold"
+                  >
+                    <span className={selectorBoxLabel}>
+                      <BsCalendar3 color="white" size={20} />
+                    </span>
+                    <span>Date</span>
+                  </label>
+                  <select
+                    id="date"
+                    className={selectorBox}
+                    defaultValue={selectedDate}
+                    disabled={selectedPanchayat?.length === 0}
+                    onChange={(e) => detectChangeOfDate(e)}
+                  >
+                    <option className="text-base" value="" disabled>
+                      Select an option
+                    </option>
+                    <option className="text-base" value="7 days">
+                      1 week
+                    </option>
+                    <option
+                      value="1 months"
+                      className={`${!isLtpOrPs && "hidden text-base"}`}
+                    >
+                      1 months
+                    </option>
+                    <option className="text-base" value="6 months">
+                      6 months
+                    </option>
+                    <option className="text-base" value="1 year">
+                      1 year
+                    </option>
+                  </select>
+                </div>
+              )}
+            </form>
+          )}
+
+          {isLtpOrPs && (
+            <form>
+              <div className="radio-button-container">
+                <div className="radio-button">
+                  <input
+                    type="radio"
+                    className="radio-button__input"
+                    id="private"
+                    name="radio-1"
+                    value="1 Week"
+                    // checked={
+                    //   radio1 === "Private"
+                    //     ? radio1 === "Private"
+                    //     : applicationType === "Private"
+                    // }
+                    onChange={() => setSelectedDate("1 week")}
+                    // disabled={isReadOnly}
+                    required
+                  />
+                  <label className="radio-button__label" htmlFor="private">
+                    <span className="radio-button__custom"></span>1 Week
+                  </label>
+                </div>
+                <div className="radio-button">
+                  <input
+                    type="radio"
+                    className="radio-button__input"
+                    id="radio2"
+                    name="radio-1"
+                    value="1 month"
+                    // checked={
+                    //   radio1 === "Govt. Land"
+                    //     ? radio1 === "Govt. Land"
+                    //     : applicationType === "Govt. Land"
+                    // }
+                    onChange={() => setSelectedDate("1 month")}
+                    // disabled={isReadOnly}
+                  />
+                  <label className="radio-button__label" htmlFor="radio2">
+                    <span className="radio-button__custom"></span>1 month
+                  </label>
+                </div>
+                <div className="radio-button">
+                  <input
+                    type="radio"
+                    className="radio-button__input"
+                    id="radio3"
+                    name="radio-1"
+                    value="6 months"
+                    // checked={
+                    //   radio1 === "Govt. Land"
+                    //     ? radio1 === "Govt. Land"
+                    //     : applicationType === "Govt. Land"
+                    // }
+                    onChange={() => setSelectedDate("6 months")}
+                    // disabled={isReadOnly}
+                  />
+                  <label className="radio-button__label" htmlFor="radio3">
+                    <span className="radio-button__custom"></span>6 Months
+                  </label>
+                </div>
+                <div className="radio-button">
+                  <input
+                    type="radio"
+                    className="radio-button__input"
+                    id="radio4"
+                    name="radio-1"
+                    value="1 year"
+                    // checked={
+                    //   radio1 === "Govt. Land"
+                    //     ? radio1 === "Govt. Land"
+                    //     : applicationType === "Govt. Land"
+                    // }
+                    onChange={() => setSelectedDate("1 year")}
+                    // disabled={isReadOnly}
+                  />
+                  <label className="radio-button__label" htmlFor="radio4">
+                    <span className="radio-button__custom"></span>1 Year
+                  </label>
+                </div>
+              </div>
+            </form>
+          )}
           {loading ? (
             <Loading />
           ) : (
             <div
               className={`${
                 path.includes("/dashboard") && "px-4"
-              } flex justify-evenly items-center  p-0 z-[10]`}
+              } flex justify-evenly items-center p-0 z-[10]`}
             >
               {/* background: linear-gradient(to right, rgb(142, 45, 226), rgb(74, 0, 224)); */}
               <div className="w-[46%] overflow-hidden z-[10]">

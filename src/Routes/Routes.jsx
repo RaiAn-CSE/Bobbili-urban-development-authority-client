@@ -284,10 +284,10 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      {
-        path: "/dashboard/location",
-        element: <Location />,
-      },
+      // {
+      //   path: "/dashboard/location",
+      //   element: <Location />,
+      // },
       {
         path: "/dashboard/plotDetails",
         element: (
