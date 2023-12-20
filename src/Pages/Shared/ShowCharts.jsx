@@ -18,7 +18,7 @@ import {
   MdLocationOn,
   MdOutlineLocationCity,
 } from "react-icons/md";
-import { BsCalendar3 } from "react-icons/bs";
+import { BsCalendar2DateFill, BsCalendar3 } from "react-icons/bs";
 
 Chart.register(CategoryScale);
 
@@ -42,9 +42,12 @@ const ShowCharts = () => {
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [selectedMandal, setSelectedMandal] = useState("");
   const [selectedPanchayat, setSelectedPanchayat] = useState("");
-  const [serverData, setServerData] = useState([]);
+  const [serverData, setServerData] = useState({});
 
   const [selectedDate, setSelectedDate] = useState("");
+  const [chartData, setChartData] = useState({});
+  const [barChartData, setBarChartData] = useState({});
+  const [pieChartData, setPieChartData] = useState({});
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -68,6 +71,8 @@ const ShowCharts = () => {
       }
     })();
   }, []);
+
+  console.log(allDistricts, "ALL DISTRICTS");
 
   const detectSelectOfDistrict = (e) => {
     setAllMandal([]);
@@ -145,9 +150,26 @@ const ShowCharts = () => {
   useEffect(() => {
     if (isLtpOrPs && selectedDate.length) {
       console.log("ltp");
+      fetch(
+        `http://localhost:5000/filterApplications?search=${JSON.stringify({
+          id: userInfoFromLocalStorage()._id,
+          role,
+          selectedDate,
+        })}`
+      )
+        .then((res) => res.json())
+        .then((result) => {
+          setLoading(false);
+          console.log(result, "LTP OR PS");
+          setServerData(result);
+        })
+        .catch((err) => {
+          setLoading(false);
+          setError(err?.message);
+        });
     } else if (selectedDistrict.length) {
       setLoading(true);
-      const data = { district: "", mandal: "", panchayat: "", date: "", role };
+      const data = { district: "", mandal: "", panchayat: "", date: "" };
 
       selectedDistrict?.length && (data["district"] = selectedDistrict);
       selectedMandal?.length && (data["mandal"] = selectedMandal);
@@ -175,6 +197,7 @@ const ShowCharts = () => {
     } else {
       console.log("all");
       setLoading(true);
+
       fetch(
         `http://localhost:5000/totalApplications?data=${JSON.stringify(
           userInfoFromLocalStorage()
@@ -182,9 +205,12 @@ const ShowCharts = () => {
       )
         .then((res) => res.json())
         .then((result) => {
+          setServerData((prev) => {
+            return result.totalApplication;
+          });
           setLoading(false);
           console.log(result, "TOTLA APPLIC");
-          setServerData(result?.totalApplication);
+          console.log(serverData, "SVF");
         })
         .catch((err) => {
           setLoading(false);
@@ -193,78 +219,159 @@ const ShowCharts = () => {
     }
   }, [selectedDistrict, selectedMandal, selectedPanchayat, selectedDate]);
 
-  const [chartData, setChartData] = useState({});
-
   const canvas = document.createElement("canvas");
 
   // background-image: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%);;;
 
-  const getData = (canvas, labels, data) => {
-    const ctx = canvas.getContext("2d");
-    const gradient1 = ctx.createLinearGradient(0, 0, 300, 0);
-    gradient1.addColorStop(0, "#ffaf40");
-    gradient1.addColorStop(1, "#FAFAD2");
-    // gradient1.addColorStop(1, "rgb(107, 33, 168)");
+  const getData = (labels, data, isLtpOrPs) => {
+    // const ctx = canvas.getContext("2d");
+    // const gradient1 = ctx.createLinearGradient(0, 0, 300, 0);
+    // gradient1.addColorStop(0, "#ffaf40");
+    // gradient1.addColorStop(1, "#FAFAD2");
+    // // gradient1.addColorStop(1, "rgb(107, 33, 168)");
 
-    const gradient2 = ctx.createLinearGradient(0, 0, 300, 0);
-    gradient2.addColorStop(0, "#d4fc79");
-    gradient2.addColorStop(1, "#2ed573");
-    // gradient2.addColorStop(1, "rgb(34, 197, 94)");
-    const gradient3 = ctx.createLinearGradient(0, 0, 300, 0);
-    gradient3.addColorStop(0, "#f78ca0");
-    gradient3.addColorStop(0.19, "#f9748f");
-    gradient3.addColorStop(0.5, "#fd868c");
-    gradient3.addColorStop(1, "#ff4757");
+    // const gradient2 = ctx.createLinearGradient(0, 0, 300, 0);
+    // gradient2.addColorStop(0, "#d4fc79");
+    // gradient2.addColorStop(1, "#2ed573");
+    // // gradient2.addColorStop(1, "rgb(34, 197, 94)");
+    // const gradient3 = ctx.createLinearGradient(0, 0, 300, 0);
+    // gradient3.addColorStop(0, "#f78ca0");
+    // gradient3.addColorStop(0.19, "#f9748f");
+    // gradient3.addColorStop(0.5, "#fd868c");
+    // gradient3.addColorStop(1, "#ff4757");
 
-    return {
-      labels,
-      datasets: [
-        {
-          label: "Chart",
-          data,
-          backgroundColor: [gradient1, gradient2, gradient3],
-          borderColor: "#000",
-          borderWidth: 0.1,
-        },
-      ],
-    };
+    if (isLtpOrPs) {
+      console.log(labels, data, "chart");
+      let bg = [];
+      if (selectedDate?.length) {
+        return {
+          labels,
+          datasets: [
+            {
+              label: "Chart",
+              data,
+              backgroundColor: [
+                "#706fd3",
+                "#34ace0",
+                "#20bf6b",
+                "#ffb142",
+                "#ff5252",
+                "#33d9b2",
+                "#ffda79",
+                "#487eb0",
+                "#273c75",
+                "#e84393",
+                "#badc58",
+                "#22a6b3",
+              ],
+              borderColor: "#000",
+              borderWidth: 0.1,
+            },
+          ],
+        };
+      } else {
+        console.log(labels, data, "else");
+
+        if (role === "ltp") {
+          bg = ["#8062D6", "#3498db", "#e74c3c", "#2ecc71", "#f1c40f"];
+        } else {
+          bg = ["#8062D6", "#e74c3c", "#2ecc71", "#f1c40f"];
+        }
+      }
+      return {
+        labels,
+        datasets: [
+          {
+            label: "Chart",
+            data,
+            backgroundColor: bg,
+            borderColor: "#000",
+            borderWidth: 0.1,
+          },
+        ],
+      };
+    } else {
+      return {
+        labels,
+        datasets: [
+          {
+            label: "Chart",
+            data,
+            backgroundColor: ["#8062D6", "#2ecc71", "#f1c40f", "#e74c3c"],
+            borderColor: "#000",
+            borderWidth: 0.1,
+          },
+        ],
+      };
+    }
   };
-
+  console.log(serverData, "SD");
   useEffect(() => {
-    console.log(serverData, "Server data");
+    console.log(serverData, "Server data ff");
 
-    const filterData = {};
+    if (Object.keys(serverData)?.length && !isLtpOrPs) {
+      console.log("inside server data");
 
-    for (const key in serverData) {
-      if (!Array.isArray(serverData[key])) {
-        filterData[key] = serverData[key];
+      if (serverData?.total) {
+        delete serverData["total"];
+      }
+      console.log(isLtpOrPs, "LTP OR PS");
+      const labels = Object.keys(serverData);
+      const data = Object.values(serverData);
+
+      console.log(labels, data, "LABD");
+
+      const chartValue = getData(labels, data, isLtpOrPs);
+      console.log(chartValue, "Chartvalue");
+      setChartData(chartValue);
+    }
+
+    if (isLtpOrPs && Object.keys(serverData)?.length) {
+      if (selectedDate?.length) {
+        console.log(serverData, "object");
+
+        // set bar chart data
+        const barChartDataFromDb = serverData?.result;
+        const barChartLabels = Object.keys(barChartDataFromDb);
+        const barChartData = Object.values(barChartDataFromDb);
+        const barChartValue = getData(barChartLabels, barChartData, isLtpOrPs);
+        setBarChartData(barChartValue);
+
+        // set pieChartData
+        const pieChartDataFromDb = serverData?.applicationWiseCount;
+        const PieChartLabels = Object.keys(pieChartDataFromDb);
+        const PieChartData = Object.values(pieChartDataFromDb);
+        const pieChartValue = getData(PieChartLabels, PieChartData, isLtpOrPs);
+        setPieChartData(pieChartValue);
+      } else {
+        if (serverData?.total) {
+          delete serverData["total"];
+        }
+        console.log(isLtpOrPs, "LTP OR PS");
+        const labels = Object.keys(serverData);
+        const data = Object.values(serverData);
+
+        console.log(labels, data, "LABD");
+
+        const chartValue = getData(labels, data, isLtpOrPs);
+        console.log(chartValue, "Chartvalue");
+        setBarChartData(chartValue);
+        setPieChartData(chartValue);
       }
     }
 
-    delete filterData["total"];
-    const labels = Object.keys(filterData);
-    const data = Object.values(filterData);
+    // const filterData = {};
 
-    const chartValue = getData(canvas, labels, data);
-    setChartData(chartValue);
+    // for (const key in serverData) {
+    //   if (!Array.isArray(serverData[key])) {
+    //     filterData[key] = serverData[key];
+    //   }
+    // }
 
-    // setChartData({
-    //   labels,
-    //   datasets: [
-    //     {
-    //       label: "Total",
-    //       data,
-    //       background: [
-    //         "rgb(198, 163, 238)",
-    //         "rgba(0, 255, 0, 0.5)",
-    //         "rgba(0, 0, 255, 0.5)",
-    //       ],
+    // if (serverData) {
+    //   delete serverData["total"];
 
-    //       // borderColor: "black",
-    //       // borderWidth: 2,
-    //     },
-    //   ],
-    // });
+    // }
   }, [serverData]);
 
   // if (loading) {
@@ -291,7 +398,7 @@ const ShowCharts = () => {
         </div>
       ) : (
         <>
-          {!isLtpOrPs && (
+          {!isLtpOrPs && allDistricts?.length !== 0 && (
             <form
               className={`grid grid-cols-1 gap-5 md:grid-cols-2 ${
                 path.includes("/dashboard")
@@ -319,7 +426,7 @@ const ShowCharts = () => {
                   <option className="text-base" value="" disabled>
                     Select an option
                   </option>
-                  {allDistricts.map((eachDistrict) => {
+                  {allDistricts?.map((eachDistrict) => {
                     return (
                       <option
                         className="text-base"
@@ -443,13 +550,17 @@ const ShowCharts = () => {
           )}
 
           {isLtpOrPs && (
-            <form>
-              <div className="radio-button-container">
+            <form className="p-5">
+              <p className="text-lg font-bold flex items-center gap-3 fancy-button hover:scale-100">
+                <BsCalendar2DateFill size={25} />
+                Search Based On Date
+              </p>
+              <div className="radio-button-container justify-evenly my-10">
                 <div className="radio-button">
                   <input
                     type="radio"
                     className="radio-button__input"
-                    id="private"
+                    id="week"
                     name="radio-1"
                     value="1 Week"
                     // checked={
@@ -461,7 +572,7 @@ const ShowCharts = () => {
                     // disabled={isReadOnly}
                     required
                   />
-                  <label className="radio-button__label" htmlFor="private">
+                  <label className="radio-button__label" htmlFor="week">
                     <span className="radio-button__custom"></span>1 Week
                   </label>
                 </div>
@@ -528,20 +639,51 @@ const ShowCharts = () => {
           {loading ? (
             <Loading />
           ) : (
-            <div
-              className={`${
-                path.includes("/dashboard") && "px-4"
-              } flex justify-evenly items-center p-0 z-[10]`}
-            >
-              {/* background: linear-gradient(to right, rgb(142, 45, 226), rgb(74, 0, 224)); */}
-              <div className="w-[46%] overflow-hidden z-[10]">
-                {serverData?.length !== 0 && <BarChart chartData={chartData} />}
-              </div>
+            <>
+              {serverData &&
+                isLtpOrPs &&
+                Object.keys(serverData)?.length !== 0 &&
+                Object.keys(barChartData)?.length !== 0 &&
+                Object.keys(pieChartData)?.length !== 0 && (
+                  <div
+                    className={`${
+                      path.includes("/dashboard") && "px-4"
+                    } flex justify-evenly items-center p-0 z-[10]`}
+                  >
+                    {/* background: linear-gradient(to right, rgb(142, 45, 226), rgb(74, 0, 224)); */}
+                    <div className="w-[46%] overflow-hidden z-[10]">
+                      <BarChart chartData={barChartData} />
+                    </div>
 
-              <div className=" w-[46%] overflow-hidden  z-[10] ">
-                {serverData?.length !== 0 && <PieChart chartData={chartData} />}
-              </div>
-            </div>
+                    <div className=" w-[46%] overflow-hidden  z-[10] ">
+                      <PieChart chartData={pieChartData} />
+                    </div>
+                  </div>
+                )}
+
+              {
+                // if others except ltp or ps
+                serverData &&
+                  !isLtpOrPs &&
+                  Object.keys(serverData)?.length !== 0 &&
+                  Object.keys(chartData)?.length !== 0 && (
+                    <div
+                      className={`${
+                        path.includes("/dashboard") && "px-4"
+                      } flex justify-evenly items-center p-0 z-[10]`}
+                    >
+                      {/* background: linear-gradient(to right, rgb(142, 45, 226), rgb(74, 0, 224)); */}
+                      <div className="w-[46%] overflow-hidden z-[10]">
+                        <BarChart chartData={chartData} />
+                      </div>
+
+                      <div className=" w-[46%] overflow-hidden  z-[10] ">
+                        <PieChart chartData={chartData} />
+                      </div>
+                    </div>
+                  )
+              }
+            </>
           )}
         </>
       )}
