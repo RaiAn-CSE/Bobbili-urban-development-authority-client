@@ -7,10 +7,13 @@ import chatAvatarImg from "../../../assets/images/chat.png";
 import { MdSend } from "react-icons/md";
 import socket from "../../Common/socket";
 import { CiStar } from "react-icons/ci";
-import customerImg from "../../../assets/images/user1.png";
+import customerImg from "../../../assets/images/customer-service.png";
 import TextEditor from "../../Components/TextEditor";
 import { IoMdStar } from "react-icons/io";
 import curveLogo from "../../../assets/images/curveLogo.png";
+import lineSvg from "../../../assets/images/line.svg";
+import triangle from "../../../assets/images/triangle.png";
+import stairLikeLine from "../../../assets/images/stairLikeLine.png";
 
 const MessagePage = ({ props }) => {
   const {
@@ -447,7 +450,7 @@ const MessagePage = ({ props }) => {
             </>
           </>
         ) : (
-          <div className="w-full h-full message-bg">
+          <div className="w-full h-full relative ">
             <div className="flex flex-col justify-center items-center pt-3">
               <div className="h-20">
                 <img
@@ -465,8 +468,8 @@ const MessagePage = ({ props }) => {
                 </p>
               </div>
             </div>
-            <div className="w-full  my-4 overflow-hidden">
-              <div className="indicator my-2">
+            <div className="w-full my-4 overflow-hidden">
+              <div className="indicator my-2 ml-2">
                 <span className="indicator-item badge badge-xs text-red-500 bg-[#FFFFFF]">
                   <IoMdStar />
                 </span>
@@ -501,6 +504,26 @@ const MessagePage = ({ props }) => {
                   Submit
                 </button>
               )}
+            </div>
+
+            {/* design pattern  */}
+            <div className="absolute w-6 h-6 rounded-full -top-2 left-2/3 bg-blue-400 bg-gradient-to-r from-[#FF2967] to-[#ffab40]"></div>
+
+            <div className="absolute w-12 h-12 rounded-full top-[18%] -right-4 bg-white border-4 border-[#7945C5]"></div>
+
+            <div className="absolute w-8 h-8 rounded-full bottom-[12%] -left-4 bg-gradient-to-br from-[#6e3bba] to-[#b478ff]"></div>
+            <div className="absolute w-10 h-10 rounded-full bottom-[10%s] -right-4 bg-gradient-to-tr from-[#ffb23c] to-[#ffc935]"></div>
+
+            <div className=" absolute w-24 h-24 top-0 left-0 -rotate-90">
+              <img src={triangle} alt="A triangle image" />
+            </div>
+            {/* stair like line  */}
+            <div className=" absolute w-28 h-28 bottom-0 -left-14 rotate-[170deg]">
+              <img src={stairLikeLine} alt="A stair like line image" />
+            </div>
+            {/* // shape line draw */}
+            <div className="absolute -bottom-16 -right-10 w-36 h-36">
+              <img src={lineSvg} alt="svg image" />
             </div>
           </div>
         )
