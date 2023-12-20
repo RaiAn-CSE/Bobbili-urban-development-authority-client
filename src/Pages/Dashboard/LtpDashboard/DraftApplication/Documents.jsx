@@ -300,7 +300,7 @@ const DocumentUpload = () => {
       psDocumentPageObservation: PSData,
     });
   };
-
+    
   return (
     <div className="text-black ml-4 mt-3">
       <form
