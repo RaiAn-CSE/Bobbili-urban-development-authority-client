@@ -13,7 +13,13 @@ import { IoMdStar } from "react-icons/io";
 import curveLogo from "../../../assets/images/curveLogo.png";
 
 const MessagePage = ({ props }) => {
-  const { setUserInfo, setRequestSent, userInfo, requestSent } = props;
+  const {
+    setUserInfo,
+    setRequestSent,
+    userInfo,
+    requestSent,
+    setRemoveChatUser,
+  } = props;
   const [timeEnd, setTimeEnd] = useState(false);
   const [checkUpdateData, setCheckUpdateData] = useState({});
   const [error, setError] = useState("");
@@ -28,6 +34,10 @@ const MessagePage = ({ props }) => {
   const [wantToLeaveMessage, setWantToLeaveMessage] = useState(false);
   const { register, errors, handleSubmit, resetField } = useForm();
   console.log(userInfo, "Userinfo");
+
+  useEffect(() => {
+    setRemoveChatUser(userInfo);
+  }, []);
 
   const messagesRef = useRef(null);
 

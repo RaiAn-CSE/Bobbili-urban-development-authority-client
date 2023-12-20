@@ -15,9 +15,8 @@ const ConnectedCustomers = ({ setActiveChat, setShow }) => {
   const [checkNewMessage, setCheckNewMessage] = useState([]);
 
   useEffect(() => {
-    socket.on("check-accept-message", async (data) => {
-      console.log(data, "Connected users");
-
+    const handleCheckAcceptMessage = async (data) => {
+      // Your existing logic here
       if (
         (data?.change?.operationType === "update" &&
           data?.change?.updateDescription?.updatedFields?.chatEnd === 1) ||
@@ -35,13 +34,15 @@ const ConnectedCustomers = ({ setActiveChat, setShow }) => {
             )}`
           );
 
-          console.log(updateData, "connected user");
+          console.log(updateData, "connected user update");
+
           setConnectedUsers(updateData);
         } catch (err) {
           toast.error("Server Error");
         }
       }
-    });
+    };
+    socket.on("check-accept-message", handleCheckAcceptMessage);
   }, [socket]);
 
   useEffect(() => {}, [connectedUsers]);
