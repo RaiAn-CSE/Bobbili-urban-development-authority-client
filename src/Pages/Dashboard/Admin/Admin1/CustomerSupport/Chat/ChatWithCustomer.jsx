@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { IoMdArrowBack } from "react-icons/io";
 import { IoRemoveCircleSharp } from "react-icons/io5";
 import { MdMenu, MdOutlineCancelScheduleSend, MdSend } from "react-icons/md";
@@ -23,6 +23,20 @@ const ChatWithCustomer = ({
   console.log(activeChat, "c");
   const { userInfoFromLocalStorage } = useContext(AuthContext);
   const [connectionStatus, setConnectionStatus] = useState(true);
+
+  const messagesRef = useRef(null);
+
+  useEffect(() => {
+    // Scroll to the bottom when messages change
+    scrollToBottom();
+  }, [messages]);
+
+  const scrollToBottom = () => {
+    // Scroll to the bottom of the messages container
+    if (messagesRef.current) {
+      messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+    }
+  };
 
   const { register, errors, handleSubmit, resetField } = useForm();
 
@@ -139,7 +153,10 @@ const ChatWithCustomer = ({
             </div>
           </div>
           {/* message part  */}
-          <div className="h-[calc(82vh-112px)] message-bg overflow-y-auto">
+          <div
+            className="h-[calc(82vh-112px)] message-bg overflow-y-auto"
+            ref={messagesRef}
+          >
             <p className="mx-auto text-sm bg-[#8B5BF6] text-white w-fit font-bold mt-1 px-3 rounded-xl">
               Today
             </p>

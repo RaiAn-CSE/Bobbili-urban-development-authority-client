@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 const ConnectedCustomers = ({ setActiveChat, setShow }) => {
   const { userInfoFromLocalStorage } = useContext(AuthContext);
   const [connectedUsers, setConnectedUsers] = useState([]);
+  const [checkNewMessage, setCheckNewMessage] = useState([]);
 
   useEffect(() => {
     socket.on("check-accept-message", async (data) => {
@@ -22,6 +23,9 @@ const ConnectedCustomers = ({ setActiveChat, setShow }) => {
           data?.change?.updateDescription?.updatedFields?.chatEnd === 1) ||
         (data?.change?.operationType === "update" &&
           data?.change?.updateDescription?.updatedFields?.isAccepted === 1) ||
+        (data?.change?.operationType === "update" &&
+          data?.change?.updateDescription?.updatedFields
+            ?.newTextFromCustomer) ||
         data?.change?.operationType === "delete"
       ) {
         try {
@@ -53,13 +57,49 @@ const ConnectedCustomers = ({ setActiveChat, setShow }) => {
 
         console.log(data, "data");
         setConnectedUsers(data);
+        // const extractUserMessage = data?.map((eachOne) => {
+        //   console.log(eachOne, "Each one extrach message");
+        //   const newText = eachOne?.text
+        //     ?.filter((text) => {
+        //       if (!text?.userId?.includes("admin")) {
+        //         if (text?.message?.length) {
+        //           return text?.message;
+        //         }
+        //       }
+        //     })
+        //     ?.map((eachText) => eachText?.message);
+        //   return {
+        //     id: eachOne._id,
+        //     name: eachOne?.name,
+        //     prevText: [],
+        //     newText,
+        //   };
+        // });
+        // console.log(extractUserMessage, "Extract user message");
+        // setCheckNewMessage(extractUserMessage);
       } catch (err) {
+        console.log(err, "ERROR MESSAGE");
         toast.error("Server Error");
       }
     })();
   }, []);
 
+  const messageSeen = async (id) => {
+    try {
+      await axios.patch(
+        `http://localhost:5000/messageRequest?update=${JSON.stringify({
+          id,
+          action: "trackCustomerNewMessage",
+        })}`
+      );
+    } catch (err) {
+      console.log(err, "Error message");
+      toast.error("Server Error");
+    }
+  };
+
   console.log(connectedUsers, "Connected users");
+  console.log(checkNewMessage, "Check new message");
   return (
     <div className="h-full p-3 nm_Container">
       <p className="capitalize text-lg font-bold font-roboto flex justify-center items-center gap-4 text-white">
@@ -79,6 +119,9 @@ const ConnectedCustomers = ({ setActiveChat, setShow }) => {
                 key={user._id}
                 className="flex items-center bg-white rounded-2xl gap-3 my-3 cursor-pointer"
                 onClick={() => {
+                  if (user?.newTextFromCustomer?.length) {
+                    messageSeen(user?._id);
+                  }
                   setActiveChat(user);
                   setShow((prev) => !prev);
                 }}
@@ -98,6 +141,12 @@ const ConnectedCustomers = ({ setActiveChat, setShow }) => {
                   <p className="font-bold text-base">{user.name}</p>
                   <p className="text-gray-500">{user?.mobile}</p>
                 </div>
+
+                {user?.newTextFromCustomer?.length !== 0 && (
+                  <div className="badge bg-[#7871e1] ml-auto mr-4 text-white font-bold">
+                    {user?.newTextFromCustomer?.length}
+                  </div>
+                )}
               </div>
             ))}
           </div>
