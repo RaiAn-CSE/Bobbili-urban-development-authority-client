@@ -907,7 +907,7 @@ const SiteInspection = () => {
         className="nm_Container p-7 mt-10"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0, transition: { duration: 2 } }}
-        viewport={{ once: false }}
+        viewport={{ once: true }}
       >
         <p className="font-bold text-xl text-center mb-4">
           Submit Your Final Decision

@@ -231,8 +231,6 @@ const AuthProvider = ({ children }) => {
         page,
       });
 
-      console.log(query, "query");
-
       const response = await fetch(
         `http://localhost:5000/getApplicationData?data=${query}`
       );
@@ -461,9 +459,8 @@ const AuthProvider = ({ children }) => {
           ownerNamePattern = `${ownerNames[0]},${ownerNames[1]},${ownerNames[2]}`;
           break;
         default:
-          ownerNamePattern = `${ownerNames[0]},${ownerNames[1]},${
-            ownerNames[2]
-          } and ${totalOwner - 3} others`;
+          ownerNamePattern = `${ownerNames[0]},${ownerNames[1]},${ownerNames[2]
+            } and ${totalOwner - 3} others`;
           break;
       }
     }

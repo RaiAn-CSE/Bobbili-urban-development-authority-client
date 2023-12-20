@@ -20,7 +20,7 @@ const NewApplication = () => {
     showPageBasedOnApplicationType,
   } = useContext(AuthContext);
 
-  console.log(userInfoFromLocalStorage());
+  // console.log(userInfoFromLocalStorage());
 
   const { _id: userID } = userInfoFromLocalStorage();
   const [error, setError] = useState("");
@@ -41,7 +41,7 @@ const NewApplication = () => {
     }
   );
 
-  console.log(data, "Query");
+  // console.log(data, "Query");
 
   useEffect(() => {
     return () => {

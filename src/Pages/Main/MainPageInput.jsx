@@ -6,7 +6,7 @@ const MainPageInput = ({ label, id, text, placeholder, ltpDetails }) => {
     <motion.div className="flex items-center px-3 mt-5"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0, transition: { duration: 1, } }}
-      viewport={{ once: false }}
+      viewport={{ once: true }}
     >
       <label
         className="basis-[35%] block font-semibold text-gray-600"

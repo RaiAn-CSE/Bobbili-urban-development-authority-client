@@ -109,9 +109,8 @@ const SaveData = ({
           {role === "LTP" &&
             (currentStep !== steps.length - 1 ? (
               <button
-                className={`fancy-button mt-8 ${
-                  needToHideElementBasedOnPage() && "hidden"
-                }`}
+                className={`fancy-button mt-8 ${needToHideElementBasedOnPage() && "hidden"
+                  }`}
                 // type="submit"
                 // onClick={() =>
                 //   // currentStep < steps.length - 1 &&
@@ -128,9 +127,8 @@ const SaveData = ({
               </button>
             ) : (
               <div
-                className={`${
-                  needToHideElementBasedOnPage() && "hidden"
-                } flex justify-between items-center w-full mt-10`}
+                className={`${needToHideElementBasedOnPage() && "hidden"
+                  } flex justify-between items-center w-full mt-10`}
               >
                 <button
                   className={`save-btn bg-gradient-to-b from-[#a29bfe] to-[#6c5ce7] mr-4`}

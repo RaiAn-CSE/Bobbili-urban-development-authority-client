@@ -650,7 +650,7 @@ const BuildingInfo = () => {
   // classes for this component:
   const labelClass = "block mb-1 font-semibold text-gray-600";
   const inputClass =
-    "w-full px-3 py-[10px] border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-gray-600 focus:outline-none focus:ring-2 ring-gray-300";
+    "w-full px-3 py-[10px] border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-gray-400 focus:border-gray-600 focus:outline-none focus:ring-2 ring-violet-200";
 
   return (
     <>
@@ -860,7 +860,7 @@ const BuildingInfo = () => {
                 <select
                   id="district"
                   name="District"
-                  className={`${inputClass} select-secondary`}
+                  className={`${inputClass}`}
                   onChange={handleDistrictChange}
                   value={selectedDistrict}
                   disabled={isReadOnly}
@@ -1081,21 +1081,21 @@ const BuildingInfo = () => {
 
               {selectedNatureOfTheSite ===
                 "Plot port of RLP/IPLP but not regularised" && (
-                <motion.div
-                  initial={{ x: "-100vw" }}
-                  animate={{ x: 0 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  <InputField
-                    id="IplpNo"
-                    name="IplpNo"
-                    label="RLP/IPLP no."
-                    placeholder="RLP/IPLP no."
-                    type="number"
-                    ltpDetails={iplpNo}
-                  />
-                </motion.div>
-              )}
+                  <motion.div
+                    initial={{ x: "-100vw" }}
+                    animate={{ x: 0 }}
+                    transition={{ delay: 0.2 }}
+                  >
+                    <InputField
+                      id="IplpNo"
+                      name="IplpNo"
+                      label="RLP/IPLP no."
+                      placeholder="RLP/IPLP no."
+                      type="number"
+                      ltpDetails={iplpNo}
+                    />
+                  </motion.div>
+                )}
               {/*===================== Conditional Input Field End =====================*/}
             </div>
           </motion.div>
@@ -1158,7 +1158,7 @@ const BuildingInfo = () => {
                     id="proposedPlotArea"
                     name="proposedPlotArea"
                     placeholder="in Sq.Mts."
-                    className="w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-gray-600 focus:outline-none focus:ring-2 ring-gray-300"
+                    className="w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-gray-400 focus:border-gray-600 focus:outline-none focus:ring-2 ring-violet-200"
                     defaultValue={proposedPlotArea ?? ""}
                     onChange={handleProposedPlotAreaChange}
                     readOnly={isReadOnly}
@@ -1183,7 +1183,7 @@ const BuildingInfo = () => {
                     id="roadWideningArea"
                     type="roadWideningArea"
                     placeholder="in Sq.Mts."
-                    className="w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-gray-600 focus:outline-none focus:ring-2 ring-gray-300"
+                    className="w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-gray-400 focus:border-gray-600 focus:outline-none focus:ring-2 ring-violet-200"
                     defaultValue={roadWideningArea ?? ""}
                     onChange={handleRoadWideningAreaChange}
                     disabled={isReadOnly}
@@ -1220,61 +1220,62 @@ const BuildingInfo = () => {
               <div className="grid grid-cols-1 mx-5 md:mx-10 lg:mx-14 my-10">
                 {selectedNatureOfTheSite ===
                   "Newly Developed/ Built up area" && (
-                  <motion.div
-                    className="flex flex-col md:flex-row font-medium mb-4 text-lg"
-                    initial={{ x: "100vw" }}
-                    animate={{ x: 0 }}
-                    transition={{ delay: 0.2 }}
-                  >
-                    <div className="flex items-center mb-3 md:mb-0">
-                      <FaHandPointRight className="me-3 w-5 lg:w-auto text-violetLight" />
-                      <p className="font-bold text-lg">
-                        Whether site abuts any Existing Road?
-                      </p>
-                    </div>
+                    <motion.div
+                      className="flex flex-col md:flex-row font-medium mb-4 text-lg"
+                      initial={{ x: "100vw" }}
+                      animate={{ x: 0 }}
+                      transition={{ delay: 0.2 }}
+                    >
+                      <div className="flex items-center mb-3 md:mb-0">
+                        <FaHandPointRight className="me-3 w-5 lg:w-auto text-violetLight" />
+                        <p className="font-bold text-lg">
+                          Whether site abuts any Existing Road?
+                        </p>
+                      </div>
 
-                    <div className="radio-button-container ml-3">
-                      <div className="radio-button">
-                        <input
-                          type="radio"
-                          className="radio-button__input"
-                          id="yesRoadExist"
-                          name="yesRoadExist"
-                          value="yes"
-                          checked={radio2 === "yes"}
-                          onChange={handleRadio2}
-                          disabled={isReadOnly}
-                        />
-                        <label
-                          className="radio-button__label"
-                          htmlFor="yesRoadExist"
-                        >
-                          <span className="radio-button__custom"></span>
-                          Yes
-                        </label>
+                      <div className="radio-button-container ml-3">
+                        <div className="radio-button">
+                          <input
+                            type="radio"
+                            className="radio-button__input"
+                            id="yesRoadExist"
+                            name="yesRoadExist"
+                            value="yes"
+                            checked={radio2 === "yes"}
+                            onChange={handleRadio2}
+                            disabled={isReadOnly}
+                            required
+                          />
+                          <label
+                            className="radio-button__label"
+                            htmlFor="yesRoadExist"
+                          >
+                            <span className="radio-button__custom"></span>
+                            Yes
+                          </label>
+                        </div>
+                        <div className="radio-button">
+                          <input
+                            type="radio"
+                            className="radio-button__input"
+                            id="noRoadExist"
+                            name="yesRoadExist"
+                            value="no"
+                            checked={radio2 === "no"}
+                            onChange={handleRadio2}
+                            disabled={isReadOnly}
+                          />
+                          <label
+                            className="radio-button__label"
+                            htmlFor="noRoadExist"
+                          >
+                            <span className="radio-button__custom"></span>
+                            No
+                          </label>
+                        </div>
                       </div>
-                      <div className="radio-button">
-                        <input
-                          type="radio"
-                          className="radio-button__input"
-                          id="noRoadExist"
-                          name="yesRoadExist"
-                          value="no"
-                          checked={radio2 === "no"}
-                          onChange={handleRadio2}
-                          disabled={isReadOnly}
-                        />
-                        <label
-                          className="radio-button__label"
-                          htmlFor="noRoadExist"
-                        >
-                          <span className="radio-button__custom"></span>
-                          No
-                        </label>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
+                    </motion.div>
+                  )}
 
                 <motion.div
                   className="flex flex-col md:flex-row font-medium mb-4 text-lg mt-4"
@@ -1302,6 +1303,7 @@ const BuildingInfo = () => {
                         checked={radio3 === "Public"}
                         onChange={handleRadio3}
                         disabled={isReadOnly}
+                        required
                       />
                       <label
                         className="radio-button__label"
@@ -1354,6 +1356,7 @@ const BuildingInfo = () => {
                     value={natureOfRoadValue}
                     onChange={handleNatureOfRoad}
                     disabled={isReadOnly}
+                    required
                   >
                     <option disabled value="">
                       Select Nature of Road
@@ -1545,6 +1548,7 @@ const BuildingInfo = () => {
                           checked={radio4 === "yes"}
                           onChange={handleRadio4}
                           disabled={isReadOnly}
+                          required
                         />
                         <label
                           className="radio-button__label"
@@ -1623,6 +1627,7 @@ const BuildingInfo = () => {
                         checked={radio5 === "yes"}
                         onChange={handleRadio5}
                         disabled={isReadOnly}
+                        required
                       />
                       <label
                         className="radio-button__label"
@@ -1694,6 +1699,7 @@ const BuildingInfo = () => {
                   value={northValue}
                   onChange={handleNorthChange}
                   disabled={isReadOnly}
+                  required
                 >
                   <option disabled value="">
                     Select North
@@ -1721,6 +1727,7 @@ const BuildingInfo = () => {
                   value={southValue}
                   onChange={handleSouthChange}
                   disabled={isReadOnly}
+                  required
                 >
                   <option disabled value="">
                     Select South
@@ -1748,6 +1755,7 @@ const BuildingInfo = () => {
                   value={eastValue}
                   onChange={handleEastChange}
                   disabled={isReadOnly}
+                  required
                 >
                   <option disabled value="">
                     Select East
@@ -1775,6 +1783,7 @@ const BuildingInfo = () => {
                   value={westValue}
                   onChange={handleWestChange}
                   disabled={isReadOnly}
+                  required
                 >
                   <option disabled value="">
                     Select West

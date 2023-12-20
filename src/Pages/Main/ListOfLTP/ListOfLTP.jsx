@@ -55,7 +55,7 @@ const ListOfLTP = () => {
         className={`${HomeCss.searchInputContainer} mx-2`}
         initial={{ opacity: 0, x: -40, y: -40 }}
         whileInView={{ opacity: 1, x: 0, y: 0, transition: { duration: 0.5 } }}
-        viewport={{ once: false }}
+        viewport={{ once: true }}
       >
         <input
           placeholder="Search LTP by name"

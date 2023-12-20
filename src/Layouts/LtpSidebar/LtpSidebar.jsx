@@ -69,9 +69,7 @@ const LtpSidebar = () => {
           path,
           "/dashboard/draftApplication",
           "draft",
-          role
-        ) && activeColor
-          } ${sidebarHoverClass}`}
+          role) && activeColor} ${sidebarHoverClass}`}
       >
         <span>
           <BiSolidImageAdd size={22} />

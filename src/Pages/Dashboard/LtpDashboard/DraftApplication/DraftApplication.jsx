@@ -23,26 +23,16 @@ const DraftApplication = () => {
   const [openEndorsement, setOpenEndorsement] = useState(false);
   const [openDrawing, setOpenDrawing] = useState(false);
 
-  // const { applicationNo } = location.state;
-  // console.log(
-  //   JSON.parse(localStorage.getItem("CurrentAppNo")),
-  //   "APPLICATION NO"
-  // );
-  const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
+  const { userInfoFromLocalStorage } = useContext(AuthContext);
 
+  const cameFrom = JSON.parse(localStorage.getItem("page"));
+  const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
   const getIndex = JSON.parse(localStorage.getItem("stepIndex"));
+  const role = userInfoFromLocalStorage()?.role;
 
   useEffect(() => {
     setCurrentStep(getIndex);
   }, []);
-
-  // console.log(applicationNo);
-
-  const { userInfoFromLocalStorage } = useContext(AuthContext);
-
-  const role = userInfoFromLocalStorage()?.role;
-
-  console.log(role);
 
   const steps = [
     "/buildingInfo",
@@ -67,6 +57,19 @@ const DraftApplication = () => {
     stepsContent.push("Site Inspection");
   }
 
+
+
+  // Delete Payment page from LTP DrapApplication:
+  // if (cameFrom === "draft") {
+  //   const index = steps.indexOf("/payment");
+
+  //   if (index !== -1) {
+  //     steps.splice(index, 1);
+  //     stepsContent.splice(index, 1);
+  //   }
+  // }
+
+
   // Use localStorage to store and retrieve the current step
   useEffect(() => {
     const savedStep = localStorage.getItem("currentStep");
@@ -83,7 +86,6 @@ const DraftApplication = () => {
   }, [location.pathname]);
 
   const handleStepClick = (index) => {
-    console.log("ASLCAM");
     setCurrentStep(index);
     localStorage.setItem("stepIndex", JSON.stringify(index)); // Store the current step in localStorage
     navigate(`/dashboard/draftApplication${steps[index]}`);
@@ -105,11 +107,6 @@ const DraftApplication = () => {
 
   const isStepperVisible = allSteps.includes(location.pathname); // Check if current route is in the list of routes with the stepper
 
-  let btnClass =
-    "nm_Container btn-md hover:text-[#fff] text-black  transition-all duration-500 cursor-pointer hover:bg-normalViolet bg-bgColor";
-
-  const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
-
   const stepClasses = (index) => {
     if (index === currentStep) {
       return "step step-primary";
@@ -119,6 +116,7 @@ const DraftApplication = () => {
       return "";
     }
   };
+
   const completeBtn = (index) => {
     if (index === currentStep) {
       return `bg-gradient-to-b from-[#a29bfe] to-[#6c5ce7] shadow-none text-white border-0 `;
@@ -142,8 +140,6 @@ const DraftApplication = () => {
 
   // check the page name to show the building info and other pages application value
 
-  const cameFrom = JSON.parse(localStorage.getItem("page"));
-
   const applicationButtonForDraftApplication =
     (path.includes("applicationChecklist") ||
       path.includes("documents") ||
@@ -153,7 +149,7 @@ const DraftApplication = () => {
 
   console.log(
     applicationButtonForDraftApplication &&
-      (cameFrom === "draft" || cameFrom === "submit")
+    (cameFrom === "draft" || cameFrom === "submit")
   );
 
   const applicationButtonForApprovedOrShortfallApplication =
@@ -164,6 +160,12 @@ const DraftApplication = () => {
     const appNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
     navigate("/dashboard/resubmitApplication", { state: { appNo } });
   };
+
+  let btnClass =
+    "nm_Container btn-md hover:text-[#fff] text-black  transition-all duration-500 cursor-pointer hover:bg-normalViolet bg-bgColor";
+
+  const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
+
   return (
     <>
       {isStepperVisible && ( // Render the stepper only when isStepperVisible is true
@@ -223,14 +225,14 @@ const DraftApplication = () => {
 
               {(applicationButtonForDraftApplication ||
                 applicationButtonForApprovedOrShortfallApplication) && (
-                <button
-                  onClick={() => setOpenApplication(true)}
-                  className={`flex justify-center items-center gap-1 btn-sm text-sm nm_Container bg-normalViolet  hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white border-none`}
-                >
-                  <HiOutlineClipboardDocumentList className="text-lg" />{" "}
-                  <span>Application</span>
-                </button>
-              )}
+                  <button
+                    onClick={() => setOpenApplication(true)}
+                    className={`flex justify-center items-center gap-1 btn-sm text-sm nm_Container bg-normalViolet  hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white border-none`}
+                  >
+                    <HiOutlineClipboardDocumentList className="text-lg" />{" "}
+                    <span>Application</span>
+                  </button>
+                )}
             </div>
           </div>
           <div className="w-full steps steps-vertical lg:steps-horizontal rounded-lg py-4 lg:relative font-roboto px-4 lg:px-0">
@@ -242,11 +244,10 @@ const DraftApplication = () => {
                 onClick={() => handleStepClick(index)}
               >
                 <button
-                  className={`${btnClass} ${completeBtn(index)} ${
-                    role !== "PS"
-                      ? "w-[70%] lg:w-[15.3%]"
-                      : "w-[50%] lg:w-[13%]"
-                  } text-[15px] font-bold gap-1 border-0 flex justify-center items-center lg:absolute top-3 z-10`}
+                  className={`${btnClass} ${completeBtn(index)} ${role !== "PS"
+                    ? "w-[70%] lg:w-[15.3%]"
+                    : "w-[50%] lg:w-[13%]"
+                    } text-[15px] font-bold gap-1 border-0 flex justify-center items-center lg:absolute top-3 z-10`}
                 >
                   {role !== "PS" && icons[index]}
                   <span>{step}</span>

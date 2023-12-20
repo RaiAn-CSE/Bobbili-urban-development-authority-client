@@ -77,13 +77,13 @@ const UpdateProfile = () => {
           className="divide-y-2 mx-5 divide-gray-200 mb-[60px]"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0, transition: { duration: 2 } }}
-          viewport={{ once: false }}
+          viewport={{ once: true }}
         >
           <motion.div
             className="flex items-center"
             initial={{ opacity: 0, x: 100 }}
             whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
           >
             <h3 className="font-bold text-xl mb-4 ml-1 flex justify-center items-center">
               <img className="w-7 h-7 mr-1" src={userInfoLogo} alt="" />
@@ -133,13 +133,13 @@ const UpdateProfile = () => {
           className="divide-y-2 divide-gray-200 mb-[60px] mx-5"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0, transition: { duration: 2 } }}
-          viewport={{ once: false }}
+          viewport={{ once: true }}
         >
           <motion.div
             className="flex items-center mb-4 ml-1"
             initial={{ opacity: 0, x: 100 }}
             whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
           >
             <h3 className="font-bold text-xl flex justify-center items-center">
               <img className="w-6 h-6 mr-1" src={userContactLogo} alt="" />
@@ -189,13 +189,13 @@ const UpdateProfile = () => {
           className="divide-y-2 divide-gray-200 mb-[60px] mx-5"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0, transition: { duration: 2 } }}
-          viewport={{ once: false }}
+          viewport={{ once: true }}
         >
           <motion.div
             className="flex items-center"
             initial={{ opacity: 0, x: 100 }}
             whileInView={{ opacity: 1, x: 0, transition: { duration: 1 } }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
           >
             <h3 className="font-bold text-xl mb-4 ml-1 flex justify-center items-center">
               <img className="w-7 h-7 mr-1" src={userAddressLogo} alt="" />
@@ -260,7 +260,7 @@ const UpdateProfile = () => {
           className="flex justify-center"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
-          viewport={{ once: false }}
+          viewport={{ once: true }}
         >
           <button
             type="submit"
