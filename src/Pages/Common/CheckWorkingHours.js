@@ -33,7 +33,7 @@ const isBetweenWorkingHours = () => {
         "The current time is NOT between 12 AM and 5 PM in 'Asia/Kolkata' timezone:",
         formattedTime
       );
-      return { result: false, message: "No one is available right now" };
+      return { result: true, message: "No one is available right now" };
     }
   } else {
     return { result: false, message: "Today is holiday" };
