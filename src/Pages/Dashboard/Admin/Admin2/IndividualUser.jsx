@@ -14,7 +14,7 @@ const IndividualUser = ({ user, deleteUser, updateUser }) => {
   return (
     <>
       <tr className="text-black">
-        <td className="p-3  border-b border-gray-200 text-sm">
+        <td className="p-3 border-b border-gray-200 text-sm">
           {/* <div className="flex items-center space-x-3">
             <div className="avatar">
               <div className="mask mask-squircle w-8 h-8 md:w-12 md:h-12">
@@ -38,7 +38,7 @@ const IndividualUser = ({ user, deleteUser, updateUser }) => {
               />
             </div>
             <div className="ml-3">
-              <p className="text-gray-900 break-words text-base font-bold text-left">
+              <p className="text-gray-900 break-words text-base font-bold text-left capitalize">
                 {user?.name}
               </p>
               <p className="text-gray-600 break-words text-left">

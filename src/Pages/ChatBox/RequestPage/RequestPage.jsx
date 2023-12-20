@@ -251,7 +251,7 @@ const RequestPage = ({ props }) => {
 
           {/* message part  */}
           <form
-            className="flex flex-col items-center space-y-5 px-5 z-[1000]  overflow-hidden"
+            className="flex flex-col items-center space-y-5 px-5 py-1 z-[1000]  overflow-hidden"
             onSubmit={handleSubmit(submitQuery)}
           >
             <div className="flex gap-3">

@@ -195,7 +195,7 @@ const AddUser = () => {
         className="w-[90%] mx-auto mt-10 font-roboto text-lg"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <div>
             <label htmlFor="name" className={inputLabel}>
               Name
@@ -238,29 +238,6 @@ const AddUser = () => {
             />
           </div>
 
-          <div>
-            <label htmlFor="role" className={inputLabel}>
-              Role
-            </label>
-            <select
-              id="role"
-              {...register("role", { required: true })}
-              className="w-full px-3 py-[10.5px] border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-gray-400 focus:border-gray-600 focus:outline-none focus:ring-2 ring-violet-200"
-              onChange={(e) => handleChangeRole(e)}
-            >
-              <option value="Select an option">Select an option</option>
-              <option value="LTP">LTP</option>
-              <option value="PS">PS</option>
-              <option value="UDA">UDA</option>
-              {userRole === "Super Admin" && (
-                <>
-                  <option value="Admin1">Admin1</option>
-                  <option value="Admin2">Admin2</option>
-                </>
-              )}
-            </select>
-          </div>
-
           <div className="flex flex-col items-center mt-3">
             <label htmlFor="" className={`${inputLabel}`}>
               Gender
@@ -295,6 +272,28 @@ const AddUser = () => {
                 </label>
               </div>
             </div>
+          </div>
+          <div>
+            <label htmlFor="role" className={inputLabel}>
+              Role
+            </label>
+            <select
+              id="role"
+              {...register("role", { required: true })}
+              className="w-full px-3 py-[10.5px] border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-gray-400 focus:border-gray-600 focus:outline-none focus:ring-2 ring-violet-200"
+              onChange={(e) => handleChangeRole(e)}
+            >
+              <option value="Select an option">Select an option</option>
+              <option value="LTP">LTP</option>
+              <option value="PS">PS</option>
+              <option value="UDA">UDA</option>
+              {userRole === "Super Admin" && (
+                <>
+                  <option value="Admin1">Admin1</option>
+                  <option value="Admin2">Admin2</option>
+                </>
+              )}
+            </select>
           </div>
 
           {/* <div>
@@ -356,7 +355,7 @@ const AddUser = () => {
           </div>
         </div>
 
-        <div className="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+        {/* <div className="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div> */}
 
         {userType === "LTP" && (
           <div className="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -406,7 +405,7 @@ const AddUser = () => {
         {userType === "PS" && (
           <div className="flex justify-between items-center">
             {/* district  */}
-            <div className="basis-1/5">
+            <div className="basis-[30%]">
               <label htmlFor="district" className={inputLabel}>
                 District
               </label>
@@ -430,7 +429,7 @@ const AddUser = () => {
             </div>
 
             {/* mandal */}
-            <div className="basis-1/5">
+            <div className="basis-[30%]">
               <label htmlFor="mandal" className={inputLabel}>
                 Mandal
               </label>
@@ -455,7 +454,7 @@ const AddUser = () => {
             </div>
 
             {/* gram panchayat  */}
-            <div className="basis-1/5">
+            <div className="basis-[30%]">
               <label htmlFor="panchayat" className={inputLabel}>
                 Grama Panchayat
               </label>

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { IoMdArrowBack } from "react-icons/io";
 import { IoRemoveCircleSharp } from "react-icons/io5";
 import { MdMenu, MdOutlineCancelScheduleSend, MdSend } from "react-icons/md";
@@ -23,8 +23,24 @@ const ChatWithCustomer = ({
   console.log(activeChat, "c");
   const { userInfoFromLocalStorage } = useContext(AuthContext);
   const [connectionStatus, setConnectionStatus] = useState(true);
+  const [userLeft, setUserLeft] = useState(false);
+  const messagesRef = useRef(null);
+
+  useEffect(() => {
+    // Scroll to the bottom when messages change
+    scrollToBottom();
+  }, [messages]);
+
+  const scrollToBottom = () => {
+    // Scroll to the bottom of the messages container
+    if (messagesRef.current) {
+      messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+    }
+  };
 
   const { register, errors, handleSubmit, resetField } = useForm();
+
+  console.log(userLeft, "userLeft");
 
   useEffect(() => {
     socket.emit("check-connection", { id: activeChat?.userId });
@@ -33,7 +49,33 @@ const ChatWithCustomer = ({
       console.log(status, "Status");
       setConnectionStatus(status);
     });
+
+    const handleCheckLeave = async (data) => {
+      // Your existing logic here
+      if (data?.change?.updateDescription?.updatedFields?.leave) {
+        // activeChat?.leave=true;
+        console.log(
+          data?.change?.updateDescription?.updatedFields?.leave,
+          "LEAVE OF ACTIVE CHAT"
+        );
+        console.log(activeChat, "Active chat");
+        setActiveChat((prev) => {
+          const newData = { ...prev };
+          newData.leave = data?.change?.updateDescription?.updatedFields?.leave;
+          console.log(newData, "prev");
+          return newData;
+        });
+      }
+    };
+
+    socket.on("check-accept-message", handleCheckLeave);
   }, [socket]);
+
+  useEffect(() => {
+    console.log(activeChat, "USER LEAVE MESSAGE");
+
+    setUserLeft(activeChat?.leave);
+  }, [userLeft, activeChat]);
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -139,7 +181,10 @@ const ChatWithCustomer = ({
             </div>
           </div>
           {/* message part  */}
-          <div className="h-[calc(82vh-112px)] message-bg overflow-y-auto">
+          <div
+            className="h-[calc(82vh-112px)] message-bg overflow-y-auto"
+            ref={messagesRef}
+          >
             <p className="mx-auto text-sm bg-[#8B5BF6] text-white w-fit font-bold mt-1 px-3 rounded-xl">
               Today
             </p>
@@ -176,10 +221,22 @@ const ChatWithCustomer = ({
             ))}
           </div>
           {/* input boxes  */}
-          {activeChat.chatEnd === 1 ? (
-            <p className="bg-[#7871e1] p-3 text-center font-bold text-white">
-              You end your chat with this person
-            </p>
+
+          {activeChat.chatEnd === 1 || activeChat?.leave === true ? (
+            <>
+              {activeChat.chatEnd === 1 && (
+                <p className="bg-[#7871e1] p-3 text-center font-bold text-white">
+                  You end your chat with this person
+                </p>
+              )}
+
+              {console.log(userLeft, "USER LEFT")}
+              {userLeft === true && (
+                <p className="bg-[#7871e1] p-3 text-center font-bold text-white">
+                  Customer left
+                </p>
+              )}
+            </>
           ) : (
             <form
               className="flex justify-between items-center bg-gray-200"
@@ -199,6 +256,27 @@ const ChatWithCustomer = ({
               </button>
             </form>
           )}
+
+          {console.log(activeChat.chatEnd, userLeft, "ACU")}
+          {/* {(activeChat.chatEnd !== 1 || userLeft === false) && (
+            <form
+              className="flex justify-between items-center bg-gray-200"
+              onSubmit={handleSubmit(onSubmit)}
+            >
+              <input
+                className="input rounded-none focus:outline-none border-none bg-gray-200 flex-1"
+                type="text"
+                placeholder="Type your message here..."
+                {...register("message", { required: true })}
+              />
+              <button
+                type="submit"
+                className="bg-normalViolet text-white p-3 border-none fancy-button mr-[2px]"
+              >
+                <MdSend size={20} />
+              </button>
+            </form>
+          )} */}
         </div>
       ) : (
         <p className="flex justify-center items-center h-full text-2xl font-bold capitalize font-titleFont message-bg">

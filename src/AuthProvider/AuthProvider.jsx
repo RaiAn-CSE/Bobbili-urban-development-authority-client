@@ -459,8 +459,9 @@ const AuthProvider = ({ children }) => {
           ownerNamePattern = `${ownerNames[0]},${ownerNames[1]},${ownerNames[2]}`;
           break;
         default:
-          ownerNamePattern = `${ownerNames[0]},${ownerNames[1]},${ownerNames[2]
-            } and ${totalOwner - 3} others`;
+          ownerNamePattern = `${ownerNames[0]},${ownerNames[1]},${
+            ownerNames[2]
+          } and ${totalOwner - 3} others`;
           break;
       }
     }
@@ -471,8 +472,7 @@ const AuthProvider = ({ children }) => {
   const needToHideElementBasedOnPage = () => {
     const page = JSON.parse(localStorage.getItem("page"));
 
-    const hideBtnPageWise =
-      page === "submit" || page === "approved" || page === "shortfall";
+    const hideBtnPageWise = page === "submit" || page === "shortfall";
 
     return hideBtnPageWise;
   };
