@@ -76,21 +76,10 @@ const ShowAllRejectedApplications = ({ serialNo, applicationData, screenSize }) 
                   </p>
                 </div>
                 <div className="py-3 border-b border-gray-200 text-sm">
-                  <button
-                    className="hover:underline"
-                    onClick={() =>
-                      showPageBasedOnApplicationType(
-                        applicationNo,
-                        navigate,
-                        "draft"
-                      )
-                    }
-                  >
-                    <p className="text-gray-900 break-words">
-                      <span className="font-semibold">Application no: </span>
-                      {applicationNo}
-                    </p>
-                  </button>
+                  <p className="text-gray-900 break-words">
+                    <span className="font-semibold">Application no: </span>
+                    {applicationNo}
+                  </p>
                 </div>
               </summary>
 
@@ -137,7 +126,7 @@ const ShowAllRejectedApplications = ({ serialNo, applicationData, screenSize }) 
                 </div>
 
                 <div className="p-3 border-b border-gray-200 text-sm flex justify-start">
-                  <span className="font-semibold mr-2 text-gray-900">Approved date: </span>
+                  <span className="font-semibold mr-2 text-gray-900">File rejected date: </span>
                   <p className="text-gray-900 break-words">
                     {psSubmitDate ?? "N/A"}
                   </p>
@@ -146,10 +135,6 @@ const ShowAllRejectedApplications = ({ serialNo, applicationData, screenSize }) 
             </details>
           )
       }
-
-
-
-
     </>
   );
 };
