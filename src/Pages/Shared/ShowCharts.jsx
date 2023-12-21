@@ -650,7 +650,7 @@ const ShowCharts = () => {
                       <BarChart chartData={barChartData} />
                     </div>
 
-                    <div className="lg:w-[46%] overflow-hidden  z-[10] ">
+                    <div className="lg:w-[46%] mb-10 lg:mb-0 overflow-hidden  z-[10] ">
                       <PieChart chartData={pieChartData} />
                     </div>
                   </div>
