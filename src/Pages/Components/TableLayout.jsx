@@ -50,6 +50,7 @@ const TableLayout = ({ tableData, Component, tableComponentProps }) => {
                           serialNo={index}
                           applicationData={applicationData}
                           tableComponentProps={tableComponentProps}
+                          screenSize={screenSize}
                         />
                       ))}
                     </tbody>
@@ -64,6 +65,7 @@ const TableLayout = ({ tableData, Component, tableComponentProps }) => {
                         serialNo={index}
                         applicationData={applicationData}
                         tableComponentProps={tableComponentProps}
+                        screenSize={screenSize}
                       />
                     ))}
                   </div>

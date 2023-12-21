@@ -135,10 +135,10 @@ const DraftApplication = () => {
       path.includes("payment")) &&
     (cameFrom === "draft" || cameFrom === "submit");
 
-  console.log(
-    applicationButtonForDraftApplication &&
-    (cameFrom === "draft" || cameFrom === "submit")
-  );
+  // console.log(
+  //   applicationButtonForDraftApplication &&
+  //   (cameFrom === "draft" || cameFrom === "submit")
+  // );
 
   const applicationButtonForApprovedOrShortfallApplication =
     !path.includes("siteInspection") &&
