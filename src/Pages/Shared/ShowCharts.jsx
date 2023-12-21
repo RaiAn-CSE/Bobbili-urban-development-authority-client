@@ -400,11 +400,10 @@ const ShowCharts = () => {
         <>
           {!isLtpOrPs && allDistricts?.length !== 0 && (
             <form
-              className={`grid grid-cols-1 gap-5 md:grid-cols-2 ${
-                path.includes("/dashboard")
-                  ? "lg:grid-cols-4"
-                  : "lg:grid-cols-3 gap-8"
-              } font-roboto my-8 z-[10] px-3 text-gray-900`}
+              className={`grid grid-cols-1 gap-5 md:grid-cols-2 ${path.includes("/dashboard")
+                ? "lg:grid-cols-4"
+                : "lg:grid-cols-3 gap-8"
+                } font-roboto my-8 z-[10] px-3 text-gray-900`}
             >
               {/* district  */}
               <div className="nm_Container z-[10] p-7 flex flex-col justify-center rounded-lg">
@@ -589,7 +588,7 @@ const ShowCharts = () => {
                     //     : applicationType === "Govt. Land"
                     // }
                     onChange={() => setSelectedDate("1 month")}
-                    // disabled={isReadOnly}
+                  // disabled={isReadOnly}
                   />
                   <label className="radio-button__label" htmlFor="radio2">
                     <span className="radio-button__custom"></span>1 month
@@ -608,7 +607,7 @@ const ShowCharts = () => {
                     //     : applicationType === "Govt. Land"
                     // }
                     onChange={() => setSelectedDate("6 months")}
-                    // disabled={isReadOnly}
+                  // disabled={isReadOnly}
                   />
                   <label className="radio-button__label" htmlFor="radio3">
                     <span className="radio-button__custom"></span>6 Months
@@ -627,7 +626,7 @@ const ShowCharts = () => {
                     //     : applicationType === "Govt. Land"
                     // }
                     onChange={() => setSelectedDate("1 year")}
-                    // disabled={isReadOnly}
+                  // disabled={isReadOnly}
                   />
                   <label className="radio-button__label" htmlFor="radio4">
                     <span className="radio-button__custom"></span>1 Year
@@ -645,17 +644,13 @@ const ShowCharts = () => {
                 Object.keys(serverData)?.length !== 0 &&
                 Object.keys(barChartData)?.length !== 0 &&
                 Object.keys(pieChartData)?.length !== 0 && (
-                  <div
-                    className={`${
-                      path.includes("/dashboard") && "px-4"
-                    } flex justify-evenly items-center p-0 z-[10]`}
-                  >
+                  <div className={`${path.includes("/dashboard") && "px-4"} block lg:flex lg:justify-evenly items-center p-0 z-[10]`}>
                     {/* background: linear-gradient(to right, rgb(142, 45, 226), rgb(74, 0, 224)); */}
-                    <div className="w-[46%] overflow-hidden z-[10]">
+                    <div className="lg:w-[46%] mb-10 lg:mb-0 overflow-hidden z-[10]">
                       <BarChart chartData={barChartData} />
                     </div>
 
-                    <div className=" w-[46%] overflow-hidden  z-[10] ">
+                    <div className="lg:w-[46%] overflow-hidden  z-[10] ">
                       <PieChart chartData={pieChartData} />
                     </div>
                   </div>
@@ -664,24 +659,23 @@ const ShowCharts = () => {
               {
                 // if others except ltp or ps
                 serverData &&
-                  !isLtpOrPs &&
-                  Object.keys(serverData)?.length !== 0 &&
-                  Object.keys(chartData)?.length !== 0 && (
-                    <div
-                      className={`${
-                        path.includes("/dashboard") && "px-4"
+                !isLtpOrPs &&
+                Object.keys(serverData)?.length !== 0 &&
+                Object.keys(chartData)?.length !== 0 && (
+                  <div
+                    className={`${path.includes("/dashboard") && "px-4"
                       } flex justify-evenly items-center p-0 z-[10]`}
-                    >
-                      {/* background: linear-gradient(to right, rgb(142, 45, 226), rgb(74, 0, 224)); */}
-                      <div className="w-[46%] overflow-hidden z-[10]">
-                        <BarChart chartData={chartData} />
-                      </div>
-
-                      <div className=" w-[46%] overflow-hidden  z-[10] ">
-                        <PieChart chartData={chartData} />
-                      </div>
+                  >
+                    {/* background: linear-gradient(to right, rgb(142, 45, 226), rgb(74, 0, 224)); */}
+                    <div className="w-[46%] overflow-hidden z-[10]">
+                      <BarChart chartData={chartData} />
                     </div>
-                  )
+
+                    <div className=" w-[46%] overflow-hidden  z-[10] ">
+                      <PieChart chartData={chartData} />
+                    </div>
+                  </div>
+                )
               }
             </>
           )}
