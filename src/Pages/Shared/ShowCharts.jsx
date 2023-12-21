@@ -57,7 +57,7 @@ const ShowCharts = () => {
       setLoading(true);
       try {
         const locationData = await fetchDataFromTheDb(
-          "http://localhost:5000/getDistricts"
+          "https://residential-building.onrender.com/getDistricts"
         );
         console.log(locationData, "LOC");
         const extractsDataFromDB = locationData[0]?.district;
@@ -151,11 +151,13 @@ const ShowCharts = () => {
     if (isLtpOrPs && selectedDate.length) {
       console.log("ltp");
       fetch(
-        `http://localhost:5000/filterApplications?search=${JSON.stringify({
-          id: userInfoFromLocalStorage()._id,
-          role,
-          selectedDate,
-        })}`
+        `https://residential-building.onrender.com/filterApplications?search=${JSON.stringify(
+          {
+            id: userInfoFromLocalStorage()._id,
+            role,
+            selectedDate,
+          }
+        )}`
       )
         .then((res) => res.json())
         .then((result) => {
@@ -178,7 +180,7 @@ const ShowCharts = () => {
 
       console.log(data);
       fetch(
-        `http://localhost:5000/filterApplications?search=${JSON.stringify(
+        `https://residential-building.onrender.com/filterApplications?search=${JSON.stringify(
           data
         )}`
       )
@@ -199,7 +201,7 @@ const ShowCharts = () => {
       setLoading(true);
 
       fetch(
-        `http://localhost:5000/totalApplications?data=${JSON.stringify(
+        `https://residential-building.onrender.com/totalApplications?data=${JSON.stringify(
           userInfoFromLocalStorage()
         )}`
       )

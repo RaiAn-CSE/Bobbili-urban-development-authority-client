@@ -27,13 +27,13 @@ const isBetweenWorkingHours = () => {
         formattedTime
       );
       // here i need to result true
-      return { result: true, message: "You are in the right time" };
+      return { result: true, message: "You are not in the right time" };
     } else {
       console.log(
         "The current time is NOT between 12 AM and 5 PM in 'Asia/Kolkata' timezone:",
         formattedTime
       );
-      return { result: false, message: "No one is available right now" };
+      return { result: true, message: "No one is available right now" };
     }
   } else {
     return { result: false, message: "Today is holiday" };

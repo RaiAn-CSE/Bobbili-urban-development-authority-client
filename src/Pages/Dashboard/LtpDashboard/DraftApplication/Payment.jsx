@@ -94,7 +94,7 @@ const Payment = () => {
         generalInformation?.natureOfTheSite === "Approved Layout" ||
         generalInformation?.natureOfTheSite === "Regularised under LRS" ||
         generalInformation?.natureOfTheSite ===
-        "Congested/ Gramakanta/ Old Built-up area" ||
+          "Congested/ Gramakanta/ Old Built-up area" ||
         generalInformation?.natureOfTheSite === "Newly Developed/ Built up area"
       ) {
         setCondition(1);
@@ -291,9 +291,9 @@ const Payment = () => {
     const labourCessComponentUnitRate1 = 1400; // per Sq.ft.
     const labourCessCompo1Charged = Math.round(
       labourCessComponentUnitRate1 *
-      BuiltUp_area_SquareFeet *
-      10.76 *
-      (0.01 * 0.98)
+        BuiltUp_area_SquareFeet *
+        10.76 *
+        (0.01 * 0.98)
     );
 
     setCalculatedData({
@@ -373,7 +373,7 @@ const Payment = () => {
         console.log(...formData);
         try {
           const response = await axios.post(
-            "http://localhost:5000/upload?page=payment",
+            "https://residential-building.onrender.com/upload?page=payment",
             formData,
             {
               headers: {
@@ -882,15 +882,15 @@ const Payment = () => {
               </div>
               {applicationData?.payment?.gramaPanchayatFee
                 ?.gramaBankReceipt && (
-                  <Link
-                    to={`https://drive.google.com/file/d/${applicationData?.payment?.gramaPanchayatFee?.gramaBankReceipt}/view?usp=sharing`}
-                    target="_blank"
-                    className="flex justify-center items-center ms-10 px-4 py-2 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
-                  >
-                    <MdReceiptLong className="me-1" />
-                    View Challan
-                  </Link>
-                )}
+                <Link
+                  to={`https://drive.google.com/file/d/${applicationData?.payment?.gramaPanchayatFee?.gramaBankReceipt}/view?usp=sharing`}
+                  target="_blank"
+                  className="flex justify-center items-center ms-10 px-4 py-2 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
+                >
+                  <MdReceiptLong className="me-1" />
+                  View Challan
+                </Link>
+              )}
             </motion.div>
           </div>
         </motion.div>
@@ -998,15 +998,15 @@ const Payment = () => {
 
               {applicationData?.payment?.labourCessCharge
                 ?.labourCessBankReceipt && (
-                  <Link
-                    to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
-                    target="_blank"
-                    className="flex justify-center items-center ms-10 px-4 py-2 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
-                  >
-                    <MdReceiptLong className="me-1" />
-                    View Challan
-                  </Link>
-                )}
+                <Link
+                  to={`https://drive.google.com/file/d/${applicationData?.payment?.labourCessCharge?.labourCessBankReceip}/view?usp=sharing`}
+                  target="_blank"
+                  className="flex justify-center items-center ms-10 px-4 py-2 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
+                >
+                  <MdReceiptLong className="me-1" />
+                  View Challan
+                </Link>
+              )}
             </motion.div>
           </div>
         </motion.div>
@@ -1111,15 +1111,15 @@ const Payment = () => {
               </div>
               {applicationData?.payment?.greenFeeCharge
                 ?.greenFeeBankReceipt && (
-                  <Link
-                    to={`https://drive.google.com/file/d/${applicationData?.payment?.greenFeeCharge?.greenFeeBankReceipt}/view?usp=sharing`}
-                    target="_blank"
-                    className="flex justify-center items-center ms-10 px-4 py-2 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
-                  >
-                    <MdReceiptLong className="me-1" />
-                    View Challan
-                  </Link>
-                )}
+                <Link
+                  to={`https://drive.google.com/file/d/${applicationData?.payment?.greenFeeCharge?.greenFeeBankReceipt}/view?usp=sharing`}
+                  target="_blank"
+                  className="flex justify-center items-center ms-10 px-4 py-2 hover:underline bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-lg shadow-lg rounded-full"
+                >
+                  <MdReceiptLong className="me-1" />
+                  View Challan
+                </Link>
+              )}
             </motion.div>
           </div>
         </motion.div>
