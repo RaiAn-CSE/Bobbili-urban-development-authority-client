@@ -58,18 +58,6 @@ const DraftApplication = () => {
   }
 
 
-
-  // Delete Payment page from LTP DrapApplication:
-  // if (cameFrom === "draft") {
-  //   const index = steps.indexOf("/payment");
-
-  //   if (index !== -1) {
-  //     steps.splice(index, 1);
-  //     stepsContent.splice(index, 1);
-  //   }
-  // }
-
-
   // Use localStorage to store and retrieve the current step
   useEffect(() => {
     const savedStep = localStorage.getItem("currentStep");
@@ -235,6 +223,7 @@ const DraftApplication = () => {
                 )}
             </div>
           </div>
+
           <div className="w-full steps steps-vertical lg:steps-horizontal rounded-lg py-4 lg:relative font-roboto px-4 lg:px-0">
             {stepsContent.map((step, index) => (
               <div
