@@ -133,7 +133,7 @@ const MainLayout = () => {
               console.log("ASCHI REMOVE KORTE");
               try {
                 await axios.patch(
-                  `https://residential-building.onrender.com/messageRequest?update=${JSON.stringify(
+                  `http://localhost:5000/messageRequest?update=${JSON.stringify(
                     {
                       id: removeChatUser.uniqueId,
                       action: "leaveFromTheMessage",
