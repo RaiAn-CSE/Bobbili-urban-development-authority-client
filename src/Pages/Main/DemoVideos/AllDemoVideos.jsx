@@ -1,7 +1,7 @@
 import React from "react";
 
 const AllDemoVideos = ({ videoInfo, setActiveVideo }) => {
-  console.log(videoInfo, "Video info");
+
   return (
     <div
       className="flex flex-col mb-3 bg-white rounded-md overflow-hidden font-serif cursor-pointer"

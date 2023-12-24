@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import AllDemoVideos from "./AllDemoVideos";
 import Player from "./Player";
-import { BiSolidVideos } from "react-icons/bi";
-import { RiFolderVideoFill } from "react-icons/ri";
-import { MdVideoCameraBack, MdVideoLibrary } from "react-icons/md";
+import { MdVideoLibrary } from "react-icons/md";
 
 const DemoVideos = () => {
   const videos = [
@@ -44,9 +42,8 @@ const DemoVideos = () => {
     },
   ];
 
-  console.log(videos, "videos");
-
   const [activeVideo, setActiveVideo] = useState(null);
+
   return (
     <div className="text-center w-full h-full overflow-hidden ">
       <p className=" flex justify-center items-center gap-4 fancy-button w-full hover:scale-100">

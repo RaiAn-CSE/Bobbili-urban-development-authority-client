@@ -68,10 +68,8 @@ const ApplicationSearch = () => {
   }, []);
 
   // console.log(accept);
-
-  console.log(filteredData?.status?.toLowerCase().includes("approved"));
-
-  console.log(filteredData, "filteredData");
+  // console.log(filteredData?.status?.toLowerCase().includes("approved"));
+  // console.log(filteredData, "filteredData");
 
   const titleClass = "basis-[50%] text-lg pl-3 font-semibold text-gray-900";
 
