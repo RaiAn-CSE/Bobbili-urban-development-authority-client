@@ -1344,17 +1344,21 @@ ol > li:before {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #8272ff;
+  background: #8073EF;
   border-radius: 5px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #7162e9;
+  background: #8071ff;
+}
+
+.ScrollingHidden::-webkit-scrollbar {
+  display: none;
 }
 /*=========================<<< Scrollbar End >>> */
-/* chat box  */
 
+/* chat box  */
 .chatbox-wrapper {
   position: fixed;
   bottom: 1rem;

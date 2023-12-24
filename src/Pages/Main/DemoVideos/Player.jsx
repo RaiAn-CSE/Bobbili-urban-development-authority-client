@@ -10,11 +10,11 @@ const Player = ({ videoUrl = "https://www.youtube.com/watch?v=LXb3EKWsInQ", vide
         <ReactPlayer url={videoUrl} width="100%" height="100%" controls />
       </div>
 
-      <p className="font-bold text-start mt-4 text-black text-xl z-10">
+      <p className="font-bold mt-4 text-black text-center text-xl z-10">
         {videoTitle}
       </p>
 
-      <p className="text-sm font-bold text-start flex items-center gap-1 text-normalViolet">
+      <p className="text-sm font-bold text-center flex items-center justify-center gap-1 text-normalViolet">
         <span>Bobbili Urban Development Authority</span>
         <FaCheckCircle size={12} />
       </p>

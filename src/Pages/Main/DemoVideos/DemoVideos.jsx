@@ -53,11 +53,11 @@ const DemoVideos = () => {
       </p>
 
       <div className="flex justify-around h-[calc(100%-14%)] w-full mt-4">
-        <div className="w-[68%] h-full">
+        <div className="w-[70%] h-full mr-3">
           <Player videoTitle={activeVideo?.title} videoUrl={activeVideo?.url} />
         </div>
 
-        <div className="w-[30%] h-full overflow-hidden overflow-y-auto  rounded-lg">
+        <div className="w-[30%] h-full overflow-hidden overflow-y-auto rounded-lg">
           {videos?.map((videoInfo) => (
             <AllDemoVideos
               key={videoInfo.id}

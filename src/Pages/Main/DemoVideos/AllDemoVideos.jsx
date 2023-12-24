@@ -4,7 +4,7 @@ const AllDemoVideos = ({ videoInfo, setActiveVideo }) => {
 
   return (
     <div
-      className="flex flex-col mb-3 bg-white rounded-md overflow-hidden font-serif cursor-pointer"
+      className="flex mb-3 flex-col bg-white rounded-md overflow-hidden font-serif cursor-pointer"
       onClick={() => setActiveVideo(videoInfo)}
     >
       {/* image part  */}
@@ -12,7 +12,7 @@ const AllDemoVideos = ({ videoInfo, setActiveVideo }) => {
         <img
           src={videoInfo.thumbnailImg}
           alt={videoInfo.title}
-          className="object-cover"
+          className="object-cover rounded-lg"
         />
       </div>
       {/* description part  */}

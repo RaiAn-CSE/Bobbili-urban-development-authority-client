@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import ApplicationHeader from "./ApplicationHeader";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import { RxCross2 } from "react-icons/rx";
-import CustomScroll from "../../../../Style/Scrollbar.module.css";
 
 function Application({ setOpenApplication, filteredData }) {
   const { getApplicationData, ownerNamePattern, calculateNoOfFloors } =
@@ -92,17 +91,15 @@ function Application({ setOpenApplication, filteredData }) {
     if (isArray) {
       return (
         <td
-          className={`p-3 border-t border-black text-sm ${
-            type === "keys" && "w-1/3"
-          } p-0`}
+          className={`p-3 border-t border-black text-sm ${type === "keys" && "w-1/3"
+            } p-0`}
         >
           <div className="flex">
             {data?.map((e, i) => (
               <p
                 key={i}
-                className={`flex items-center p-2 border-l border-black h-12 ${
-                  i === 0 && "w-1/2 border-l-0 bg-white font-bold"
-                }`}
+                className={`flex items-center p-2 border-l border-black h-12 ${i === 0 && "w-1/2 border-l-0 bg-white font-bold"
+                  }`}
               >
                 {(keys ? Object.keys(data[i]) : Object.values(data[i])) || e}
               </p>
@@ -113,9 +110,8 @@ function Application({ setOpenApplication, filteredData }) {
     } else {
       return (
         <td
-          className={` border-t border-black text-sm ${
-            type === "keys" && "w-1/3"
-          } p-0 font-bold bg-white`}
+          className={` border-t border-black text-sm ${type === "keys" && "w-1/3"
+            } p-0 font-bold bg-white`}
         >
           <p className="h-12 p-2 flex items-center border-l border-black">
             {keys ? Object.keys(data) : Object.values(data)}
@@ -131,7 +127,7 @@ function Application({ setOpenApplication, filteredData }) {
     >
       <dialog id="my_modal_5" className="modal">
         <div
-          className={`${CustomScroll.customScrolling} border-image-frame overflow-hidden modal-box w-full max-w-4xl p-14 bg-white`}
+          className={`ScrollingHidden relative overflow-hidden overflow-y-auto border-image-frame modal-box w-full max-w-4xl p-14 bg-white`}
         >
           <form method="dialog" className="absolute top-6 right-6 z-50">
             <button
