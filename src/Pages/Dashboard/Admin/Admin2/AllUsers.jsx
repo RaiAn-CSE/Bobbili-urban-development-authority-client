@@ -143,26 +143,26 @@ const AllUsers = () => {
         delete newUpdatedData._id;
 
         console.log(newUpdatedData, "New updated data");
-        fetch(`http://localhost:5000/updateUserInfo/${_id}`, {
-          method: "PATCH",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(newUpdatedData),
-        })
-          .then((res) => res.json())
-          .then((result) => {
-            if (result.acknowledged) {
-              toast.success("Updated successfully");
-              refetch();
-            } else {
-              toast.error("Failed to update");
-            }
-            setShowModal(false);
-          })
-          .catch(() => {
-            toast.error("Server error");
-          });
+        // fetch(`http://localhost:5000/updateUserInfo/${_id}`, {
+        //   method: "PATCH",
+        //   headers: {
+        //     "content-type": "application/json",
+        //   },
+        //   body: JSON.stringify(newUpdatedData),
+        // })
+        //   .then((res) => res.json())
+        //   .then((result) => {
+        //     if (result.acknowledged) {
+        //       toast.success("Updated successfully");
+        //       refetch();
+        //     } else {
+        //       toast.error("Failed to update");
+        //     }
+        //     setShowModal(false);
+        //   })
+        //   .catch(() => {
+        //     toast.error("Server error");
+        //   });
       } else {
         setError(isValidate);
       }
@@ -383,7 +383,7 @@ const AllUsers = () => {
                         </div>
                       </div>
 
-                      <div className="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                      <div className="mb-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                         <div className="flex flex-col items-center mt-3">
                           <label htmlFor="" className={`${inputLabel}`}>
                             Gender
@@ -468,6 +468,52 @@ const AllUsers = () => {
                           ></textarea>
                         </div>
                       </div>
+
+                      {userInfo?.role?.toLowerCase() === "ps" && (
+                        <div className="mb-8">
+                          <div className="flex flex-col items-center mt-3">
+                            <label htmlFor="" className={`${inputLabel}`}>
+                              HandOver
+                            </label>
+                            <div className="radio-button-container">
+                              <div className="radio-button">
+                                <input
+                                  type="radio"
+                                  className="radio-button__input"
+                                  id="yesHandOver"
+                                  name="handOver"
+                                  value={true}
+                                  {...register("handOver")}
+                                />
+                                <label
+                                  className="radio-button__label"
+                                  htmlFor="yesHandOver"
+                                >
+                                  <span className="radio-button__custom"></span>
+                                  Yes
+                                </label>
+                              </div>
+                              <div className="radio-button">
+                                <input
+                                  type="radio"
+                                  className="radio-button__input"
+                                  id="noHandOver"
+                                  name="handOver"
+                                  value={false}
+                                  {...register("handOver")}
+                                />
+                                <label
+                                  className="radio-button__label"
+                                  htmlFor="noHandOver"
+                                >
+                                  <span className="radio-button__custom"></span>
+                                  No
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
 
                       {userInfo?.role === "LTP" && (
                         <div className="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

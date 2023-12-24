@@ -130,7 +130,7 @@ const AddUser = () => {
                 gramaPanchayat: selectedPanchayat,
               };
 
-              userInfo = { ...data, ...address };
+              userInfo = { ...data, ...address, handOver: false };
             } else {
               toast.error("Please select a grama panchayat");
             }

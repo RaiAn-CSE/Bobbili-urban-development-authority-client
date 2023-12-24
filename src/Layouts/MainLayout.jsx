@@ -123,6 +123,9 @@ const MainLayout = () => {
         {/* lower part  */}
         <Outlet />
 
+        <p className="z-[10] text-black text-center mt-10 text-lg relative">
+          Hello
+        </p>
         <div
           className="chatbox-wrapper"
           onClick={async () => {
