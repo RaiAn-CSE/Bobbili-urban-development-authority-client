@@ -831,7 +831,7 @@ const BuildingInfo = () => {
                     Plot port of RLP/IPLP but not regularised
                   </option>
                   <option value="Congested/ Gramakanta/ Old Built-up area">
-                    Congested/ Gramakanta/ Old Built-up area
+                    Gramakanta
                   </option>
                   <option value="Newly Developed/ Built up area">
                     Newly Developed/ Built up area
