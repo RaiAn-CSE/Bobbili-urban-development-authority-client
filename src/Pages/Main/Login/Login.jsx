@@ -115,10 +115,26 @@ const Login = () => {
                       "password=" + password + ";path=http://localhost:5173/";
                   }
 
-                  setLoading(false);
-                  localStorage.setItem("theme", "light");
-                  toast.success("Login successfully");
-                  navigate(from, { replace: true });
+                  fetch("http://localhost:5000/increaseVisitorCount", {
+                    method: "PATCH",
+                  })
+                    .then((res) => res.json())
+                    .then((result) => {
+                      console.log(result, "Result");
+                      if (result?.acknowledged) {
+                        setLoading(false);
+                        localStorage.setItem("theme", "light");
+                        toast.success("Login successfully");
+                        navigate(from, { replace: true });
+                      } else {
+                        setLoading(false);
+                        toast.error("Server Error");
+                      }
+                    })
+                    .catch((err) => {
+                      setLoading(false);
+                      toast.error("Server Error");
+                    });
                 }
               });
           } else {

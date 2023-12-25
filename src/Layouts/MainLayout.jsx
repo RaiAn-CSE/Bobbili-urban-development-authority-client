@@ -16,6 +16,21 @@ const MainLayout = () => {
   const path = useLocation()?.pathname;
 
   const [removeChatUser, setRemoveChatUser] = useState(null);
+  const [visitorCount, setVisitorCount] = useState(0);
+
+  // get total visitor number
+  useEffect(() => {
+    fetch("http://localhost:5000/getVisitorCount")
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result, "result");
+        setVisitorCount(result[0]?.count);
+      })
+      .catch((err) => {
+        toast.error("Server Error");
+      });
+  }, []);
+
   console.log(path);
   const active =
     "bg-[#8B5BF6] shadow-md shadow-violetDark text-white border-none ";
@@ -45,6 +60,7 @@ const MainLayout = () => {
 
       // console.log(theme);
     }
+
     return () => {
       document.documentElement.classList.remove("dark");
       document.documentElement.classList.remove("dark:bg-black");
@@ -123,8 +139,8 @@ const MainLayout = () => {
         {/* lower part  */}
         <Outlet />
 
-        <p className="z-[10] text-black text-center mt-10 text-lg relative">
-          Hello
+        <p className="z-[10] text-black text-center mt-10 text-lg relative hidden 2xl:block">
+          {`Hello ${visitorCount}`}
         </p>
         <div
           className="chatbox-wrapper"
