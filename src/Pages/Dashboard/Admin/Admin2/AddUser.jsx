@@ -248,9 +248,9 @@ const AddUser = () => {
                   type="radio"
                   className="radio-button__input"
                   id="male"
-                  name="gender1"
+                  name="gender"
                   value="male"
-                  {...register("gender1")}
+                  {...register("gender")}
                 />
                 <label className="radio-button__label" htmlFor="male">
                   <span className="radio-button__custom"></span>
@@ -262,9 +262,9 @@ const AddUser = () => {
                   type="radio"
                   className="radio-button__input"
                   id="female"
-                  name="gender1"
+                  name="gender"
                   value="female"
-                  {...register("gender1")}
+                  {...register("gender")}
                 />
                 <label className="radio-button__label" htmlFor="female">
                   <span className="radio-button__custom"></span>

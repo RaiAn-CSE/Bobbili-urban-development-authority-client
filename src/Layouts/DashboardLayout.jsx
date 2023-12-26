@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import sidebarStyle from "../Style/dashboardSidebar.module.css";
 import Navbar from "../Pages/Shared/Navbar";
@@ -13,14 +13,77 @@ import { FaRegEdit, FaUserEdit } from "react-icons/fa";
 import { LuSettings } from "react-icons/lu";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import SvgTextAnimation from "../Pages/Components/SvgTextAnimation";
+import { FaUserMinus } from "react-icons/fa6";
+import Swal from "sweetalert2";
 
 const DashboardLayout = () => {
   const { handleLogOut } = useContext(AuthContext);
   const currentUser = JSON.parse(localStorage.getItem("loggedUser"));
   const navigate = useNavigate();
 
-  const darkGradientColor =
-    "dark:bg-gradient-to-b dark:from-violet-500 dark:to-fuchsia-500";
+  const [loading, setLoading] = useState(false);
+
+  const handOverByPs = (id) => {
+    console.log(id, "id");
+
+    Swal.fire({
+      title: "Do you want to handOver?",
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      showLoaderOnConfirm: true,
+      preConfirm: async () => {
+        try {
+          const url = `http://localhost:5000/handOveredByPs?id=${JSON.stringify(
+            id
+          )}`;
+          const response = await fetch(url, { method: "PATCH" });
+
+          if (!response?.ok) {
+            return Swal.showValidationMessage(`
+          ${JSON.stringify(await response.json())}
+        `);
+          }
+          return response.json();
+        } catch (error) {
+          Swal.showValidationMessage(`
+        Request failed: ${error}
+      `);
+        }
+      },
+      allowOutsideClick: () => !Swal.isLoading(),
+    }).then((result) => {
+      if (result?.isConfirmed) {
+        Swal.fire({
+          title: "You handOvered your credentials",
+          icon: "success",
+          confirmButtonText: "Leave Now",
+          allowOutsideClick: false,
+        }).then((result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            handleLogOut(navigate);
+          }
+        });
+      }
+    });
+    // Swal.fire({
+    //   title: "Do you want to handOver?",
+    //   showCancelButton: true,
+    //   confirmButtonText: "Yes",
+    // }).then((result) => {
+    //   /* Read more about isConfirmed, isDenied below */
+    //   if (result.isConfirmed) {
+    //     fetch(`http://localhost:5000/handOveredByPs?id=${JSON.stringify(id)}`, {
+    //       method: "PATCH",
+    //     })
+    //       .then((res) => res.json())
+    //       .then((result) => {
+    //         console.log(result, "result");
+    //         Swal.fire("Saved!", "", "success");
+    //       });
+    //   }
+    // });
+  };
 
   return (
     <div className="bg-bgColor">
@@ -103,6 +166,15 @@ const DashboardLayout = () => {
                       <FaRegEdit size={17} />
                       Profile
                     </Link>
+                  </li>
+                  <li>
+                    <button
+                      className="items-center hover:bg-gray-100 hover:text-black"
+                      onClick={() => handOverByPs(currentUser?._id)}
+                    >
+                      <FaUserMinus size={17} />
+                      HandOver
+                    </button>
                   </li>
                   <li>
                     <Link

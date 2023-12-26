@@ -16,8 +16,8 @@ const AllUsers = () => {
   const [showModal, setShowModal] = useState(true);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
-
-  const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
+  const [validityError, setValidityError] = useState("");
+  const [loadingForUpdate, setLoadingForUpdate] = useState(false);
 
   const { userInfoFromLocalStorage, checkLicenseExpirationOfLtp } =
     useContext(AuthContext);
@@ -114,60 +114,77 @@ const AllUsers = () => {
   }, [showModal]);
 
   // update user profile information
+
   const onSubmit = (data) => {
+    setLoadingForUpdate(true);
+    setValidityError("");
     console.log(data);
 
-    const { _id, validity } = data;
+    const updateDataIntoDB = (id, data) => {
+      fetch(`http://localhost:5000/updateUserInfo/${id}`, {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          if (result.acknowledged) {
+            toast.success("Updated successfully");
+            refetch();
+          } else {
+            toast.error("Failed to update");
+          }
+          setShowModal(false);
+          setLoadingForUpdate(false);
+        })
+        .catch(() => {
+          setLoadingForUpdate(false);
+          toast.error("Server error");
+        });
+    };
 
-    if (validity.length) {
-      const validitySplit = validity.split("-");
+    const { _id, role, validity } = data;
 
-      // HANDLING ERRORS OF USERS TYPING
-      validitySplit.forEach((each, index) => {
-        if (each.length < 2) {
-          validitySplit[index] = validitySplit[index].padStart(2, "0");
+    if (role?.toLowerCase() === "ltp") {
+      if (validity?.length) {
+        const validitySplit = validity.split("-");
+
+        // HANDLING ERRORS OF USERS TYPING
+        validitySplit.forEach((each, index) => {
+          if (each.length < 2) {
+            validitySplit[index] = validitySplit[index].padStart(2, "0");
+          }
+
+          if (validitySplit.length - 1 === index) {
+            validitySplit[index] = validitySplit[index].padStart(4, "0");
+          }
+        });
+
+        const validityInDateFormat = validitySplit.reverse().join("-");
+        const isValidate = checkLicenseExpirationOfLtp(validityInDateFormat);
+        console.log(isValidate, "IS VALIDATE");
+
+        if (isValidate.length === 10) {
+          const newUpdatedData = { ...data, validity: isValidate };
+
+          delete newUpdatedData._id;
+
+          console.log(newUpdatedData, "New updated data");
+
+          updateDataIntoDB(_id, newUpdatedData);
+        } else {
+          setValidityError(isValidate);
+          setLoadingForUpdate(false);
         }
-
-        if (validitySplit.length - 1 === index) {
-          validitySplit[index] = validitySplit[index].padStart(4, "0");
-        }
-      });
-
-      const validityInDateFormat = validitySplit.reverse().join("-");
-      const isValidate = checkLicenseExpirationOfLtp(validityInDateFormat);
-      console.log(isValidate, "IS VALIDATE");
-
-      if (isValidate.length === 10) {
-        const newUpdatedData = { ...data, validity: isValidate };
-
-        delete newUpdatedData._id;
-
-        console.log(newUpdatedData, "New updated data");
-        // fetch(`http://localhost:5000/updateUserInfo/${_id}`, {
-        //   method: "PATCH",
-        //   headers: {
-        //     "content-type": "application/json",
-        //   },
-        //   body: JSON.stringify(newUpdatedData),
-        // })
-        //   .then((res) => res.json())
-        //   .then((result) => {
-        //     if (result.acknowledged) {
-        //       toast.success("Updated successfully");
-        //       refetch();
-        //     } else {
-        //       toast.error("Failed to update");
-        //     }
-        //     setShowModal(false);
-        //   })
-        //   .catch(() => {
-        //     toast.error("Server error");
-        //   });
       } else {
-        setError(isValidate);
+        toast.error("Please fill up empty fields");
+        setLoadingForUpdate(false);
       }
     } else {
-      toast.error("Please fill up empty fields");
+      delete data["_id"];
+      updateDataIntoDB(_id, data);
     }
   };
 
@@ -394,9 +411,11 @@ const AllUsers = () => {
                                 type="radio"
                                 className="radio-button__input"
                                 id="male"
-                                name="gender1"
+                                name="gender"
                                 value="male"
-                                {...register("gender1")}
+                                defaultChecked={userInfo?.gender === "male"}
+                                required
+                                {...register("gender")}
                               />
                               <label
                                 className="radio-button__label"
@@ -413,7 +432,8 @@ const AllUsers = () => {
                                 id="female"
                                 name="gender1"
                                 value="female"
-                                {...register("gender1")}
+                                defaultChecked={userInfo?.gender === "female"}
+                                {...register("gender")}
                               />
                               <label
                                 className="radio-button__label"
@@ -483,6 +503,8 @@ const AllUsers = () => {
                                   id="yesHandOver"
                                   name="handOver"
                                   value={true}
+                                  defaultChecked={userInfo?.handOver}
+                                  required
                                   {...register("handOver")}
                                 />
                                 <label
@@ -500,6 +522,7 @@ const AllUsers = () => {
                                   id="noHandOver"
                                   name="handOver"
                                   value={false}
+                                  defaultChecked={!userInfo?.handOver}
                                   {...register("handOver")}
                                 />
                                 <label
@@ -560,17 +583,26 @@ const AllUsers = () => {
                         </div>
                       )}
 
-                      {error.length !== 0 && (
+                      {error?.length !== 0 && (
                         <p className="text-red-500 text-center my-6">{error}</p>
+                      )}
+                      {validityError?.length !== 0 && (
+                        <p className="text-red-500 text-center my-6 font-bold">
+                          {validityError}
+                        </p>
                       )}
 
                       <div className="flex justify-center">
-                        <button
-                          type="submit"
-                          className="text-white transition-all duration-700 save-btn px-5 py-3 rounded-full bg-normalViolet"
-                        >
-                          Submit
-                        </button>
+                        {loadingForUpdate ? (
+                          <span className="loading loading-dots loading-lg text-normalViolet"></span>
+                        ) : (
+                          <button
+                            type="submit"
+                            className="text-white transition-all duration-700 save-btn px-5 py-3 rounded-full bg-normalViolet"
+                          >
+                            Submit
+                          </button>
+                        )}
                       </div>
                     </form>
                   </div>
