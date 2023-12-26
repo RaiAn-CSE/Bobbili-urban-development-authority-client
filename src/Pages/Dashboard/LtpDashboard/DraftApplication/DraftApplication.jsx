@@ -28,6 +28,8 @@ const DraftApplication = () => {
   const cameFrom = JSON.parse(localStorage.getItem("page"));
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
   const getIndex = JSON.parse(localStorage.getItem("stepIndex"));
+  const steepCompleted = JSON.parse(localStorage.getItem("steepCompleted"));
+
   const role = userInfoFromLocalStorage()?.role;
 
   useEffect(() => {
@@ -44,7 +46,7 @@ const DraftApplication = () => {
   ];
 
   const stepsContent = [
-    `Building Info`,
+    "Building Info",
     "Applicant Info",
     "App. Checklist",
     "Documents",
@@ -56,7 +58,6 @@ const DraftApplication = () => {
     steps.push("/siteInspection");
     stepsContent.push("Site Inspection");
   }
-
 
   // Use localStorage to store and retrieve the current step
   useEffect(() => {
@@ -73,13 +74,18 @@ const DraftApplication = () => {
     };
   }, [location.pathname]);
 
+
   const handleStepClick = (index) => {
     setCurrentStep(index);
-    localStorage.setItem("stepIndex", JSON.stringify(index)); // Store the current step in localStorage
+    localStorage.setItem("stepIndex", JSON.stringify(index));
+    // Store the current step in localStorage
+    const heightIndex = JSON.parse(localStorage.getItem("steepCompleted"));
+
+    if (heightIndex === null || heightIndex < index) {
+      localStorage.setItem("steepCompleted", JSON.stringify(index));
+    }
     navigate(`/dashboard/draftApplication${steps[index]}`);
   };
-
-  // handle alert system
 
   const additionalSteps = [
     "/dashboard/draftApplication/buildingInfo",
@@ -93,7 +99,8 @@ const DraftApplication = () => {
 
   const allSteps = [...steps, ...additionalSteps];
 
-  const isStepperVisible = allSteps.includes(location.pathname); // Check if current route is in the list of routes with the stepper
+  // Check if current route is in the list of routes with the stepper
+  const isStepperVisible = allSteps.includes(location.pathname);
 
   const stepClasses = (index) => {
     if (index === currentStep) {
@@ -107,9 +114,9 @@ const DraftApplication = () => {
 
   const completeBtn = (index) => {
     if (index === currentStep) {
-      return `bg-gradient-to-b from-[#a29bfe] to-[#6c5ce7] shadow-none text-white border-0 `;
+      return `bg-gradient-to-b from-[#a29bfe] to-[#6c5ce7] shadow-none text-white border-0`;
     } else if (index < currentStep) {
-      return ` bg-gradient-to-b from-[#a29bfe] to-[#6c5ce7] shadow-none text-white border-0 `;
+      return `bg-gradient-to-b from-[#a29bfe] to-[#6c5ce7] shadow-none text-white border-0`;
     } else {
       return ``;
     }
@@ -127,18 +134,12 @@ const DraftApplication = () => {
   const path = useLocation()?.pathname;
 
   // check the page name to show the building info and other pages application value
-
   const applicationButtonForDraftApplication =
     (path.includes("applicationChecklist") ||
       path.includes("documents") ||
       path.includes("drawing") ||
       path.includes("payment")) &&
     (cameFrom === "draft" || cameFrom === "submit");
-
-  // console.log(
-  //   applicationButtonForDraftApplication &&
-  //   (cameFrom === "draft" || cameFrom === "submit")
-  // );
 
   const applicationButtonForApprovedOrShortfallApplication =
     !path.includes("siteInspection") &&
@@ -150,8 +151,7 @@ const DraftApplication = () => {
   };
 
   let btnClass =
-    "nm_Container btn-md hover:text-[#fff] text-black  transition-all duration-500 cursor-pointer hover:bg-normalViolet bg-bgColor";
-
+    `nm_Container btn-md text-black transition-all duration-500 cursor-pointer  bg-bgColor`;
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
   return (
@@ -171,7 +171,6 @@ const DraftApplication = () => {
                 <>
                   <button
                     onClick={() => {
-                      // document.getElementById("proceedingModal").showModal();
                       setOpenProceeding(true);
                     }}
                     className={`flex justify-center items-center gap-1 btn-sm nm_Container text-sm bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white me-2 lg:me-5 border-none`}
@@ -198,9 +197,7 @@ const DraftApplication = () => {
                     <FiRefreshCcw className="text-lg" /> <span>Resubmit</span>
                   </button>
                   <button
-                    // Open the modal using document.getElementById('ID').showModal() method
                     onClick={() => {
-                      // document.getElementById("my_modal_2").showModal();
                       setOpenEndorsement(true);
                     }}
                     className={`flex justify-center items-center gap-1 btn-sm me-2 lg:me-5 text-sm nm_Container bg-normalViolet hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white border-none`}
@@ -226,60 +223,68 @@ const DraftApplication = () => {
 
           <div className="w-full steps steps-vertical lg:steps-horizontal rounded-lg py-4 lg:relative font-roboto px-4 lg:px-0">
             {stepsContent.map((step, index) => (
-              <div
+              <button
                 key={index}
                 data-content={index + 1}
                 className={`${stepClasses(index)}`}
                 onClick={() => handleStepClick(index)}
+                disabled={index > steepCompleted}
               >
-                <button
-                  className={`${btnClass} ${completeBtn(index)} ${role !== "PS"
+                <span
+                  className={`${btnClass} ${completeBtn(index)} ${index <= steepCompleted ? 'hover:bg-gradient-to-b hover:from-[#a29bfe] hover:to-[#6c5ce7] hover:shadow-none hover:text-white hover:border-0 bg-[#e4e1ff]' : 'cursor-not-allowed'} ${role !== "PS"
                     ? "w-[70%] lg:w-[15.3%]"
                     : "w-[50%] lg:w-[13%]"
                     } text-[15px] font-bold gap-1 border-0 flex justify-center items-center lg:absolute top-3 z-10`}
+                // disabled={index > steepCompleted}
                 >
                   {role !== "PS" && icons[index]}
-                  <span>{step}</span>
-                </button>
-              </div>
+                  {step}
+                </span>
+              </button>
             ))}
           </div>
         </>
-      )}
+      )
+      }
 
-      {/* content  */}
+      {/* ========================<<<content>>>  */}
       <Outlet
         context={[isStepperVisible, currentStep, steps, handleStepClick]}
       />
 
       {/* proceedingModal modal info  */}
-      {openProceeding ? (
-        <ProceedingModal
-          modalProceeding={{ setOpenProceeding, openProceeding }}
-        />
-      ) : (
-        ""
-      )}
-
+      {
+        openProceeding ? (
+          <ProceedingModal
+            modalProceeding={{ setOpenProceeding, openProceeding }}
+          />
+        ) : (
+          ""
+        )
+      }
       {/* my_modal_2 modal info : */}
-      {openEndorsement ? (
-        <EndorsementModal
-          modalEndorsement={{ setOpenEndorsement, openEndorsement }}
-        />
-      ) : (
-        ""
-      )}
-
+      {
+        openEndorsement ? (
+          <EndorsementModal
+            modalEndorsement={{ setOpenEndorsement, openEndorsement }}
+          />
+        ) : (
+          ""
+        )
+      }
       {/* Application Modal */}
-      {openApplication ? (
-        <Application setOpenApplication={setOpenApplication} />
-      ) : (
-        ""
-      )}
-
-      {openDrawing && (
-        <DrawingModal modalStates={{ openDrawing, setOpenDrawing }} />
-      )}
+      {
+        openApplication ? (
+          <Application setOpenApplication={setOpenApplication} />
+        ) : (
+          ""
+        )
+      }
+      {
+        openDrawing && (
+          <DrawingModal modalStates={{ openDrawing, setOpenDrawing }} />
+        )
+      }
     </>
   );
 };

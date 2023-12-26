@@ -122,7 +122,7 @@ const OwnerDetail = ({
         </div>
 
         {role.toLowerCase() === "ltp" && (
-          <div className="flex basis-[25%] justify-center items-end my-5 lg:my-5">
+          <div className="flex basis-[25%] justify-center items-center my-5 lg:my-5">
             {index === length - 1 && index < 4 && (
               <motion.div
                 className="flex justify-center items-center"
