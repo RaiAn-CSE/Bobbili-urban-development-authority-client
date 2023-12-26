@@ -12,7 +12,7 @@ import HomeCss from "../../../../Style/Home.module.css";
 
 const AllUsers = () => {
   const [records, setRecords] = useState([]);
-  const [userInfo, setUserInfo] = useState([]);
+  const [userInfo, setUserInfo] = useState({});
   const [showModal, setShowModal] = useState(true);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
@@ -103,6 +103,7 @@ const AllUsers = () => {
       console.log(userInfo);
       return { ...userInfo };
     }, [userInfo]),
+    mode: "onChange",
   });
 
   useEffect(() => {
@@ -199,6 +200,8 @@ const AllUsers = () => {
   if (loading) {
     return <Loading />;
   }
+
+  console.log(userInfo, "user info 2");
 
   const inputLabel = "block mb-1 font-semibold text-gray-600";
   const inputBox =
@@ -413,7 +416,7 @@ const AllUsers = () => {
                                 id="male"
                                 name="gender"
                                 value="male"
-                                defaultChecked={userInfo?.gender === "male"}
+                                // defaultChecked={userInfo?.gender === "male"}
                                 required
                                 {...register("gender")}
                               />
@@ -430,9 +433,10 @@ const AllUsers = () => {
                                 type="radio"
                                 className="radio-button__input"
                                 id="female"
-                                name="gender1"
+                                name="gender"
                                 value="female"
-                                defaultChecked={userInfo?.gender === "female"}
+                                // defaultChecked={userInfo?.gender === "female"}
+                                required
                                 {...register("gender")}
                               />
                               <label
@@ -502,8 +506,8 @@ const AllUsers = () => {
                                   className="radio-button__input"
                                   id="yesHandOver"
                                   name="handOver"
-                                  value={true}
-                                  defaultChecked={userInfo?.handOver}
+                                  value={"true"}
+                                  // defaultChecked={userInfo?.handOver}
                                   required
                                   {...register("handOver")}
                                 />
@@ -521,8 +525,9 @@ const AllUsers = () => {
                                   className="radio-button__input"
                                   id="noHandOver"
                                   name="handOver"
-                                  value={false}
-                                  defaultChecked={!userInfo?.handOver}
+                                  value={"false"}
+                                  // defaultChecked={!userInfo?.handOver}
+                                  required
                                   {...register("handOver")}
                                 />
                                 <label

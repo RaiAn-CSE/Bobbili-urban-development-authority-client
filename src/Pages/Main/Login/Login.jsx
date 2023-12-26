@@ -80,7 +80,7 @@ const Login = () => {
           // checking whether password is matching or not
           if (
             userInfo?.role?.toLowerCase() === "ps" &&
-            userInfo?.handOver === true
+            userInfo?.handOver === "true"
           ) {
             setLoading(false);
             toast.error("You handOvered your credentials");
