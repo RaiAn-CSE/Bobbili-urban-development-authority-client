@@ -205,7 +205,7 @@ const DocumentUpload = () => {
         formData.append("file", loopTimes[lt][i].file);
         try {
           const response = await axios.post(
-            "http://localhost:5000/upload?page=document",
+            "https://residential-building.onrender.com/upload?page=document",
             formData,
             {
               headers: {
@@ -300,7 +300,7 @@ const DocumentUpload = () => {
       psDocumentPageObservation: PSData,
     });
   };
-    
+
   return (
     <div className="text-black ml-4 mt-3">
       <form

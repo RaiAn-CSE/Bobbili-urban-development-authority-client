@@ -21,7 +21,7 @@ const MainLayout = () => {
 
   // get total visitor number
   useEffect(() => {
-    fetch("http://localhost:5000/getVisitorCount")
+    fetch("https://residential-building.onrender.com/getVisitorCount")
       .then((res) => res.json())
       .then((result) => {
         console.log(result, "result");
@@ -97,22 +97,24 @@ const MainLayout = () => {
           <div className="basis-[20%] mt-7 lg:mt-0 z-[10] flex justify-end items-center space-x-6 dark:text-black">
             <Link
               to="/"
-              className={`nm_Container w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center  ${path === "/" ||
-                  path === "/onlinePayment" ||
-                  path === "/listOfLTP" ||
-                  path === "/demoVideos" ||
-                  path === "/privacyPolicy" ||
-                  path === "/defaultDrawingFormat"
+              className={`nm_Container w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center  ${
+                path === "/" ||
+                path === "/onlinePayment" ||
+                path === "/listOfLTP" ||
+                path === "/demoVideos" ||
+                path === "/privacyPolicy" ||
+                path === "/defaultDrawingFormat"
                   ? active
                   : ` ${notActive}`
-                }`}
+              }`}
             >
               <AiOutlineHome size={25} className="text-2xl " />
             </Link>
             <Link
               to="/statistics"
-              className={`nm_Container w-12 h-12 cursor-pointer transition-all duration-700 border rounded-full flex justify-center items-center ${path.includes("/statistics") ? active : ` ${notActive}`
-                }`}
+              className={`nm_Container w-12 h-12 cursor-pointer transition-all duration-700 border rounded-full flex justify-center items-center ${
+                path.includes("/statistics") ? active : ` ${notActive}`
+              }`}
             >
               <MdOutlineDashboard size={25} className="text-2xl" />
             </Link>
@@ -152,7 +154,7 @@ const MainLayout = () => {
               console.log("ASCHI REMOVE KORTE");
               try {
                 await axios.patch(
-                  `http://localhost:5000/messageRequest?update=${JSON.stringify(
+                  `https://residential-building.onrender.com/messageRequest?update=${JSON.stringify(
                     {
                       id: removeChatUser.uniqueId,
                       action: "leaveFromTheMessage",

@@ -94,7 +94,7 @@ const Login = () => {
 
               console.log(localStorage.getItem("loggedUser"));
 
-              // axios.post("http://localhost:5000/jwt",userInfo,{
+              // axios.post("https://residential-building.onrender.com/jwt",userInfo,{
               //   withCredentials: true,
               //   headers: {
               //       'Access-Control-Allow-Origin': '*',
@@ -103,7 +103,7 @@ const Login = () => {
 
               //   })
 
-              fetch("http://localhost:5000/jwt", {
+              fetch("https://residential-building.onrender.com/jwt", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(userInfo),
@@ -124,9 +124,12 @@ const Login = () => {
                         "password=" + password + ";path=http://localhost:5173/";
                     }
 
-                    fetch("http://localhost:5000/increaseVisitorCount", {
-                      method: "PATCH",
-                    })
+                    fetch(
+                      "https://residential-building.onrender.com/increaseVisitorCount",
+                      {
+                        method: "PATCH",
+                      }
+                    )
                       .then((res) => res.json())
                       .then((result) => {
                         console.log(result, "Result");

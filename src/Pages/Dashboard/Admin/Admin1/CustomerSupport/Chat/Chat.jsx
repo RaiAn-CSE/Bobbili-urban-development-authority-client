@@ -24,10 +24,12 @@ const Chat = () => {
     console.log(id, "id");
     try {
       const { data } = await axios.patch(
-        `http://localhost:5000/messageRequest?update=${JSON.stringify({
-          id,
-          action: "chatEnd",
-        })}`
+        `https://residential-building.onrender.com/messageRequest?update=${JSON.stringify(
+          {
+            id,
+            action: "chatEnd",
+          }
+        )}`
       );
 
       if (data.acknowledged) {
@@ -42,7 +44,7 @@ const Chat = () => {
 
     try {
       const { data } = await axios.delete(
-        `http://localhost:5000/messageRequest?id=${id}`
+        `https://residential-building.onrender.com/messageRequest?id=${id}`
       );
 
       if (data.acknowledged) {
@@ -72,7 +74,7 @@ const Chat = () => {
   //       (async function () {
   //         try {
   //           const { data } = await axios.get(
-  //             `http://localhost:5000/messages?id=${activeChat?._id}`
+  //             `https://residential-building.onrender.com/messages?id=${activeChat?._id}`
   //           );
 
   //           console.log(data, "GET OLD MESSAGES");
