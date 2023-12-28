@@ -11,7 +11,7 @@ function ApplicationHeader() {
       <div className="text-center font-extrabold">
         <h2 className="mb-12 text-3xl">BUILDING PERMISSION APPLICATION</h2>
       </div>
-      <div className="nm_Container p-7 border-image-frame">
+      <div className="p-7">
         <div className="flex justify-between text-violetDark">
           <p className="font-bold text-lg ">
             Application No. <span className="">{applicationNo}</span>

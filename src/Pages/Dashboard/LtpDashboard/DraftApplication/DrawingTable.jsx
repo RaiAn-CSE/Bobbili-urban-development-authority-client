@@ -189,21 +189,11 @@ function DrawingTable({
             {/* Table Header */}
             <thead className="bg-gradient-to-b from-[#a29bfe] to-[#6c5ce7]">
               <tr className="text-white uppercase tracking-wider">
-                <th className="border-r p-3 border-white">
-                  Sl. No.
-                </th>
-                <th className="border-r border-white">
-                  Description
-                </th>
-                <th className="border-r border-white">
-                  As per G.O.s
-                </th>
-                <th className="border-r border-white">
-                  As on Plan
-                </th>
-                <th className="">
-                  Observation
-                </th>
+                <th className="border-r p-3 border-white">Sl. No.</th>
+                <th className="border-r border-white">Description</th>
+                <th className="border-r border-white">As per G.O.</th>
+                <th className="border-r border-white">As on Plan</th>
+                <th className="">Observation</th>
               </tr>
             </thead>
             <tbody className="text-gray-900">
@@ -228,11 +218,9 @@ function DrawingTable({
                     id="proposedSiteObs"
                     type="text"
                     className="w-full h-14 px-3 py-2 dark:text-black focus:outline-none bg-gray-50"
-                    defaultValue={
-                      submitData?.drawingTableObs?.proposedSiteObs
-                    }
+                    defaultValue={submitData?.drawingTableObs?.proposedSiteObs}
                     placeholder="Write Your Comment Here ..."
-                  // onChange={handleRoadWideningAreaChange}
+                    // onChange={handleRoadWideningAreaChange}
                   />
                 </td>
               </tr>
@@ -261,7 +249,7 @@ function DrawingTable({
                       submitData?.drawingTableObs?.accessRoadWidthObs
                     }
                     placeholder="Write Your Comment Here ..."
-                  // onChange={handleRoadWideningAreaChange}
+                    // onChange={handleRoadWideningAreaChange}
                   />
                 </td>
               </tr>
@@ -289,7 +277,7 @@ function DrawingTable({
                       submitData?.drawingTableObs?.scopeOfRoadWideningObs
                     }
                     placeholder="Write Your Comment Here ..."
-                  // onChange={handleRoadWideningAreaChange}
+                    // onChange={handleRoadWideningAreaChange}
                   />
                 </td>
               </tr>
@@ -313,11 +301,9 @@ function DrawingTable({
                     id="netSiteObs"
                     type="text"
                     className="w-full h-14 px-3 py-2  rounded-lg dark:text-black focus:outline-none bg-gray-50"
-                    defaultValue={
-                      submitData?.drawingTableObs?.netPlotAreaObs
-                    }
+                    defaultValue={submitData?.drawingTableObs?.netPlotAreaObs}
                     placeholder="Write Your Comment Here ..."
-                  // onChange={handleRoadWideningAreaChange}
+                    // onChange={handleRoadWideningAreaChange}
                   />
                 </td>
               </tr>
@@ -345,7 +331,7 @@ function DrawingTable({
                       submitData?.drawingTableObs?.buildingHeightObs
                     }
                     placeholder="Write Your Comment Here ..."
-                  // onChange={handleRoadWideningAreaChange}
+                    // onChange={handleRoadWideningAreaChange}
                   />
                 </td>
               </tr>
@@ -381,9 +367,7 @@ function DrawingTable({
               </tr>
               <tr>
                 <td className="p-3  border border-black  text-base bg-gray-200">
-                  <p className="text-gray-900 break-words font-bold">
-                    Front
-                  </p>
+                  <p className="text-gray-900 break-words font-bold">Front</p>
                 </td>
                 <td className="p-3  border border-black  text-base bg-gray-200">
                   <p className="text-gray-900 break-words font-bold">
@@ -402,16 +386,14 @@ function DrawingTable({
                     className="w-full px-3 h-14 dark:text-black focus:outline-none bg-gray-50"
                     defaultValue={submitData?.drawingTableObs?.fontObs}
                     placeholder="Write Your Comment Here ..."
-                  // onChange={handleRoadWideningAreaChange}
+                    // onChange={handleRoadWideningAreaChange}
                   />
                 </td>
               </tr>
               <tr>
                 {/* <td className="p-3  border border-black  text-base bg-gray-200"></td> */}
                 <td className="p-3  border border-black  text-base bg-gray-200">
-                  <p className="text-gray-900 break-words font-bold">
-                    Rare
-                  </p>
+                  <p className="text-gray-900 break-words font-bold">Rare</p>
                 </td>
                 <td className="p-3  border border-black  text-base bg-gray-200">
                   <p className="text-gray-900 break-words font-bold">
@@ -430,16 +412,14 @@ function DrawingTable({
                     className="w-full px-3 h-14 dark:text-black focus:outline-none bg-gray-50"
                     defaultValue={submitData?.drawingTableObs?.rareObs}
                     placeholder="Write Your Comment Here ..."
-                  // onChange={handleRoadWideningAreaChange}
+                    // onChange={handleRoadWideningAreaChange}
                   />
                 </td>
               </tr>
               <tr>
                 {/* <td className="p-3  border border-black  text-base bg-gray-200"></td> */}
                 <td className="p-3  border border-black  text-base bg-gray-200">
-                  <p className="text-gray-900 break-words font-bold">
-                    Side 1
-                  </p>
+                  <p className="text-gray-900 break-words font-bold">Side 1</p>
                 </td>
                 <td className="p-3  border border-black  text-base bg-gray-200">
                   <p className="text-gray-900 break-words font-bold">
@@ -458,16 +438,14 @@ function DrawingTable({
                     className="w-full px-3 h-14 dark:text-black focus:outline-none bg-gray-50"
                     defaultValue={submitData?.drawingTableObs?.sideOneObs}
                     placeholder="Write Your Comment Here ..."
-                  // onChange={handleRoadWideningAreaChange}
+                    // onChange={handleRoadWideningAreaChange}
                   />
                 </td>
               </tr>
               <tr>
                 {/* <td className="p-3  border border-black  text-base bg-gray-200"></td> */}
                 <td className="p-3 border border-black text-base bg-gray-200">
-                  <p className="text-gray-900 break-words font-bold">
-                    Side 2
-                  </p>
+                  <p className="text-gray-900 break-words font-bold">Side 2</p>
                 </td>
                 <td className="p-3 border border-black  text-base bg-gray-200">
                   <p className="text-gray-900 break-words font-bold">
@@ -486,7 +464,7 @@ function DrawingTable({
                     className="w-full px-3 h-14 dark:text-black focus:outline-none bg-gray-50"
                     defaultValue={submitData?.drawingTableObs?.sideTwoObs}
                     placeholder="Write Your Comment Here ..."
-                  // onChange={handleRoadWideningAreaChange}
+                    // onChange={handleRoadWideningAreaChange}
                   />
                 </td>
               </tr>
@@ -515,7 +493,7 @@ function DrawingTable({
                     className="w-full px-3 h-14 dark:text-black focus:outline-none bg-gray-50"
                     defaultValue={submitData?.drawingTableObs?.floorObs}
                     placeholder="Write Your Comment Here ..."
-                  // onChange={handleRoadWideningAreaChange}
+                    // onChange={handleRoadWideningAreaChange}
                   />
                 </td>
               </tr>
@@ -533,11 +511,9 @@ function DrawingTable({
                     id="stiltFloorObs"
                     type="text"
                     className="w-full px-3 h-14 dark:text-black focus:outline-none bg-gray-50"
-                    defaultValue={
-                      submitData?.drawingTableObs?.stiltFloorObs
-                    }
+                    defaultValue={submitData?.drawingTableObs?.stiltFloorObs}
                     placeholder="Write Your Comment Here ..."
-                  // onChange={handleRoadWideningAreaChange}
+                    // onChange={handleRoadWideningAreaChange}
                   />
                 </td>
               </tr>
@@ -555,11 +531,9 @@ function DrawingTable({
                     id="groundFloorObs"
                     type="text"
                     className="w-full px-3 h-14 dark:text-black focus:outline-none bg-gray-50"
-                    defaultValue={
-                      submitData?.drawingTableObs?.groundFloorObs
-                    }
+                    defaultValue={submitData?.drawingTableObs?.groundFloorObs}
                     placeholder="Write Your Comment Here ..."
-                  // onChange={handleRoadWideningAreaChange}
+                    // onChange={handleRoadWideningAreaChange}
                   />
                 </td>
               </tr>
@@ -577,11 +551,9 @@ function DrawingTable({
                     id="firstFloorObs"
                     type="text"
                     className="w-full px-3 h-14 dark:text-black focus:outline-none bg-gray-50"
-                    defaultValue={
-                      submitData?.drawingTableObs?.firstFloorObs
-                    }
+                    defaultValue={submitData?.drawingTableObs?.firstFloorObs}
                     placeholder="Write Your Comment Here ..."
-                  // onChange={handleRoadWideningAreaChange}
+                    // onChange={handleRoadWideningAreaChange}
                   />
                 </td>
               </tr>
@@ -599,11 +571,9 @@ function DrawingTable({
                     id="secondFloorObs"
                     type="text"
                     className="w-full px-3 h-14 dark:text-black focus:outline-none bg-gray-50"
-                    defaultValue={
-                      submitData?.drawingTableObs?.secondFloorObs
-                    }
+                    defaultValue={submitData?.drawingTableObs?.secondFloorObs}
                     placeholder="Write Your Comment Here ..."
-                  // onChange={handleRoadWideningAreaChange}
+                    // onChange={handleRoadWideningAreaChange}
                   />
                 </td>
               </tr>
@@ -622,9 +592,7 @@ function DrawingTable({
                   </p>
                 </td>
                 <td className="p-3  border border-black  text-base bg-gray-200">
-                  <p className="text-gray-900 break-words font-bold">
-                    Yes
-                  </p>
+                  <p className="text-gray-900 break-words font-bold">Yes</p>
                 </td>
                 <td className="border border-black border-r-0 text-base">
                   <select
@@ -663,15 +631,13 @@ function DrawingTable({
                       submitData?.drawingTableObs?.stairCaseWidthObs
                     }
                     placeholder="Write Your Comment Here ..."
-                  // onChange={handleRoadWideningAreaChange}
+                    // onChange={handleRoadWideningAreaChange}
                   />
                 </td>
               </tr>
               <tr>
                 <td className="p-3  border border-black border-l-0 border-b-0 text-base bg-gray-200">
-                  <p className="text-gray-900 break-words font-bold">
-                    10
-                  </p>
+                  <p className="text-gray-900 break-words font-bold">10</p>
                 </td>
                 <td className="p-3  border border-black border-b-0 text-base bg-gray-200">
                   <p className="text-gray-900 break-words font-bold">
@@ -695,7 +661,7 @@ function DrawingTable({
                     className="w-full px-3 h-14 dark:text-black focus:outline-none bg-gray-50"
                     defaultValue={submitData?.drawingTableObs?.unitsObs}
                     placeholder="Write Your Comment Here ..."
-                  // onChange={handleRoadWideningAreaChange}
+                    // onChange={handleRoadWideningAreaChange}
                   />
                 </td>
               </tr>
