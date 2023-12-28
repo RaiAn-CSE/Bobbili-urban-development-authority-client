@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import InputField from "../../../Components/InputField";
-import LTPImg from "../../../../assets/images/id-card.png";
-import OwnerImg from "../../../../assets/images/real-estate-agent.png";
 import OwnerDetail from "./OwnerDetail";
 import { useOutletContext } from "react-router";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
@@ -13,10 +11,7 @@ import { motion } from "framer-motion";
 
 const ApplicantInfo = () => {
   const stepperData = useOutletContext();
-
-  const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
-
-  // console.log(stepperData);
+  const [isStepperVisible, currentStep, steps] = stepperData;
 
   const {
     userInfoFromLocalStorage,
@@ -28,7 +23,6 @@ const ApplicantInfo = () => {
   const role = userInfoFromLocalStorage().role;
 
   const [data] = useGetUser();
-  console.log(data, "LTP"); //(LTP DATA)
 
   const isReadOnly = role === "PS";
 
@@ -40,11 +34,6 @@ const ApplicantInfo = () => {
 
   const [ltpDetails, setLtpDetails] = useState("");
   const [applicantDetails, setApplicantDetails] = useState("");
-
-  // const handleBackendData = () => {
-  //   const applicationId = JSON.parse(localStorage.getItem("applicationId"));
-  //   getPostData({ applicationId: applicationId, applicantInfo: {} });
-  // };
 
   const [ltpPhone, setLtpPhone] = useState("");
 
@@ -63,10 +52,6 @@ const ApplicantInfo = () => {
     console.log(totalApplicant, "TOTAL APPLICANT");
     setTotalApplicant([...totalApplicant]);
   };
-
-  // useEffect(() => {
-  //   console.log(totalApplicant);
-  // }, [totalApplicant]);
 
   const setPhoneNoLimit = (e, setPhoneNo) => {
     const value = e.target.value;
@@ -90,8 +75,6 @@ const ApplicantInfo = () => {
     const ltpPhoneNo = document.getElementById("ltpPhoneNo").value;
     const ltpEmail = document.getElementById("ltpEmail").value;
     const ltpAddress = document.getElementById("ltpAddress").value;
-    // const ltpDoorNo = document.getElementById("ltpDoorNo").value;
-    // const ltpStreetName = document.getElementById("ltpStreetName").value;
 
     const ownerDetail = totalApplicant.map((applicant, index) => {
       return {
@@ -101,7 +84,6 @@ const ApplicantInfo = () => {
         email: document.getElementById(`applicantEmail${index}`).value,
         adharNo: document.getElementById(`applicantAadharNo${index}`).value,
         pinCode: document.getElementById(`applicantPinCode${index}`).value,
-        // address: document.getElementById(`applicantAddress${index}`).value,
         ownerDoorNo: document.getElementById(`ownerDoorNo${index}`).value,
         ownerStreetNo: document.getElementById(`ownerStreetNo${index}`).value,
       };
@@ -123,8 +105,6 @@ const ApplicantInfo = () => {
       ltpDetails,
       applicantDetails: ownerDetail,
     };
-
-    console.log(applicantInfo, "Applicant info");
 
     return await sendUserDataIntoDB(url, "PATCH", {
       applicationNo,
@@ -161,9 +141,7 @@ const ApplicantInfo = () => {
 
   useEffect(() => {
     if (applicantDetails?.length) {
-      console.log(applicantDetails, "APPDD");
       applicantDetails.forEach((value, index) => {
-        console.log(index, "UAPDD");
         if (index > 0 && totalApplicant?.length < applicantDetails?.length) {
           console.log(index, "INDEX");
           setTotalApplicant((prev) => {
@@ -176,10 +154,6 @@ const ApplicantInfo = () => {
 
   const { type, name, email, licenseNo, phone, validity, address } =
     ltpDetails || {};
-
-  console.log(ltpDetails, "LTP Details");
-
-  console.log(totalApplicant, "TAPP");
 
   // Classes for this component :
   let labelClass = "block mb-1 font-semibold text-gray-600";
@@ -254,19 +228,6 @@ const ApplicantInfo = () => {
                 isAlwaysHide={1}
               />
 
-              {/* <div className="my-4 mx-3">
-              <label htmlFor="validity" className={labelClass}>
-                Validity
-              </label>
-              <input
-                type="date"
-                id="validity"
-                name="validity"
-                className={inputClass}
-                defaultValue={validity}
-                readOnly={true}
-              />
-            </div> */}
 
               <motion.div
                 className="my-4 mx-3"

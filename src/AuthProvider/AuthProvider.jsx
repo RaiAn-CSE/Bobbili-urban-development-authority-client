@@ -179,7 +179,7 @@ const AuthProvider = ({ children }) => {
 
         // if stepper data is exist then update stepper steps and navigate to the next step
         if (stepperData) {
-          console.log("Asci");
+          // console.log("Asci");
           const [, currentStep, steps, handleStepClick] = stepperData;
           console.log(currentStep < steps.length - 1);
           currentStep < steps.length - 1 && handleStepClick(currentStep + 1);
@@ -459,9 +459,8 @@ const AuthProvider = ({ children }) => {
           ownerNamePattern = `${ownerNames[0]},${ownerNames[1]},${ownerNames[2]}`;
           break;
         default:
-          ownerNamePattern = `${ownerNames[0]},${ownerNames[1]},${
-            ownerNames[2]
-          } and ${totalOwner - 3} others`;
+          ownerNamePattern = `${ownerNames[0]},${ownerNames[1]},${ownerNames[2]
+            } and ${totalOwner - 3} others`;
           break;
       }
     }

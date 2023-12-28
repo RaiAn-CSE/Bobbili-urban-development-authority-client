@@ -20,8 +20,6 @@ const NewApplication = () => {
     showPageBasedOnApplicationType,
   } = useContext(AuthContext);
 
-  // console.log(userInfoFromLocalStorage());
-
   const { _id: userID } = userInfoFromLocalStorage();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
@@ -46,6 +44,8 @@ const NewApplication = () => {
   useEffect(() => {
     return () => {
       localStorage.removeItem("currentStep");
+      localStorage.removeItem("steepCompleted");
+
     };
   }, []);
 
@@ -217,34 +217,14 @@ const NewApplication = () => {
     });
   }, []);
 
-  // const component = (
-  //   <AllDraftApplication
-  //     key={index}
-  //     serialNo={index}
-  //     applicationData={applicationData}
-  //     showDraftApplication={props?.showPageBasedOnApplicationType}
-  //     removeDraftApplication={props?.removeDraftApplication}
-  //     navigate={props?.navigate}
-  //   />
-  // );
-
   if (loading) {
     return <Loading />;
   }
 
   return (
     <div className=" my-3 transition-all duration-700">
-      {/* test  */}
-
       <div className="flex justify-end mt-10 mr-10">
-        {/* <button
-          className={`btn flex font-roboto dark:border-none transition-all duration-700 bg-normalViolet text-white hover:bg-[#510BC4]`}
-          onClick={showConfirmModal}
-        >
-          <span className="text-sm">Create a new application</span>
-          <BsPlusLg size={20} />
-        </button> */}
-
+        {/* Create a new application button */}
         <button className="star-btn font-roboto" onClick={showConfirmModal}>
           <div className="flex justify-center items-center">
             <BsPlusLg size={20} />

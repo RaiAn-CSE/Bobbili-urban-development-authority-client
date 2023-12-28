@@ -18,8 +18,6 @@ const BuildingInfo = () => {
 
   const location = useLocation();
 
-  console.log(location, "LOC");
-
   const [isStepperVisible, currentStep, steps] = stepperData;
 
   const {
@@ -348,9 +346,9 @@ const BuildingInfo = () => {
     updateArea[index] = newParkingArea;
     setParkingArea(updateArea);
   };
-  // ======================================================<<<(Built Up Area Calculation End)>>>>...
+  // =========================================<<<(Built Up Area Calculation End)>>>>...
 
-  //=============================================<<<<<(District, Mandal & Village Start)>>>>> :
+  //=========================================<<<<<(District, Mandal & Village Start)>>>>> :
   const handleDistrictChange = (event) => {
     setSelectedDistrict(event.target.value);
     // Reset selected mandal and village when district changes
@@ -387,14 +385,6 @@ const BuildingInfo = () => {
     setWestValue(event.target.value);
   };
 
-  // const [scheduleBoundariesValue, setScheduleBoundariesValue] = useState({})
-  // const handleScheduleBoundaries = (e, id) => {
-  //   setScheduleBoundariesValue((pre) => ({
-  //     ...pre,
-  //     [id]: e.target.value,
-  //   }))
-  // }
-
   // Radio Button Get Data from server:
   const [radio1, setRadio1] = useState("");
   const [radio2, setRadio2] = useState("");
@@ -423,11 +413,9 @@ const BuildingInfo = () => {
     setRadio5(e.target.value);
   };
 
-  console.log(totalFloor, "Total floor");
-
   // get data from input field :
   const collectInputFieldData = async (url) => {
-    // ==================================================<<<(General Information)>>>:
+    // ======================================<<<(General Information)>>>:
     const caseTypeData = document.getElementById("caseType").value;
     // Get selected radio input's value
     const selectedApplicationType =
@@ -476,11 +464,6 @@ const BuildingInfo = () => {
       document.getElementById("roadWideningArea").value;
     const netPlotAreaValue = document.getElementById("netPlotArea").value;
 
-    // const existingRoad =
-    //   document.querySelector('input[name="radio-2"]:checked')?.value || "";
-    // const statusOfRoad =
-    //   document.querySelector('input[name="radio-3"]:checked')?.value || "";
-
     const natureOfRoad = document.getElementById("natureOfRoad").value;
     const existingRoadMts = document.getElementById("existingRoadMts").value;
     const proposedRoadMts = document.getElementById("proposedRoadMts").value;
@@ -509,15 +492,12 @@ const BuildingInfo = () => {
       "buildingExcludeStilt"
     ).value;
 
-    // const compoundingWallProposed =
-    //   document.querySelector('input[name="radio-4"]:checked')?.value || "";
     // runningMeter
     const runningMeterData = document.getElementById("runningMeter");
     const runningMeter = runningMeterData ? runningMeterData.value : "";
 
-    // const siteRegistered =
-    //   document.querySelector('input[name="radio-5"]:checked')?.value || "";
-    const north = document.getElementById("north").value; // ==========================<<<(Schedule of Boundaries)>>>:
+    // ==========================<<<(Schedule of Boundaries)>>>:
+    const north = document.getElementById("north").value;
     const south = document.getElementById("south").value;
     const east = document.getElementById("east").value;
     const west = document.getElementById("west").value;
@@ -583,7 +563,6 @@ const BuildingInfo = () => {
 
     const splitApplicationNo = applicationNo.split("/");
 
-    // splitApplicationNo[2] = gramaPanchayat?.length ? gramaPanchayat : "XX";
     splitApplicationNo[2] = village?.length ? village.slice(0, 3) : "XX";
     splitApplicationNo[3] = mandal?.length ? mandal.slice(0, 3) : "XX";
 
@@ -645,7 +624,6 @@ const BuildingInfo = () => {
 
   // const { east, west, north, south } = scheduleBoundaries ?? {};
 
-  console.log(radio2, "radio2", existingRoad, "Existing road");
 
   // classes for this component:
   const labelClass = "block mb-1 font-semibold text-gray-600";
@@ -831,7 +809,7 @@ const BuildingInfo = () => {
                     Plot port of RLP/IPLP but not regularised
                   </option>
                   <option value="Congested/ Gramakanta/ Old Built-up area">
-                    Congested/ Gramakanta/ Old Built-up area
+                    Gramakanta
                   </option>
                   <option value="Newly Developed/ Built up area">
                     Newly Developed/ Built up area
@@ -1081,21 +1059,21 @@ const BuildingInfo = () => {
 
               {selectedNatureOfTheSite ===
                 "Plot port of RLP/IPLP but not regularised" && (
-                <motion.div
-                  initial={{ x: "-100vw" }}
-                  animate={{ x: 0 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  <InputField
-                    id="IplpNo"
-                    name="IplpNo"
-                    label="RLP/IPLP no."
-                    placeholder="RLP/IPLP no."
-                    type="number"
-                    ltpDetails={iplpNo}
-                  />
-                </motion.div>
-              )}
+                  <motion.div
+                    initial={{ x: "-100vw" }}
+                    animate={{ x: 0 }}
+                    transition={{ delay: 0.2 }}
+                  >
+                    <InputField
+                      id="IplpNo"
+                      name="IplpNo"
+                      label="RLP/IPLP no."
+                      placeholder="RLP/IPLP no."
+                      type="number"
+                      ltpDetails={iplpNo}
+                    />
+                  </motion.div>
+                )}
               {/*===================== Conditional Input Field End =====================*/}
             </div>
           </motion.div>
@@ -1220,62 +1198,62 @@ const BuildingInfo = () => {
               <div className="grid grid-cols-1 mx-5 md:mx-10 lg:mx-14 my-10">
                 {selectedNatureOfTheSite ===
                   "Newly Developed/ Built up area" && (
-                  <motion.div
-                    className="flex flex-col md:flex-row font-medium mb-4 text-lg"
-                    initial={{ x: "100vw" }}
-                    animate={{ x: 0 }}
-                    transition={{ delay: 0.2 }}
-                  >
-                    <div className="flex items-center mb-3 md:mb-0">
-                      <FaHandPointRight className="me-3 w-5 lg:w-auto text-violetLight" />
-                      <p className="font-bold text-lg">
-                        Whether site abuts any Existing Road?
-                      </p>
-                    </div>
+                    <motion.div
+                      className="flex flex-col md:flex-row font-medium mb-4 text-lg"
+                      initial={{ x: "100vw" }}
+                      animate={{ x: 0 }}
+                      transition={{ delay: 0.2 }}
+                    >
+                      <div className="flex items-center mb-3 md:mb-0">
+                        <FaHandPointRight className="me-3 w-5 lg:w-auto text-violetLight" />
+                        <p className="font-bold text-lg">
+                          Whether site abuts any Existing Road?
+                        </p>
+                      </div>
 
-                    <div className="radio-button-container ml-3">
-                      <div className="radio-button">
-                        <input
-                          type="radio"
-                          className="radio-button__input"
-                          id="yesRoadExist"
-                          name="yesRoadExist"
-                          value="yes"
-                          checked={radio2 === "yes"}
-                          onChange={handleRadio2}
-                          disabled={isReadOnly}
-                          required
-                        />
-                        <label
-                          className="radio-button__label"
-                          htmlFor="yesRoadExist"
-                        >
-                          <span className="radio-button__custom"></span>
-                          Yes
-                        </label>
+                      <div className="radio-button-container ml-3">
+                        <div className="radio-button">
+                          <input
+                            type="radio"
+                            className="radio-button__input"
+                            id="yesRoadExist"
+                            name="yesRoadExist"
+                            value="yes"
+                            checked={radio2 === "yes"}
+                            onChange={handleRadio2}
+                            disabled={isReadOnly}
+                            required
+                          />
+                          <label
+                            className="radio-button__label"
+                            htmlFor="yesRoadExist"
+                          >
+                            <span className="radio-button__custom"></span>
+                            Yes
+                          </label>
+                        </div>
+                        <div className="radio-button">
+                          <input
+                            type="radio"
+                            className="radio-button__input"
+                            id="noRoadExist"
+                            name="yesRoadExist"
+                            value="no"
+                            checked={radio2 === "no"}
+                            onChange={handleRadio2}
+                            disabled={isReadOnly}
+                          />
+                          <label
+                            className="radio-button__label"
+                            htmlFor="noRoadExist"
+                          >
+                            <span className="radio-button__custom"></span>
+                            No
+                          </label>
+                        </div>
                       </div>
-                      <div className="radio-button">
-                        <input
-                          type="radio"
-                          className="radio-button__input"
-                          id="noRoadExist"
-                          name="yesRoadExist"
-                          value="no"
-                          checked={radio2 === "no"}
-                          onChange={handleRadio2}
-                          disabled={isReadOnly}
-                        />
-                        <label
-                          className="radio-button__label"
-                          htmlFor="noRoadExist"
-                        >
-                          <span className="radio-button__custom"></span>
-                          No
-                        </label>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
+                    </motion.div>
+                  )}
 
                 <motion.div
                   className="flex flex-col md:flex-row font-medium mb-4 text-lg mt-4"

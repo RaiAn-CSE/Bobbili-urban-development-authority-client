@@ -90,31 +90,29 @@ const MainLayout = () => {
               // className={`css-3d-text w-fit p-2 text-2xl text-gray-600 font-bold font-sofadi`}
               className={`w-fit px-2 tracking-wider italic text-3xl text-gray-600 font-bold font-titleFont `}
             >
-              Residential Building Plan Approval
+              Residential Building Plan Approval System
             </p>
           </div>
 
           <div className="basis-[20%] mt-7 lg:mt-0 z-[10] flex justify-end items-center space-x-6 dark:text-black">
             <Link
               to="/"
-              className={`nm_Container w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center  ${
-                path === "/" ||
-                path === "/onlinePayment" ||
-                path === "/listOfLTP" ||
-                path === "/demoVideos" ||
-                path === "/privacyPolicy" ||
-                path === "/defaultDrawingFormat"
+              className={`nm_Container w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center  ${path === "/" ||
+                  path === "/onlinePayment" ||
+                  path === "/listOfLTP" ||
+                  path === "/demoVideos" ||
+                  path === "/privacyPolicy" ||
+                  path === "/defaultDrawingFormat"
                   ? active
                   : ` ${notActive}`
-              }`}
+                }`}
             >
               <AiOutlineHome size={25} className="text-2xl " />
             </Link>
             <Link
               to="/statistics"
-              className={`nm_Container w-12 h-12 cursor-pointer transition-all duration-700 border rounded-full flex justify-center items-center ${
-                path.includes("/statistics") ? active : ` ${notActive}`
-              }`}
+              className={`nm_Container w-12 h-12 cursor-pointer transition-all duration-700 border rounded-full flex justify-center items-center ${path.includes("/statistics") ? active : ` ${notActive}`
+                }`}
             >
               <MdOutlineDashboard size={25} className="text-2xl" />
             </Link>

@@ -1,7 +1,6 @@
 import React from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import Login from "../Login/Login";
-import customScroll from "../../../Style/Scrollbar.module.css";
 
 const Home = () => {
   const path = useLocation().pathname;
@@ -70,7 +69,7 @@ const Home = () => {
 
       {/* Scrollable content */}
       <div
-        className={`${customScroll.customScrolling} nm_Container hidden lg:flex lg:h-[410px] rounded-lg mx-4 z-[10] items-center bg-[#E8EAEC]`}
+        className={`overflow-hidden relative overflow-y-auto nm_Container hidden lg:flex lg:h-[410px] rounded-lg mx-4 z-[10] items-center bg-[#E8EAEC]`}
       >
         <Outlet />
       </div>

@@ -242,7 +242,7 @@ const OnlinePayment = () => {
         </div>
       </div>
 
-      <div className="flex justify-center items-center pl-3 mt-5 text-gray-600">
+      <div className="flex justify-center items-center px-3 mt-5 text-gray-600">
         <motion.h3
           className="text-base font-semibold"
           initial={{ opacity: 0, y: 20 }}

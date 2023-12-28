@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
-import customScroll from "../../Style/Scrollbar.module.css";
 import { RxCross2 } from "react-icons/rx";
 
 const DrawingModal = ({ modalStates }) => {
@@ -40,7 +39,7 @@ const DrawingModal = ({ modalStates }) => {
       <dialog id="drawingModal" className="modal">
         {/* divide-y-2 divide-gray-200 */}
         <div
-          className={`${customScroll.customScrolling} rounded-lg modal-box py-10 px-12 bg-white text-gray-900 w-full max-w-4xl relative`}
+          className={`ScrollingHidden relative overflow-hidden overflow-y-auto rounded-lg modal-box py-10 px-12 bg-white text-gray-900 w-full max-w-4xl`}
         >
           <form method="dialog" className="absolute top-6 right-6 z-50">
             {/* if there is a button in form, it will close the modal */}

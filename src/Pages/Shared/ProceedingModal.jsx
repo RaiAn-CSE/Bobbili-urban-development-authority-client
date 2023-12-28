@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import customScroll from "../../Style/Scrollbar.module.css";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { RxCross2 } from "react-icons/rx";
 import { motion } from "framer-motion"
@@ -98,7 +97,7 @@ const ProceedingModal = ({ modalProceeding }) => {
     >
       <dialog id="proceedingModal" className="modal">
         <div
-          className={`${customScroll.customScrolling} rounded-lg modal-box py-10 px-12 text-gray-900 w-full max-w-4xl relative bg-white`}
+          className={`ScrollingHidden relative overflow-hidden overflow-y-auto rounded-lg modal-box py-10 px-12 text-gray-900 w-full max-w-4xl bg-white`}
         >
           <form method="dialog" className="absolute top-6 right-6 z-50">
             {/* if there is a button in form, it will close the modal */}
