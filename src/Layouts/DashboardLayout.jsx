@@ -167,15 +167,17 @@ const DashboardLayout = () => {
                       Profile
                     </Link>
                   </li>
-                  <li>
-                    <button
-                      className="items-center hover:bg-gray-100 hover:text-black"
-                      onClick={() => handOverByPs(currentUser?._id)}
-                    >
-                      <FaUserMinus size={17} />
-                      HandOver
-                    </button>
-                  </li>
+                  {currentUser?.role?.toLowerCase() === "ps" && (
+                    <li>
+                      <button
+                        className="items-center hover:bg-gray-100 hover:text-black"
+                        onClick={() => handOverByPs(currentUser?._id)}
+                      >
+                        <FaUserMinus size={17} />
+                        HandOver
+                      </button>
+                    </li>
+                  )}
                   <li>
                     <Link
                       className="items-center hover:bg-gray-100 hover:text-black"
