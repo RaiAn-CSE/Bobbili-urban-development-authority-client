@@ -11,6 +11,7 @@ import axios from "axios";
 
 import ChatBox from "../Pages/Shared/ChatBox";
 import toast from "react-hot-toast";
+import { FaUsers } from "react-icons/fa6";
 
 const MainLayout = () => {
   const path = useLocation()?.pathname;
@@ -139,8 +140,9 @@ const MainLayout = () => {
         {/* lower part  */}
         <Outlet />
 
-        <p className="z-[10] text-black text-center mt-10 text-lg relative hidden 2xl:block">
-          {`Hello ${visitorCount}`}
+        <p className="z-[10] text-black  mt-5 text-xl relative font-bold italic hidden 2xl:flex justify-center items-center gap-2 font-titleFont">
+          {`Total visitors - ${visitorCount}`}
+          <FaUsers size={20} />
         </p>
         <div
           className="chatbox-wrapper"
