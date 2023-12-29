@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import sidebarStyle from "../Style/dashboardSidebar.module.css";
 import Navbar from "../Pages/Shared/Navbar";
@@ -7,83 +7,21 @@ import PsSidebar from "./PsSidebar/PsSidebar";
 import { MdOutlineLogout, MdOutlineMenuOpen } from "react-icons/md";
 import AdminSideBar from "./AdminSidebar/AdminSideBar";
 import UdaSidebar from "./UdaSidebar/UdaSidebar";
-import UserImg from "../assets/images/femaleAvatar.png";
+import UserMaleImg from "../assets/images/maleAvatar.png";
+import UserFemaleImg from "../assets/images/femaleAvatar.png";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaRegEdit, FaUserEdit } from "react-icons/fa";
 import { LuSettings } from "react-icons/lu";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import SvgTextAnimation from "../Pages/Components/SvgTextAnimation";
-import { FaUserMinus } from "react-icons/fa6";
-import Swal from "sweetalert2";
 
 const DashboardLayout = () => {
   const { handleLogOut } = useContext(AuthContext);
   const currentUser = JSON.parse(localStorage.getItem("loggedUser"));
   const navigate = useNavigate();
 
-  const [loading, setLoading] = useState(false);
-
-  const handOverByPs = (id) => {
-    console.log(id, "id");
-
-    Swal.fire({
-      title: "Do you want to handOver?",
-      showCancelButton: true,
-      confirmButtonText: "Yes",
-      showLoaderOnConfirm: true,
-      preConfirm: async () => {
-        try {
-          const url = `https://residential-building.onrender.com/handOveredByPs?id=${JSON.stringify(
-            id
-          )}`;
-          const response = await fetch(url, { method: "PATCH" });
-
-          if (!response?.ok) {
-            return Swal.showValidationMessage(`
-          ${JSON.stringify(await response.json())}
-        `);
-          }
-          return response.json();
-        } catch (error) {
-          Swal.showValidationMessage(`
-        Request failed: ${error}
-      `);
-        }
-      },
-      allowOutsideClick: () => !Swal.isLoading(),
-    }).then((result) => {
-      if (result?.isConfirmed) {
-        Swal.fire({
-          title: "You handOvered your credentials",
-          icon: "success",
-          confirmButtonText: "Leave Now",
-          allowOutsideClick: false,
-        }).then((result) => {
-          /* Read more about isConfirmed, isDenied below */
-          if (result.isConfirmed) {
-            handleLogOut(navigate);
-          }
-        });
-      }
-    });
-    // Swal.fire({
-    //   title: "Do you want to handOver?",
-    //   showCancelButton: true,
-    //   confirmButtonText: "Yes",
-    // }).then((result) => {
-    //   /* Read more about isConfirmed, isDenied below */
-    //   if (result.isConfirmed) {
-    //     fetch(`https://residential-building.onrender.com/handOveredByPs?id=${JSON.stringify(id)}`, {
-    //       method: "PATCH",
-    //     })
-    //       .then((res) => res.json())
-    //       .then((result) => {
-    //         console.log(result, "result");
-    //         Swal.fire("Saved!", "", "success");
-    //       });
-    //   }
-    // });
-  };
+  const darkGradientColor =
+    "dark:bg-gradient-to-b dark:from-violet-500 dark:to-fuchsia-500";
 
   return (
     <div className="bg-bgColor">
@@ -140,17 +78,11 @@ const DashboardLayout = () => {
                 </Link>
               </div>
 
-              {/* <div className="relative">
-                <div className="w-14 mx-auto mt-3 rounded-full nm_Container ">
-                  <img src={UserImg} alt="An image of user icon" />
-                </div>
-              </div> */}
-
               {/* <LuSettings size={20} className="text-black cursor-pointer" /> */}
               <div className="dropdown dropdown-hover">
                 <label tabIndex={0} className="block w-20 btn-circle avatar ">
                   <div className="cursor-pointer mx-auto mt-3 rounded-full nm_Container">
-                    <img src={UserImg} alt="An image of user icon" />
+                    <img src={UserFemaleImg} alt="An image of user icon" />
                     {/* <LuSettings size={30} className="text-black cursor-pointer" /> */}
                   </div>
                 </label>
@@ -167,17 +99,6 @@ const DashboardLayout = () => {
                       Profile
                     </Link>
                   </li>
-                  {currentUser?.role?.toLowerCase() === "ps" && (
-                    <li>
-                      <button
-                        className="items-center hover:bg-gray-100 hover:text-black"
-                        onClick={() => handOverByPs(currentUser?._id)}
-                      >
-                        <FaUserMinus size={17} />
-                        HandOver
-                      </button>
-                    </li>
-                  )}
                   <li>
                     <Link
                       className="items-center hover:bg-gray-100 hover:text-black"

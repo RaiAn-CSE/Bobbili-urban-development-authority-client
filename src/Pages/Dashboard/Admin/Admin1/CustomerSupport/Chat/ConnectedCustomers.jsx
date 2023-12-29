@@ -45,7 +45,7 @@ const ConnectedCustomers = ({ setActiveChat, setShow }) => {
     socket.on("check-accept-message", handleCheckAcceptMessage);
   }, [socket]);
 
-  useEffect(() => {}, [connectedUsers]);
+  useEffect(() => { }, [connectedUsers]);
 
   useEffect(() => {
     (async function () {

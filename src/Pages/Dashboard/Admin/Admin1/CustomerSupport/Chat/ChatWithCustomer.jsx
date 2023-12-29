@@ -193,11 +193,10 @@ const ChatWithCustomer = ({
             {messages?.map((message, index) => (
               <div
                 key={index}
-                className={`${
-                  message?.userId?.includes("admin")
-                    ? "justify-end"
-                    : "justify-start"
-                } flex m-3`}
+                className={`${message?.userId?.includes("admin")
+                  ? "justify-end"
+                  : "justify-start"
+                  } flex m-3`}
               >
                 <div>
                   <div className="text-sm font-bold capitalize mx-2">
@@ -210,11 +209,10 @@ const ChatWithCustomer = ({
                     )}
                   </div>
                   <p
-                    className={`${
-                      message?.userId?.includes("admin")
-                        ? "bg-[#7871e1] font-bold text-white rounded-xl"
-                        : "bg-white rounded-xl"
-                    } p-3 max-w-[500px] break-words`}
+                    className={`${message?.userId?.includes("admin")
+                      ? "bg-[#7871e1] font-bold text-white rounded-xl"
+                      : "bg-white rounded-xl"
+                      } p-3 max-w-[500px] break-words`}
                   >
                     {message?.message}
                   </p>
