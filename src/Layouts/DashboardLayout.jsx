@@ -7,7 +7,7 @@ import PsSidebar from "./PsSidebar/PsSidebar";
 import { MdOutlineLogout, MdOutlineMenuOpen } from "react-icons/md";
 import AdminSideBar from "./AdminSidebar/AdminSideBar";
 import UdaSidebar from "./UdaSidebar/UdaSidebar";
-import UserImg from "../assets/images/man.png";
+import UserImg from "../assets/images/femaleAvatar.png";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaRegEdit, FaUserEdit } from "react-icons/fa";
 import { LuSettings } from "react-icons/lu";
