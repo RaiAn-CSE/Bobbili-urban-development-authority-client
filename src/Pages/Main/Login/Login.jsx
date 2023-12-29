@@ -75,55 +75,84 @@ const Login = () => {
 
           const { userInfo } = result;
 
+          console.log(userInfo, "userInfo");
+
           // checking whether password is matching or not
-          if (userInfo.password === password) {
-            console.log("1");
-
-            console.log(userInfo, "LOGIN");
-            // set information to localstorage to stay logged in
-            localStorage.setItem("loggedUser", JSON.stringify(userInfo));
-
-            console.log(localStorage.getItem("loggedUser"));
-
-            // axios.post("https://residential-building.onrender.com/jwt",userInfo,{
-            //   withCredentials: true,
-            //   headers: {
-            //       'Access-Control-Allow-Origin': '*',
-            //       'Content-Type': 'application/json'
-            //   }).then(result=>{
-
-            //   })
-
-            fetch("https://residential-building.onrender.com/jwt", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(userInfo),
-            })
-              .then((res) => res.json())
-              .then((result) => {
-                console.log(result);
-
-                if (result?.success) {
-                  // set information to cookie to implement remember me functionality
-
-                  localStorage.setItem("jwToken", result?.token);
-                  if (checkbox) {
-                    console.log(checkbox);
-                    document.cookie =
-                      "userId=" + id + ";path=http://localhost:5173/";
-                    document.cookie =
-                      "password=" + password + ";path=http://localhost:5173/";
-                  }
-
-                  setLoading(false);
-                  localStorage.setItem("theme", "light");
-                  toast.success("Login successfully");
-                  navigate(from, { replace: true });
-                }
-              });
-          } else {
+          if (
+            userInfo?.role?.toLowerCase() === "ps" &&
+            userInfo?.handOver === "true"
+          ) {
             setLoading(false);
-            toast.error("Password is wrong");
+            toast.error("You handOvered your credentials");
+          } else {
+            if (userInfo.password === password) {
+              console.log("1");
+
+              console.log(userInfo, "LOGIN");
+              // set information to localstorage to stay logged in
+              localStorage.setItem("loggedUser", JSON.stringify(userInfo));
+
+              console.log(localStorage.getItem("loggedUser"));
+
+              // axios.post("https://residential-building.onrender.com/jwt",userInfo,{
+              //   withCredentials: true,
+              //   headers: {
+              //       'Access-Control-Allow-Origin': '*',
+              //       'Content-Type': 'application/json'
+              //   }).then(result=>{
+
+              //   })
+
+              fetch("https://residential-building.onrender.com/jwt", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(userInfo),
+              })
+                .then((res) => res.json())
+                .then((result) => {
+                  console.log(result);
+
+                  if (result?.success) {
+                    // set information to cookie to implement remember me functionality
+
+                    localStorage.setItem("jwToken", result?.token);
+                    if (checkbox) {
+                      console.log(checkbox);
+                      document.cookie =
+                        "userId=" + id + ";path=http://localhost:5173/";
+                      document.cookie =
+                        "password=" + password + ";path=http://localhost:5173/";
+                    }
+
+                    fetch(
+                      "https://residential-building.onrender.com/increaseVisitorCount",
+                      {
+                        method: "PATCH",
+                      }
+                    )
+                      .then((res) => res.json())
+                      .then((result) => {
+                        console.log(result, "Result");
+                        if (result?.acknowledged) {
+                          setLoading(false);
+                          localStorage.setItem("theme", "light");
+                          toast.success("Login successfully");
+                          navigate(from, { replace: true });
+                        } else {
+                          setLoading(false);
+                          toast.error("Server Error");
+                        }
+                      })
+                      .catch((err) => {
+                        setLoading(false);
+                        toast.error("Server Error");
+                      });
+                  }
+                });
+            } else {
+              setLoading(false);
+              toast.error("Password is wrong");
+            }
           }
         } else {
           setLoading(false);

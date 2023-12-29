@@ -7,7 +7,7 @@ const AdminRoute = ({ children }) => {
   )?.role?.toLowerCase();
 
   const condition =
-    role === "admin" || role === "admin2" || role === "super admin";
+    role === "admin1" || role === "admin2" || role === "super admin";
 
   const location = useLocation();
 

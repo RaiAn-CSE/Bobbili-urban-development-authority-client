@@ -207,7 +207,7 @@ function Outward() {
                 </table>
 
                 {allData?.length === 0 && (
-                  <p className="text-center mt-8 font-bold text-xl">
+                  <p className="text-center flex justify-center items-center my-4 font-bold text-xl text-black">
                     No application Found
                   </p>
                 )}

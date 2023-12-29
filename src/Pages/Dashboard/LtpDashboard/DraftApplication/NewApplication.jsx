@@ -45,7 +45,6 @@ const NewApplication = () => {
     return () => {
       localStorage.removeItem("currentStep");
       localStorage.removeItem("steepCompleted");
-
     };
   }, []);
 
