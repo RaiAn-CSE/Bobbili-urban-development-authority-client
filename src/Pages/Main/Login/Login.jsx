@@ -71,7 +71,7 @@ const Login = () => {
     getUserData(id)
       .then((result) => {
         if (result?.status) {
-          console.log(1);
+          console.log(result);
 
           const { userInfo } = result;
 
@@ -86,8 +86,6 @@ const Login = () => {
             toast.error("You handOvered your credentials");
           } else {
             if (userInfo.password === password) {
-              console.log("1");
-
               console.log(userInfo, "LOGIN");
               // set information to localstorage to stay logged in
               localStorage.setItem("loggedUser", JSON.stringify(userInfo));

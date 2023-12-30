@@ -21,8 +21,6 @@ const AddUser = () => {
 
   const navigate = useNavigate();
 
-  const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
-
   const [allLocationData, setAllLocationData] = useState([]);
   const [allDistricts, setAllDistricts] = useState([]);
   const [allMandal, setAllMandal] = useState([]);
@@ -96,8 +94,7 @@ const AddUser = () => {
   };
 
   const onSubmit = (data) => {
-    console.log(data);
-
+    console.log(data, 'data');
     if (data?.role.toLowerCase().includes("select an option")) {
       toast.error("Please select a role");
     } else {
@@ -477,11 +474,6 @@ const AddUser = () => {
         )}
 
         <div className="flex justify-center my-10">
-          {/* <input
-            type="submit"
-            className={`text-white ${gradientColor} nm_Container cursor-pointer font-bold rounded-full text-base  sm:w-auto px-10  py-2.5 text-center`}
-            value="ADD"
-          /> */}
           <button
             type="submit"
             className={`${Style.addButton} bg-gradient-to-b from-[#a29bfe] to-[#6c5ce7]`}

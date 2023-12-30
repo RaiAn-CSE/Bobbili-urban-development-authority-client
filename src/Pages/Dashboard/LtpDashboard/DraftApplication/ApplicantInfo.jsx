@@ -26,8 +26,6 @@ const ApplicantInfo = () => {
 
   const isReadOnly = role === "PS";
 
-  const isReadOnlyForAll = 1;
-
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
 
   const cameFrom = JSON.parse(localStorage.getItem("page"));
@@ -43,13 +41,9 @@ const ApplicantInfo = () => {
     const newOwner = `Owner${totalApplicant.length + 1}`;
     setTotalApplicant((prev) => [...prev, newOwner]);
   };
+
   const decreaseApplicationNo = () => {
-    // const newOwner = `Owner${totalApplicant.length + 1}`;
-    console.log("AOBC");
-
     totalApplicant.pop();
-
-    console.log(totalApplicant, "TOTAL APPLICANT");
     setTotalApplicant([...totalApplicant]);
   };
 
@@ -97,8 +91,6 @@ const ApplicantInfo = () => {
       phoneNo: ltpPhoneNo,
       email: ltpEmail,
       address: ltpAddress,
-      // ltpDoorNo,
-      // ltpStreetName,
     };
 
     const applicantInfo = {
@@ -222,7 +214,6 @@ const ApplicantInfo = () => {
                 id="validity"
                 name="validity"
                 label="Validity"
-                // placeholder="xx/xxxxx"
                 type="date"
                 ltpDetails={validity}
                 isAlwaysHide={1}

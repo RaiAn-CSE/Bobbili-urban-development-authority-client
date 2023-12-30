@@ -1,6 +1,5 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useState } from "react";
 import { toast } from "react-hot-toast";
-import { useQueryClient } from "react-query";
 import Swal from "sweetalert2";
 import { motion } from "framer-motion";
 
@@ -21,13 +20,8 @@ const AuthProvider = ({ children }) => {
     fetch(`https://residential-building.onrender.com/getUser?id=${id}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.status) {
-          console.log(1);
-
           const { userInfo } = data;
-          console.log(userInfo);
-
           // set information to localstorage to stay logged in
           localStorage.setItem("loggedUser", JSON.stringify(userInfo));
           toast.success("user update successfully");
@@ -40,8 +34,6 @@ const AuthProvider = ({ children }) => {
 
   // send user data into the database
   const sendUserDataIntoDB = async (url, method = "PATCH", data) => {
-    // console.log(data, "DATA");
-    // console.log(url, "URL");
     const config = {
       method,
       headers: {
@@ -56,8 +48,6 @@ const AuthProvider = ({ children }) => {
 
   // get user data
   const getUserData = async (id) => {
-    console.log(id, "AUTH ID");
-
     const response = await fetch(
       `https://residential-building.onrender.com/getUser?id=${id}`
     );
@@ -66,7 +56,6 @@ const AuthProvider = ({ children }) => {
   };
 
   // set sweet alert's parameters dynamically
-
   const alertToTransferDataIntoDepartment = async (applicationNo, navigate) => {
     console.log(applicationNo, "CurrentApplicationNo");
 
@@ -143,7 +132,7 @@ const AuthProvider = ({ children }) => {
     role === "PS" &&
       (url = `https://residential-building.onrender.com/recommendDataOfPs?appNo=${applicationNo}`);
 
-    console.log(url, "url here");
+    // console.log(url, "url here");
 
     Swal.fire({
       title: "Do you want to save your information?",
@@ -154,10 +143,6 @@ const AuthProvider = ({ children }) => {
       cancelButtonColor: "#000",
       showLoaderOnConfirm: true,
       preConfirm: async (confirm) => {
-        console.log("confirm", confirm);
-
-        console.log(collectInputFieldData, "COLLECT INPUT FIELD DATA");
-
         return await collectInputFieldData(url)
           .then((response) => {
             console.log(response, "response");
@@ -181,7 +166,6 @@ const AuthProvider = ({ children }) => {
 
         // if stepper data is exist then update stepper steps and navigate to the next step
         if (stepperData) {
-          // console.log("Asci");
           const [, currentStep, steps, handleStepClick] = stepperData;
           console.log(currentStep < steps.length - 1);
           currentStep < steps.length - 1 && handleStepClick(currentStep + 1);
@@ -286,10 +270,7 @@ const AuthProvider = ({ children }) => {
 
   // check license expiration of ltp
   const checkLicenseExpirationOfLtp = (validity) => {
-    console.log(validity);
     const validityDate = new Date(validity);
-
-    console.log(validityDate);
 
     if (validityDate.toString().includes("Invalid Date")) {
       return "Invalid Date";
@@ -382,6 +363,7 @@ const AuthProvider = ({ children }) => {
 
     return isActive;
   };
+
   const findWhichMenuIsActiveForPsSideBar = (
     path,
     mainUrl,
@@ -419,8 +401,6 @@ const AuthProvider = ({ children }) => {
     if (floorNames) {
       const totalFloors = floorNames?.length;
 
-      console.log(floorNames, totalFloors, "FLOOR CALCULATION");
-
       const isParkingAreaExist = floorNames?.findIndex((floorName) =>
         floorName.includes("Stilt")
       );
@@ -440,12 +420,10 @@ const AuthProvider = ({ children }) => {
   };
 
   const ownerNamePattern = (ownerDetails) => {
-    console.log(ownerDetails, "Owner details");
     const totalOwner = ownerDetails?.length;
 
     const ownerNames = ownerDetails?.map((owner) => owner.name);
 
-    console.log(ownerNames, "ON");
     let ownerNamePattern = "";
 
     if (ownerNames?.length) {
@@ -461,9 +439,8 @@ const AuthProvider = ({ children }) => {
           ownerNamePattern = `${ownerNames[0]},${ownerNames[1]},${ownerNames[2]}`;
           break;
         default:
-          ownerNamePattern = `${ownerNames[0]},${ownerNames[1]},${
-            ownerNames[2]
-          } and ${totalOwner - 3} others`;
+          ownerNamePattern = `${ownerNames[0]},${ownerNames[1]},${ownerNames[2]
+            } and ${totalOwner - 3} others`;
           break;
       }
     }

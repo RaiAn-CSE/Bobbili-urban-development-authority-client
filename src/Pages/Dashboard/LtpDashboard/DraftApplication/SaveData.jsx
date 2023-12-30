@@ -27,7 +27,6 @@ const SaveData = ({
   let btnClass =
     "btn btn-md text-[#000000] hover:text-[#fff] rounded-lg transition-all duration-500 cursor-pointer hover:bg-[#510BC4]";
 
-  // console.log(collectInputFieldData);
   const {
     userInfoFromLocalStorage,
     getSubmitApplicationData,
@@ -132,18 +131,11 @@ const SaveData = ({
               >
                 <button
                   className={`save-btn bg-gradient-to-b from-[#a29bfe] to-[#6c5ce7] mr-4`}
-                  // type="submit"
-                  // onClick={() =>
-                  //   // currentStep < steps.length - 1 &&
-                  //   // handleStepClick(currentStep + 1)
-                  //   confirmAlert()
-                  // }
                   onClick={() => {
                     confirmAlert(undefined, collectInputFieldData, {
                       page: "payment",
                       setSentData,
                     });
-
                     setTextOfSentDepartment("Sent to department");
                   }}
                 >
