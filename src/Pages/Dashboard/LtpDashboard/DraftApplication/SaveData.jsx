@@ -1,12 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
-import { IoSaveSharp } from "react-icons/io5";
 import { MdOutlineSaveAs } from "react-icons/md";
 import ArrowIcon from "../../../Components/ArrowIcon";
 import BtnStyle from "../../../../Style/SaveBtnStyle.module.css";
 import { BsFillSaveFill } from "react-icons/bs";
-import { FaThumbsUp } from "react-icons/fa";
 import { TbFileLike } from "react-icons/tb";
 import { TiCancel } from "react-icons/ti";
 import toast from "react-hot-toast";
@@ -24,18 +22,14 @@ const SaveData = ({
   isApproved,
   refetch,
 }) => {
-  let btnClass =
-    "btn btn-md text-[#000000] hover:text-[#fff] rounded-lg transition-all duration-500 cursor-pointer hover:bg-[#510BC4]";
 
   const {
     userInfoFromLocalStorage,
-    getSubmitApplicationData,
     needToHideElementBasedOnPage,
   } = useContext(AuthContext);
 
   const role = userInfoFromLocalStorage().role;
 
-  const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
   const location = useLocation();
 
   // const [isApproved, setIsApproved] = useState(null);
@@ -98,9 +92,6 @@ const SaveData = ({
       path.includes("payment")) &&
     "hidden";
 
-  console.log(isApproved, "approved");
-
-  console.log(sentData, "Sentdata");
   return (
     <>
       {isStepperVisible && ( // Render the stepper only when isStepperVisible is true
@@ -110,13 +101,6 @@ const SaveData = ({
               <button
                 className={`fancy-button mt-8 ${needToHideElementBasedOnPage() && "hidden"
                   }`}
-                // type="submit"
-                // onClick={() =>
-                //   // currentStep < steps.length - 1 &&
-                //   // handleStepClick(currentStep + 1)
-                //   confirmAlert()
-                // }
-
                 onClick={() => {
                   path.includes("applicationChecklist") &&
                     confirmAlert(stepperData, collectInputFieldData);
@@ -169,7 +153,6 @@ const SaveData = ({
             ))}
 
           {/* role ===ps  */}
-
           {role === "PS" && (
             <>
               <button
