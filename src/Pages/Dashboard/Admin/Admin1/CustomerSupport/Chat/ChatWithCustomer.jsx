@@ -92,7 +92,7 @@ const ChatWithCustomer = ({
     setMessages((prevMessages) => [...prevMessages, { ...messageData }]);
 
     await axios.patch(
-      `https://residential-building.onrender.com/messageRequest?update=${JSON.stringify(
+      `http://localhost:5000/messageRequest?update=${JSON.stringify(
         {
           id: activeChat?._id,
           action: "text",

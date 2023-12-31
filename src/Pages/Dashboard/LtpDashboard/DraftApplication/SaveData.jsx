@@ -38,8 +38,7 @@ const SaveData = ({
 
   const navigate = useNavigate();
 
-  const [textOfSentDepartment, setTextOfSentDepartment] =
-    useState("Click on Save");
+  const [textOfSentDepartment, setTextOfSentDepartment] = useState("Click on Save");
 
   // useEffect(() => {
   //   if (location.pathname.includes("siteInspection")) {

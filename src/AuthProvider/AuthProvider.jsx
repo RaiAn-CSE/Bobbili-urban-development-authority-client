@@ -17,7 +17,7 @@ const AuthProvider = ({ children }) => {
 
   // update user info
   const updateUserInfoInLocalStorage = (id) => {
-    fetch(`https://residential-building.onrender.com/getUser?id=${id}`)
+    fetch(`http://localhost:5000/getUser?id=${id}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.status) {
@@ -49,9 +49,11 @@ const AuthProvider = ({ children }) => {
   // get user data
   const getUserData = async (id) => {
     const response = await fetch(
-      `https://residential-building.onrender.com/getUser?id=${id}`
+      `http://localhost:5000/getUser?id=${id}`
     );
+    console.log(response);
     const data = await response.json();
+    console.log(data, 'raian2');
     return data;
   };
 
@@ -61,7 +63,7 @@ const AuthProvider = ({ children }) => {
 
     const data = { userId: userInfoFromLocalStorage()._id, applicationNo };
 
-    const url = `https://residential-building.onrender.com/deleteApplication?data=${JSON.stringify(
+    const url = `http://localhost:5000/deleteApplication?data=${JSON.stringify(
       data
     )}`;
     Swal.fire({
@@ -127,10 +129,10 @@ const AuthProvider = ({ children }) => {
     });
 
     role === "LTP" &&
-      (url = `https://residential-building.onrender.com/updateDraftApplicationData?filterData=${filterDataForLtp}`);
+      (url = `http://localhost:5000/updateDraftApplicationData?filterData=${filterDataForLtp}`);
 
     role === "PS" &&
-      (url = `https://residential-building.onrender.com/recommendDataOfPs?appNo=${applicationNo}`);
+      (url = `http://localhost:5000/recommendDataOfPs?appNo=${applicationNo}`);
 
     // console.log(url, "url here");
 
@@ -218,7 +220,7 @@ const AuthProvider = ({ children }) => {
       });
 
       const response = await fetch(
-        `https://residential-building.onrender.com/getApplicationData?data=${query}`
+        `http://localhost:5000/getApplicationData?data=${query}`
       );
 
       return await response.json();
@@ -237,7 +239,7 @@ const AuthProvider = ({ children }) => {
       console.log(query, "query");
 
       const response = await fetch(
-        `https://residential-building.onrender.com/getSubmitDataOfPs?appNo=${query}`
+        `http://localhost:5000/getSubmitDataOfPs?appNo=${query}`
       );
 
       return await response.json();
@@ -250,7 +252,7 @@ const AuthProvider = ({ children }) => {
   const getAllDraftApplicationData = async () => {
     try {
       const response = await fetch(
-        `https://residential-building.onrender.com/allDraftApplicationData`
+        `http://localhost:5000/allDraftApplicationData`
       );
 
       return await response.json();

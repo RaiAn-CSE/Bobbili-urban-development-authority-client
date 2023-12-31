@@ -1,27 +1,23 @@
 import React, { useContext } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import sidebarStyle from "../Style/dashboardSidebar.module.css";
-import Navbar from "../Pages/Shared/Navbar";
 import LtpSidebar from "./LtpSidebar/LtpSidebar";
 import PsSidebar from "./PsSidebar/PsSidebar";
 import { MdOutlineLogout, MdOutlineMenuOpen } from "react-icons/md";
 import AdminSideBar from "./AdminSidebar/AdminSideBar";
 import UdaSidebar from "./UdaSidebar/UdaSidebar";
-import UserMaleImg from "../assets/images/maleAvatar.png";
 import UserFemaleImg from "../assets/images/femaleAvatar.png";
-import { BsThreeDotsVertical } from "react-icons/bs";
-import { FaRegEdit, FaUserEdit } from "react-icons/fa";
-import { LuSettings } from "react-icons/lu";
+import UserMaleImg from "../assets/images/maleAvatar.png";
+import cameraIcon from "../assets/images/cameraIcon.png";
+import { FaRegEdit } from "react-icons/fa";
 import { AuthContext } from "../AuthProvider/AuthProvider";
-import SvgTextAnimation from "../Pages/Components/SvgTextAnimation";
 
 const DashboardLayout = () => {
   const { handleLogOut } = useContext(AuthContext);
   const currentUser = JSON.parse(localStorage.getItem("loggedUser"));
+  console.log(currentUser?.gender);
+  const gender = currentUser?.gender;
+  console.log(gender);
   const navigate = useNavigate();
-
-  const darkGradientColor =
-    "dark:bg-gradient-to-b dark:from-violet-500 dark:to-fuchsia-500";
 
   return (
     <div className="bg-bgColor">
@@ -82,8 +78,16 @@ const DashboardLayout = () => {
               <div className="dropdown dropdown-hover">
                 <label tabIndex={0} className="block w-20 btn-circle avatar ">
                   <div className="cursor-pointer mx-auto mt-3 rounded-full nm_Container">
-                    <img src={UserFemaleImg} alt="An image of user icon" />
-                    {/* <LuSettings size={30} className="text-black cursor-pointer" /> */}
+
+                    {/* <img src={gender === 'male' ? UserMaleImg : gender === 'female' ? UserFemaleImg : cameraIcon} alt="An image of user icon" /> */}
+
+                    {
+                      gender === 'female' ? <img src={UserFemaleImg} alt="An image of user icon" /> : <img src={UserMaleImg} alt="An image of user icon" />
+                    }
+
+                    {/* {gender === 'male' && <img src={UserMaleImg} alt="An image of male user icon" />}
+                    {gender === 'female' && <img src={UserFemaleImg} alt="An image of female user icon" />}
+                    {gender === undefined && <img src={cameraIcon} alt="No Images" />} */}
                   </div>
                 </label>
                 <ul

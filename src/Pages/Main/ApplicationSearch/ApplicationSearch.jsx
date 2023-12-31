@@ -24,7 +24,7 @@ const ApplicationSearch = () => {
 
   useEffect(() => {
     fetchDataFromTheDb(
-      "https://residential-building.onrender.com/allApplications"
+      "http://localhost:5000/allApplications"
     ).then((data) => {
       console.log(data);
       setApplicationData(data);
