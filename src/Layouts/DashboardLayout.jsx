@@ -5,8 +5,8 @@ import PsSidebar from "./PsSidebar/PsSidebar";
 import { MdOutlineLogout, MdOutlineMenuOpen } from "react-icons/md";
 import AdminSideBar from "./AdminSidebar/AdminSideBar";
 import UdaSidebar from "./UdaSidebar/UdaSidebar";
-import UserFemaleImg from "../assets/images/femaleAvatar.png";
-import UserMaleImg from "../assets/images/maleAvatar.png";
+import userFemaleImg from "../assets/images/femaleAvatar.png";
+import userMaleImg from "../assets/images/maleAvatar.png";
 import cameraIcon from "../assets/images/cameraIcon.png";
 import { FaRegEdit } from "react-icons/fa";
 import { AuthContext } from "../AuthProvider/AuthProvider";
@@ -79,14 +79,14 @@ const DashboardLayout = () => {
                 <label tabIndex={0} className="block w-20 btn-circle avatar ">
                   <div className="cursor-pointer mx-auto mt-3 rounded-full nm_Container">
 
-                    {/* <img src={gender === 'male' ? UserMaleImg : gender === 'female' ? UserFemaleImg : cameraIcon} alt="An image of user icon" /> */}
+                    {/* <img src={gender === 'undefine' ? cameraIcon : gender === 'male' ? userMaleImg : userFemaleImg} alt="An image of user icon" /> */}
 
                     {
-                      gender === 'female' ? <img src={UserFemaleImg} alt="An image of user icon" /> : <img src={UserMaleImg} alt="An image of user icon" />
+                      gender === 'female' ? <img src={userFemaleImg} alt="An image of user icon" /> : <img src={userMaleImg} alt="An image of user icon" />
                     }
 
-                    {/* {gender === 'male' && <img src={UserMaleImg} alt="An image of male user icon" />}
-                    {gender === 'female' && <img src={UserFemaleImg} alt="An image of female user icon" />}
+                    {/* {gender === 'male' && <img src={userMaleImg} alt="An image of male user icon" />}
+                    {gender === 'female' && <img src={userFemaleImg} alt="An image of female user icon" />}
                     {gender === undefined && <img src={cameraIcon} alt="No Images" />} */}
                   </div>
                 </label>

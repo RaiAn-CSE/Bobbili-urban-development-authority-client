@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
-import { FaRegCalendarAlt } from "react-icons/fa";
 import Style from "../../../../Style/AddUserStyle.module.css";
 
 const AddUser = () => {
@@ -77,10 +76,6 @@ const AddUser = () => {
     const value = e.target.value;
     setSelectedMandal(value);
 
-    console.log(value);
-
-    console.log(allMandal, "DCM");
-
     const mandalWiseVillage = allMandal.find(
       (eachMandal) => eachMandal?.name === value
     )?.village;
@@ -114,9 +109,6 @@ const AddUser = () => {
           toast.error(isValidate);
         }
       } else if (data?.role.toLowerCase() === "ps") {
-        console.log(selectedDistrict, "District");
-        console.log(selectedMandal, "MAndal");
-        console.log(selectedPanchayat, "Panchayat");
 
         if (selectedDistrict?.length) {
           if (selectedMandal?.length) {
@@ -248,6 +240,7 @@ const AddUser = () => {
                   name="gender"
                   value="male"
                   {...register("gender")}
+                  required
                 />
                 <label className="radio-button__label" htmlFor="male">
                   <span className="radio-button__custom"></span>
@@ -270,6 +263,7 @@ const AddUser = () => {
               </div>
             </div>
           </div>
+
           <div>
             <label htmlFor="role" className={inputLabel}>
               Role
@@ -279,8 +273,9 @@ const AddUser = () => {
               {...register("role", { required: true })}
               className="w-full px-3 py-[10.5px] border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-gray-400 focus:border-gray-600 focus:outline-none focus:ring-2 ring-violet-200"
               onChange={(e) => handleChangeRole(e)}
+              required
             >
-              <option value="Select an option">Select an option</option>
+              <option disabled selected value="">Select an option</option>
               <option value="LTP">LTP</option>
               <option value="PS">PS</option>
               <option value="UDA">UDA</option>
