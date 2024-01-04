@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import LtpSidebar from "./LtpSidebar/LtpSidebar";
 import PsSidebar from "./PsSidebar/PsSidebar";
@@ -10,6 +10,8 @@ import userMaleImg from "../assets/images/maleAvatar.png";
 import cameraIcon from "../assets/images/cameraIcon.png";
 import { FaRegEdit } from "react-icons/fa";
 import { AuthContext } from "../AuthProvider/AuthProvider";
+import { FaUserMinus } from "react-icons/fa6";
+import Swal from "sweetalert2";
 
 const DashboardLayout = () => {
   const { handleLogOut } = useContext(AuthContext);
@@ -142,13 +144,22 @@ const DashboardLayout = () => {
               <div className="dropdown dropdown-hover">
                 <label tabIndex={0} className="block w-20 btn-circle avatar ">
                   <div className="cursor-pointer mx-auto mt-3 rounded-full nm_Container">
-                    {/* <img src={gender === 'undefine' ? cameraIcon : gender === 'male' ? userMaleImg : userFemaleImg} alt="An image of user icon" /> */}
+                    <img
+                      src={
+                        gender === undefined
+                          ? cameraIcon
+                          : gender.toLowerCase() === "male"
+                          ? userMaleImg
+                          : userFemaleImg
+                      }
+                      alt="An image of user icon"
+                    />
 
-                    {gender === "female" ? (
+                    {/* {gender === "female" ? (
                       <img src={userFemaleImg} alt="An image of user icon" />
                     ) : (
                       <img src={userMaleImg} alt="An image of user icon" />
-                    )}
+                    )} */}
 
                     {/* {gender === 'male' && <img src={userMaleImg} alt="An image of male user icon" />}
                     {gender === 'female' && <img src={userFemaleImg} alt="An image of female user icon" />}
@@ -168,6 +179,17 @@ const DashboardLayout = () => {
                       Profile
                     </Link>
                   </li>
+                  {currentUser?.role?.toLowerCase() === "ps" && (
+                    <li>
+                      <button
+                        className="items-center hover:bg-gray-100 hover:text-black"
+                        onClick={() => handOverByPs(currentUser?._id)}
+                      >
+                        <FaUserMinus size={17} />
+                        HandOver
+                      </button>
+                    </li>
+                  )}
                   <li>
                     <Link
                       className="items-center hover:bg-gray-100 hover:text-black"

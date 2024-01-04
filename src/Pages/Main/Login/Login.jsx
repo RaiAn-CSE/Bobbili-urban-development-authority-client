@@ -1,12 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import SupportIcon from "../../../assets/images/customer-service.png";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router";
 import { BsFillHouseCheckFill, BsFillHouseLockFill } from "react-icons/bs";
 import { AuthContext } from "../../../AuthProvider/AuthProvider";
 import BeatLoader from "react-spinners/BeatLoader";
 import { motion } from "framer-motion";
+import signInAnimation from "../../../assets/signIn.json";
 import LoginCSS from "../../../Style/Login.module.css";
+import Lottie from "lottie-react";
+import logInImg from "../../../assets/images/wave1.svg";
+import axios from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -50,20 +55,28 @@ const Login = () => {
   const from = location?.state?.from?.pathName || "/dashboard";
 
   const onSubmit = (data) => {
+    console.log(data);
     setLoading(true);
     const { id, password, checkbox } = data;
+    console.log(data);
 
     const userInfo = {
       id,
       password,
     };
 
+    console.log(userInfo);
+
     // fetch user information from the databaase
     getUserData(id)
       .then((result) => {
-        console.log(result);
         if (result?.status) {
+          console.log(1);
+
           const { userInfo } = result;
+
+          console.log(userInfo, "userInfo");
+
           // checking whether password is matching or not
           if (
             userInfo?.role?.toLowerCase() === "ps" &&
@@ -73,8 +86,10 @@ const Login = () => {
             toast.error("You handOvered your credentials");
           } else {
             if (userInfo.password === password) {
-              // set information to local-storage to stay logged in:
+              console.log("1");
+
               console.log(userInfo, "LOGIN");
+              // set information to localstorage to stay logged in
               localStorage.setItem("loggedUser", JSON.stringify(userInfo));
 
               console.log(localStorage.getItem("loggedUser"));
@@ -95,6 +110,8 @@ const Login = () => {
               })
                 .then((res) => res.json())
                 .then((result) => {
+                  console.log(result);
+
                   if (result?.success) {
                     // set information to cookie to implement remember me functionality
 
@@ -151,6 +168,9 @@ const Login = () => {
     show ? setShow(false) : setShow(true);
   };
 
+  // if (loading) {
+  //   return "Loading...";
+  // }
   let [color, setColor] = useState("#a36ee0");
   const override = {
     display: "block",
