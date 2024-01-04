@@ -12,7 +12,7 @@ const Chat = () => {
   const [activeChat, setActiveChat] = useState(null);
   const [show, setShow] = useState(false);
 
-  useEffect(() => {}, [activeChat]);
+  useEffect(() => { }, [activeChat]);
 
   useEffect(() => {
     socket.emit("login", {
@@ -24,10 +24,19 @@ const Chat = () => {
     console.log(id, "id");
     try {
       const { data } = await axios.patch(
+<<<<<<< HEAD
         `http://localhost:5000/messageRequest?update=${JSON.stringify({
           id,
           action: "chatEnd",
         })}`
+=======
+        `http://localhost:5000/messageRequest?update=${JSON.stringify(
+          {
+            id,
+            action: "chatEnd",
+          }
+        )}`
+>>>>>>> raian
       );
 
       if (data.acknowledged) {
@@ -112,6 +121,7 @@ const Chat = () => {
   //     </div>
   //   );
   // }
+
   return (
     <>
       <div className="md:hidden flex justify-between flex-wrap h-[calc(100vh-18vh)] overflow-hidden rounded-lg">

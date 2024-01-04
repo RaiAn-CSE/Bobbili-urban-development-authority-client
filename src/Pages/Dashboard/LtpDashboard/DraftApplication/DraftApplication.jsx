@@ -209,14 +209,14 @@ const DraftApplication = () => {
 
               {(applicationButtonForDraftApplication ||
                 applicationButtonForApprovedOrShortfallApplication) && (
-                <button
-                  onClick={() => setOpenApplication(true)}
-                  className={`flex justify-center items-center gap-1 btn-sm text-sm nm_Container bg-normalViolet  hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white border-none`}
-                >
-                  <HiOutlineClipboardDocumentList className="text-lg" />{" "}
-                  <span>Application</span>
-                </button>
-              )}
+                  <button
+                    onClick={() => setOpenApplication(true)}
+                    className={`flex justify-center items-center gap-1 btn-sm text-sm nm_Container bg-normalViolet  hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white border-none`}
+                  >
+                    <HiOutlineClipboardDocumentList className="text-lg" />{" "}
+                    <span>Application</span>
+                  </button>
+                )}
             </div>
           </div>
 
@@ -232,18 +232,16 @@ const DraftApplication = () => {
                 }
               >
                 <span
-                  className={`${btnClass} ${completeBtn(index)} ${
-                    cameFrom?.toLowerCase() === "draft"
-                      ? index <= steepCompleted
-                        ? "hover:bg-gradient-to-b hover:from-[#a29bfe] hover:to-[#6c5ce7] hover:shadow-none hover:text-white hover:border-0 bg-[#e4e1ff]"
-                        : "cursor-not-allowed text-gray-500"
-                      : ""
-                  } ${
-                    role !== "PS"
+                  className={`${btnClass} ${completeBtn(index)} ${cameFrom?.toLowerCase() === "draft"
+                    ? index <= steepCompleted
+                      ? "hover:bg-gradient-to-b hover:from-[#a29bfe] hover:to-[#6c5ce7] hover:shadow-none hover:text-white hover:border-0 bg-[#e4e1ff]"
+                      : "cursor-not-allowed text-gray-500"
+                    : ""
+                    } ${role !== "PS"
                       ? "w-[70%] lg:w-[15.3%]"
                       : "w-[50%] lg:w-[13%]"
-                  } text-[15px] font-bold gap-1 border-0 flex justify-center items-center lg:absolute top-3 z-10`}
-                  // disabled={index > steepCompleted}
+                    } text-[15px] font-bold gap-1 border-0 flex justify-center items-center lg:absolute top-3 z-10`}
+                // disabled={index > steepCompleted}
                 >
                   {role !== "PS" && icons[index]}
                   {step}

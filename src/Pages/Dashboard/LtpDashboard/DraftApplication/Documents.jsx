@@ -324,7 +324,7 @@ const DocumentUpload = () => {
             defaultImageFromDB={imageIdFromDB?.default}
             setRemarkText={setRemarkText}
             remarkText={remarkText ?? []}
-            // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
+          // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
           />
           <DynamicDocument
             role={role}
@@ -335,7 +335,7 @@ const DocumentUpload = () => {
             dynamicImageFromDB={imageIdFromDB?.dynamic}
             setRemarkText={setRemarkText}
             remarkText={remarkText ?? []}
-            // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
+          // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
           />
         </div>
 
