@@ -7,7 +7,7 @@ import AdminSideBar from "./AdminSidebar/AdminSideBar";
 import UdaSidebar from "./UdaSidebar/UdaSidebar";
 import userFemaleImg from "../assets/images/femaleAvatar.png";
 import userMaleImg from "../assets/images/maleAvatar.png";
-import cameraIcon from "../assets/images/cameraIcon.png";
+import nonUser from "../assets/images/nonUser.png";
 import { FaRegEdit } from "react-icons/fa";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import { FaUserMinus } from "react-icons/fa6";
@@ -18,7 +18,6 @@ const DashboardLayout = () => {
   const currentUser = JSON.parse(localStorage.getItem("loggedUser"));
   console.log(currentUser?.gender);
   const gender = currentUser?.gender;
-  console.log(gender);
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
@@ -147,10 +146,10 @@ const DashboardLayout = () => {
                     <img
                       src={
                         gender === undefined
-                          ? cameraIcon
+                          ? nonUser
                           : gender.toLowerCase() === "male"
-                          ? userMaleImg
-                          : userFemaleImg
+                            ? userMaleImg
+                            : userFemaleImg
                       }
                       alt="An image of user icon"
                     />
@@ -163,7 +162,7 @@ const DashboardLayout = () => {
 
                     {/* {gender === 'male' && <img src={userMaleImg} alt="An image of male user icon" />}
                     {gender === 'female' && <img src={userFemaleImg} alt="An image of female user icon" />}
-                    {gender === undefined && <img src={cameraIcon} alt="No Images" />} */}
+                    {gender === undefined && <img src={nonUser} alt="No Images" />} */}
                   </div>
                 </label>
                 <ul
