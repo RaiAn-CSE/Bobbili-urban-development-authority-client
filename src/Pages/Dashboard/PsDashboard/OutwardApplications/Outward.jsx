@@ -3,11 +3,12 @@ import Lottie from "lottie-react";
 import { useQuery } from "react-query";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import ErrorAnimation from "../../../../assets/ServerError.json";
+import Loading from "../../../Shared/Loading";
 
 function Outward() {
   const [error, setError] = useState("");
   const [allData, setAllData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
   const { userInfoFromLocalStorage } = useContext(AuthContext);
 
@@ -28,10 +29,10 @@ function Outward() {
     if (isError) {
       console.log("ERROR");
       setError("No data found");
-      setLoading(false);
+      // setLoading(false);
     } else {
       setError("");
-      setLoading(false);
+      // setLoading(false);
     }
 
     if (isSuccess) {
@@ -55,6 +56,9 @@ function Outward() {
   }, [isError, isSuccess]);
 
   console.log(allData, "Alldata");
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -146,7 +150,7 @@ function Outward() {
                                 {applicationData?.generalInformation
                                   ?.caseType !== ""
                                   ? applicationData?.generalInformation
-                                    ?.caseType
+                                      ?.caseType
                                   : "N/A"}
                               </p>
                             </td>
@@ -161,7 +165,7 @@ function Outward() {
                             <td className="p-3  border-b border-gray-200 text-sm">
                               <p className="text-gray-900 break-words">
                                 {applicationData?.generalInformation?.mandal !==
-                                  ""
+                                ""
                                   ? applicationData?.generalInformation?.mandal
                                   : "N/A"}
                               </p>
@@ -175,7 +179,8 @@ function Outward() {
                               <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
                                 <span
                                   aria-hidden
-                                  className={`absolute inset-0 nm_Container  ${(applicationData?.status
+                                  className={`absolute inset-0 nm_Container  ${
+                                    (applicationData?.status
                                       ?.toLowerCase()
                                       ?.includes("pending") &&
                                       "bg-violet-400") ||
@@ -191,7 +196,7 @@ function Outward() {
                                       ?.toLowerCase()
                                       ?.includes("rejected") &&
                                       "bg-red-400")
-                                    } opacity-50 rounded-full`}
+                                  } opacity-50 rounded-full`}
                                 ></span>
                                 <span className="relative">
                                   {applicationData?.status.split(" ")[0] ??
