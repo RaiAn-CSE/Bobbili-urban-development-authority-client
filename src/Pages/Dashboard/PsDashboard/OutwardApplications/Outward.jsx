@@ -58,9 +58,6 @@ function Outward() {
 
   return (
     <>
-      <p className="text-xl font-bold font-roboto ml-5 mt-5 text-black">
-        Outward Applications
-      </p>
       {error?.length !== 0 ? (
         <div className="flex flex-col justify-center items-center min-h-[calc(100vh - 10%)]">
           <Lottie
@@ -73,7 +70,7 @@ function Outward() {
           </p>
         </div>
       ) : (
-        <div className="container mx-auto px-4 font-roboto ">
+        <div className="container mx-auto p-4 font-roboto ">
           <div className="py-4">
             <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 ">
               <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
@@ -176,9 +173,9 @@ function Outward() {
                                 <span
                                   aria-hidden
                                   className={`absolute inset-0 nm_Container  ${(applicationData?.status
-                                      ?.toLowerCase()
-                                      ?.includes("pending") &&
-                                      "bg-violet-400") ||
+                                    ?.toLowerCase()
+                                    ?.includes("pending") &&
+                                    "bg-violet-400") ||
                                     (applicationData?.status
                                       ?.toLowerCase()
                                       ?.includes("approved") &&
