@@ -104,6 +104,7 @@ const AddUser = () => {
           userInfo = {
             ...data,
             validity: isValidate,
+            isLoggedIn: 0,
           };
         } else {
           toast.error(isValidate);
@@ -118,7 +119,12 @@ const AddUser = () => {
                 gramaPanchayat: selectedPanchayat,
               };
 
-              userInfo = { ...data, ...address, handOver: "false" };
+              userInfo = {
+                ...data,
+                ...address,
+                handOver: "false",
+                isLoggedIn: 0,
+              };
             } else {
               toast.error("Please select a grama panchayat");
             }
@@ -129,7 +135,7 @@ const AddUser = () => {
           toast.error("Please select a district");
         }
       } else {
-        userInfo = { ...data };
+        userInfo = { ...data, isLoggedIn: 0 };
       }
 
       console.log(userInfo, "USER INFO");
