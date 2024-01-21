@@ -1,17 +1,17 @@
 import React, { useContext, useState } from "react";
-import { Link, Outlet, useNavigate } from "react-router-dom";
-import LtpSidebar from "./LtpSidebar/LtpSidebar";
-import PsSidebar from "./PsSidebar/PsSidebar";
+import { FaRegEdit } from "react-icons/fa";
+import { FaUserMinus } from "react-icons/fa6";
 import { MdOutlineLogout, MdOutlineMenuOpen } from "react-icons/md";
-import AdminSideBar from "./AdminSidebar/AdminSideBar";
-import UdaSidebar from "./UdaSidebar/UdaSidebar";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { AuthContext } from "../AuthProvider/AuthProvider";
+import cameraIcon from "../assets/images/cameraIcon.png";
 import userFemaleImg from "../assets/images/femaleAvatar.png";
 import userMaleImg from "../assets/images/maleAvatar.png";
-import cameraIcon from "../assets/images/cameraIcon.png";
-import { FaRegEdit } from "react-icons/fa";
-import { AuthContext } from "../AuthProvider/AuthProvider";
-import { FaUserMinus } from "react-icons/fa6";
-import Swal from "sweetalert2";
+import AdminSideBar from "./AdminSidebar/AdminSideBar";
+import LtpSidebar from "./LtpSidebar/LtpSidebar";
+import PsSidebar from "./PsSidebar/PsSidebar";
+import UdaSidebar from "./UdaSidebar/UdaSidebar";
 
 const DashboardLayout = () => {
   const { handleLogOut } = useContext(AuthContext);

@@ -1,10 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
+import TableLayout from "../../../Components/TableLayout";
 import useGetPageWiseApplication from "../../../CustomHook/useGetPageWiseApplication";
 import ShowAllShortfallApplications from "./ShowAllShortfallApplications";
-import { useNavigate } from "react-router-dom";
-import TableLayout from "../../../Components/TableLayout";
 
 const Shortfall = () => {
   const { userInfoFromLocalStorage, showPageBasedOnApplicationType } =

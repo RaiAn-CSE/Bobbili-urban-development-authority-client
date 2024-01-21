@@ -1,12 +1,9 @@
-import React, { useEffect, useState, useRef, useContext } from "react";
-import axios from "axios";
-import toast from "react-hot-toast";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useDownloadExcel } from "react-export-table-to-excel";
 import { TfiExport } from "react-icons/tfi";
-import { district } from "../../../assets/buildingInfo.json";
-import { AuthContext } from "../../../AuthProvider/AuthProvider";
 import { useLocation } from "react-router";
-import styles from "./tableStyle.module.css";
+import { AuthContext } from "../../../AuthProvider/AuthProvider";
+import { district } from "../../../assets/buildingInfo.json";
 
 const Location = () => {
   const path = useLocation().pathname;

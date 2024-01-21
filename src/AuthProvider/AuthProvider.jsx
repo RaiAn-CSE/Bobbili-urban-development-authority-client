@@ -1,7 +1,7 @@
+import { motion } from "framer-motion";
 import React, { createContext, useState } from "react";
 import { toast } from "react-hot-toast";
 import Swal from "sweetalert2";
-import { motion } from "framer-motion";
 
 export const AuthContext = createContext();
 
@@ -340,7 +340,30 @@ const AuthProvider = ({ children }) => {
     localStorage.setItem("stepIndex", JSON.stringify(0));
     localStorage.setItem("page", JSON.stringify(page));
 
-    navigate("/dashboard/draftApplication/buildingInfo");
+    if (page === "draft") {
+      (async function () {
+        const searchData = JSON.stringify({
+          role: "LTP",
+          page,
+          appNo: applicationNo,
+        });
+        const data = await fetchDataFromTheDb(
+          `http://localhost:5000/getApplicationData?data=${searchData}`
+        );
+
+        console.log(data, "SHPG");
+
+        if (Object.keys(data)?.length) {
+          localStorage.setItem(
+            "steepCompleted",
+            JSON.stringify(Number(data?.prevSavedState) + 1)
+          );
+          navigate("/dashboard/draftApplication/buildingInfo");
+        }
+      })();
+    } else {
+      navigate("/dashboard/draftApplication/buildingInfo");
+    }
   };
 
   const findWhichMenuIsActiveForLtpSideBar = (

@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
 import Lottie from "lottie-react";
+import React, { useContext, useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import ErrorAnimation from "../../../../assets/ServerError.json";

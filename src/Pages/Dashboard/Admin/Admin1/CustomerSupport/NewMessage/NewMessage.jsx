@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
-import TableLayout from "../../../../../Components/TableLayout";
-import Lottie from "lottie-web";
-import ErrorAnimation from "../../../../../../assets/ServerError.json";
-import ShowNewMessages from "./ShowNewMessages";
-import toast from "react-hot-toast";
-import Loading from "../../../../../Shared/Loading";
-import { AuthContext } from "../../../../../../AuthProvider/AuthProvider";
-import socket from "../../../../../Common/socket";
 import axios from "axios";
+import Lottie from "lottie-web";
+import React, { useContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { AuthContext } from "../../../../../../AuthProvider/AuthProvider";
+import ErrorAnimation from "../../../../../../assets/ServerError.json";
+import socket from "../../../../../Common/socket";
+import TableLayout from "../../../../../Components/TableLayout";
+import Loading from "../../../../../Shared/Loading";
+import ShowNewMessages from "./ShowNewMessages";
 
 const NewMessage = () => {
   const { userInfoFromLocalStorage } = useContext(AuthContext);

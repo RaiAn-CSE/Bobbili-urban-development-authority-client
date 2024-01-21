@@ -1,24 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import Lottie from "lottie-react";
-import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
-import Data from "../../assets/Data.json";
+import Chart from "chart.js/auto";
+import Lottie from "lottie-react";
+import React, { useContext, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import BarChart from "./BarChart";
 import PieChart from "./PieChart";
 // import { district } from "../../assets/buildingInfo.json";
-import { AuthContext } from "../../AuthProvider/AuthProvider";
-import toast from "react-hot-toast";
-import Loading from "../Shared/Loading";
-import ErrorAnimation from "../../assets/ServerError.json";
-import { FaTreeCity } from "react-icons/fa6";
-import {
-  MdForest,
-  MdLocationCity,
-  MdLocationOn,
-  MdOutlineLocationCity,
-} from "react-icons/md";
 import { BsCalendar2DateFill, BsCalendar3 } from "react-icons/bs";
+import { FaTreeCity } from "react-icons/fa6";
+import { MdForest, MdLocationCity } from "react-icons/md";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
+import ErrorAnimation from "../../assets/ServerError.json";
+import Loading from "../Shared/Loading";
 
 Chart.register(CategoryScale);
 

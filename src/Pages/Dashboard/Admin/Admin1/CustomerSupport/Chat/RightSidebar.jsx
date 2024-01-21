@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import socket from "../../../../../Common/socket";
 import ChatWithCustomer from "./ChatWithCustomer";

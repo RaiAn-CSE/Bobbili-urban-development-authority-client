@@ -1,18 +1,15 @@
-import React, { useRef, useState } from "react";
-import { useForm } from "react-hook-form";
-import { LuMessagesSquare } from "react-icons/lu";
-import { IoMdStar } from "react-icons/io";
-import { GiSensuousness } from "react-icons/gi";
 import axios from "axios";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { FaRegFaceSadTear, FaStar } from "react-icons/fa6";
-import lineSvg from "../../../assets/images/line.svg";
-import triangle from "../../../assets/images/triangle.png";
-import stairLikeLine from "../../../assets/images/stairLikeLine.png";
+import { FaRegFaceSadTear } from "react-icons/fa6";
+import { IoMdStar } from "react-icons/io";
 import { TfiEmail } from "react-icons/tfi";
 import LoginCSS from "../../../Style/Login.module.css";
+import lineSvg from "../../../assets/images/line.svg";
+import stairLikeLine from "../../../assets/images/stairLikeLine.png";
+import triangle from "../../../assets/images/triangle.png";
 import isBetweenWorkingHours from "../../Common/CheckWorkingHours";
-import { BsSendCheckFill } from "react-icons/bs";
 import TextEditor from "../../Components/TextEditor";
 
 const RequestPage = ({ props }) => {

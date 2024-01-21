@@ -1,14 +1,14 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
-import IndividualUser from "./IndividualUser";
-import Lottie from "lottie-react";
-import { useQuery } from "react-query";
-import toast from "react-hot-toast";
-import { useForm } from "react-hook-form";
-import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import { motion } from "framer-motion";
-import Loading from "../../../Shared/Loading";
-import ErrorAnimation from "../../../../assets/ServerError.json";
+import Lottie from "lottie-react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { useQuery } from "react-query";
+import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import HomeCss from "../../../../Style/Home.module.css";
+import ErrorAnimation from "../../../../assets/ServerError.json";
+import Loading from "../../../Shared/Loading";
+import IndividualUser from "./IndividualUser";
 
 const AllUsers = () => {
   const [records, setRecords] = useState([]);

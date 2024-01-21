@@ -89,7 +89,7 @@ const AddUser = () => {
   };
 
   const onSubmit = (data) => {
-    console.log(data, 'data');
+    console.log(data, "data");
     if (data?.role.toLowerCase().includes("select an option")) {
       toast.error("Please select a role");
     } else {
@@ -109,7 +109,6 @@ const AddUser = () => {
           toast.error(isValidate);
         }
       } else if (data?.role.toLowerCase() === "ps") {
-
         if (selectedDistrict?.length) {
           if (selectedMandal?.length) {
             if (selectedPanchayat?.length) {
@@ -275,7 +274,9 @@ const AddUser = () => {
               onChange={(e) => handleChangeRole(e)}
               required
             >
-              <option disabled selected value="">Select an option</option>
+              <option disabled selected value="">
+                Select an option
+              </option>
               <option value="LTP">LTP</option>
               <option value="PS">PS</option>
               <option value="UDA">UDA</option>

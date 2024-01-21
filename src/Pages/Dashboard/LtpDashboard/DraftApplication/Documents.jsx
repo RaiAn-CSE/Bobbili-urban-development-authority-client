@@ -1,14 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
-import DynamicDocuments from "../../../../assets/DynamicDocument.json";
-import DefaultDocumentData from "../../../../assets/DefaultDocument.json";
-import { Link, useOutletContext } from "react-router-dom";
-import toast from "react-hot-toast";
-import SaveData from "./SaveData";
 import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { useOutletContext } from "react-router-dom";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
-import DocumentFooter from "./DocumentFooter";
+import DefaultDocumentData from "../../../../assets/DefaultDocument.json";
+import DynamicDocuments from "../../../../assets/DynamicDocument.json";
 import DefaultDocument from "./DefaultDocument";
+import DocumentFooter from "./DocumentFooter";
 import DynamicDocument from "./DynamicDocument";
+import SaveData from "./SaveData";
 
 const DocumentUpload = () => {
   const [UpdatedDefaultData, setUpdatedDefaultData] = useState([
@@ -283,6 +283,7 @@ const DocumentUpload = () => {
       return await sendUserDataIntoDB(url, "PATCH", {
         applicationNo,
         documents,
+        prevSavedState: 3,
       });
     }
   };
@@ -324,7 +325,7 @@ const DocumentUpload = () => {
             defaultImageFromDB={imageIdFromDB?.default}
             setRemarkText={setRemarkText}
             remarkText={remarkText ?? []}
-          // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
+            // DefaultDocumentSelectedFiles={DefaultDocumentSelectedFiles}
           />
           <DynamicDocument
             role={role}
@@ -335,7 +336,7 @@ const DocumentUpload = () => {
             dynamicImageFromDB={imageIdFromDB?.dynamic}
             setRemarkText={setRemarkText}
             remarkText={remarkText ?? []}
-          // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
+            // DynamicDocumentSelectedFiles={DynamicDocumentSelectedFiles}
           />
         </div>
 

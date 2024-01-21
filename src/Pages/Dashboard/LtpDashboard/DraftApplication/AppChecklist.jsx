@@ -1,10 +1,10 @@
+import { motion } from "framer-motion";
 import React, { useContext, useEffect, useState } from "react";
-import ChecklistQuestions from "../../../../assets/AppChecklist.json";
+import toast from "react-hot-toast";
 import { useOutletContext } from "react-router-dom";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
+import ChecklistQuestions from "../../../../assets/AppChecklist.json";
 import SaveData from "./SaveData";
-import toast from "react-hot-toast";
-import { motion } from "framer-motion";
 
 function AppChecklist() {
   const [openApplication, setOpenApplication] = useState(false);
@@ -58,6 +58,7 @@ function AppChecklist() {
     return await sendUserDataIntoDB(url, "PATCH", {
       applicationNo: applicationNo,
       applicationCheckList: questions,
+      prevSavedState: 2,
     });
   };
   const btn =
@@ -68,12 +69,16 @@ function AppChecklist() {
     <div className="text-sm relative font-roboto">
       <div className="">
         {questions.map(({ id, question, answer }) => (
-          <motion.div className="m-4 nm_Container"
+          <motion.div
+            className="m-4 nm_Container"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
             viewport={{ once: true }}
           >
-            <div key={id} className="lg:flex items-center justify-center shadow-sm shadow-gray-100 rounded p-3">
+            <div
+              key={id}
+              className="lg:flex items-center justify-center shadow-sm shadow-gray-100 rounded p-3"
+            >
               <div className="flex-1 text-black rounded mb-5 text-base md:text-lg lg:mb-0 lg:pr-4">
                 <div className="flex">
                   <span className="font-semibold mr-1">{id}.</span>
@@ -94,8 +99,9 @@ function AppChecklist() {
                       disabled={role === "PS" || cameFrom !== "draft"}
                     />
                     <label
-                      className={`radio-button__label text-base ${answer === "yes" ? "" : ""
-                        }`}
+                      className={`radio-button__label text-base ${
+                        answer === "yes" ? "" : ""
+                      }`}
                       htmlFor={`yes${id}`}
                     >
                       <span className="radio-button__custom"></span>

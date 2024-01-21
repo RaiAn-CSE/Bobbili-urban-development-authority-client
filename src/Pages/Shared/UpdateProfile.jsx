@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useMemo } from "react";
-import useGetUser from "../CustomHook/useGetUser";
-import { useForm } from "react-hook-form";
-import { AuthContext } from "../../AuthProvider/AuthProvider";
-import toast from "react-hot-toast";
-import UpdateProfileInput from "./UpdateProfileInput";
-import userInfoLogo from "../../assets/user_logo/user_info_svg.svg";
-import userContactLogo from "../../assets/user_logo/contact_info.svg";
-import userAddressLogo from "../../assets/user_logo/address_info.svg";
 import { motion } from "framer-motion";
+import React, { useContext, useEffect, useMemo } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
+import userAddressLogo from "../../assets/user_logo/address_info.svg";
+import userContactLogo from "../../assets/user_logo/contact_info.svg";
+import userInfoLogo from "../../assets/user_logo/user_info_svg.svg";
+import useGetUser from "../CustomHook/useGetUser";
+import UpdateProfileInput from "./UpdateProfileInput";
 
 const UpdateProfile = () => {
   const { userInfoFromLocalStorage } = useContext(AuthContext);

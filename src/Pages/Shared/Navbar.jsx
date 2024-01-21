@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
-import UserImg from "../../assets/images//man.png";
-import { useNavigate } from "react-router";
-import { Link } from "react-router-dom";
-import { AuthContext } from "../../AuthProvider/AuthProvider";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useQueryClient } from "react-query";
+import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
+import UserImg from "../../assets/images//man.png";
 
 const Navbar = () => {
   const navigate = useNavigate();

@@ -1,18 +1,16 @@
-import React, { useContext, useEffect, useState } from "react";
-import { VscReferences } from "react-icons/vsc";
-import { useLocation, useNavigate } from "react-router-dom";
-import Drawing from "../DraftApplication/Drawing";
-import { AuthContext } from "../../../../AuthProvider/AuthProvider";
-import Loading from "../../../Shared/Loading";
-import toast from "react-hot-toast";
-import ArrowIcon from "../../../Components/ArrowIcon";
-import DefaultDocuments from "../../../../assets/DefaultDocument.json";
-import DynamicDocuments from "../../../../assets/DynamicDocument.json";
+import axios from "axios";
 import _ from "lodash";
 import Lottie from "lottie-react";
-import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { VscReferences } from "react-icons/vsc";
+import { useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../../AuthProvider/AuthProvider";
+import DefaultDocuments from "../../../../assets/DefaultDocument.json";
+import DynamicDocuments from "../../../../assets/DynamicDocument.json";
 import ErrorAnimation from "../../../../assets/ServerError.json";
 import EndorsementModal from "../../../Shared/EndorsementModal";
+import Loading from "../../../Shared/Loading";
 
 const ResubmitApplication = () => {
   const { appNo } = useLocation()?.state;

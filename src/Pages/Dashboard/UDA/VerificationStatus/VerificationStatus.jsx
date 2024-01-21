@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import Loading from "../../../Shared/Loading";
-import { useDownloadExcel } from "react-export-table-to-excel";
 import Lottie from "lottie-react";
-import Style from "../../../../Style/TableDownloadBtn.module.css";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { useDownloadExcel } from "react-export-table-to-excel";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
+import Style from "../../../../Style/TableDownloadBtn.module.css";
 import ErrorAnimation from "../../../../assets/ServerError.json";
+import Loading from "../../../Shared/Loading";
 
 const VerificationStatus = () => {
   const { fetchDataFromTheDb } = useContext(AuthContext);

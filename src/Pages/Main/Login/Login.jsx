@@ -1,17 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import SupportIcon from "../../../assets/images/customer-service.png";
-import toast from "react-hot-toast";
-import { useLocation, useNavigate } from "react-router";
-import { BsFillHouseCheckFill, BsFillHouseLockFill } from "react-icons/bs";
-import { AuthContext } from "../../../AuthProvider/AuthProvider";
-import BeatLoader from "react-spinners/BeatLoader";
 import { motion } from "framer-motion";
-import signInAnimation from "../../../assets/signIn.json";
+import React, { useContext, useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { BsFillHouseCheckFill, BsFillHouseLockFill } from "react-icons/bs";
+import { useLocation, useNavigate } from "react-router";
+import BeatLoader from "react-spinners/BeatLoader";
+import { AuthContext } from "../../../AuthProvider/AuthProvider";
 import LoginCSS from "../../../Style/Login.module.css";
-import Lottie from "lottie-react";
-import logInImg from "../../../assets/images/wave1.svg";
-import axios from "axios";
 
 const Login = () => {
   const navigate = useNavigate();

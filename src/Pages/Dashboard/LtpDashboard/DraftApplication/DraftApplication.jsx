@@ -1,18 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Outlet, useNavigate, useLocation } from "react-router-dom";
-import { FaBuildingColumns } from "react-icons/fa6";
-import { GoChecklist } from "react-icons/go";
-import { FiRefreshCcw } from "react-icons/fi";
+import { AiFillPieChart } from "react-icons/ai";
 import { BsHouseCheck, BsInfoCircle } from "react-icons/bs";
-import { RiSecurePaymentLine } from "react-icons/ri";
+import { FaBuildingColumns } from "react-icons/fa6";
+import { FiRefreshCcw } from "react-icons/fi";
+import { GoChecklist } from "react-icons/go";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
+import { RiSecurePaymentLine } from "react-icons/ri";
 import { VscDebugContinue, VscReferences } from "react-icons/vsc";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
-import Application from "./Application";
+import DrawingModal from "../../../Shared/DrawingModal";
 import EndorsementModal from "../../../Shared/EndorsementModal";
 import ProceedingModal from "../../../Shared/ProceedingModal";
-import { AiFillPieChart } from "react-icons/ai";
-import DrawingModal from "../../../Shared/DrawingModal";
+import Application from "./Application";
 
 const DraftApplication = () => {
   const navigate = useNavigate();
@@ -74,6 +74,8 @@ const DraftApplication = () => {
       // localStorage.removeItem("steepCompleted");
     };
   }, [location.pathname]);
+
+  console.log(steepCompleted, "Steep completed dfa");
 
   const handleStepClick = (index) => {
     setCurrentStep(index);
@@ -209,14 +211,14 @@ const DraftApplication = () => {
 
               {(applicationButtonForDraftApplication ||
                 applicationButtonForApprovedOrShortfallApplication) && (
-                  <button
-                    onClick={() => setOpenApplication(true)}
-                    className={`flex justify-center items-center gap-1 btn-sm text-sm nm_Container bg-normalViolet  hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white border-none`}
-                  >
-                    <HiOutlineClipboardDocumentList className="text-lg" />{" "}
-                    <span>Application</span>
-                  </button>
-                )}
+                <button
+                  onClick={() => setOpenApplication(true)}
+                  className={`flex justify-center items-center gap-1 btn-sm text-sm nm_Container bg-normalViolet  hover:text-[#510BC4] hover:bg-bgColor transition-all duration-700 text-white border-none`}
+                >
+                  <HiOutlineClipboardDocumentList className="text-lg" />{" "}
+                  <span>Application</span>
+                </button>
+              )}
             </div>
           </div>
 
@@ -232,16 +234,18 @@ const DraftApplication = () => {
                 }
               >
                 <span
-                  className={`${btnClass} ${completeBtn(index)} ${cameFrom?.toLowerCase() === "draft"
-                    ? index <= steepCompleted
-                      ? "hover:bg-gradient-to-b hover:from-[#a29bfe] hover:to-[#6c5ce7] hover:shadow-none hover:text-white hover:border-0 bg-[#e4e1ff]"
-                      : "cursor-not-allowed text-gray-500"
-                    : ""
-                    } ${role !== "PS"
+                  className={`${btnClass} ${completeBtn(index)} ${
+                    cameFrom?.toLowerCase() === "draft"
+                      ? index <= steepCompleted
+                        ? "hover:bg-gradient-to-b hover:from-[#a29bfe] hover:to-[#6c5ce7] hover:shadow-none hover:text-white hover:border-0 bg-[#e4e1ff]"
+                        : "cursor-not-allowed text-gray-500"
+                      : ""
+                  } ${
+                    role !== "PS"
                       ? "w-[70%] lg:w-[15.3%]"
                       : "w-[50%] lg:w-[13%]"
-                    } text-[15px] font-bold gap-1 border-0 flex justify-center items-center lg:absolute top-3 z-10`}
-                // disabled={index > steepCompleted}
+                  } text-[15px] font-bold gap-1 border-0 flex justify-center items-center lg:absolute top-3 z-10`}
+                  // disabled={index > steepCompleted}
                 >
                   {role !== "PS" && icons[index]}
                   {step}
