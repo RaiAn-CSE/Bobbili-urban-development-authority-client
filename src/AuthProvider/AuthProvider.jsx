@@ -262,11 +262,30 @@ const AuthProvider = ({ children }) => {
 
   // logout function
   const handleLogOut = (navigate) => {
-    localStorage.clear();
-    toast.success("Logout successfully");
-    setTimeout(() => {
-      navigate("/");
-    }, 1000);
+    const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
+    console.log(loggedUser, "Logged user");
+    fetch(
+      `http://localhost:5000/reverseLoggedInFlag?userId=${JSON.stringify(
+        loggedUser._id
+      )}`,
+      {
+        method: "PATCH",
+      }
+    )
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.acknowledged) {
+          localStorage.clear();
+          toast.success("Logout successfully");
+
+          navigate("/");
+        } else {
+          toast.error("Server Error");
+        }
+      })
+      .catch((err) => {
+        toast.error("Server Error");
+      });
   };
 
   // check license expiration of ltp
