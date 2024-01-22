@@ -1,15 +1,14 @@
+import axios from "axios";
 import React, { useContext, useEffect, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
 import { IoMdArrowBack } from "react-icons/io";
 import { IoRemoveCircleSharp } from "react-icons/io5";
 import { MdMenu, MdOutlineCancelScheduleSend, MdSend } from "react-icons/md";
-import maleImg from "../../../../../../assets/images/male.png";
-import femaleImg from "../../../../../../assets/images/female.png";
-import unknownImg from "../../../../../../assets/images/unknown.png";
-import axios from "axios";
-import socket from "../../../../../Common/socket";
-import toast from "react-hot-toast";
-import { useForm } from "react-hook-form";
 import { AuthContext } from "../../../../../../AuthProvider/AuthProvider";
+import femaleImg from "../../../../../../assets/images/female.png";
+import maleImg from "../../../../../../assets/images/male.png";
+import unknownImg from "../../../../../../assets/images/unknown.png";
+import socket from "../../../../../Common/socket";
 
 const ChatWithCustomer = ({
   activeChat,

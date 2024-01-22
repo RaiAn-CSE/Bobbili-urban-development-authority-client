@@ -1,13 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
 import Lottie from "lottie-react";
+import React, { useContext, useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import ErrorAnimation from "../../../../assets/ServerError.json";
+import Loading from "../../../Shared/Loading";
 
 function Outward() {
   const [error, setError] = useState("");
   const [allData, setAllData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
   const { userInfoFromLocalStorage } = useContext(AuthContext);
 
@@ -28,10 +29,10 @@ function Outward() {
     if (isError) {
       console.log("ERROR");
       setError("No data found");
-      setLoading(false);
+      // setLoading(false);
     } else {
       setError("");
-      setLoading(false);
+      // setLoading(false);
     }
 
     if (isSuccess) {
@@ -55,6 +56,9 @@ function Outward() {
   }, [isError, isSuccess]);
 
   console.log(allData, "Alldata");
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -173,9 +177,9 @@ function Outward() {
                                 <span
                                   aria-hidden
                                   className={`absolute inset-0 nm_Container  ${(applicationData?.status
-                                    ?.toLowerCase()
-                                    ?.includes("pending") &&
-                                    "bg-violet-400") ||
+                                      ?.toLowerCase()
+                                      ?.includes("pending") &&
+                                      "bg-violet-400") ||
                                     (applicationData?.status
                                       ?.toLowerCase()
                                       ?.includes("approved") &&

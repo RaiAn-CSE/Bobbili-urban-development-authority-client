@@ -1,17 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
-import { AiFillMessage, AiOutlineHome, AiTwotoneMessage } from "react-icons/ai";
-import { MdOutlineDarkMode, MdOutlineDashboard } from "react-icons/md";
-import { motion } from "framer-motion";
-import { FiSun } from "react-icons/fi";
-import ParticleBg from "../Pages/Components/ParticleBg";
-import { IoIosArrowDropdownCircle } from "react-icons/io";
-import CustomerSupport from "../assets/images/support.jpg";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { AiFillMessage, AiOutlineHome } from "react-icons/ai";
+import { IoIosArrowDropdownCircle } from "react-icons/io";
+import { MdOutlineDashboard } from "react-icons/md";
+import { Link, Outlet, useLocation } from "react-router-dom";
+import ParticleBg from "../Pages/Components/ParticleBg";
 
-import ChatBox from "../Pages/Shared/ChatBox";
 import toast from "react-hot-toast";
 import { FaUsers } from "react-icons/fa6";
+import ChatBox from "../Pages/Shared/ChatBox";
 
 const MainLayout = () => {
   const path = useLocation()?.pathname;
@@ -97,22 +94,24 @@ const MainLayout = () => {
           <div className="basis-[20%] mt-7 lg:mt-0 z-[10] flex justify-end items-center space-x-6 dark:text-black">
             <Link
               to="/"
-              className={`nm_Container w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center  ${path === "/" ||
-                  path === "/onlinePayment" ||
-                  path === "/listOfLTP" ||
-                  path === "/demoVideos" ||
-                  path === "/privacyPolicy" ||
-                  path === "/defaultDrawingFormat"
+              className={`nm_Container w-12 h-12 cursor-pointer transition-all duration-700 border  rounded-full flex justify-center items-center  ${
+                path === "/" ||
+                path === "/onlinePayment" ||
+                path === "/listOfLTP" ||
+                path === "/demoVideos" ||
+                path === "/privacyPolicy" ||
+                path === "/defaultDrawingFormat"
                   ? active
                   : ` ${notActive}`
-                }`}
+              }`}
             >
               <AiOutlineHome size={25} className="text-2xl " />
             </Link>
             <Link
               to="/statistics"
-              className={`nm_Container w-12 h-12 cursor-pointer transition-all duration-700 border rounded-full flex justify-center items-center ${path.includes("/statistics") ? active : ` ${notActive}`
-                }`}
+              className={`nm_Container w-12 h-12 cursor-pointer transition-all duration-700 border rounded-full flex justify-center items-center ${
+                path.includes("/statistics") ? active : ` ${notActive}`
+              }`}
             >
               <MdOutlineDashboard size={25} className="text-2xl" />
             </Link>

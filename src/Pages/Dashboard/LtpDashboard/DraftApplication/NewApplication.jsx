@@ -1,16 +1,16 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useQuery } from "react-query";
-import { BsPlusLg } from "react-icons/bs";
-import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import Lottie from "lottie-react";
+import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import AllDraftApplication from "./AllDraftApplication";
+import { BsPlusLg } from "react-icons/bs";
+import { useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import TableLayout from "../../../Components/TableLayout";
-import StarIcon from "../../../Components/StarIcon";
-import Loading from "../../../Shared/Loading";
+import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import ErrorAnimation from "../../../../assets/ServerError.json";
+import StarIcon from "../../../Components/StarIcon";
+import TableLayout from "../../../Components/TableLayout";
+import Loading from "../../../Shared/Loading";
+import AllDraftApplication from "./AllDraftApplication";
 
 const NewApplication = () => {
   const {
@@ -130,6 +130,7 @@ const NewApplication = () => {
         greenFeeCharge: {},
       },
       createdDate: `${day}-${month}-${year}`,
+      prevSavedState: null,
     };
 
     fetch(url, {

@@ -1,14 +1,14 @@
+import { motion } from "framer-motion";
 import React, { useContext, useEffect, useState } from "react";
 import { AiOutlineFileDone } from "react-icons/ai";
 import { BsHouses } from "react-icons/bs";
-import MainPageInput from "../MainPageInput";
+import { VscDebugContinue } from "react-icons/vsc";
 import { AuthContext } from "../../../AuthProvider/AuthProvider";
 import HomeCss from "../../../Style/Home.module.css";
-import { VscDebugContinue } from "react-icons/vsc";
-import ProceedingModal from "../../Shared/ProceedingModal";
 import Application from "../../Dashboard/LtpDashboard/DraftApplication/Application";
 import DrawingModal from "../../Shared/DrawingModal";
-import { motion } from "framer-motion";
+import ProceedingModal from "../../Shared/ProceedingModal";
+import MainPageInput from "../MainPageInput";
 
 const ApplicationSearch = () => {
   const [applicationData, setApplicationData] = useState([]);

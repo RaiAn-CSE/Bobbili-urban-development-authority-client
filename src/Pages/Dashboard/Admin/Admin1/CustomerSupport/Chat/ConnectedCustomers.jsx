@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { AuthContext } from "../../../../../../AuthProvider/AuthProvider";
-import maleImg from "../../../../../../assets/images/male.png";
-import femaleImg from "../../../../../../assets/images/female.png";
-import unknownImg from "../../../../../../assets/images/unknown.png";
-import { FaUsers } from "react-icons/fa";
-import socket from "../../../../../Common/socket";
-import { IoHappySharp } from "react-icons/io5";
+import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { FaUsers } from "react-icons/fa";
+import { IoHappySharp } from "react-icons/io5";
+import { AuthContext } from "../../../../../../AuthProvider/AuthProvider";
+import femaleImg from "../../../../../../assets/images/female.png";
+import maleImg from "../../../../../../assets/images/male.png";
+import unknownImg from "../../../../../../assets/images/unknown.png";
+import socket from "../../../../../Common/socket";
 
 const ConnectedCustomers = ({ setActiveChat, setShow }) => {
   const { userInfoFromLocalStorage } = useContext(AuthContext);

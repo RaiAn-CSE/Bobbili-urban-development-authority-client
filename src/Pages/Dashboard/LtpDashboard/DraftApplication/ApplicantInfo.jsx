@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import InputField from "../../../Components/InputField";
-import OwnerDetail from "./OwnerDetail";
-import { useOutletContext } from "react-router";
-import { AuthContext } from "../../../../AuthProvider/AuthProvider";
-import SaveData from "./SaveData";
-import useGetUser from "../../../CustomHook/useGetUser";
+import { motion } from "framer-motion";
+import React, { useContext, useEffect, useState } from "react";
 import { BiSolidUserDetail } from "react-icons/bi";
 import { FaBuildingUser } from "react-icons/fa6";
-import { motion } from "framer-motion";
+import { useOutletContext } from "react-router";
+import { AuthContext } from "../../../../AuthProvider/AuthProvider";
+import InputField from "../../../Components/InputField";
+import useGetUser from "../../../CustomHook/useGetUser";
+import OwnerDetail from "./OwnerDetail";
+import SaveData from "./SaveData";
 
 const ApplicantInfo = () => {
   const stepperData = useOutletContext();
@@ -101,6 +101,7 @@ const ApplicantInfo = () => {
     return await sendUserDataIntoDB(url, "PATCH", {
       applicationNo,
       applicantInfo,
+      prevSavedState: 1,
     });
   };
 
@@ -218,7 +219,6 @@ const ApplicantInfo = () => {
                 ltpDetails={validity}
                 isAlwaysHide={1}
               />
-
 
               <motion.div
                 className="my-4 mx-3"

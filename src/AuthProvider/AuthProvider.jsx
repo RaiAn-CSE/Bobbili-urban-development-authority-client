@@ -1,7 +1,7 @@
+import { motion } from "framer-motion";
 import React, { createContext, useState } from "react";
 import { toast } from "react-hot-toast";
 import Swal from "sweetalert2";
-import { motion } from "framer-motion";
 
 export const AuthContext = createContext();
 
@@ -262,11 +262,30 @@ const AuthProvider = ({ children }) => {
 
   // logout function
   const handleLogOut = (navigate) => {
-    localStorage.clear();
-    toast.success("Logout successfully");
-    setTimeout(() => {
-      navigate("/");
-    }, 1000);
+    const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
+    console.log(loggedUser, "Logged user");
+    fetch(
+      `http://localhost:5000/reverseLoggedInFlag?userId=${JSON.stringify(
+        loggedUser._id
+      )}`,
+      {
+        method: "PATCH",
+      }
+    )
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.acknowledged) {
+          localStorage.clear();
+          toast.success("Logout successfully");
+
+          navigate("/");
+        } else {
+          toast.error("Server Error");
+        }
+      })
+      .catch((err) => {
+        toast.error("Server Error");
+      });
   };
 
   // check license expiration of ltp
@@ -340,7 +359,30 @@ const AuthProvider = ({ children }) => {
     localStorage.setItem("stepIndex", JSON.stringify(0));
     localStorage.setItem("page", JSON.stringify(page));
 
-    navigate("/dashboard/draftApplication/buildingInfo");
+    if (page === "draft") {
+      (async function () {
+        const searchData = JSON.stringify({
+          role: "LTP",
+          page,
+          appNo: applicationNo,
+        });
+        const data = await fetchDataFromTheDb(
+          `http://localhost:5000/getApplicationData?data=${searchData}`
+        );
+
+        console.log(data, "SHPG");
+
+        if (Object.keys(data)?.length) {
+          localStorage.setItem(
+            "steepCompleted",
+            JSON.stringify(Number(data?.prevSavedState) + 1)
+          );
+          navigate("/dashboard/draftApplication/buildingInfo");
+        }
+      })();
+    } else {
+      navigate("/dashboard/draftApplication/buildingInfo");
+    }
   };
 
   const findWhichMenuIsActiveForLtpSideBar = (

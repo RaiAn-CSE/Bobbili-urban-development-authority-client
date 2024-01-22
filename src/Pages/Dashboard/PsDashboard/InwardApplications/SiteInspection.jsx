@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import SaveData from "../../LtpDashboard/DraftApplication/SaveData";
-import { AuthContext } from "../../../../AuthProvider/AuthProvider";
-import { useOutletContext } from "react-router-dom";
-import toast from "react-hot-toast";
-import ImageUploadInput from "./ImageUploadInput";
 import axios from "axios";
-import { useQuery } from "react-query";
-import Loading from "../../../Shared/Loading";
 import { motion } from "framer-motion";
+import React, { useContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { useQuery } from "react-query";
+import { useOutletContext } from "react-router-dom";
+import { AuthContext } from "../../../../AuthProvider/AuthProvider";
+import Loading from "../../../Shared/Loading";
+import SaveData from "../../LtpDashboard/DraftApplication/SaveData";
+import ImageUploadInput from "./ImageUploadInput";
 
 const SiteInspection = () => {
   const {

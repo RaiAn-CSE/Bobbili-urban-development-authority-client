@@ -89,7 +89,7 @@ const AddUser = () => {
   };
 
   const onSubmit = (data) => {
-    console.log(data, 'data');
+    console.log(data, "data");
     if (data?.role.toLowerCase().includes("select an option")) {
       toast.error("Please select a role");
     } else {
@@ -104,12 +104,12 @@ const AddUser = () => {
           userInfo = {
             ...data,
             validity: isValidate,
+            isLoggedIn: 0,
           };
         } else {
           toast.error(isValidate);
         }
       } else if (data?.role.toLowerCase() === "ps") {
-
         if (selectedDistrict?.length) {
           if (selectedMandal?.length) {
             if (selectedPanchayat?.length) {
@@ -119,7 +119,12 @@ const AddUser = () => {
                 gramaPanchayat: selectedPanchayat,
               };
 
-              userInfo = { ...data, ...address, handOver: "false" };
+              userInfo = {
+                ...data,
+                ...address,
+                handOver: "false",
+                isLoggedIn: 0,
+              };
             } else {
               toast.error("Please select a grama panchayat");
             }
@@ -130,7 +135,7 @@ const AddUser = () => {
           toast.error("Please select a district");
         }
       } else {
-        userInfo = { ...data };
+        userInfo = { ...data, isLoggedIn: 0 };
       }
 
       console.log(userInfo, "USER INFO");
@@ -275,7 +280,9 @@ const AddUser = () => {
               onChange={(e) => handleChangeRole(e)}
               required
             >
-              <option disabled selected value="">Select an option</option>
+              <option disabled selected value="">
+                Select an option
+              </option>
               <option value="LTP">LTP</option>
               <option value="PS">PS</option>
               <option value="UDA">UDA</option>

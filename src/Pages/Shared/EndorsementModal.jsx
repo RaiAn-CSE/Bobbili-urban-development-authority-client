@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { RxCross2 } from "react-icons/rx";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 import DefaultDocuments from "../../assets/DefaultDocument.json";
 import DynamicDocuments from "../../assets/DynamicDocument.json";
 

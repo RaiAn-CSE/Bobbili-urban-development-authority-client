@@ -1,12 +1,11 @@
-import { useContext, useEffect, useState } from "react";
-import { Link, useOutletContext } from "react-router-dom";
-import toast from "react-hot-toast";
-import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import axios from "axios";
-import SaveData from "./SaveData";
-import Application from "./Application";
+import { useContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { TbSlideshow } from "react-icons/tb";
+import { Link, useOutletContext } from "react-router-dom";
+import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import DrawingTable from "./DrawingTable";
+import SaveData from "./SaveData";
 
 const Drawing = () => {
   const [approvedConfirmation, setApprovedConfirmation] = useState("");
@@ -153,8 +152,7 @@ const Drawing = () => {
       return await sendUserDataIntoDB(url, "PATCH", {
         applicationNo,
         drawing,
-        approved: approvedConfirmation,
-        message: recomendationMessage,
+        prevSavedState: 4,
       });
     }
   };

@@ -1,17 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import SupportIcon from "../../../assets/images/customer-service.png";
-import toast from "react-hot-toast";
-import { useLocation, useNavigate } from "react-router";
-import { BsFillHouseCheckFill, BsFillHouseLockFill } from "react-icons/bs";
-import { AuthContext } from "../../../AuthProvider/AuthProvider";
-import BeatLoader from "react-spinners/BeatLoader";
 import { motion } from "framer-motion";
-import signInAnimation from "../../../assets/signIn.json";
+import React, { useContext, useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { BsFillHouseCheckFill, BsFillHouseLockFill } from "react-icons/bs";
+import { useLocation, useNavigate } from "react-router";
+import BeatLoader from "react-spinners/BeatLoader";
+import { AuthContext } from "../../../AuthProvider/AuthProvider";
 import LoginCSS from "../../../Style/Login.module.css";
-import Lottie from "lottie-react";
-import logInImg from "../../../assets/images/wave1.svg";
-import axios from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -78,77 +73,89 @@ const Login = () => {
           console.log(userInfo, "userInfo");
 
           // checking whether password is matching or not
-          if (
-            userInfo?.role?.toLowerCase() === "ps" &&
-            userInfo?.handOver === "true"
-          ) {
+          if (userInfo?.isLoggedIn) {
             setLoading(false);
-            toast.error("You handOvered your credentials");
+            toast.error("User already active");
           } else {
-            if (userInfo.password === password) {
-              console.log("1");
+            if (
+              userInfo?.role?.toLowerCase() === "ps" &&
+              userInfo?.handOver === "true"
+            ) {
+              setLoading(false);
+              toast.error("You handOvered your credentials");
+            } else {
+              if (userInfo.password === password) {
+                console.log("1");
 
-              console.log(userInfo, "LOGIN");
-              // set information to localstorage to stay logged in
-              localStorage.setItem("loggedUser", JSON.stringify(userInfo));
+                console.log(userInfo, "LOGIN");
+                // set information to localstorage to stay logged in
+                localStorage.setItem("loggedUser", JSON.stringify(userInfo));
 
-              console.log(localStorage.getItem("loggedUser"));
+                console.log(localStorage.getItem("loggedUser"));
 
-              // axios.post("http://localhost:5000/jwt",userInfo,{
-              //   withCredentials: true,
-              //   headers: {
-              //       'Access-Control-Allow-Origin': '*',
-              //       'Content-Type': 'application/json'
-              //   }).then(result=>{
+                // axios.post("http://localhost:5000/jwt",userInfo,{
+                //   withCredentials: true,
+                //   headers: {
+                //       'Access-Control-Allow-Origin': '*',
+                //       'Content-Type': 'application/json'
+                //   }).then(result=>{
 
-              //   })
+                //   })
 
-              fetch("http://localhost:5000/jwt", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(userInfo),
-              })
-                .then((res) => res.json())
-                .then((result) => {
-                  console.log(result);
+                fetch("http://localhost:5000/jwt", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify(userInfo),
+                })
+                  .then((res) => res.json())
+                  .then((result) => {
+                    console.log(result);
 
-                  if (result?.success) {
-                    // set information to cookie to implement remember me functionality
+                    if (result?.success) {
+                      // set information to cookie to implement remember me functionality
 
-                    localStorage.setItem("jwToken", result?.token);
-                    if (checkbox) {
-                      console.log(checkbox);
-                      document.cookie =
-                        "userId=" + id + ";path=http://localhost:5173/";
-                      document.cookie =
-                        "password=" + password + ";path=http://localhost:5173/";
-                    }
+                      localStorage.setItem("jwToken", result?.token);
+                      if (checkbox) {
+                        console.log(checkbox);
+                        document.cookie =
+                          "userId=" + id + ";path=http://localhost:5173/";
+                        document.cookie =
+                          "password=" +
+                          password +
+                          ";path=http://localhost:5173/";
+                      }
 
-                    fetch("http://localhost:5000/increaseVisitorCount", {
-                      method: "PATCH",
-                    })
-                      .then((res) => res.json())
-                      .then((result) => {
-                        console.log(result, "Result");
-                        if (result?.acknowledged) {
-                          setLoading(false);
-                          localStorage.setItem("theme", "light");
-                          toast.success("Login successfully");
-                          navigate(from, { replace: true });
-                        } else {
+                      fetch(
+                        `http://localhost:5000/updateWithLoggedIn?userId=${JSON.stringify(
+                          userInfo?._id
+                        )}`,
+                        {
+                          method: "PATCH",
+                        }
+                      )
+                        .then((res) => res.json())
+                        .then((result) => {
+                          console.log(result, "Result");
+                          if (result?.acknowledged) {
+                            setLoading(false);
+                            localStorage.setItem("theme", "light");
+                            toast.success("Login successfully");
+                            navigate(from, { replace: true });
+                          } else {
+                            setLoading(false);
+                            toast.error("Server Error");
+                          }
+                        })
+                        .catch((err) => {
                           setLoading(false);
                           toast.error("Server Error");
-                        }
-                      })
-                      .catch((err) => {
-                        setLoading(false);
-                        toast.error("Server Error");
-                      });
-                  }
-                });
-            } else {
-              setLoading(false);
-              toast.error("Password is wrong");
+                        });
+                    }
+                  });
+              } else {
+                setLoading(false);
+                toast.error("Password is wrong");
+              }
             }
           }
         } else {

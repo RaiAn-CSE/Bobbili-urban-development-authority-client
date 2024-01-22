@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
-import socket from "../../../../../Common/socket";
-import ConnectedCustomers from "./ConnectedCustomers";
-import ChatWithCustomer from "./ChatWithCustomer";
 import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { AuthContext } from "../../../../../../AuthProvider/AuthProvider";
+import socket from "../../../../../Common/socket";
+import ConnectedCustomers from "./ConnectedCustomers";
 import RightSidebar from "./RightSidebar";
 
 const Chat = () => {

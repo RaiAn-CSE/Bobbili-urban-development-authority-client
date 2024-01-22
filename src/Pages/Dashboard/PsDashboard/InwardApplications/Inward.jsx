@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useQuery } from "react-query";
 import Lottie from "lottie-react";
-import ShowSubmittedApplication from "../../LtpDashboard/Submitted/ShowSubmittedApplication";
-import { AuthContext } from "../../../../AuthProvider/AuthProvider";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useQuery } from "react-query";
+import { useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../../AuthProvider/AuthProvider";
+import ErrorAnimation from "../../../../assets/ServerError.json";
 import TableLayout from "../../../Components/TableLayout";
 import Loading from "../../../Shared/Loading";
-import ErrorAnimation from "../../../../assets/ServerError.json";
+import ShowSubmittedApplication from "../../LtpDashboard/Submitted/ShowSubmittedApplication";
 
 const Inward = () => {
   const { userInfoFromLocalStorage, showPageBasedOnApplicationType } =

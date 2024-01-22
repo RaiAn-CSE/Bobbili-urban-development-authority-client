@@ -1,19 +1,18 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import axios from "axios";
-import chatAvatarImg from "../../../assets/images/chat.png";
-import { MdSend } from "react-icons/md";
-import socket from "../../Common/socket";
 import { CiStar } from "react-icons/ci";
-import customerImg from "../../../assets/images/customer-service.png";
-import TextEditor from "../../Components/TextEditor";
 import { IoMdStar } from "react-icons/io";
+import { MdSend } from "react-icons/md";
+import chatAvatarImg from "../../../assets/images/chat.png";
 import curveLogo from "../../../assets/images/curveLogo.png";
+import customerImg from "../../../assets/images/customer-service.png";
 import lineSvg from "../../../assets/images/line.svg";
-import triangle from "../../../assets/images/triangle.png";
 import stairLikeLine from "../../../assets/images/stairLikeLine.png";
+import triangle from "../../../assets/images/triangle.png";
+import socket from "../../Common/socket";
+import TextEditor from "../../Components/TextEditor";
 
 const MessagePage = ({ props }) => {
   const {

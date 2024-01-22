@@ -1,14 +1,12 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import Lottie from "lottie-react";
-import TableLayout from "../../../Components/TableLayout";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useDownloadExcel } from "react-export-table-to-excel";
-import { TfiExport } from "react-icons/tfi";
-import ShowPlotDetails from "./ShowPlotDetails";
+import { AuthContext } from "../../../../AuthProvider/AuthProvider";
+import Style from "../../../../Style/TableDownloadBtn.module.css";
+import ErrorAnimation from "../../../../assets/ServerError.json";
 import MISReportTableLayout from "../../../Components/MISReportTableLayout";
 import Loading from "../../../Shared/Loading";
-import ErrorAnimation from "../../../../assets/ServerError.json";
-import Style from "../../../../Style/TableDownloadBtn.module.css";
+import ShowPlotDetails from "./ShowPlotDetails";
 
 const PlotDetails = () => {
   const { fetchDataFromTheDb } = useContext(AuthContext);

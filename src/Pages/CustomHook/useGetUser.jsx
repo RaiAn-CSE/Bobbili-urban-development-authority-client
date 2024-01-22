@@ -1,6 +1,6 @@
-import React, { useContext, useEffect } from "react";
+import { useContext } from "react";
+import { useQuery } from "react-query";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
-import { QueryClient, useQuery, useQueryClient } from "react-query";
 
 const useGetUser = () => {
   const { userInfoFromLocalStorage } = useContext(AuthContext);

@@ -1,17 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
-import Lottie from "lottie-react";
+import toast from "react-hot-toast";
 import {
   MdOutlineAddLocationAlt,
   MdOutlineWrongLocation,
 } from "react-icons/md";
-import mapAnimation from "../../../../assets/map.json";
-import toast from "react-hot-toast";
-import districtImage from "../../../../assets/images/district.png";
+import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import cityImage from "../../../../assets/images/city.png";
+import districtImage from "../../../../assets/images/district.png";
+import IndiaMapImg from "../../../../assets/images/india.jpg";
 import villageImage from "../../../../assets/images/village.png";
 import LocationStyle from "./LocationPageStyle.module.css";
-import { AuthContext } from "../../../../AuthProvider/AuthProvider";
-import IndiaMapImg from "../../../../assets/images/india.jpg";
 
 const UpdateLocation = () => {
   const { fetchDataFromTheDb } = useContext(AuthContext);

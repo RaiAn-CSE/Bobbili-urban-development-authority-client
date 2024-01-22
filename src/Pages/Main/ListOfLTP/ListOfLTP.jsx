@@ -1,7 +1,7 @@
+import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import HomeCss from "../../../Style/Home.module.css";
 import Loading from "../../Shared/Loading";
-import { motion } from "framer-motion";
 
 const ListOfLTP = () => {
   const [filteredData, setFilteredData] = useState([]);
