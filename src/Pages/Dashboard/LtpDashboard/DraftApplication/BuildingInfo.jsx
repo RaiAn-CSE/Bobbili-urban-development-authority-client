@@ -4,7 +4,8 @@ import { AiOutlineAreaChart } from "react-icons/ai";
 import { FaHandPointRight } from "react-icons/fa";
 import { HiInformationCircle } from "react-icons/hi";
 import { PiWall } from "react-icons/pi";
-import { useLocation, useOutletContext } from "react-router";
+import { useOutletContext } from "react-router";
+import { useLocation } from "react-router-dom";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import InputField from "../../../Components/InputField";
 import FloorDetails from "./FloorDetails";
@@ -13,7 +14,17 @@ import SaveData from "./SaveData";
 const BuildingInfo = () => {
   const stepperData = useOutletContext();
 
-  const location = useLocation();
+  const location = useLocation()?.state;
+  console.log(location, "location");
+
+  if (location !== null) {
+    if (location.hasOwnProperty("prevSavedState")) {
+      localStorage.setItem(
+        "steepCompleted",
+        JSON.stringify(location.prevSavedState)
+      );
+    }
+  }
 
   const [isStepperVisible, currentStep, steps] = stepperData;
 

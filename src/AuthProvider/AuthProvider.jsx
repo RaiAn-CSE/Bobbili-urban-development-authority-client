@@ -360,26 +360,45 @@ const AuthProvider = ({ children }) => {
     localStorage.setItem("page", JSON.stringify(page));
 
     if (page === "draft") {
-      (async function () {
-        const searchData = JSON.stringify({
-          role: "LTP",
-          page,
-          appNo: applicationNo,
+      const searchData = JSON.stringify({
+        role: "LTP",
+        page,
+        appNo: applicationNo,
+      });
+
+      fetch(`http://localhost:5000/getApplicationData?data=${searchData}`)
+        .then((res) => res.json())
+        .then((data) => {
+          const prevState = data?.prevSavedState;
+          // localStorage.setItem(
+          //   "steepCompleted",
+          //   JSON.stringify(Number(prevState) + 1)
+          // );
+          navigate("/dashboard/draftApplication/buildingInfo", {
+            state: { prevSavedState: Number(prevState) + 1 },
+          });
         });
-        const data = await fetchDataFromTheDb(
-          `http://localhost:5000/getApplicationData?data=${searchData}`
-        );
+      // const data = (async function () {
+      //   const searchData = JSON.stringify({
+      //     role: "LTP",
+      //     page,
+      //     appNo: applicationNo,
+      //   });
+      //   const data = await fetchDataFromTheDb(
+      //     `http://localhost:5000/getApplicationData?data=${searchData}`
+      //   );
+      // })();
 
-        console.log(data, "SHPG");
+      // console.log(data, "DATA");
 
-        if (Object.keys(data)?.length) {
-          localStorage.setItem(
-            "steepCompleted",
-            JSON.stringify(Number(data?.prevSavedState) + 1)
-          );
-          navigate("/dashboard/draftApplication/buildingInfo");
-        }
-      })();
+      // if (Object.keys(data)?.length) {
+      //   localStorage.setItem(
+      //     "steepCompleted",
+      //     JSON.stringify(Number(data?.prevSavedState) + 1)
+      //   );
+
+      //   navigate("/dashboard/draftApplication/buildingInfo");
+      // }
     } else {
       navigate("/dashboard/draftApplication/buildingInfo");
     }

@@ -25,10 +25,24 @@ const DraftApplication = () => {
 
   const { userInfoFromLocalStorage } = useContext(AuthContext);
 
+  const state = location?.state;
+  console.log(state, "location");
+
+  if (state !== null) {
+    if (state.hasOwnProperty("prevSavedState")) {
+      localStorage.setItem(
+        "steepCompleted",
+        JSON.stringify(state.prevSavedState)
+      );
+    }
+  }
+
   const cameFrom = JSON.parse(localStorage.getItem("page"));
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
   const getIndex = JSON.parse(localStorage.getItem("stepIndex"));
   const steepCompleted = JSON.parse(localStorage.getItem("steepCompleted"));
+
+  console.log(steepCompleted, "STEEP");
 
   const role = userInfoFromLocalStorage()?.role;
 
@@ -71,7 +85,7 @@ const DraftApplication = () => {
 
     return () => {
       localStorage.removeItem("currentStep");
-      // localStorage.removeItem("steepCompleted");
+      localStorage.removeItem("steepCompleted");
     };
   }, [location.pathname]);
 
@@ -81,7 +95,9 @@ const DraftApplication = () => {
     setCurrentStep(index);
     localStorage.setItem("stepIndex", JSON.stringify(index));
     // Store the current step in localStorage
-    const heightIndex = JSON.parse(localStorage.getItem("steepCompleted"));
+
+    console.log(index, steepCompleted, "STPES");
+    const heightIndex = steepCompleted;
 
     if (heightIndex === null || heightIndex < index) {
       localStorage.setItem("steepCompleted", JSON.stringify(index));
