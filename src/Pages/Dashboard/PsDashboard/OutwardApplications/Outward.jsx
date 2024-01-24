@@ -4,13 +4,16 @@ import { useQuery } from "react-query";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import ErrorAnimation from "../../../../assets/ServerError.json";
 import Loading from "../../../Shared/Loading";
+import { useNavigate } from "react-router-dom";
 
 function Outward() {
   const [error, setError] = useState("");
   const [allData, setAllData] = useState([]);
   // const [loading, setLoading] = useState(true);
 
-  const { userInfoFromLocalStorage } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const { userInfoFromLocalStorage, showPageBasedOnApplicationType } = useContext(AuthContext);
 
   // get all applications which are submitted already
   const { data, refetch, isLoading, isError, isSuccess } = useQuery(
@@ -78,6 +81,7 @@ function Outward() {
           <div className="py-4">
             <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 ">
               <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
+
                 <table className="min-w-full leading-normal text-center">
                   {/* head */}
                   <thead className="bg-normalViolet">
@@ -123,7 +127,11 @@ function Outward() {
                                 {index + 1}
                               </p>
                             </td>
-                            <td className="p-3  border-b border-gray-200 text-sm">
+                            <td className="hover:underline cursor-pointer border-b border-gray-200 text-sm"
+                              onClick={() =>
+                                showPageBasedOnApplicationType(applicationData?.applicationNo, navigate, "Outward")
+                              }
+                            >
                               <p className="text-gray-900 break-words">
                                 {applicationData?.applicationNo}
                               </p>
@@ -177,9 +185,9 @@ function Outward() {
                                 <span
                                   aria-hidden
                                   className={`absolute inset-0 nm_Container  ${(applicationData?.status
-                                      ?.toLowerCase()
-                                      ?.includes("pending") &&
-                                      "bg-violet-400") ||
+                                    ?.toLowerCase()
+                                    ?.includes("pending") &&
+                                    "bg-violet-400") ||
                                     (applicationData?.status
                                       ?.toLowerCase()
                                       ?.includes("approved") &&
@@ -216,8 +224,6 @@ function Outward() {
                     {error}
                   </p>
                 )}
-
-                {/* {isLoading && <p>Loading...</p>} */}
               </div>
             </div>
           </div>

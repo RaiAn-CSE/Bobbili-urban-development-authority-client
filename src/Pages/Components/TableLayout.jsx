@@ -9,10 +9,8 @@ const TableLayout = ({ tableData, Component, tableComponentProps }) => {
     const handleResize = () => {
       setScreenSize(window.innerWidth);
     };
-
     // Attach the event listener
     window.addEventListener('resize', handleResize);
-
     // Remove the event listener on component unmount
     return () => {
       window.removeEventListener('resize', handleResize);

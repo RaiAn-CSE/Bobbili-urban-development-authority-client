@@ -67,7 +67,6 @@ const Login = () => {
       .then((result) => {
         if (result?.status) {
           console.log(1);
-
           const { userInfo } = result;
 
           console.log(userInfo, "userInfo");
