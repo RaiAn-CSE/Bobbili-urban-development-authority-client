@@ -477,9 +477,10 @@ const SiteInspection = () => {
     const element = document.getElementById("proceedingModal");
 
     var opt = {
-      margin: 0.5,
+      margin: [0.3, 0, 0.3, 0],
       filename: "myfile.pdf",
       image: { type: "jpeg", quality: 0.98 },
+      pagebreak: { before: ".beforeClass", after: ["#after1", "#after2"] },
       html2canvas: { scale: 2 },
       jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
     };

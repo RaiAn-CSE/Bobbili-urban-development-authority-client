@@ -200,7 +200,7 @@ const ProceedingModal = () => {
           షరతులతో కూడిన అనుమతులు జారీ చేయడం జరుగుతున్నది.
         </p>
 
-        <table className="min-w-full mt-6">
+        <table className="min-w-full mt-6 ">
           <thead className="border border-gray-900 ">
             <tr>
               <th className="border-r border-neutral-500 p-2 w-16">A</th>
@@ -255,7 +255,7 @@ const ProceedingModal = () => {
                 {allInfo?.buildingInfo?.generalInformation?.surveyNo}
               </td>
             </tr>
-            <tr className="p-2 border border-gray-900">
+            <tr className="p-2 border border-gray-900 beforeClass">
               <td className="p-2 border-r border-neutral-500 text-center font-semibold">
                 2
               </td>
@@ -658,7 +658,7 @@ const ProceedingModal = () => {
               ఎడల బిల్డింగ్ లైన్ గా ఆరు మీటర్ల స్థలమును వదిలి భవనం
               నిర్మించుకోవలెను.
             </li>
-            <li className="mt-3">
+            <li className="mt-3 beforeClass">
               నివాస కాంప్లెక్స్ కు ఆసుపత్రి, లాడ్జలు పాఠశాల కళాశాలలకు
               ఇండస్ట్రీస్ మొదలగు వాటికి పార్కింగ్ ప్రదేశముగా ప్లాన్ లో చూపిన
               విధంగా స్థలము కేటాయించవలెను.
@@ -696,7 +696,7 @@ const ProceedingModal = () => {
               రోడ్డు వీధిలైట్లు నీటి సరఫరా యజమాని తన సొంత ఖర్చు లతో ఏర్పాటు
               చేసుకోవలెను.
             </li>
-            <li className="mt-3">
+            <li className="mt-3 beforeClass">
               శ్రీ డైరెక్టర్ ఆఫ్ టౌన్ అండ్ కంట్రీ ప్లానింగ్ గుంటూరు లేదా
               బొబ్బిలి అర్బన్ డెవలప్మెంట్ అథారిటీ వారి మాస్టర్ ప్లాన్ లోని
               రోడ్డు కొలతలు మరియు ఇతర షరతులకు లోబడి మాత్రమే ఆమోదం.
