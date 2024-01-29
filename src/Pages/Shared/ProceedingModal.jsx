@@ -26,7 +26,7 @@ const ProceedingModal = () => {
     // } else {
     const getData = async () => {
       const applicationData = await getApplicationData(applicationNo, cameFrom);
-      console.log(applicationData, "All info ApplicationData");
+      // console.log(applicationData, "All info ApplicationData");
 
       setAllInfo(applicationData);
     };
@@ -40,7 +40,7 @@ const ProceedingModal = () => {
   };
 
   useEffect(() => {
-    console.log(allInfo, "ALL info");
+    // console.log(allInfo, "ALL info");
     if (allInfo && Object.keys(allInfo)?.length) {
       const psSubmitDate = allInfo?.psSubmitDate;
 
@@ -60,9 +60,6 @@ const ProceedingModal = () => {
       }
     }
   }, [allInfo]);
-
-  console.log(approvedDate, "AD");
-  console.log(allInfo, "AI");
 
   const dropIn = {
     hidden: {
