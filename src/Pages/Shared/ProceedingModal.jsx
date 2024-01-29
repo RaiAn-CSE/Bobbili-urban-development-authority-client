@@ -39,16 +39,17 @@ const ProceedingModal = () => {
   };
 
   useEffect(() => {
-    // console.log(allInfo, "ALL info");
+    console.log(allInfo, "ALL info");
     if (allInfo && Object.keys(allInfo)?.length) {
-      const psSubmitDate = allInfo?.psSubmitDate;
+      const psSubmitDate = allInfo?.submitDate;
+      // console.log(psSubmitDate, 'psSubmitDate');
 
       if (psSubmitDate?.length) {
         const splitSubmitDateOfPs = dateArray(psSubmitDate);
         setApprovedDate(splitSubmitDateOfPs);
 
         const splitDate = psSubmitDate?.split("-");
-        console.log(splitDate, "Split date");
+        // console.log(splitDate, "Split date");
         splitDate[splitDate?.length - 1] = String(
           Number(splitDate[splitDate?.length - 1]) + 3
         );
