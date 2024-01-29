@@ -385,11 +385,6 @@ const AuthProvider = ({ children }) => {
           // );
           stepCompleted.current = Number(prevState);
 
-          if (stepCompleted.current === 6) {
-            localStorage.setItem("PPS", JSON.stringify(1));
-          } else {
-            localStorage.setItem("PPS", JSON.stringify(0));
-          }
           navigate("/dashboard/draftApplication/buildingInfo");
         });
       // const data = (async function () {

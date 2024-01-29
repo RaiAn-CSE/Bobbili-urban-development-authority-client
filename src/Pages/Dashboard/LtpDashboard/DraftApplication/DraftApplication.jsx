@@ -47,6 +47,11 @@ const DraftApplication = () => {
   const role = userInfoFromLocalStorage()?.role;
 
   useEffect(() => {
+    if (stepCompleted.current === 6) {
+      localStorage.setItem("PPS", JSON.stringify(1));
+    } else {
+      localStorage.setItem("PPS", JSON.stringify(0));
+    }
     setCurrentStep(getIndex);
   }, []);
 
