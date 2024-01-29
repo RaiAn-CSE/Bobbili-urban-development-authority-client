@@ -481,6 +481,7 @@ const SiteInspection = () => {
   // };
 
   const [downloading, setDownloading] = useState(false);
+  const [wantToSend, setWantToSend] = useState(false);
 
   const convertToPdf = () => {
     setDownloading(true);
@@ -551,6 +552,8 @@ const SiteInspection = () => {
           setShowApprovedModal={setShowApprovedModal}
           downloadFiles={convertToPdf}
           downloading={downloading}
+          setWantToSend={setWantToSend}
+          wantToSend={wantToSend}
         />
       )}
       {showShortfallModal && (
