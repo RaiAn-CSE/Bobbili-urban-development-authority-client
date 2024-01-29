@@ -16,6 +16,7 @@ function AppChecklist() {
     sendUserDataIntoDB,
     getApplicationData,
     userInfoFromLocalStorage,
+    stepCompleted,
   } = useContext(AuthContext);
 
   // after select question firing here
@@ -55,10 +56,14 @@ function AppChecklist() {
 
   const sendAppChecklistData = async (url) => {
     console.log(questions, "Question_All");
+
+    stepCompleted.current =
+      stepCompleted.current > 3 ? stepCompleted.current : 3;
+
     return await sendUserDataIntoDB(url, "PATCH", {
       applicationNo: applicationNo,
       applicationCheckList: questions,
-      prevSavedState: 2,
+      prevSavedState: stepCompleted.current,
     });
   };
   const btn =

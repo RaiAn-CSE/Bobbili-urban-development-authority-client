@@ -18,6 +18,7 @@ const ApplicantInfo = () => {
     confirmAlert,
     sendUserDataIntoDB,
     getApplicationData,
+    stepCompleted,
   } = useContext(AuthContext);
 
   const role = userInfoFromLocalStorage().role;
@@ -98,10 +99,13 @@ const ApplicantInfo = () => {
       applicantDetails: ownerDetail,
     };
 
+    stepCompleted.current =
+      stepCompleted.current > 2 ? stepCompleted.current : 2;
+
     return await sendUserDataIntoDB(url, "PATCH", {
       applicationNo,
       applicantInfo,
-      prevSavedState: 1,
+      prevSavedState: stepCompleted.current,
     });
   };
 

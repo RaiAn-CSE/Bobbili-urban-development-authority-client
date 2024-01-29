@@ -23,12 +23,26 @@ const DraftApplication = () => {
   const [openEndorsement, setOpenEndorsement] = useState(false);
   const [openDrawing, setOpenDrawing] = useState(false);
 
-  const { userInfoFromLocalStorage } = useContext(AuthContext);
+  const { userInfoFromLocalStorage, stepCompleted } = useContext(AuthContext);
+
+  const state = location?.state;
+  console.log(state, "location");
+
+  // if (state !== null) {
+  //   if (state.hasOwnProperty("prevSavedState")) {
+  //     localStorage.setItem(
+  //       "steepCompleted",
+  //       JSON.stringify(state.prevSavedState)
+  //     );
+  //   }
+  // }
 
   const cameFrom = JSON.parse(localStorage.getItem("page"));
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
   const getIndex = JSON.parse(localStorage.getItem("stepIndex"));
-  const steepCompleted = JSON.parse(localStorage.getItem("steepCompleted"));
+  // const steepCompleted = JSON.parse(localStorage.getItem("steepCompleted"));
+
+  console.log(stepCompleted.current, "STEEP");
 
   const role = userInfoFromLocalStorage()?.role;
 
@@ -71,20 +85,24 @@ const DraftApplication = () => {
 
     return () => {
       localStorage.removeItem("currentStep");
-      // localStorage.removeItem("steepCompleted");
+      localStorage.removeItem("PPS");
+      // stepCompleted.current = null;
     };
   }, [location.pathname]);
 
-  console.log(steepCompleted, "Steep completed dfa");
+  console.log(stepCompleted, "Steep completed dfa");
 
   const handleStepClick = (index) => {
     setCurrentStep(index);
     localStorage.setItem("stepIndex", JSON.stringify(index));
     // Store the current step in localStorage
-    const heightIndex = JSON.parse(localStorage.getItem("steepCompleted"));
 
-    if (heightIndex === null || heightIndex < index) {
-      localStorage.setItem("steepCompleted", JSON.stringify(index));
+    console.log(index, stepCompleted, "STPES");
+
+    if (stepCompleted.current === null || stepCompleted.current < index) {
+      // localStorage.setItem("steepCompleted", JSON.stringify(index));
+      // setStepCompleted(index);
+      stepCompleted.current = index;
     }
     navigate(`/dashboard/draftApplication${steps[index]}`);
   };
@@ -152,7 +170,7 @@ const DraftApplication = () => {
     navigate("/dashboard/resubmitApplication", { state: { appNo } });
   };
 
-  let btnClass = `nm_Container btn-md text-black transition-all duration-500 cursor-pointer  bg-bgColor`;
+  let btnClass = `nm_Container btn-md text-black transition-all duration-500   bg-bgColor`;
   const gradientColor = "bg-gradient-to-r from-violet-500 to-fuchsia-500";
 
   return (
@@ -230,13 +248,14 @@ const DraftApplication = () => {
                 className={`${stepClasses(index)}`}
                 onClick={() => handleStepClick(index)}
                 disabled={
-                  index > steepCompleted && cameFrom?.toLowerCase() === "draft"
+                  index > stepCompleted.current &&
+                  cameFrom?.toLowerCase() === "draft"
                 }
               >
                 <span
                   className={`${btnClass} ${completeBtn(index)} ${
                     cameFrom?.toLowerCase() === "draft"
-                      ? index <= steepCompleted
+                      ? index <= stepCompleted.current
                         ? "hover:bg-gradient-to-b hover:from-[#a29bfe] hover:to-[#6c5ce7] hover:shadow-none hover:text-white hover:border-0 bg-[#e4e1ff]"
                         : "cursor-not-allowed text-gray-500"
                       : ""

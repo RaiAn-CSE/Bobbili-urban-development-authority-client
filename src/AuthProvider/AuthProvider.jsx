@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import React, { createContext, useState } from "react";
+import React, { createContext, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
 import Swal from "sweetalert2";
 
@@ -9,6 +9,8 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
 
   const [isDark, setIsDark] = useState(0);
+
+  const stepCompleted = useRef(null);
 
   // get user information from the localStorage
   const userInfoFromLocalStorage = () => {
@@ -178,7 +180,8 @@ const AuthProvider = ({ children }) => {
         }
         if (pageWiseAction?.page === "payment") {
           const { setSentData } = pageWiseAction;
-          setSentData((prev) => prev + 1);
+          localStorage.setItem("PPS", JSON.stringify(1));
+          setSentData(1);
         }
 
         if (pageWiseAction?.page === "siteInspection") {
@@ -186,6 +189,12 @@ const AuthProvider = ({ children }) => {
           navigate("/dashboard/inward");
         }
       } else {
+        if (
+          pageWiseAction.applicationType === "draft" &&
+          stepCompleted !== null
+        ) {
+          stepCompleted.current = stepCompleted.current - 1;
+        }
         toast.error("Failed to save data");
       }
     });
@@ -360,26 +369,50 @@ const AuthProvider = ({ children }) => {
     localStorage.setItem("page", JSON.stringify(page));
 
     if (page === "draft") {
-      (async function () {
-        const searchData = JSON.stringify({
-          role: "LTP",
-          page,
-          appNo: applicationNo,
-        });
-        const data = await fetchDataFromTheDb(
-          `http://localhost:5000/getApplicationData?data=${searchData}`
-        );
+      const searchData = JSON.stringify({
+        role: "LTP",
+        page,
+        appNo: applicationNo,
+      });
 
-        console.log(data, "SHPG");
+      fetch(`http://localhost:5000/getApplicationData?data=${searchData}`)
+        .then((res) => res.json())
+        .then((data) => {
+          const prevState = data?.prevSavedState;
+          // localStorage.setItem(
+          //   "steepCompleted",
+          //   JSON.stringify(Number(prevState) + 1)
+          // );
+          stepCompleted.current = Number(prevState);
 
-        if (Object.keys(data)?.length) {
-          localStorage.setItem(
-            "steepCompleted",
-            JSON.stringify(Number(data?.prevSavedState) + 1)
-          );
+          if (stepCompleted.current === 6) {
+            localStorage.setItem("PPS", JSON.stringify(1));
+          } else {
+            localStorage.setItem("PPS", JSON.stringify(0));
+          }
           navigate("/dashboard/draftApplication/buildingInfo");
-        }
-      })();
+        });
+      // const data = (async function () {
+      //   const searchData = JSON.stringify({
+      //     role: "LTP",
+      //     page,
+      //     appNo: applicationNo,
+      //   });
+      //   const data = await fetchDataFromTheDb(
+      //     `http://localhost:5000/getApplicationData?data=${searchData}`
+      //   );
+      // })();
+
+      // console.log(data, "DATA");
+
+      // if (Object.keys(data)?.length) {
+      //   localStorage.setItem(
+      //     "steepCompleted",
+      //     JSON.stringify(Number(data?.prevSavedState) + 1)
+      //   );
+
+      //   navigate("/dashboard/draftApplication/buildingInfo");
+      // }
     } else {
       navigate("/dashboard/draftApplication/buildingInfo");
     }
@@ -540,6 +573,7 @@ const AuthProvider = ({ children }) => {
     ownerNamePattern,
     needToHideElementBasedOnPage,
     textTypingAnimation,
+    stepCompleted,
     handleLogOut,
   };
 

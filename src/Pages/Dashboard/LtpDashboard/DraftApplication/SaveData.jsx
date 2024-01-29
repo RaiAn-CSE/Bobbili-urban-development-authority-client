@@ -1,13 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router";
-import { AuthContext } from "../../../../AuthProvider/AuthProvider";
-import { MdOutlineSaveAs } from "react-icons/md";
-import ArrowIcon from "../../../Components/ArrowIcon";
-import BtnStyle from "../../../../Style/SaveBtnStyle.module.css";
+import React, { useContext, useState } from "react";
 import { BsFillSaveFill } from "react-icons/bs";
+import { MdOutlineSaveAs } from "react-icons/md";
 import { TbFileLike } from "react-icons/tb";
 import { TiCancel } from "react-icons/ti";
-import toast from "react-hot-toast";
+import { useLocation, useNavigate } from "react-router";
+import { AuthContext } from "../../../../AuthProvider/AuthProvider";
+import BtnStyle from "../../../../Style/SaveBtnStyle.module.css";
+import ArrowIcon from "../../../Components/ArrowIcon";
 
 const SaveData = ({
   isStepperVisible,
@@ -22,10 +21,10 @@ const SaveData = ({
   isApproved,
   refetch,
 }) => {
-
   const {
     userInfoFromLocalStorage,
     needToHideElementBasedOnPage,
+    stepCompleted,
   } = useContext(AuthContext);
 
   const role = userInfoFromLocalStorage().role;
@@ -38,7 +37,11 @@ const SaveData = ({
 
   const navigate = useNavigate();
 
-  const [textOfSentDepartment, setTextOfSentDepartment] = useState("Click on Save");
+  const [textOfSentDepartment, setTextOfSentDepartment] =
+    useState("Click on Save");
+
+  const page = JSON.parse(localStorage.getItem("page"));
+  // const sentData = JSON.parse(localStorage.getItem("PPS"));
 
   // useEffect(() => {
   //   if (location.pathname.includes("siteInspection")) {
@@ -98,28 +101,34 @@ const SaveData = ({
           {role === "LTP" &&
             (currentStep !== steps.length - 1 ? (
               <button
-                className={`fancy-button mt-8 ${needToHideElementBasedOnPage() && "hidden"
-                  }`}
+                className={`fancy-button mt-8 ${
+                  needToHideElementBasedOnPage() && "hidden"
+                }`}
                 onClick={() => {
                   path.includes("applicationChecklist") &&
-                    confirmAlert(stepperData, collectInputFieldData);
+                    confirmAlert(stepperData, collectInputFieldData, {
+                      applicationType: page,
+                    });
                 }}
               >
                 Save and Continue
               </button>
             ) : (
               <div
-                className={`${needToHideElementBasedOnPage() && "hidden"
-                  } flex justify-between items-center w-full mt-10`}
+                className={`${
+                  needToHideElementBasedOnPage() && "hidden"
+                } flex ${
+                  sentData === 1 ? "justify-between" : "justify-end"
+                } items-center w-full mt-10`}
               >
                 <button
                   className={`save-btn bg-gradient-to-b from-[#a29bfe] to-[#6c5ce7] mr-4`}
                   onClick={() => {
-                    confirmAlert(undefined, collectInputFieldData, {
-                      page: "payment",
-                      setSentData,
-                    });
-                    setTextOfSentDepartment("Sent to department");
+                    // confirmAlert(undefined, collectInputFieldData, {
+                    //   page: "payment",
+                    //   applicationType: page,
+                    // });
+                    // setTextOfSentDepartment("Sent to department");
                   }}
                 >
                   <span className="flex justify-center items-center">
@@ -130,20 +139,18 @@ const SaveData = ({
                 </button>
 
                 <button
-                  className="sent-department"
+                  className={`sent-department ${
+                    sentData === 1 ? "" : "hidden"
+                  }`}
                   // disabled={sentData === 0}
                   onClick={() => {
-                    if (sentData === 0) {
-                      toast.error("Click on save");
-                    } else {
-                      sentToPS(
-                        JSON.parse(localStorage.getItem("CurrentAppNo")),
-                        navigate
-                      );
-                    }
+                    sentToPS(
+                      JSON.parse(localStorage.getItem("CurrentAppNo")),
+                      navigate
+                    );
                   }}
                 >
-                  <span className="span">{textOfSentDepartment}</span>
+                  <span className="span">Sent to Department</span>
                   <span className="second">
                     <ArrowIcon />
                   </span>

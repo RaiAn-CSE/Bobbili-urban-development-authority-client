@@ -31,6 +31,7 @@ const Drawing = () => {
     getApplicationData,
     userInfoFromLocalStorage,
     getSubmitApplicationData,
+    stepCompleted,
   } = useContext(AuthContext);
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
@@ -149,10 +150,13 @@ const Drawing = () => {
         AutoCAD: imageId["AutoCAD"],
         Drawing: imageId["Drawing"],
       };
+
+      stepCompleted.current =
+        stepCompleted.current > 5 ? stepCompleted.current : 5;
       return await sendUserDataIntoDB(url, "PATCH", {
         applicationNo,
         drawing,
-        prevSavedState: 4,
+        prevSavedState: stepCompleted,
       });
     }
   };
