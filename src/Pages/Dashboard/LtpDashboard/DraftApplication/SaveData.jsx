@@ -20,7 +20,7 @@ const SaveData = ({
   sentData,
   isApproved,
   refetch,
-  handleGeneratePDF,
+  setShowApprovedModal,
 }) => {
   const {
     userInfoFromLocalStorage,
@@ -179,21 +179,17 @@ const SaveData = ({
                   <>
                     <button
                       className={`fancy-button text-sm px-7 ml-6 border-0 transition-all duration-500 text-white`}
-                      onClick={handleGeneratePDF}
-                    >
-                      <span>Click</span>
-                    </button>
-                    <button
-                      className={`fancy-button text-sm px-7 ml-6 border-0 transition-all duration-500 text-white`}
                       onClick={() => {
                         localStorage.setItem(
                           "PSDecision",
                           JSON.stringify("approved")
                         );
-                        confirmAlert(undefined, sentData, {
-                          page: "siteInspection",
-                          navigate,
-                        });
+                        // confirmAlert(undefined, sentData, {
+                        //   page: "siteInspection",
+                        //   navigate,
+                        // });
+                        // <ApprovedDecisionModal />;
+                        setShowApprovedModal(true);
                       }}
                     >
                       <span>Proceeding Issued</span>
