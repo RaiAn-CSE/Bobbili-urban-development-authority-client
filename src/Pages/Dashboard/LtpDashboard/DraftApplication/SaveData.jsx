@@ -20,7 +20,7 @@ const SaveData = ({
   sentData,
   isApproved,
   refetch,
-  handleGeneratePDF,
+  setShowApprovedModal,
 }) => {
   const {
     userInfoFromLocalStorage,
@@ -124,13 +124,13 @@ const SaveData = ({
               >
                 <button
                   className={`save-btn bg-gradient-to-b from-[#a29bfe] to-[#6c5ce7] mr-4`}
-                  onClick={() => {
-                    // confirmAlert(undefined, collectInputFieldData, {
-                    //   page: "payment",
-                    //   applicationType: page,
-                    // });
-                    // setTextOfSentDepartment("Sent to department");
-                  }}
+                  // onClick={() => {
+                  //   // confirmAlert(undefined, collectInputFieldData, {
+                  //   //   page: "payment",
+                  //   //   applicationType: page,
+                  //   // });
+                  //   // setTextOfSentDepartment("Sent to department");
+                  // }}
                 >
                   <span className="flex justify-center items-center">
                     {" "}
@@ -144,12 +144,12 @@ const SaveData = ({
                     sentData === 1 ? "" : "hidden"
                   }`}
                   // disabled={sentData === 0}
-                  onClick={() => {
-                    sentToPS(
-                      JSON.parse(localStorage.getItem("CurrentAppNo")),
-                      navigate
-                    );
-                  }}
+                  // onClick={() => {
+                  //   sentToPS(
+                  //     JSON.parse(localStorage.getItem("CurrentAppNo")),
+                  //     navigate
+                  //   );
+                  // }}
                 >
                   <span className="span">Sent to Department</span>
                   <span className="second">
@@ -179,21 +179,17 @@ const SaveData = ({
                   <>
                     <button
                       className={`fancy-button text-sm px-7 ml-6 border-0 transition-all duration-500 text-white`}
-                      onClick={handleGeneratePDF}
-                    >
-                      <span>Click</span>
-                    </button>
-                    <button
-                      className={`fancy-button text-sm px-7 ml-6 border-0 transition-all duration-500 text-white`}
                       onClick={() => {
                         localStorage.setItem(
                           "PSDecision",
                           JSON.stringify("approved")
                         );
-                        confirmAlert(undefined, sentData, {
-                          page: "siteInspection",
-                          navigate,
-                        });
+                        // confirmAlert(undefined, sentData, {
+                        //   page: "siteInspection",
+                        //   navigate,
+                        // });
+                        // <ApprovedDecisionModal />;
+                        setShowApprovedModal(true);
                       }}
                     >
                       <span>Proceeding Issued</span>

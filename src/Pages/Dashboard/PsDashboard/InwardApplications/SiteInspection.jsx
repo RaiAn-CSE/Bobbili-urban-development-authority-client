@@ -10,7 +10,9 @@ import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import Loading from "../../../Shared/Loading";
 import ProceedingModal from "../../../Shared/ProceedingModal";
 import SaveData from "../../LtpDashboard/DraftApplication/SaveData";
+import ApprovedDecisionModal from "./ApprovedDecisionModal";
 import ImageUploadInput from "./ImageUploadInput";
+import ShortfallDecisionModal from "./ShortfallDecisionModal";
 const SiteInspection = () => {
   const {
     confirmAlert,
@@ -34,6 +36,11 @@ const SiteInspection = () => {
   const [landUse, setLandUse] = useState("");
   const [decision, setDecision] = useState("");
   const [recommendations, setRecommendations] = useState("");
+
+  const [showApprovedModal, setShowApprovedModal] = useState(false);
+  const [showShortfallModal, setShowShortfallModal] = useState(false);
+  const [whichDecisionButtonClicked, setWhichDecisionButtonClicked] =
+    useState(null);
 
   // Selector field in site inspection page
   const [approachRoadApp, setApproachRoadApp] = useState("Public");
@@ -473,23 +480,61 @@ const SiteInspection = () => {
   //   toPDF();
   // };
 
+  const [downloading, setDownloading] = useState(false);
+  const [wantToSend, setWantToSend] = useState(false);
+
   const convertToPdf = () => {
+    setDownloading(true);
     const element = document.getElementById("proceedingModal");
 
     var opt = {
       margin: [0.3, 0, 0.3, 0],
-      filename: "myfile.pdf",
+      filename: "proceeding.pdf",
       image: { type: "jpeg", quality: 0.98 },
       pagebreak: { before: ".beforeClass", after: ["#after1", "#after2"] },
       html2canvas: { scale: 2 },
       jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
     };
 
-    // New Promise-based usage:
-    html2pdf().set(opt).from(element).save();
-  };
+    const fileInfo = JSON.stringify({
+      fileName: "Drawing.pdf",
+      fileId: data?.drawing?.Drawing,
+    });
 
-  const targetRef = useRef();
+    fetch(`http://localhost:5000/downloadFile?data=${fileInfo}`)
+      .then((res) => {
+        if (res.ok) {
+          // If the response status is OK, it means the file download is successful
+          return res.blob();
+        } else {
+          // If there's an error response, handle it accordingly
+          throw new Error(`Error: ${res.status} - ${res.statusText}`);
+        }
+      })
+      .then((blob) => {
+        // Create a URL for the blob and trigger a download
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "Drawing.pdf"; // Set the desired file name and extension
+        document.body.appendChild(a);
+        a.click();
+
+        // drawing file download
+        window.URL.revokeObjectURL(url);
+        // New Promise-based usage:
+
+        // proceeding file download
+        html2pdf().set(opt).from(element).save();
+        setDownloading(false);
+      })
+      .catch((err) => {
+        console.log(err, "err");
+        // setLoading(<i className="fa fa-life-saver" aria-hidden="true"></i>);
+        setDownloading(false);
+        toast.error("Server Error");
+      });
+  };
 
   if (isLoading) {
     return <Loading />;
@@ -497,13 +542,26 @@ const SiteInspection = () => {
 
   return (
     <>
-      <button onClick={convertToPdf}>click</button>
-      <div
-
-      // style={{ position: "absolute", left: "-9999px" }}
-      >
+      <div className="hidden">
         <ProceedingModal />
       </div>
+
+      {showApprovedModal && (
+        <ApprovedDecisionModal
+          showApprovedModal={showApprovedModal}
+          setShowApprovedModal={setShowApprovedModal}
+          downloadFiles={convertToPdf}
+          downloading={downloading}
+          setWantToSend={setWantToSend}
+          wantToSend={wantToSend}
+        />
+      )}
+      {showShortfallModal && (
+        <ShortfallDecisionModal
+          showShortfallModal={showShortfallModal}
+          setShowShortfallModal={setShowShortfallModal}
+        />
+      )}
 
       <div
         className="flex flex-col mx-4 mt-4 text-gray-900"
@@ -1112,7 +1170,7 @@ const SiteInspection = () => {
           sentData={sentPsDecision}
           isApproved={isApproved}
           refetch={refetch}
-          handleGeneratePDF={() => { }}
+          setShowApprovedModal={setShowApprovedModal}
         />
       </div>
     </>
