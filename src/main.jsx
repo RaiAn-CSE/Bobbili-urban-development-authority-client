@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.jsx";
-import "./index.css";
-import { QueryClient, QueryClientProvider } from "react-query";
 import { Toaster } from "react-hot-toast";
+import { QueryClient, QueryClientProvider } from "react-query";
+import App from "./App.jsx";
 import AuthProvider from "./AuthProvider/AuthProvider.jsx";
+import "./index.css";
 
 const queryClient = new QueryClient();
 
