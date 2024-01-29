@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import { RxCross2 } from "react-icons/rx";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const ProceedingModal = () => {
@@ -87,15 +86,15 @@ const ProceedingModal = () => {
       <div
         className={` relative rounded-lg  py-10 px-12 text-gray-900 w-full max-w-4xl bg-white`}
       >
-        <form className="absolute top-6 right-6 z-50">
-          {/* if there is a button in form, it will close the modal */}
+        {/* <form className="absolute top-6 right-6 z-50">
+          
           <button
             onClick={() => setOpenProceeding(false)}
             className={`outline outline-red-500 outline-offset-4 text-red-500 rounded-full hover:bg-red-500 hover:text-white hover:outline-offset-0 p-[1px] transition-all duration-1000`}
           >
             <RxCross2 className="text-2xl" />
           </button>
-        </form>
+        </form> */}
         <div>
           <p className="text-center">
             <span className="underline">
@@ -198,7 +197,7 @@ const ProceedingModal = () => {
           షరతులతో కూడిన అనుమతులు జారీ చేయడం జరుగుతున్నది.
         </p>
 
-        <table className="min-w-full mt-6">
+        <table className="min-w-full mt-6 ">
           <thead className="border border-gray-900 ">
             <tr>
               <th className="border-r border-neutral-500 p-2 w-16">A</th>
@@ -253,7 +252,7 @@ const ProceedingModal = () => {
                 {allInfo?.buildingInfo?.generalInformation?.surveyNo}
               </td>
             </tr>
-            <tr className="p-2 border border-gray-900">
+            <tr className="p-2 border border-gray-900 beforeClass">
               <td className="p-2 border-r border-neutral-500 text-center font-semibold">
                 2
               </td>
@@ -606,7 +605,7 @@ const ProceedingModal = () => {
           </tbody>
         </table>
 
-        <div className="mt-10 border-image-frame p-4">
+        <div className="mt-10 p-4">
           <h4 className="font-semibold underline text-md p-3 pb-0">షరతులు:</h4>
           <ol className="px-10 text-justify leading-8">
             <li className="mt-3">
@@ -656,7 +655,7 @@ const ProceedingModal = () => {
               ఎడల బిల్డింగ్ లైన్ గా ఆరు మీటర్ల స్థలమును వదిలి భవనం
               నిర్మించుకోవలెను.
             </li>
-            <li className="mt-3">
+            <li className="mt-3 beforeClass">
               నివాస కాంప్లెక్స్ కు ఆసుపత్రి, లాడ్జలు పాఠశాల కళాశాలలకు
               ఇండస్ట్రీస్ మొదలగు వాటికి పార్కింగ్ ప్రదేశముగా ప్లాన్ లో చూపిన
               విధంగా స్థలము కేటాయించవలెను.
@@ -694,7 +693,7 @@ const ProceedingModal = () => {
               రోడ్డు వీధిలైట్లు నీటి సరఫరా యజమాని తన సొంత ఖర్చు లతో ఏర్పాటు
               చేసుకోవలెను.
             </li>
-            <li className="mt-3">
+            <li className="mt-3 beforeClass">
               శ్రీ డైరెక్టర్ ఆఫ్ టౌన్ అండ్ కంట్రీ ప్లానింగ్ గుంటూరు లేదా
               బొబ్బిలి అర్బన్ డెవలప్మెంట్ అథారిటీ వారి మాస్టర్ ప్లాన్ లోని
               రోడ్డు కొలతలు మరియు ఇతర షరతులకు లోబడి మాత్రమే ఆమోదం.
