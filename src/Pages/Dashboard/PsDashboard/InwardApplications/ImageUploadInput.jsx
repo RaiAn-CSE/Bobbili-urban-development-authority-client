@@ -9,8 +9,8 @@ const ImageUploadInput = ({
   siteBoundariesImageFiles,
   imageId,
 }) => {
-  console.log(siteBoundariesImageFiles, "Site boundaries image files");
-  console.log(imageId, "Imageid");
+  // console.log(siteBoundariesImageFiles, "Site boundaries image files");
+  // console.log(imageId, "Imageid");
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     onFileChange(id, file);
