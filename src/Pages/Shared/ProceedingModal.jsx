@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import { RxCross2 } from "react-icons/rx";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const ProceedingModal = () => {
@@ -90,15 +89,15 @@ const ProceedingModal = () => {
       <div
         className={` relative rounded-lg  py-10 px-12 text-gray-900 w-full max-w-4xl bg-white`}
       >
-        <form className="absolute top-6 right-6 z-50">
-          {/* if there is a button in form, it will close the modal */}
+        {/* <form className="absolute top-6 right-6 z-50">
+          
           <button
             onClick={() => setOpenProceeding(false)}
             className={`outline outline-red-500 outline-offset-4 text-red-500 rounded-full hover:bg-red-500 hover:text-white hover:outline-offset-0 p-[1px] transition-all duration-1000`}
           >
             <RxCross2 className="text-2xl" />
           </button>
-        </form>
+        </form> */}
         <div>
           <p className="text-center">
             <span className="underline">
@@ -609,7 +608,7 @@ const ProceedingModal = () => {
           </tbody>
         </table>
 
-        <div className="mt-10 border-image-frame p-4">
+        <div className="mt-10 p-4">
           <h4 className="font-semibold underline text-md p-3 pb-0">షరతులు:</h4>
           <ol className="px-10 text-justify leading-8">
             <li className="mt-3">

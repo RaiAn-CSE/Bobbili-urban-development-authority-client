@@ -2,8 +2,6 @@ import axios from "axios";
 import { motion } from "framer-motion";
 // import html2pdf from "html2pdf.js";
 // import html2canvas from "html2canvas";
-import * as htmlToImage from "html-to-image";
-import jsPDF from "jspdf";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { useQuery } from "react-query";
@@ -13,7 +11,6 @@ import Loading from "../../../Shared/Loading";
 import ProceedingModal from "../../../Shared/ProceedingModal";
 import SaveData from "../../LtpDashboard/DraftApplication/SaveData";
 import ImageUploadInput from "./ImageUploadInput";
-
 const SiteInspection = () => {
   const {
     confirmAlert,
@@ -374,67 +371,89 @@ const SiteInspection = () => {
 
   const containerRef = useRef(null);
 
-  const downloadPDF = () => {
-    const container = containerRef.current;
+  // const downloadPDF = () => {
+  //   const container = containerRef.current;
 
-    console.log(container);
+  //   console.log(container);
 
-    //  const capture = document.querySelector(".actual-receipt");
-    // setLoader(true);
-    // html2canvas(document.getElementById("target")).then((canvas) => {
-    //   const imgData = canvas.toDataURL("img/png");
-    //   const doc = new jsPDF("p", "mm", "a4");
-    //   const componentWidth = doc.internal.pageSize.getWidth();
-    //   const componentHeight = doc.internal.pageSize.getHeight();
-    //   doc.addImage(imgData, "PNG", 0, 0, componentWidth, componentHeight);
-    //   // setLoader(false);
-    //   doc.save("receipt.pdf");
-    // });
+  //   //  const capture = document.querySelector(".actual-receipt");
+  //   // setLoader(true);
+  //   // html2canvas(document.getElementById("target")).then((canvas) => {
+  //   //   const imgData = canvas.toDataURL("img/png");
+  //   //   const doc = new jsPDF("p", "mm", "a4");
+  //   //   const componentWidth = doc.internal.pageSize.getWidth();
+  //   //   const componentHeight = doc.internal.pageSize.getHeight();
+  //   //   doc.addImage(imgData, "PNG", 0, 0, componentWidth, componentHeight);
+  //   //   // setLoader(false);
+  //   //   doc.save("receipt.pdf");
+  //   // });
 
-    htmlToImage
-      .toPng(document.getElementById("proceedingModal"))
-      .then(function (dataUrl) {
-        console.log(dataUrl);
-        const pdf = new jsPDF("p", "mm", "a4");
-        const componentWidth = pdf.internal.pageSize.getWidth();
-        const componentHeight = pdf.internal.pageSize.getHeight();
+  //   // htmlToImage
+  //   //   .toPng(document.getElementById("proceedingModal"))
+  //   //   .then(function (dataUrl) {
+  //   //     console.log(dataUrl);
+  //   //     const pdf = new jsPDF("p", "mm", "a4");
+  //   //     const componentWidth = pdf.internal.pageSize.getWidth();
+  //   //     const componentHeight = pdf.internal.pageSize.getHeight();
 
-        pdf.addImage(dataUrl, "PNG", 0, 0, componentWidth, componentHeight);
-        pdf.save("download.pdf");
-      })
-      .catch(function (error) {
-        console.error("oops, something went wrong!", error);
-      });
+  //   //     pdf.addImage(dataUrl, "PNG", 0, 0, componentWidth, componentHeight);
+  //   //     pdf.save("download.pdf");
+  //   //   })
+  //   //   .catch(function (error) {
+  //   //     console.error("oops, something went wrong!", error);
+  //   //   });
 
-    // Render your component inside the off-screen container
-    // using the data passed as a prop
+  //   let jsPdf = new jsPDF("p", "pt", "letter");
+  //   var htmlElement = document.getElementById("proceedingModal");
+  //   // you need to load html2canvas (and dompurify if you pass a string to html)
+  //   const opt = {
+  //     callback: function (jsPdf) {
+  //       jsPdf.save("Test.pdf");
+  //       // to open the generated PDF in browser window
+  //       // window.open(jsPdf.output('bloburl'));
+  //     },
+  //     margin: [72, 72, 72, 72],
+  //     autoPaging: "text",
+  //     html2canvas: {
+  //       allowTaint: true,
+  //       dpi: 300,
+  //       letterRendering: true,
+  //       logging: false,
+  //       scale: 0.8,
+  //     },
+  //   };
 
-    // ReactDOM.render(<ProceedingPdf />, container);
+  //   jsPdf.html(htmlElement, opt);
 
-    // Configuration options for html2pdf
-    // const pdfOptions = {
-    //   margin: 10,
-    //   filename: "document.pdf",
-    //   image: { type: "jpeg", quality: 0.98 },
-    //   html2canvas: { scale: 2 },
-    //   jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-    // };
+  //   // Render your component inside the off-screen container
+  //   // using the data passed as a prop
 
-    // Generate and download the PDF
-    // html2pdf()
-    //   .from(container)
-    //   .set(pdfOptions)
-    //   .outputPdf((pdf) => {
-    //     const blob = new Blob([pdf], { type: "application/pdf" });
-    //     const link = document.createElement("a");
-    //     link.href = window.URL.createObjectURL(blob);
-    //     link.download = options.filename;
-    //     link.click();
-    //   });
+  //   // ReactDOM.render(<ProceedingPdf />, container);
 
-    // Clear the content from the off-screen container
-    // ReactDOM.unmountComponentAtNode(container);
-  };
+  //   // Configuration options for html2pdf
+  //   // const pdfOptions = {
+  //   //   margin: 10,
+  //   //   filename: "document.pdf",
+  //   //   image: { type: "jpeg", quality: 0.98 },
+  //   //   html2canvas: { scale: 2 },
+  //   //   jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+  //   // };
+
+  //   // Generate and download the PDF
+  //   // html2pdf()
+  //   //   .from(container)
+  //   //   .set(pdfOptions)
+  //   //   .outputPdf((pdf) => {
+  //   //     const blob = new Blob([pdf], { type: "application/pdf" });
+  //   //     const link = document.createElement("a");
+  //   //     link.href = window.URL.createObjectURL(blob);
+  //   //     link.download = options.filename;
+  //   //     link.click();
+  //   //   });
+
+  //   // Clear the content from the off-screen container
+  //   // ReactDOM.unmountComponentAtNode(container);
+  // };
 
   // const handleGeneratePDF = async () => {
   //   const pdfBuffer = await generatePDF(<ProceedingPdf />);
@@ -449,20 +468,46 @@ const SiteInspection = () => {
     "block w-full h-12 bg-white hover:bg-white pl-4 focus:outline-0";
   const inputTableDataClass = "break-words border-r border-neutral-500";
 
+  // const { toPDF, targetRef } = usePDF({ filename: "page.pdf" });
+  // const handlePdf = () => {
+  //   toPDF();
+  // };
+
+  const convertToPdf = () => {
+    const element = document.getElementById("proceedingModal");
+
+    var opt = {
+      margin: 0.5,
+      filename: "myfile.pdf",
+      image: { type: "jpeg", quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+    };
+
+    // New Promise-based usage:
+    html2pdf().set(opt).from(element).save();
+  };
+
+  const targetRef = useRef();
+
   if (isLoading) {
     return <Loading />;
   }
 
   return (
     <>
+      <button onClick={convertToPdf}>click</button>
       <div
-        ref={containerRef}
-        id="target"
-        // style={{ position: "absolute", left: "-9999px" }}
+
+      // style={{ position: "absolute", left: "-9999px" }}
       >
         <ProceedingModal />
       </div>
-      <div className="flex flex-col mx-4 mt-4 text-gray-900">
+
+      <div
+        className="flex flex-col mx-4 mt-4 text-gray-900"
+        // targetRef={targetRef}
+      >
         <div className="container mx-auto font-roboto">
           <div className="nm_Container inline-block min-w-full rounded-lg overflow-hidden">
             <table className="min-w-full leading-normal text-center">
@@ -1066,7 +1111,7 @@ const SiteInspection = () => {
           sentData={sentPsDecision}
           isApproved={isApproved}
           refetch={refetch}
-          handleGeneratePDF={downloadPDF}
+          handleGeneratePDF={() => {}}
         />
       </div>
     </>
