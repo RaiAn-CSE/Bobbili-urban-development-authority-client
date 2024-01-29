@@ -61,6 +61,41 @@ const UpdateProfile = () => {
       });
   };
 
+  const handleInputPhone = (e) => {
+    // Remove non-numeric characters
+    const inputValue = e.target.value.replace(/[^0-9]/g, "");
+    // Limit the input to 10 characters
+    const truncatedValue = inputValue.slice(0, 10);
+    // Update the input field with the sanitized value
+    e.target.value = truncatedValue;
+
+    if (truncatedValue.length < 10) {
+      e.target.setCustomValidity('Fill up 10 numbers.');
+      // e.target.classList.add('errorAdd');
+    } else {
+      // Reset the error message
+      e.target.setCustomValidity('');
+    }
+  };
+
+  // Same as previous handleInputPhone:
+  const handleInputAadhar = (e) => {
+    const inputValue = e.target.value.replace(/[^0-9]/g, "");
+    const truncatedValue = inputValue.slice(0, 12);
+    e.target.value = truncatedValue;
+
+    if (truncatedValue.length < 12) {
+      e.target.setCustomValidity('Fill up 12 numbers.');
+    } else {
+      e.target.setCustomValidity('');
+    }
+  };
+
+  // Classes for this component :
+  let labelClass = "block mb-1 font-semibold text-gray-600";
+  const inputClass =
+    "w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-gray-400 focus:border-gray-600 focus:outline-none focus:ring-2 ring-violet-200";
+
   return (
     <div className="py-10 text-gray-900">
       <p className="text-center font-roboto font-bold text-3xl mb-10 dark:text-black">
@@ -165,14 +200,37 @@ const UpdateProfile = () => {
               type="text"
               register={register}
             />
-            <UpdateProfileInput
+            {/* <UpdateProfileInput
               id="phone"
               name="phone"
-              label="Phone"
-              placeholder="Phone"
+              label="Phone no."
+              placeholder="Phone no."
               type="text"
               register={register}
-            />
+            /> */}
+
+            <motion.div
+              className="my-4 mx-3"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
+              viewport={{ once: true }}
+            >
+              <label htmlFor="phone" className={labelClass}>
+                Phone no.
+              </label>
+              <input
+                id='phone'
+                name='phone'
+                type="text"
+                placeholder="Phone no."
+                {...register('phone', { required: true })}
+                className={inputClass}
+                maxLength={10}
+                onInput={handleInputPhone}
+                required
+              />
+            </motion.div>
+
             <UpdateProfileInput
               id="fax"
               name="fax"
@@ -229,14 +287,37 @@ const UpdateProfile = () => {
               type="text"
               register={register}
             />
-            <UpdateProfileInput
+            {/* <UpdateProfileInput
               id="aadharNo"
               name="aadharNo"
               label="Aadhar No."
               placeholder="Aadhar No."
               type="text"
               register={register}
-            />
+            /> */}
+
+            <motion.div
+              className="my-4 mx-3"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
+              viewport={{ once: true }}
+            >
+              <label htmlFor="aadharNo" className={labelClass}>
+                Aadhar no.
+              </label>
+              <input
+                id='aadharNo'
+                name='aadharNo'
+                type="text"
+                placeholder="Aadhar no."
+                {...register('aadharNo', { required: true })}
+                className={inputClass}
+                maxLength={12}
+                onInput={handleInputAadhar}
+                required
+              />
+            </motion.div>
+
             <UpdateProfileInput
               id="state"
               name="state"

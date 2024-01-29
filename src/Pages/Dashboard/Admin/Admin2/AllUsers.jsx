@@ -197,6 +197,37 @@ const AllUsers = () => {
     document.getElementById("update_user").showModal();
   };
 
+
+  const handleInputPhone = (e) => {
+    // Remove non-numeric characters
+    const inputValue = e.target.value.replace(/[^0-9]/g, "");
+    // Limit the input to 10 characters
+    const truncatedValue = inputValue.slice(0, 10);
+    // Update the input field with the sanitized value
+    e.target.value = truncatedValue;
+
+    if (truncatedValue.length < 10) {
+      e.target.setCustomValidity('Fill up 10 numbers.');
+      // e.target.classList.add('errorAdd');
+    } else {
+      // Reset the error message
+      e.target.setCustomValidity('');
+    }
+  };
+
+  // Same as previous handleInputPhone:
+  const handleInputAadhar = (e) => {
+    const inputValue = e.target.value.replace(/[^0-9]/g, "");
+    const truncatedValue = inputValue.slice(0, 12);
+    e.target.value = truncatedValue;
+
+    if (truncatedValue.length < 12) {
+      e.target.setCustomValidity('Fill up 12 numbers.');
+    } else {
+      e.target.setCustomValidity('');
+    }
+  };
+
   if (loading) {
     return <Loading />;
   }
@@ -466,7 +497,7 @@ const AllUsers = () => {
 
                         <div>
                           <label htmlFor="phone" className={inputLabel}>
-                            Phone no
+                            Phone no.
                           </label>
                           <input
                             type="text"
@@ -474,6 +505,7 @@ const AllUsers = () => {
                             id="phone"
                             className={inputBox}
                             placeholder="Enter phone no"
+                            onInput={handleInputPhone}
                             maxLength={10}
                             required
                           />
@@ -569,6 +601,8 @@ const AllUsers = () => {
                               id="adharNo"
                               className={inputBox}
                               placeholder="Enter Aadhar No"
+                              maxLength={12}
+                              onInput={handleInputAadhar}
                               required
                             />
                           </div>

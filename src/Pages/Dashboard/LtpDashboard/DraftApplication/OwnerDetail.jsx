@@ -35,18 +35,15 @@ const OwnerDetail = ({
     }
   };
 
+  // Same as previous handleInputPhone:
   const handleInputAadhar = (e) => {
-    // Remove non-numeric characters
     const inputValue = e.target.value.replace(/[^0-9]/g, "");
-    // Limit the input to 10 characters
     const truncatedValue = inputValue.slice(0, 12);
-    // Update the input field with the sanitized value
     e.target.value = truncatedValue;
 
     if (truncatedValue.length < 12) {
       e.target.setCustomValidity('Fill up 12 numbers.');
     } else {
-      // Reset the error message
       e.target.setCustomValidity('');
     }
   };
