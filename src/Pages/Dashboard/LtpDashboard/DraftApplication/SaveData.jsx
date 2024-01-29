@@ -20,6 +20,7 @@ const SaveData = ({
   sentData,
   isApproved,
   refetch,
+  handleGeneratePDF,
 }) => {
   const {
     userInfoFromLocalStorage,
@@ -175,21 +176,29 @@ const SaveData = ({
               </button>
               {location.pathname.includes("siteInspection") &&
                 isApproved === 1 && (
-                  <button
-                    className={`fancy-button text-sm px-7 ml-6 border-0 transition-all duration-500 text-white`}
-                    onClick={() => {
-                      localStorage.setItem(
-                        "PSDecision",
-                        JSON.stringify("approved")
-                      );
-                      confirmAlert(undefined, sentData, {
-                        page: "siteInspection",
-                        navigate,
-                      });
-                    }}
-                  >
-                    <span>Proceeding Issued</span>
-                  </button>
+                  <>
+                    <button
+                      className={`fancy-button text-sm px-7 ml-6 border-0 transition-all duration-500 text-white`}
+                      onClick={handleGeneratePDF}
+                    >
+                      <span>Click</span>
+                    </button>
+                    <button
+                      className={`fancy-button text-sm px-7 ml-6 border-0 transition-all duration-500 text-white`}
+                      onClick={() => {
+                        localStorage.setItem(
+                          "PSDecision",
+                          JSON.stringify("approved")
+                        );
+                        confirmAlert(undefined, sentData, {
+                          page: "siteInspection",
+                          navigate,
+                        });
+                      }}
+                    >
+                      <span>Proceeding Issued</span>
+                    </button>
+                  </>
                 )}
               {location.pathname.includes("siteInspection") &&
                 isApproved === 0 && (
