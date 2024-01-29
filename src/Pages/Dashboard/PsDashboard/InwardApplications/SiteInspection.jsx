@@ -499,8 +499,9 @@ const SiteInspection = () => {
     <>
       <button onClick={convertToPdf}>click</button>
       <div
+        className="hidden"
 
-      // style={{ position: "absolute", left: "-9999px" }}
+        // style={{ position: "absolute", left: "-9999px" }}
       >
         <ProceedingModal />
       </div>

@@ -10,7 +10,7 @@ import {
   MdOutlineReceiptLong,
   MdReceiptLong,
 } from "react-icons/md";
-import { useOutletContext } from "react-router";
+import { useNavigate, useOutletContext } from "react-router";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import InputField from "../../../Components/InputField";
@@ -25,6 +25,7 @@ const Payment = () => {
     useState(false);
   const [RLP_IPLP_Condition, setRLP_IPLP_Condition] = useState(false);
   const stepperData = useOutletContext();
+  const navigate = useNavigate();
   const {
     getApplicationData,
     confirmAlert,
@@ -62,6 +63,14 @@ const Payment = () => {
   useEffect(() => {
     getApplicationData(applicationNo, cameFrom).then((applicationData) => {
       setApplicationData(applicationData);
+
+      if (applicationData?.prevSavedState === 6) {
+        localStorage.setItem("PPS", JSON.parse(1));
+        setSentData(1);
+      } else {
+        localStorage.setItem("PPS", JSON.parse(0));
+        setSentData(0);
+      }
       const generalInformation =
         applicationData?.buildingInfo?.generalInformation;
 
@@ -520,16 +529,26 @@ const Payment = () => {
     });
   };
 
+  console.log(sentData, "Sent data");
+
   return (
     <div className="grid m-4 lg:my-0 text-gray-900">
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          confirmAlert(undefined, sendPaymentData, {
-            page: "payment",
-            applicationType: JSON.parse(localStorage.getItem("page")),
-            setSentData,
-          });
+
+          if (sentData !== 1) {
+            confirmAlert(undefined, sendPaymentData, {
+              page: "payment",
+              applicationType: JSON.parse(localStorage.getItem("page")),
+              setSentData,
+            });
+          } else {
+            alertToTransferDataIntoDepartment(
+              JSON.parse(localStorage.getItem("CurrentAppNo")),
+              navigate
+            );
+          }
         }}
         className="grid my-5 lg:my-0"
       >
