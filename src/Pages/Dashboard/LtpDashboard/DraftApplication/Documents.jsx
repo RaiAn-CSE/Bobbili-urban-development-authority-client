@@ -37,6 +37,7 @@ const DocumentUpload = () => {
     sendUserDataIntoDB,
     getApplicationData,
     userInfoFromLocalStorage,
+    stepCompleted,
   } = useContext(AuthContext);
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
   const cameFrom = JSON.parse(localStorage.getItem("page"));
@@ -280,10 +281,12 @@ const DocumentUpload = () => {
       }
 
       console.log(documents, "Documents");
+      stepCompleted.current =
+        stepCompleted.current > 4 ? stepCompleted.current : 4;
       return await sendUserDataIntoDB(url, "PATCH", {
         applicationNo,
         documents,
-        prevSavedState: 3,
+        prevSavedState: stepCompleted.current,
       });
     }
   };

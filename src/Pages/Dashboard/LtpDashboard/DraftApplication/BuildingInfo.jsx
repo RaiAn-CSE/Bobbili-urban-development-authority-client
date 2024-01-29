@@ -17,14 +17,14 @@ const BuildingInfo = () => {
   const location = useLocation()?.state;
   console.log(location, "location");
 
-  if (location !== null) {
-    if (location.hasOwnProperty("prevSavedState")) {
-      localStorage.setItem(
-        "steepCompleted",
-        JSON.stringify(location.prevSavedState)
-      );
-    }
-  }
+  // if (location !== null) {
+  //   if (location.hasOwnProperty("prevSavedState")) {
+  //     localStorage.setItem(
+  //       "steepCompleted",
+  //       JSON.stringify(location.prevSavedState)
+  //     );
+  //   }
+  // }
 
   const [isStepperVisible, currentStep, steps] = stepperData;
 
@@ -34,6 +34,7 @@ const BuildingInfo = () => {
     userInfoFromLocalStorage,
     getApplicationData,
     fetchDataFromTheDb,
+    stepCompleted,
   } = useContext(AuthContext);
 
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
@@ -578,10 +579,13 @@ const BuildingInfo = () => {
 
     localStorage.setItem("CurrentAppNo", JSON.stringify(newApplicationNo));
 
+    stepCompleted.current =
+      stepCompleted.current > 1 ? stepCompleted.current : 1;
+
     return await sendUserDataIntoDB(url, "PATCH", {
       applicationNo: newApplicationNo,
       buildingInfo,
-      prevSavedState: 0,
+      prevSavedState: stepCompleted.current,
     });
   };
 

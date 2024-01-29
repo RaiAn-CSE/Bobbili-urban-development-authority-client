@@ -31,6 +31,7 @@ const Payment = () => {
     alertToTransferDataIntoDepartment,
     sendUserDataIntoDB,
     userInfoFromLocalStorage,
+    stepCompleted,
   } = useContext(AuthContext);
   const [isStepperVisible, currentStep, steps, handleStepClick] = stepperData;
   const [applicationData, setApplicationData] = useState({});
@@ -46,7 +47,9 @@ const Payment = () => {
     labourCessBankReceipt: "",
     greenFeeBankReceipt: "",
   });
-  const [sentData, setSentData] = useState(0);
+  const [sentData, setSentData] = useState(
+    JSON.parse(localStorage.getItem("PPS"))
+  );
   const role = userInfoFromLocalStorage().role;
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
   const cameFrom = JSON.parse(localStorage.getItem("page"));
@@ -502,6 +505,9 @@ const Payment = () => {
 
     console.log(udaCharge, gramaPanchayatFee, labourCessCharge, greenFeeCharge);
 
+    stepCompleted.current =
+      stepCompleted.current > 6 ? stepCompleted.current : 6;
+
     return await sendUserDataIntoDB(url, "PATCH", {
       applicationNo: JSON.parse(localStorage.getItem("CurrentAppNo")),
       payment: {
@@ -510,13 +516,23 @@ const Payment = () => {
         labourCessCharge,
         gramaPanchayatFee,
       },
-      prevSavedState: 5,
+      prevSavedState: stepCompleted.current,
     });
   };
 
   return (
     <div className="grid m-4 lg:my-0 text-gray-900">
-      <form onSubmit={(e) => e.preventDefault()} className="grid my-5 lg:my-0">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          confirmAlert(undefined, sendPaymentData, {
+            page: "payment",
+            applicationType: JSON.parse(localStorage.getItem("page")),
+            setSentData,
+          });
+        }}
+        className="grid my-5 lg:my-0"
+      >
         {/* UDA Charge  */}
         <motion.div
           className="nm_Container mt-3 px-2 py-5 mb-10"

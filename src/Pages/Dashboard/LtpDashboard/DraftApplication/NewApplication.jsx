@@ -18,6 +18,7 @@ const NewApplication = () => {
     sendUserDataIntoDB,
     alertToConfirmDelete,
     showPageBasedOnApplicationType,
+    stepCompleted,
   } = useContext(AuthContext);
 
   const { _id: userID } = userInfoFromLocalStorage();
@@ -130,7 +131,7 @@ const NewApplication = () => {
         greenFeeCharge: {},
       },
       createdDate: `${day}-${month}-${year}`,
-      prevSavedState: null,
+      prevSavedState: 0,
     };
 
     fetch(url, {
@@ -152,6 +153,7 @@ const NewApplication = () => {
             JSON.stringify(data.applicationNo)
           );
           localStorage.setItem("stepIndex", JSON.stringify(0));
+          stepCompleted.current = 0;
           navigate("/dashboard/draftApplication/buildingInfo");
         }
       })
