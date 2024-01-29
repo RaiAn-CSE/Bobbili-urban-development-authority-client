@@ -315,14 +315,13 @@ const ProceedingModal = () => {
                 అనుమతి వివరములు
               </td>
             </tr>
-            <tr className="p-2 border border-gray-900">
+            <tr className="p-2 border-none">
               <td
-                rowSpan={2}
-                className="p-2 border-r border-neutral-500 text-center font-semibold"
+                className="p-2 border-l border-neutral-500 text-center font-semibold"
               >
                 1
               </td>
-              <td rowSpan={2} className="p-2 border-r border-neutral-500">
+              <td className="p-2 border-r border-neutral-500">
                 సెట్-బాక్స్ (మీ)
               </td>
               <td className="p-2 border-r border-neutral-500 text-center">
@@ -338,23 +337,29 @@ const ProceedingModal = () => {
                 ప్రక్క II
               </td>
             </tr>
-            <tr className="p-2 border border-gray-900">
-              <td className="p-2 border-r border-neutral-500 text-center">
+            <tr className="p-2 border-none">
+              <td
+                className="p-2 border-l border-neutral-500 text-center font-semibold"
+              >
+              </td>
+              <td className="p-2 border-r border-neutral-500">
+              </td>
+              <td className="p-2 border-r border-t border-neutral-500 text-center">
                 {allInfo?.buildingInfo?.plotDetails?.frontSetback
                   ? allInfo?.buildingInfo?.plotDetails?.frontSetback
                   : "N/A"}
               </td>
-              <td className="p-2 border-r border-neutral-500 text-center">
+              <td className="p-2 border-r border-t border-neutral-500 text-center">
                 {allInfo?.buildingInfo?.plotDetails?.rareSetback
                   ? allInfo?.buildingInfo?.plotDetails?.rareSetback
                   : "N/A"}
               </td>
-              <td className="p-2 border-r border-neutral-500 text-center">
+              <td className="p-2 border-r border-t border-neutral-500 text-center">
                 {allInfo?.buildingInfo?.plotDetails?.side1Setback
                   ? allInfo?.buildingInfo?.plotDetails?.side1Setback
                   : "N/A"}
               </td>
-              <td className="p-2 border-r border-neutral-500 text-center">
+              <td className="p-2 border-r border-t border-neutral-500 text-center">
                 {allInfo?.buildingInfo?.plotDetails?.side2Setback
                   ? allInfo?.buildingInfo?.plotDetails?.side2Setback
                   : "N/A"}
@@ -526,7 +531,7 @@ const ProceedingModal = () => {
                 {allInfo?.payment?.gramaPanchayatFee?.processingFee}
               </td>
             </tr>
-            <tr className="p-2 border border-gray-900">
+            <tr className="p-2 border border-gray-900 beforeClass">
               <td className="p-2 border-r border-neutral-500 text-center font-semibold ">
                 6
               </td>
@@ -655,7 +660,7 @@ const ProceedingModal = () => {
               ఎడల బిల్డింగ్ లైన్ గా ఆరు మీటర్ల స్థలమును వదిలి భవనం
               నిర్మించుకోవలెను.
             </li>
-            <li className="mt-3 beforeClass">
+            <li className="mt-3">
               నివాస కాంప్లెక్స్ కు ఆసుపత్రి, లాడ్జలు పాఠశాల కళాశాలలకు
               ఇండస్ట్రీస్ మొదలగు వాటికి పార్కింగ్ ప్రదేశముగా ప్లాన్ లో చూపిన
               విధంగా స్థలము కేటాయించవలెను.
@@ -693,7 +698,7 @@ const ProceedingModal = () => {
               రోడ్డు వీధిలైట్లు నీటి సరఫరా యజమాని తన సొంత ఖర్చు లతో ఏర్పాటు
               చేసుకోవలెను.
             </li>
-            <li className="mt-3 beforeClass">
+            <li className="mt-3">
               శ్రీ డైరెక్టర్ ఆఫ్ టౌన్ అండ్ కంట్రీ ప్లానింగ్ గుంటూరు లేదా
               బొబ్బిలి అర్బన్ డెవలప్మెంట్ అథారిటీ వారి మాస్టర్ ప్లాన్ లోని
               రోడ్డు కొలతలు మరియు ఇతర షరతులకు లోబడి మాత్రమే ఆమోదం.
@@ -729,7 +734,7 @@ const ProceedingModal = () => {
             </li>
           </ol>
         </div>
-        <div className="mt-20 flex flex-col items-end leading-8">
+        <div className="mt-60 flex flex-col items-end leading-8">
           <p className="font-semibold">పంచాయితీ కార్యదర్శి</p>
           <p>
             {allInfo?.buildingInfo?.generalInformation?.gramaPanchayat}
