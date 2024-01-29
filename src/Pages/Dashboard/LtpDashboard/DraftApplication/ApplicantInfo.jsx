@@ -114,7 +114,7 @@ const ApplicantInfo = () => {
   useEffect(() => {
     const getData = async () => {
       const applicationData = await getApplicationData(applicationNo, cameFrom);
-      const ltpDetailsData = applicationData.applicantInfo.ltpDetails;
+      const ltpDetailsData = applicationData?.applicantInfo?.ltpDetails;
       const applicantDetailsData =
         applicationData.applicantInfo.applicantDetails;
 

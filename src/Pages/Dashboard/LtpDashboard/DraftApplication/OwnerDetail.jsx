@@ -28,6 +28,7 @@ const OwnerDetail = ({
 
     if (truncatedValue.length < 10) {
       e.target.setCustomValidity('Fill up 10 numbers.');
+      // e.target.classList.add('errorAdd');
     } else {
       // Reset the error message
       e.target.setCustomValidity('');
