@@ -25,9 +25,29 @@ const OwnerDetail = ({
     const truncatedValue = inputValue.slice(0, 10);
     // Update the input field with the sanitized value
     e.target.value = truncatedValue;
+
+    if (truncatedValue.length < 10) {
+      e.target.setCustomValidity('Fill up 10 numbers.');
+      // e.target.classList.add('errorAdd');
+    } else {
+      // Reset the error message
+      e.target.setCustomValidity('');
+    }
   };
 
-  console.log(applicantDetails, "applicantDetails");
+  // Same as previous handleInputPhone:
+  const handleInputAadhar = (e) => {
+    const inputValue = e.target.value.replace(/[^0-9]/g, "");
+    const truncatedValue = inputValue.slice(0, 12);
+    e.target.value = truncatedValue;
+
+    if (truncatedValue.length < 12) {
+      e.target.setCustomValidity('Fill up 12 numbers.');
+    } else {
+      e.target.setCustomValidity('');
+    }
+  };
+
   const page = JSON.parse(localStorage.getItem("page"));
   const hideBtn =
     page === "submit" ||
@@ -103,14 +123,42 @@ const OwnerDetail = ({
             type="email"
             ltpDetails={applicantDetails?.email}
           />
-          <InputField
+
+          {/* <InputField
             id={`applicantAadharNo${index}`}
             name={`applicantAadharNo${index}`}
             label="Aadhar no."
             placeholder="Aadhar no."
             type="number"
             ltpDetails={applicantDetails?.adharNo}
-          />
+          /> */}
+
+
+          <motion.div
+            className="my-4 mx-3"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
+            viewport={{ once: true }}
+          >
+            <label htmlFor="ltpPhoneNo" className={labelClass}>
+              Aadhar no.
+            </label>
+            <input
+              id={`applicantAadharNo${index}`}
+              name={`applicantAadharNo${index}`}
+              type="text"
+              placeholder="Aadhar no."
+              defaultValue={applicantDetails?.adharNo}
+              className={inputClass}
+              maxLength={12}
+              onInput={handleInputAadhar}
+              disabled={isReadOnly}
+              required
+            />
+          </motion.div>
+
+
+
           <InputField
             id={`applicantPinCode${index}`}
             name={`applicantPinCode${index}`}

@@ -1,6 +1,7 @@
 import Lottie from "lottie-react";
 import React, { useContext, useEffect, useState } from "react";
 import { useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import ErrorAnimation from "../../../../assets/ServerError.json";
 import Loading from "../../../Shared/Loading";
@@ -10,7 +11,10 @@ function Outward() {
   const [allData, setAllData] = useState([]);
   // const [loading, setLoading] = useState(true);
 
-  const { userInfoFromLocalStorage } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const { userInfoFromLocalStorage, showPageBasedOnApplicationType } =
+    useContext(AuthContext);
 
   // get all applications which are submitted already
   const { data, refetch, isLoading, isError, isSuccess } = useQuery(
@@ -62,9 +66,6 @@ function Outward() {
 
   return (
     <>
-      <p className="text-xl font-bold font-roboto ml-5 mt-5 text-black">
-        Outward Applications
-      </p>
       {error?.length !== 0 ? (
         <div className="flex flex-col justify-center items-center min-h-[calc(100vh - 10%)]">
           <Lottie
@@ -77,7 +78,7 @@ function Outward() {
           </p>
         </div>
       ) : (
-        <div className="container mx-auto px-4 font-roboto ">
+        <div className="container mx-auto p-4 font-roboto ">
           <div className="py-4">
             <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 ">
               <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
@@ -126,7 +127,16 @@ function Outward() {
                                 {index + 1}
                               </p>
                             </td>
-                            <td className="p-3  border-b border-gray-200 text-sm">
+                            <td
+                              className="hover:underline cursor-pointer border-b border-gray-200 text-sm"
+                              onClick={() =>
+                                showPageBasedOnApplicationType(
+                                  applicationData?.applicationNo,
+                                  navigate,
+                                  "Outward"
+                                )
+                              }
+                            >
                               <p className="text-gray-900 break-words">
                                 {applicationData?.applicationNo}
                               </p>
@@ -226,8 +236,6 @@ function Outward() {
                     {error}
                   </p>
                 )}
-
-                {/* {isLoading && <p>Loading...</p>} */}
               </div>
             </div>
           </div>

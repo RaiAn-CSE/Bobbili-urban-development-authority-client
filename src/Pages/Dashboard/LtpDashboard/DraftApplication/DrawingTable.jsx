@@ -219,8 +219,8 @@ function DrawingTable({
                     type="text"
                     className="w-full h-14 px-3 py-2 dark:text-black focus:outline-none bg-gray-50"
                     defaultValue={submitData?.drawingTableObs?.proposedSiteObs}
-                    placeholder="Write Your Comment Here ..."
-                    // onChange={handleRoadWideningAreaChange}
+                    placeholder="Write Your Observation"
+                  // onChange={handleRoadWideningAreaChange}
                   />
                 </td>
               </tr>
@@ -248,8 +248,8 @@ function DrawingTable({
                     defaultValue={
                       submitData?.drawingTableObs?.accessRoadWidthObs
                     }
-                    placeholder="Write Your Comment Here ..."
-                    // onChange={handleRoadWideningAreaChange}
+                    placeholder="Write Your Observation"
+                  // onChange={handleRoadWideningAreaChange}
                   />
                 </td>
               </tr>
@@ -276,8 +276,8 @@ function DrawingTable({
                     defaultValue={
                       submitData?.drawingTableObs?.scopeOfRoadWideningObs
                     }
-                    placeholder="Write Your Comment Here ..."
-                    // onChange={handleRoadWideningAreaChange}
+                    placeholder="Write Your Observation"
+                  // onChange={handleRoadWideningAreaChange}
                   />
                 </td>
               </tr>
@@ -302,8 +302,8 @@ function DrawingTable({
                     type="text"
                     className="w-full h-14 px-3 py-2  rounded-lg dark:text-black focus:outline-none bg-gray-50"
                     defaultValue={submitData?.drawingTableObs?.netPlotAreaObs}
-                    placeholder="Write Your Comment Here ..."
-                    // onChange={handleRoadWideningAreaChange}
+                    placeholder="Write Your Observation"
+                  // onChange={handleRoadWideningAreaChange}
                   />
                 </td>
               </tr>
@@ -330,8 +330,8 @@ function DrawingTable({
                     defaultValue={
                       submitData?.drawingTableObs?.buildingHeightObs
                     }
-                    placeholder="Write Your Comment Here ..."
-                    // onChange={handleRoadWideningAreaChange}
+                    placeholder="Write Your Observation"
+                  // onChange={handleRoadWideningAreaChange}
                   />
                 </td>
               </tr>
@@ -360,7 +360,7 @@ function DrawingTable({
                           defaultValue={
                             submitData?.drawingTableObs?.setBacksObs
                           }
-                          placeholder="Write Your Comment Here ..."
+                          placeholder="Write Your Observation"
                           // onChange={handleRoadWideningAreaChange}
                         />
                       </td> */}
@@ -385,8 +385,8 @@ function DrawingTable({
                     type="text"
                     className="w-full px-3 h-14 dark:text-black focus:outline-none bg-gray-50"
                     defaultValue={submitData?.drawingTableObs?.fontObs}
-                    placeholder="Write Your Comment Here ..."
-                    // onChange={handleRoadWideningAreaChange}
+                    placeholder="Write Your Observation"
+                  // onChange={handleRoadWideningAreaChange}
                   />
                 </td>
               </tr>
@@ -411,8 +411,8 @@ function DrawingTable({
                     type="text"
                     className="w-full px-3 h-14 dark:text-black focus:outline-none bg-gray-50"
                     defaultValue={submitData?.drawingTableObs?.rareObs}
-                    placeholder="Write Your Comment Here ..."
-                    // onChange={handleRoadWideningAreaChange}
+                    placeholder="Write Your Observation"
+                  // onChange={handleRoadWideningAreaChange}
                   />
                 </td>
               </tr>
@@ -437,8 +437,8 @@ function DrawingTable({
                     type="text"
                     className="w-full px-3 h-14 dark:text-black focus:outline-none bg-gray-50"
                     defaultValue={submitData?.drawingTableObs?.sideOneObs}
-                    placeholder="Write Your Comment Here ..."
-                    // onChange={handleRoadWideningAreaChange}
+                    placeholder="Write Your Observation"
+                  // onChange={handleRoadWideningAreaChange}
                   />
                 </td>
               </tr>
@@ -463,8 +463,8 @@ function DrawingTable({
                     type="text"
                     className="w-full px-3 h-14 dark:text-black focus:outline-none bg-gray-50"
                     defaultValue={submitData?.drawingTableObs?.sideTwoObs}
-                    placeholder="Write Your Comment Here ..."
-                    // onChange={handleRoadWideningAreaChange}
+                    placeholder="Write Your Observation"
+                  // onChange={handleRoadWideningAreaChange}
                   />
                 </td>
               </tr>
@@ -492,8 +492,8 @@ function DrawingTable({
                     type="text"
                     className="w-full px-3 h-14 dark:text-black focus:outline-none bg-gray-50"
                     defaultValue={submitData?.drawingTableObs?.floorObs}
-                    placeholder="Write Your Comment Here ..."
-                    // onChange={handleRoadWideningAreaChange}
+                    placeholder="Write Your Observation"
+                  // onChange={handleRoadWideningAreaChange}
                   />
                 </td>
               </tr>
@@ -512,8 +512,8 @@ function DrawingTable({
                     type="text"
                     className="w-full px-3 h-14 dark:text-black focus:outline-none bg-gray-50"
                     defaultValue={submitData?.drawingTableObs?.stiltFloorObs}
-                    placeholder="Write Your Comment Here ..."
-                    // onChange={handleRoadWideningAreaChange}
+                    placeholder="Write Your Observation"
+                  // onChange={handleRoadWideningAreaChange}
                   />
                 </td>
               </tr>
@@ -532,8 +532,8 @@ function DrawingTable({
                     type="text"
                     className="w-full px-3 h-14 dark:text-black focus:outline-none bg-gray-50"
                     defaultValue={submitData?.drawingTableObs?.groundFloorObs}
-                    placeholder="Write Your Comment Here ..."
-                    // onChange={handleRoadWideningAreaChange}
+                    placeholder="Write Your Observation"
+                  // onChange={handleRoadWideningAreaChange}
                   />
                 </td>
               </tr>
@@ -552,8 +552,8 @@ function DrawingTable({
                     type="text"
                     className="w-full px-3 h-14 dark:text-black focus:outline-none bg-gray-50"
                     defaultValue={submitData?.drawingTableObs?.firstFloorObs}
-                    placeholder="Write Your Comment Here ..."
-                    // onChange={handleRoadWideningAreaChange}
+                    placeholder="Write Your Observation"
+                  // onChange={handleRoadWideningAreaChange}
                   />
                 </td>
               </tr>
@@ -572,8 +572,8 @@ function DrawingTable({
                     type="text"
                     className="w-full px-3 h-14 dark:text-black focus:outline-none bg-gray-50"
                     defaultValue={submitData?.drawingTableObs?.secondFloorObs}
-                    placeholder="Write Your Comment Here ..."
-                    // onChange={handleRoadWideningAreaChange}
+                    placeholder="Write Your Observation"
+                  // onChange={handleRoadWideningAreaChange}
                   />
                 </td>
               </tr>
@@ -630,8 +630,8 @@ function DrawingTable({
                     defaultValue={
                       submitData?.drawingTableObs?.stairCaseWidthObs
                     }
-                    placeholder="Write Your Comment Here ..."
-                    // onChange={handleRoadWideningAreaChange}
+                    placeholder="Write Your Observation"
+                  // onChange={handleRoadWideningAreaChange}
                   />
                 </td>
               </tr>
@@ -660,8 +660,8 @@ function DrawingTable({
                     type="text"
                     className="w-full px-3 h-14 dark:text-black focus:outline-none bg-gray-50"
                     defaultValue={submitData?.drawingTableObs?.unitsObs}
-                    placeholder="Write Your Comment Here ..."
-                    // onChange={handleRoadWideningAreaChange}
+                    placeholder="Write Your Observation"
+                  // onChange={handleRoadWideningAreaChange}
                   />
                 </td>
               </tr>

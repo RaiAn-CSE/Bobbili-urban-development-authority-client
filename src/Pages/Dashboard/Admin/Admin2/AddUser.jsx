@@ -175,6 +175,24 @@ const AddUser = () => {
     setUserType(e.target.value);
   };
 
+
+  const handleInputPhone = (e) => {
+    // Remove non-numeric characters
+    const inputValue = e.target.value.replace(/[^0-9]/g, "");
+    // Limit the input to 10 characters
+    const truncatedValue = inputValue.slice(0, 10);
+    // Update the input field with the sanitized value
+    e.target.value = truncatedValue;
+
+    if (truncatedValue.length < 10) {
+      e.target.setCustomValidity('Fill up 10 numbers.');
+      // e.target.classList.add('errorAdd');
+    } else {
+      // Reset the error message
+      e.target.setCustomValidity('');
+    }
+  };
+
   const inputLabel = "block mb-1 font-semibold text-gray-600";
   const inputBox =
     "w-full px-3 py-2 border rounded-lg max-w-xs text-gray-600 bg-gray-50 border-gray-400 focus:border-gray-600 focus:outline-none focus:ring-2 ring-violet-200";
@@ -327,7 +345,7 @@ const AddUser = () => {
 
           <div>
             <label htmlFor="phone" className={inputLabel}>
-              Phone no
+              Phone no.
             </label>
             <input
               type="text"
@@ -336,6 +354,7 @@ const AddUser = () => {
               className={inputBox}
               placeholder="Enter phone no"
               maxLength={10}
+              onInput={handleInputPhone}
               required
             />
           </div>
