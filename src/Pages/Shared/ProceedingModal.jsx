@@ -317,9 +317,7 @@ const ProceedingModal = () => {
               </td>
             </tr>
             <tr className="p-2 border-none">
-              <td
-                className="p-2 border-l border-neutral-500 text-center font-semibold"
-              >
+              <td className="p-2 border-l border-neutral-500 text-center font-semibold">
                 1
               </td>
               <td className="p-2 border-r border-neutral-500">
@@ -339,12 +337,8 @@ const ProceedingModal = () => {
               </td>
             </tr>
             <tr className="p-2 border-none">
-              <td
-                className="p-2 border-l border-neutral-500 text-center font-semibold"
-              >
-              </td>
-              <td className="p-2 border-r border-neutral-500">
-              </td>
+              <td className="p-2 border-l border-neutral-500 text-center font-semibold"></td>
+              <td className="p-2 border-r border-neutral-500"></td>
               <td className="p-2 border-r border-t border-neutral-500 text-center">
                 {allInfo?.buildingInfo?.plotDetails?.frontSetback
                   ? allInfo?.buildingInfo?.plotDetails?.frontSetback

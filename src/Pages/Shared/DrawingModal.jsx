@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { RxCross2 } from "react-icons/rx";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const DrawingModal = ({ modalStates }) => {
   const { getApplicationData } = useContext(AuthContext);
@@ -57,7 +57,7 @@ const DrawingModal = ({ modalStates }) => {
             </h3>
 
             <iframe
-              src={`https://drive.google.com/file/d/${dataFromDB?.drawing?.Drawing}/preview`}
+              src={`https://drive.google.com/file/d/${dataFromDB?.psSignedFiles?.drawing}/preview`}
               width="100%"
               height="500px"
               frameborder="0"

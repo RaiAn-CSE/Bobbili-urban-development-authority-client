@@ -11,7 +11,7 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import DrawingModal from "../../../Shared/DrawingModal";
 import EndorsementModal from "../../../Shared/EndorsementModal";
-import ProceedingModal from "../../../Shared/ProceedingModal";
+import ProceedingModalShowPdf from "../../../Shared/ProceedingModalShowPdf";
 import Application from "./Application";
 
 const DraftApplication = () => {
@@ -287,7 +287,7 @@ const DraftApplication = () => {
 
       {/* proceedingModal modal info  */}
       {openProceeding ? (
-        <ProceedingModal
+        <ProceedingModalShowPdf
           modalProceeding={{ setOpenProceeding, openProceeding }}
         />
       ) : (
