@@ -125,6 +125,32 @@ const RequestPage = ({ props }) => {
   };
 
   const workingHours = isBetweenWorkingHours();
+
+  const [mobileValue, setMobileValue] = useState("");
+
+  const handleInputPhone = (e) => {
+    console.log("Aslam");
+    // Remove non-numeric characters
+    const inputValue = e.target.value.replace(/[^0-9]/g, "");
+
+    console.log(inputValue, "INPUT VALUE");
+    setMobileValue(inputValue);
+    // Limit the input to 10 characters
+    const truncatedValue = inputValue.slice(0, 10);
+    // Update the input field with the sanitized value
+    e.target.value = truncatedValue;
+
+    if (truncatedValue.length < 10) {
+      console.log("Came here");
+      e.target.setCustomValidity("Must be 10 digits.");
+      // e.target.classList.add('errorAdd');
+    } else {
+      console.log("Came here");
+      // Reset the error message
+      e.target.setCustomValidity("");
+    }
+  };
+
   // isBetweenWorkingHours();
   return (
     <div className="relative overflow-hidden h-full shadow-2xl ">
@@ -188,12 +214,19 @@ const RequestPage = ({ props }) => {
               </div>
               <input
                 type="text"
-                maxlength="10"
+                maxLength="10"
                 pattern="\d"
                 className={`input input-bordered w-full max-w-xs border-2 focus:border-violet-400 rounded-full focus:outline-none  bg-gray-100 ${LoginCSS.loginInput} focus:nm_Inset`}
                 placeholder="Enter your mobile no..."
+                // onChange={(e) => {
+                //   console.log("IJ");
+                // }}
+                defaultValue={mobileValue}
                 // pattern="[0-9]+"
-                {...register("mobileNo", { required: true })}
+                {...register("mobileNo", {
+                  onChange: (e) => handleInputPhone(e),
+                  required: true,
+                })}
               />
               {/* errors will return when field validation fails */}
               {/* {errors?.mobileNo && (

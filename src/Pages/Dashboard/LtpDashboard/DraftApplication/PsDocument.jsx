@@ -1,5 +1,3 @@
-import toast from "react-hot-toast";
-
 function PsDocument({
   role,
   id,
@@ -12,15 +10,25 @@ function PsDocument({
   remarkText,
   remarkValue,
 }) {
-  console.log(approved, type, id, remarkValue, remarkText, "from PS Document");
+  console.log(
+    approved,
+    type,
+    id,
+    uploadId,
+    remarkValue,
+    remarkText,
+    "from PS Document"
+  );
 
   // console.log(setRemarkText, remarkText, "REMARK TEXT");
 
   const handleDocumentStatus = (event, id, uploadId, type) => {
     const data = event?.target?.value;
+
+    console.log(data);
     if (type === "dynamic") {
       handleDynamicStatus({ value: data, id, uploadId, type });
-      toast.success(`${data}, ${uploadId}, ${id}`);
+      // toast.success(`${data}, ${uploadId}, ${id}`);
     } else {
       handleDefaultStatus({ value: data, id, type });
     }
@@ -29,7 +37,8 @@ function PsDocument({
   const handleRemarkText = (event) => {
     const { value } = event?.target;
     if (!value.trim()) {
-      return toast.success("No value");
+      // toast.success("No value");
+      return;
     }
 
     setRemarkText((prev) => {
@@ -69,11 +78,11 @@ function PsDocument({
           }
           type="radio"
           title={id}
-          name={type === "dynamic" ? `${id + uploadId}` : id}
+          name={type === "dynamic" ? `${id}_${uploadId}` : id}
           value="approved"
           className="radio radio-sm radio-button__input mr-3 lg:mr-0"
-          onClick={(event) => handleDocumentStatus(event, id, uploadId, type)}
-          checked={approved === "approved"}
+          onChange={(event) => handleDocumentStatus(event, id, uploadId, type)}
+          defaultChecked={approved === "approved"}
         />
         <label
           className={`radio-button__label text-base`}
@@ -94,11 +103,11 @@ function PsDocument({
           }
           type="radio"
           title={id}
-          name={type === "dynamic" ? `${id + uploadId}` : id}
+          name={type === "dynamic" ? `${id}_${uploadId}` : id}
           value="shortfall"
           className="radio radio-sm radio-button__input mr-3 lg:mr-0"
-          onClick={(event) => handleDocumentStatus(event, id, uploadId, type)}
-          checked={approved === "shortfall"}
+          onChange={(event) => handleDocumentStatus(event, id, uploadId, type)}
+          defaultChecked={approved === "shortfall"}
         />
         <label
           className={`radio-button__label text-base`}

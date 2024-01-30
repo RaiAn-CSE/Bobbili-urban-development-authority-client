@@ -72,7 +72,7 @@ const UpdateProfile = () => {
     e.target.value = truncatedValue;
 
     if (truncatedValue.length < 10) {
-      e.target.setCustomValidity("Fill up 10 numbers.");
+      e.target.setCustomValidity("Must be 10 digits.");
       // e.target.classList.add('errorAdd');
     } else {
       // Reset the error message
@@ -87,7 +87,7 @@ const UpdateProfile = () => {
     e.target.value = truncatedValue;
 
     if (truncatedValue.length < 12) {
-      e.target.setCustomValidity("Fill up 12 numbers.");
+      e.target.setCustomValidity("Must be 12 digits.");
     } else {
       e.target.setCustomValidity("");
     }

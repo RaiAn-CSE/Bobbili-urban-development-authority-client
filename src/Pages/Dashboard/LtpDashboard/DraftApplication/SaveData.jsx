@@ -91,11 +91,12 @@ const SaveData = ({
 
   const path = location.pathname;
   const hiddenSaveButtonForPS =
-    path.includes("buildingInfo") ||
-    path.includes("applicantInfo") ||
-    path.includes("applicationChecklist") ||
-    path.includes("payment") ||
-    (page.toLowerCase() === "outward" && "hidden");
+    (path.includes("buildingInfo") ||
+      path.includes("applicantInfo") ||
+      path.includes("applicationChecklist") ||
+      path.includes("payment") ||
+      page.toLowerCase() === "outward") &&
+    "hidden";
 
   return (
     <>
