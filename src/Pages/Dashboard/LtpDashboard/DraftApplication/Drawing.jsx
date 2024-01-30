@@ -235,7 +235,7 @@ const Drawing = () => {
       setGetSubmitData(data);
     };
 
-    if (role === "PS") {
+    if (role === "PS" && cameFrom.toLowerCase() === "inward") {
       getSubmitAppData();
     }
 
