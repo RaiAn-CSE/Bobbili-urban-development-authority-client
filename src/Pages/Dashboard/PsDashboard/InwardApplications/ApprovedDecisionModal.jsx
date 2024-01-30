@@ -23,8 +23,8 @@ export default function ApprovedDecisionModal({
   return (
     <div>
       <dialog id="my_modal_1" className="modal">
-        <div className="modal-box">
-          <h3 className="font-bold text-2xl text-center">
+        <div className="modal-box bg-white">
+          <h3 className="text-black font-bold text-2xl text-center">
             Do you want to Proceed?
           </h3>
           {wantToSend ? (
@@ -49,7 +49,7 @@ export default function ApprovedDecisionModal({
                         onChange={(event) =>
                           handleFileChange(event, "proceeding")
                         }
-                        className="file-input file-input-bordered file-input-md w-full text-gray-400 bg-white dark:text-black"
+                        className="file-input file-input-bordered border-black file-input-md w-full text-gray-400 bg-white dark:text-black"
                         required
                       />
                     </label>
@@ -65,7 +65,7 @@ export default function ApprovedDecisionModal({
                         type="file"
                         accept=".pdf"
                         onChange={(event) => handleFileChange(event, "drawing")}
-                        className="file-input file-input-bordered file-input-md w-full max-w-xs text-gray-400 bg-white dark:text-black"
+                        className="file-input file-input-bordered border-black file-input-md w-full max-w-xs text-gray-400 bg-white dark:text-black"
                         required
                       />
                     </label>
@@ -82,13 +82,13 @@ export default function ApprovedDecisionModal({
                 ) : (
                   <div className="flex justify-between items-center mt-6">
                     <button
-                      className="btn bg-warning hover:bg-warning text-black text-center"
+                      className="btn bg-warning hover:bg-warning border-none text-black text-center"
                       onClick={() => setWantToSend(false)}
                     >
                       Back
                     </button>
                     <button
-                      className="btn bg-violetLight hover:bg-violetLight text-white text-center"
+                      className="btn bg-violetLight border-none hover:bg-violetLight text-white text-center"
                       onClick={sentPsDecision}
                     >
                       Submit
@@ -99,7 +99,7 @@ export default function ApprovedDecisionModal({
             </div>
           ) : (
             <>
-              <p className="pt-4 text-center font-semibold">
+              <p className="pt-4 text-black text-center font-semibold">
                 Some files need your signature. Get them from sign files.
               </p>
               <div className="modal-action justify-center items-center">

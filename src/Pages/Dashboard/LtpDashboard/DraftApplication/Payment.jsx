@@ -3,13 +3,8 @@ import { motion } from "framer-motion";
 import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaCcAmazonPay, FaMoneyCheckAlt } from "react-icons/fa";
-import { GiMoneyStack } from "react-icons/gi";
 import { HiCurrencyRupee } from "react-icons/hi2";
-import {
-  MdOutlinePayments,
-  MdOutlineReceiptLong,
-  MdReceiptLong,
-} from "react-icons/md";
+import { MdOutlinePayments, MdReceiptLong } from "react-icons/md";
 import { useNavigate, useOutletContext } from "react-router";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
@@ -661,13 +656,13 @@ const Payment = () => {
             )}
             {role === "PS" && (
               <>
-                <button
+                {/* <button
                   className={`btn btn-md nm_Container w-[70%] max-w-xs mx-auto text-sm px-3 mt-10 border-none text-white transition-all duration-500 bg-normalViolet hover:bg-bgColor hover:text-normalViolet`}
                   onClick={() => setViewChallan(true)}
                 >
                   <MdOutlineReceiptLong size={20} />
                   View Challan
-                </button>
+                </button> */}
                 {viewChallan && (
                   <Modal
                     viewChallan={viewChallan}
@@ -675,14 +670,14 @@ const Payment = () => {
                   />
                 )}
 
-                <button
+                {/* <button
                   className={`btn btn-md text-sm px-3 mt-5 mb-1 font-roboto w-[70%] max-w-xs mx-3 border-none text-white shadow-md transition-all duration-500 ${gradientColor} nm_Container hover:bg-gradient-to-bl`}
                   onClick={() =>
                     document.getElementById("my_modal_4").showModal()
                   }
                 >
                   <GiMoneyStack size={25} /> View Payment Receipt
-                </button>
+                </button> */}
 
                 {/* modal box */}
 
