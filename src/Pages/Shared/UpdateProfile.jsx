@@ -70,11 +70,11 @@ const UpdateProfile = () => {
     e.target.value = truncatedValue;
 
     if (truncatedValue.length < 10) {
-      e.target.setCustomValidity('Fill up 10 numbers.');
+      e.target.setCustomValidity("Fill up 10 numbers.");
       // e.target.classList.add('errorAdd');
     } else {
       // Reset the error message
-      e.target.setCustomValidity('');
+      e.target.setCustomValidity("");
     }
   };
 
@@ -85,9 +85,9 @@ const UpdateProfile = () => {
     e.target.value = truncatedValue;
 
     if (truncatedValue.length < 12) {
-      e.target.setCustomValidity('Fill up 12 numbers.');
+      e.target.setCustomValidity("Fill up 12 numbers.");
     } else {
-      e.target.setCustomValidity('');
+      e.target.setCustomValidity("");
     }
   };
 
@@ -192,14 +192,36 @@ const UpdateProfile = () => {
               type="email"
               register={register}
             />
-            <UpdateProfileInput
+            {/* <UpdateProfileInput
               id="mobileNo"
               name="mobileNo"
               label="Mobile No."
               placeholder="Mobile No."
               type="text"
               register={register}
-            />
+            /> */}
+            <motion.div
+              className="my-4 mx-3"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0, transition: { duration: 1 } }}
+              viewport={{ once: true }}
+            >
+              <label htmlFor="phone" className={labelClass}>
+                Mobile no.
+              </label>
+              <input
+                id="mobileNo"
+                name="mobileNo"
+                type="text"
+                placeholder="Mobile No."
+                {...register("mobileNo", { required: true })}
+                className={inputClass}
+                maxLength={10}
+                onInput={handleInputPhone}
+                required
+              />
+            </motion.div>
+
             {/* <UpdateProfileInput
               id="phone"
               name="phone"
@@ -219,11 +241,11 @@ const UpdateProfile = () => {
                 Phone no.
               </label>
               <input
-                id='phone'
-                name='phone'
+                id="phone"
+                name="phone"
                 type="text"
                 placeholder="Phone no."
-                {...register('phone', { required: true })}
+                {...register("phone", { required: true })}
                 className={inputClass}
                 maxLength={10}
                 onInput={handleInputPhone}
@@ -306,11 +328,11 @@ const UpdateProfile = () => {
                 Aadhar no.
               </label>
               <input
-                id='aadharNo'
-                name='aadharNo'
+                id="aadharNo"
+                name="aadharNo"
                 type="text"
                 placeholder="Aadhar no."
-                {...register('aadharNo', { required: true })}
+                {...register("aadharNo", { required: true })}
                 className={inputClass}
                 maxLength={12}
                 onInput={handleInputAadhar}

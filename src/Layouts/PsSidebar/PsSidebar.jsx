@@ -7,6 +7,7 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 function PsSidebar() {
   const path = useLocation().pathname;
+  console.log(path, "Path from the sidebar");
 
   const {
     handleLogOut,
@@ -87,7 +88,7 @@ function PsSidebar() {
           className={`p-[10px] font-medium `}
           to="/dashboard/outWard"
           onClick={() => {
-            localStorage.setItem("page", JSON.stringify("submit"));
+            localStorage.setItem("page", JSON.stringify("Outward"));
             localStorage.setItem("psMenu", JSON.stringify("outward"));
           }}
         >

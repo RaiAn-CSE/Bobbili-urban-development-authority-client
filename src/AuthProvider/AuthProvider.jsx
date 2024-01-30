@@ -444,6 +444,7 @@ const AuthProvider = ({ children }) => {
   ) => {
     const page = JSON.parse(localStorage.getItem("page"));
     const psMenu = JSON.parse(localStorage.getItem("psMenu"));
+    console.log(path, mainUrl, "<<<");
     const isActive =
       (path === mainUrl ||
         path === "/dashboard/draftApplication/buildingInfo" ||
