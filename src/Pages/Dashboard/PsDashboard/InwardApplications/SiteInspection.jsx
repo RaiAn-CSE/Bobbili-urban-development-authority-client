@@ -2,17 +2,16 @@ import axios from "axios";
 import { motion } from "framer-motion";
 // import html2pdf from "html2pdf.js";
 // import html2canvas from "html2canvas";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useQuery } from "react-query";
-import { useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import Loading from "../../../Shared/Loading";
 import ProceedingModal from "../../../Shared/ProceedingModal";
 import SaveData from "../../LtpDashboard/DraftApplication/SaveData";
 import ApprovedDecisionModal from "./ApprovedDecisionModal";
 import ImageUploadInput from "./ImageUploadInput";
-import ShortfallDecisionModal from "./ShortfallDecisionModal";
 const SiteInspection = () => {
   const {
     confirmAlert,
@@ -26,6 +25,7 @@ const SiteInspection = () => {
 
   const [isSavedData, setIsSavedData] = useState(0);
 
+  const navigate = useNavigate();
   const stepperData = useOutletContext();
 
   const [isStepperVisible, currentStep, steps] = stepperData;
@@ -70,6 +70,10 @@ const SiteInspection = () => {
 
   const [siteBoundariesImageFiles, setSiteBoundariesImageFiles] = useState({});
   const [isApproved, setIsApproved] = useState(-1);
+  const [downloading, setDownloading] = useState(false);
+  const [wantToSend, setWantToSend] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitSignedFiles, setSubmitSignedFiles] = useState(null);
 
   console.log(siteBoundariesImageFiles, "siteBoundariesImageFiles");
 
@@ -357,26 +361,103 @@ const SiteInspection = () => {
     }
   };
 
+  // const [signedFilesId, setSignedFilesId] = useState(
+  //   submitSignedFiles ? { ...submitSignedFiles } : null
+  // );
+
   const sentPsDecision = async (url) => {
-    const trackPSAction = JSON.parse(localStorage.getItem("PSDecision"));
+    setSubmitting(true);
+    let fileUploadSuccess = 0;
+    // uploadFileInCloudStorage(formData);
+    console.log(submitSignedFiles, "Selected files");
 
-    const data = {
-      psId: userInfoFromLocalStorage()?._id,
-      applicationNo,
-      trackPSAction,
-    };
-    url = `http://localhost:5000/decisionOfPs?data=${JSON.stringify(data)}`;
-    console.log(url);
+    const singedFilesId = {};
+    for (const file in submitSignedFiles) {
+      console.log(submitSignedFiles[file]);
 
-    const config = {
-      method: "DELETE",
-    };
+      if (submitSignedFiles[file] instanceof File) {
+        const formData = new FormData();
+        if (submitSignedFiles[file]) {
+          formData.append("file", submitSignedFiles[file]);
+          try {
+            const response = await axios.post(
+              "http://localhost:5000/upload?page=approvedDocSignedPS",
+              formData,
+              {
+                headers: {
+                  "Content-Type": "multipart/form-data", // Important for file uploads
+                },
+              }
+            );
+            if (response?.data.msg === "Successfully uploaded") {
+              const fileId = response.data.fileId;
 
-    const response = await fetch(url, config);
-    return await response.json();
+              singedFilesId[file] = fileId;
+              fileUploadSuccess = 1;
+            }
+          } catch (error) {
+            // Handle errors, e.g., show an error message to the user
+            toast.error("Error to upload documents");
+            fileUploadSuccess = 0;
+          }
+        }
+      } else {
+        fileUploadSuccess = 1;
+      }
+    }
+
+    console.log(fileUploadSuccess, "File upload success");
+    if (fileUploadSuccess) {
+      console.log(fileUploadSuccess);
+      const psSignedPdf = {
+        proceeding: singedFilesId["proceeding"],
+        drawing: singedFilesId["drawing"],
+      };
+
+      console.log(psSignedPdf, "psSignedPdf");
+
+      const trackPSAction = JSON.parse(localStorage.getItem("PSDecision"));
+
+      const data = {
+        psId: userInfoFromLocalStorage()?._id,
+        applicationNo,
+        trackPSAction,
+        psSignedFiles: psSignedPdf,
+      };
+      url = `http://localhost:5000/decisionOfPs?data=${JSON.stringify(data)}`;
+      console.log(url);
+
+      const config = {
+        method: "DELETE",
+      };
+
+      try {
+        const response = await fetch(url, config);
+        const result = await response.json();
+
+        console.log(result, "result");
+        if (result?.acknowledged) {
+          setSubmitting(false);
+          toast.success("Your file is saved");
+          localStorage.removeItem("PSDecision");
+          navigate("/dashboard/outWard");
+        } else {
+          setSubmitting(false);
+          toast.error("Server Error");
+        }
+      } catch (err) {
+        setSubmitting(false);
+        toast.error("Server Error");
+      }
+      // return await sendUserDataIntoDB(url, "PATCH", {
+      //   applicationNo,
+      //   drawing,
+      //   prevSavedState: stepCompleted,
+      // });
+    }
   };
 
-  const containerRef = useRef(null);
+  // const containerRef = useRef(null);
 
   // const downloadPDF = () => {
   //   const container = containerRef.current;
@@ -475,21 +556,13 @@ const SiteInspection = () => {
     "block w-full h-12 bg-white hover:bg-white pl-4 focus:outline-0";
   const inputTableDataClass = "break-words border-r border-neutral-500";
 
-  // const { toPDF, targetRef } = usePDF({ filename: "page.pdf" });
-  // const handlePdf = () => {
-  //   toPDF();
-  // };
-
-  const [downloading, setDownloading] = useState(false);
-  const [wantToSend, setWantToSend] = useState(false);
-
   const convertToPdf = () => {
     setDownloading(true);
     const element = document.getElementById("proceedingModal");
 
     var opt = {
       margin: [0.3, 0, 0.3, 0],
-      filename: "proceeding.pdf",
+      filename: `proceeding-${applicationNo}.pdf`,
       image: { type: "jpeg", quality: 0.98 },
       pagebreak: { before: ".beforeClass", after: ["#after1", "#after2"] },
       html2canvas: { scale: 2 },
@@ -516,7 +589,7 @@ const SiteInspection = () => {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = "Drawing.pdf"; // Set the desired file name and extension
+        a.download = `Drawing-${applicationNo}.pdf`; // Set the desired file name and extension
         document.body.appendChild(a);
         a.click();
 
@@ -536,6 +609,18 @@ const SiteInspection = () => {
       });
   };
 
+  const handleSignedFileChange = (e, fileName) => {
+    const file = e.target.files[0];
+    setSubmitSignedFiles((prev) => {
+      const cloneObj = { ...prev };
+      cloneObj[fileName] = file;
+
+      return cloneObj;
+    });
+  };
+
+  console.log(submitSignedFiles, "submitSignedFiles");
+
   if (isLoading) {
     return <Loading />;
   }
@@ -554,14 +639,20 @@ const SiteInspection = () => {
           downloading={downloading}
           setWantToSend={setWantToSend}
           wantToSend={wantToSend}
+          submitSignedFiles={submitSignedFiles}
+          setSubmitSignedFiles={setSubmitSignedFiles}
+          submitting={submitting}
+          setSubmitting={setSubmitting}
+          handleFileChange={handleSignedFileChange}
+          sentPsDecision={sentPsDecision}
         />
       )}
-      {showShortfallModal && (
+      {/* {showShortfallModal && (
         <ShortfallDecisionModal
           showShortfallModal={showShortfallModal}
           setShowShortfallModal={setShowShortfallModal}
         />
-      )}
+      )} */}
 
       <div
         className="flex flex-col mx-4 mt-4 text-gray-900"

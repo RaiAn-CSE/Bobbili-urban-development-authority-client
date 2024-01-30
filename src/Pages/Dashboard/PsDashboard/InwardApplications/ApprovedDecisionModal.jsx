@@ -7,12 +7,19 @@ export default function ApprovedDecisionModal({
   downloading,
   wantToSend,
   setWantToSend,
+  submitSignedFiles,
+  setSubmitSignedFiles,
+  handleFileChange,
+  submitting,
+  setSubmitting,
+  sentPsDecision,
 }) {
   useEffect(() => {
     if (showApprovedModal) {
       document.getElementById("my_modal_1").showModal();
     }
   }, [showApprovedModal]);
+
   return (
     <div>
       <dialog id="my_modal_1" className="modal">
@@ -38,9 +45,12 @@ export default function ApprovedDecisionModal({
                     <label className="relative cursor-pointer mr-6">
                       <input
                         type="file"
-                        accept=".dwg, .zip, .pdf, .png, .jpg"
-                        onChange={(event) => handleFileChange(event, "AutoCAD")}
+                        accept=".pdf"
+                        onChange={(event) =>
+                          handleFileChange(event, "proceeding")
+                        }
                         className="file-input file-input-bordered file-input-md w-full text-gray-400 bg-white dark:text-black"
+                        required
                       />
                     </label>
                   </div>
@@ -53,22 +63,38 @@ export default function ApprovedDecisionModal({
                     <label className="relative cursor-pointer mr-6">
                       <input
                         type="file"
-                        accept=".dwg, .zip, .pdf,.png,.jpg"
-                        onChange={(event) => handleFileChange(event, "Drawing")}
+                        accept=".pdf"
+                        onChange={(event) => handleFileChange(event, "drawing")}
                         className="file-input file-input-bordered file-input-md w-full max-w-xs text-gray-400 bg-white dark:text-black"
+                        required
                       />
                     </label>
                   </div>
                 </div>
 
-                <div className="flex justify-between items-center mt-6">
-                  <button className="btn bg-warning hover:bg-warning text-black text-center">
-                    Back
-                  </button>
-                  <button className="btn bg-violetLight hover:bg-violetLight text-white text-center">
-                    Submit
-                  </button>
-                </div>
+                {submitting ? (
+                  <div className="mt-6 flex justify-center items-center">
+                    <button className="btn bg-violetLight hover:bg-violetLight text-white ">
+                      <span className="loading loading-spinner"></span>
+                      Submitting...
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex justify-between items-center mt-6">
+                    <button
+                      className="btn bg-warning hover:bg-warning text-black text-center"
+                      onClick={() => setWantToSend(false)}
+                    >
+                      Back
+                    </button>
+                    <button
+                      className="btn bg-violetLight hover:bg-violetLight text-white text-center"
+                      onClick={sentPsDecision}
+                    >
+                      Submit
+                    </button>
+                  </div>
+                )}
               </form>
             </div>
           ) : (
@@ -95,7 +121,10 @@ export default function ApprovedDecisionModal({
                     {/* submit signed files */}
                     <button
                       className="btn btn-success text-white"
-                      onClick={() => setWantToSend(true)}
+                      onClick={() => {
+                        setWantToSend(true);
+                        setSubmitSignedFiles(initialValues);
+                      }}
                     >
                       Send Files
                     </button>

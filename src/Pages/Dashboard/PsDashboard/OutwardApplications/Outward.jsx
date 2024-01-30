@@ -133,40 +133,46 @@ function Outward() {
                             </td>
                             <td className="p-3  border-b border-gray-200 text-sm">
                               <p className="text-gray-900 break-words">
-                                {applicationData?.applicantDetails?.length
-                                  ? applicationData?.applicantDetails[0].name
+                                {applicationData?.applicantInfo
+                                  ?.applicantDetails?.length > 0
+                                  ? applicationData?.applicantInfo
+                                      ?.applicantDetails[0].name
                                   : "N/A"}
                               </p>
                             </td>
                             <td className="p-3  border-b border-gray-200 text-sm">
                               <p className="text-gray-900 break-words">
-                                {applicationData?.applicantDetails?.length
-                                  ? applicationData?.applicantDetails[0].phone
+                                {applicationData?.applicantInfo
+                                  ?.applicantDetails?.length
+                                  ? applicationData?.applicantInfo
+                                      ?.applicantDetails[0].phone
                                   : "N/A"}
                               </p>
                             </td>
                             <td className="p-3  border-b border-gray-200 text-sm">
                               <p className="text-gray-900 break-words">
-                                {applicationData?.generalInformation
-                                  ?.caseType !== ""
-                                  ? applicationData?.generalInformation
-                                      ?.caseType
+                                {applicationData?.buildingInfo
+                                  ?.generalInformation?.caseType !== ""
+                                  ? applicationData?.buildingInfo
+                                      ?.generalInformation?.caseType
                                   : "N/A"}
                               </p>
                             </td>
                             <td className="p-3  border-b border-gray-200 text-sm">
                               <p className="text-gray-900 break-words">
-                                {applicationData?.generalInformation
-                                  ?.village !== ""
-                                  ? applicationData?.generalInformation?.village
+                                {applicationData?.buildingInfo
+                                  ?.generalInformation?.village !== ""
+                                  ? applicationData?.buildingInfo
+                                      ?.generalInformation?.village
                                   : "N/A"}
                               </p>
                             </td>
                             <td className="p-3  border-b border-gray-200 text-sm">
                               <p className="text-gray-900 break-words">
-                                {applicationData?.generalInformation?.mandal !==
-                                ""
-                                  ? applicationData?.generalInformation?.mandal
+                                {applicationData?.buildingInfo
+                                  ?.generalInformation?.mandal !== ""
+                                  ? applicationData?.buildingInfo
+                                      ?.generalInformation?.mandal
                                   : "N/A"}
                               </p>
                             </td>
