@@ -308,6 +308,8 @@ const Payment = () => {
         (0.01 * 0.98)
     );
 
+    console.log(TotalLabourCessComp2Charged, "tt");
+
     setCalculatedData({
       UDATotalCharged: Number(UDATotalCharged.toFixed(2)),
       GramaPanchayetTotalCharged: Number(GramaPanchayetTotalCharged.toFixed(2)),
