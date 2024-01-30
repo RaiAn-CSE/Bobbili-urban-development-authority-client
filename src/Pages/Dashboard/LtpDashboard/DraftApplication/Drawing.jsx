@@ -235,7 +235,9 @@ const Drawing = () => {
       setGetSubmitData(data);
     };
 
-    if (role === "PS" && cameFrom.toLowerCase() === "inward") {
+    console.log(cameFrom, "CameFrom");
+
+    if (role === "PS" && cameFrom.toLowerCase() === "submit") {
       getSubmitAppData();
     }
 
