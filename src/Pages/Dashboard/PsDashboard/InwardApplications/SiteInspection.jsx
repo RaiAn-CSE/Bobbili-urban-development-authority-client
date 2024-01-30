@@ -90,7 +90,7 @@ const SiteInspection = () => {
       console.log(query, "query");
 
       const response = await fetch(
-        `http://localhost:5000/getApplicationData?data=${query}`
+        `https://residential-building.onrender.com/getApplicationData?data=${query}`
       );
 
       return await response.json();
@@ -192,7 +192,7 @@ const SiteInspection = () => {
           console.log(...formData, "FORM DATA");
           try {
             const response = await axios.post(
-              "http://localhost:5000/upload?page=siteInspection",
+              "https://residential-building.onrender.com/upload?page=siteInspection",
               formData,
               {
                 headers: {
@@ -329,7 +329,7 @@ const SiteInspection = () => {
 
         console.log(siteInspection, "SITE INSPECTION");
 
-        // fetch(`http://localhost:5000/recommendDataOfPs?appNo=${applicationNo}`, {
+        // fetch(`https://residential-building.onrender.com/recommendDataOfPs?appNo=${applicationNo}`, {
         //     method: "PATCH",
         //     headers: {
         //         "content-type": "application/json",
@@ -381,7 +381,7 @@ const SiteInspection = () => {
           formData.append("file", submitSignedFiles[file]);
           try {
             const response = await axios.post(
-              "http://localhost:5000/upload?page=approvedDocSignedPS",
+              "https://residential-building.onrender.com/upload?page=approvedDocSignedPS",
               formData,
               {
                 headers: {
@@ -424,7 +424,9 @@ const SiteInspection = () => {
         trackPSAction,
         psSignedFiles: psSignedPdf,
       };
-      url = `http://localhost:5000/decisionOfPs?data=${JSON.stringify(data)}`;
+      url = `https://residential-building.onrender.com/decisionOfPs?data=${JSON.stringify(
+        data
+      )}`;
       console.log(url);
 
       const config = {
@@ -574,7 +576,9 @@ const SiteInspection = () => {
       fileId: data?.drawing?.Drawing,
     });
 
-    fetch(`http://localhost:5000/downloadFile?data=${fileInfo}`)
+    fetch(
+      `https://residential-building.onrender.com/downloadFile?data=${fileInfo}`
+    )
       .then((res) => {
         if (res.ok) {
           // If the response status is OK, it means the file download is successful
@@ -656,7 +660,7 @@ const SiteInspection = () => {
 
       <div
         className="flex flex-col mx-4 mt-4 text-gray-900"
-      // targetRef={targetRef}
+        // targetRef={targetRef}
       >
         <div className="container mx-auto font-roboto">
           <div className="nm_Container inline-block min-w-full rounded-lg overflow-hidden">

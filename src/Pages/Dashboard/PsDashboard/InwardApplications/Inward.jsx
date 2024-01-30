@@ -10,7 +10,8 @@ import Loading from "../../../Shared/Loading";
 import ShowSubmittedApplication from "../../LtpDashboard/Submitted/ShowSubmittedApplication";
 
 const Inward = () => {
-  const { userInfoFromLocalStorage, showPageBasedOnApplicationType } = useContext(AuthContext);
+  const { userInfoFromLocalStorage, showPageBasedOnApplicationType } =
+    useContext(AuthContext);
   const [error, setError] = useState("");
   const [allData, setAllData] = useState([]);
 
@@ -33,7 +34,8 @@ const Inward = () => {
     ["allInwardApplications"],
     async () => {
       const response = await fetch(
-        `http://localhost:5000/submitApplications?userId=${userInfoFromLocalStorage()?._id
+        `https://residential-building.onrender.com/submitApplications?userId=${
+          userInfoFromLocalStorage()?._id
         }`
       );
       return await response.json();

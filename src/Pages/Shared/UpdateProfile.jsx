@@ -39,7 +39,9 @@ const UpdateProfile = () => {
     console.log(formValue, "FOrm r value");
 
     fetch(
-      `http://localhost:5000/updateUserInfo/${userInfoFromLocalStorage()._id}`,
+      `https://residential-building.onrender.com/updateUserInfo/${
+        userInfoFromLocalStorage()._id
+      }`,
       {
         method: "PATCH",
         headers: { "content-type": "application/json" },

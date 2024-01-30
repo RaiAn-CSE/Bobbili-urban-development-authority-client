@@ -5,7 +5,6 @@ import { MdOutlineLogout, MdOutlineMenuOpen } from "react-icons/md";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../AuthProvider/AuthProvider";
-import cameraIcon from "../assets/images/cameraIcon.png";
 import userFemaleImg from "../assets/images/femaleAvatar.png";
 import userMaleImg from "../assets/images/maleAvatar.png";
 import nonUser from "../assets/images/nonUser.png";
@@ -37,7 +36,7 @@ const DashboardLayout = () => {
       showLoaderOnConfirm: true,
       preConfirm: async () => {
         try {
-          const url = `http://localhost:5000/handOveredByPs?id=${JSON.stringify(
+          const url = `https://residential-building.onrender.com/handOveredByPs?id=${JSON.stringify(
             id
           )}`;
           const response = await fetch(url, { method: "PATCH" });
@@ -77,7 +76,7 @@ const DashboardLayout = () => {
     // }).then((result) => {
     //   /* Read more about isConfirmed, isDenied below */
     //   if (result.isConfirmed) {
-    //     fetch(`http://localhost:5000/handOveredByPs?id=${JSON.stringify(id)}`, {
+    //     fetch(`https://residential-building.onrender.com/handOveredByPs?id=${JSON.stringify(id)}`, {
     //       method: "PATCH",
     //     })
     //       .then((res) => res.json())
@@ -153,8 +152,8 @@ const DashboardLayout = () => {
                         gender === undefined
                           ? nonUser
                           : gender.toLowerCase() === "male"
-                            ? userMaleImg
-                            : userFemaleImg
+                          ? userMaleImg
+                          : userFemaleImg
                       }
                       alt="An image of user icon"
                     />

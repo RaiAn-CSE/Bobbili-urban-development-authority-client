@@ -27,10 +27,13 @@ const AllUsers = () => {
   const { data, refetch, isLoading, isSuccess } = useQuery({
     queryKey: ["allUser"],
     queryFn: async () => {
-      const response = await fetch("http://localhost:5000/allUser", {
-        method: "GET",
-        headers: { authorization: getToken },
-      });
+      const response = await fetch(
+        "https://residential-building.onrender.com/allUser",
+        {
+          method: "GET",
+          headers: { authorization: getToken },
+        }
+      );
       const data = await response.json();
       return data;
     },
@@ -78,7 +81,7 @@ const AllUsers = () => {
   const deleteUser = (id) => {
     console.log(id);
 
-    fetch(`http://localhost:5000/deleteUser/${id}`, {
+    fetch(`https://residential-building.onrender.com/deleteUser/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -122,7 +125,7 @@ const AllUsers = () => {
     console.log(data);
 
     const updateDataIntoDB = (id, data) => {
-      fetch(`http://localhost:5000/updateUserInfo/${id}`, {
+      fetch(`https://residential-building.onrender.com/updateUserInfo/${id}`, {
         method: "PATCH",
         headers: {
           "content-type": "application/json",
@@ -197,7 +200,6 @@ const AllUsers = () => {
     document.getElementById("update_user").showModal();
   };
 
-
   const handleInputPhone = (e) => {
     // Remove non-numeric characters
     const inputValue = e.target.value.replace(/[^0-9]/g, "");
@@ -207,11 +209,11 @@ const AllUsers = () => {
     e.target.value = truncatedValue;
 
     if (truncatedValue.length < 10) {
-      e.target.setCustomValidity('Fill up 10 numbers.');
+      e.target.setCustomValidity("Fill up 10 numbers.");
       // e.target.classList.add('errorAdd');
     } else {
       // Reset the error message
-      e.target.setCustomValidity('');
+      e.target.setCustomValidity("");
     }
   };
 
@@ -222,9 +224,9 @@ const AllUsers = () => {
     e.target.value = truncatedValue;
 
     if (truncatedValue.length < 12) {
-      e.target.setCustomValidity('Fill up 12 numbers.');
+      e.target.setCustomValidity("Fill up 12 numbers.");
     } else {
-      e.target.setCustomValidity('');
+      e.target.setCustomValidity("");
     }
   };
 

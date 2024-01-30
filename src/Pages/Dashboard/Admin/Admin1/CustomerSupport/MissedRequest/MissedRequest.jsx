@@ -26,7 +26,7 @@ const MissedRequest = () => {
   useEffect(() => {
     setLoading(true);
     setError("");
-    fetch("http://localhost:5000/missedMessage")
+    fetch("https://residential-building.onrender.com/missedMessage")
       .then((res) => res.json())
       .then((result) => {
         console.log(result);
@@ -53,7 +53,9 @@ const MissedRequest = () => {
         data?.change?.operationType === "insert"
       ) {
         console.log(allData, "After updating or inserting");
-        const { data } = await axios.get("http://localhost:5000/missedMessage");
+        const { data } = await axios.get(
+          "https://residential-building.onrender.com/missedMessage"
+        );
 
         setAllData(data);
       }
@@ -71,7 +73,7 @@ const MissedRequest = () => {
     const filteredData = allData.filter((each) => each._id !== id);
     setAllData(filteredData);
     const { data } = await axios.delete(
-      `http://localhost:5000/messageRequest?id=${id}`
+      `https://residential-building.onrender.com/messageRequest?id=${id}`
     );
 
     if (data.acknowledged) {

@@ -309,23 +309,29 @@ const Payment = () => {
     );
 
     setCalculatedData({
-      UDATotalCharged,
-      GramaPanchayetTotalCharged,
-      builtUpAreaDevelopmentCharged,
-      labourCessCompo1Charged,
-      TotalLabourCessComp2Charged,
-      userCharged,
-      vacantAreaDevelopmentCharged,
-      builtup_Area,
+      UDATotalCharged: Number(UDATotalCharged.toFixed(2)),
+      GramaPanchayetTotalCharged: Number(GramaPanchayetTotalCharged.toFixed(2)),
+      builtUpAreaDevelopmentCharged: Number(
+        builtUpAreaDevelopmentCharged
+      ).toFixed(2),
+      labourCessCompo1Charged: Number(labourCessCompo1Charged.toFixed(2)),
+      TotalLabourCessComp2Charged: Number(
+        TotalLabourCessComp2Charged.toFixed(2)
+      ),
+      userCharged: Number(userCharged.toFixed(2)),
+      vacantAreaDevelopmentCharged: Number(
+        vacantAreaDevelopmentCharged.toFixed(2)
+      ),
+      builtup_Area: Number(builtup_Area.toFixed(2)),
       nature_of_site,
-      greenFeeCharged,
-      TotalPenalizationCharged,
-      TotalOpenSpaceCharged,
-      bettermentCharged,
-      processingFees,
-      paperPublicationCharged,
-      buildingPermitFees,
-      gramaSiteApprovalCharged,
+      greenFeeCharged: Number(greenFeeCharged.toFixed(2)),
+      TotalPenalizationCharged: Number(TotalPenalizationCharged.toFixed(2)),
+      TotalOpenSpaceCharged: Number(TotalOpenSpaceCharged.toFixed(2)),
+      bettermentCharged: Number(bettermentCharged.toFixed(2)),
+      processingFees: Number(processingFees.toFixed(2)),
+      paperPublicationCharged: Number(paperPublicationCharged.toFixed(2)),
+      buildingPermitFees: Number(paperPublicationCharged.toFixed(2)),
+      gramaSiteApprovalCharged: Number(gramaSiteApprovalCharged.toFixed(2)),
     });
   };
 
@@ -385,7 +391,7 @@ const Payment = () => {
         console.log(...formData);
         try {
           const response = await axios.post(
-            "http://localhost:5000/upload?page=payment",
+            "https://residential-building.onrender.com/upload?page=payment",
             formData,
             {
               headers: {

@@ -32,7 +32,7 @@ const AddUser = () => {
   useEffect(() => {
     (async function () {
       const locationData = await fetchDataFromTheDb(
-        "http://localhost:5000/getDistricts"
+        "https://residential-building.onrender.com/getDistricts"
       );
       console.log(locationData, "LOC");
       const extractsDataFromDB = locationData[0]?.district;
@@ -142,7 +142,7 @@ const AddUser = () => {
 
       if (userInfo) {
         // store users data in the database
-        fetch("http://localhost:5000/addUser", {
+        fetch("https://residential-building.onrender.com/addUser", {
           method: "POST",
           headers: {
             "Content-type": "application/json",
@@ -175,7 +175,6 @@ const AddUser = () => {
     setUserType(e.target.value);
   };
 
-
   const handleInputPhone = (e) => {
     // Remove non-numeric characters
     const inputValue = e.target.value.replace(/[^0-9]/g, "");
@@ -185,11 +184,11 @@ const AddUser = () => {
     e.target.value = truncatedValue;
 
     if (truncatedValue.length < 10) {
-      e.target.setCustomValidity('Fill up 10 numbers.');
+      e.target.setCustomValidity("Fill up 10 numbers.");
       // e.target.classList.add('errorAdd');
     } else {
       // Reset the error message
-      e.target.setCustomValidity('');
+      e.target.setCustomValidity("");
     }
   };
 
