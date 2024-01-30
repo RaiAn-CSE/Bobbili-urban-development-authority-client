@@ -155,7 +155,7 @@ const RequestPage = ({ props }) => {
           >
             <div className={`${LoginCSS.formGroup} w-2/3`}>
               <div className="indicator">
-                <span className="indicator-item badge badge-xs text-red-500 bg-[#FFFFFF]">
+                <span className="indicator-item border-none badge badge-xs text-red-500 bg-[#FFFFFF]">
                   <IoMdStar />
                 </span>
                 <label htmlFor="name" className="inline-block font-bold">
@@ -178,8 +178,8 @@ const RequestPage = ({ props }) => {
             </div>
 
             <div className={`${LoginCSS.formGroup} w-2/3`}>
-              <div className="indicator">
-                <span className="indicator-item badge badge-xs text-red-500 bg-[#FFFFFF]">
+              <div className="indicator ">
+                <span className="indicator-item border-none badge badge-xs text-red-500 bg-[#FFFFFF]">
                   <IoMdStar />
                 </span>
                 <label htmlFor="mobile" className="inline-block font-bold">
@@ -187,10 +187,12 @@ const RequestPage = ({ props }) => {
                 </label>
               </div>
               <input
-                type="number"
+                type="text"
+                maxlength="10"
+                pattern="\d"
                 className={`input input-bordered w-full max-w-xs border-2 focus:border-violet-400 rounded-full focus:outline-none  bg-gray-100 ${LoginCSS.loginInput} focus:nm_Inset`}
                 placeholder="Enter your mobile no..."
-                pattern="[0-9]+"
+                // pattern="[0-9]+"
                 {...register("mobileNo", { required: true })}
               />
               {/* errors will return when field validation fails */}
