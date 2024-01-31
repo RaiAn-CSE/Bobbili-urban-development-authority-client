@@ -10,6 +10,7 @@ import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import InputField from "../../../Components/InputField";
 import FloorDetails from "./FloorDetails";
 import SaveData from "./SaveData";
+import PreviousFileModal from "./PreviousFileModal";
 
 const BuildingInfo = () => {
   const stepperData = useOutletContext();
@@ -441,12 +442,11 @@ const BuildingInfo = () => {
     const bpsApprovedElement = document.getElementById("BpsApprovedNo");
     const bpsApprovedNo = bpsApprovedElement ? bpsApprovedElement.value : "";
 
-    const previewsApprovedFileElement = document.getElementById(
-      "PreviewsApprovedFileNo"
-    );
-    const previewsApprovedFileNo = previewsApprovedFileElement
-      ? previewsApprovedFileElement.value
-      : "";
+    const previewsApprovedFileElement = document.getElementById("PreviewsApprovedFileNo");
+    const previewsApprovedFileNo = previewsApprovedFileElement ? previewsApprovedFileElement.value : "";
+
+    const FileNoElement = document.getElementById("FileNo");
+    const FileNo = FileNoElement ? FileNoElement.value : "";
 
     const lpNoElement = document.getElementById("LpNo");
     const lpNo = lpNoElement ? lpNoElement.value : "";
@@ -523,6 +523,7 @@ const BuildingInfo = () => {
       village,
       bpsApprovedNoServer: bpsApprovedNo,
       previewsApprovedFileNo,
+      FileNo,
       lpNo,
       plotNo,
       lrsNo,
@@ -604,6 +605,7 @@ const BuildingInfo = () => {
     plotNo,
     plotNo2,
     previewsApprovedFileNo,
+    FileNo,
     surveyNo,
     gramaPanchayat,
     village,
@@ -636,6 +638,18 @@ const BuildingInfo = () => {
   } = plotDetails ?? {};
 
   // const { east, west, north, south } = scheduleBoundaries ?? {};
+
+
+
+  // File No Input Focus Modal:
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleInputFocus = () => {
+    // Show the modal when the input field is focused
+    setIsModalOpen(true);
+  };
+
+
 
   // classes for this component:
   const labelClass = "block mb-1 font-semibold text-gray-600";
@@ -1088,7 +1102,35 @@ const BuildingInfo = () => {
                 )}
               {/*===================== Conditional Input Field End =====================*/}
             </div>
+
+            {selectedOptionCase === "Revision" && (
+              <motion.div
+                // initial={{ x: "-100vw" }}
+                // animate={{ x: 0 }}
+                // transition={{ delay: 0.2 }}
+                onClick={() => {
+                  setIsModalOpen(true);
+                }}
+              >
+                <InputField
+                  id="FileNo"
+                  name="FileNo"
+                  label="File no."
+                  placeholder="Enter your file no."
+                  type="number"
+                  ltpDetails={FileNo}
+                // onFocus={handleInputFocus}
+                />
+              </motion.div>
+            )}
           </motion.div>
+
+          {isModalOpen ? (
+            <PreviousFileModal
+              FileModal={{ setIsModalOpen, isModalOpen }}
+            />
+          ) : null}
+
 
           {/* plot details  */}
           <motion.div
