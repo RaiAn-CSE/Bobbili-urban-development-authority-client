@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import PsDocument from "./PsDocument";
-import { Link } from "react-router-dom";
 import { TbSlideshow } from "react-icons/tb";
+import { Link } from "react-router-dom";
+import PsDocument from "./PsDocument";
 
 function DynamicDocument({
   DynamicAppChecklistDocument,
@@ -30,6 +30,7 @@ function DynamicDocument({
     }
     const updatedDynamicAppChecklist = DynamicAppChecklistDocument.map(
       (checkListData) => {
+        console.log(checkListData, "CheckListData");
         const condition01 = checkListData.id === id;
         const isExistUploadId = checkListData.requirements.find(
           (reqData) => reqData.uploadId === uploadId
@@ -50,6 +51,8 @@ function DynamicDocument({
     setRender(updatedDynamicAppChecklist);
   };
 
+  console.log(render, DynamicAppChecklistDocument, "DOC");
+
   useEffect(() => {
     console.log(render, "render");
   }, [DynamicAppChecklistDocument, render]);
@@ -59,6 +62,8 @@ function DynamicDocument({
     <div className="dark:text-black">
       {DynamicAppChecklistDocument?.map((document, index) => {
         const { id, question, requirements } = document;
+
+        console.log(document, "DYNAMIC");
         return (
           <div key={index + 1} className="w-full px-2 py-5 rounded">
             <div className="text-[17px]">
@@ -69,7 +74,10 @@ function DynamicDocument({
                 {requirements?.map((RequireData, ind) => {
                   const { uploadId, requirement, approved, upload } =
                     RequireData;
+
+                  console.log(RequireData, "Require data");
                   console.log(dynamicImageFromDB, "DIDB");
+                  // console.log(object);
                   const isMatch = dynamicImageFromDB?.find(
                     (eachFile, i) =>
                       eachFile?.id === id && eachFile?.uploadId === uploadId

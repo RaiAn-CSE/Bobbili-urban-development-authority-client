@@ -51,7 +51,7 @@ const RequestPage = ({ props }) => {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/messageRequest",
+        "https://residential-building.onrender.com/messageRequest",
         messageRequest,
         config
       );
@@ -104,7 +104,7 @@ const RequestPage = ({ props }) => {
 
       try {
         const { data } = await axios.post(
-          "http://localhost:5000/messageRequest",
+          "https://residential-building.onrender.com/messageRequest",
           messageRequest,
           config
         );
@@ -125,6 +125,32 @@ const RequestPage = ({ props }) => {
   };
 
   const workingHours = isBetweenWorkingHours();
+
+  const [mobileValue, setMobileValue] = useState("");
+
+  const handleInputPhone = (e) => {
+    console.log("Aslam");
+    // Remove non-numeric characters
+    const inputValue = e.target.value.replace(/[^0-9]/g, "");
+
+    console.log(inputValue, "INPUT VALUE");
+    setMobileValue(inputValue);
+    // Limit the input to 10 characters
+    const truncatedValue = inputValue.slice(0, 10);
+    // Update the input field with the sanitized value
+    e.target.value = truncatedValue;
+
+    if (truncatedValue.length < 10) {
+      console.log("Came here");
+      e.target.setCustomValidity("Must be 10 digits.");
+      // e.target.classList.add('errorAdd');
+    } else {
+      console.log("Came here");
+      // Reset the error message
+      e.target.setCustomValidity("");
+    }
+  };
+
   // isBetweenWorkingHours();
   return (
     <div className="relative overflow-hidden h-full shadow-2xl ">
@@ -155,7 +181,7 @@ const RequestPage = ({ props }) => {
           >
             <div className={`${LoginCSS.formGroup} w-2/3`}>
               <div className="indicator">
-                <span className="indicator-item badge badge-xs text-red-500 bg-[#FFFFFF]">
+                <span className="indicator-item border-none badge badge-xs text-red-500 bg-[#FFFFFF]">
                   <IoMdStar />
                 </span>
                 <label htmlFor="name" className="inline-block font-bold">
@@ -178,8 +204,8 @@ const RequestPage = ({ props }) => {
             </div>
 
             <div className={`${LoginCSS.formGroup} w-2/3`}>
-              <div className="indicator">
-                <span className="indicator-item badge badge-xs text-red-500 bg-[#FFFFFF]">
+              <div className="indicator ">
+                <span className="indicator-item border-none badge badge-xs text-red-500 bg-[#FFFFFF]">
                   <IoMdStar />
                 </span>
                 <label htmlFor="mobile" className="inline-block font-bold">
@@ -187,11 +213,20 @@ const RequestPage = ({ props }) => {
                 </label>
               </div>
               <input
-                type="number"
+                type="text"
+                maxLength="10"
+                pattern="\d"
                 className={`input input-bordered w-full max-w-xs border-2 focus:border-violet-400 rounded-full focus:outline-none  bg-gray-100 ${LoginCSS.loginInput} focus:nm_Inset`}
                 placeholder="Enter your mobile no..."
-                pattern="[0-9]+"
-                {...register("mobileNo", { required: true })}
+                // onChange={(e) => {
+                //   console.log("IJ");
+                // }}
+                defaultValue={mobileValue}
+                // pattern="[0-9]+"
+                {...register("mobileNo", {
+                  onChange: (e) => handleInputPhone(e),
+                  required: true,
+                })}
               />
               {/* errors will return when field validation fails */}
               {/* {errors?.mobileNo && (

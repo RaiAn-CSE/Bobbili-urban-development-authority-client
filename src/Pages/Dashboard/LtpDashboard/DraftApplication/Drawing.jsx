@@ -120,7 +120,7 @@ const Drawing = () => {
           formData.append("file", selectedFiles[file]);
           try {
             const response = await axios.post(
-              "http://localhost:5000/upload?page=drawing",
+              "https://residential-building.onrender.com/upload?page=drawing",
               formData,
               {
                 headers: {
@@ -235,7 +235,9 @@ const Drawing = () => {
       setGetSubmitData(data);
     };
 
-    if (role === "PS") {
+    console.log(cameFrom, "CameFrom");
+
+    if (role === "PS" && cameFrom.toLowerCase() === "submit") {
       getSubmitAppData();
     }
 

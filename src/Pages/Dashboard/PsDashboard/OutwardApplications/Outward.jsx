@@ -1,10 +1,10 @@
 import Lottie from "lottie-react";
 import React, { useContext, useEffect, useState } from "react";
 import { useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
 import ErrorAnimation from "../../../../assets/ServerError.json";
 import Loading from "../../../Shared/Loading";
-import { useNavigate } from "react-router-dom";
 
 function Outward() {
   const [error, setError] = useState("");
@@ -13,14 +13,15 @@ function Outward() {
 
   const navigate = useNavigate();
 
-  const { userInfoFromLocalStorage, showPageBasedOnApplicationType } = useContext(AuthContext);
+  const { userInfoFromLocalStorage, showPageBasedOnApplicationType } =
+    useContext(AuthContext);
 
   // get all applications which are submitted already
   const { data, refetch, isLoading, isError, isSuccess } = useQuery(
     ["allOutwardApplications"],
     async () => {
       const response = await fetch(
-        `http://localhost:5000/totalApplications?data=${JSON.stringify(
+        `https://residential-building.onrender.com/totalApplications?data=${JSON.stringify(
           userInfoFromLocalStorage()
         )}`
       );
@@ -81,7 +82,6 @@ function Outward() {
           <div className="py-4">
             <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 ">
               <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
-
                 <table className="min-w-full leading-normal text-center">
                   {/* head */}
                   <thead className="bg-normalViolet">
@@ -127,9 +127,14 @@ function Outward() {
                                 {index + 1}
                               </p>
                             </td>
-                            <td className="hover:underline cursor-pointer border-b border-gray-200 text-sm"
+                            <td
+                              className="hover:underline cursor-pointer border-b border-gray-200 text-sm"
                               onClick={() =>
-                                showPageBasedOnApplicationType(applicationData?.applicationNo, navigate, "Outward")
+                                showPageBasedOnApplicationType(
+                                  applicationData?.applicationNo,
+                                  navigate,
+                                  "Outward"
+                                )
                               }
                             >
                               <p className="text-gray-900 break-words">
@@ -138,40 +143,46 @@ function Outward() {
                             </td>
                             <td className="p-3  border-b border-gray-200 text-sm">
                               <p className="text-gray-900 break-words">
-                                {applicationData?.applicantDetails?.length
-                                  ? applicationData?.applicantDetails[0].name
+                                {applicationData?.applicantInfo
+                                  ?.applicantDetails?.length > 0
+                                  ? applicationData?.applicantInfo
+                                      ?.applicantDetails[0].name
                                   : "N/A"}
                               </p>
                             </td>
                             <td className="p-3  border-b border-gray-200 text-sm">
                               <p className="text-gray-900 break-words">
-                                {applicationData?.applicantDetails?.length
-                                  ? applicationData?.applicantDetails[0].phone
+                                {applicationData?.applicantInfo
+                                  ?.applicantDetails?.length
+                                  ? applicationData?.applicantInfo
+                                      ?.applicantDetails[0].phone
                                   : "N/A"}
                               </p>
                             </td>
                             <td className="p-3  border-b border-gray-200 text-sm">
                               <p className="text-gray-900 break-words">
-                                {applicationData?.generalInformation
-                                  ?.caseType !== ""
-                                  ? applicationData?.generalInformation
-                                    ?.caseType
+                                {applicationData?.buildingInfo
+                                  ?.generalInformation?.caseType !== ""
+                                  ? applicationData?.buildingInfo
+                                      ?.generalInformation?.caseType
                                   : "N/A"}
                               </p>
                             </td>
                             <td className="p-3  border-b border-gray-200 text-sm">
                               <p className="text-gray-900 break-words">
-                                {applicationData?.generalInformation
-                                  ?.village !== ""
-                                  ? applicationData?.generalInformation?.village
+                                {applicationData?.buildingInfo
+                                  ?.generalInformation?.village !== ""
+                                  ? applicationData?.buildingInfo
+                                      ?.generalInformation?.village
                                   : "N/A"}
                               </p>
                             </td>
                             <td className="p-3  border-b border-gray-200 text-sm">
                               <p className="text-gray-900 break-words">
-                                {applicationData?.generalInformation?.mandal !==
-                                  ""
-                                  ? applicationData?.generalInformation?.mandal
+                                {applicationData?.buildingInfo
+                                  ?.generalInformation?.mandal !== ""
+                                  ? applicationData?.buildingInfo
+                                      ?.generalInformation?.mandal
                                   : "N/A"}
                               </p>
                             </td>
@@ -184,10 +195,11 @@ function Outward() {
                               <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
                                 <span
                                   aria-hidden
-                                  className={`absolute inset-0 nm_Container  ${(applicationData?.status
-                                    ?.toLowerCase()
-                                    ?.includes("pending") &&
-                                    "bg-violet-400") ||
+                                  className={`absolute inset-0 nm_Container  ${
+                                    (applicationData?.status
+                                      ?.toLowerCase()
+                                      ?.includes("pending") &&
+                                      "bg-violet-400") ||
                                     (applicationData?.status
                                       ?.toLowerCase()
                                       ?.includes("approved") &&
@@ -200,7 +212,7 @@ function Outward() {
                                       ?.toLowerCase()
                                       ?.includes("rejected") &&
                                       "bg-red-400")
-                                    } opacity-50 rounded-full`}
+                                  } opacity-50 rounded-full`}
                                 ></span>
                                 <span className="relative">
                                   {applicationData?.status.split(" ")[0] ??

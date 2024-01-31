@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import AllDemoVideos from "./AllDemoVideos";
-import Player from "./Player";
-import { MdVideoLibrary } from "react-icons/md";
 
 const DemoVideos = () => {
   const videos = [
@@ -45,8 +42,8 @@ const DemoVideos = () => {
   const [activeVideo, setActiveVideo] = useState(null);
 
   return (
-    <div className="text-center w-full h-full overflow-hidden ">
-      <p className=" flex justify-center items-center gap-4 fancy-button w-full hover:scale-100">
+    <div className="text-center w-full h-full flex justify-center items-center overflow-hidden ">
+      {/* <p className=" flex justify-center items-center gap-4 fancy-button w-full hover:scale-100">
         <MdVideoLibrary size={22} />
         <span>Demo videos</span>
         <MdVideoLibrary size={22} />
@@ -66,7 +63,8 @@ const DemoVideos = () => {
             />
           ))}
         </div>
-      </div>
+      </div> */}
+      <p className="text-center text-black">Coming Soon....</p>
     </div>
   );
 };

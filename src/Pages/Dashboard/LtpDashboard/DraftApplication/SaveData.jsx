@@ -30,6 +30,8 @@ const SaveData = ({
 
   const role = userInfoFromLocalStorage().role;
 
+  console.log(role, "ROLE");
+
   const location = useLocation();
 
   // const [isApproved, setIsApproved] = useState(null);
@@ -92,7 +94,8 @@ const SaveData = ({
     (path.includes("buildingInfo") ||
       path.includes("applicantInfo") ||
       path.includes("applicationChecklist") ||
-      path.includes("payment")) &&
+      path.includes("payment") ||
+      page.toLowerCase() === "outward") &&
     "hidden";
 
   return (

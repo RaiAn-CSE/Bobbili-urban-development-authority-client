@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import PsDocument from "./PsDocument";
-import { Link } from "react-router-dom";
 import { TbSlideshow } from "react-icons/tb";
+import { Link } from "react-router-dom";
+import PsDocument from "./PsDocument";
 
 function DefaultDocument({
   UpdatedDefaultData,

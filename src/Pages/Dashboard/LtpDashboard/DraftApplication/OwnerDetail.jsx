@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import InputField from "../../../Components/InputField";
 import { motion } from "framer-motion";
+import React from "react";
+import InputField from "../../../Components/InputField";
 
 const OwnerDetail = ({
   index,
@@ -27,11 +27,11 @@ const OwnerDetail = ({
     e.target.value = truncatedValue;
 
     if (truncatedValue.length < 10) {
-      e.target.setCustomValidity('Fill up 10 numbers.');
+      e.target.setCustomValidity("Must be 10 digits.");
       // e.target.classList.add('errorAdd');
     } else {
       // Reset the error message
-      e.target.setCustomValidity('');
+      e.target.setCustomValidity("");
     }
   };
 
@@ -42,9 +42,9 @@ const OwnerDetail = ({
     e.target.value = truncatedValue;
 
     if (truncatedValue.length < 12) {
-      e.target.setCustomValidity('Fill up 12 numbers.');
+      e.target.setCustomValidity("Must be 12 numbers.");
     } else {
-      e.target.setCustomValidity('');
+      e.target.setCustomValidity("");
     }
   };
 
@@ -133,7 +133,6 @@ const OwnerDetail = ({
             ltpDetails={applicantDetails?.adharNo}
           /> */}
 
-
           <motion.div
             className="my-4 mx-3"
             initial={{ opacity: 0, y: 20 }}
@@ -157,8 +156,6 @@ const OwnerDetail = ({
             />
           </motion.div>
 
-
-
           <InputField
             id={`applicantPinCode${index}`}
             name={`applicantPinCode${index}`}
@@ -179,8 +176,9 @@ const OwnerDetail = ({
                 viewport={{ once: true }}
               >
                 <button
-                  className={`nm_Container text-xl rounded-full w-[30px] h-[30px] text-normalViolet cursor-pointer transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold ${hideBtn && "hidden"
-                    }`}
+                  className={`nm_Container text-xl rounded-full w-[30px] h-[30px] text-normalViolet cursor-pointer transition-all duration-500 hover:shadow-sm hover:shadow-black font-bold ${
+                    hideBtn && "hidden"
+                  }`}
                   onClick={increaseApplicantNo}
                 >
                   +
@@ -196,8 +194,9 @@ const OwnerDetail = ({
                 viewport={{ once: true }}
               >
                 <button
-                  className={`nm_Container text-xl mx-2 rounded-full text-red-500 w-[30px] h-[30px]  transition-all duration-500 font-bold ${hideBtn && "hidden"
-                    }`}
+                  className={`nm_Container text-xl mx-2 rounded-full text-red-500 w-[30px] h-[30px]  transition-all duration-500 font-bold ${
+                    hideBtn && "hidden"
+                  }`}
                   onClick={decreaseApplicationNo}
                 >
                   -

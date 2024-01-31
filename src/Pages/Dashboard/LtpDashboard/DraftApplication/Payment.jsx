@@ -3,13 +3,8 @@ import { motion } from "framer-motion";
 import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaCcAmazonPay, FaMoneyCheckAlt } from "react-icons/fa";
-import { GiMoneyStack } from "react-icons/gi";
 import { HiCurrencyRupee } from "react-icons/hi2";
-import {
-  MdOutlinePayments,
-  MdOutlineReceiptLong,
-  MdReceiptLong,
-} from "react-icons/md";
+import { MdOutlinePayments, MdReceiptLong } from "react-icons/md";
 import { useNavigate, useOutletContext } from "react-router";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../../AuthProvider/AuthProvider";
@@ -298,7 +293,7 @@ const Payment = () => {
       );
     }
     const showVariable = `NetPlot: ${net_Plot_Area}(Sq.M), BuiltUpArea: ${builtup_Area} (Sq.M), VacantArea: ${vacant_area} (Sq.M), BuiltUpArea: ${BuiltUp_area_SquareFeet} (Sq.Ft) NatureOfSite: ${nature_of_site}`;
-    toast.success(showVariable);
+    // toast.success(showVariable);
     // ====Labour Cess Component 1 Charged====
     const labourCessComponentUnitRate1 = 1400; // per Sq.ft.
     const labourCessCompo1Charged = Math.round(
@@ -308,24 +303,32 @@ const Payment = () => {
         (0.01 * 0.98)
     );
 
+    console.log(TotalLabourCessComp2Charged, "tt");
+
     setCalculatedData({
-      UDATotalCharged,
-      GramaPanchayetTotalCharged,
-      builtUpAreaDevelopmentCharged,
-      labourCessCompo1Charged,
-      TotalLabourCessComp2Charged,
-      userCharged,
-      vacantAreaDevelopmentCharged,
-      builtup_Area,
+      UDATotalCharged: Number(UDATotalCharged.toFixed(2)),
+      GramaPanchayetTotalCharged: Number(GramaPanchayetTotalCharged.toFixed(2)),
+      builtUpAreaDevelopmentCharged: Number(
+        builtUpAreaDevelopmentCharged
+      ).toFixed(2),
+      labourCessCompo1Charged: Number(labourCessCompo1Charged.toFixed(2)),
+      TotalLabourCessComp2Charged: Number(
+        TotalLabourCessComp2Charged.toFixed(2)
+      ),
+      userCharged: Number(userCharged.toFixed(2)),
+      vacantAreaDevelopmentCharged: Number(
+        vacantAreaDevelopmentCharged.toFixed(2)
+      ),
+      builtup_Area: Number(builtup_Area.toFixed(2)),
       nature_of_site,
-      greenFeeCharged,
-      TotalPenalizationCharged,
-      TotalOpenSpaceCharged,
-      bettermentCharged,
-      processingFees,
-      paperPublicationCharged,
-      buildingPermitFees,
-      gramaSiteApprovalCharged,
+      greenFeeCharged: Number(greenFeeCharged.toFixed(2)),
+      TotalPenalizationCharged: Number(TotalPenalizationCharged.toFixed(2)),
+      TotalOpenSpaceCharged: Number(TotalOpenSpaceCharged.toFixed(2)),
+      bettermentCharged: Number(bettermentCharged.toFixed(2)),
+      processingFees: Number(processingFees.toFixed(2)),
+      paperPublicationCharged: Number(paperPublicationCharged.toFixed(2)),
+      buildingPermitFees: Number(paperPublicationCharged.toFixed(2)),
+      gramaSiteApprovalCharged: Number(gramaSiteApprovalCharged.toFixed(2)),
     });
   };
 
@@ -385,7 +388,7 @@ const Payment = () => {
         console.log(...formData);
         try {
           const response = await axios.post(
-            "http://localhost:5000/upload?page=payment",
+            "https://residential-building.onrender.com/upload?page=payment",
             formData,
             {
               headers: {
@@ -653,13 +656,13 @@ const Payment = () => {
             )}
             {role === "PS" && (
               <>
-                <button
+                {/* <button
                   className={`btn btn-md nm_Container w-[70%] max-w-xs mx-auto text-sm px-3 mt-10 border-none text-white transition-all duration-500 bg-normalViolet hover:bg-bgColor hover:text-normalViolet`}
                   onClick={() => setViewChallan(true)}
                 >
                   <MdOutlineReceiptLong size={20} />
                   View Challan
-                </button>
+                </button> */}
                 {viewChallan && (
                   <Modal
                     viewChallan={viewChallan}
@@ -667,14 +670,14 @@ const Payment = () => {
                   />
                 )}
 
-                <button
+                {/* <button
                   className={`btn btn-md text-sm px-3 mt-5 mb-1 font-roboto w-[70%] max-w-xs mx-3 border-none text-white shadow-md transition-all duration-500 ${gradientColor} nm_Container hover:bg-gradient-to-bl`}
                   onClick={() =>
                     document.getElementById("my_modal_4").showModal()
                   }
                 >
                   <GiMoneyStack size={25} /> View Payment Receipt
-                </button>
+                </button> */}
 
                 {/* modal box */}
 
