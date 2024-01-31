@@ -38,6 +38,8 @@ const BuildingInfo = () => {
     stepCompleted,
   } = useContext(AuthContext);
 
+  console.log(getApplicationData, 'getApplicationData');
+
   const applicationNo = JSON.parse(localStorage.getItem("CurrentAppNo"));
   const cameFrom = JSON.parse(localStorage.getItem("page"));
 
@@ -644,10 +646,8 @@ const BuildingInfo = () => {
   // File No Input Focus Modal:
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleInputFocus = () => {
-    // Show the modal when the input field is focused
-    setIsModalOpen(true);
-  };
+
+  const [filteredData, setFilteredData] = useState(null);
 
 
 
