@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import InputField from '../../../Components/InputField';
+import useGetPageWiseApplication from '../../../CustomHook/useGetPageWiseApplication';
 
 const PreviousFileModal = ({ FileModal }) => {
 
@@ -12,16 +13,27 @@ const PreviousFileModal = ({ FileModal }) => {
         }
     }, [isModalOpen]);
 
+    const handlePreviousApplication = (e) => {
+        e.preventDefault(); // Corrected to include the parentheses
+        console.log('hsgdfsyfg');
+
+        const formData = document.getElementById('FileNo');
+        console.log(formData.value);
+    }
+
+
 
     return (
         <>
             <dialog id="fileModal" className="modal">
-                <div className="modal-box bg-white">
+                <div
+                    className="modal-box bg-white"
+                >
                     {/* Close Modal Process */}
-                    <form method="dialog">
+                    <div method="dialog">
                         {/* if there is a button in form, it will close the modal */}
                         <button onClick={() => setIsModalOpen(false)} className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                    </form>
+                    </div>
 
 
                     <h3 className="font-bold text-lg">Enter previous approved file no :</h3>
@@ -33,11 +45,10 @@ const PreviousFileModal = ({ FileModal }) => {
                         placeholder="Enter your file no."
                         type="number"
                         ltpDetails={FileNo}
-                    // onFocus={handleInputFocus}
                     />
 
                     <div className=' flex justify-end'>
-                        <button className='fancy-button'>Save</button>
+                        <button onClick={handlePreviousApplication} className='fancy-button'>Save</button>
                     </div>
 
 

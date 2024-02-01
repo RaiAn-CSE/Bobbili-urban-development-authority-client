@@ -30,7 +30,7 @@ const SaveData = ({
 
   const role = userInfoFromLocalStorage().role;
 
-  console.log(role, "ROLE");
+  // console.log(role, "ROLE");
 
   const location = useLocation();
 
