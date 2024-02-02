@@ -1125,7 +1125,7 @@ const BuildingInfo = () => {
                   label="File no."
                   placeholder="Enter your file no."
                   type="number"
-                  ltpDetails={FileNo}
+                // ltpDetails={FileNo}
                 />
               </motion.div>
             )}
@@ -1133,7 +1133,7 @@ const BuildingInfo = () => {
 
           {isModalOpen ? (
             <PreviousFileModal
-              FileModal={{ setIsModalOpen, isModalOpen }}
+              FileModal={{ setIsModalOpen, isModalOpen, setDataFromDB }}
             />
           ) : null}
 
