@@ -5,12 +5,7 @@ Mobile Device [#c26bde]
 Hover [#7e35a0]
 
 
-git remote add origin ssh://git@github.com/[username]/[repository-name].git
-
-Check multiple repo work in 1 project kfhakfjkasjfgkjgit wefawfwrfr
-g ekfaifjwlrfjkwlfjwlrfjwlrfj
-
-hi therere yhsi sids
+new repo create successfully done 
 
 
 from-violet-500 to-fuchsia-500
